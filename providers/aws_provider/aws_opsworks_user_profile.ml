@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_opsworks_user_profile = {
-  allow_self_management : bool option; [@option]
+  allow_self_management : bool prop option; [@option]
       (** allow_self_management *)
-  id : string option; [@option]  (** id *)
-  ssh_public_key : string option; [@option]  (** ssh_public_key *)
-  ssh_username : string;  (** ssh_username *)
-  user_arn : string;  (** user_arn *)
+  id : string prop option; [@option]  (** id *)
+  ssh_public_key : string prop option; [@option]
+      (** ssh_public_key *)
+  ssh_username : string prop;  (** ssh_username *)
+  user_arn : string prop;  (** user_arn *)
 }
 [@@deriving yojson_of]
 (** aws_opsworks_user_profile *)

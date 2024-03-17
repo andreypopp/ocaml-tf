@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_cors_configuration__cors_rule = {
-  allowed_headers : string list option; [@option]
+  allowed_headers : string prop list option; [@option]
       (** allowed_headers *)
-  allowed_methods : string list;  (** allowed_methods *)
-  allowed_origins : string list;  (** allowed_origins *)
-  expose_headers : string list option; [@option]
+  allowed_methods : string prop list;  (** allowed_methods *)
+  allowed_origins : string prop list;  (** allowed_origins *)
+  expose_headers : string prop list option; [@option]
       (** expose_headers *)
-  id : string option; [@option]  (** id *)
-  max_age_seconds : float option; [@option]  (** max_age_seconds *)
+  id : string prop option; [@option]  (** id *)
+  max_age_seconds : float prop option; [@option]
+      (** max_age_seconds *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_cors_configuration__cors_rule *)
 
 type aws_s3_bucket_cors_configuration = {
-  bucket : string;  (** bucket *)
-  expected_bucket_owner : string option; [@option]
+  bucket : string prop;  (** bucket *)
+  expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   cors_rule : aws_s3_bucket_cors_configuration__cors_rule list;
 }
 [@@deriving yojson_of]

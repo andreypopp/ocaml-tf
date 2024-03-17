@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_iam_security_token_service_preferences = {
-  global_endpoint_token_version : string;
+  global_endpoint_token_version : string prop;
       (** global_endpoint_token_version *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_iam_security_token_service_preferences *)

@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_apigatewayv2_model
 
 val aws_apigatewayv2_model :
-  ?description:string ->
-  ?id:string ->
-  api_id:string ->
-  content_type:string ->
-  name:string ->
-  schema:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  api_id:string prop ->
+  content_type:string prop ->
+  name:string prop ->
+  schema:string prop ->
   string ->
   unit

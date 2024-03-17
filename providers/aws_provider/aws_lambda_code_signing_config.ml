@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_lambda_code_signing_config__allowed_publishers = {
-  signing_profile_version_arns : string list;
+  signing_profile_version_arns : string prop list;
       (** signing_profile_version_arns *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_code_signing_config__allowed_publishers *)
 
 type aws_lambda_code_signing_config__policies = {
-  untrusted_artifact_on_deployment : string;
+  untrusted_artifact_on_deployment : string prop;
       (** untrusted_artifact_on_deployment *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_code_signing_config__policies *)
 
 type aws_lambda_code_signing_config = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
   allowed_publishers :
     aws_lambda_code_signing_config__allowed_publishers list;
   policies : aws_lambda_code_signing_config__policies list;

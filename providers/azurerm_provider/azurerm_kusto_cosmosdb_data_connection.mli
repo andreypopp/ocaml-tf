@@ -6,15 +6,15 @@ type azurerm_kusto_cosmosdb_data_connection__timeouts
 type azurerm_kusto_cosmosdb_data_connection
 
 val azurerm_kusto_cosmosdb_data_connection :
-  ?id:string ->
-  ?mapping_rule_name:string ->
-  ?retrieval_start_date:string ->
+  ?id:string prop ->
+  ?mapping_rule_name:string prop ->
+  ?retrieval_start_date:string prop ->
   ?timeouts:azurerm_kusto_cosmosdb_data_connection__timeouts ->
-  cosmosdb_container_id:string ->
-  kusto_database_id:string ->
-  location:string ->
-  managed_identity_id:string ->
-  name:string ->
-  table_name:string ->
+  cosmosdb_container_id:string prop ->
+  kusto_database_id:string prop ->
+  location:string prop ->
+  managed_identity_id:string prop ->
+  name:string prop ->
+  table_name:string prop ->
   string ->
   unit

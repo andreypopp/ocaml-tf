@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_consumption_budget_management_group__filter__dimension = {
-  name : string;  (** name *)
-  operator : string option; [@option]  (** operator *)
-  values : string list;  (** values *)
+  name : string prop;  (** name *)
+  operator : string prop option; [@option]  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_management_group__filter__dimension *)
 
 type azurerm_consumption_budget_management_group__filter__not__dimension = {
-  name : string;  (** name *)
-  operator : string option; [@option]  (** operator *)
-  values : string list;  (** values *)
+  name : string prop;  (** name *)
+  operator : string prop option; [@option]  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_management_group__filter__not__dimension *)
 
 type azurerm_consumption_budget_management_group__filter__not__tag = {
-  name : string;  (** name *)
-  operator : string option; [@option]  (** operator *)
-  values : string list;  (** values *)
+  name : string prop;  (** name *)
+  operator : string prop option; [@option]  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_management_group__filter__not__tag *)
@@ -40,9 +40,9 @@ type azurerm_consumption_budget_management_group__filter__not = {
 (** azurerm_consumption_budget_management_group__filter__not *)
 
 type azurerm_consumption_budget_management_group__filter__tag = {
-  name : string;  (** name *)
-  operator : string option; [@option]  (** operator *)
-  values : string list;  (** values *)
+  name : string prop;  (** name *)
+  operator : string prop option; [@option]  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_management_group__filter__tag *)
@@ -59,38 +59,39 @@ type azurerm_consumption_budget_management_group__filter = {
 (** azurerm_consumption_budget_management_group__filter *)
 
 type azurerm_consumption_budget_management_group__notification = {
-  contact_emails : string list;  (** contact_emails *)
-  enabled : bool option; [@option]  (** enabled *)
-  operator : string;  (** operator *)
-  threshold : float;  (** threshold *)
-  threshold_type : string option; [@option]  (** threshold_type *)
+  contact_emails : string prop list;  (** contact_emails *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  operator : string prop;  (** operator *)
+  threshold : float prop;  (** threshold *)
+  threshold_type : string prop option; [@option]
+      (** threshold_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_management_group__notification *)
 
 type azurerm_consumption_budget_management_group__time_period = {
-  end_date : string option; [@option]  (** end_date *)
-  start_date : string;  (** start_date *)
+  end_date : string prop option; [@option]  (** end_date *)
+  start_date : string prop;  (** start_date *)
 }
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_management_group__time_period *)
 
 type azurerm_consumption_budget_management_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_consumption_budget_management_group__timeouts *)
 
 type azurerm_consumption_budget_management_group = {
-  amount : float;  (** amount *)
-  etag : string option; [@option]  (** etag *)
-  id : string option; [@option]  (** id *)
-  management_group_id : string;  (** management_group_id *)
-  name : string;  (** name *)
-  time_grain : string option; [@option]  (** time_grain *)
+  amount : float prop;  (** amount *)
+  etag : string prop option; [@option]  (** etag *)
+  id : string prop option; [@option]  (** id *)
+  management_group_id : string prop;  (** management_group_id *)
+  name : string prop;  (** name *)
+  time_grain : string prop option; [@option]  (** time_grain *)
   filter : azurerm_consumption_budget_management_group__filter list;
   notification :
     azurerm_consumption_budget_management_group__notification list;

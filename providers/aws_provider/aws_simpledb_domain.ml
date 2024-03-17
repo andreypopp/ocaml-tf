@@ -4,7 +4,7 @@
 
 open! Tf.Prelude
 
-type aws_simpledb_domain = { name : string  (** name *) }
+type aws_simpledb_domain = { name : string prop  (** name *) }
 [@@deriving yojson_of]
 (** aws_simpledb_domain *)
 

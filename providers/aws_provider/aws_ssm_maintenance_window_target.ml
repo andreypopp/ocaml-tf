@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_ssm_maintenance_window_target__targets = {
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ssm_maintenance_window_target__targets *)
 
 type aws_ssm_maintenance_window_target = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  owner_information : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  owner_information : string prop option; [@option]
       (** owner_information *)
-  resource_type : string;  (** resource_type *)
-  window_id : string;  (** window_id *)
+  resource_type : string prop;  (** resource_type *)
+  window_id : string prop;  (** window_id *)
   targets : aws_ssm_maintenance_window_target__targets list;
 }
 [@@deriving yojson_of]

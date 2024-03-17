@@ -5,49 +5,50 @@
 open! Tf.Prelude
 
 type azurerm_virtual_network__ddos_protection_plan = {
-  enable : bool;  (** enable *)
-  id : string;  (** id *)
+  enable : bool prop;  (** enable *)
+  id : string prop;  (** id *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_network__ddos_protection_plan *)
 
 type azurerm_virtual_network__encryption = {
-  enforcement : string;  (** enforcement *)
+  enforcement : string prop;  (** enforcement *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_network__encryption *)
 
 type azurerm_virtual_network__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_network__timeouts *)
 
 type azurerm_virtual_network__subnet = {
-  address_prefix : string;  (** address_prefix *)
-  id : string;  (** id *)
-  name : string;  (** name *)
-  security_group : string;  (** security_group *)
+  address_prefix : string prop;  (** address_prefix *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
+  security_group : string prop;  (** security_group *)
 }
 [@@deriving yojson_of]
 
 type azurerm_virtual_network = {
-  address_space : string list;  (** address_space *)
-  bgp_community : string option; [@option]  (** bgp_community *)
-  dns_servers : string list option; [@option]  (** dns_servers *)
-  edge_zone : string option; [@option]  (** edge_zone *)
-  flow_timeout_in_minutes : float option; [@option]
+  address_space : string prop list;  (** address_space *)
+  bgp_community : string prop option; [@option]  (** bgp_community *)
+  dns_servers : string prop list option; [@option]
+      (** dns_servers *)
+  edge_zone : string prop option; [@option]  (** edge_zone *)
+  flow_timeout_in_minutes : float prop option; [@option]
       (** flow_timeout_in_minutes *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   subnet : azurerm_virtual_network__subnet list option; [@option]
       (** subnet *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   ddos_protection_plan :
     azurerm_virtual_network__ddos_protection_plan list;
   encryption : azurerm_virtual_network__encryption list;

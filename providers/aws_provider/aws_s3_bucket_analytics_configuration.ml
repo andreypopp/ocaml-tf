@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_analytics_configuration__filter = {
-  prefix : string option; [@option]  (** prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  prefix : string prop option; [@option]  (** prefix *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_analytics_configuration__filter *)
 
 type aws_s3_bucket_analytics_configuration__storage_class_analysis__data_export__destination__s3_bucket_destination = {
-  bucket_account_id : string option; [@option]
+  bucket_account_id : string prop option; [@option]
       (** bucket_account_id *)
-  bucket_arn : string;  (** bucket_arn *)
-  format : string option; [@option]  (** format *)
-  prefix : string option; [@option]  (** prefix *)
+  bucket_arn : string prop;  (** bucket_arn *)
+  format : string prop option; [@option]  (** format *)
+  prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_analytics_configuration__storage_class_analysis__data_export__destination__s3_bucket_destination *)
@@ -30,7 +30,7 @@ type aws_s3_bucket_analytics_configuration__storage_class_analysis__data_export_
 (** aws_s3_bucket_analytics_configuration__storage_class_analysis__data_export__destination *)
 
 type aws_s3_bucket_analytics_configuration__storage_class_analysis__data_export = {
-  output_schema_version : string option; [@option]
+  output_schema_version : string prop option; [@option]
       (** output_schema_version *)
   destination :
     aws_s3_bucket_analytics_configuration__storage_class_analysis__data_export__destination
@@ -48,9 +48,9 @@ type aws_s3_bucket_analytics_configuration__storage_class_analysis = {
 (** aws_s3_bucket_analytics_configuration__storage_class_analysis *)
 
 type aws_s3_bucket_analytics_configuration = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   filter : aws_s3_bucket_analytics_configuration__filter list;
   storage_class_analysis :
     aws_s3_bucket_analytics_configuration__storage_class_analysis

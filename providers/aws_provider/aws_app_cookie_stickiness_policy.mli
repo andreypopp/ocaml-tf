@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_app_cookie_stickiness_policy
 
 val aws_app_cookie_stickiness_policy :
-  ?id:string ->
-  cookie_name:string ->
-  lb_port:float ->
-  load_balancer:string ->
-  name:string ->
+  ?id:string prop ->
+  cookie_name:string prop ->
+  lb_port:float prop ->
+  load_balancer:string prop ->
+  name:string prop ->
   string ->
   unit

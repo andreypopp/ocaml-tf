@@ -5,96 +5,100 @@
 open! Tf.Prelude
 
 type azurerm_redis_cache__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_redis_cache__identity *)
 
 type azurerm_redis_cache__patch_schedule = {
-  day_of_week : string;  (** day_of_week *)
-  maintenance_window : string option; [@option]
+  day_of_week : string prop;  (** day_of_week *)
+  maintenance_window : string prop option; [@option]
       (** maintenance_window *)
-  start_hour_utc : float option; [@option]  (** start_hour_utc *)
+  start_hour_utc : float prop option; [@option]  (** start_hour_utc *)
 }
 [@@deriving yojson_of]
 (** azurerm_redis_cache__patch_schedule *)
 
 type azurerm_redis_cache__redis_configuration = {
-  active_directory_authentication_enabled : bool option; [@option]
+  active_directory_authentication_enabled : bool prop option;
+      [@option]
       (** active_directory_authentication_enabled *)
-  aof_backup_enabled : bool option; [@option]
+  aof_backup_enabled : bool prop option; [@option]
       (** aof_backup_enabled *)
-  aof_storage_connection_string_0 : string option; [@option]
+  aof_storage_connection_string_0 : string prop option; [@option]
       (** aof_storage_connection_string_0 *)
-  aof_storage_connection_string_1 : string option; [@option]
+  aof_storage_connection_string_1 : string prop option; [@option]
       (** aof_storage_connection_string_1 *)
-  data_persistence_authentication_method : string option; [@option]
+  data_persistence_authentication_method : string prop option;
+      [@option]
       (** data_persistence_authentication_method *)
-  enable_authentication : bool option; [@option]
+  enable_authentication : bool prop option; [@option]
       (** enable_authentication *)
-  maxclients : float;  (** maxclients *)
-  maxfragmentationmemory_reserved : float option; [@option]
+  maxclients : float prop;  (** maxclients *)
+  maxfragmentationmemory_reserved : float prop option; [@option]
       (** maxfragmentationmemory_reserved *)
-  maxmemory_delta : float option; [@option]  (** maxmemory_delta *)
-  maxmemory_policy : string option; [@option]
+  maxmemory_delta : float prop option; [@option]
+      (** maxmemory_delta *)
+  maxmemory_policy : string prop option; [@option]
       (** maxmemory_policy *)
-  maxmemory_reserved : float option; [@option]
+  maxmemory_reserved : float prop option; [@option]
       (** maxmemory_reserved *)
-  notify_keyspace_events : string option; [@option]
+  notify_keyspace_events : string prop option; [@option]
       (** notify_keyspace_events *)
-  rdb_backup_enabled : bool option; [@option]
+  rdb_backup_enabled : bool prop option; [@option]
       (** rdb_backup_enabled *)
-  rdb_backup_frequency : float option; [@option]
+  rdb_backup_frequency : float prop option; [@option]
       (** rdb_backup_frequency *)
-  rdb_backup_max_snapshot_count : float option; [@option]
+  rdb_backup_max_snapshot_count : float prop option; [@option]
       (** rdb_backup_max_snapshot_count *)
-  rdb_storage_connection_string : string option; [@option]
+  rdb_storage_connection_string : string prop option; [@option]
       (** rdb_storage_connection_string *)
-  storage_account_subscription_id : string option; [@option]
+  storage_account_subscription_id : string prop option; [@option]
       (** storage_account_subscription_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_redis_cache__redis_configuration *)
 
 type azurerm_redis_cache__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_redis_cache__timeouts *)
 
 type azurerm_redis_cache = {
-  capacity : float;  (** capacity *)
-  enable_non_ssl_port : bool option; [@option]
+  capacity : float prop;  (** capacity *)
+  enable_non_ssl_port : bool prop option; [@option]
       (** enable_non_ssl_port *)
-  family : string;  (** family *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  minimum_tls_version : string option; [@option]
+  family : string prop;  (** family *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  minimum_tls_version : string prop option; [@option]
       (** minimum_tls_version *)
-  name : string;  (** name *)
-  private_static_ip_address : string option; [@option]
+  name : string prop;  (** name *)
+  private_static_ip_address : string prop option; [@option]
       (** private_static_ip_address *)
-  public_network_access_enabled : bool option; [@option]
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  redis_version : string option; [@option]  (** redis_version *)
-  replicas_per_master : float option; [@option]
+  redis_version : string prop option; [@option]  (** redis_version *)
+  replicas_per_master : float prop option; [@option]
       (** replicas_per_master *)
-  replicas_per_primary : float option; [@option]
+  replicas_per_primary : float prop option; [@option]
       (** replicas_per_primary *)
-  resource_group_name : string;  (** resource_group_name *)
-  shard_count : float option; [@option]  (** shard_count *)
-  sku_name : string;  (** sku_name *)
-  subnet_id : string option; [@option]  (** subnet_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tenant_settings : (string * string) list option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  shard_count : float prop option; [@option]  (** shard_count *)
+  sku_name : string prop;  (** sku_name *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tenant_settings : (string * string prop) list option; [@option]
       (** tenant_settings *)
-  zones : string list option; [@option]  (** zones *)
+  zones : string prop list option; [@option]  (** zones *)
   identity : azurerm_redis_cache__identity list;
   patch_schedule : azurerm_redis_cache__patch_schedule list;
   redis_configuration :

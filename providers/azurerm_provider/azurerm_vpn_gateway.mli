@@ -9,16 +9,16 @@ type azurerm_vpn_gateway__timeouts
 type azurerm_vpn_gateway
 
 val azurerm_vpn_gateway :
-  ?bgp_route_translation_for_nat_enabled:bool ->
-  ?id:string ->
-  ?routing_preference:string ->
-  ?scale_unit:float ->
-  ?tags:(string * string) list ->
+  ?bgp_route_translation_for_nat_enabled:bool prop ->
+  ?id:string prop ->
+  ?routing_preference:string prop ->
+  ?scale_unit:float prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_vpn_gateway__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  virtual_hub_id:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  virtual_hub_id:string prop ->
   bgp_settings:azurerm_vpn_gateway__bgp_settings list ->
   string ->
   unit

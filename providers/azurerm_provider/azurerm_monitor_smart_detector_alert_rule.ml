@@ -5,34 +5,35 @@
 open! Tf.Prelude
 
 type azurerm_monitor_smart_detector_alert_rule__action_group = {
-  email_subject : string option; [@option]  (** email_subject *)
-  ids : string list;  (** ids *)
-  webhook_payload : string option; [@option]  (** webhook_payload *)
+  email_subject : string prop option; [@option]  (** email_subject *)
+  ids : string prop list;  (** ids *)
+  webhook_payload : string prop option; [@option]
+      (** webhook_payload *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_smart_detector_alert_rule__action_group *)
 
 type azurerm_monitor_smart_detector_alert_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_smart_detector_alert_rule__timeouts *)
 
 type azurerm_monitor_smart_detector_alert_rule = {
-  description : string option; [@option]  (** description *)
-  detector_type : string;  (** detector_type *)
-  enabled : bool option; [@option]  (** enabled *)
-  frequency : string;  (** frequency *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  scope_resource_ids : string list;  (** scope_resource_ids *)
-  severity : string;  (** severity *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  throttling_duration : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  detector_type : string prop;  (** detector_type *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  frequency : string prop;  (** frequency *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  scope_resource_ids : string prop list;  (** scope_resource_ids *)
+  severity : string prop;  (** severity *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  throttling_duration : string prop option; [@option]
       (** throttling_duration *)
   action_group :
     azurerm_monitor_smart_detector_alert_rule__action_group list;

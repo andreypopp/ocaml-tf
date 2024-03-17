@@ -23,11 +23,11 @@ type aws_ssmcontacts_rotation__recurrence
 type aws_ssmcontacts_rotation
 
 val aws_ssmcontacts_rotation :
-  ?start_time:string ->
-  ?tags:(string * string) list ->
-  contact_ids:string list ->
-  name:string ->
-  time_zone_id:string ->
+  ?start_time:string prop ->
+  ?tags:(string * string prop) list ->
+  contact_ids:string prop list ->
+  name:string prop ->
+  time_zone_id:string prop ->
   recurrence:aws_ssmcontacts_rotation__recurrence list ->
   string ->
   unit

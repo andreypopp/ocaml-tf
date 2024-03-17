@@ -39,17 +39,17 @@ type google_artifact_registry_repository__virtual_repository_config
 type google_artifact_registry_repository
 
 val google_artifact_registry_repository :
-  ?cleanup_policy_dry_run:bool ->
-  ?description:string ->
-  ?id:string ->
-  ?kms_key_name:string ->
-  ?labels:(string * string) list ->
-  ?location:string ->
-  ?mode:string ->
-  ?project:string ->
+  ?cleanup_policy_dry_run:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?mode:string prop ->
+  ?project:string prop ->
   ?timeouts:google_artifact_registry_repository__timeouts ->
-  format:string ->
-  repository_id:string ->
+  format:string prop ->
+  repository_id:string prop ->
   cleanup_policies:
     google_artifact_registry_repository__cleanup_policies list ->
   docker_config:

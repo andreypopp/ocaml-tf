@@ -6,9 +6,9 @@ type cloudflare_waiting_room_rules__rules
 type cloudflare_waiting_room_rules
 
 val cloudflare_waiting_room_rules :
-  ?id:string ->
-  waiting_room_id:string ->
-  zone_id:string ->
+  ?id:string prop ->
+  waiting_room_id:string prop ->
+  zone_id:string prop ->
   rules:cloudflare_waiting_room_rules__rules list ->
   string ->
   unit

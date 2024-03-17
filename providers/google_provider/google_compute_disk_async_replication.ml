@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type google_compute_disk_async_replication__secondary_disk = {
-  disk : string;  (** Secondary disk for asynchronous replication. *)
-  state : string;
+  disk : string prop;
+      (** Secondary disk for asynchronous replication. *)
+  state : string prop;
       (** Output-only. Status of replication on the secondary disk. *)
 }
 [@@deriving yojson_of]
 (** Secondary disk for asynchronous replication. *)
 
 type google_compute_disk_async_replication__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_disk_async_replication__timeouts *)
 
 type google_compute_disk_async_replication = {
-  id : string option; [@option]  (** id *)
-  primary_disk : string;
+  id : string prop option; [@option]  (** id *)
+  primary_disk : string prop;
       (** Primary disk for asynchronous replication. *)
   secondary_disk :
     google_compute_disk_async_replication__secondary_disk list;

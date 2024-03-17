@@ -6,11 +6,11 @@ type google_firebase_app_check_recaptcha_v3_config__timeouts
 type google_firebase_app_check_recaptcha_v3_config
 
 val google_firebase_app_check_recaptcha_v3_config :
-  ?id:string ->
-  ?project:string ->
-  ?token_ttl:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?token_ttl:string prop ->
   ?timeouts:google_firebase_app_check_recaptcha_v3_config__timeouts ->
-  app_id:string ->
-  site_secret:string ->
+  app_id:string prop ->
+  site_secret:string prop ->
   string ->
   unit

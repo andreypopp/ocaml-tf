@@ -5,37 +5,38 @@
 open! Tf.Prelude
 
 type azurerm_web_pubsub_network_acl__private_endpoint = {
-  allowed_request_types : string list option; [@option]
+  allowed_request_types : string prop list option; [@option]
       (** allowed_request_types *)
-  denied_request_types : string list option; [@option]
+  denied_request_types : string prop list option; [@option]
       (** denied_request_types *)
-  id : string;  (** id *)
+  id : string prop;  (** id *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_network_acl__private_endpoint *)
 
 type azurerm_web_pubsub_network_acl__public_network = {
-  allowed_request_types : string list option; [@option]
+  allowed_request_types : string prop list option; [@option]
       (** allowed_request_types *)
-  denied_request_types : string list option; [@option]
+  denied_request_types : string prop list option; [@option]
       (** denied_request_types *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_network_acl__public_network *)
 
 type azurerm_web_pubsub_network_acl__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_network_acl__timeouts *)
 
 type azurerm_web_pubsub_network_acl = {
-  default_action : string option; [@option]  (** default_action *)
-  id : string option; [@option]  (** id *)
-  web_pubsub_id : string;  (** web_pubsub_id *)
+  default_action : string prop option; [@option]
+      (** default_action *)
+  id : string prop option; [@option]  (** id *)
+  web_pubsub_id : string prop;  (** web_pubsub_id *)
   private_endpoint :
     azurerm_web_pubsub_network_acl__private_endpoint list;
   public_network :

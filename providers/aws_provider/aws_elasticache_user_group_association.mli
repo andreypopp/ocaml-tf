@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_elasticache_user_group_association
 
 val aws_elasticache_user_group_association :
-  ?id:string ->
-  user_group_id:string ->
-  user_id:string ->
+  ?id:string prop ->
+  user_group_id:string prop ->
+  user_id:string prop ->
   string ->
   unit

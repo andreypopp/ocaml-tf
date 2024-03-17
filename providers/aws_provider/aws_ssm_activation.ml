@@ -5,15 +5,17 @@
 open! Tf.Prelude
 
 type aws_ssm_activation = {
-  description : string option; [@option]  (** description *)
-  expiration_date : string option; [@option]  (** expiration_date *)
-  iam_role : string;  (** iam_role *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  registration_limit : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  expiration_date : string prop option; [@option]
+      (** expiration_date *)
+  iam_role : string prop;  (** iam_role *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  registration_limit : float prop option; [@option]
       (** registration_limit *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_ssm_activation *)

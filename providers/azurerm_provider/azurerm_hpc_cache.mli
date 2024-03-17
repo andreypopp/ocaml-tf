@@ -14,19 +14,19 @@ type azurerm_hpc_cache__timeouts
 type azurerm_hpc_cache
 
 val azurerm_hpc_cache :
-  ?automatically_rotate_key_to_latest_enabled:bool ->
-  ?id:string ->
-  ?key_vault_key_id:string ->
-  ?mtu:float ->
-  ?ntp_server:string ->
-  ?tags:(string * string) list ->
+  ?automatically_rotate_key_to_latest_enabled:bool prop ->
+  ?id:string prop ->
+  ?key_vault_key_id:string prop ->
+  ?mtu:float prop ->
+  ?ntp_server:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_hpc_cache__timeouts ->
-  cache_size_in_gb:float ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
-  subnet_id:string ->
+  cache_size_in_gb:float prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  subnet_id:string prop ->
   default_access_policy:azurerm_hpc_cache__default_access_policy list ->
   directory_active_directory:
     azurerm_hpc_cache__directory_active_directory list ->

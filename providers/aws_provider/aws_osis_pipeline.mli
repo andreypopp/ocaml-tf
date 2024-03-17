@@ -13,12 +13,12 @@ type aws_osis_pipeline__vpc_options
 type aws_osis_pipeline
 
 val aws_osis_pipeline :
-  ?tags:(string * string) list ->
+  ?tags:(string * string prop) list ->
   ?timeouts:aws_osis_pipeline__timeouts ->
-  max_units:float ->
-  min_units:float ->
-  pipeline_configuration_body:string ->
-  pipeline_name:string ->
+  max_units:float prop ->
+  min_units:float prop ->
+  pipeline_configuration_body:string prop ->
+  pipeline_name:string prop ->
   buffer_options:aws_osis_pipeline__buffer_options list ->
   encryption_at_rest_options:
     aws_osis_pipeline__encryption_at_rest_options list ->

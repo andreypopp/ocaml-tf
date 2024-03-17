@@ -6,28 +6,28 @@ type google_redis_cluster__psc_configs
 type google_redis_cluster__timeouts
 
 type google_redis_cluster__discovery_endpoints__psc_config = {
-  network : string;  (** network *)
+  network : string prop;  (** network *)
 }
 
 type google_redis_cluster__discovery_endpoints = {
-  address : string;  (** address *)
-  port : float;  (** port *)
+  address : string prop;  (** address *)
+  port : float prop;  (** port *)
   psc_config :
     google_redis_cluster__discovery_endpoints__psc_config list;
       (** psc_config *)
 }
 
 type google_redis_cluster__psc_connections = {
-  address : string;  (** address *)
-  forwarding_rule : string;  (** forwarding_rule *)
-  network : string;  (** network *)
-  project_id : string;  (** project_id *)
-  psc_connection_id : string;  (** psc_connection_id *)
+  address : string prop;  (** address *)
+  forwarding_rule : string prop;  (** forwarding_rule *)
+  network : string prop;  (** network *)
+  project_id : string prop;  (** project_id *)
+  psc_connection_id : string prop;  (** psc_connection_id *)
 }
 
 type google_redis_cluster__state_info__update_info = {
-  target_replica_count : float;  (** target_replica_count *)
-  target_shard_count : float;  (** target_shard_count *)
+  target_replica_count : float prop;  (** target_replica_count *)
+  target_shard_count : float prop;  (** target_shard_count *)
 }
 
 type google_redis_cluster__state_info = {
@@ -38,15 +38,15 @@ type google_redis_cluster__state_info = {
 type google_redis_cluster
 
 val google_redis_cluster :
-  ?authorization_mode:string ->
-  ?id:string ->
-  ?name:string ->
-  ?project:string ->
-  ?region:string ->
-  ?replica_count:float ->
-  ?transit_encryption_mode:string ->
+  ?authorization_mode:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?replica_count:float prop ->
+  ?transit_encryption_mode:string prop ->
   ?timeouts:google_redis_cluster__timeouts ->
-  shard_count:float ->
+  shard_count:float prop ->
   psc_configs:google_redis_cluster__psc_configs list ->
   string ->
   unit

@@ -5,132 +5,132 @@
 open! Tf.Prelude
 
 type azurerm_eventgrid_event_subscription__advanced_filter__bool_equals = {
-  key : string;  (** key *)
-  value : bool;  (** value *)
+  key : string prop;  (** key *)
+  value : bool prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__bool_equals *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__is_not_null = {
-  key : string;  (** key *)
+  key : string prop;  (** key *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__is_not_null *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__is_null_or_undefined = {
-  key : string;  (** key *)
+  key : string prop;  (** key *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__is_null_or_undefined *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__number_greater_than = {
-  key : string;  (** key *)
-  value : float;  (** value *)
+  key : string prop;  (** key *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__number_greater_than *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__number_greater_than_or_equals = {
-  key : string;  (** key *)
-  value : float;  (** value *)
+  key : string prop;  (** key *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__number_greater_than_or_equals *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__number_in = {
-  key : string;  (** key *)
-  values : float list;  (** values *)
+  key : string prop;  (** key *)
+  values : float prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__number_in *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__number_in_range = {
-  key : string;  (** key *)
-  values : float list list;  (** values *)
+  key : string prop;  (** key *)
+  values : float prop list list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__number_in_range *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__number_less_than = {
-  key : string;  (** key *)
-  value : float;  (** value *)
+  key : string prop;  (** key *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__number_less_than *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__number_less_than_or_equals = {
-  key : string;  (** key *)
-  value : float;  (** value *)
+  key : string prop;  (** key *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__number_less_than_or_equals *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__number_not_in = {
-  key : string;  (** key *)
-  values : float list;  (** values *)
+  key : string prop;  (** key *)
+  values : float prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__number_not_in *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__number_not_in_range = {
-  key : string;  (** key *)
-  values : float list list;  (** values *)
+  key : string prop;  (** key *)
+  values : float prop list list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__number_not_in_range *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__string_begins_with = {
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__string_begins_with *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__string_contains = {
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__string_contains *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__string_ends_with = {
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__string_ends_with *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__string_in = {
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__string_in *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__string_not_begins_with = {
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__string_not_begins_with *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__string_not_contains = {
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__string_not_contains *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__string_not_ends_with = {
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__string_not_ends_with *)
 
 type azurerm_eventgrid_event_subscription__advanced_filter__string_not_in = {
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__advanced_filter__string_not_in *)
@@ -198,119 +198,120 @@ type azurerm_eventgrid_event_subscription__advanced_filter = {
 (** azurerm_eventgrid_event_subscription__advanced_filter *)
 
 type azurerm_eventgrid_event_subscription__azure_function_endpoint = {
-  function_id : string;  (** function_id *)
-  max_events_per_batch : float option; [@option]
+  function_id : string prop;  (** function_id *)
+  max_events_per_batch : float prop option; [@option]
       (** max_events_per_batch *)
-  preferred_batch_size_in_kilobytes : float option; [@option]
+  preferred_batch_size_in_kilobytes : float prop option; [@option]
       (** preferred_batch_size_in_kilobytes *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__azure_function_endpoint *)
 
 type azurerm_eventgrid_event_subscription__dead_letter_identity = {
-  type_ : string; [@key "type"]  (** type *)
-  user_assigned_identity : string option; [@option]
+  type_ : string prop; [@key "type"]  (** type *)
+  user_assigned_identity : string prop option; [@option]
       (** user_assigned_identity *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__dead_letter_identity *)
 
 type azurerm_eventgrid_event_subscription__delivery_identity = {
-  type_ : string; [@key "type"]  (** type *)
-  user_assigned_identity : string option; [@option]
+  type_ : string prop; [@key "type"]  (** type *)
+  user_assigned_identity : string prop option; [@option]
       (** user_assigned_identity *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__delivery_identity *)
 
 type azurerm_eventgrid_event_subscription__delivery_property = {
-  header_name : string;  (** header_name *)
-  secret : bool option; [@option]  (** secret *)
-  source_field : string option; [@option]  (** source_field *)
-  type_ : string; [@key "type"]  (** type *)
-  value : string option; [@option]  (** value *)
+  header_name : string prop;  (** header_name *)
+  secret : bool prop option; [@option]  (** secret *)
+  source_field : string prop option; [@option]  (** source_field *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__delivery_property *)
 
 type azurerm_eventgrid_event_subscription__retry_policy = {
-  event_time_to_live : float;  (** event_time_to_live *)
-  max_delivery_attempts : float;  (** max_delivery_attempts *)
+  event_time_to_live : float prop;  (** event_time_to_live *)
+  max_delivery_attempts : float prop;  (** max_delivery_attempts *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__retry_policy *)
 
 type azurerm_eventgrid_event_subscription__storage_blob_dead_letter_destination = {
-  storage_account_id : string;  (** storage_account_id *)
-  storage_blob_container_name : string;
+  storage_account_id : string prop;  (** storage_account_id *)
+  storage_blob_container_name : string prop;
       (** storage_blob_container_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__storage_blob_dead_letter_destination *)
 
 type azurerm_eventgrid_event_subscription__storage_queue_endpoint = {
-  queue_message_time_to_live_in_seconds : float option; [@option]
+  queue_message_time_to_live_in_seconds : float prop option;
+      [@option]
       (** queue_message_time_to_live_in_seconds *)
-  queue_name : string;  (** queue_name *)
-  storage_account_id : string;  (** storage_account_id *)
+  queue_name : string prop;  (** queue_name *)
+  storage_account_id : string prop;  (** storage_account_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__storage_queue_endpoint *)
 
 type azurerm_eventgrid_event_subscription__subject_filter = {
-  case_sensitive : bool option; [@option]  (** case_sensitive *)
-  subject_begins_with : string option; [@option]
+  case_sensitive : bool prop option; [@option]  (** case_sensitive *)
+  subject_begins_with : string prop option; [@option]
       (** subject_begins_with *)
-  subject_ends_with : string option; [@option]
+  subject_ends_with : string prop option; [@option]
       (** subject_ends_with *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__subject_filter *)
 
 type azurerm_eventgrid_event_subscription__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__timeouts *)
 
 type azurerm_eventgrid_event_subscription__webhook_endpoint = {
-  active_directory_app_id_or_uri : string option; [@option]
+  active_directory_app_id_or_uri : string prop option; [@option]
       (** active_directory_app_id_or_uri *)
-  active_directory_tenant_id : string option; [@option]
+  active_directory_tenant_id : string prop option; [@option]
       (** active_directory_tenant_id *)
-  base_url : string;  (** base_url *)
-  max_events_per_batch : float option; [@option]
+  base_url : string prop;  (** base_url *)
+  max_events_per_batch : float prop option; [@option]
       (** max_events_per_batch *)
-  preferred_batch_size_in_kilobytes : float option; [@option]
+  preferred_batch_size_in_kilobytes : float prop option; [@option]
       (** preferred_batch_size_in_kilobytes *)
-  url : string;  (** url *)
+  url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_event_subscription__webhook_endpoint *)
 
 type azurerm_eventgrid_event_subscription = {
-  advanced_filtering_on_arrays_enabled : bool option; [@option]
+  advanced_filtering_on_arrays_enabled : bool prop option; [@option]
       (** advanced_filtering_on_arrays_enabled *)
-  event_delivery_schema : string option; [@option]
+  event_delivery_schema : string prop option; [@option]
       (** event_delivery_schema *)
-  eventhub_endpoint_id : string option; [@option]
+  eventhub_endpoint_id : string prop option; [@option]
       (** eventhub_endpoint_id *)
-  expiration_time_utc : string option; [@option]
+  expiration_time_utc : string prop option; [@option]
       (** expiration_time_utc *)
-  hybrid_connection_endpoint_id : string option; [@option]
+  hybrid_connection_endpoint_id : string prop option; [@option]
       (** hybrid_connection_endpoint_id *)
-  id : string option; [@option]  (** id *)
-  included_event_types : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  included_event_types : string prop list option; [@option]
       (** included_event_types *)
-  labels : string list option; [@option]  (** labels *)
-  name : string;  (** name *)
-  scope : string;  (** scope *)
-  service_bus_queue_endpoint_id : string option; [@option]
+  labels : string prop list option; [@option]  (** labels *)
+  name : string prop;  (** name *)
+  scope : string prop;  (** scope *)
+  service_bus_queue_endpoint_id : string prop option; [@option]
       (** service_bus_queue_endpoint_id *)
-  service_bus_topic_endpoint_id : string option; [@option]
+  service_bus_topic_endpoint_id : string prop option; [@option]
       (** service_bus_topic_endpoint_id *)
   advanced_filter :
     azurerm_eventgrid_event_subscription__advanced_filter list;

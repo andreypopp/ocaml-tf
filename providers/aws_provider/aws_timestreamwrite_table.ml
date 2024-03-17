@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_timestreamwrite_table__magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration = {
-  bucket_name : string option; [@option]  (** bucket_name *)
-  encryption_option : string option; [@option]
+  bucket_name : string prop option; [@option]  (** bucket_name *)
+  encryption_option : string prop option; [@option]
       (** encryption_option *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  object_key_prefix : string option; [@option]
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  object_key_prefix : string prop option; [@option]
       (** object_key_prefix *)
 }
 [@@deriving yojson_of]
@@ -24,7 +24,7 @@ type aws_timestreamwrite_table__magnetic_store_write_properties__magnetic_store_
 (** aws_timestreamwrite_table__magnetic_store_write_properties__magnetic_store_rejected_data_location *)
 
 type aws_timestreamwrite_table__magnetic_store_write_properties = {
-  enable_magnetic_store_writes : bool option; [@option]
+  enable_magnetic_store_writes : bool prop option; [@option]
       (** enable_magnetic_store_writes *)
   magnetic_store_rejected_data_location :
     aws_timestreamwrite_table__magnetic_store_write_properties__magnetic_store_rejected_data_location
@@ -34,19 +34,19 @@ type aws_timestreamwrite_table__magnetic_store_write_properties = {
 (** aws_timestreamwrite_table__magnetic_store_write_properties *)
 
 type aws_timestreamwrite_table__retention_properties = {
-  magnetic_store_retention_period_in_days : float;
+  magnetic_store_retention_period_in_days : float prop;
       (** magnetic_store_retention_period_in_days *)
-  memory_store_retention_period_in_hours : float;
+  memory_store_retention_period_in_hours : float prop;
       (** memory_store_retention_period_in_hours *)
 }
 [@@deriving yojson_of]
 (** aws_timestreamwrite_table__retention_properties *)
 
 type aws_timestreamwrite_table__schema__composite_partition_key = {
-  enforcement_in_record : string option; [@option]
+  enforcement_in_record : string prop option; [@option]
       (** enforcement_in_record *)
-  name : string option; [@option]  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop option; [@option]  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_timestreamwrite_table__schema__composite_partition_key *)
@@ -59,11 +59,11 @@ type aws_timestreamwrite_table__schema = {
 (** aws_timestreamwrite_table__schema *)
 
 type aws_timestreamwrite_table = {
-  database_name : string;  (** database_name *)
-  id : string option; [@option]  (** id *)
-  table_name : string;  (** table_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  database_name : string prop;  (** database_name *)
+  id : string prop option; [@option]  (** id *)
+  table_name : string prop;  (** table_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   magnetic_store_write_properties :
     aws_timestreamwrite_table__magnetic_store_write_properties list;

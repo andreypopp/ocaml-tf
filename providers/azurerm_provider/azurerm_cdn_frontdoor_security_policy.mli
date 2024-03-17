@@ -13,10 +13,10 @@ type azurerm_cdn_frontdoor_security_policy__timeouts
 type azurerm_cdn_frontdoor_security_policy
 
 val azurerm_cdn_frontdoor_security_policy :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_cdn_frontdoor_security_policy__timeouts ->
-  cdn_frontdoor_profile_id:string ->
-  name:string ->
+  cdn_frontdoor_profile_id:string prop ->
+  name:string prop ->
   security_policies:
     azurerm_cdn_frontdoor_security_policy__security_policies list ->
   string ->

@@ -7,20 +7,20 @@ type aws_ssm_association__targets
 type aws_ssm_association
 
 val aws_ssm_association :
-  ?apply_only_at_cron_interval:bool ->
-  ?association_name:string ->
-  ?automation_target_parameter_name:string ->
-  ?compliance_severity:string ->
-  ?document_version:string ->
-  ?id:string ->
-  ?instance_id:string ->
-  ?max_concurrency:string ->
-  ?max_errors:string ->
-  ?parameters:(string * string) list ->
-  ?schedule_expression:string ->
-  ?sync_compliance:string ->
-  ?wait_for_success_timeout_seconds:float ->
-  name:string ->
+  ?apply_only_at_cron_interval:bool prop ->
+  ?association_name:string prop ->
+  ?automation_target_parameter_name:string prop ->
+  ?compliance_severity:string prop ->
+  ?document_version:string prop ->
+  ?id:string prop ->
+  ?instance_id:string prop ->
+  ?max_concurrency:string prop ->
+  ?max_errors:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?schedule_expression:string prop ->
+  ?sync_compliance:string prop ->
+  ?wait_for_success_timeout_seconds:float prop ->
+  name:string prop ->
   output_location:aws_ssm_association__output_location list ->
   targets:aws_ssm_association__targets list ->
   string ->

@@ -9,16 +9,16 @@ type google_spanner_instance__timeouts
 type google_spanner_instance
 
 val google_spanner_instance :
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?name:string ->
-  ?num_nodes:float ->
-  ?processing_units:float ->
-  ?project:string ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?num_nodes:float prop ->
+  ?processing_units:float prop ->
+  ?project:string prop ->
   ?timeouts:google_spanner_instance__timeouts ->
-  config:string ->
-  display_name:string ->
+  config:string prop ->
+  display_name:string prop ->
   autoscaling_config:google_spanner_instance__autoscaling_config list ->
   string ->
   unit

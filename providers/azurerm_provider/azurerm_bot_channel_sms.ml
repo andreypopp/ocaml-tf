@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_bot_channel_sms__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_sms__timeouts *)
 
 type azurerm_bot_channel_sms = {
-  bot_name : string;  (** bot_name *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  phone_number : string;  (** phone_number *)
-  resource_group_name : string;  (** resource_group_name *)
-  sms_channel_account_security_id : string;
+  bot_name : string prop;  (** bot_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  phone_number : string prop;  (** phone_number *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sms_channel_account_security_id : string prop;
       (** sms_channel_account_security_id *)
-  sms_channel_auth_token : string;  (** sms_channel_auth_token *)
+  sms_channel_auth_token : string prop;
+      (** sms_channel_auth_token *)
   timeouts : azurerm_bot_channel_sms__timeouts option;
 }
 [@@deriving yojson_of]

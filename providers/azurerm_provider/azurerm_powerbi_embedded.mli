@@ -6,14 +6,14 @@ type azurerm_powerbi_embedded__timeouts
 type azurerm_powerbi_embedded
 
 val azurerm_powerbi_embedded :
-  ?id:string ->
-  ?mode:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?mode:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_powerbi_embedded__timeouts ->
-  administrators:string list ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
+  administrators:string prop list ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
   string ->
   unit

@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_apigatewayv2_route_response = {
-  api_id : string;  (** api_id *)
-  id : string option; [@option]  (** id *)
-  model_selection_expression : string option; [@option]
+  api_id : string prop;  (** api_id *)
+  id : string prop option; [@option]  (** id *)
+  model_selection_expression : string prop option; [@option]
       (** model_selection_expression *)
-  response_models : (string * string) list option; [@option]
+  response_models : (string * string prop) list option; [@option]
       (** response_models *)
-  route_id : string;  (** route_id *)
-  route_response_key : string;  (** route_response_key *)
+  route_id : string prop;  (** route_id *)
+  route_response_key : string prop;  (** route_response_key *)
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_route_response *)

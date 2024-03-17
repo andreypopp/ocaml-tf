@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_logic_app_workflow__access_control__action = {
-  allowed_caller_ip_address_range : string list;
+  allowed_caller_ip_address_range : string prop list;
       (** allowed_caller_ip_address_range *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_workflow__access_control__action *)
 
 type azurerm_logic_app_workflow__access_control__content = {
-  allowed_caller_ip_address_range : string list;
+  allowed_caller_ip_address_range : string prop list;
       (** allowed_caller_ip_address_range *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_workflow__access_control__content *)
 
 type azurerm_logic_app_workflow__access_control__trigger__open_authentication_policy__claim = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_workflow__access_control__trigger__open_authentication_policy__claim *)
 
 type azurerm_logic_app_workflow__access_control__trigger__open_authentication_policy = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   claim :
     azurerm_logic_app_workflow__access_control__trigger__open_authentication_policy__claim
     list;
@@ -35,7 +35,7 @@ type azurerm_logic_app_workflow__access_control__trigger__open_authentication_po
 (** azurerm_logic_app_workflow__access_control__trigger__open_authentication_policy *)
 
 type azurerm_logic_app_workflow__access_control__trigger = {
-  allowed_caller_ip_address_range : string list;
+  allowed_caller_ip_address_range : string prop list;
       (** allowed_caller_ip_address_range *)
   open_authentication_policy :
     azurerm_logic_app_workflow__access_control__trigger__open_authentication_policy
@@ -45,7 +45,7 @@ type azurerm_logic_app_workflow__access_control__trigger = {
 (** azurerm_logic_app_workflow__access_control__trigger *)
 
 type azurerm_logic_app_workflow__access_control__workflow_management = {
-  allowed_caller_ip_address_range : string list;
+  allowed_caller_ip_address_range : string prop list;
       (** allowed_caller_ip_address_range *)
 }
 [@@deriving yojson_of]
@@ -63,40 +63,42 @@ type azurerm_logic_app_workflow__access_control = {
 (** azurerm_logic_app_workflow__access_control *)
 
 type azurerm_logic_app_workflow__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_workflow__identity *)
 
 type azurerm_logic_app_workflow__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_workflow__timeouts *)
 
 type azurerm_logic_app_workflow = {
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  integration_service_environment_id : string option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  integration_service_environment_id : string prop option; [@option]
       (** integration_service_environment_id *)
-  location : string;  (** location *)
-  logic_app_integration_account_id : string option; [@option]
+  location : string prop;  (** location *)
+  logic_app_integration_account_id : string prop option; [@option]
       (** logic_app_integration_account_id *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  workflow_parameters : (string * string) list option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  workflow_parameters : (string * string prop) list option; [@option]
       (** workflow_parameters *)
-  workflow_schema : string option; [@option]  (** workflow_schema *)
-  workflow_version : string option; [@option]
+  workflow_schema : string prop option; [@option]
+      (** workflow_schema *)
+  workflow_version : string prop option; [@option]
       (** workflow_version *)
   access_control : azurerm_logic_app_workflow__access_control list;
   identity : azurerm_logic_app_workflow__identity list;

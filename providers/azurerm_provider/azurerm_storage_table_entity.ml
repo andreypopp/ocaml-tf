@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_storage_table_entity__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_table_entity__timeouts *)
 
 type azurerm_storage_table_entity = {
-  entity : (string * string) list;  (** entity *)
-  id : string option; [@option]  (** id *)
-  partition_key : string;  (** partition_key *)
-  row_key : string;  (** row_key *)
-  storage_account_name : string option; [@option]
+  entity : (string * string prop) list;  (** entity *)
+  id : string prop option; [@option]  (** id *)
+  partition_key : string prop;  (** partition_key *)
+  row_key : string prop;  (** row_key *)
+  storage_account_name : string prop option; [@option]
       (** storage_account_name *)
-  storage_table_id : string option; [@option]
+  storage_table_id : string prop option; [@option]
       (** storage_table_id *)
-  table_name : string option; [@option]  (** table_name *)
+  table_name : string prop option; [@option]  (** table_name *)
   timeouts : azurerm_storage_table_entity__timeouts option;
 }
 [@@deriving yojson_of]

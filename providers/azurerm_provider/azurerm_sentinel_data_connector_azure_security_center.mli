@@ -6,11 +6,11 @@ type azurerm_sentinel_data_connector_azure_security_center__timeouts
 type azurerm_sentinel_data_connector_azure_security_center
 
 val azurerm_sentinel_data_connector_azure_security_center :
-  ?id:string ->
-  ?subscription_id:string ->
+  ?id:string prop ->
+  ?subscription_id:string prop ->
   ?timeouts:
     azurerm_sentinel_data_connector_azure_security_center__timeouts ->
-  log_analytics_workspace_id:string ->
-  name:string ->
+  log_analytics_workspace_id:string prop ->
+  name:string prop ->
   string ->
   unit

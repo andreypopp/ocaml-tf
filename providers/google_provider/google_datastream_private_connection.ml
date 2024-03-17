@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type google_datastream_private_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_datastream_private_connection__timeouts *)
 
 type google_datastream_private_connection__vpc_peering_config = {
-  subnet : string;  (** A free subnet for peering. (CIDR of /29) *)
-  vpc : string;
+  subnet : string prop;
+      (** A free subnet for peering. (CIDR of /29) *)
+  vpc : string prop;
       (** Fully qualified name of the VPC that Datastream will peer to.
 Format: projects/{project}/global/{networks}/{name} *)
 }
@@ -23,24 +24,24 @@ Format: projects/{project}/global/{networks}/{name} *)
 between Datastream and the consumer's VPC. *)
 
 type google_datastream_private_connection__error = {
-  details : (string * string) list;  (** details *)
-  message : string;  (** message *)
+  details : (string * string prop) list;  (** details *)
+  message : string prop;  (** message *)
 }
 [@@deriving yojson_of]
 
 type google_datastream_private_connection = {
-  display_name : string;  (** Display name. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  display_name : string prop;  (** Display name. *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Labels.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;
+  location : string prop;
       (** The name of the location this private connection is located in. *)
-  private_connection_id : string;
+  private_connection_id : string prop;
       (** The private connectivity identifier. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_datastream_private_connection__timeouts option;
   vpc_peering_config :
     google_datastream_private_connection__vpc_peering_config list;

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_privateca_ca_pool_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_privateca_ca_pool_iam_binding__condition *)
 
 type google_privateca_ca_pool_iam_binding = {
-  ca_pool : string;  (** ca_pool *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  members : string list;  (** members *)
-  project : string option; [@option]  (** project *)
-  role : string;  (** role *)
+  ca_pool : string prop;  (** ca_pool *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  members : string prop list;  (** members *)
+  project : string prop option; [@option]  (** project *)
+  role : string prop;  (** role *)
   condition : google_privateca_ca_pool_iam_binding__condition list;
 }
 [@@deriving yojson_of]

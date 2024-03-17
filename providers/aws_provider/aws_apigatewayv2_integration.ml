@@ -5,45 +5,48 @@
 open! Tf.Prelude
 
 type aws_apigatewayv2_integration__response_parameters = {
-  mappings : (string * string) list;  (** mappings *)
-  status_code : string;  (** status_code *)
+  mappings : (string * string prop) list;  (** mappings *)
+  status_code : string prop;  (** status_code *)
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_integration__response_parameters *)
 
 type aws_apigatewayv2_integration__tls_config = {
-  server_name_to_verify : string option; [@option]
+  server_name_to_verify : string prop option; [@option]
       (** server_name_to_verify *)
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_integration__tls_config *)
 
 type aws_apigatewayv2_integration = {
-  api_id : string;  (** api_id *)
-  connection_id : string option; [@option]  (** connection_id *)
-  connection_type : string option; [@option]  (** connection_type *)
-  content_handling_strategy : string option; [@option]
+  api_id : string prop;  (** api_id *)
+  connection_id : string prop option; [@option]  (** connection_id *)
+  connection_type : string prop option; [@option]
+      (** connection_type *)
+  content_handling_strategy : string prop option; [@option]
       (** content_handling_strategy *)
-  credentials_arn : string option; [@option]  (** credentials_arn *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  integration_method : string option; [@option]
+  credentials_arn : string prop option; [@option]
+      (** credentials_arn *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  integration_method : string prop option; [@option]
       (** integration_method *)
-  integration_subtype : string option; [@option]
+  integration_subtype : string prop option; [@option]
       (** integration_subtype *)
-  integration_type : string;  (** integration_type *)
-  integration_uri : string option; [@option]  (** integration_uri *)
-  passthrough_behavior : string option; [@option]
+  integration_type : string prop;  (** integration_type *)
+  integration_uri : string prop option; [@option]
+      (** integration_uri *)
+  passthrough_behavior : string prop option; [@option]
       (** passthrough_behavior *)
-  payload_format_version : string option; [@option]
+  payload_format_version : string prop option; [@option]
       (** payload_format_version *)
-  request_parameters : (string * string) list option; [@option]
+  request_parameters : (string * string prop) list option; [@option]
       (** request_parameters *)
-  request_templates : (string * string) list option; [@option]
+  request_templates : (string * string prop) list option; [@option]
       (** request_templates *)
-  template_selection_expression : string option; [@option]
+  template_selection_expression : string prop option; [@option]
       (** template_selection_expression *)
-  timeout_milliseconds : float option; [@option]
+  timeout_milliseconds : float prop option; [@option]
       (** timeout_milliseconds *)
   response_parameters :
     aws_apigatewayv2_integration__response_parameters list;

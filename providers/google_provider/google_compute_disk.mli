@@ -11,23 +11,23 @@ type google_compute_disk__timeouts
 type google_compute_disk
 
 val google_compute_disk :
-  ?description:string ->
-  ?enable_confidential_compute:bool ->
-  ?id:string ->
-  ?image:string ->
-  ?labels:(string * string) list ->
-  ?licenses:string list ->
-  ?physical_block_size_bytes:float ->
-  ?project:string ->
-  ?provisioned_iops:float ->
-  ?provisioned_throughput:float ->
-  ?size:float ->
-  ?snapshot:string ->
-  ?source_disk:string ->
-  ?type_:string ->
-  ?zone:string ->
+  ?description:string prop ->
+  ?enable_confidential_compute:bool prop ->
+  ?id:string prop ->
+  ?image:string prop ->
+  ?labels:(string * string prop) list ->
+  ?licenses:string prop list ->
+  ?physical_block_size_bytes:float prop ->
+  ?project:string prop ->
+  ?provisioned_iops:float prop ->
+  ?provisioned_throughput:float prop ->
+  ?size:float prop ->
+  ?snapshot:string prop ->
+  ?source_disk:string prop ->
+  ?type_:string prop ->
+  ?zone:string prop ->
   ?timeouts:google_compute_disk__timeouts ->
-  name:string ->
+  name:string prop ->
   async_primary_disk:google_compute_disk__async_primary_disk list ->
   disk_encryption_key:google_compute_disk__disk_encryption_key list ->
   guest_os_features:google_compute_disk__guest_os_features list ->

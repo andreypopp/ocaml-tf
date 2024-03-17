@@ -6,13 +6,13 @@ type azurerm_dns_ns_record__timeouts
 type azurerm_dns_ns_record
 
 val azurerm_dns_ns_record :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_dns_ns_record__timeouts ->
-  name:string ->
-  records:string list ->
-  resource_group_name:string ->
-  ttl:float ->
-  zone_name:string ->
+  name:string prop ->
+  records:string prop list ->
+  resource_group_name:string prop ->
+  ttl:float prop ->
+  zone_name:string prop ->
   string ->
   unit

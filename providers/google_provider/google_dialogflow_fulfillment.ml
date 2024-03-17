@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_dialogflow_fulfillment__features = {
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** The type of the feature that enabled for fulfillment.
 * SMALLTALK: Fulfillment is enabled for SmallTalk. Possible values: [SMALLTALK] *)
 }
@@ -13,33 +13,33 @@ type google_dialogflow_fulfillment__features = {
 (** The field defines whether the fulfillment is enabled for certain features. *)
 
 type google_dialogflow_fulfillment__generic_web_service = {
-  password : string option; [@option]
+  password : string prop option; [@option]
       (** The password for HTTP Basic authentication. *)
-  request_headers : (string * string) list option; [@option]
+  request_headers : (string * string prop) list option; [@option]
       (** The HTTP request headers to send together with fulfillment requests. *)
-  uri : string;
+  uri : string prop;
       (** The fulfillment URI for receiving POST requests. It must use https protocol. *)
-  username : string option; [@option]
+  username : string prop option; [@option]
       (** The user name for HTTP Basic authentication. *)
 }
 [@@deriving yojson_of]
 (** Represents configuration for a generic web service. Dialogflow supports two mechanisms for authentications: - Basic authentication with username and password. - Authentication with additional authentication headers. *)
 
 type google_dialogflow_fulfillment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_dialogflow_fulfillment__timeouts *)
 
 type google_dialogflow_fulfillment = {
-  display_name : string;
+  display_name : string prop;
       (** The human-readable name of the fulfillment, unique within the agent. *)
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether fulfillment is enabled. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
   features : google_dialogflow_fulfillment__features list;
   generic_web_service :
     google_dialogflow_fulfillment__generic_web_service list;

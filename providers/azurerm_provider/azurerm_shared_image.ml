@@ -5,69 +5,69 @@
 open! Tf.Prelude
 
 type azurerm_shared_image__identifier = {
-  offer : string;  (** offer *)
-  publisher : string;  (** publisher *)
-  sku : string;  (** sku *)
+  offer : string prop;  (** offer *)
+  publisher : string prop;  (** publisher *)
+  sku : string prop;  (** sku *)
 }
 [@@deriving yojson_of]
 (** azurerm_shared_image__identifier *)
 
 type azurerm_shared_image__purchase_plan = {
-  name : string;  (** name *)
-  product : string option; [@option]  (** product *)
-  publisher : string option; [@option]  (** publisher *)
+  name : string prop;  (** name *)
+  product : string prop option; [@option]  (** product *)
+  publisher : string prop option; [@option]  (** publisher *)
 }
 [@@deriving yojson_of]
 (** azurerm_shared_image__purchase_plan *)
 
 type azurerm_shared_image__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_shared_image__timeouts *)
 
 type azurerm_shared_image = {
-  accelerated_network_support_enabled : bool option; [@option]
+  accelerated_network_support_enabled : bool prop option; [@option]
       (** accelerated_network_support_enabled *)
-  architecture : string option; [@option]  (** architecture *)
-  confidential_vm_enabled : bool option; [@option]
+  architecture : string prop option; [@option]  (** architecture *)
+  confidential_vm_enabled : bool prop option; [@option]
       (** confidential_vm_enabled *)
-  confidential_vm_supported : bool option; [@option]
+  confidential_vm_supported : bool prop option; [@option]
       (** confidential_vm_supported *)
-  description : string option; [@option]  (** description *)
-  disk_types_not_allowed : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  disk_types_not_allowed : string prop list option; [@option]
       (** disk_types_not_allowed *)
-  end_of_life_date : string option; [@option]
+  end_of_life_date : string prop option; [@option]
       (** end_of_life_date *)
-  eula : string option; [@option]  (** eula *)
-  gallery_name : string;  (** gallery_name *)
-  hyper_v_generation : string option; [@option]
+  eula : string prop option; [@option]  (** eula *)
+  gallery_name : string prop;  (** gallery_name *)
+  hyper_v_generation : string prop option; [@option]
       (** hyper_v_generation *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  max_recommended_memory_in_gb : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  max_recommended_memory_in_gb : float prop option; [@option]
       (** max_recommended_memory_in_gb *)
-  max_recommended_vcpu_count : float option; [@option]
+  max_recommended_vcpu_count : float prop option; [@option]
       (** max_recommended_vcpu_count *)
-  min_recommended_memory_in_gb : float option; [@option]
+  min_recommended_memory_in_gb : float prop option; [@option]
       (** min_recommended_memory_in_gb *)
-  min_recommended_vcpu_count : float option; [@option]
+  min_recommended_vcpu_count : float prop option; [@option]
       (** min_recommended_vcpu_count *)
-  name : string;  (** name *)
-  os_type : string;  (** os_type *)
-  privacy_statement_uri : string option; [@option]
+  name : string prop;  (** name *)
+  os_type : string prop;  (** os_type *)
+  privacy_statement_uri : string prop option; [@option]
       (** privacy_statement_uri *)
-  release_note_uri : string option; [@option]
+  release_note_uri : string prop option; [@option]
       (** release_note_uri *)
-  resource_group_name : string;  (** resource_group_name *)
-  specialized : bool option; [@option]  (** specialized *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  trusted_launch_enabled : bool option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  specialized : bool prop option; [@option]  (** specialized *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  trusted_launch_enabled : bool prop option; [@option]
       (** trusted_launch_enabled *)
-  trusted_launch_supported : bool option; [@option]
+  trusted_launch_supported : bool prop option; [@option]
       (** trusted_launch_supported *)
   identifier : azurerm_shared_image__identifier list;
   purchase_plan : azurerm_shared_image__purchase_plan list;

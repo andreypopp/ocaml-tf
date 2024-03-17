@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_wafv2_regex_pattern_set__regular_expression = {
-  regex_string: string;  (** regex_string *)
+  regex_string: string prop;  (** regex_string *)
 } [@@deriving yojson_of]
 (** aws_wafv2_regex_pattern_set__regular_expression *)
 
 type aws_wafv2_regex_pattern_set = {
-  description: string option; [@option] (** description *)
-  id: string option; [@option] (** id *)
-  name: string;  (** name *)
-  scope: string;  (** scope *)
-  tags: (string * string) list option; [@option] (** tags *)
-  tags_all: (string * string) list option; [@option] (** tags_all *)
+  description: string prop option; [@option] (** description *)
+  id: string prop option; [@option] (** id *)
+  name: string prop;  (** name *)
+  scope: string prop;  (** scope *)
+  tags: (string * string prop) list option; [@option] (** tags *)
+  tags_all: (string * string prop) list option; [@option] (** tags_all *)
   regular_expression: aws_wafv2_regex_pattern_set__regular_expression list;
 } [@@deriving yojson_of]
 (** aws_wafv2_regex_pattern_set *)

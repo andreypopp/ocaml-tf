@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type cloudflare_filter = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A note that you can use to describe the purpose of the filter. *)
-  expression : string;  (** The filter expression to be used. *)
-  id : string option; [@option]  (** id *)
-  paused : bool option; [@option]
+  expression : string prop;  (** The filter expression to be used. *)
+  id : string prop option; [@option]  (** id *)
+  paused : bool prop option; [@option]
       (** Whether this filter is currently paused. *)
-  ref : string option; [@option]
+  ref : string prop option; [@option]
       (** Short reference tag to quickly select related rules. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

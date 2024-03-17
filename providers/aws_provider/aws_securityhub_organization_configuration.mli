@@ -8,10 +8,10 @@ type aws_securityhub_organization_configuration__timeouts
 type aws_securityhub_organization_configuration
 
 val aws_securityhub_organization_configuration :
-  ?auto_enable_standards:string ->
-  ?id:string ->
+  ?auto_enable_standards:string prop ->
+  ?id:string prop ->
   ?timeouts:aws_securityhub_organization_configuration__timeouts ->
-  auto_enable:bool ->
+  auto_enable:bool prop ->
   organization_configuration:
     aws_securityhub_organization_configuration__organization_configuration
     list ->

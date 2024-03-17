@@ -6,13 +6,13 @@ type azurerm_iothub_fallback_route__timeouts
 type azurerm_iothub_fallback_route
 
 val azurerm_iothub_fallback_route :
-  ?condition:string ->
-  ?id:string ->
-  ?source:string ->
+  ?condition:string prop ->
+  ?id:string prop ->
+  ?source:string prop ->
   ?timeouts:azurerm_iothub_fallback_route__timeouts ->
-  enabled:bool ->
-  endpoint_names:string list ->
-  iothub_name:string ->
-  resource_group_name:string ->
+  enabled:bool prop ->
+  endpoint_names:string prop list ->
+  iothub_name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

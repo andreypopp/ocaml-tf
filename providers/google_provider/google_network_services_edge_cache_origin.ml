@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_network_services_edge_cache_origin__aws_v4_authentication = {
-  access_key_id : string;
+  access_key_id : string prop;
       (** The access key ID your origin uses to identify the key. *)
-  origin_region : string;
+  origin_region : string prop;
       (** The name of the AWS region that your origin is in. *)
-  secret_access_key_version : string;
+  secret_access_key_version : string prop;
       (** The Secret Manager secret version of the secret access key used by your origin.
 
 This is the resource name of the secret version in the format 'projects/*/secrets/*/versions/*' where the '*' values are replaced by the project, secret, and version you require. *)
@@ -18,9 +18,9 @@ This is the resource name of the secret version in the format 'projects/*/secret
 (** Enable AWS Signature Version 4 origin authentication. *)
 
 type google_network_services_edge_cache_origin__origin_override_action__header_action__request_headers_to_add = {
-  header_name : string;  (** The name of the header to add. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool option; [@option]
+  header_name : string prop;  (** The name of the header to add. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop option; [@option]
       (** Whether to replace all existing headers with the same name.
 
 By default, added header values are appended
@@ -45,7 +45,7 @@ type google_network_services_edge_cache_origin__origin_override_action__header_a
 headers, for request handled by this origin. *)
 
 type google_network_services_edge_cache_origin__origin_override_action__url_rewrite = {
-  host_rewrite : string option; [@option]
+  host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected
 origin, the request's host header is replaced with
 contents of the hostRewrite.
@@ -69,7 +69,7 @@ type google_network_services_edge_cache_origin__origin_override_action = {
 additions, for requests that use this origin. *)
 
 type google_network_services_edge_cache_origin__origin_redirect = {
-  redirect_conditions : string list option; [@option]
+  redirect_conditions : string prop list option; [@option]
       (** The set of redirect response codes that the CDN
 follows. Values of
 [RedirectConditions](https://cloud.google.com/media-cdn/docs/reference/rest/v1/projects.locations.edgeCacheOrigins#redirectconditions)
@@ -79,19 +79,19 @@ are accepted. *)
 (** Follow redirects from this origin. *)
 
 type google_network_services_edge_cache_origin__timeout = {
-  connect_timeout : string option; [@option]
+  connect_timeout : string prop option; [@option]
       (** The maximum duration to wait for a single origin connection to be established, including DNS lookup, TLS handshake and TCP/QUIC connection establishment.
 
 Defaults to 5 seconds. The timeout must be a value between 1s and 15s.
 
 The connectTimeout capped by the deadline set by the request's maxAttemptsTimeout.  The last connection attempt may have a smaller connectTimeout in order to adhere to the overall maxAttemptsTimeout. *)
-  max_attempts_timeout : string option; [@option]
+  max_attempts_timeout : string prop option; [@option]
       (** The maximum time across all connection attempts to the origin, including failover origins, before returning an error to the client. A HTTP 504 will be returned if the timeout is reached before a response is returned.
 
 Defaults to 15 seconds. The timeout must be a value between 1s and 30s.
 
 If a failoverOrigin is specified, the maxAttemptsTimeout of the first configured origin sets the deadline for all connection attempts across all failoverOrigins. *)
-  read_timeout : string option; [@option]
+  read_timeout : string prop option; [@option]
       (** The maximum duration to wait between reads of a single HTTP connection/stream.
 
 Defaults to 15 seconds.  The timeout must be a value between 1s and 30s.
@@ -99,7 +99,7 @@ Defaults to 15 seconds.  The timeout must be a value between 1s and 30s.
 The readTimeout is capped by the responseTimeout.  All reads of the HTTP connection/stream must be completed by the deadline set by the responseTimeout.
 
 If the response headers have already been written to the connection, the response will be truncated and logged. *)
-  response_timeout : string option; [@option]
+  response_timeout : string prop option; [@option]
       (** The maximum duration to wait for the last byte of a response to arrive when reading from the HTTP connection/stream.
 
 Defaults to 30 seconds. The timeout must be a value between 1s and 120s.
@@ -114,29 +114,29 @@ If the response headers have already been written to the connection, the respons
 (** The connection and HTTP timeout configuration for this origin. *)
 
 type google_network_services_edge_cache_origin__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_network_services_edge_cache_origin__timeouts *)
 
 type google_network_services_edge_cache_origin = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A human-readable description of the resource. *)
-  failover_origin : string option; [@option]
+  failover_origin : string prop option; [@option]
       (** The Origin resource to try when the current origin cannot be reached.
 After maxAttempts is reached, the configured failoverOrigin will be used to fulfil the request.
 
 The value of timeout.maxAttemptsTimeout dictates the timeout across all origins.
 A reference to a Topic resource. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Set of label tags associated with the EdgeCache resource.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  max_attempts : float option; [@option]
+  max_attempts : float prop option; [@option]
       (** The maximum number of attempts to cache fill from this origin. Another attempt is made when a cache fill fails with one of the retryConditions.
 
 Once maxAttempts to this origin have failed the failoverOrigin will be used, if one is specified. That failoverOrigin may specify its own maxAttempts,
@@ -149,26 +149,26 @@ The last valid, non-retried response from all origins will be returned to the cl
 If no origin returns a valid response, an HTTP 502 will be returned to the client.
 
 Defaults to 1. Must be a value greater than 0 and less than 4. *)
-  name : string;
+  name : string prop;
       (** Name of the resource; provided by the client when the resource is created.
 The name must be 1-64 characters long, and match the regular expression [a-zA-Z][a-zA-Z0-9_-]* which means the first character must be a letter,
 and all following characters must be a dash, underscore, letter or digit. *)
-  origin_address : string;
+  origin_address : string prop;
       (** A fully qualified domain name (FQDN) or IP address reachable over the public Internet, or the address of a Google Cloud Storage bucket.
 
 This address will be used as the origin for cache requests - e.g. FQDN: media-backend.example.com, IPv4: 35.218.1.1, IPv6: 2607:f8b0:4012:809::200e, Cloud Storage: gs://bucketname
 
 When providing an FQDN (hostname), it must be publicly resolvable (e.g. via Google public DNS) and IP addresses must be publicly routable.  It must not contain a protocol (e.g., https://) and it must not contain any slashes.
 If a Cloud Storage bucket is provided, it must be in the canonical gs://bucketname format. Other forms, such as storage.googleapis.com, will be rejected. *)
-  port : float option; [@option]
+  port : float prop option; [@option]
       (** The port to connect to the origin on.
 Defaults to port 443 for HTTP2 and HTTPS protocols, and port 80 for HTTP. *)
-  project : string option; [@option]  (** project *)
-  protocol : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  protocol : string prop option; [@option]
       (** The protocol to use to connect to the configured origin. Defaults to HTTP2, and it is strongly recommended that users use HTTP2 for both security & performance.
 
 When using HTTP2 or HTTPS as the protocol, a valid, publicly-signed, unexpired TLS (SSL) certificate must be presented by the origin server. Possible values: [HTTP2, HTTPS, HTTP] *)
-  retry_conditions : string list option; [@option]
+  retry_conditions : string prop list option; [@option]
       (** Specifies one or more retry conditions for the configured origin.
 
 If the failure mode during a connection attempt to the origin matches the configured retryCondition(s),

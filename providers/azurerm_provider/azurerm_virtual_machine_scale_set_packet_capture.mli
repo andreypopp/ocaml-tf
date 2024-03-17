@@ -11,15 +11,15 @@ type azurerm_virtual_machine_scale_set_packet_capture__timeouts
 type azurerm_virtual_machine_scale_set_packet_capture
 
 val azurerm_virtual_machine_scale_set_packet_capture :
-  ?id:string ->
-  ?maximum_bytes_per_packet:float ->
-  ?maximum_bytes_per_session:float ->
-  ?maximum_capture_duration_in_seconds:float ->
+  ?id:string prop ->
+  ?maximum_bytes_per_packet:float prop ->
+  ?maximum_bytes_per_session:float prop ->
+  ?maximum_capture_duration_in_seconds:float prop ->
   ?timeouts:
     azurerm_virtual_machine_scale_set_packet_capture__timeouts ->
-  name:string ->
-  network_watcher_id:string ->
-  virtual_machine_scale_set_id:string ->
+  name:string prop ->
+  network_watcher_id:string prop ->
+  virtual_machine_scale_set_id:string prop ->
   filter:
     azurerm_virtual_machine_scale_set_packet_capture__filter list ->
   machine_scope:

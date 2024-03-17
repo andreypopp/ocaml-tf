@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_dx_connection_confirmation = {
-  connection_id : string;  (** connection_id *)
-  id : string option; [@option]  (** id *)
+  connection_id : string prop;  (** connection_id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_dx_connection_confirmation *)

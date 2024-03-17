@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_swf_domain = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  workflow_execution_retention_period_in_days : string;
+  workflow_execution_retention_period_in_days : string prop;
       (** workflow_execution_retention_period_in_days *)
 }
 [@@deriving yojson_of]

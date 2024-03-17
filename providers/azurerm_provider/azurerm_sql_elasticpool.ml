@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_sql_elasticpool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sql_elasticpool__timeouts *)
 
 type azurerm_sql_elasticpool = {
-  db_dtu_max : float option; [@option]  (** db_dtu_max *)
-  db_dtu_min : float option; [@option]  (** db_dtu_min *)
-  dtu : float;  (** dtu *)
-  edition : string;  (** edition *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  pool_size : float option; [@option]  (** pool_size *)
-  resource_group_name : string;  (** resource_group_name *)
-  server_name : string;  (** server_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  db_dtu_max : float prop option; [@option]  (** db_dtu_max *)
+  db_dtu_min : float prop option; [@option]  (** db_dtu_min *)
+  dtu : float prop;  (** dtu *)
+  edition : string prop;  (** edition *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  pool_size : float prop option; [@option]  (** pool_size *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  server_name : string prop;  (** server_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_sql_elasticpool__timeouts option;
 }
 [@@deriving yojson_of]

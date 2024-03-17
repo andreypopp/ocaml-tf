@@ -5,41 +5,41 @@
 open! Tf.Prelude
 
 type aws_codecatalyst_dev_environment__ides = {
-  name : string option; [@option]  (** name *)
-  runtime : string option; [@option]  (** runtime *)
+  name : string prop option; [@option]  (** name *)
+  runtime : string prop option; [@option]  (** runtime *)
 }
 [@@deriving yojson_of]
 (** aws_codecatalyst_dev_environment__ides *)
 
 type aws_codecatalyst_dev_environment__persistent_storage = {
-  size : float;  (** size *)
+  size : float prop;  (** size *)
 }
 [@@deriving yojson_of]
 (** aws_codecatalyst_dev_environment__persistent_storage *)
 
 type aws_codecatalyst_dev_environment__repositories = {
-  branch_name : string option; [@option]  (** branch_name *)
-  repository_name : string;  (** repository_name *)
+  branch_name : string prop option; [@option]  (** branch_name *)
+  repository_name : string prop;  (** repository_name *)
 }
 [@@deriving yojson_of]
 (** aws_codecatalyst_dev_environment__repositories *)
 
 type aws_codecatalyst_dev_environment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_codecatalyst_dev_environment__timeouts *)
 
 type aws_codecatalyst_dev_environment = {
-  alias : string option; [@option]  (** alias *)
-  id : string option; [@option]  (** id *)
-  inactivity_timeout_minutes : float option; [@option]
+  alias : string prop option; [@option]  (** alias *)
+  id : string prop option; [@option]  (** id *)
+  inactivity_timeout_minutes : float prop option; [@option]
       (** inactivity_timeout_minutes *)
-  instance_type : string;  (** instance_type *)
-  project_name : string;  (** project_name *)
-  space_name : string;  (** space_name *)
+  instance_type : string prop;  (** instance_type *)
+  project_name : string prop;  (** project_name *)
+  space_name : string prop;  (** space_name *)
   ides : aws_codecatalyst_dev_environment__ides list;
   persistent_storage :
     aws_codecatalyst_dev_environment__persistent_storage list;

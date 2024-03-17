@@ -6,13 +6,13 @@ type azurerm_private_dns_cname_record__timeouts
 type azurerm_private_dns_cname_record
 
 val azurerm_private_dns_cname_record :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_private_dns_cname_record__timeouts ->
-  name:string ->
-  record:string ->
-  resource_group_name:string ->
-  ttl:float ->
-  zone_name:string ->
+  name:string prop ->
+  record:string prop ->
+  resource_group_name:string prop ->
+  ttl:float prop ->
+  zone_name:string prop ->
   string ->
   unit

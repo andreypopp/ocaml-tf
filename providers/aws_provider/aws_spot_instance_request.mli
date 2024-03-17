@@ -20,49 +20,49 @@ type aws_spot_instance_request__timeouts
 type aws_spot_instance_request
 
 val aws_spot_instance_request :
-  ?ami:string ->
-  ?associate_public_ip_address:bool ->
-  ?availability_zone:string ->
-  ?block_duration_minutes:float ->
-  ?cpu_core_count:float ->
-  ?cpu_threads_per_core:float ->
-  ?disable_api_stop:bool ->
-  ?disable_api_termination:bool ->
-  ?ebs_optimized:bool ->
-  ?get_password_data:bool ->
-  ?hibernation:bool ->
-  ?host_id:string ->
-  ?host_resource_group_arn:string ->
-  ?iam_instance_profile:string ->
-  ?id:string ->
-  ?instance_initiated_shutdown_behavior:string ->
-  ?instance_interruption_behavior:string ->
-  ?instance_type:string ->
-  ?ipv6_address_count:float ->
-  ?ipv6_addresses:string list ->
-  ?key_name:string ->
-  ?launch_group:string ->
-  ?monitoring:bool ->
-  ?placement_group:string ->
-  ?placement_partition_number:float ->
-  ?private_ip:string ->
-  ?secondary_private_ips:string list ->
-  ?security_groups:string list ->
-  ?source_dest_check:bool ->
-  ?spot_price:string ->
-  ?spot_type:string ->
-  ?subnet_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?tenancy:string ->
-  ?user_data:string ->
-  ?user_data_base64:string ->
-  ?user_data_replace_on_change:bool ->
-  ?valid_from:string ->
-  ?valid_until:string ->
-  ?volume_tags:(string * string) list ->
-  ?vpc_security_group_ids:string list ->
-  ?wait_for_fulfillment:bool ->
+  ?ami:string prop ->
+  ?associate_public_ip_address:bool prop ->
+  ?availability_zone:string prop ->
+  ?block_duration_minutes:float prop ->
+  ?cpu_core_count:float prop ->
+  ?cpu_threads_per_core:float prop ->
+  ?disable_api_stop:bool prop ->
+  ?disable_api_termination:bool prop ->
+  ?ebs_optimized:bool prop ->
+  ?get_password_data:bool prop ->
+  ?hibernation:bool prop ->
+  ?host_id:string prop ->
+  ?host_resource_group_arn:string prop ->
+  ?iam_instance_profile:string prop ->
+  ?id:string prop ->
+  ?instance_initiated_shutdown_behavior:string prop ->
+  ?instance_interruption_behavior:string prop ->
+  ?instance_type:string prop ->
+  ?ipv6_address_count:float prop ->
+  ?ipv6_addresses:string prop list ->
+  ?key_name:string prop ->
+  ?launch_group:string prop ->
+  ?monitoring:bool prop ->
+  ?placement_group:string prop ->
+  ?placement_partition_number:float prop ->
+  ?private_ip:string prop ->
+  ?secondary_private_ips:string prop list ->
+  ?security_groups:string prop list ->
+  ?source_dest_check:bool prop ->
+  ?spot_price:string prop ->
+  ?spot_type:string prop ->
+  ?subnet_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tenancy:string prop ->
+  ?user_data:string prop ->
+  ?user_data_base64:string prop ->
+  ?user_data_replace_on_change:bool prop ->
+  ?valid_from:string prop ->
+  ?valid_until:string prop ->
+  ?volume_tags:(string * string prop) list ->
+  ?vpc_security_group_ids:string prop list ->
+  ?wait_for_fulfillment:bool prop ->
   ?timeouts:aws_spot_instance_request__timeouts ->
   capacity_reservation_specification:
     aws_spot_instance_request__capacity_reservation_specification

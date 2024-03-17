@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_ssm_default_patch_baseline = {
-  baseline_id : string;  (** baseline_id *)
-  id : string option; [@option]  (** id *)
-  operating_system : string;  (** operating_system *)
+  baseline_id : string prop;  (** baseline_id *)
+  id : string prop option; [@option]  (** id *)
+  operating_system : string prop;  (** operating_system *)
 }
 [@@deriving yojson_of]
 (** aws_ssm_default_patch_baseline *)

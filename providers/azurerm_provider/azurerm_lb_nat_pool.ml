@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_lb_nat_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_lb_nat_pool__timeouts *)
 
 type azurerm_lb_nat_pool = {
-  backend_port : float;  (** backend_port *)
-  floating_ip_enabled : bool option; [@option]
+  backend_port : float prop;  (** backend_port *)
+  floating_ip_enabled : bool prop option; [@option]
       (** floating_ip_enabled *)
-  frontend_ip_configuration_name : string;
+  frontend_ip_configuration_name : string prop;
       (** frontend_ip_configuration_name *)
-  frontend_port_end : float;  (** frontend_port_end *)
-  frontend_port_start : float;  (** frontend_port_start *)
-  id : string option; [@option]  (** id *)
-  idle_timeout_in_minutes : float option; [@option]
+  frontend_port_end : float prop;  (** frontend_port_end *)
+  frontend_port_start : float prop;  (** frontend_port_start *)
+  id : string prop option; [@option]  (** id *)
+  idle_timeout_in_minutes : float prop option; [@option]
       (** idle_timeout_in_minutes *)
-  loadbalancer_id : string;  (** loadbalancer_id *)
-  name : string;  (** name *)
-  protocol : string;  (** protocol *)
-  resource_group_name : string;  (** resource_group_name *)
-  tcp_reset_enabled : bool option; [@option]
+  loadbalancer_id : string prop;  (** loadbalancer_id *)
+  name : string prop;  (** name *)
+  protocol : string prop;  (** protocol *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tcp_reset_enabled : bool prop option; [@option]
       (** tcp_reset_enabled *)
   timeouts : azurerm_lb_nat_pool__timeouts option;
 }

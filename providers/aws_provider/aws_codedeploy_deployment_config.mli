@@ -12,9 +12,9 @@ type aws_codedeploy_deployment_config__traffic_routing_config
 type aws_codedeploy_deployment_config
 
 val aws_codedeploy_deployment_config :
-  ?compute_platform:string ->
-  ?id:string ->
-  deployment_config_name:string ->
+  ?compute_platform:string prop ->
+  ?id:string prop ->
+  deployment_config_name:string prop ->
   minimum_healthy_hosts:
     aws_codedeploy_deployment_config__minimum_healthy_hosts list ->
   traffic_routing_config:

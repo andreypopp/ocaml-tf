@@ -23,9 +23,9 @@ type google_access_context_manager_access_levels__timeouts
 type google_access_context_manager_access_levels
 
 val google_access_context_manager_access_levels :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_access_context_manager_access_levels__timeouts ->
-  parent:string ->
+  parent:string prop ->
   access_levels:
     google_access_context_manager_access_levels__access_levels list ->
   string ->

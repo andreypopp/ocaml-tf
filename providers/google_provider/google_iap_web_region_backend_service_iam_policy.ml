@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_iap_web_region_backend_service_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** region *)
-  web_region_backend_service : string;
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]  (** region *)
+  web_region_backend_service : string prop;
       (** web_region_backend_service *)
 }
 [@@deriving yojson_of]

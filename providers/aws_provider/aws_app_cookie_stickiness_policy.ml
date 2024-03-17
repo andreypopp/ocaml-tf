@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_app_cookie_stickiness_policy = {
-  cookie_name : string;  (** cookie_name *)
-  id : string option; [@option]  (** id *)
-  lb_port : float;  (** lb_port *)
-  load_balancer : string;  (** load_balancer *)
-  name : string;  (** name *)
+  cookie_name : string prop;  (** cookie_name *)
+  id : string prop option; [@option]  (** id *)
+  lb_port : float prop;  (** lb_port *)
+  load_balancer : string prop;  (** load_balancer *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_app_cookie_stickiness_policy *)

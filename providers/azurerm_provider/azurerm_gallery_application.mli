@@ -6,17 +6,17 @@ type azurerm_gallery_application__timeouts
 type azurerm_gallery_application
 
 val azurerm_gallery_application :
-  ?description:string ->
-  ?end_of_life_date:string ->
-  ?eula:string ->
-  ?id:string ->
-  ?privacy_statement_uri:string ->
-  ?release_note_uri:string ->
-  ?tags:(string * string) list ->
+  ?description:string prop ->
+  ?end_of_life_date:string prop ->
+  ?eula:string prop ->
+  ?id:string prop ->
+  ?privacy_statement_uri:string prop ->
+  ?release_note_uri:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_gallery_application__timeouts ->
-  gallery_id:string ->
-  location:string ->
-  name:string ->
-  supported_os_type:string ->
+  gallery_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  supported_os_type:string prop ->
   string ->
   unit

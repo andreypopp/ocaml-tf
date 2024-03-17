@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type cloudflare_teams_proxy_endpoint = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  ips : string list;
+  id : string prop option; [@option]  (** id *)
+  ips : string prop list;
       (** The networks CIDRs that will be allowed to initiate proxy connections. *)
-  name : string;  (** Name of the teams proxy endpoint. *)
+  name : string prop;  (** Name of the teams proxy endpoint. *)
 }
 [@@deriving yojson_of]
 (** Provides a Cloudflare Teams Proxy Endpoint resource. Teams Proxy

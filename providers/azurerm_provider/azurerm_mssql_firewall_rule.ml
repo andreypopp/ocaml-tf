@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_mssql_firewall_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_firewall_rule__timeouts *)
 
 type azurerm_mssql_firewall_rule = {
-  end_ip_address : string;  (** end_ip_address *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  server_id : string;  (** server_id *)
-  start_ip_address : string;  (** start_ip_address *)
+  end_ip_address : string prop;  (** end_ip_address *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  server_id : string prop;  (** server_id *)
+  start_ip_address : string prop;  (** start_ip_address *)
   timeouts : azurerm_mssql_firewall_rule__timeouts option;
 }
 [@@deriving yojson_of]

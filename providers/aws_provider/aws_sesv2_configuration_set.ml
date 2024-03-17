@@ -5,49 +5,50 @@
 open! Tf.Prelude
 
 type aws_sesv2_configuration_set__delivery_options = {
-  sending_pool_name : string option; [@option]
+  sending_pool_name : string prop option; [@option]
       (** sending_pool_name *)
-  tls_policy : string option; [@option]  (** tls_policy *)
+  tls_policy : string prop option; [@option]  (** tls_policy *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_configuration_set__delivery_options *)
 
 type aws_sesv2_configuration_set__reputation_options = {
-  last_fresh_start : string;  (** last_fresh_start *)
-  reputation_metrics_enabled : bool option; [@option]
+  last_fresh_start : string prop;  (** last_fresh_start *)
+  reputation_metrics_enabled : bool prop option; [@option]
       (** reputation_metrics_enabled *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_configuration_set__reputation_options *)
 
 type aws_sesv2_configuration_set__sending_options = {
-  sending_enabled : bool option; [@option]  (** sending_enabled *)
+  sending_enabled : bool prop option; [@option]
+      (** sending_enabled *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_configuration_set__sending_options *)
 
 type aws_sesv2_configuration_set__suppression_options = {
-  suppressed_reasons : string list option; [@option]
+  suppressed_reasons : string prop list option; [@option]
       (** suppressed_reasons *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_configuration_set__suppression_options *)
 
 type aws_sesv2_configuration_set__tracking_options = {
-  custom_redirect_domain : string;  (** custom_redirect_domain *)
+  custom_redirect_domain : string prop;  (** custom_redirect_domain *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_configuration_set__tracking_options *)
 
 type aws_sesv2_configuration_set__vdm_options__dashboard_options = {
-  engagement_metrics : string option; [@option]
+  engagement_metrics : string prop option; [@option]
       (** engagement_metrics *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_configuration_set__vdm_options__dashboard_options *)
 
 type aws_sesv2_configuration_set__vdm_options__guardian_options = {
-  optimized_shared_delivery : string option; [@option]
+  optimized_shared_delivery : string prop option; [@option]
       (** optimized_shared_delivery *)
 }
 [@@deriving yojson_of]
@@ -63,10 +64,11 @@ type aws_sesv2_configuration_set__vdm_options = {
 (** aws_sesv2_configuration_set__vdm_options *)
 
 type aws_sesv2_configuration_set = {
-  configuration_set_name : string;  (** configuration_set_name *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  configuration_set_name : string prop;
+      (** configuration_set_name *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   delivery_options :
     aws_sesv2_configuration_set__delivery_options list;

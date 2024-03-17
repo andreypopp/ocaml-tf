@@ -11,15 +11,15 @@ type google_dialogflow_cx_webhook__timeouts
 type google_dialogflow_cx_webhook
 
 val google_dialogflow_cx_webhook :
-  ?disabled:bool ->
-  ?enable_spell_correction:bool ->
-  ?enable_stackdriver_logging:bool ->
-  ?id:string ->
-  ?parent:string ->
-  ?security_settings:string ->
-  ?timeout:string ->
+  ?disabled:bool prop ->
+  ?enable_spell_correction:bool prop ->
+  ?enable_stackdriver_logging:bool prop ->
+  ?id:string prop ->
+  ?parent:string prop ->
+  ?security_settings:string prop ->
+  ?timeout:string prop ->
   ?timeouts:google_dialogflow_cx_webhook__timeouts ->
-  display_name:string ->
+  display_name:string prop ->
   generic_web_service:
     google_dialogflow_cx_webhook__generic_web_service list ->
   service_directory:

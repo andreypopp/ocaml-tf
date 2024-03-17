@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_networkmanager_link_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_link_association__timeouts *)
 
 type aws_networkmanager_link_association = {
-  device_id : string;  (** device_id *)
-  global_network_id : string;  (** global_network_id *)
-  id : string option; [@option]  (** id *)
-  link_id : string;  (** link_id *)
+  device_id : string prop;  (** device_id *)
+  global_network_id : string prop;  (** global_network_id *)
+  id : string prop option; [@option]  (** id *)
+  link_id : string prop;  (** link_id *)
   timeouts : aws_networkmanager_link_association__timeouts option;
 }
 [@@deriving yojson_of]

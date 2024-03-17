@@ -56,15 +56,15 @@ type azurerm_monitor_data_collection_rule__timeouts
 type azurerm_monitor_data_collection_rule
 
 val azurerm_monitor_data_collection_rule :
-  ?data_collection_endpoint_id:string ->
-  ?description:string ->
-  ?id:string ->
-  ?kind:string ->
-  ?tags:(string * string) list ->
+  ?data_collection_endpoint_id:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kind:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_monitor_data_collection_rule__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   data_flow:azurerm_monitor_data_collection_rule__data_flow list ->
   data_sources:
     azurerm_monitor_data_collection_rule__data_sources list ->

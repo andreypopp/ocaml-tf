@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_sql_stored_procedure__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_stored_procedure__timeouts *)
 
 type azurerm_cosmosdb_sql_stored_procedure = {
-  account_name : string;  (** account_name *)
-  body : string;  (** body *)
-  container_name : string;  (** container_name *)
-  database_name : string;  (** database_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  account_name : string prop;  (** account_name *)
+  body : string prop;  (** body *)
+  container_name : string prop;  (** container_name *)
+  database_name : string prop;  (** database_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_cosmosdb_sql_stored_procedure__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type google_compute_network_peering__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_network_peering__timeouts *)
 
 type google_compute_network_peering = {
-  export_custom_routes : bool option; [@option]
+  export_custom_routes : bool prop option; [@option]
       (** Whether to export the custom routes to the peer network. Defaults to false. *)
-  export_subnet_routes_with_public_ip : bool option; [@option]
+  export_subnet_routes_with_public_ip : bool prop option; [@option]
       (** export_subnet_routes_with_public_ip *)
-  id : string option; [@option]  (** id *)
-  import_custom_routes : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  import_custom_routes : bool prop option; [@option]
       (** Whether to export the custom routes from the peer network. Defaults to false. *)
-  import_subnet_routes_with_public_ip : bool option; [@option]
+  import_subnet_routes_with_public_ip : bool prop option; [@option]
       (** import_subnet_routes_with_public_ip *)
-  name : string;  (** Name of the peering. *)
-  network : string;  (** The primary network of the peering. *)
-  peer_network : string;
+  name : string prop;  (** Name of the peering. *)
+  network : string prop;  (** The primary network of the peering. *)
+  peer_network : string prop;
       (** The peer network in the peering. The peer network may belong to a different project. *)
-  stack_type : string option; [@option]
+  stack_type : string prop option; [@option]
       (** Which IP version(s) of traffic and routes are allowed to be imported or exported between peer networks. The default value is IPV4_ONLY. Possible values: [IPV4_ONLY, IPV4_IPV6] *)
   timeouts : google_compute_network_peering__timeouts option;
 }

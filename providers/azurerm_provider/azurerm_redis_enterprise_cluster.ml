@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_redis_enterprise_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_redis_enterprise_cluster__timeouts *)
 
 type azurerm_redis_enterprise_cluster = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  minimum_tls_version : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  minimum_tls_version : string prop option; [@option]
       (** minimum_tls_version *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  zones : string list option; [@option]  (** zones *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  zones : string prop list option; [@option]  (** zones *)
   timeouts : azurerm_redis_enterprise_cluster__timeouts option;
 }
 [@@deriving yojson_of]

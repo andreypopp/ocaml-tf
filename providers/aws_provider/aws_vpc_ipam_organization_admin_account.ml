@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_vpc_ipam_organization_admin_account = {
-  delegated_admin_account_id : string;
+  delegated_admin_account_id : string prop;
       (** delegated_admin_account_id *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_ipam_organization_admin_account *)

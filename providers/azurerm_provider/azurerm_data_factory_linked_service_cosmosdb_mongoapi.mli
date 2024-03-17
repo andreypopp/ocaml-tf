@@ -6,18 +6,18 @@ type azurerm_data_factory_linked_service_cosmosdb_mongoapi__timeouts
 type azurerm_data_factory_linked_service_cosmosdb_mongoapi
 
 val azurerm_data_factory_linked_service_cosmosdb_mongoapi :
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?connection_string:string ->
-  ?database:string ->
-  ?description:string ->
-  ?id:string ->
-  ?integration_runtime_name:string ->
-  ?parameters:(string * string) list ->
-  ?server_version_is_32_or_higher:bool ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?connection_string:string prop ->
+  ?database:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?integration_runtime_name:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?server_version_is_32_or_higher:bool prop ->
   ?timeouts:
     azurerm_data_factory_linked_service_cosmosdb_mongoapi__timeouts ->
-  data_factory_id:string ->
-  name:string ->
+  data_factory_id:string prop ->
+  name:string prop ->
   string ->
   unit

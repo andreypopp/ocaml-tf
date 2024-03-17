@@ -6,19 +6,19 @@ type google_sql_source_representation_instance__timeouts
 type google_sql_source_representation_instance
 
 val google_sql_source_representation_instance :
-  ?ca_certificate:string ->
-  ?client_certificate:string ->
-  ?client_key:string ->
-  ?dump_file_path:string ->
-  ?id:string ->
-  ?password:string ->
-  ?port:float ->
-  ?project:string ->
-  ?region:string ->
-  ?username:string ->
+  ?ca_certificate:string prop ->
+  ?client_certificate:string prop ->
+  ?client_key:string prop ->
+  ?dump_file_path:string prop ->
+  ?id:string prop ->
+  ?password:string prop ->
+  ?port:float prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?username:string prop ->
   ?timeouts:google_sql_source_representation_instance__timeouts ->
-  database_version:string ->
-  host:string ->
-  name:string ->
+  database_version:string prop ->
+  host:string prop ->
+  name:string prop ->
   string ->
   unit

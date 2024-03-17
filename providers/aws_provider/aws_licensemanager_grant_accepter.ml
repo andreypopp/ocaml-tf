@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_licensemanager_grant_accepter = {
-  grant_arn : string;
+  grant_arn : string prop;
       (** Amazon Resource Name (ARN) of the grant. *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_licensemanager_grant_accepter *)

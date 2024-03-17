@@ -30,15 +30,15 @@ type azurerm_data_factory_flowlet_data_flow__transformation
 type azurerm_data_factory_flowlet_data_flow
 
 val azurerm_data_factory_flowlet_data_flow :
-  ?annotations:string list ->
-  ?description:string ->
-  ?folder:string ->
-  ?id:string ->
-  ?script:string ->
-  ?script_lines:string list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?script:string prop ->
+  ?script_lines:string prop list ->
   ?timeouts:azurerm_data_factory_flowlet_data_flow__timeouts ->
-  data_factory_id:string ->
-  name:string ->
+  data_factory_id:string prop ->
+  name:string prop ->
   sink:azurerm_data_factory_flowlet_data_flow__sink list ->
   source:azurerm_data_factory_flowlet_data_flow__source list ->
   transformation:

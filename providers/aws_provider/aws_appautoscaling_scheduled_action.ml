@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_appautoscaling_scheduled_action__scalable_target_action = {
-  max_capacity : string option; [@option]  (** max_capacity *)
-  min_capacity : string option; [@option]  (** min_capacity *)
+  max_capacity : string prop option; [@option]  (** max_capacity *)
+  min_capacity : string prop option; [@option]  (** min_capacity *)
 }
 [@@deriving yojson_of]
 (** aws_appautoscaling_scheduled_action__scalable_target_action *)
 
 type aws_appautoscaling_scheduled_action = {
-  end_time : string option; [@option]  (** end_time *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_id : string;  (** resource_id *)
-  scalable_dimension : string;  (** scalable_dimension *)
-  schedule : string;  (** schedule *)
-  service_namespace : string;  (** service_namespace *)
-  start_time : string option; [@option]  (** start_time *)
-  timezone : string option; [@option]  (** timezone *)
+  end_time : string prop option; [@option]  (** end_time *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_id : string prop;  (** resource_id *)
+  scalable_dimension : string prop;  (** scalable_dimension *)
+  schedule : string prop;  (** schedule *)
+  service_namespace : string prop;  (** service_namespace *)
+  start_time : string prop option; [@option]  (** start_time *)
+  timezone : string prop option; [@option]  (** timezone *)
   scalable_target_action :
     aws_appautoscaling_scheduled_action__scalable_target_action list;
 }

@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type google_scc_mute_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_scc_mute_config__timeouts *)
 
 type google_scc_mute_config = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A description of the mute config. *)
-  filter : string;
+  filter : string prop;
       (** An expression that defines the filter to apply across create/update
 events of findings. While creating a filter string, be mindful of
 the scope in which the mute configuration is being created. E.g.,
 If a filter contains project = X but is created under the
 project = Y scope, it might not match any findings. *)
-  id : string option; [@option]  (** id *)
-  mute_config_id : string;
+  id : string prop option; [@option]  (** id *)
+  mute_config_id : string prop;
       (** Unique identifier provided by the client within the parent scope. *)
-  parent : string;
+  parent : string prop;
       (** Resource name of the new mute configs's parent. Its format is
 organizations/[organization_id], folders/[folder_id], or
 projects/[project_id]. *)

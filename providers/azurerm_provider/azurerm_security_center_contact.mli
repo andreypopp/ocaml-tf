@@ -6,12 +6,12 @@ type azurerm_security_center_contact__timeouts
 type azurerm_security_center_contact
 
 val azurerm_security_center_contact :
-  ?id:string ->
-  ?name:string ->
-  ?phone:string ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?phone:string prop ->
   ?timeouts:azurerm_security_center_contact__timeouts ->
-  alert_notifications:bool ->
-  alerts_to_admins:bool ->
-  email:string ->
+  alert_notifications:bool prop ->
+  alerts_to_admins:bool prop ->
+  email:string prop ->
   string ->
   unit

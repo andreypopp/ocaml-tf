@@ -5,103 +5,105 @@
 open! Tf.Prelude
 
 type cloudflare_worker_script__analytics_engine_binding = {
-  dataset : string;
+  dataset : string prop;
       (** The name of the Analytics Engine dataset to write to. *)
-  name : string;
+  name : string prop;
       (** The global variable for the binding in your Worker code. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_worker_script__analytics_engine_binding *)
 
 type cloudflare_worker_script__d1_database_binding = {
-  database_id : string;  (** Database ID of D1 database to use. *)
-  name : string;
+  database_id : string prop;
+      (** Database ID of D1 database to use. *)
+  name : string prop;
       (** The global variable for the binding in your Worker code. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_worker_script__d1_database_binding *)
 
 type cloudflare_worker_script__kv_namespace_binding = {
-  name : string;
+  name : string prop;
       (** The global variable for the binding in your Worker code. *)
-  namespace_id : string;
+  namespace_id : string prop;
       (** ID of the KV namespace you want to use. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_worker_script__kv_namespace_binding *)
 
 type cloudflare_worker_script__placement = {
-  mode : string;
+  mode : string prop;
       (** The placement mode for the Worker. Available values: `smart`. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_worker_script__placement *)
 
 type cloudflare_worker_script__plain_text_binding = {
-  name : string;
+  name : string prop;
       (** The global variable for the binding in your Worker code. *)
-  text : string;  (** The plain text you want to store. *)
+  text : string prop;  (** The plain text you want to store. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_worker_script__plain_text_binding *)
 
 type cloudflare_worker_script__queue_binding = {
-  binding : string;
+  binding : string prop;
       (** The name of the global variable for the binding in your Worker code. *)
-  queue : string;  (** Name of the queue you want to use. *)
+  queue : string prop;  (** Name of the queue you want to use. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_worker_script__queue_binding *)
 
 type cloudflare_worker_script__r2_bucket_binding = {
-  bucket_name : string;  (** The name of the Bucket to bind to. *)
-  name : string;
+  bucket_name : string prop;
+      (** The name of the Bucket to bind to. *)
+  name : string prop;
       (** The global variable for the binding in your Worker code. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_worker_script__r2_bucket_binding *)
 
 type cloudflare_worker_script__secret_text_binding = {
-  name : string;
+  name : string prop;
       (** The global variable for the binding in your Worker code. *)
-  text : string;  (** The secret text you want to store. *)
+  text : string prop;  (** The secret text you want to store. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_worker_script__secret_text_binding *)
 
 type cloudflare_worker_script__service_binding = {
-  environment : string option; [@option]
+  environment : string prop option; [@option]
       (** The name of the Worker environment to bind to. *)
-  name : string;
+  name : string prop;
       (** The global variable for the binding in your Worker code. *)
-  service : string;  (** The name of the Worker to bind to. *)
+  service : string prop;  (** The name of the Worker to bind to. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_worker_script__service_binding *)
 
 type cloudflare_worker_script__webassembly_binding = {
-  module_ : string; [@key "module"]
+  module_ : string prop; [@key "module"]
       (** The base64 encoded wasm module you want to store. *)
-  name : string;
+  name : string prop;
       (** The global variable for the binding in your Worker code. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_worker_script__webassembly_binding *)
 
 type cloudflare_worker_script = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  compatibility_date : string option; [@option]
+  compatibility_date : string prop option; [@option]
       (** The date to use for the compatibility flag. *)
-  compatibility_flags : string list option; [@option]
+  compatibility_flags : string prop list option; [@option]
       (** Compatibility flags used for Worker Scripts. *)
-  content : string;  (** The script content. *)
-  id : string option; [@option]  (** id *)
-  logpush : bool option; [@option]
+  content : string prop;  (** The script content. *)
+  id : string prop option; [@option]  (** id *)
+  logpush : bool prop option; [@option]
       (** Enabling allows Worker events to be sent to a defined Logpush destination. *)
-  module_ : bool option; [@option] [@key "module"]
+  module_ : bool prop option; [@option] [@key "module"]
       (** Whether to upload Worker as a module. *)
-  name : string;
+  name : string prop;
       (** The name for the script. **Modifying this attribute will force creation of a new resource.** *)
   analytics_engine_binding :
     cloudflare_worker_script__analytics_engine_binding list;

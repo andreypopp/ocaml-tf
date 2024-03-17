@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_s3control_access_point_policy = {
-  access_point_arn : string;  (** access_point_arn *)
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
+  access_point_arn : string prop;  (** access_point_arn *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_access_point_policy *)

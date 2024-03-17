@@ -5,37 +5,38 @@
 open! Tf.Prelude
 
 type azurerm_app_service_plan__sku = {
-  capacity : float option; [@option]  (** capacity *)
-  size : string;  (** size *)
-  tier : string;  (** tier *)
+  capacity : float prop option; [@option]  (** capacity *)
+  size : string prop;  (** size *)
+  tier : string prop;  (** tier *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_plan__sku *)
 
 type azurerm_app_service_plan__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_plan__timeouts *)
 
 type azurerm_app_service_plan = {
-  app_service_environment_id : string option; [@option]
+  app_service_environment_id : string prop option; [@option]
       (** app_service_environment_id *)
-  id : string option; [@option]  (** id *)
-  is_xenon : bool option; [@option]  (** is_xenon *)
-  kind : string option; [@option]  (** kind *)
-  location : string;  (** location *)
-  maximum_elastic_worker_count : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  is_xenon : bool prop option; [@option]  (** is_xenon *)
+  kind : string prop option; [@option]  (** kind *)
+  location : string prop;  (** location *)
+  maximum_elastic_worker_count : float prop option; [@option]
       (** maximum_elastic_worker_count *)
-  name : string;  (** name *)
-  per_site_scaling : bool option; [@option]  (** per_site_scaling *)
-  reserved : bool option; [@option]  (** reserved *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  zone_redundant : bool option; [@option]  (** zone_redundant *)
+  name : string prop;  (** name *)
+  per_site_scaling : bool prop option; [@option]
+      (** per_site_scaling *)
+  reserved : bool prop option; [@option]  (** reserved *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  zone_redundant : bool prop option; [@option]  (** zone_redundant *)
   sku : azurerm_app_service_plan__sku list;
   timeouts : azurerm_app_service_plan__timeouts option;
 }

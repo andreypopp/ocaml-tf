@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_key_vault_certificate_issuer__admin = {
-  email_address : string;  (** email_address *)
-  first_name : string option; [@option]  (** first_name *)
-  last_name : string option; [@option]  (** last_name *)
-  phone : string option; [@option]  (** phone *)
+  email_address : string prop;  (** email_address *)
+  first_name : string prop option; [@option]  (** first_name *)
+  last_name : string prop option; [@option]  (** last_name *)
+  phone : string prop option; [@option]  (** phone *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate_issuer__admin *)
 
 type azurerm_key_vault_certificate_issuer__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate_issuer__timeouts *)
 
 type azurerm_key_vault_certificate_issuer = {
-  account_id : string option; [@option]  (** account_id *)
-  id : string option; [@option]  (** id *)
-  key_vault_id : string;  (** key_vault_id *)
-  name : string;  (** name *)
-  org_id : string option; [@option]  (** org_id *)
-  password : string option; [@option]  (** password *)
-  provider_name : string;  (** provider_name *)
+  account_id : string prop option; [@option]  (** account_id *)
+  id : string prop option; [@option]  (** id *)
+  key_vault_id : string prop;  (** key_vault_id *)
+  name : string prop;  (** name *)
+  org_id : string prop option; [@option]  (** org_id *)
+  password : string prop option; [@option]  (** password *)
+  provider_name : string prop;  (** provider_name *)
   admin : azurerm_key_vault_certificate_issuer__admin list;
   timeouts : azurerm_key_vault_certificate_issuer__timeouts option;
 }

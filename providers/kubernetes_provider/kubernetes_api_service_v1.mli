@@ -8,7 +8,7 @@ type kubernetes_api_service_v1__spec
 type kubernetes_api_service_v1
 
 val kubernetes_api_service_v1 :
-  ?id:string ->
+  ?id:string prop ->
   metadata:kubernetes_api_service_v1__metadata list ->
   spec:kubernetes_api_service_v1__spec list ->
   string ->

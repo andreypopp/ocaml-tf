@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_iot_thing_principal_attachment = {
-  id : string option; [@option]  (** id *)
-  principal : string;  (** principal *)
-  thing : string;  (** thing *)
+  id : string prop option; [@option]  (** id *)
+  principal : string prop;  (** principal *)
+  thing : string prop;  (** thing *)
 }
 [@@deriving yojson_of]
 (** aws_iot_thing_principal_attachment *)

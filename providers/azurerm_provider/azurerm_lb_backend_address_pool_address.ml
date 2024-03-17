@@ -5,29 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_lb_backend_address_pool_address__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_lb_backend_address_pool_address__timeouts *)
 
 type azurerm_lb_backend_address_pool_address__inbound_nat_rule_port_mapping = {
-  backend_port : float;  (** backend_port *)
-  frontend_port : float;  (** frontend_port *)
-  inbound_nat_rule_name : string;  (** inbound_nat_rule_name *)
+  backend_port : float prop;  (** backend_port *)
+  frontend_port : float prop;  (** frontend_port *)
+  inbound_nat_rule_name : string prop;  (** inbound_nat_rule_name *)
 }
 [@@deriving yojson_of]
 
 type azurerm_lb_backend_address_pool_address = {
-  backend_address_ip_configuration_id : string option; [@option]
+  backend_address_ip_configuration_id : string prop option; [@option]
       (** For global load balancer, user needs to specify the `backend_address_ip_configuration_id` of the added regional load balancers *)
-  backend_address_pool_id : string;  (** backend_address_pool_id *)
-  id : string option; [@option]  (** id *)
-  ip_address : string option; [@option]  (** ip_address *)
-  name : string;  (** name *)
-  virtual_network_id : string option; [@option]
+  backend_address_pool_id : string prop;
+      (** backend_address_pool_id *)
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop option; [@option]  (** ip_address *)
+  name : string prop;  (** name *)
+  virtual_network_id : string prop option; [@option]
       (** For regional load balancer, user needs to specify `virtual_network_id` and `ip_address` *)
   timeouts : azurerm_lb_backend_address_pool_address__timeouts option;
 }

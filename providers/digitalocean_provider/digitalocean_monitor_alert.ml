@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type digitalocean_monitor_alert__alerts__slack = {
-  channel : string;  (** The Slack channel to send alerts to *)
-  url : string;  (** The webhook URL for Slack *)
+  channel : string prop;  (** The Slack channel to send alerts to *)
+  url : string prop;  (** The webhook URL for Slack *)
 }
 [@@deriving yojson_of]
 (** digitalocean_monitor_alert__alerts__slack *)
 
 type digitalocean_monitor_alert__alerts = {
-  email : string list option; [@option]
+  email : string prop list option; [@option]
       (** List of email addresses to sent notifications to *)
   slack : digitalocean_monitor_alert__alerts__slack list;
 }
@@ -20,16 +20,17 @@ type digitalocean_monitor_alert__alerts = {
 (** List with details how to notify about the alert. Support for Slack or email. *)
 
 type digitalocean_monitor_alert = {
-  compare : string;  (** The comparison operator to use for value *)
-  description : string;  (** Description of the alert policy *)
-  enabled : bool option; [@option]  (** enabled *)
-  entities : string list option; [@option]
+  compare : string prop;
+      (** The comparison operator to use for value *)
+  description : string prop;  (** Description of the alert policy *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  entities : string prop list option; [@option]
       (** The droplets to apply the alert policy to *)
-  id : string option; [@option]  (** id *)
-  tags : string list option; [@option]  (** tags *)
-  type_ : string; [@key "type"]  (** type *)
-  value : float;  (** value *)
-  window : string;  (** window *)
+  id : string prop option; [@option]  (** id *)
+  tags : string prop list option; [@option]  (** tags *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : float prop;  (** value *)
+  window : string prop;  (** window *)
   alerts : digitalocean_monitor_alert__alerts list;
 }
 [@@deriving yojson_of]

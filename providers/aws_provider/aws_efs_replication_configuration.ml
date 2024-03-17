@@ -5,26 +5,27 @@
 open! Tf.Prelude
 
 type aws_efs_replication_configuration__destination = {
-  availability_zone_name : string option; [@option]
+  availability_zone_name : string prop option; [@option]
       (** availability_zone_name *)
-  file_system_id : string option; [@option]  (** file_system_id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  region : string option; [@option]  (** region *)
-  status : string;  (** status *)
+  file_system_id : string prop option; [@option]
+      (** file_system_id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  region : string prop option; [@option]  (** region *)
+  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_efs_replication_configuration__destination *)
 
 type aws_efs_replication_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_efs_replication_configuration__timeouts *)
 
 type aws_efs_replication_configuration = {
-  id : string option; [@option]  (** id *)
-  source_file_system_id : string;  (** source_file_system_id *)
+  id : string prop option; [@option]  (** id *)
+  source_file_system_id : string prop;  (** source_file_system_id *)
   destination : aws_efs_replication_configuration__destination list;
   timeouts : aws_efs_replication_configuration__timeouts option;
 }

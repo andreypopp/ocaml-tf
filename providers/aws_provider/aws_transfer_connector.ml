@@ -5,35 +5,37 @@
 open! Tf.Prelude
 
 type aws_transfer_connector__as2_config = {
-  compression : string;  (** compression *)
-  encryption_algorithm : string;  (** encryption_algorithm *)
-  local_profile_id : string;  (** local_profile_id *)
-  mdn_response : string;  (** mdn_response *)
-  mdn_signing_algorithm : string option; [@option]
+  compression : string prop;  (** compression *)
+  encryption_algorithm : string prop;  (** encryption_algorithm *)
+  local_profile_id : string prop;  (** local_profile_id *)
+  mdn_response : string prop;  (** mdn_response *)
+  mdn_signing_algorithm : string prop option; [@option]
       (** mdn_signing_algorithm *)
-  message_subject : string option; [@option]  (** message_subject *)
-  partner_profile_id : string;  (** partner_profile_id *)
-  signing_algorithm : string;  (** signing_algorithm *)
+  message_subject : string prop option; [@option]
+      (** message_subject *)
+  partner_profile_id : string prop;  (** partner_profile_id *)
+  signing_algorithm : string prop;  (** signing_algorithm *)
 }
 [@@deriving yojson_of]
 (** aws_transfer_connector__as2_config *)
 
 type aws_transfer_connector__sftp_config = {
-  trusted_host_keys : string list option; [@option]
+  trusted_host_keys : string prop list option; [@option]
       (** trusted_host_keys *)
-  user_secret_id : string option; [@option]  (** user_secret_id *)
+  user_secret_id : string prop option; [@option]
+      (** user_secret_id *)
 }
 [@@deriving yojson_of]
 (** aws_transfer_connector__sftp_config *)
 
 type aws_transfer_connector = {
-  access_role : string;  (** access_role *)
-  id : string option; [@option]  (** id *)
-  logging_role : string option; [@option]  (** logging_role *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  access_role : string prop;  (** access_role *)
+  id : string prop option; [@option]  (** id *)
+  logging_role : string prop option; [@option]  (** logging_role *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  url : string;  (** url *)
+  url : string prop;  (** url *)
   as2_config : aws_transfer_connector__as2_config list;
   sftp_config : aws_transfer_connector__sftp_config list;
 }

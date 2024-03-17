@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_dialogflow_cx_agent__advanced_settings__audio_export_gcs_destination = {
-  uri : string option; [@option]
+  uri : string prop option; [@option]
       (** The Google Cloud Storage URI for the exported objects. Whether a full object name, or just a prefix, its usage depends on the Dialogflow operation.
 Format: gs://bucket/object-name-or-prefix *)
 }
@@ -15,11 +15,11 @@ Format: gs://bucket/object-name-or-prefix *)
 * Flow level *)
 
 type google_dialogflow_cx_agent__advanced_settings__dtmf_settings = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** If true, incoming audio is processed for DTMF (dual tone multi frequency) events. For example, if the caller presses a button on their telephone keypad and DTMF processing is enabled, Dialogflow will detect the event (e.g. a 3 was pressed) in the incoming audio and pass the event to the bot to drive business logic (e.g. when 3 is pressed, return the account balance). *)
-  finish_digit : string option; [@option]
+  finish_digit : string prop option; [@option]
       (** The digit that terminates a DTMF digit sequence. *)
-  max_digits : float option; [@option]
+  max_digits : float prop option; [@option]
       (** Max length of DTMF digits. *)
 }
 [@@deriving yojson_of]
@@ -41,15 +41,15 @@ type google_dialogflow_cx_agent__advanced_settings = {
 Hierarchy: Agent->Flow->Page->Fulfillment/Parameter. *)
 
 type google_dialogflow_cx_agent__git_integration_settings__github_settings = {
-  access_token : string option; [@option]
+  access_token : string prop option; [@option]
       (** The access token used to authenticate the access to the GitHub repository. *)
-  branches : string list option; [@option]
+  branches : string prop list option; [@option]
       (** A list of branches configured to be used from Dialogflow. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** The unique repository display name for the GitHub repository. *)
-  repository_uri : string option; [@option]
+  repository_uri : string prop option; [@option]
       (** The GitHub repository URI related to the agent. *)
-  tracking_branch : string option; [@option]
+  tracking_branch : string prop option; [@option]
       (** The branch of the GitHub repository tracked for this agent. *)
 }
 [@@deriving yojson_of]
@@ -64,14 +64,14 @@ type google_dialogflow_cx_agent__git_integration_settings = {
 (** Git integration settings for this agent. *)
 
 type google_dialogflow_cx_agent__speech_to_text_settings = {
-  enable_speech_adaptation : bool option; [@option]
+  enable_speech_adaptation : bool prop option; [@option]
       (** Whether to use speech adaptation for speech recognition. *)
 }
 [@@deriving yojson_of]
 (** Settings related to speech recognition. *)
 
 type google_dialogflow_cx_agent__text_to_speech_settings = {
-  synthesize_speech_configs : string option; [@option]
+  synthesize_speech_configs : string prop option; [@option]
       (** Configuration of how speech should be synthesized, mapping from [language](https://cloud.google.com/dialogflow/cx/docs/reference/language) to [SynthesizeSpeechConfig](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/projects.locations.agents#synthesizespeechconfig).
 These settings affect:
 * The phone gateway synthesize configuration set via Agent.text_to_speech_settings.
@@ -81,40 +81,40 @@ These settings affect:
 (** Settings related to speech synthesizing. *)
 
 type google_dialogflow_cx_agent__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_agent__timeouts *)
 
 type google_dialogflow_cx_agent = {
-  avatar_uri : string option; [@option]
+  avatar_uri : string prop option; [@option]
       (** The URI of the agent's avatar. Avatars are used throughout the Dialogflow console and in the self-hosted Web Demo integration. *)
-  default_language_code : string;
+  default_language_code : string prop;
       (** The default language of the agent as a language tag. [See Language Support](https://cloud.google.com/dialogflow/cx/docs/reference/language)
 for a list of the currently supported language codes. This field cannot be updated after creation. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description of this agent. The maximum length is 500 characters. If exceeded, the request is rejected. *)
-  display_name : string;
+  display_name : string prop;
       (** The human-readable name of the agent, unique within the location. *)
-  enable_spell_correction : bool option; [@option]
+  enable_spell_correction : bool prop option; [@option]
       (** Indicates if automatic spell correction is enabled in detect intent requests. *)
-  enable_stackdriver_logging : bool option; [@option]
+  enable_stackdriver_logging : bool prop option; [@option]
       (** Determines whether this agent should log conversation queries. *)
-  id : string option; [@option]  (** id *)
-  location : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;
       (** The name of the location this agent is located in.
 
 ~> **Note:** The first time you are deploying an Agent in your project you must configure location settings.
  This is a one time step but at the moment you can only [configure location settings](https://cloud.google.com/dialogflow/cx/docs/concept/region#location-settings) via the Dialogflow CX console.
  Another options is to use global location so you don't need to manually configure location settings. *)
-  project : string option; [@option]  (** project *)
-  security_settings : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  security_settings : string prop option; [@option]
       (** Name of the SecuritySettings reference for the agent. Format: projects/<Project ID>/locations/<Location ID>/securitySettings/<Security Settings ID>. *)
-  supported_language_codes : string list option; [@option]
+  supported_language_codes : string prop list option; [@option]
       (** The list of all languages supported by this agent (except for the default_language_code). *)
-  time_zone : string;
+  time_zone : string prop;
       (** The time zone of this agent from the [time zone database](https://www.iana.org/time-zones), e.g., America/New_York,
 Europe/Paris. *)
   advanced_settings :

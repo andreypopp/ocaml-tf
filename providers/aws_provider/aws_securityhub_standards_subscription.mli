@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_securityhub_standards_subscription
 
 val aws_securityhub_standards_subscription :
-  ?id:string -> standards_arn:string -> string -> unit
+  ?id:string prop -> standards_arn:string prop -> string -> unit

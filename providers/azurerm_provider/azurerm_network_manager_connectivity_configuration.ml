@@ -5,41 +5,42 @@
 open! Tf.Prelude
 
 type azurerm_network_manager_connectivity_configuration__applies_to_group = {
-  global_mesh_enabled : bool option; [@option]
+  global_mesh_enabled : bool prop option; [@option]
       (** global_mesh_enabled *)
-  group_connectivity : string;  (** group_connectivity *)
-  network_group_id : string;  (** network_group_id *)
-  use_hub_gateway : bool option; [@option]  (** use_hub_gateway *)
+  group_connectivity : string prop;  (** group_connectivity *)
+  network_group_id : string prop;  (** network_group_id *)
+  use_hub_gateway : bool prop option; [@option]
+      (** use_hub_gateway *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_connectivity_configuration__applies_to_group *)
 
 type azurerm_network_manager_connectivity_configuration__hub = {
-  resource_id : string;  (** resource_id *)
-  resource_type : string;  (** resource_type *)
+  resource_id : string prop;  (** resource_id *)
+  resource_type : string prop;  (** resource_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_connectivity_configuration__hub *)
 
 type azurerm_network_manager_connectivity_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_connectivity_configuration__timeouts *)
 
 type azurerm_network_manager_connectivity_configuration = {
-  connectivity_topology : string;  (** connectivity_topology *)
-  delete_existing_peering_enabled : bool option; [@option]
+  connectivity_topology : string prop;  (** connectivity_topology *)
+  delete_existing_peering_enabled : bool prop option; [@option]
       (** delete_existing_peering_enabled *)
-  description : string option; [@option]  (** description *)
-  global_mesh_enabled : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  global_mesh_enabled : bool prop option; [@option]
       (** global_mesh_enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  network_manager_id : string;  (** network_manager_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  network_manager_id : string prop;  (** network_manager_id *)
   applies_to_group :
     azurerm_network_manager_connectivity_configuration__applies_to_group
     list;

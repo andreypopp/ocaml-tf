@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type aws_fms_policy__exclude_map = {
-  account : string list option; [@option]  (** account *)
-  orgunit : string list option; [@option]  (** orgunit *)
+  account : string prop list option; [@option]  (** account *)
+  orgunit : string prop list option; [@option]  (** orgunit *)
 }
 [@@deriving yojson_of]
 (** aws_fms_policy__exclude_map *)
 
 type aws_fms_policy__include_map = {
-  account : string list option; [@option]  (** account *)
-  orgunit : string list option; [@option]  (** orgunit *)
+  account : string prop list option; [@option]  (** account *)
+  orgunit : string prop list option; [@option]  (** orgunit *)
 }
 [@@deriving yojson_of]
 (** aws_fms_policy__include_map *)
 
 type aws_fms_policy__security_service_policy_data__policy_option__network_firewall_policy = {
-  firewall_deployment_model : string option; [@option]
+  firewall_deployment_model : string prop option; [@option]
       (** firewall_deployment_model *)
 }
 [@@deriving yojson_of]
 (** aws_fms_policy__security_service_policy_data__policy_option__network_firewall_policy *)
 
 type aws_fms_policy__security_service_policy_data__policy_option__third_party_firewall_policy = {
-  firewall_deployment_model : string option; [@option]
+  firewall_deployment_model : string prop option; [@option]
       (** firewall_deployment_model *)
 }
 [@@deriving yojson_of]
@@ -44,9 +44,9 @@ type aws_fms_policy__security_service_policy_data__policy_option = {
 (** aws_fms_policy__security_service_policy_data__policy_option *)
 
 type aws_fms_policy__security_service_policy_data = {
-  managed_service_data : string option; [@option]
+  managed_service_data : string prop option; [@option]
       (** managed_service_data *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   policy_option :
     aws_fms_policy__security_service_policy_data__policy_option list;
 }
@@ -54,23 +54,23 @@ type aws_fms_policy__security_service_policy_data = {
 (** aws_fms_policy__security_service_policy_data *)
 
 type aws_fms_policy = {
-  delete_all_policy_resources : bool option; [@option]
+  delete_all_policy_resources : bool prop option; [@option]
       (** delete_all_policy_resources *)
-  delete_unused_fm_managed_resources : bool option; [@option]
+  delete_unused_fm_managed_resources : bool prop option; [@option]
       (** delete_unused_fm_managed_resources *)
-  description : string option; [@option]  (** description *)
-  exclude_resource_tags : bool;  (** exclude_resource_tags *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  remediation_enabled : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  exclude_resource_tags : bool prop;  (** exclude_resource_tags *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  remediation_enabled : bool prop option; [@option]
       (** remediation_enabled *)
-  resource_tags : (string * string) list option; [@option]
+  resource_tags : (string * string prop) list option; [@option]
       (** resource_tags *)
-  resource_type : string option; [@option]  (** resource_type *)
-  resource_type_list : string list option; [@option]
+  resource_type : string prop option; [@option]  (** resource_type *)
+  resource_type_list : string prop list option; [@option]
       (** resource_type_list *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   exclude_map : aws_fms_policy__exclude_map list;
   include_map : aws_fms_policy__include_map list;

@@ -5,20 +5,20 @@ open! Tf.Prelude
 type aws_xray_sampling_rule
 
 val aws_xray_sampling_rule :
-  ?attributes:(string * string) list ->
-  ?id:string ->
-  ?rule_name:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  fixed_rate:float ->
-  host:string ->
-  http_method:string ->
-  priority:float ->
-  reservoir_size:float ->
-  resource_arn:string ->
-  service_name:string ->
-  service_type:string ->
-  url_path:string ->
-  version:float ->
+  ?attributes:(string * string prop) list ->
+  ?id:string prop ->
+  ?rule_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  fixed_rate:float prop ->
+  host:string prop ->
+  http_method:string prop ->
+  priority:float prop ->
+  reservoir_size:float prop ->
+  resource_arn:string prop ->
+  service_name:string prop ->
+  service_type:string prop ->
+  url_path:string prop ->
+  version:float prop ->
   string ->
   unit

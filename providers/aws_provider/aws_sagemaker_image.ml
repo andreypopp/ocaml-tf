@@ -5,13 +5,14 @@
 open! Tf.Prelude
 
 type aws_sagemaker_image = {
-  description : string option; [@option]  (** description *)
-  display_name : string option; [@option]  (** display_name *)
-  id : string option; [@option]  (** id *)
-  image_name : string;  (** image_name *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop option; [@option]  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  image_name : string prop;  (** image_name *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_image *)

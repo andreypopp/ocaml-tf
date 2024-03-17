@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_apprunner_default_auto_scaling_configuration_version = {
-  auto_scaling_configuration_arn : string;
+  auto_scaling_configuration_arn : string prop;
       (** auto_scaling_configuration_arn *)
 }
 [@@deriving yojson_of]

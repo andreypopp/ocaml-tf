@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_digital_twins_time_series_database_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_digital_twins_time_series_database_connection__timeouts *)
 
 type azurerm_digital_twins_time_series_database_connection = {
-  digital_twins_id : string;  (** digital_twins_id *)
-  eventhub_consumer_group_name : string option; [@option]
+  digital_twins_id : string prop;  (** digital_twins_id *)
+  eventhub_consumer_group_name : string prop option; [@option]
       (** eventhub_consumer_group_name *)
-  eventhub_name : string;  (** eventhub_name *)
-  eventhub_namespace_endpoint_uri : string;
+  eventhub_name : string prop;  (** eventhub_name *)
+  eventhub_namespace_endpoint_uri : string prop;
       (** eventhub_namespace_endpoint_uri *)
-  eventhub_namespace_id : string;  (** eventhub_namespace_id *)
-  id : string option; [@option]  (** id *)
-  kusto_cluster_id : string;  (** kusto_cluster_id *)
-  kusto_cluster_uri : string;  (** kusto_cluster_uri *)
-  kusto_database_name : string;  (** kusto_database_name *)
-  kusto_table_name : string option; [@option]
+  eventhub_namespace_id : string prop;  (** eventhub_namespace_id *)
+  id : string prop option; [@option]  (** id *)
+  kusto_cluster_id : string prop;  (** kusto_cluster_id *)
+  kusto_cluster_uri : string prop;  (** kusto_cluster_uri *)
+  kusto_database_name : string prop;  (** kusto_database_name *)
+  kusto_table_name : string prop option; [@option]
       (** kusto_table_name *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   timeouts :
     azurerm_digital_twins_time_series_database_connection__timeouts
     option;

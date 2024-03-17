@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_dataproc_autoscaling_policy_iam_policy = {
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  policy_data : string;  (** policy_data *)
-  policy_id : string;  (** policy_id *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  policy_data : string prop;  (** policy_data *)
+  policy_id : string prop;  (** policy_id *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_dataproc_autoscaling_policy_iam_policy *)

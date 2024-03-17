@@ -5,19 +5,19 @@ open! Tf.Prelude
 type aws_sns_platform_application
 
 val aws_sns_platform_application :
-  ?apple_platform_bundle_id:string ->
-  ?apple_platform_team_id:string ->
-  ?event_delivery_failure_topic_arn:string ->
-  ?event_endpoint_created_topic_arn:string ->
-  ?event_endpoint_deleted_topic_arn:string ->
-  ?event_endpoint_updated_topic_arn:string ->
-  ?failure_feedback_role_arn:string ->
-  ?id:string ->
-  ?platform_principal:string ->
-  ?success_feedback_role_arn:string ->
-  ?success_feedback_sample_rate:string ->
-  name:string ->
-  platform:string ->
-  platform_credential:string ->
+  ?apple_platform_bundle_id:string prop ->
+  ?apple_platform_team_id:string prop ->
+  ?event_delivery_failure_topic_arn:string prop ->
+  ?event_endpoint_created_topic_arn:string prop ->
+  ?event_endpoint_deleted_topic_arn:string prop ->
+  ?event_endpoint_updated_topic_arn:string prop ->
+  ?failure_feedback_role_arn:string prop ->
+  ?id:string prop ->
+  ?platform_principal:string prop ->
+  ?success_feedback_role_arn:string prop ->
+  ?success_feedback_sample_rate:string prop ->
+  name:string prop ->
+  platform:string prop ->
+  platform_credential:string prop ->
   string ->
   unit

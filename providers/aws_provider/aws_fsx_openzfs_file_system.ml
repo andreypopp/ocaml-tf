@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_fsx_openzfs_file_system__disk_iops_configuration = {
-  iops : float option; [@option]  (** iops *)
-  mode : string option; [@option]  (** mode *)
+  iops : float prop option; [@option]  (** iops *)
+  mode : string prop option; [@option]  (** mode *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_openzfs_file_system__disk_iops_configuration *)
 
 type aws_fsx_openzfs_file_system__root_volume_configuration__nfs_exports__client_configurations = {
-  clients : string;  (** clients *)
-  options : string list;  (** options *)
+  clients : string prop;  (** clients *)
+  options : string prop list;  (** options *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_openzfs_file_system__root_volume_configuration__nfs_exports__client_configurations *)
@@ -27,21 +27,22 @@ type aws_fsx_openzfs_file_system__root_volume_configuration__nfs_exports = {
 (** aws_fsx_openzfs_file_system__root_volume_configuration__nfs_exports *)
 
 type aws_fsx_openzfs_file_system__root_volume_configuration__user_and_group_quotas = {
-  id : float;  (** id *)
-  storage_capacity_quota_gib : float;
+  id : float prop;  (** id *)
+  storage_capacity_quota_gib : float prop;
       (** storage_capacity_quota_gib *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_openzfs_file_system__root_volume_configuration__user_and_group_quotas *)
 
 type aws_fsx_openzfs_file_system__root_volume_configuration = {
-  copy_tags_to_snapshots : bool option; [@option]
+  copy_tags_to_snapshots : bool prop option; [@option]
       (** copy_tags_to_snapshots *)
-  data_compression_type : string option; [@option]
+  data_compression_type : string prop option; [@option]
       (** data_compression_type *)
-  read_only : bool option; [@option]  (** read_only *)
-  record_size_kib : float option; [@option]  (** record_size_kib *)
+  read_only : bool prop option; [@option]  (** read_only *)
+  record_size_kib : float prop option; [@option]
+      (** record_size_kib *)
   nfs_exports :
     aws_fsx_openzfs_file_system__root_volume_configuration__nfs_exports
     list;
@@ -53,44 +54,45 @@ type aws_fsx_openzfs_file_system__root_volume_configuration = {
 (** aws_fsx_openzfs_file_system__root_volume_configuration *)
 
 type aws_fsx_openzfs_file_system__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_openzfs_file_system__timeouts *)
 
 type aws_fsx_openzfs_file_system = {
-  automatic_backup_retention_days : float option; [@option]
+  automatic_backup_retention_days : float prop option; [@option]
       (** automatic_backup_retention_days *)
-  backup_id : string option; [@option]  (** backup_id *)
-  copy_tags_to_backups : bool option; [@option]
+  backup_id : string prop option; [@option]  (** backup_id *)
+  copy_tags_to_backups : bool prop option; [@option]
       (** copy_tags_to_backups *)
-  copy_tags_to_volumes : bool option; [@option]
+  copy_tags_to_volumes : bool prop option; [@option]
       (** copy_tags_to_volumes *)
-  daily_automatic_backup_start_time : string option; [@option]
+  daily_automatic_backup_start_time : string prop option; [@option]
       (** daily_automatic_backup_start_time *)
-  deployment_type : string;  (** deployment_type *)
-  endpoint_ip_address_range : string option; [@option]
+  deployment_type : string prop;  (** deployment_type *)
+  endpoint_ip_address_range : string prop option; [@option]
       (** endpoint_ip_address_range *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  preferred_subnet_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  preferred_subnet_id : string prop option; [@option]
       (** preferred_subnet_id *)
-  route_table_ids : string list option; [@option]
+  route_table_ids : string prop list option; [@option]
       (** route_table_ids *)
-  security_group_ids : string list option; [@option]
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  skip_final_backup : bool option; [@option]
+  skip_final_backup : bool prop option; [@option]
       (** skip_final_backup *)
-  storage_capacity : float option; [@option]  (** storage_capacity *)
-  storage_type : string option; [@option]  (** storage_type *)
-  subnet_ids : string list;  (** subnet_ids *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  storage_capacity : float prop option; [@option]
+      (** storage_capacity *)
+  storage_type : string prop option; [@option]  (** storage_type *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  throughput_capacity : float;  (** throughput_capacity *)
-  weekly_maintenance_start_time : string option; [@option]
+  throughput_capacity : float prop;  (** throughput_capacity *)
+  weekly_maintenance_start_time : string prop option; [@option]
       (** weekly_maintenance_start_time *)
   disk_iops_configuration :
     aws_fsx_openzfs_file_system__disk_iops_configuration list;

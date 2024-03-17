@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_kinesis_resource_policy = {
-  policy : string;  (** policy *)
-  resource_arn : string;  (** resource_arn *)
+  policy : string prop;  (** policy *)
+  resource_arn : string prop;  (** resource_arn *)
 }
 [@@deriving yojson_of]
 (** aws_kinesis_resource_policy *)

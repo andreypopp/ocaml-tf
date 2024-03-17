@@ -5,42 +5,42 @@
 open! Tf.Prelude
 
 type aws_lexv2models_bot__data_privacy = {
-  child_directed : bool;  (** child_directed *)
+  child_directed : bool prop;  (** child_directed *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_bot__data_privacy *)
 
 type aws_lexv2models_bot__members = {
-  alias_id : string;  (** alias_id *)
-  alias_name : string;  (** alias_name *)
-  id : string;  (** id *)
-  name : string;  (** name *)
-  version : string;  (** version *)
+  alias_id : string prop;  (** alias_id *)
+  alias_name : string prop;  (** alias_name *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_bot__members *)
 
 type aws_lexv2models_bot__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-  delete : string option; [@option]
+  delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
-  update : string option; [@option]
+  update : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_bot__timeouts *)
 
 type aws_lexv2models_bot = {
-  description : string option; [@option]  (** description *)
-  idle_session_ttl_in_seconds : float;
+  description : string prop option; [@option]  (** description *)
+  idle_session_ttl_in_seconds : float prop;
       (** idle_session_ttl_in_seconds *)
-  name : string;  (** name *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  test_bot_alias_tags : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  test_bot_alias_tags : (string * string prop) list option; [@option]
       (** test_bot_alias_tags *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   data_privacy : aws_lexv2models_bot__data_privacy list;
   members : aws_lexv2models_bot__members list;
   timeouts : aws_lexv2models_bot__timeouts option;

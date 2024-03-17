@@ -13,20 +13,20 @@ type azurerm_sentinel_alert_rule_anomaly_duplicate__threshold_observation
 type azurerm_sentinel_alert_rule_anomaly_duplicate__timeouts
 
 type azurerm_sentinel_alert_rule_anomaly_duplicate__required_data_connector = {
-  connector_id : string;  (** connector_id *)
-  data_types : string list;  (** data_types *)
+  connector_id : string prop;  (** connector_id *)
+  data_types : string prop list;  (** data_types *)
 }
 
 type azurerm_sentinel_alert_rule_anomaly_duplicate
 
 val azurerm_sentinel_alert_rule_anomaly_duplicate :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_sentinel_alert_rule_anomaly_duplicate__timeouts ->
-  built_in_rule_id:string ->
-  display_name:string ->
-  enabled:bool ->
-  log_analytics_workspace_id:string ->
-  mode:string ->
+  built_in_rule_id:string prop ->
+  display_name:string prop ->
+  enabled:bool prop ->
+  log_analytics_workspace_id:string prop ->
+  mode:string prop ->
   multi_select_observation:
     azurerm_sentinel_alert_rule_anomaly_duplicate__multi_select_observation
     list ->

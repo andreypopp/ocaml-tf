@@ -5,23 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_automation_job_schedule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_job_schedule__timeouts *)
 
 type azurerm_automation_job_schedule = {
-  automation_account_name : string;  (** automation_account_name *)
-  id : string option; [@option]  (** id *)
-  job_schedule_id : string option; [@option]  (** job_schedule_id *)
-  parameters : (string * string) list option; [@option]
+  automation_account_name : string prop;
+      (** automation_account_name *)
+  id : string prop option; [@option]  (** id *)
+  job_schedule_id : string prop option; [@option]
+      (** job_schedule_id *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  resource_group_name : string;  (** resource_group_name *)
-  run_on : string option; [@option]  (** run_on *)
-  runbook_name : string;  (** runbook_name *)
-  schedule_name : string;  (** schedule_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  run_on : string prop option; [@option]  (** run_on *)
+  runbook_name : string prop;  (** runbook_name *)
+  schedule_name : string prop;  (** schedule_name *)
   timeouts : azurerm_automation_job_schedule__timeouts option;
 }
 [@@deriving yojson_of]

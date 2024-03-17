@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_vpclattice_service_network_vpc_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_service_network_vpc_association__timeouts *)
 
 type aws_vpclattice_service_network_vpc_association = {
-  id : string option; [@option]  (** id *)
-  security_group_ids : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  service_network_identifier : string;
+  service_network_identifier : string prop;
       (** service_network_identifier *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_identifier : string;  (** vpc_identifier *)
+  vpc_identifier : string prop;  (** vpc_identifier *)
   timeouts :
     aws_vpclattice_service_network_vpc_association__timeouts option;
 }

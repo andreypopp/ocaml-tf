@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type google_memcache_instance__maintenance_policy__weekly_maintenance_window__start_time = {
-  hours : float option; [@option]
+  hours : float prop option; [@option]
       (** Hours of day in 24 hour format. Should be from 0 to 23.
 An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
-  minutes : float option; [@option]
+  minutes : float prop option; [@option]
       (** Minutes of hour of day. Must be from 0 to 59. *)
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
-  seconds : float option; [@option]
+  seconds : float prop option; [@option]
       (** Seconds of minutes of the time. Must normally be from 0 to 59.
 An API may allow the value 60 if it allows leap-seconds. *)
 }
@@ -20,7 +20,7 @@ An API may allow the value 60 if it allows leap-seconds. *)
 (** Required. Start time of the window in UTC time. *)
 
 type google_memcache_instance__maintenance_policy__weekly_maintenance_window = {
-  day : string;
+  day : string prop;
       (** Required. The day of week that maintenance updates occur.
 - DAY_OF_WEEK_UNSPECIFIED: The day of the week is unspecified.
 - MONDAY: Monday
@@ -30,7 +30,7 @@ type google_memcache_instance__maintenance_policy__weekly_maintenance_window = {
 - FRIDAY: Friday
 - SATURDAY: Saturday
 - SUNDAY: Sunday Possible values: [DAY_OF_WEEK_UNSPECIFIED, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  duration : string;
+  duration : string prop;
       (** Required. The length of the maintenance window, ranging from 3 hours to 8 hours.
 A duration in seconds with up to nine fractional digits,
 terminated by 's'. Example: 3.5s. *)
@@ -44,15 +44,15 @@ Minimum 1. For the current version, the maximum number of weekly_maintenance_win
 is expected to be one. *)
 
 type google_memcache_instance__maintenance_policy = {
-  create_time : string;
+  create_time : string prop;
       (** Output only. The time when the policy was created.
 A timestamp in RFC3339 UTC Zulu format, with nanosecond
 resolution and up to nine fractional digits *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Optional. Description of what this policy is for.
 Create/Update methods return INVALID_ARGUMENT if the
 length is greater than 512. *)
-  update_time : string;
+  update_time : string prop;
       (** Output only. The time when the policy was updated.
 A timestamp in RFC3339 UTC Zulu format, with nanosecond
 resolution and up to nine fractional digits. *)
@@ -64,74 +64,75 @@ resolution and up to nine fractional digits. *)
 (** Maintenance policy for an instance. *)
 
 type google_memcache_instance__memcache_parameters = {
-  id : string;
+  id : string prop;
       (** This is a unique ID associated with this set of parameters. *)
-  params : (string * string) list option; [@option]
+  params : (string * string prop) list option; [@option]
       (** User-defined set of parameters to use in the memcache process. *)
 }
 [@@deriving yojson_of]
 (** User-specified parameters for this memcache instance. *)
 
 type google_memcache_instance__node_config = {
-  cpu_count : float;  (** Number of CPUs per node. *)
-  memory_size_mb : float;
+  cpu_count : float prop;  (** Number of CPUs per node. *)
+  memory_size_mb : float prop;
       (** Memory size in Mebibytes for each memcache node. *)
 }
 [@@deriving yojson_of]
 (** Configuration for memcache nodes. *)
 
 type google_memcache_instance__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_memcache_instance__timeouts *)
 
 type google_memcache_instance__maintenance_schedule = {
-  end_time : string;  (** end_time *)
-  schedule_deadline_time : string;  (** schedule_deadline_time *)
-  start_time : string;  (** start_time *)
+  end_time : string prop;  (** end_time *)
+  schedule_deadline_time : string prop;
+      (** schedule_deadline_time *)
+  start_time : string prop;  (** start_time *)
 }
 [@@deriving yojson_of]
 
 type google_memcache_instance__memcache_nodes = {
-  host : string;  (** host *)
-  node_id : string;  (** node_id *)
-  port : float;  (** port *)
-  state : string;  (** state *)
-  zone : string;  (** zone *)
+  host : string prop;  (** host *)
+  node_id : string prop;  (** node_id *)
+  port : float prop;  (** port *)
+  state : string prop;  (** state *)
+  zone : string prop;  (** zone *)
 }
 [@@deriving yojson_of]
 
 type google_memcache_instance = {
-  authorized_network : string option; [@option]
+  authorized_network : string prop option; [@option]
       (** The full name of the GCE network to connect the instance to.  If not provided,
 'default' will be used. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** A user-visible name for the instance. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Resource labels to represent user-provided metadata.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  memcache_version : string option; [@option]
+  memcache_version : string prop option; [@option]
       (** The major version of Memcached software. If not provided, latest supported version will be used.
 Currently the latest supported major version is MEMCACHE_1_5. The minor version will be automatically
 determined by our system based on the latest supported minor version. Default value: MEMCACHE_1_5 Possible values: [MEMCACHE_1_5, MEMCACHE_1_6_15] *)
-  name : string;  (** The resource name of the instance. *)
-  node_count : float;
+  name : string prop;  (** The resource name of the instance. *)
+  node_count : float prop;
       (** Number of nodes in the memcache instance. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** The region of the Memcache instance. If it is not provided, the provider region is used. *)
-  reserved_ip_range_id : string list option; [@option]
+  reserved_ip_range_id : string prop list option; [@option]
       (** Contains the name of allocated IP address ranges associated with
 the private service access connection for example, test-default
 associated with IP range 10.0.0.0/29. *)
-  zones : string list option; [@option]
+  zones : string prop list option; [@option]
       (** Zones where memcache nodes should be provisioned.  If not
 provided, all zones will be used. *)
   maintenance_policy :

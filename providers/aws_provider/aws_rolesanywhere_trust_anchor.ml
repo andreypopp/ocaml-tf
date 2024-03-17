@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_rolesanywhere_trust_anchor__source__source_data = {
-  acm_pca_arn : string option; [@option]  (** acm_pca_arn *)
-  x509_certificate_data : string option; [@option]
+  acm_pca_arn : string prop option; [@option]  (** acm_pca_arn *)
+  x509_certificate_data : string prop option; [@option]
       (** x509_certificate_data *)
 }
 [@@deriving yojson_of]
 (** aws_rolesanywhere_trust_anchor__source__source_data *)
 
 type aws_rolesanywhere_trust_anchor__source = {
-  source_type : string;  (** source_type *)
+  source_type : string prop;  (** source_type *)
   source_data :
     aws_rolesanywhere_trust_anchor__source__source_data list;
 }
@@ -21,11 +21,11 @@ type aws_rolesanywhere_trust_anchor__source = {
 (** aws_rolesanywhere_trust_anchor__source *)
 
 type aws_rolesanywhere_trust_anchor = {
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   source : aws_rolesanywhere_trust_anchor__source list;
 }

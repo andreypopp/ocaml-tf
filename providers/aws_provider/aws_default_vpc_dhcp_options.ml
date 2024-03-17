@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_default_vpc_dhcp_options = {
-  id : string option; [@option]  (** id *)
-  owner_id : string option; [@option]  (** owner_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  owner_id : string prop option; [@option]  (** owner_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_default_vpc_dhcp_options *)

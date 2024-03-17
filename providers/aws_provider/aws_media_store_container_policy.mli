@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_media_store_container_policy
 
 val aws_media_store_container_policy :
-  ?id:string ->
-  container_name:string ->
-  policy:string ->
+  ?id:string prop ->
+  container_name:string prop ->
+  policy:string prop ->
   string ->
   unit

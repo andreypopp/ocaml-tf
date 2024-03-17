@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_shared_image_gallery__sharing__community_gallery = {
-  eula : string;  (** eula *)
-  name : string;  (** name *)
-  prefix : string;  (** prefix *)
-  publisher_email : string;  (** publisher_email *)
-  publisher_uri : string;  (** publisher_uri *)
+  eula : string prop;  (** eula *)
+  name : string prop;  (** name *)
+  prefix : string prop;  (** prefix *)
+  publisher_email : string prop;  (** publisher_email *)
+  publisher_uri : string prop;  (** publisher_uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_shared_image_gallery__sharing__community_gallery *)
 
 type azurerm_shared_image_gallery__sharing = {
-  permission : string;  (** permission *)
+  permission : string prop;  (** permission *)
   community_gallery :
     azurerm_shared_image_gallery__sharing__community_gallery list;
 }
@@ -23,21 +23,21 @@ type azurerm_shared_image_gallery__sharing = {
 (** azurerm_shared_image_gallery__sharing *)
 
 type azurerm_shared_image_gallery__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_shared_image_gallery__timeouts *)
 
 type azurerm_shared_image_gallery = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   sharing : azurerm_shared_image_gallery__sharing list;
   timeouts : azurerm_shared_image_gallery__timeouts option;
 }

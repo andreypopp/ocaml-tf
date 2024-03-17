@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_iot_thing_group__properties__attribute_payload = {
-  attributes : (string * string) list option; [@option]
+  attributes : (string * string prop) list option; [@option]
       (** attributes *)
 }
 [@@deriving yojson_of]
 (** aws_iot_thing_group__properties__attribute_payload *)
 
 type aws_iot_thing_group__properties = {
-  description : string option; [@option]  (** description *)
+  description : string prop option; [@option]  (** description *)
   attribute_payload :
     aws_iot_thing_group__properties__attribute_payload list;
 }
@@ -20,14 +20,14 @@ type aws_iot_thing_group__properties = {
 (** aws_iot_thing_group__properties *)
 
 type aws_iot_thing_group__metadata__root_to_parent_groups = {
-  group_arn : string;  (** group_arn *)
-  group_name : string;  (** group_name *)
+  group_arn : string prop;  (** group_arn *)
+  group_name : string prop;  (** group_name *)
 }
 [@@deriving yojson_of]
 
 type aws_iot_thing_group__metadata = {
-  creation_date : string;  (** creation_date *)
-  parent_group_name : string;  (** parent_group_name *)
+  creation_date : string prop;  (** creation_date *)
+  parent_group_name : string prop;  (** parent_group_name *)
   root_to_parent_groups :
     aws_iot_thing_group__metadata__root_to_parent_groups list;
       (** root_to_parent_groups *)
@@ -35,12 +35,12 @@ type aws_iot_thing_group__metadata = {
 [@@deriving yojson_of]
 
 type aws_iot_thing_group = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  parent_group_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  parent_group_name : string prop option; [@option]
       (** parent_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   properties : aws_iot_thing_group__properties list;
 }

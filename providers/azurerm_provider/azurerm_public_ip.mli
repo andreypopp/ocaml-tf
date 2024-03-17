@@ -6,24 +6,24 @@ type azurerm_public_ip__timeouts
 type azurerm_public_ip
 
 val azurerm_public_ip :
-  ?ddos_protection_mode:string ->
-  ?ddos_protection_plan_id:string ->
-  ?domain_name_label:string ->
-  ?edge_zone:string ->
-  ?id:string ->
-  ?idle_timeout_in_minutes:float ->
-  ?ip_tags:(string * string) list ->
-  ?ip_version:string ->
-  ?public_ip_prefix_id:string ->
-  ?reverse_fqdn:string ->
-  ?sku:string ->
-  ?sku_tier:string ->
-  ?tags:(string * string) list ->
-  ?zones:string list ->
+  ?ddos_protection_mode:string prop ->
+  ?ddos_protection_plan_id:string prop ->
+  ?domain_name_label:string prop ->
+  ?edge_zone:string prop ->
+  ?id:string prop ->
+  ?idle_timeout_in_minutes:float prop ->
+  ?ip_tags:(string * string prop) list ->
+  ?ip_version:string prop ->
+  ?public_ip_prefix_id:string prop ->
+  ?reverse_fqdn:string prop ->
+  ?sku:string prop ->
+  ?sku_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_public_ip__timeouts ->
-  allocation_method:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  allocation_method:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

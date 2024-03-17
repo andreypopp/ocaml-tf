@@ -5,8 +5,9 @@
 open! Tf.Prelude
 
 type aws_backup_global_settings = {
-  global_settings : (string * string) list;  (** global_settings *)
-  id : string option; [@option]  (** id *)
+  global_settings : (string * string prop) list;
+      (** global_settings *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_backup_global_settings *)

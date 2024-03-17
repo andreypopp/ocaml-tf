@@ -10,11 +10,11 @@ type aws_lambda_function_event_invoke_config__destination_config
 type aws_lambda_function_event_invoke_config
 
 val aws_lambda_function_event_invoke_config :
-  ?id:string ->
-  ?maximum_event_age_in_seconds:float ->
-  ?maximum_retry_attempts:float ->
-  ?qualifier:string ->
-  function_name:string ->
+  ?id:string prop ->
+  ?maximum_event_age_in_seconds:float prop ->
+  ?maximum_retry_attempts:float prop ->
+  ?qualifier:string prop ->
+  function_name:string prop ->
   destination_config:
     aws_lambda_function_event_invoke_config__destination_config list ->
   string ->

@@ -5,40 +5,41 @@
 open! Tf.Prelude
 
 type azurerm_traffic_manager_azure_endpoint__custom_header = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_traffic_manager_azure_endpoint__custom_header *)
 
 type azurerm_traffic_manager_azure_endpoint__subnet = {
-  first : string;  (** first *)
-  last : string option; [@option]  (** last *)
-  scope : float option; [@option]  (** scope *)
+  first : string prop;  (** first *)
+  last : string prop option; [@option]  (** last *)
+  scope : float prop option; [@option]  (** scope *)
 }
 [@@deriving yojson_of]
 (** azurerm_traffic_manager_azure_endpoint__subnet *)
 
 type azurerm_traffic_manager_azure_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_traffic_manager_azure_endpoint__timeouts *)
 
 type azurerm_traffic_manager_azure_endpoint = {
-  always_serve_enabled : bool option; [@option]
+  always_serve_enabled : bool prop option; [@option]
       (** always_serve_enabled *)
-  enabled : bool option; [@option]  (** enabled *)
-  geo_mappings : string list option; [@option]  (** geo_mappings *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  priority : float option; [@option]  (** priority *)
-  profile_id : string;  (** profile_id *)
-  target_resource_id : string;  (** target_resource_id *)
-  weight : float option; [@option]  (** weight *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  geo_mappings : string prop list option; [@option]
+      (** geo_mappings *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  priority : float prop option; [@option]  (** priority *)
+  profile_id : string prop;  (** profile_id *)
+  target_resource_id : string prop;  (** target_resource_id *)
+  weight : float prop option; [@option]  (** weight *)
   custom_header :
     azurerm_traffic_manager_azure_endpoint__custom_header list;
   subnet : azurerm_traffic_manager_azure_endpoint__subnet list;

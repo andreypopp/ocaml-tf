@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type google_apigee_sync_authorization__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_apigee_sync_authorization__timeouts *)
 
 type google_apigee_sync_authorization = {
-  id : string option; [@option]  (** id *)
-  identities : string list;
+  id : string prop option; [@option]  (** id *)
+  identities : string prop list;
       (** Array of service accounts to grant access to control plane resources, each specified using the following format: 'serviceAccount:service-account-name'.
 
 The 'service-account-name' is formatted like an email address. For example: my-synchronizer-manager-serviceAccount@my_project_id.iam.gserviceaccount.com
@@ -22,7 +22,7 @@ The 'service-account-name' is formatted like an email address. For example: my-s
 You might specify multiple service accounts, for example, if you have multiple environments and wish to assign a unique service account to each one.
 
 The service accounts must have **Apigee Synchronizer Manager** role. See also [Create service accounts](https://cloud.google.com/apigee/docs/hybrid/v1.8/sa-about#create-the-service-accounts). *)
-  name : string;  (** Name of the Apigee organization. *)
+  name : string prop;  (** Name of the Apigee organization. *)
   timeouts : google_apigee_sync_authorization__timeouts option;
 }
 [@@deriving yojson_of]

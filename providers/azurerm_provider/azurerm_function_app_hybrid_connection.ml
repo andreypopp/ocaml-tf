@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_function_app_hybrid_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_function_app_hybrid_connection__timeouts *)
 
 type azurerm_function_app_hybrid_connection = {
-  function_app_id : string;
+  function_app_id : string prop;
       (** The ID of the Function App for this Hybrid Connection. *)
-  hostname : string;  (** The hostname of the endpoint. *)
-  id : string option; [@option]  (** id *)
-  port : float;  (** The port to use for the endpoint *)
-  relay_id : string;
+  hostname : string prop;  (** The hostname of the endpoint. *)
+  id : string prop option; [@option]  (** id *)
+  port : float prop;  (** The port to use for the endpoint *)
+  relay_id : string prop;
       (** The ID of the Relay Hybrid Connection to use. *)
-  send_key_name : string option; [@option]
+  send_key_name : string prop option; [@option]
       (** The name of the Relay key with `Send` permission to use. Defaults to `RootManageSharedAccessKey` *)
   timeouts : azurerm_function_app_hybrid_connection__timeouts option;
 }

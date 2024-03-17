@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type google_firebaserules_ruleset__source__files = {
-  content : string;  (** Textual Content. *)
-  fingerprint : string option; [@option]
+  content : string prop;  (** Textual Content. *)
+  fingerprint : string prop option; [@option]
       (** Fingerprint (e.g. github sha) associated with the `File`. *)
-  name : string;  (** File name. *)
+  name : string prop;  (** File name. *)
 }
 [@@deriving yojson_of]
 (** `File` set constituting the `Source` bundle. *)
 
 type google_firebaserules_ruleset__source = {
-  language : string option; [@option]
+  language : string prop option; [@option]
       (** `Language` of the `Source` bundle. If unspecified, the language will default to `FIREBASE_RULES`. Possible values: LANGUAGE_UNSPECIFIED, FIREBASE_RULES, EVENT_FLOW_TRIGGERS *)
   files : google_firebaserules_ruleset__source__files list;
 }
@@ -22,20 +22,20 @@ type google_firebaserules_ruleset__source = {
 (** `Source` for the `Ruleset`. *)
 
 type google_firebaserules_ruleset__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_firebaserules_ruleset__timeouts *)
 
 type google_firebaserules_ruleset__metadata = {
-  services : string list;  (** services *)
+  services : string prop list;  (** services *)
 }
 [@@deriving yojson_of]
 
 type google_firebaserules_ruleset = {
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]
       (** The project for the resource *)
   source : google_firebaserules_ruleset__source list;
   timeouts : google_firebaserules_ruleset__timeouts option;

@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_route53_traffic_policy_instance = {
-  hosted_zone_id : string;  (** hosted_zone_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  traffic_policy_id : string;  (** traffic_policy_id *)
-  traffic_policy_version : float;  (** traffic_policy_version *)
-  ttl : float;  (** ttl *)
+  hosted_zone_id : string prop;  (** hosted_zone_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  traffic_policy_id : string prop;  (** traffic_policy_id *)
+  traffic_policy_version : float prop;  (** traffic_policy_version *)
+  ttl : float prop;  (** ttl *)
 }
 [@@deriving yojson_of]
 (** aws_route53_traffic_policy_instance *)

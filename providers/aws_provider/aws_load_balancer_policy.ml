@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_load_balancer_policy__policy_attribute = {
-  name : string option; [@option]  (** name *)
-  value : string option; [@option]  (** value *)
+  name : string prop option; [@option]  (** name *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_load_balancer_policy__policy_attribute *)
 
 type aws_load_balancer_policy = {
-  id : string option; [@option]  (** id *)
-  load_balancer_name : string;  (** load_balancer_name *)
-  policy_name : string;  (** policy_name *)
-  policy_type_name : string;  (** policy_type_name *)
+  id : string prop option; [@option]  (** id *)
+  load_balancer_name : string prop;  (** load_balancer_name *)
+  policy_name : string prop;  (** policy_name *)
+  policy_type_name : string prop;  (** policy_type_name *)
   policy_attribute : aws_load_balancer_policy__policy_attribute list;
 }
 [@@deriving yojson_of]

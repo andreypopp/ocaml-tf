@@ -11,17 +11,17 @@ type aws_gamelift_game_server_group__timeouts
 type aws_gamelift_game_server_group
 
 val aws_gamelift_game_server_group :
-  ?balancing_strategy:string ->
-  ?game_server_protection_policy:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?vpc_subnets:string list ->
+  ?balancing_strategy:string prop ->
+  ?game_server_protection_policy:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_subnets:string prop list ->
   ?timeouts:aws_gamelift_game_server_group__timeouts ->
-  game_server_group_name:string ->
-  max_size:float ->
-  min_size:float ->
-  role_arn:string ->
+  game_server_group_name:string prop ->
+  max_size:float prop ->
+  min_size:float prop ->
+  role_arn:string prop ->
   auto_scaling_policy:
     aws_gamelift_game_server_group__auto_scaling_policy list ->
   instance_definition:

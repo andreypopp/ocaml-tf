@@ -6,12 +6,12 @@ type azurerm_app_service_public_certificate__timeouts
 type azurerm_app_service_public_certificate
 
 val azurerm_app_service_public_certificate :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_app_service_public_certificate__timeouts ->
-  app_service_name:string ->
-  blob:string ->
-  certificate_location:string ->
-  certificate_name:string ->
-  resource_group_name:string ->
+  app_service_name:string prop ->
+  blob:string prop ->
+  certificate_location:string prop ->
+  certificate_name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

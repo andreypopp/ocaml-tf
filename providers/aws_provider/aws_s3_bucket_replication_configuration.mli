@@ -34,10 +34,10 @@ type aws_s3_bucket_replication_configuration__rule
 type aws_s3_bucket_replication_configuration
 
 val aws_s3_bucket_replication_configuration :
-  ?id:string ->
-  ?token:string ->
-  bucket:string ->
-  role:string ->
+  ?id:string prop ->
+  ?token:string prop ->
+  bucket:string prop ->
+  role:string prop ->
   rule:aws_s3_bucket_replication_configuration__rule list ->
   string ->
   unit

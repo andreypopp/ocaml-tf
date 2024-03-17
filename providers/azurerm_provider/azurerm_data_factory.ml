@@ -5,71 +5,72 @@
 open! Tf.Prelude
 
 type azurerm_data_factory__github_configuration = {
-  account_name : string;  (** account_name *)
-  branch_name : string;  (** branch_name *)
-  git_url : string option; [@option]  (** git_url *)
-  publishing_enabled : bool option; [@option]
+  account_name : string prop;  (** account_name *)
+  branch_name : string prop;  (** branch_name *)
+  git_url : string prop option; [@option]  (** git_url *)
+  publishing_enabled : bool prop option; [@option]
       (** publishing_enabled *)
-  repository_name : string;  (** repository_name *)
-  root_folder : string;  (** root_folder *)
+  repository_name : string prop;  (** repository_name *)
+  root_folder : string prop;  (** root_folder *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory__github_configuration *)
 
 type azurerm_data_factory__global_parameter = {
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory__global_parameter *)
 
 type azurerm_data_factory__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory__identity *)
 
 type azurerm_data_factory__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory__timeouts *)
 
 type azurerm_data_factory__vsts_configuration = {
-  account_name : string;  (** account_name *)
-  branch_name : string;  (** branch_name *)
-  project_name : string;  (** project_name *)
-  publishing_enabled : bool option; [@option]
+  account_name : string prop;  (** account_name *)
+  branch_name : string prop;  (** branch_name *)
+  project_name : string prop;  (** project_name *)
+  publishing_enabled : bool prop option; [@option]
       (** publishing_enabled *)
-  repository_name : string;  (** repository_name *)
-  root_folder : string;  (** root_folder *)
-  tenant_id : string;  (** tenant_id *)
+  repository_name : string prop;  (** repository_name *)
+  root_folder : string prop;  (** root_folder *)
+  tenant_id : string prop;  (** tenant_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory__vsts_configuration *)
 
 type azurerm_data_factory = {
-  customer_managed_key_id : string option; [@option]
+  customer_managed_key_id : string prop option; [@option]
       (** customer_managed_key_id *)
-  customer_managed_key_identity_id : string option; [@option]
+  customer_managed_key_identity_id : string prop option; [@option]
       (** customer_managed_key_identity_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  managed_virtual_network_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  managed_virtual_network_enabled : bool prop option; [@option]
       (** managed_virtual_network_enabled *)
-  name : string;  (** name *)
-  public_network_enabled : bool option; [@option]
+  name : string prop;  (** name *)
+  public_network_enabled : bool prop option; [@option]
       (** public_network_enabled *)
-  purview_id : string option; [@option]  (** purview_id *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  purview_id : string prop option; [@option]  (** purview_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   github_configuration :
     azurerm_data_factory__github_configuration list;
   global_parameter : azurerm_data_factory__global_parameter list;

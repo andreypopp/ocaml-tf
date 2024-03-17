@@ -5,30 +5,33 @@
 open! Tf.Prelude
 
 type aws_lambda_function_url__cors = {
-  allow_credentials : bool option; [@option]
+  allow_credentials : bool prop option; [@option]
       (** allow_credentials *)
-  allow_headers : string list option; [@option]  (** allow_headers *)
-  allow_methods : string list option; [@option]  (** allow_methods *)
-  allow_origins : string list option; [@option]  (** allow_origins *)
-  expose_headers : string list option; [@option]
+  allow_headers : string prop list option; [@option]
+      (** allow_headers *)
+  allow_methods : string prop list option; [@option]
+      (** allow_methods *)
+  allow_origins : string prop list option; [@option]
+      (** allow_origins *)
+  expose_headers : string prop list option; [@option]
       (** expose_headers *)
-  max_age : float option; [@option]  (** max_age *)
+  max_age : float prop option; [@option]  (** max_age *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function_url__cors *)
 
 type aws_lambda_function_url__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function_url__timeouts *)
 
 type aws_lambda_function_url = {
-  authorization_type : string;  (** authorization_type *)
-  function_name : string;  (** function_name *)
-  id : string option; [@option]  (** id *)
-  invoke_mode : string option; [@option]  (** invoke_mode *)
-  qualifier : string option; [@option]  (** qualifier *)
+  authorization_type : string prop;  (** authorization_type *)
+  function_name : string prop;  (** function_name *)
+  id : string prop option; [@option]  (** id *)
+  invoke_mode : string prop option; [@option]  (** invoke_mode *)
+  qualifier : string prop option; [@option]  (** qualifier *)
   cors : aws_lambda_function_url__cors list;
   timeouts : aws_lambda_function_url__timeouts option;
 }

@@ -5,37 +5,38 @@
 open! Tf.Prelude
 
 type azurerm_firewall_nat_rule_collection__rule = {
-  description : string option; [@option]  (** description *)
-  destination_addresses : string list;  (** destination_addresses *)
-  destination_ports : string list;  (** destination_ports *)
-  name : string;  (** name *)
-  protocols : string list;  (** protocols *)
-  source_addresses : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  destination_addresses : string prop list;
+      (** destination_addresses *)
+  destination_ports : string prop list;  (** destination_ports *)
+  name : string prop;  (** name *)
+  protocols : string prop list;  (** protocols *)
+  source_addresses : string prop list option; [@option]
       (** source_addresses *)
-  source_ip_groups : string list option; [@option]
+  source_ip_groups : string prop list option; [@option]
       (** source_ip_groups *)
-  translated_address : string;  (** translated_address *)
-  translated_port : string;  (** translated_port *)
+  translated_address : string prop;  (** translated_address *)
+  translated_port : string prop;  (** translated_port *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_nat_rule_collection__rule *)
 
 type azurerm_firewall_nat_rule_collection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_nat_rule_collection__timeouts *)
 
 type azurerm_firewall_nat_rule_collection = {
-  action : string;  (** action *)
-  azure_firewall_name : string;  (** azure_firewall_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  priority : float;  (** priority *)
-  resource_group_name : string;  (** resource_group_name *)
+  action : string prop;  (** action *)
+  azure_firewall_name : string prop;  (** azure_firewall_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  resource_group_name : string prop;  (** resource_group_name *)
   rule : azurerm_firewall_nat_rule_collection__rule list;
   timeouts : azurerm_firewall_nat_rule_collection__timeouts option;
 }

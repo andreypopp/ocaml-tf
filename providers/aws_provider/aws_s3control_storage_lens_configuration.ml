@@ -5,58 +5,58 @@
 open! Tf.Prelude
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__activity_metrics = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__activity_metrics *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__advanced_cost_optimization_metrics = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__advanced_cost_optimization_metrics *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__advanced_data_protection_metrics = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__advanced_data_protection_metrics *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__activity_metrics = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__activity_metrics *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__advanced_cost_optimization_metrics = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__advanced_cost_optimization_metrics *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__advanced_data_protection_metrics = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__advanced_data_protection_metrics *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__detailed_status_code_metrics = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__detailed_status_code_metrics *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__prefix_level__storage_metrics__selection_criteria = {
-  delimiter : string option; [@option]  (** delimiter *)
-  max_depth : float option; [@option]  (** max_depth *)
-  min_storage_bytes_percentage : float option; [@option]
+  delimiter : string prop option; [@option]  (** delimiter *)
+  max_depth : float prop option; [@option]  (** max_depth *)
+  min_storage_bytes_percentage : float prop option; [@option]
       (** min_storage_bytes_percentage *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__prefix_level__storage_metrics__selection_criteria *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__prefix_level__storage_metrics = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
   selection_criteria :
     aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level__prefix_level__storage_metrics__selection_criteria
     list;
@@ -93,7 +93,7 @@ type aws_s3control_storage_lens_configuration__storage_lens_configuration__accou
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__bucket_level *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__detailed_status_code_metrics = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level__detailed_status_code_metrics *)
@@ -119,19 +119,19 @@ type aws_s3control_storage_lens_configuration__storage_lens_configuration__accou
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__aws_org = {
-  arn : string;  (** arn *)
+  arn : string prop;  (** arn *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__aws_org *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__data_export__cloud_watch_metrics = {
-  enabled : bool;  (** enabled *)
+  enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__data_export__cloud_watch_metrics *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__data_export__s3_bucket_destination__encryption__sse_kms = {
-  key_id : string;  (** key_id *)
+  key_id : string prop;  (** key_id *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__data_export__s3_bucket_destination__encryption__sse_kms *)
@@ -152,11 +152,11 @@ type aws_s3control_storage_lens_configuration__storage_lens_configuration__data_
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__data_export__s3_bucket_destination__encryption *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__data_export__s3_bucket_destination = {
-  account_id : string;  (** account_id *)
-  arn : string;  (** arn *)
-  format : string;  (** format *)
-  output_schema_version : string;  (** output_schema_version *)
-  prefix : string option; [@option]  (** prefix *)
+  account_id : string prop;  (** account_id *)
+  arn : string prop;  (** arn *)
+  format : string prop;  (** format *)
+  output_schema_version : string prop;  (** output_schema_version *)
+  prefix : string prop option; [@option]  (** prefix *)
   encryption :
     aws_s3control_storage_lens_configuration__storage_lens_configuration__data_export__s3_bucket_destination__encryption
     list;
@@ -176,21 +176,21 @@ type aws_s3control_storage_lens_configuration__storage_lens_configuration__data_
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__data_export *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__exclude = {
-  buckets : string list option; [@option]  (** buckets *)
-  regions : string list option; [@option]  (** regions *)
+  buckets : string prop list option; [@option]  (** buckets *)
+  regions : string prop list option; [@option]  (** regions *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__exclude *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration__include = {
-  buckets : string list option; [@option]  (** buckets *)
-  regions : string list option; [@option]  (** regions *)
+  buckets : string prop list option; [@option]  (** buckets *)
+  regions : string prop list option; [@option]  (** regions *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration__include *)
 
 type aws_s3control_storage_lens_configuration__storage_lens_configuration = {
-  enabled : bool;  (** enabled *)
+  enabled : bool prop;  (** enabled *)
   account_level :
     aws_s3control_storage_lens_configuration__storage_lens_configuration__account_level
     list;
@@ -211,11 +211,11 @@ type aws_s3control_storage_lens_configuration__storage_lens_configuration = {
 (** aws_s3control_storage_lens_configuration__storage_lens_configuration *)
 
 type aws_s3control_storage_lens_configuration = {
-  account_id : string option; [@option]  (** account_id *)
-  config_id : string;  (** config_id *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  account_id : string prop option; [@option]  (** account_id *)
+  config_id : string prop;  (** config_id *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   storage_lens_configuration :
     aws_s3control_storage_lens_configuration__storage_lens_configuration

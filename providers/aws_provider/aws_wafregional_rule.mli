@@ -6,11 +6,11 @@ type aws_wafregional_rule__predicate
 type aws_wafregional_rule
 
 val aws_wafregional_rule :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  metric_name:string ->
-  name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  metric_name:string prop ->
+  name:string prop ->
   predicate:aws_wafregional_rule__predicate list ->
   string ->
   unit

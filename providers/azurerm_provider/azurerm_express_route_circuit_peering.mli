@@ -9,18 +9,18 @@ type azurerm_express_route_circuit_peering__timeouts
 type azurerm_express_route_circuit_peering
 
 val azurerm_express_route_circuit_peering :
-  ?id:string ->
-  ?ipv4_enabled:bool ->
-  ?peer_asn:float ->
-  ?primary_peer_address_prefix:string ->
-  ?route_filter_id:string ->
-  ?secondary_peer_address_prefix:string ->
-  ?shared_key:string ->
+  ?id:string prop ->
+  ?ipv4_enabled:bool prop ->
+  ?peer_asn:float prop ->
+  ?primary_peer_address_prefix:string prop ->
+  ?route_filter_id:string prop ->
+  ?secondary_peer_address_prefix:string prop ->
+  ?shared_key:string prop ->
   ?timeouts:azurerm_express_route_circuit_peering__timeouts ->
-  express_route_circuit_name:string ->
-  peering_type:string ->
-  resource_group_name:string ->
-  vlan_id:float ->
+  express_route_circuit_name:string prop ->
+  peering_type:string prop ->
+  resource_group_name:string prop ->
+  vlan_id:float prop ->
   ipv6:azurerm_express_route_circuit_peering__ipv6 list ->
   microsoft_peering_config:
     azurerm_express_route_circuit_peering__microsoft_peering_config

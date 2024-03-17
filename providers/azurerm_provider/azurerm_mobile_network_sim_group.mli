@@ -7,13 +7,13 @@ type azurerm_mobile_network_sim_group__timeouts
 type azurerm_mobile_network_sim_group
 
 val azurerm_mobile_network_sim_group :
-  ?encryption_key_url:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?encryption_key_url:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_mobile_network_sim_group__timeouts ->
-  location:string ->
-  mobile_network_id:string ->
-  name:string ->
+  location:string prop ->
+  mobile_network_id:string prop ->
+  name:string prop ->
   identity:azurerm_mobile_network_sim_group__identity list ->
   string ->
   unit

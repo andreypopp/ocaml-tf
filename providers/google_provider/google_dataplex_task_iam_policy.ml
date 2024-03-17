@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type google_dataplex_task_iam_policy = {
-  id : string option; [@option]  (** id *)
-  lake : string;  (** lake *)
-  location : string option; [@option]  (** location *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  task_id : string;  (** task_id *)
+  id : string prop option; [@option]  (** id *)
+  lake : string prop;  (** lake *)
+  location : string prop option; [@option]  (** location *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  task_id : string prop;  (** task_id *)
 }
 [@@deriving yojson_of]
 (** google_dataplex_task_iam_policy *)

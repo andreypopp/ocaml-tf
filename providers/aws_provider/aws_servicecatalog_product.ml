@@ -5,42 +5,43 @@
 open! Tf.Prelude
 
 type aws_servicecatalog_product__provisioning_artifact_parameters = {
-  description : string option; [@option]  (** description *)
-  disable_template_validation : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  disable_template_validation : bool prop option; [@option]
       (** disable_template_validation *)
-  name : string option; [@option]  (** name *)
-  template_physical_id : string option; [@option]
+  name : string prop option; [@option]  (** name *)
+  template_physical_id : string prop option; [@option]
       (** template_physical_id *)
-  template_url : string option; [@option]  (** template_url *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  template_url : string prop option; [@option]  (** template_url *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_product__provisioning_artifact_parameters *)
 
 type aws_servicecatalog_product__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_product__timeouts *)
 
 type aws_servicecatalog_product = {
-  accept_language : string option; [@option]  (** accept_language *)
-  description : string option; [@option]  (** description *)
-  distributor : string option; [@option]  (** distributor *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  owner : string;  (** owner *)
-  support_description : string option; [@option]
+  accept_language : string prop option; [@option]
+      (** accept_language *)
+  description : string prop option; [@option]  (** description *)
+  distributor : string prop option; [@option]  (** distributor *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  owner : string prop;  (** owner *)
+  support_description : string prop option; [@option]
       (** support_description *)
-  support_email : string option; [@option]  (** support_email *)
-  support_url : string option; [@option]  (** support_url *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  support_email : string prop option; [@option]  (** support_email *)
+  support_url : string prop option; [@option]  (** support_url *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   provisioning_artifact_parameters :
     aws_servicecatalog_product__provisioning_artifact_parameters list;
   timeouts : aws_servicecatalog_product__timeouts option;

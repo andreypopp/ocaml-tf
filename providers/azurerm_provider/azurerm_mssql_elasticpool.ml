@@ -5,44 +5,45 @@
 open! Tf.Prelude
 
 type azurerm_mssql_elasticpool__per_database_settings = {
-  max_capacity : float;  (** max_capacity *)
-  min_capacity : float;  (** min_capacity *)
+  max_capacity : float prop;  (** max_capacity *)
+  min_capacity : float prop;  (** min_capacity *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_elasticpool__per_database_settings *)
 
 type azurerm_mssql_elasticpool__sku = {
-  capacity : float;  (** capacity *)
-  family : string option; [@option]  (** family *)
-  name : string;  (** name *)
-  tier : string;  (** tier *)
+  capacity : float prop;  (** capacity *)
+  family : string prop option; [@option]  (** family *)
+  name : string prop;  (** name *)
+  tier : string prop;  (** tier *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_elasticpool__sku *)
 
 type azurerm_mssql_elasticpool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_elasticpool__timeouts *)
 
 type azurerm_mssql_elasticpool = {
-  enclave_type : string option; [@option]  (** enclave_type *)
-  id : string option; [@option]  (** id *)
-  license_type : string option; [@option]  (** license_type *)
-  location : string;  (** location *)
-  maintenance_configuration_name : string option; [@option]
+  enclave_type : string prop option; [@option]  (** enclave_type *)
+  id : string prop option; [@option]  (** id *)
+  license_type : string prop option; [@option]  (** license_type *)
+  location : string prop;  (** location *)
+  maintenance_configuration_name : string prop option; [@option]
       (** maintenance_configuration_name *)
-  max_size_bytes : float option; [@option]  (** max_size_bytes *)
-  max_size_gb : float option; [@option]  (** max_size_gb *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  server_name : string;  (** server_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  zone_redundant : bool option; [@option]  (** zone_redundant *)
+  max_size_bytes : float prop option; [@option]
+      (** max_size_bytes *)
+  max_size_gb : float prop option; [@option]  (** max_size_gb *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  server_name : string prop;  (** server_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  zone_redundant : bool prop option; [@option]  (** zone_redundant *)
   per_database_settings :
     azurerm_mssql_elasticpool__per_database_settings list;
   sku : azurerm_mssql_elasticpool__sku list;

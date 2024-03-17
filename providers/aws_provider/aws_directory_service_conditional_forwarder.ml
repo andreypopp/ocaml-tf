@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_directory_service_conditional_forwarder = {
-  directory_id : string;  (** directory_id *)
-  dns_ips : string list;  (** dns_ips *)
-  id : string option; [@option]  (** id *)
-  remote_domain_name : string;  (** remote_domain_name *)
+  directory_id : string prop;  (** directory_id *)
+  dns_ips : string prop list;  (** dns_ips *)
+  id : string prop option; [@option]  (** id *)
+  remote_domain_name : string prop;  (** remote_domain_name *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_conditional_forwarder *)

@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_securityhub_standards_control = {
-  control_status : string;  (** control_status *)
-  disabled_reason : string option; [@option]  (** disabled_reason *)
-  id : string option; [@option]  (** id *)
-  standards_control_arn : string;  (** standards_control_arn *)
+  control_status : string prop;  (** control_status *)
+  disabled_reason : string prop option; [@option]
+      (** disabled_reason *)
+  id : string prop option; [@option]  (** id *)
+  standards_control_arn : string prop;  (** standards_control_arn *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_standards_control *)

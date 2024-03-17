@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_virtual_hub_ip__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_ip__timeouts *)
 
 type azurerm_virtual_hub_ip = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  private_ip_address : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  private_ip_address : string prop option; [@option]
       (** private_ip_address *)
-  private_ip_allocation_method : string option; [@option]
+  private_ip_allocation_method : string prop option; [@option]
       (** private_ip_allocation_method *)
-  public_ip_address_id : string;  (** public_ip_address_id *)
-  subnet_id : string;  (** subnet_id *)
-  virtual_hub_id : string;  (** virtual_hub_id *)
+  public_ip_address_id : string prop;  (** public_ip_address_id *)
+  subnet_id : string prop;  (** subnet_id *)
+  virtual_hub_id : string prop;  (** virtual_hub_id *)
   timeouts : azurerm_virtual_hub_ip__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,25 +5,26 @@
 open! Tf.Prelude
 
 type kubernetes_annotations__metadata = {
-  name : string;  (** The name of the resource. *)
-  namespace : string option; [@option]
+  name : string prop;  (** The name of the resource. *)
+  namespace : string prop option; [@option]
       (** The namespace of the resource. *)
 }
 [@@deriving yojson_of]
 (** kubernetes_annotations__metadata *)
 
 type kubernetes_annotations = {
-  annotations : (string * string) list option; [@option]
+  annotations : (string * string prop) list option; [@option]
       (** A map of annotations to apply to the resource. *)
-  api_version : string;
+  api_version : string prop;
       (** The apiVersion of the resource to annotate. *)
-  field_manager : string option; [@option]
+  field_manager : string prop option; [@option]
       (** Set the name of the field manager for the specified labels. *)
-  force : bool option; [@option]
+  force : bool prop option; [@option]
       (** Force overwriting annotations that were created or edited outside of Terraform. *)
-  id : string option; [@option]  (** id *)
-  kind : string;  (** The kind of the resource to annotate. *)
-  template_annotations : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kind : string prop;  (** The kind of the resource to annotate. *)
+  template_annotations : (string * string prop) list option;
+      [@option]
       (** A map of annotations to apply to the resource template. *)
   metadata : kubernetes_annotations__metadata list;
 }

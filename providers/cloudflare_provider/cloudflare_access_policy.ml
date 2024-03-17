@@ -5,92 +5,99 @@
 open! Tf.Prelude
 
 type cloudflare_access_policy__approval_group = {
-  approvals_needed : float;  (** Number of approvals needed. *)
-  email_addresses : string list option; [@option]
+  approvals_needed : float prop;  (** Number of approvals needed. *)
+  email_addresses : string prop list option; [@option]
       (** List of emails to request approval from. *)
-  email_list_uuid : string option; [@option]  (** email_list_uuid *)
+  email_list_uuid : string prop option; [@option]
+      (** email_list_uuid *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__approval_group *)
 
 type cloudflare_access_policy__exclude__auth_context = {
-  ac_id : string;  (** The ACID of the Authentication Context. *)
-  id : string;  (** The ID of the Authentication Context. *)
-  identity_provider_id : string;
+  ac_id : string prop;
+      (** The ACID of the Authentication Context. *)
+  id : string prop;  (** The ID of the Authentication Context. *)
+  identity_provider_id : string prop;
       (** The ID of the Azure Identity provider. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__exclude__auth_context *)
 
 type cloudflare_access_policy__exclude__azure = {
-  id : string list option; [@option]
+  id : string prop list option; [@option]
       (** The ID of the Azure group or user. *)
-  identity_provider_id : string option; [@option]
+  identity_provider_id : string prop option; [@option]
       (** The ID of the Azure Identity provider. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__exclude__azure *)
 
 type cloudflare_access_policy__exclude__external_evaluation = {
-  evaluate_url : string option; [@option]  (** evaluate_url *)
-  keys_url : string option; [@option]  (** keys_url *)
+  evaluate_url : string prop option; [@option]  (** evaluate_url *)
+  keys_url : string prop option; [@option]  (** keys_url *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__exclude__external_evaluation *)
 
 type cloudflare_access_policy__exclude__github = {
-  identity_provider_id : string option; [@option]
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
-  name : string option; [@option]  (** name *)
-  teams : string list option; [@option]  (** teams *)
+  name : string prop option; [@option]  (** name *)
+  teams : string prop list option; [@option]  (** teams *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__exclude__github *)
 
 type cloudflare_access_policy__exclude__gsuite = {
-  email : string list option; [@option]  (** email *)
-  identity_provider_id : string option; [@option]
+  email : string prop list option; [@option]  (** email *)
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__exclude__gsuite *)
 
 type cloudflare_access_policy__exclude__okta = {
-  identity_provider_id : string option; [@option]
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
-  name : string list option; [@option]  (** name *)
+  name : string prop list option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__exclude__okta *)
 
 type cloudflare_access_policy__exclude__saml = {
-  attribute_name : string option; [@option]  (** attribute_name *)
-  attribute_value : string option; [@option]  (** attribute_value *)
-  identity_provider_id : string option; [@option]
+  attribute_name : string prop option; [@option]
+      (** attribute_name *)
+  attribute_value : string prop option; [@option]
+      (** attribute_value *)
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__exclude__saml *)
 
 type cloudflare_access_policy__exclude = {
-  any_valid_service_token : bool option; [@option]
+  any_valid_service_token : bool prop option; [@option]
       (** any_valid_service_token *)
-  auth_method : string option; [@option]  (** auth_method *)
-  certificate : bool option; [@option]  (** certificate *)
-  common_name : string option; [@option]  (** common_name *)
-  device_posture : string list option; [@option]
+  auth_method : string prop option; [@option]  (** auth_method *)
+  certificate : bool prop option; [@option]  (** certificate *)
+  common_name : string prop option; [@option]  (** common_name *)
+  device_posture : string prop list option; [@option]
       (** device_posture *)
-  email : string list option; [@option]  (** email *)
-  email_domain : string list option; [@option]  (** email_domain *)
-  everyone : bool option; [@option]  (** everyone *)
-  geo : string list option; [@option]  (** geo *)
-  group : string list option; [@option]  (** group *)
-  ip : string list option; [@option]
+  email : string prop list option; [@option]  (** email *)
+  email_domain : string prop list option; [@option]
+      (** email_domain *)
+  everyone : bool prop option; [@option]  (** everyone *)
+  geo : string prop list option; [@option]  (** geo *)
+  group : string prop list option; [@option]  (** group *)
+  ip : string prop list option; [@option]
       (** An IPv4 or IPv6 CIDR block. *)
-  ip_list : string list option; [@option]
+  ip_list : string prop list option; [@option]
       (** The ID of an existing IP list to reference. *)
-  login_method : string list option; [@option]  (** login_method *)
-  service_token : string list option; [@option]  (** service_token *)
+  login_method : string prop list option; [@option]
+      (** login_method *)
+  service_token : string prop list option; [@option]
+      (** service_token *)
   auth_context :
     cloudflare_access_policy__exclude__auth_context list;
   azure : cloudflare_access_policy__exclude__azure list;
@@ -105,83 +112,89 @@ type cloudflare_access_policy__exclude = {
 (** A series of access conditions, see [Access Groups](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/access_group#conditions). *)
 
 type cloudflare_access_policy__include__auth_context = {
-  ac_id : string;  (** The ACID of the Authentication Context. *)
-  id : string;  (** The ID of the Authentication Context. *)
-  identity_provider_id : string;
+  ac_id : string prop;
+      (** The ACID of the Authentication Context. *)
+  id : string prop;  (** The ID of the Authentication Context. *)
+  identity_provider_id : string prop;
       (** The ID of the Azure Identity provider. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__include__auth_context *)
 
 type cloudflare_access_policy__include__azure = {
-  id : string list option; [@option]
+  id : string prop list option; [@option]
       (** The ID of the Azure group or user. *)
-  identity_provider_id : string option; [@option]
+  identity_provider_id : string prop option; [@option]
       (** The ID of the Azure Identity provider. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__include__azure *)
 
 type cloudflare_access_policy__include__external_evaluation = {
-  evaluate_url : string option; [@option]  (** evaluate_url *)
-  keys_url : string option; [@option]  (** keys_url *)
+  evaluate_url : string prop option; [@option]  (** evaluate_url *)
+  keys_url : string prop option; [@option]  (** keys_url *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__include__external_evaluation *)
 
 type cloudflare_access_policy__include__github = {
-  identity_provider_id : string option; [@option]
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
-  name : string option; [@option]  (** name *)
-  teams : string list option; [@option]  (** teams *)
+  name : string prop option; [@option]  (** name *)
+  teams : string prop list option; [@option]  (** teams *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__include__github *)
 
 type cloudflare_access_policy__include__gsuite = {
-  email : string list option; [@option]  (** email *)
-  identity_provider_id : string option; [@option]
+  email : string prop list option; [@option]  (** email *)
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__include__gsuite *)
 
 type cloudflare_access_policy__include__okta = {
-  identity_provider_id : string option; [@option]
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
-  name : string list option; [@option]  (** name *)
+  name : string prop list option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__include__okta *)
 
 type cloudflare_access_policy__include__saml = {
-  attribute_name : string option; [@option]  (** attribute_name *)
-  attribute_value : string option; [@option]  (** attribute_value *)
-  identity_provider_id : string option; [@option]
+  attribute_name : string prop option; [@option]
+      (** attribute_name *)
+  attribute_value : string prop option; [@option]
+      (** attribute_value *)
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__include__saml *)
 
 type cloudflare_access_policy__include = {
-  any_valid_service_token : bool option; [@option]
+  any_valid_service_token : bool prop option; [@option]
       (** any_valid_service_token *)
-  auth_method : string option; [@option]  (** auth_method *)
-  certificate : bool option; [@option]  (** certificate *)
-  common_name : string option; [@option]  (** common_name *)
-  device_posture : string list option; [@option]
+  auth_method : string prop option; [@option]  (** auth_method *)
+  certificate : bool prop option; [@option]  (** certificate *)
+  common_name : string prop option; [@option]  (** common_name *)
+  device_posture : string prop list option; [@option]
       (** device_posture *)
-  email : string list option; [@option]  (** email *)
-  email_domain : string list option; [@option]  (** email_domain *)
-  everyone : bool option; [@option]  (** everyone *)
-  geo : string list option; [@option]  (** geo *)
-  group : string list option; [@option]  (** group *)
-  ip : string list option; [@option]
+  email : string prop list option; [@option]  (** email *)
+  email_domain : string prop list option; [@option]
+      (** email_domain *)
+  everyone : bool prop option; [@option]  (** everyone *)
+  geo : string prop list option; [@option]  (** geo *)
+  group : string prop list option; [@option]  (** group *)
+  ip : string prop list option; [@option]
       (** An IPv4 or IPv6 CIDR block. *)
-  ip_list : string list option; [@option]
+  ip_list : string prop list option; [@option]
       (** The ID of an existing IP list to reference. *)
-  login_method : string list option; [@option]  (** login_method *)
-  service_token : string list option; [@option]  (** service_token *)
+  login_method : string prop list option; [@option]
+      (** login_method *)
+  service_token : string prop list option; [@option]
+      (** service_token *)
   auth_context :
     cloudflare_access_policy__include__auth_context list;
   azure : cloudflare_access_policy__include__azure list;
@@ -196,83 +209,89 @@ type cloudflare_access_policy__include = {
 (** A series of access conditions, see [Access Groups](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/access_group#conditions). *)
 
 type cloudflare_access_policy__require__auth_context = {
-  ac_id : string;  (** The ACID of the Authentication Context. *)
-  id : string;  (** The ID of the Authentication Context. *)
-  identity_provider_id : string;
+  ac_id : string prop;
+      (** The ACID of the Authentication Context. *)
+  id : string prop;  (** The ID of the Authentication Context. *)
+  identity_provider_id : string prop;
       (** The ID of the Azure Identity provider. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__require__auth_context *)
 
 type cloudflare_access_policy__require__azure = {
-  id : string list option; [@option]
+  id : string prop list option; [@option]
       (** The ID of the Azure group or user. *)
-  identity_provider_id : string option; [@option]
+  identity_provider_id : string prop option; [@option]
       (** The ID of the Azure Identity provider. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__require__azure *)
 
 type cloudflare_access_policy__require__external_evaluation = {
-  evaluate_url : string option; [@option]  (** evaluate_url *)
-  keys_url : string option; [@option]  (** keys_url *)
+  evaluate_url : string prop option; [@option]  (** evaluate_url *)
+  keys_url : string prop option; [@option]  (** keys_url *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__require__external_evaluation *)
 
 type cloudflare_access_policy__require__github = {
-  identity_provider_id : string option; [@option]
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
-  name : string option; [@option]  (** name *)
-  teams : string list option; [@option]  (** teams *)
+  name : string prop option; [@option]  (** name *)
+  teams : string prop list option; [@option]  (** teams *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__require__github *)
 
 type cloudflare_access_policy__require__gsuite = {
-  email : string list option; [@option]  (** email *)
-  identity_provider_id : string option; [@option]
+  email : string prop list option; [@option]  (** email *)
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__require__gsuite *)
 
 type cloudflare_access_policy__require__okta = {
-  identity_provider_id : string option; [@option]
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
-  name : string list option; [@option]  (** name *)
+  name : string prop list option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__require__okta *)
 
 type cloudflare_access_policy__require__saml = {
-  attribute_name : string option; [@option]  (** attribute_name *)
-  attribute_value : string option; [@option]  (** attribute_value *)
-  identity_provider_id : string option; [@option]
+  attribute_name : string prop option; [@option]
+      (** attribute_name *)
+  attribute_value : string prop option; [@option]
+      (** attribute_value *)
+  identity_provider_id : string prop option; [@option]
       (** identity_provider_id *)
 }
 [@@deriving yojson_of]
 (** cloudflare_access_policy__require__saml *)
 
 type cloudflare_access_policy__require = {
-  any_valid_service_token : bool option; [@option]
+  any_valid_service_token : bool prop option; [@option]
       (** any_valid_service_token *)
-  auth_method : string option; [@option]  (** auth_method *)
-  certificate : bool option; [@option]  (** certificate *)
-  common_name : string option; [@option]  (** common_name *)
-  device_posture : string list option; [@option]
+  auth_method : string prop option; [@option]  (** auth_method *)
+  certificate : bool prop option; [@option]  (** certificate *)
+  common_name : string prop option; [@option]  (** common_name *)
+  device_posture : string prop list option; [@option]
       (** device_posture *)
-  email : string list option; [@option]  (** email *)
-  email_domain : string list option; [@option]  (** email_domain *)
-  everyone : bool option; [@option]  (** everyone *)
-  geo : string list option; [@option]  (** geo *)
-  group : string list option; [@option]  (** group *)
-  ip : string list option; [@option]
+  email : string prop list option; [@option]  (** email *)
+  email_domain : string prop list option; [@option]
+      (** email_domain *)
+  everyone : bool prop option; [@option]  (** everyone *)
+  geo : string prop list option; [@option]  (** geo *)
+  group : string prop list option; [@option]  (** group *)
+  ip : string prop list option; [@option]
       (** An IPv4 or IPv6 CIDR block. *)
-  ip_list : string list option; [@option]
+  ip_list : string prop list option; [@option]
       (** The ID of an existing IP list to reference. *)
-  login_method : string list option; [@option]  (** login_method *)
-  service_token : string list option; [@option]  (** service_token *)
+  login_method : string prop list option; [@option]
+      (** login_method *)
+  service_token : string prop list option; [@option]
+      (** service_token *)
   auth_context :
     cloudflare_access_policy__require__auth_context list;
   azure : cloudflare_access_policy__require__azure list;
@@ -287,27 +306,27 @@ type cloudflare_access_policy__require = {
 (** A series of access conditions, see [Access Groups](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/access_group#conditions). *)
 
 type cloudflare_access_policy = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
-  application_id : string;
+  application_id : string prop;
       (** The ID of the application the policy is associated with. *)
-  approval_required : bool option; [@option]
+  approval_required : bool prop option; [@option]
       (** approval_required *)
-  decision : string;
+  decision : string prop;
       (** Defines the action Access will take if the policy matches the user. Available values: `allow`, `deny`, `non_identity`, `bypass`. *)
-  id : string option; [@option]  (** id *)
-  isolation_required : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  isolation_required : bool prop option; [@option]
       (** Require this application to be served in an isolated browser for users matching this policy. *)
-  name : string;  (** Friendly name of the Access Policy. *)
-  precedence : float;
+  name : string prop;  (** Friendly name of the Access Policy. *)
+  precedence : float prop;
       (** The unique precedence for policies on a single application. *)
-  purpose_justification_prompt : string option; [@option]
+  purpose_justification_prompt : string prop option; [@option]
       (** The prompt to display to the user for a justification for accessing the resource. Required when using `purpose_justification_required`. *)
-  purpose_justification_required : bool option; [@option]
+  purpose_justification_required : bool prop option; [@option]
       (** Whether to prompt the user for a justification for accessing the resource. *)
-  session_duration : string option; [@option]
+  session_duration : string prop option; [@option]
       (** How often a user will be forced to re-authorise. Must be in the format `48h` or `2h45m`. *)
-  zone_id : string option; [@option]
+  zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
   approval_group : cloudflare_access_policy__approval_group list;
   exclude : cloudflare_access_policy__exclude list;

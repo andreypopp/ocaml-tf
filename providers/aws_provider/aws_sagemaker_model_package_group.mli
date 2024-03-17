@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_sagemaker_model_package_group
 
 val aws_sagemaker_model_package_group :
-  ?id:string ->
-  ?model_package_group_description:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  model_package_group_name:string ->
+  ?id:string prop ->
+  ?model_package_group_description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  model_package_group_name:string prop ->
   string ->
   unit

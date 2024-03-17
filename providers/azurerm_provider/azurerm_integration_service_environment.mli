@@ -6,14 +6,14 @@ type azurerm_integration_service_environment__timeouts
 type azurerm_integration_service_environment
 
 val azurerm_integration_service_environment :
-  ?id:string ->
-  ?sku_name:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?sku_name:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_integration_service_environment__timeouts ->
-  access_endpoint_type:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  virtual_network_subnet_ids:string list ->
+  access_endpoint_type:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  virtual_network_subnet_ids:string prop list ->
   string ->
   unit

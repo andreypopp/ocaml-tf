@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type digitalocean_project__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** digitalocean_project__timeouts *)
 
 type digitalocean_project = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** the description of the project *)
-  environment : string option; [@option]
+  environment : string prop option; [@option]
       (** the environment of the project's resources *)
-  id : string option; [@option]  (** id *)
-  is_default : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  is_default : bool prop option; [@option]
       (** determine if the project is the default or not. *)
-  name : string;  (** the human-readable name for the project *)
-  purpose : string option; [@option]
+  name : string prop;  (** the human-readable name for the project *)
+  purpose : string prop option; [@option]
       (** the purpose of the project *)
-  resources : string list option; [@option]
+  resources : string prop list option; [@option]
       (** the resources associated with the project *)
   timeouts : digitalocean_project__timeouts option;
 }

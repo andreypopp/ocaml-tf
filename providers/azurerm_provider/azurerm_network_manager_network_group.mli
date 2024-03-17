@@ -6,10 +6,10 @@ type azurerm_network_manager_network_group__timeouts
 type azurerm_network_manager_network_group
 
 val azurerm_network_manager_network_group :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_network_manager_network_group__timeouts ->
-  name:string ->
-  network_manager_id:string ->
+  name:string prop ->
+  network_manager_id:string prop ->
   string ->
   unit

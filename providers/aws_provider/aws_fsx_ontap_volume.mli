@@ -17,22 +17,22 @@ type aws_fsx_ontap_volume__timeouts
 type aws_fsx_ontap_volume
 
 val aws_fsx_ontap_volume :
-  ?bypass_snaplock_enterprise_retention:bool ->
-  ?copy_tags_to_backups:bool ->
-  ?id:string ->
-  ?junction_path:string ->
-  ?ontap_volume_type:string ->
-  ?security_style:string ->
-  ?skip_final_backup:bool ->
-  ?snapshot_policy:string ->
-  ?storage_efficiency_enabled:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?volume_type:string ->
+  ?bypass_snaplock_enterprise_retention:bool prop ->
+  ?copy_tags_to_backups:bool prop ->
+  ?id:string prop ->
+  ?junction_path:string prop ->
+  ?ontap_volume_type:string prop ->
+  ?security_style:string prop ->
+  ?skip_final_backup:bool prop ->
+  ?snapshot_policy:string prop ->
+  ?storage_efficiency_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?volume_type:string prop ->
   ?timeouts:aws_fsx_ontap_volume__timeouts ->
-  name:string ->
-  size_in_megabytes:float ->
-  storage_virtual_machine_id:string ->
+  name:string prop ->
+  size_in_megabytes:float prop ->
+  storage_virtual_machine_id:string prop ->
   snaplock_configuration:
     aws_fsx_ontap_volume__snaplock_configuration list ->
   tiering_policy:aws_fsx_ontap_volume__tiering_policy list ->

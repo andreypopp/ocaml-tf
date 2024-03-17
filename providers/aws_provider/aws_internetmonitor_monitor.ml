@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_internetmonitor_monitor__health_events_config = {
-  availability_score_threshold : float option; [@option]
+  availability_score_threshold : float prop option; [@option]
       (** availability_score_threshold *)
-  performance_score_threshold : float option; [@option]
+  performance_score_threshold : float prop option; [@option]
       (** performance_score_threshold *)
 }
 [@@deriving yojson_of]
 (** aws_internetmonitor_monitor__health_events_config *)
 
 type aws_internetmonitor_monitor__internet_measurements_log_delivery__s3_config = {
-  bucket_name : string;  (** bucket_name *)
-  bucket_prefix : string option; [@option]  (** bucket_prefix *)
-  log_delivery_status : string option; [@option]
+  bucket_name : string prop;  (** bucket_name *)
+  bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
+  log_delivery_status : string prop option; [@option]
       (** log_delivery_status *)
 }
 [@@deriving yojson_of]
@@ -31,16 +31,16 @@ type aws_internetmonitor_monitor__internet_measurements_log_delivery = {
 (** aws_internetmonitor_monitor__internet_measurements_log_delivery *)
 
 type aws_internetmonitor_monitor = {
-  id : string option; [@option]  (** id *)
-  max_city_networks_to_monitor : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  max_city_networks_to_monitor : float prop option; [@option]
       (** max_city_networks_to_monitor *)
-  monitor_name : string;  (** monitor_name *)
-  resources : string list option; [@option]  (** resources *)
-  status : string option; [@option]  (** status *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  monitor_name : string prop;  (** monitor_name *)
+  resources : string prop list option; [@option]  (** resources *)
+  status : string prop option; [@option]  (** status *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  traffic_percentage_to_monitor : float option; [@option]
+  traffic_percentage_to_monitor : float prop option; [@option]
       (** traffic_percentage_to_monitor *)
   health_events_config :
     aws_internetmonitor_monitor__health_events_config list;

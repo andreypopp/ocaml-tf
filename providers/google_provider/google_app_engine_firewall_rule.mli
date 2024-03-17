@@ -6,12 +6,12 @@ type google_app_engine_firewall_rule__timeouts
 type google_app_engine_firewall_rule
 
 val google_app_engine_firewall_rule :
-  ?description:string ->
-  ?id:string ->
-  ?priority:float ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?project:string prop ->
   ?timeouts:google_app_engine_firewall_rule__timeouts ->
-  action:string ->
-  source_range:string ->
+  action:string prop ->
+  source_range:string prop ->
   string ->
   unit

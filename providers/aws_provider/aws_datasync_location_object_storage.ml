@@ -5,19 +5,21 @@
 open! Tf.Prelude
 
 type aws_datasync_location_object_storage = {
-  access_key : string option; [@option]  (** access_key *)
-  agent_arns : string list;  (** agent_arns *)
-  bucket_name : string;  (** bucket_name *)
-  id : string option; [@option]  (** id *)
-  secret_key : string option; [@option]  (** secret_key *)
-  server_certificate : string option; [@option]
+  access_key : string prop option; [@option]  (** access_key *)
+  agent_arns : string prop list;  (** agent_arns *)
+  bucket_name : string prop;  (** bucket_name *)
+  id : string prop option; [@option]  (** id *)
+  secret_key : string prop option; [@option]  (** secret_key *)
+  server_certificate : string prop option; [@option]
       (** server_certificate *)
-  server_hostname : string;  (** server_hostname *)
-  server_port : float option; [@option]  (** server_port *)
-  server_protocol : string option; [@option]  (** server_protocol *)
-  subdirectory : string option; [@option]  (** subdirectory *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  server_hostname : string prop;  (** server_hostname *)
+  server_port : float prop option; [@option]  (** server_port *)
+  server_protocol : string prop option; [@option]
+      (** server_protocol *)
+  subdirectory : string prop option; [@option]  (** subdirectory *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_object_storage *)

@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type cloudflare_waiting_room_rules__rules = {
-  action : string;
+  action : string prop;
       (** Action to perform in the ruleset rule. Available values: `bypass_waiting_room`. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Brief summary of the waiting room rule and its intended use. *)
-  expression : string;
+  expression : string prop;
       (** Criteria for an HTTP request to trigger the waiting room rule action. Uses the Firewall Rules expression language based on Wireshark display filters. Refer to the [Waiting Room Rules Docs](https://developers.cloudflare.com/waiting-room/additional-options/waiting-room-rules/bypass-rules/). *)
-  id : string;  (** Unique rule identifier. *)
-  status : string option; [@option]
+  id : string prop;  (** Unique rule identifier. *)
+  status : string prop option; [@option]
       (** Whether the rule is enabled or disabled. Available values: `enabled`, `disabled`. *)
-  version : string;  (** Version of the waiting room rule. *)
+  version : string prop;  (** Version of the waiting room rule. *)
 }
 [@@deriving yojson_of]
 (** List of rules to apply to the ruleset. *)
 
 type cloudflare_waiting_room_rules = {
-  id : string option; [@option]  (** id *)
-  waiting_room_id : string;
+  id : string prop option; [@option]  (** id *)
+  waiting_room_id : string prop;
       (** The Waiting Room ID the rules should apply to. **Modifying this attribute will force creation of a new resource.** *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   rules : cloudflare_waiting_room_rules__rules list;
 }

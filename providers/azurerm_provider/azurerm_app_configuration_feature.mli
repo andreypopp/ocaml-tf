@@ -9,18 +9,18 @@ type azurerm_app_configuration_feature__timewindow_filter
 type azurerm_app_configuration_feature
 
 val azurerm_app_configuration_feature :
-  ?description:string ->
-  ?enabled:bool ->
-  ?etag:string ->
-  ?id:string ->
-  ?key:string ->
-  ?label:string ->
-  ?locked:bool ->
-  ?percentage_filter_value:float ->
-  ?tags:(string * string) list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?etag:string prop ->
+  ?id:string prop ->
+  ?key:string prop ->
+  ?label:string prop ->
+  ?locked:bool prop ->
+  ?percentage_filter_value:float prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_app_configuration_feature__timeouts ->
-  configuration_store_id:string ->
-  name:string ->
+  configuration_store_id:string prop ->
+  name:string prop ->
   targeting_filter:
     azurerm_app_configuration_feature__targeting_filter list ->
   timewindow_filter:

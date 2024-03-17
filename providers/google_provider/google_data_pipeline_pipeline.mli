@@ -21,16 +21,16 @@ type google_data_pipeline_pipeline__workload
 type google_data_pipeline_pipeline
 
 val google_data_pipeline_pipeline :
-  ?display_name:string ->
-  ?id:string ->
-  ?pipeline_sources:(string * string) list ->
-  ?project:string ->
-  ?region:string ->
-  ?scheduler_service_account_email:string ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?pipeline_sources:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?scheduler_service_account_email:string prop ->
   ?timeouts:google_data_pipeline_pipeline__timeouts ->
-  name:string ->
-  state:string ->
-  type_:string ->
+  name:string prop ->
+  state:string prop ->
+  type_:string prop ->
   schedule_info:google_data_pipeline_pipeline__schedule_info list ->
   workload:google_data_pipeline_pipeline__workload list ->
   string ->

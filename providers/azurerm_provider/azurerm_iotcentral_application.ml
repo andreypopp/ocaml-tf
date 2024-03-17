@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_iotcentral_application__identity = {
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_iotcentral_application__identity *)
 
 type azurerm_iotcentral_application__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iotcentral_application__timeouts *)
 
 type azurerm_iotcentral_application = {
-  display_name : string option; [@option]  (** display_name *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  display_name : string prop option; [@option]  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku : string option; [@option]  (** sku *)
-  sub_domain : string;  (** sub_domain *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  template : string option; [@option]  (** template *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku : string prop option; [@option]  (** sku *)
+  sub_domain : string prop;  (** sub_domain *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  template : string prop option; [@option]  (** template *)
   identity : azurerm_iotcentral_application__identity list;
   timeouts : azurerm_iotcentral_application__timeouts option;
 }

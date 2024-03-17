@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_storage__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_storage__timeouts *)
 
 type azurerm_spring_cloud_storage = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
-  storage_account_key : string;  (** storage_account_key *)
-  storage_account_name : string;  (** storage_account_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
+  storage_account_key : string prop;  (** storage_account_key *)
+  storage_account_name : string prop;  (** storage_account_name *)
   timeouts : azurerm_spring_cloud_storage__timeouts option;
 }
 [@@deriving yojson_of]

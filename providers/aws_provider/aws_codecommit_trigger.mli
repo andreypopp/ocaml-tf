@@ -6,8 +6,8 @@ type aws_codecommit_trigger__trigger
 type aws_codecommit_trigger
 
 val aws_codecommit_trigger :
-  ?id:string ->
-  repository_name:string ->
+  ?id:string prop ->
+  repository_name:string prop ->
   trigger:aws_codecommit_trigger__trigger list ->
   string ->
   unit

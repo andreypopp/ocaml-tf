@@ -5,52 +5,52 @@
 open! Tf.Prelude
 
 type aws_codepipeline_custom_action_type__configuration_property = {
-  description : string option; [@option]  (** description *)
-  key : bool;  (** key *)
-  name : string;  (** name *)
-  queryable : bool option; [@option]  (** queryable *)
-  required : bool;  (** required *)
-  secret : bool;  (** secret *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  description : string prop option; [@option]  (** description *)
+  key : bool prop;  (** key *)
+  name : string prop;  (** name *)
+  queryable : bool prop option; [@option]  (** queryable *)
+  required : bool prop;  (** required *)
+  secret : bool prop;  (** secret *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline_custom_action_type__configuration_property *)
 
 type aws_codepipeline_custom_action_type__input_artifact_details = {
-  maximum_count : float;  (** maximum_count *)
-  minimum_count : float;  (** minimum_count *)
+  maximum_count : float prop;  (** maximum_count *)
+  minimum_count : float prop;  (** minimum_count *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline_custom_action_type__input_artifact_details *)
 
 type aws_codepipeline_custom_action_type__output_artifact_details = {
-  maximum_count : float;  (** maximum_count *)
-  minimum_count : float;  (** minimum_count *)
+  maximum_count : float prop;  (** maximum_count *)
+  minimum_count : float prop;  (** minimum_count *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline_custom_action_type__output_artifact_details *)
 
 type aws_codepipeline_custom_action_type__settings = {
-  entity_url_template : string option; [@option]
+  entity_url_template : string prop option; [@option]
       (** entity_url_template *)
-  execution_url_template : string option; [@option]
+  execution_url_template : string prop option; [@option]
       (** execution_url_template *)
-  revision_url_template : string option; [@option]
+  revision_url_template : string prop option; [@option]
       (** revision_url_template *)
-  third_party_configuration_url : string option; [@option]
+  third_party_configuration_url : string prop option; [@option]
       (** third_party_configuration_url *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline_custom_action_type__settings *)
 
 type aws_codepipeline_custom_action_type = {
-  category : string;  (** category *)
-  id : string option; [@option]  (** id *)
-  provider_name : string;  (** provider_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  category : string prop;  (** category *)
+  id : string prop option; [@option]  (** id *)
+  provider_name : string prop;  (** provider_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  version : string;  (** version *)
+  version : string prop;  (** version *)
   configuration_property :
     aws_codepipeline_custom_action_type__configuration_property list;
   input_artifact_details :

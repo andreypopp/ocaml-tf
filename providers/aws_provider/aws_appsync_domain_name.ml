@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_appsync_domain_name = {
-  certificate_arn : string;  (** certificate_arn *)
-  description : string option; [@option]  (** description *)
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
+  certificate_arn : string prop;  (** certificate_arn *)
+  description : string prop option; [@option]  (** description *)
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_domain_name *)

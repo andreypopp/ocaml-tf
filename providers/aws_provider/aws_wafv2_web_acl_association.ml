@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_wafv2_web_acl_association__timeouts = {
-  create: string option; [@option] (** create *)
+  create: string prop option; [@option] (** create *)
 } [@@deriving yojson_of]
 (** aws_wafv2_web_acl_association__timeouts *)
 
 type aws_wafv2_web_acl_association = {
-  id: string option; [@option] (** id *)
-  resource_arn: string;  (** resource_arn *)
-  web_acl_arn: string;  (** web_acl_arn *)
+  id: string prop option; [@option] (** id *)
+  resource_arn: string prop;  (** resource_arn *)
+  web_acl_arn: string prop;  (** web_acl_arn *)
   timeouts: aws_wafv2_web_acl_association__timeouts option;
 } [@@deriving yojson_of]
 (** aws_wafv2_web_acl_association *)

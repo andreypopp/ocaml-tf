@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_imagebuilder_component = {
-  change_description : string option; [@option]
+  change_description : string prop option; [@option]
       (** change_description *)
-  data : string option; [@option]  (** data *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  name : string;  (** name *)
-  platform : string;  (** platform *)
-  skip_destroy : bool option; [@option]  (** skip_destroy *)
-  supported_os_versions : string list option; [@option]
+  data : string prop option; [@option]  (** data *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  name : string prop;  (** name *)
+  platform : string prop;  (** platform *)
+  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  supported_os_versions : string prop list option; [@option]
       (** supported_os_versions *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  uri : string option; [@option]  (** uri *)
-  version : string;  (** version *)
+  uri : string prop option; [@option]  (** uri *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_component *)

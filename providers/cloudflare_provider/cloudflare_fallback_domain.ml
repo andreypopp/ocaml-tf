@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type cloudflare_fallback_domain__domains = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A description of the fallback domain, displayed in the client UI. *)
-  dns_server : string list option; [@option]
+  dns_server : string prop list option; [@option]
       (** A list of IP addresses to handle domain resolution. *)
-  suffix : string option; [@option]
+  suffix : string prop option; [@option]
       (** The domain suffix to match when resolving locally. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_fallback_domain__domains *)
 
 type cloudflare_fallback_domain = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  policy_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  policy_id : string prop option; [@option]
       (** The settings policy for which to configure this fallback domain policy. *)
   domains : cloudflare_fallback_domain__domains list;
 }

@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type aws_kendra_experience__configuration__content_source_configuration = {
-  data_source_ids : string list option; [@option]
+  data_source_ids : string prop list option; [@option]
       (** data_source_ids *)
-  direct_put_content : bool option; [@option]
+  direct_put_content : bool prop option; [@option]
       (** direct_put_content *)
-  faq_ids : string list option; [@option]  (** faq_ids *)
+  faq_ids : string prop list option; [@option]  (** faq_ids *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_experience__configuration__content_source_configuration *)
 
 type aws_kendra_experience__configuration__user_identity_configuration = {
-  identity_attribute_name : string;  (** identity_attribute_name *)
+  identity_attribute_name : string prop;
+      (** identity_attribute_name *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_experience__configuration__user_identity_configuration *)
@@ -32,25 +33,25 @@ type aws_kendra_experience__configuration = {
 (** aws_kendra_experience__configuration *)
 
 type aws_kendra_experience__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_experience__timeouts *)
 
 type aws_kendra_experience__endpoints = {
-  endpoint : string;  (** endpoint *)
-  endpoint_type : string;  (** endpoint_type *)
+  endpoint : string prop;  (** endpoint *)
+  endpoint_type : string prop;  (** endpoint_type *)
 }
 [@@deriving yojson_of]
 
 type aws_kendra_experience = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  index_id : string;  (** index_id *)
-  name : string;  (** name *)
-  role_arn : string;  (** role_arn *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  index_id : string prop;  (** index_id *)
+  name : string prop;  (** name *)
+  role_arn : string prop;  (** role_arn *)
   configuration : aws_kendra_experience__configuration list;
   timeouts : aws_kendra_experience__timeouts option;
 }

@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type google_apigee_envgroup_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_apigee_envgroup_attachment__timeouts *)
 
 type google_apigee_envgroup_attachment = {
-  envgroup_id : string;
+  envgroup_id : string prop;
       (** The Apigee environment group associated with the Apigee environment,
 in the format 'organizations/{{org_name}}/envgroups/{{envgroup_name}}'. *)
-  environment : string;  (** The resource ID of the environment. *)
-  id : string option; [@option]  (** id *)
+  environment : string prop;
+      (** The resource ID of the environment. *)
+  id : string prop option; [@option]  (** id *)
   timeouts : google_apigee_envgroup_attachment__timeouts option;
 }
 [@@deriving yojson_of]

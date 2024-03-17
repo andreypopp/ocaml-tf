@@ -24,18 +24,18 @@ type cloudflare_load_balancer__session_affinity_attributes
 type cloudflare_load_balancer
 
 val cloudflare_load_balancer :
-  ?description:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?proxied:bool ->
-  ?session_affinity:string ->
-  ?session_affinity_ttl:float ->
-  ?steering_policy:string ->
-  ?ttl:float ->
-  default_pool_ids:string list ->
-  fallback_pool_id:string ->
-  name:string ->
-  zone_id:string ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?proxied:bool prop ->
+  ?session_affinity:string prop ->
+  ?session_affinity_ttl:float prop ->
+  ?steering_policy:string prop ->
+  ?ttl:float prop ->
+  default_pool_ids:string prop list ->
+  fallback_pool_id:string prop ->
+  name:string prop ->
+  zone_id:string prop ->
   adaptive_routing:cloudflare_load_balancer__adaptive_routing list ->
   country_pools:cloudflare_load_balancer__country_pools list ->
   location_strategy:cloudflare_load_balancer__location_strategy list ->

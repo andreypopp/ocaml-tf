@@ -10,14 +10,14 @@ type google_deployment_manager_deployment__timeouts
 type google_deployment_manager_deployment
 
 val google_deployment_manager_deployment :
-  ?create_policy:string ->
-  ?delete_policy:string ->
-  ?description:string ->
-  ?id:string ->
-  ?preview:bool ->
-  ?project:string ->
+  ?create_policy:string prop ->
+  ?delete_policy:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?preview:bool prop ->
+  ?project:string prop ->
   ?timeouts:google_deployment_manager_deployment__timeouts ->
-  name:string ->
+  name:string prop ->
   labels:google_deployment_manager_deployment__labels list ->
   target:google_deployment_manager_deployment__target list ->
   string ->

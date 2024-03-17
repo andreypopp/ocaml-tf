@@ -5,36 +5,38 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_trigger_custom_event__pipeline = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_custom_event__pipeline *)
 
 type azurerm_data_factory_trigger_custom_event__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_custom_event__timeouts *)
 
 type azurerm_data_factory_trigger_custom_event = {
-  activated : bool option; [@option]  (** activated *)
-  additional_properties : (string * string) list option; [@option]
+  activated : bool prop option; [@option]  (** activated *)
+  additional_properties : (string * string prop) list option;
+      [@option]
       (** additional_properties *)
-  annotations : string list option; [@option]  (** annotations *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  eventgrid_topic_id : string;  (** eventgrid_topic_id *)
-  events : string list;  (** events *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  subject_begins_with : string option; [@option]
+  annotations : string prop list option; [@option]
+      (** annotations *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  eventgrid_topic_id : string prop;  (** eventgrid_topic_id *)
+  events : string prop list;  (** events *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  subject_begins_with : string prop option; [@option]
       (** subject_begins_with *)
-  subject_ends_with : string option; [@option]
+  subject_ends_with : string prop option; [@option]
       (** subject_ends_with *)
   pipeline :
     azurerm_data_factory_trigger_custom_event__pipeline list;

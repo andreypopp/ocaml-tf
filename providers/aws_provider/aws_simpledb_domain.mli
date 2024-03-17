@@ -4,4 +4,4 @@ open! Tf.Prelude
 
 type aws_simpledb_domain
 
-val aws_simpledb_domain : name:string -> string -> unit
+val aws_simpledb_domain : name:string prop -> string -> unit

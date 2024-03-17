@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_kusto_eventhub_data_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_eventhub_data_connection__timeouts *)
 
 type azurerm_kusto_eventhub_data_connection = {
-  cluster_name : string;  (** cluster_name *)
-  compression : string option; [@option]  (** compression *)
-  consumer_group : string;  (** consumer_group *)
-  data_format : string option; [@option]  (** data_format *)
-  database_name : string;  (** database_name *)
-  database_routing_type : string option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  compression : string prop option; [@option]  (** compression *)
+  consumer_group : string prop;  (** consumer_group *)
+  data_format : string prop option; [@option]  (** data_format *)
+  database_name : string prop;  (** database_name *)
+  database_routing_type : string prop option; [@option]
       (** database_routing_type *)
-  event_system_properties : string list option; [@option]
+  event_system_properties : string prop list option; [@option]
       (** event_system_properties *)
-  eventhub_id : string;  (** eventhub_id *)
-  id : string option; [@option]  (** id *)
-  identity_id : string option; [@option]  (** identity_id *)
-  location : string;  (** location *)
-  mapping_rule_name : string option; [@option]
+  eventhub_id : string prop;  (** eventhub_id *)
+  id : string prop option; [@option]  (** id *)
+  identity_id : string prop option; [@option]  (** identity_id *)
+  location : string prop;  (** location *)
+  mapping_rule_name : string prop option; [@option]
       (** mapping_rule_name *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  table_name : string option; [@option]  (** table_name *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  table_name : string prop option; [@option]  (** table_name *)
   timeouts : azurerm_kusto_eventhub_data_connection__timeouts option;
 }
 [@@deriving yojson_of]

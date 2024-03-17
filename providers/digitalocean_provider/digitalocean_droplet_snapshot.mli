@@ -5,4 +5,8 @@ open! Tf.Prelude
 type digitalocean_droplet_snapshot
 
 val digitalocean_droplet_snapshot :
-  ?id:string -> droplet_id:string -> name:string -> string -> unit
+  ?id:string prop ->
+  droplet_id:string prop ->
+  name:string prop ->
+  string ->
+  unit

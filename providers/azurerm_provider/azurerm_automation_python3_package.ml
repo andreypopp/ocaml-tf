@@ -5,24 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_automation_python3_package__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_python3_package__timeouts *)
 
 type azurerm_automation_python3_package = {
-  automation_account_name : string;  (** automation_account_name *)
-  content_uri : string;  (** content_uri *)
-  content_version : string option; [@option]  (** content_version *)
-  hash_algorithm : string option; [@option]  (** hash_algorithm *)
-  hash_value : string option; [@option]  (** hash_value *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  automation_account_name : string prop;
+      (** automation_account_name *)
+  content_uri : string prop;  (** content_uri *)
+  content_version : string prop option; [@option]
+      (** content_version *)
+  hash_algorithm : string prop option; [@option]
+      (** hash_algorithm *)
+  hash_value : string prop option; [@option]  (** hash_value *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_automation_python3_package__timeouts option;
 }
 [@@deriving yojson_of]

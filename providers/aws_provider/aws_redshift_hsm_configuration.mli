@@ -5,14 +5,14 @@ open! Tf.Prelude
 type aws_redshift_hsm_configuration
 
 val aws_redshift_hsm_configuration :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  description:string ->
-  hsm_configuration_identifier:string ->
-  hsm_ip_address:string ->
-  hsm_partition_name:string ->
-  hsm_partition_password:string ->
-  hsm_server_public_certificate:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  description:string prop ->
+  hsm_configuration_identifier:string prop ->
+  hsm_ip_address:string prop ->
+  hsm_partition_name:string prop ->
+  hsm_partition_password:string prop ->
+  hsm_server_public_certificate:string prop ->
   string ->
   unit

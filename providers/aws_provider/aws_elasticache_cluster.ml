@@ -5,68 +5,72 @@
 open! Tf.Prelude
 
 type aws_elasticache_cluster__log_delivery_configuration = {
-  destination : string;  (** destination *)
-  destination_type : string;  (** destination_type *)
-  log_format : string;  (** log_format *)
-  log_type : string;  (** log_type *)
+  destination : string prop;  (** destination *)
+  destination_type : string prop;  (** destination_type *)
+  log_format : string prop;  (** log_format *)
+  log_type : string prop;  (** log_type *)
 }
 [@@deriving yojson_of]
 (** aws_elasticache_cluster__log_delivery_configuration *)
 
 type aws_elasticache_cluster__cache_nodes = {
-  address : string;  (** address *)
-  availability_zone : string;  (** availability_zone *)
-  id : string;  (** id *)
-  outpost_arn : string;  (** outpost_arn *)
-  port : float;  (** port *)
+  address : string prop;  (** address *)
+  availability_zone : string prop;  (** availability_zone *)
+  id : string prop;  (** id *)
+  outpost_arn : string prop;  (** outpost_arn *)
+  port : float prop;  (** port *)
 }
 [@@deriving yojson_of]
 
 type aws_elasticache_cluster = {
-  apply_immediately : bool option; [@option]
+  apply_immediately : bool prop option; [@option]
       (** apply_immediately *)
-  auto_minor_version_upgrade : string option; [@option]
+  auto_minor_version_upgrade : string prop option; [@option]
       (** auto_minor_version_upgrade *)
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  az_mode : string option; [@option]  (** az_mode *)
-  cluster_id : string;  (** cluster_id *)
-  engine : string option; [@option]  (** engine *)
-  engine_version : string option; [@option]  (** engine_version *)
-  final_snapshot_identifier : string option; [@option]
+  az_mode : string prop option; [@option]  (** az_mode *)
+  cluster_id : string prop;  (** cluster_id *)
+  engine : string prop option; [@option]  (** engine *)
+  engine_version : string prop option; [@option]
+      (** engine_version *)
+  final_snapshot_identifier : string prop option; [@option]
       (** final_snapshot_identifier *)
-  id : string option; [@option]  (** id *)
-  ip_discovery : string option; [@option]  (** ip_discovery *)
-  maintenance_window : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ip_discovery : string prop option; [@option]  (** ip_discovery *)
+  maintenance_window : string prop option; [@option]
       (** maintenance_window *)
-  network_type : string option; [@option]  (** network_type *)
-  node_type : string option; [@option]  (** node_type *)
-  notification_topic_arn : string option; [@option]
+  network_type : string prop option; [@option]  (** network_type *)
+  node_type : string prop option; [@option]  (** node_type *)
+  notification_topic_arn : string prop option; [@option]
       (** notification_topic_arn *)
-  num_cache_nodes : float option; [@option]  (** num_cache_nodes *)
-  outpost_mode : string option; [@option]  (** outpost_mode *)
-  parameter_group_name : string option; [@option]
+  num_cache_nodes : float prop option; [@option]
+      (** num_cache_nodes *)
+  outpost_mode : string prop option; [@option]  (** outpost_mode *)
+  parameter_group_name : string prop option; [@option]
       (** parameter_group_name *)
-  port : float option; [@option]  (** port *)
-  preferred_availability_zones : string list option; [@option]
+  port : float prop option; [@option]  (** port *)
+  preferred_availability_zones : string prop list option; [@option]
       (** preferred_availability_zones *)
-  preferred_outpost_arn : string option; [@option]
+  preferred_outpost_arn : string prop option; [@option]
       (** preferred_outpost_arn *)
-  replication_group_id : string option; [@option]
+  replication_group_id : string prop option; [@option]
       (** replication_group_id *)
-  security_group_ids : string list option; [@option]
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  snapshot_arns : string list option; [@option]  (** snapshot_arns *)
-  snapshot_name : string option; [@option]  (** snapshot_name *)
-  snapshot_retention_limit : float option; [@option]
+  snapshot_arns : string prop list option; [@option]
+      (** snapshot_arns *)
+  snapshot_name : string prop option; [@option]  (** snapshot_name *)
+  snapshot_retention_limit : float prop option; [@option]
       (** snapshot_retention_limit *)
-  snapshot_window : string option; [@option]  (** snapshot_window *)
-  subnet_group_name : string option; [@option]
+  snapshot_window : string prop option; [@option]
+      (** snapshot_window *)
+  subnet_group_name : string prop option; [@option]
       (** subnet_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  transit_encryption_enabled : bool option; [@option]
+  transit_encryption_enabled : bool prop option; [@option]
       (** transit_encryption_enabled *)
   log_delivery_configuration :
     aws_elasticache_cluster__log_delivery_configuration list;

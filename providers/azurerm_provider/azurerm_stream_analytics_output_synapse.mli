@@ -6,15 +6,15 @@ type azurerm_stream_analytics_output_synapse__timeouts
 type azurerm_stream_analytics_output_synapse
 
 val azurerm_stream_analytics_output_synapse :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_stream_analytics_output_synapse__timeouts ->
-  database:string ->
-  name:string ->
-  password:string ->
-  resource_group_name:string ->
-  server:string ->
-  stream_analytics_job_name:string ->
-  table:string ->
-  user:string ->
+  database:string prop ->
+  name:string prop ->
+  password:string prop ->
+  resource_group_name:string prop ->
+  server:string prop ->
+  stream_analytics_job_name:string prop ->
+  table:string prop ->
+  user:string prop ->
   string ->
   unit

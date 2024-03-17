@@ -8,16 +8,16 @@ type google_compute_region_commitment__timeouts
 type google_compute_region_commitment
 
 val google_compute_region_commitment :
-  ?auto_renew:bool ->
-  ?category:string ->
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
-  ?type_:string ->
+  ?auto_renew:bool prop ->
+  ?category:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?type_:string prop ->
   ?timeouts:google_compute_region_commitment__timeouts ->
-  name:string ->
-  plan:string ->
+  name:string prop ->
+  plan:string prop ->
   license_resource:
     google_compute_region_commitment__license_resource list ->
   resources:google_compute_region_commitment__resources list ->

@@ -5,120 +5,125 @@
 open! Tf.Prelude
 
 type azurerm_mssql_database__identity = {
-  identity_ids : string list;  (** identity_ids *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list;  (** identity_ids *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_database__identity *)
 
 type azurerm_mssql_database__import = {
-  administrator_login : string;  (** administrator_login *)
-  administrator_login_password : string;
+  administrator_login : string prop;  (** administrator_login *)
+  administrator_login_password : string prop;
       (** administrator_login_password *)
-  authentication_type : string;  (** authentication_type *)
-  storage_account_id : string option; [@option]
+  authentication_type : string prop;  (** authentication_type *)
+  storage_account_id : string prop option; [@option]
       (** storage_account_id *)
-  storage_key : string;  (** storage_key *)
-  storage_key_type : string;  (** storage_key_type *)
-  storage_uri : string;  (** storage_uri *)
+  storage_key : string prop;  (** storage_key *)
+  storage_key_type : string prop;  (** storage_key_type *)
+  storage_uri : string prop;  (** storage_uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_database__import *)
 
 type azurerm_mssql_database__long_term_retention_policy = {
-  immutable_backups_enabled : bool option; [@option]
+  immutable_backups_enabled : bool prop option; [@option]
       (** immutable_backups_enabled *)
-  monthly_retention : string option; [@option]
+  monthly_retention : string prop option; [@option]
       (** monthly_retention *)
-  week_of_year : float option; [@option]  (** week_of_year *)
-  weekly_retention : string option; [@option]
+  week_of_year : float prop option; [@option]  (** week_of_year *)
+  weekly_retention : string prop option; [@option]
       (** weekly_retention *)
-  yearly_retention : string option; [@option]  (** yearly_retention *)
+  yearly_retention : string prop option; [@option]
+      (** yearly_retention *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_database__long_term_retention_policy *)
 
 type azurerm_mssql_database__short_term_retention_policy = {
-  backup_interval_in_hours : float option; [@option]
+  backup_interval_in_hours : float prop option; [@option]
       (** backup_interval_in_hours *)
-  retention_days : float;  (** retention_days *)
+  retention_days : float prop;  (** retention_days *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_database__short_term_retention_policy *)
 
 type azurerm_mssql_database__threat_detection_policy = {
-  disabled_alerts : string list option; [@option]
+  disabled_alerts : string prop list option; [@option]
       (** disabled_alerts *)
-  email_account_admins : string option; [@option]
+  email_account_admins : string prop option; [@option]
       (** email_account_admins *)
-  email_addresses : string list option; [@option]
+  email_addresses : string prop list option; [@option]
       (** email_addresses *)
-  retention_days : float option; [@option]  (** retention_days *)
-  state : string option; [@option]  (** state *)
-  storage_account_access_key : string option; [@option]
+  retention_days : float prop option; [@option]
+      (** retention_days *)
+  state : string prop option; [@option]  (** state *)
+  storage_account_access_key : string prop option; [@option]
       (** storage_account_access_key *)
-  storage_endpoint : string option; [@option]  (** storage_endpoint *)
+  storage_endpoint : string prop option; [@option]
+      (** storage_endpoint *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_database__threat_detection_policy *)
 
 type azurerm_mssql_database__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_database__timeouts *)
 
 type azurerm_mssql_database = {
-  auto_pause_delay_in_minutes : float option; [@option]
+  auto_pause_delay_in_minutes : float prop option; [@option]
       (** auto_pause_delay_in_minutes *)
-  collation : string option; [@option]  (** collation *)
-  create_mode : string option; [@option]  (** create_mode *)
-  creation_source_database_id : string option; [@option]
+  collation : string prop option; [@option]  (** collation *)
+  create_mode : string prop option; [@option]  (** create_mode *)
+  creation_source_database_id : string prop option; [@option]
       (** creation_source_database_id *)
-  elastic_pool_id : string option; [@option]  (** elastic_pool_id *)
-  enclave_type : string option; [@option]  (** enclave_type *)
-  geo_backup_enabled : bool option; [@option]
+  elastic_pool_id : string prop option; [@option]
+      (** elastic_pool_id *)
+  enclave_type : string prop option; [@option]  (** enclave_type *)
+  geo_backup_enabled : bool prop option; [@option]
       (** geo_backup_enabled *)
-  id : string option; [@option]  (** id *)
-  ledger_enabled : bool option; [@option]  (** ledger_enabled *)
-  license_type : string option; [@option]  (** license_type *)
-  maintenance_configuration_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ledger_enabled : bool prop option; [@option]  (** ledger_enabled *)
+  license_type : string prop option; [@option]  (** license_type *)
+  maintenance_configuration_name : string prop option; [@option]
       (** maintenance_configuration_name *)
-  max_size_gb : float option; [@option]  (** max_size_gb *)
-  min_capacity : float option; [@option]  (** min_capacity *)
-  name : string;  (** name *)
-  read_replica_count : float option; [@option]
+  max_size_gb : float prop option; [@option]  (** max_size_gb *)
+  min_capacity : float prop option; [@option]  (** min_capacity *)
+  name : string prop;  (** name *)
+  read_replica_count : float prop option; [@option]
       (** read_replica_count *)
-  read_scale : bool option; [@option]  (** read_scale *)
-  recover_database_id : string option; [@option]
+  read_scale : bool prop option; [@option]  (** read_scale *)
+  recover_database_id : string prop option; [@option]
       (** recover_database_id *)
-  recovery_point_id : string option; [@option]
+  recovery_point_id : string prop option; [@option]
       (** recovery_point_id *)
-  restore_dropped_database_id : string option; [@option]
+  restore_dropped_database_id : string prop option; [@option]
       (** restore_dropped_database_id *)
-  restore_long_term_retention_backup_id : string option; [@option]
+  restore_long_term_retention_backup_id : string prop option;
+      [@option]
       (** restore_long_term_retention_backup_id *)
-  restore_point_in_time : string option; [@option]
+  restore_point_in_time : string prop option; [@option]
       (** restore_point_in_time *)
-  sample_name : string option; [@option]  (** sample_name *)
-  server_id : string;  (** server_id *)
-  sku_name : string option; [@option]  (** sku_name *)
-  storage_account_type : string option; [@option]
+  sample_name : string prop option; [@option]  (** sample_name *)
+  server_id : string prop;  (** server_id *)
+  sku_name : string prop option; [@option]  (** sku_name *)
+  storage_account_type : string prop option; [@option]
       (** storage_account_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  transparent_data_encryption_enabled : bool option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  transparent_data_encryption_enabled : bool prop option; [@option]
       (** transparent_data_encryption_enabled *)
   transparent_data_encryption_key_automatic_rotation_enabled :
-    bool option;
+    bool prop option;
       [@option]
       (** transparent_data_encryption_key_automatic_rotation_enabled *)
-  transparent_data_encryption_key_vault_key_id : string option;
+  transparent_data_encryption_key_vault_key_id : string prop option;
       [@option]
       (** transparent_data_encryption_key_vault_key_id *)
-  zone_redundant : bool option; [@option]  (** zone_redundant *)
+  zone_redundant : bool prop option; [@option]  (** zone_redundant *)
   identity : azurerm_mssql_database__identity list;
   import : azurerm_mssql_database__import list;
   long_term_retention_policy :

@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_inspector_assessment_target
 
 val aws_inspector_assessment_target :
-  ?id:string ->
-  ?resource_group_arn:string ->
-  name:string ->
+  ?id:string prop ->
+  ?resource_group_arn:string prop ->
+  name:string prop ->
   string ->
   unit

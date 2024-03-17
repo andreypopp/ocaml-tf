@@ -5,51 +5,52 @@
 open! Tf.Prelude
 
 type aws_lakeformation_resource_lf_tags__database = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  name : string;  (** name *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_resource_lf_tags__database *)
 
 type aws_lakeformation_resource_lf_tags__lf_tag = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_resource_lf_tags__lf_tag *)
 
 type aws_lakeformation_resource_lf_tags__table = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  database_name : string;  (** database_name *)
-  name : string option; [@option]  (** name *)
-  wildcard : bool option; [@option]  (** wildcard *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  database_name : string prop;  (** database_name *)
+  name : string prop option; [@option]  (** name *)
+  wildcard : bool prop option; [@option]  (** wildcard *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_resource_lf_tags__table *)
 
 type aws_lakeformation_resource_lf_tags__table_with_columns = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  column_names : string list option; [@option]  (** column_names *)
-  database_name : string;  (** database_name *)
-  excluded_column_names : string list option; [@option]
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  column_names : string prop list option; [@option]
+      (** column_names *)
+  database_name : string prop;  (** database_name *)
+  excluded_column_names : string prop list option; [@option]
       (** excluded_column_names *)
-  name : string;  (** name *)
-  wildcard : bool option; [@option]  (** wildcard *)
+  name : string prop;  (** name *)
+  wildcard : bool prop option; [@option]  (** wildcard *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_resource_lf_tags__table_with_columns *)
 
 type aws_lakeformation_resource_lf_tags__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_resource_lf_tags__timeouts *)
 
 type aws_lakeformation_resource_lf_tags = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  id : string option; [@option]  (** id *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  id : string prop option; [@option]  (** id *)
   database : aws_lakeformation_resource_lf_tags__database list;
   lf_tag : aws_lakeformation_resource_lf_tags__lf_tag list;
   table : aws_lakeformation_resource_lf_tags__table list;

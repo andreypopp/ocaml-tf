@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_codestarnotifications_notification_rule__target = {
-  address : string;  (** address *)
-  status : string;  (** status *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  address : string prop;  (** address *)
+  status : string prop;  (** status *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_codestarnotifications_notification_rule__target *)
 
 type aws_codestarnotifications_notification_rule = {
-  detail_type : string;  (** detail_type *)
-  event_type_ids : string list;  (** event_type_ids *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource : string;  (** resource *)
-  status : string option; [@option]  (** status *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  detail_type : string prop;  (** detail_type *)
+  event_type_ids : string prop list;  (** event_type_ids *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource : string prop;  (** resource *)
+  status : string prop option; [@option]  (** status *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   target : aws_codestarnotifications_notification_rule__target list;
 }

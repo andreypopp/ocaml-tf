@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_eks_access_entry__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_eks_access_entry__timeouts *)
 
 type aws_eks_access_entry = {
-  cluster_name : string;  (** cluster_name *)
-  id : string option; [@option]  (** id *)
-  kubernetes_groups : string list option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  id : string prop option; [@option]  (** id *)
+  kubernetes_groups : string prop list option; [@option]
       (** kubernetes_groups *)
-  principal_arn : string;  (** principal_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  principal_arn : string prop;  (** principal_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  user_name : string option; [@option]  (** user_name *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  user_name : string prop option; [@option]  (** user_name *)
   timeouts : aws_eks_access_entry__timeouts option;
 }
 [@@deriving yojson_of]

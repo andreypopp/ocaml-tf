@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type google_logging_organization_exclusion = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A human-readable description. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** Whether this exclusion rule should be disabled or not. This defaults to false. *)
-  filter : string;
+  filter : string prop;
       (** The filter to apply when excluding logs. Only log entries that match the filter are excluded. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The name of the logging exclusion. *)
-  org_id : string;  (** org_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The name of the logging exclusion. *)
+  org_id : string prop;  (** org_id *)
 }
 [@@deriving yojson_of]
 (** google_logging_organization_exclusion *)

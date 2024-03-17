@@ -6,13 +6,13 @@ type aws_connect_vocabulary__timeouts
 type aws_connect_vocabulary
 
 val aws_connect_vocabulary :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_connect_vocabulary__timeouts ->
-  content:string ->
-  instance_id:string ->
-  language_code:string ->
-  name:string ->
+  content:string prop ->
+  instance_id:string prop ->
+  language_code:string prop ->
+  name:string prop ->
   string ->
   unit

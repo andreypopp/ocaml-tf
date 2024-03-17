@@ -9,12 +9,12 @@ type google_healthcare_hl7_v2_store__timeouts
 type google_healthcare_hl7_v2_store
 
 val google_healthcare_hl7_v2_store :
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?reject_duplicate_message:bool ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?reject_duplicate_message:bool prop ->
   ?timeouts:google_healthcare_hl7_v2_store__timeouts ->
-  dataset:string ->
-  name:string ->
+  dataset:string prop ->
+  name:string prop ->
   notification_config:
     google_healthcare_hl7_v2_store__notification_config list ->
   notification_configs:

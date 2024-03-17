@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_redshift_usage_limit = {
-  amount : float;  (** amount *)
-  breach_action : string option; [@option]  (** breach_action *)
-  cluster_identifier : string;  (** cluster_identifier *)
-  feature_type : string;  (** feature_type *)
-  id : string option; [@option]  (** id *)
-  limit_type : string;  (** limit_type *)
-  period : string option; [@option]  (** period *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  amount : float prop;  (** amount *)
+  breach_action : string prop option; [@option]  (** breach_action *)
+  cluster_identifier : string prop;  (** cluster_identifier *)
+  feature_type : string prop;  (** feature_type *)
+  id : string prop option; [@option]  (** id *)
+  limit_type : string prop;  (** limit_type *)
+  period : string prop option; [@option]  (** period *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_usage_limit *)

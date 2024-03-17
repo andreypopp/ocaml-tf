@@ -8,18 +8,18 @@ type azurerm_web_pubsub__timeouts
 type azurerm_web_pubsub
 
 val azurerm_web_pubsub :
-  ?aad_auth_enabled:bool ->
-  ?capacity:float ->
-  ?id:string ->
-  ?local_auth_enabled:bool ->
-  ?public_network_access_enabled:bool ->
-  ?tags:(string * string) list ->
-  ?tls_client_cert_enabled:bool ->
+  ?aad_auth_enabled:bool prop ->
+  ?capacity:float prop ->
+  ?id:string prop ->
+  ?local_auth_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tls_client_cert_enabled:bool prop ->
   ?timeouts:azurerm_web_pubsub__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
   identity:azurerm_web_pubsub__identity list ->
   live_trace:azurerm_web_pubsub__live_trace list ->
   string ->

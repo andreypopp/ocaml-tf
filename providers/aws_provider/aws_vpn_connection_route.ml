@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type aws_vpn_connection_route = {
-  destination_cidr_block : string;  (** destination_cidr_block *)
-  id : string option; [@option]  (** id *)
-  vpn_connection_id : string;  (** vpn_connection_id *)
+  destination_cidr_block : string prop;
+      (** destination_cidr_block *)
+  id : string prop option; [@option]  (** id *)
+  vpn_connection_id : string prop;  (** vpn_connection_id *)
 }
 [@@deriving yojson_of]
 (** aws_vpn_connection_route *)

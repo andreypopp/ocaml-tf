@@ -8,9 +8,9 @@ type aws_cognito_identity_pool_roles_attachment__role_mapping
 type aws_cognito_identity_pool_roles_attachment
 
 val aws_cognito_identity_pool_roles_attachment :
-  ?id:string ->
-  identity_pool_id:string ->
-  roles:(string * string) list ->
+  ?id:string prop ->
+  identity_pool_id:string prop ->
+  roles:(string * string prop) list ->
   role_mapping:
     aws_cognito_identity_pool_roles_attachment__role_mapping list ->
   string ->

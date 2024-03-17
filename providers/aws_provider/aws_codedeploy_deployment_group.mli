@@ -35,15 +35,15 @@ type aws_codedeploy_deployment_group__trigger_configuration
 type aws_codedeploy_deployment_group
 
 val aws_codedeploy_deployment_group :
-  ?autoscaling_groups:string list ->
-  ?deployment_config_name:string ->
-  ?id:string ->
-  ?outdated_instances_strategy:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  app_name:string ->
-  deployment_group_name:string ->
-  service_role_arn:string ->
+  ?autoscaling_groups:string prop list ->
+  ?deployment_config_name:string prop ->
+  ?id:string prop ->
+  ?outdated_instances_strategy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  app_name:string prop ->
+  deployment_group_name:string prop ->
+  service_role_arn:string prop ->
   alarm_configuration:
     aws_codedeploy_deployment_group__alarm_configuration list ->
   auto_rollback_configuration:

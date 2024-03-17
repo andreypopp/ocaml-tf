@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_voice_services_communications_gateway_test_line__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_voice_services_communications_gateway_test_line__timeouts *)
 
 type azurerm_voice_services_communications_gateway_test_line = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  phone_number : string;  (** phone_number *)
-  purpose : string;  (** purpose *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  voice_services_communications_gateway_id : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  phone_number : string prop;  (** phone_number *)
+  purpose : string prop;  (** purpose *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  voice_services_communications_gateway_id : string prop;
       (** voice_services_communications_gateway_id *)
   timeouts :
     azurerm_voice_services_communications_gateway_test_line__timeouts

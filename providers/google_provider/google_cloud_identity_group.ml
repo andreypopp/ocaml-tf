@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_cloud_identity_group__group_key = {
-  id : string;
+  id : string prop;
       (** The ID of the entity.
 
 For Google-managed entities, the id must be the email address of an existing
@@ -15,7 +15,7 @@ For external-identity-mapped entities, the id must be a string conforming
 to the Identity Source's requirements.
 
 Must be unique within a namespace. *)
-  namespace : string option; [@option]
+  namespace : string prop option; [@option]
       (** The namespace in which the entity exists.
 
 If not specified, the EntityKey represents a Google-managed entity
@@ -29,33 +29,33 @@ and must be in the form of 'identitysources/{identity_source_id}'. *)
 (** EntityKey of the Group. *)
 
 type google_cloud_identity_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_cloud_identity_group__timeouts *)
 
 type google_cloud_identity_group__additional_group_keys = {
-  id : string;  (** id *)
-  namespace : string;  (** namespace *)
+  id : string prop;  (** id *)
+  namespace : string prop;  (** namespace *)
 }
 [@@deriving yojson_of]
 
 type google_cloud_identity_group = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An extended description to help users determine the purpose of a Group.
 Must not be longer than 4,096 characters. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** The display name of the Group. *)
-  id : string option; [@option]  (** id *)
-  initial_group_config : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  initial_group_config : string prop option; [@option]
       (** The initial configuration options for creating a Group.
 
 See the
 [API reference](https://cloud.google.com/identity/docs/reference/rest/v1beta1/groups/create#initialgroupconfig)
 for possible values. Default value: EMPTY Possible values: [INITIAL_GROUP_CONFIG_UNSPECIFIED, WITH_INITIAL_OWNER, EMPTY] *)
-  labels : (string * string) list;
+  labels : (string * string prop) list;
       (** One or more label entries that apply to the Group. Currently supported labels contain a key with an empty value.
 
 Google Groups are the default type of group and have a label with a key of cloudidentity.googleapis.com/groups.discussion_forum and an empty value.
@@ -65,7 +65,7 @@ Existing Google Groups can have an additional label with a key of cloudidentity.
 Dynamic groups have a label with a key of cloudidentity.googleapis.com/groups.dynamic.
 
 Identity-mapped groups for Cloud Search have a label with a key of system/groups/external and an empty value. *)
-  parent : string;
+  parent : string prop;
       (** The resource name of the entity under which this Group resides in the
 Cloud Identity resource hierarchy.
 

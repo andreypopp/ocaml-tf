@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_media_asset__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_asset__timeouts *)
 
 type azurerm_media_asset = {
-  alternate_id : string option; [@option]  (** alternate_id *)
-  container : string option; [@option]  (** container *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  media_services_account_name : string;
+  alternate_id : string prop option; [@option]  (** alternate_id *)
+  container : string prop option; [@option]  (** container *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  media_services_account_name : string prop;
       (** media_services_account_name *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  storage_account_name : string option; [@option]
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  storage_account_name : string prop option; [@option]
       (** storage_account_name *)
   timeouts : azurerm_media_asset__timeouts option;
 }

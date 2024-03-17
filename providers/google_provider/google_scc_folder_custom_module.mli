@@ -14,11 +14,11 @@ type google_scc_folder_custom_module__timeouts
 type google_scc_folder_custom_module
 
 val google_scc_folder_custom_module :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_scc_folder_custom_module__timeouts ->
-  display_name:string ->
-  enablement_state:string ->
-  folder:string ->
+  display_name:string prop ->
+  enablement_state:string prop ->
+  folder:string prop ->
   custom_config:google_scc_folder_custom_module__custom_config list ->
   string ->
   unit

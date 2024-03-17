@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_dynamodb_tag = {
-  id : string option; [@option]  (** id *)
-  key : string;  (** key *)
-  resource_arn : string;  (** resource_arn *)
-  value : string;  (** value *)
+  id : string prop option; [@option]  (** id *)
+  key : string prop;  (** key *)
+  resource_arn : string prop;  (** resource_arn *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_dynamodb_tag *)

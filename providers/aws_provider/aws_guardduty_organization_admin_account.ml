@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_guardduty_organization_admin_account = {
-  admin_account_id : string;  (** admin_account_id *)
-  id : string option; [@option]  (** id *)
+  admin_account_id : string prop;  (** admin_account_id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_organization_admin_account *)

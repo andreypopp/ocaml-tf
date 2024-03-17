@@ -6,12 +6,12 @@ type azurerm_digital_twins_endpoint_eventhub__timeouts
 type azurerm_digital_twins_endpoint_eventhub
 
 val azurerm_digital_twins_endpoint_eventhub :
-  ?dead_letter_storage_secret:string ->
-  ?id:string ->
+  ?dead_letter_storage_secret:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_digital_twins_endpoint_eventhub__timeouts ->
-  digital_twins_id:string ->
-  eventhub_primary_connection_string:string ->
-  eventhub_secondary_connection_string:string ->
-  name:string ->
+  digital_twins_id:string prop ->
+  eventhub_primary_connection_string:string prop ->
+  eventhub_secondary_connection_string:string prop ->
+  name:string prop ->
   string ->
   unit

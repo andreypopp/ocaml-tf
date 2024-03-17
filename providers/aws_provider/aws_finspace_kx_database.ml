@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_finspace_kx_database__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_database__timeouts *)
 
 type aws_finspace_kx_database = {
-  description : string option; [@option]  (** description *)
-  environment_id : string;  (** environment_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  environment_id : string prop;  (** environment_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_finspace_kx_database__timeouts option;
 }

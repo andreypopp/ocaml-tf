@@ -5,14 +5,16 @@
 open! Tf.Prelude
 
 type aws_apprunner_auto_scaling_configuration_version = {
-  auto_scaling_configuration_name : string;
+  auto_scaling_configuration_name : string prop;
       (** auto_scaling_configuration_name *)
-  id : string option; [@option]  (** id *)
-  max_concurrency : float option; [@option]  (** max_concurrency *)
-  max_size : float option; [@option]  (** max_size *)
-  min_size : float option; [@option]  (** min_size *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  max_concurrency : float prop option; [@option]
+      (** max_concurrency *)
+  max_size : float prop option; [@option]  (** max_size *)
+  min_size : float prop option; [@option]  (** min_size *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_auto_scaling_configuration_version *)

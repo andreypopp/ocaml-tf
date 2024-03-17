@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type aws_autoscaling_traffic_source_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_traffic_source_attachment__timeouts *)
 
 type aws_autoscaling_traffic_source_attachment__traffic_source = {
-  identifier : string;  (** identifier *)
-  type_ : string; [@key "type"]  (** type *)
+  identifier : string prop;  (** identifier *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_traffic_source_attachment__traffic_source *)
 
 type aws_autoscaling_traffic_source_attachment = {
-  autoscaling_group_name : string;  (** autoscaling_group_name *)
-  id : string option; [@option]  (** id *)
+  autoscaling_group_name : string prop;
+      (** autoscaling_group_name *)
+  id : string prop option; [@option]  (** id *)
   timeouts :
     aws_autoscaling_traffic_source_attachment__timeouts option;
   traffic_source :

@@ -5,100 +5,100 @@
 open! Tf.Prelude
 
 type azurerm_windows_web_app__auth_settings__active_directory = {
-  allowed_audiences : string list option; [@option]
+  allowed_audiences : string prop list option; [@option]
       (** Specifies a list of Allowed audience values to consider when validating JWTs issued by Azure Active Directory. *)
-  client_id : string;
+  client_id : string prop;
       (** The ID of the Client to use to authenticate with Azure Active Directory. *)
-  client_secret : string option; [@option]
+  client_secret : string prop option; [@option]
       (** The Client Secret for the Client ID. Cannot be used with `client_secret_setting_name`. *)
-  client_secret_setting_name : string option; [@option]
+  client_secret_setting_name : string prop option; [@option]
       (** The App Setting name that contains the client secret of the Client. Cannot be used with `client_secret`. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings__active_directory *)
 
 type azurerm_windows_web_app__auth_settings__facebook = {
-  app_id : string;
+  app_id : string prop;
       (** The App ID of the Facebook app used for login. *)
-  app_secret : string option; [@option]
+  app_secret : string prop option; [@option]
       (** The App Secret of the Facebook app used for Facebook Login. Cannot be specified with `app_secret_setting_name`. *)
-  app_secret_setting_name : string option; [@option]
+  app_secret_setting_name : string prop option; [@option]
       (** The app setting name that contains the `app_secret` value used for Facebook Login. Cannot be specified with `app_secret`. *)
-  oauth_scopes : string list option; [@option]
+  oauth_scopes : string prop list option; [@option]
       (** Specifies a list of OAuth 2.0 scopes to be requested as part of Facebook Login authentication. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings__facebook *)
 
 type azurerm_windows_web_app__auth_settings__github = {
-  client_id : string;
+  client_id : string prop;
       (** The ID of the GitHub app used for login. *)
-  client_secret : string option; [@option]
+  client_secret : string prop option; [@option]
       (** The Client Secret of the GitHub app used for GitHub Login. Cannot be specified with `client_secret_setting_name`. *)
-  client_secret_setting_name : string option; [@option]
+  client_secret_setting_name : string prop option; [@option]
       (** The app setting name that contains the `client_secret` value used for GitHub Login. Cannot be specified with `client_secret`. *)
-  oauth_scopes : string list option; [@option]
+  oauth_scopes : string prop list option; [@option]
       (** Specifies a list of OAuth 2.0 scopes that will be requested as part of GitHub Login authentication. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings__github *)
 
 type azurerm_windows_web_app__auth_settings__google = {
-  client_id : string;
+  client_id : string prop;
       (** The OpenID Connect Client ID for the Google web application. *)
-  client_secret : string option; [@option]
+  client_secret : string prop option; [@option]
       (** The client secret associated with the Google web application.  Cannot be specified with `client_secret_setting_name`. *)
-  client_secret_setting_name : string option; [@option]
+  client_secret_setting_name : string prop option; [@option]
       (** The app setting name that contains the `client_secret` value used for Google Login. Cannot be specified with `client_secret`. *)
-  oauth_scopes : string list option; [@option]
+  oauth_scopes : string prop list option; [@option]
       (** Specifies a list of OAuth 2.0 scopes that will be requested as part of Google Sign-In authentication. If not specified, openid, profile, and email are used as default scopes. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings__google *)
 
 type azurerm_windows_web_app__auth_settings__microsoft = {
-  client_id : string;
+  client_id : string prop;
       (** The OAuth 2.0 client ID that was created for the app used for authentication. *)
-  client_secret : string option; [@option]
+  client_secret : string prop option; [@option]
       (** The OAuth 2.0 client secret that was created for the app used for authentication. Cannot be specified with `client_secret_setting_name`. *)
-  client_secret_setting_name : string option; [@option]
+  client_secret_setting_name : string prop option; [@option]
       (** The app setting name containing the OAuth 2.0 client secret that was created for the app used for authentication. Cannot be specified with `client_secret`. *)
-  oauth_scopes : string list option; [@option]
+  oauth_scopes : string prop list option; [@option]
       (** The list of OAuth 2.0 scopes that will be requested as part of Microsoft Account authentication. If not specified, `wl.basic` is used as the default scope. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings__microsoft *)
 
 type azurerm_windows_web_app__auth_settings__twitter = {
-  consumer_key : string;
+  consumer_key : string prop;
       (** The OAuth 1.0a consumer key of the Twitter application used for sign-in. *)
-  consumer_secret : string option; [@option]
+  consumer_secret : string prop option; [@option]
       (** The OAuth 1.0a consumer secret of the Twitter application used for sign-in. Cannot be specified with `consumer_secret_setting_name`. *)
-  consumer_secret_setting_name : string option; [@option]
+  consumer_secret_setting_name : string prop option; [@option]
       (** The app setting name that contains the OAuth 1.0a consumer secret of the Twitter application used for sign-in. Cannot be specified with `consumer_secret`. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings__twitter *)
 
 type azurerm_windows_web_app__auth_settings = {
-  additional_login_parameters : (string * string) list option;
+  additional_login_parameters : (string * string prop) list option;
       [@option]
       (** Specifies a map of Login Parameters to send to the OpenID Connect authorization endpoint when a user logs in. *)
-  allowed_external_redirect_urls : string list option; [@option]
+  allowed_external_redirect_urls : string prop list option; [@option]
       (** Specifies a list of External URLs that can be redirected to as part of logging in or logging out of the Windows Web App. *)
-  default_provider : string option; [@option]
+  default_provider : string prop option; [@option]
       (** The default authentication provider to use when multiple providers are configured. Possible values include: `AzureActiveDirectory`, `Facebook`, `Google`, `MicrosoftAccount`, `Twitter`, `Github`. *)
-  enabled : bool;
+  enabled : bool prop;
       (** Should the Authentication / Authorization feature be enabled? *)
-  issuer : string option; [@option]
+  issuer : string prop option; [@option]
       (** The OpenID Connect Issuer URI that represents the entity which issues access tokens. *)
-  runtime_version : string option; [@option]
+  runtime_version : string prop option; [@option]
       (** The RuntimeVersion of the Authentication / Authorization feature in use. *)
-  token_refresh_extension_hours : float option; [@option]
+  token_refresh_extension_hours : float prop option; [@option]
       (** The number of hours after session token expiration that a session token can be used to call the token refresh API. Defaults to `72` hours. *)
-  token_store_enabled : bool option; [@option]
+  token_store_enabled : bool prop option; [@option]
       (** Should the Windows Web App durably store platform-specific security tokens that are obtained during login flows? Defaults to `false`. *)
-  unauthenticated_client_action : string option; [@option]
+  unauthenticated_client_action : string prop option; [@option]
       (** The action to take when an unauthenticated client attempts to access the app. Possible values include: `RedirectToLoginPage`, `AllowAnonymous`. *)
   active_directory :
     azurerm_windows_web_app__auth_settings__active_directory list;
@@ -112,188 +112,192 @@ type azurerm_windows_web_app__auth_settings = {
 (** azurerm_windows_web_app__auth_settings *)
 
 type azurerm_windows_web_app__auth_settings_v2__active_directory_v2 = {
-  allowed_applications : string list option; [@option]
+  allowed_applications : string prop list option; [@option]
       (** The list of allowed Applications for the Default Authorisation Policy. *)
-  allowed_audiences : string list option; [@option]
+  allowed_audiences : string prop list option; [@option]
       (** Specifies a list of Allowed audience values to consider when validating JWTs issued by Azure Active Directory. *)
-  allowed_groups : string list option; [@option]
+  allowed_groups : string prop list option; [@option]
       (** The list of allowed Group Names for the Default Authorisation Policy. *)
-  allowed_identities : string list option; [@option]
+  allowed_identities : string prop list option; [@option]
       (** The list of allowed Identities for the Default Authorisation Policy. *)
-  client_id : string;
+  client_id : string prop;
       (** The ID of the Client to use to authenticate with Azure Active Directory. *)
-  client_secret_certificate_thumbprint : string option; [@option]
+  client_secret_certificate_thumbprint : string prop option;
+      [@option]
       (** The thumbprint of the certificate used for signing purposes. *)
-  client_secret_setting_name : string option; [@option]
+  client_secret_setting_name : string prop option; [@option]
       (** The App Setting name that contains the client secret of the Client. *)
-  jwt_allowed_client_applications : string list option; [@option]
+  jwt_allowed_client_applications : string prop list option;
+      [@option]
       (** A list of Allowed Client Applications in the JWT Claim. *)
-  jwt_allowed_groups : string list option; [@option]
+  jwt_allowed_groups : string prop list option; [@option]
       (** A list of Allowed Groups in the JWT Claim. *)
-  login_parameters : (string * string) list option; [@option]
+  login_parameters : (string * string prop) list option; [@option]
       (** A map of key-value pairs to send to the Authorisation Endpoint when a user logs in. *)
-  tenant_auth_endpoint : string;
+  tenant_auth_endpoint : string prop;
       (** The Azure Tenant Endpoint for the Authenticating Tenant. e.g. `https://login.microsoftonline.com/v2.0/{tenant-guid}/`. *)
-  www_authentication_disabled : bool option; [@option]
+  www_authentication_disabled : bool prop option; [@option]
       (** Should the www-authenticate provider should be omitted from the request? Defaults to `false` *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings_v2__active_directory_v2 *)
 
 type azurerm_windows_web_app__auth_settings_v2__apple_v2 = {
-  client_id : string;
+  client_id : string prop;
       (** The OpenID Connect Client ID for the Apple web application. *)
-  client_secret_setting_name : string;
+  client_secret_setting_name : string prop;
       (** The app setting name that contains the `client_secret` value used for Apple Login. *)
-  login_scopes : string list;  (** login_scopes *)
+  login_scopes : string prop list;  (** login_scopes *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings_v2__apple_v2 *)
 
 type azurerm_windows_web_app__auth_settings_v2__azure_static_web_app_v2 = {
-  client_id : string;
+  client_id : string prop;
       (** The ID of the Client to use to authenticate with Azure Static Web App Authentication. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings_v2__azure_static_web_app_v2 *)
 
 type azurerm_windows_web_app__auth_settings_v2__custom_oidc_v2 = {
-  authorisation_endpoint : string;
+  authorisation_endpoint : string prop;
       (** The endpoint to make the Authorisation Request. *)
-  certification_uri : string;
+  certification_uri : string prop;
       (** The endpoint that provides the keys necessary to validate the token. *)
-  client_credential_method : string;
+  client_credential_method : string prop;
       (** The Client Credential Method used. Currently the only supported value is `ClientSecretPost`. *)
-  client_id : string;
+  client_id : string prop;
       (** The ID of the Client to use to authenticate with this Custom OIDC. *)
-  client_secret_setting_name : string;
+  client_secret_setting_name : string prop;
       (** The App Setting name that contains the secret for this Custom OIDC Client. *)
-  issuer_endpoint : string;
+  issuer_endpoint : string prop;
       (** The endpoint that issued the Token. *)
-  name : string;
+  name : string prop;
       (** The name of the Custom OIDC Authentication Provider. *)
-  name_claim_type : string option; [@option]
+  name_claim_type : string prop option; [@option]
       (** The name of the claim that contains the users name. *)
-  openid_configuration_endpoint : string;
+  openid_configuration_endpoint : string prop;
       (** The endpoint that contains all the configuration endpoints for this Custom OIDC provider. *)
-  scopes : string list option; [@option]
+  scopes : string prop list option; [@option]
       (** The list of the scopes that should be requested while authenticating. *)
-  token_endpoint : string;
+  token_endpoint : string prop;
       (** The endpoint used to request a Token. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings_v2__custom_oidc_v2 *)
 
 type azurerm_windows_web_app__auth_settings_v2__facebook_v2 = {
-  app_id : string;
+  app_id : string prop;
       (** The App ID of the Facebook app used for login. *)
-  app_secret_setting_name : string;
+  app_secret_setting_name : string prop;
       (** The app setting name that contains the `app_secret` value used for Facebook Login. *)
-  graph_api_version : string option; [@option]
+  graph_api_version : string prop option; [@option]
       (** The version of the Facebook API to be used while logging in. *)
-  login_scopes : string list option; [@option]
+  login_scopes : string prop list option; [@option]
       (** Specifies a list of scopes to be requested as part of Facebook Login authentication. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings_v2__facebook_v2 *)
 
 type azurerm_windows_web_app__auth_settings_v2__github_v2 = {
-  client_id : string;
+  client_id : string prop;
       (** The ID of the GitHub app used for login. *)
-  client_secret_setting_name : string;
+  client_secret_setting_name : string prop;
       (** The app setting name that contains the `client_secret` value used for GitHub Login. *)
-  login_scopes : string list option; [@option]
+  login_scopes : string prop list option; [@option]
       (** Specifies a list of OAuth 2.0 scopes that will be requested as part of GitHub Login authentication. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings_v2__github_v2 *)
 
 type azurerm_windows_web_app__auth_settings_v2__google_v2 = {
-  allowed_audiences : string list option; [@option]
+  allowed_audiences : string prop list option; [@option]
       (** Specifies a list of Allowed Audiences that will be requested as part of Google Sign-In authentication. *)
-  client_id : string;
+  client_id : string prop;
       (** The OpenID Connect Client ID for the Google web application. *)
-  client_secret_setting_name : string;
+  client_secret_setting_name : string prop;
       (** The app setting name that contains the `client_secret` value used for Google Login. *)
-  login_scopes : string list option; [@option]
+  login_scopes : string prop list option; [@option]
       (** Specifies a list of Login scopes that will be requested as part of Google Sign-In authentication. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings_v2__google_v2 *)
 
 type azurerm_windows_web_app__auth_settings_v2__login = {
-  allowed_external_redirect_urls : string list option; [@option]
+  allowed_external_redirect_urls : string prop list option; [@option]
       (** External URLs that can be redirected to as part of logging in or logging out of the app. This is an advanced setting typically only needed by Windows Store application backends. **Note:** URLs within the current domain are always implicitly allowed. *)
-  cookie_expiration_convention : string option; [@option]
+  cookie_expiration_convention : string prop option; [@option]
       (** The method by which cookies expire. Possible values include: `FixedTime`, and `IdentityProviderDerived`. Defaults to `FixedTime`. *)
-  cookie_expiration_time : string option; [@option]
+  cookie_expiration_time : string prop option; [@option]
       (** The time after the request is made when the session cookie should expire. Defaults to `08:00:00`. *)
-  logout_endpoint : string option; [@option]
+  logout_endpoint : string prop option; [@option]
       (** The endpoint to which logout requests should be made. *)
-  nonce_expiration_time : string option; [@option]
+  nonce_expiration_time : string prop option; [@option]
       (** The time after the request is made when the nonce should expire. Defaults to `00:05:00`. *)
-  preserve_url_fragments_for_logins : bool option; [@option]
+  preserve_url_fragments_for_logins : bool prop option; [@option]
       (** Should the fragments from the request be preserved after the login request is made. Defaults to `false`. *)
-  token_refresh_extension_time : float option; [@option]
+  token_refresh_extension_time : float prop option; [@option]
       (** The number of hours after session token expiration that a session token can be used to call the token refresh API. Defaults to `72` hours. *)
-  token_store_enabled : bool option; [@option]
+  token_store_enabled : bool prop option; [@option]
       (** Should the Token Store configuration Enabled. Defaults to `false` *)
-  token_store_path : string option; [@option]
+  token_store_path : string prop option; [@option]
       (** The directory path in the App Filesystem in which the tokens will be stored. *)
-  token_store_sas_setting_name : string option; [@option]
+  token_store_sas_setting_name : string prop option; [@option]
       (** The name of the app setting which contains the SAS URL of the blob storage containing the tokens. *)
-  validate_nonce : bool option; [@option]
+  validate_nonce : bool prop option; [@option]
       (** Should the nonce be validated while completing the login flow. Defaults to `true`. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings_v2__login *)
 
 type azurerm_windows_web_app__auth_settings_v2__microsoft_v2 = {
-  allowed_audiences : string list option; [@option]
+  allowed_audiences : string prop list option; [@option]
       (** Specifies a list of Allowed Audiences that will be requested as part of Microsoft Sign-In authentication. *)
-  client_id : string;
+  client_id : string prop;
       (** The OAuth 2.0 client ID that was created for the app used for authentication. *)
-  client_secret_setting_name : string;
+  client_secret_setting_name : string prop;
       (** The app setting name containing the OAuth 2.0 client secret that was created for the app used for authentication. *)
-  login_scopes : string list option; [@option]
+  login_scopes : string prop list option; [@option]
       (** The list of Login scopes that will be requested as part of Microsoft Account authentication. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings_v2__microsoft_v2 *)
 
 type azurerm_windows_web_app__auth_settings_v2__twitter_v2 = {
-  consumer_key : string;
+  consumer_key : string prop;
       (** The OAuth 1.0a consumer key of the Twitter application used for sign-in. *)
-  consumer_secret_setting_name : string;
+  consumer_secret_setting_name : string prop;
       (** The app setting name that contains the OAuth 1.0a consumer secret of the Twitter application used for sign-in. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__auth_settings_v2__twitter_v2 *)
 
 type azurerm_windows_web_app__auth_settings_v2 = {
-  auth_enabled : bool option; [@option]
+  auth_enabled : bool prop option; [@option]
       (** Should the AuthV2 Settings be enabled. Defaults to `false` *)
-  config_file_path : string option; [@option]
+  config_file_path : string prop option; [@option]
       (** The path to the App Auth settings. **Note:** Relative Paths are evaluated from the Site Root directory. *)
-  default_provider : string option; [@option]
+  default_provider : string prop option; [@option]
       (** The Default Authentication Provider to use when the `unauthenticated_action` is set to `RedirectToLoginPage`. Possible values include: `apple`, `azureactivedirectory`, `facebook`, `github`, `google`, `twitter` and the `name` of your `custom_oidc_v2` provider. *)
-  excluded_paths : string list option; [@option]
+  excluded_paths : string prop list option; [@option]
       (** The paths which should be excluded from the `unauthenticated_action` when it is set to `RedirectToLoginPage`. *)
-  forward_proxy_convention : string option; [@option]
+  forward_proxy_convention : string prop option; [@option]
       (** The convention used to determine the url of the request made. Possible values include `ForwardProxyConventionNoProxy`, `ForwardProxyConventionStandard`, `ForwardProxyConventionCustom`. Defaults to `ForwardProxyConventionNoProxy` *)
-  forward_proxy_custom_host_header_name : string option; [@option]
+  forward_proxy_custom_host_header_name : string prop option;
+      [@option]
       (** The name of the header containing the host of the request. *)
-  forward_proxy_custom_scheme_header_name : string option; [@option]
+  forward_proxy_custom_scheme_header_name : string prop option;
+      [@option]
       (** The name of the header containing the scheme of the request. *)
-  http_route_api_prefix : string option; [@option]
+  http_route_api_prefix : string prop option; [@option]
       (** The prefix that should precede all the authentication and authorisation paths. Defaults to `/.auth` *)
-  require_authentication : bool option; [@option]
+  require_authentication : bool prop option; [@option]
       (** Should the authentication flow be used for all requests. *)
-  require_https : bool option; [@option]
+  require_https : bool prop option; [@option]
       (** Should HTTPS be required on connections? Defaults to true. *)
-  runtime_version : string option; [@option]
+  runtime_version : string prop option; [@option]
       (** The Runtime Version of the Authentication and Authorisation feature of this App. Defaults to `~1` *)
-  unauthenticated_action : string option; [@option]
+  unauthenticated_action : string prop option; [@option]
       (** The action to take for requests made without authentication. Possible values include `RedirectToLoginPage`, `AllowAnonymous`, `Return401`, and `Return403`. Defaults to `RedirectToLoginPage`. *)
   active_directory_v2 :
     azurerm_windows_web_app__auth_settings_v2__active_directory_v2
@@ -321,62 +325,64 @@ type azurerm_windows_web_app__auth_settings_v2 = {
 (** azurerm_windows_web_app__auth_settings_v2 *)
 
 type azurerm_windows_web_app__backup__schedule = {
-  frequency_interval : float;
+  frequency_interval : float prop;
       (** How often the backup should be executed (e.g. for weekly backup, this should be set to `7` and `frequency_unit` should be set to `Day`). *)
-  frequency_unit : string;
+  frequency_unit : string prop;
       (** The unit of time for how often the backup should take place. Possible values include: `Day` and `Hour`. *)
-  keep_at_least_one_backup : bool option; [@option]
+  keep_at_least_one_backup : bool prop option; [@option]
       (** Should the service keep at least one backup, regardless of age of backup. Defaults to `false`. *)
-  last_execution_time : string;
+  last_execution_time : string prop;
       (** The time the backup was last attempted. *)
-  retention_period_days : float option; [@option]
+  retention_period_days : float prop option; [@option]
       (** After how many days backups should be deleted. *)
-  start_time : string option; [@option]
+  start_time : string prop option; [@option]
       (** When the schedule should start working in RFC-3339 format. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__backup__schedule *)
 
 type azurerm_windows_web_app__backup = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Should this backup job be enabled? *)
-  name : string;
+  name : string prop;
       (** The name which should be used for this Backup. *)
-  storage_account_url : string;  (** The SAS URL to the container. *)
+  storage_account_url : string prop;
+      (** The SAS URL to the container. *)
   schedule : azurerm_windows_web_app__backup__schedule list;
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__backup *)
 
 type azurerm_windows_web_app__connection_string = {
-  name : string;
+  name : string prop;
       (** The name which should be used for this Connection. *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** Type of database. Possible values include: `MySQL`, `SQLServer`, `SQLAzure`, `Custom`, `NotificationHub`, `ServiceBus`, `EventHub`, `APIHub`, `DocDb`, `RedisCache`, and `PostgreSQL`. *)
-  value : string;  (** The connection string value. *)
+  value : string prop;  (** The connection string value. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__connection_string *)
 
 type azurerm_windows_web_app__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__identity *)
 
 type azurerm_windows_web_app__logs__application_logs__azure_blob_storage = {
-  level : string;  (** level *)
-  retention_in_days : float;  (** retention_in_days *)
-  sas_url : string;  (** sas_url *)
+  level : string prop;  (** level *)
+  retention_in_days : float prop;  (** retention_in_days *)
+  sas_url : string prop;  (** sas_url *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__logs__application_logs__azure_blob_storage *)
 
 type azurerm_windows_web_app__logs__application_logs = {
-  file_system_level : string;  (** file_system_level *)
+  file_system_level : string prop;  (** file_system_level *)
   azure_blob_storage :
     azurerm_windows_web_app__logs__application_logs__azure_blob_storage
     list;
@@ -385,16 +391,16 @@ type azurerm_windows_web_app__logs__application_logs = {
 (** azurerm_windows_web_app__logs__application_logs *)
 
 type azurerm_windows_web_app__logs__http_logs__azure_blob_storage = {
-  retention_in_days : float option; [@option]
+  retention_in_days : float prop option; [@option]
       (** retention_in_days *)
-  sas_url : string;  (** sas_url *)
+  sas_url : string prop;  (** sas_url *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__logs__http_logs__azure_blob_storage *)
 
 type azurerm_windows_web_app__logs__http_logs__file_system = {
-  retention_in_days : float;  (** retention_in_days *)
-  retention_in_mb : float;  (** retention_in_mb *)
+  retention_in_days : float prop;  (** retention_in_days *)
+  retention_in_mb : float prop;  (** retention_in_mb *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__logs__http_logs__file_system *)
@@ -409,9 +415,9 @@ type azurerm_windows_web_app__logs__http_logs = {
 (** azurerm_windows_web_app__logs__http_logs *)
 
 type azurerm_windows_web_app__logs = {
-  detailed_error_messages : bool option; [@option]
+  detailed_error_messages : bool prop option; [@option]
       (** detailed_error_messages *)
-  failed_request_tracing : bool option; [@option]
+  failed_request_tracing : bool prop option; [@option]
       (** failed_request_tracing *)
   application_logs :
     azurerm_windows_web_app__logs__application_logs list;
@@ -421,49 +427,53 @@ type azurerm_windows_web_app__logs = {
 (** azurerm_windows_web_app__logs *)
 
 type azurerm_windows_web_app__site_config__application_stack = {
-  current_stack : string option; [@option]  (** current_stack *)
-  docker_container_name : string option; [@option]
+  current_stack : string prop option; [@option]  (** current_stack *)
+  docker_container_name : string prop option; [@option]
       (** docker_container_name *)
-  docker_container_registry : string option; [@option]
+  docker_container_registry : string prop option; [@option]
       (** docker_container_registry *)
-  docker_container_tag : string option; [@option]
+  docker_container_tag : string prop option; [@option]
       (** docker_container_tag *)
-  docker_image_name : string option; [@option]
+  docker_image_name : string prop option; [@option]
       (** docker_image_name *)
-  docker_registry_password : string option; [@option]
+  docker_registry_password : string prop option; [@option]
       (** docker_registry_password *)
-  docker_registry_url : string option; [@option]
+  docker_registry_url : string prop option; [@option]
       (** docker_registry_url *)
-  docker_registry_username : string option; [@option]
+  docker_registry_username : string prop option; [@option]
       (** docker_registry_username *)
-  dotnet_core_version : string option; [@option]
+  dotnet_core_version : string prop option; [@option]
       (** The version of DotNetCore to use. *)
-  dotnet_version : string option; [@option]  (** dotnet_version *)
-  java_container : string option; [@option]  (** java_container *)
-  java_container_version : string option; [@option]
+  dotnet_version : string prop option; [@option]
+      (** dotnet_version *)
+  java_container : string prop option; [@option]
+      (** java_container *)
+  java_container_version : string prop option; [@option]
       (** java_container_version *)
-  java_embedded_server_enabled : bool option; [@option]
+  java_embedded_server_enabled : bool prop option; [@option]
       (** Should the application use the embedded web server for the version of Java in use. *)
-  java_version : string option; [@option]  (** java_version *)
-  node_version : string option; [@option]  (** node_version *)
-  php_version : string option; [@option]  (** php_version *)
-  python : bool option; [@option]  (** python *)
-  python_version : string option; [@option]  (** python_version *)
-  tomcat_version : string option; [@option]  (** tomcat_version *)
+  java_version : string prop option; [@option]  (** java_version *)
+  node_version : string prop option; [@option]  (** node_version *)
+  php_version : string prop option; [@option]  (** php_version *)
+  python : bool prop option; [@option]  (** python *)
+  python_version : string prop option; [@option]
+      (** python_version *)
+  tomcat_version : string prop option; [@option]
+      (** tomcat_version *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__site_config__application_stack *)
 
 type azurerm_windows_web_app__site_config__auto_heal_setting__action__custom_action = {
-  executable : string;  (** executable *)
-  parameters : string option; [@option]  (** parameters *)
+  executable : string prop;  (** executable *)
+  parameters : string prop option; [@option]  (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__site_config__auto_heal_setting__action__custom_action *)
 
 type azurerm_windows_web_app__site_config__auto_heal_setting__action = {
-  action_type : string;  (** action_type *)
-  minimum_process_execution_time : string option; [@option]
+  action_type : string prop;  (** action_type *)
+  minimum_process_execution_time : string prop option; [@option]
       (** minimum_process_execution_time *)
   custom_action :
     azurerm_windows_web_app__site_config__auto_heal_setting__action__custom_action
@@ -473,35 +483,35 @@ type azurerm_windows_web_app__site_config__auto_heal_setting__action = {
 (** azurerm_windows_web_app__site_config__auto_heal_setting__action *)
 
 type azurerm_windows_web_app__site_config__auto_heal_setting__trigger__requests = {
-  count : float;  (** count *)
-  interval : string;  (** interval *)
+  count : float prop;  (** count *)
+  interval : string prop;  (** interval *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__site_config__auto_heal_setting__trigger__requests *)
 
 type azurerm_windows_web_app__site_config__auto_heal_setting__trigger__slow_request = {
-  count : float;  (** count *)
-  interval : string;  (** interval *)
-  path : string option; [@option]  (** path *)
-  time_taken : string;  (** time_taken *)
+  count : float prop;  (** count *)
+  interval : string prop;  (** interval *)
+  path : string prop option; [@option]  (** path *)
+  time_taken : string prop;  (** time_taken *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__site_config__auto_heal_setting__trigger__slow_request *)
 
 type azurerm_windows_web_app__site_config__auto_heal_setting__trigger__status_code = {
-  count : float;  (** count *)
-  interval : string;  (** interval *)
-  path : string option; [@option]  (** path *)
-  status_code_range : string;  (** status_code_range *)
-  sub_status : float option; [@option]  (** sub_status *)
-  win32_status_code : float option; [@option]
+  count : float prop;  (** count *)
+  interval : string prop;  (** interval *)
+  path : string prop option; [@option]  (** path *)
+  status_code_range : string prop;  (** status_code_range *)
+  sub_status : float prop option; [@option]  (** sub_status *)
+  win32_status_code : float prop option; [@option]
       (** win32_status_code *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__site_config__auto_heal_setting__trigger__status_code *)
 
 type azurerm_windows_web_app__site_config__auto_heal_setting__trigger = {
-  private_memory_kb : float option; [@option]
+  private_memory_kb : float prop option; [@option]
       (** private_memory_kb *)
   requests :
     azurerm_windows_web_app__site_config__auto_heal_setting__trigger__requests
@@ -528,26 +538,26 @@ type azurerm_windows_web_app__site_config__auto_heal_setting = {
 (** azurerm_windows_web_app__site_config__auto_heal_setting *)
 
 type azurerm_windows_web_app__site_config__cors = {
-  allowed_origins : string list option; [@option]
+  allowed_origins : string prop list option; [@option]
       (** Specifies a list of origins that should be allowed to make cross-origin calls. *)
-  support_credentials : bool option; [@option]
+  support_credentials : bool prop option; [@option]
       (** Are credentials allowed in CORS requests? Defaults to `false`. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__site_config__cors *)
 
 type azurerm_windows_web_app__site_config__ip_restriction__headers = {
-  x_azure_fdid : string list;  (** x_azure_fdid *)
-  x_fd_health_probe : string list;  (** x_fd_health_probe *)
-  x_forwarded_for : string list;  (** x_forwarded_for *)
-  x_forwarded_host : string list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;  (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;  (** x_forwarded_for *)
+  x_forwarded_host : string prop list;  (** x_forwarded_host *)
 }
 [@@deriving yojson_of]
 
 type azurerm_windows_web_app__site_config__ip_restriction = {
-  action : string option; [@option]
+  action : string prop option; [@option]
       (** The action to take. Possible values are `Allow` or `Deny`. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description of the IP restriction rule. *)
   headers :
     azurerm_windows_web_app__site_config__ip_restriction__headers
@@ -555,32 +565,32 @@ type azurerm_windows_web_app__site_config__ip_restriction = {
     option;
       [@option]
       (** headers *)
-  ip_address : string option; [@option]
+  ip_address : string prop option; [@option]
       (** The CIDR notation of the IP or IP Range to match. For example: `10.0.0.0/24` or `192.168.10.1/32` or `fe80::/64` or `13.107.6.152/31,13.107.128.0/22` *)
-  name : string option; [@option]
+  name : string prop option; [@option]
       (** The name which should be used for this `ip_restriction`. *)
-  priority : float option; [@option]
+  priority : float prop option; [@option]
       (** The priority value of this `ip_restriction`. *)
-  service_tag : string option; [@option]
+  service_tag : string prop option; [@option]
       (** The Service Tag used for this IP Restriction. *)
-  virtual_network_subnet_id : string option; [@option]
+  virtual_network_subnet_id : string prop option; [@option]
       (** The Virtual Network Subnet ID used for this IP Restriction. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__site_config__ip_restriction *)
 
 type azurerm_windows_web_app__site_config__scm_ip_restriction__headers = {
-  x_azure_fdid : string list;  (** x_azure_fdid *)
-  x_fd_health_probe : string list;  (** x_fd_health_probe *)
-  x_forwarded_for : string list;  (** x_forwarded_for *)
-  x_forwarded_host : string list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;  (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;  (** x_forwarded_for *)
+  x_forwarded_host : string prop list;  (** x_forwarded_host *)
 }
 [@@deriving yojson_of]
 
 type azurerm_windows_web_app__site_config__scm_ip_restriction = {
-  action : string option; [@option]
+  action : string prop option; [@option]
       (** The action to take. Possible values are `Allow` or `Deny`. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description of the IP restriction rule. *)
   headers :
     azurerm_windows_web_app__site_config__scm_ip_restriction__headers
@@ -588,31 +598,31 @@ type azurerm_windows_web_app__site_config__scm_ip_restriction = {
     option;
       [@option]
       (** headers *)
-  ip_address : string option; [@option]
+  ip_address : string prop option; [@option]
       (** The CIDR notation of the IP or IP Range to match. For example: `10.0.0.0/24` or `192.168.10.1/32` or `fe80::/64` or `13.107.6.152/31,13.107.128.0/22` *)
-  name : string option; [@option]
+  name : string prop option; [@option]
       (** The name which should be used for this `ip_restriction`. *)
-  priority : float option; [@option]
+  priority : float prop option; [@option]
       (** The priority value of this `ip_restriction`. *)
-  service_tag : string option; [@option]
+  service_tag : string prop option; [@option]
       (** The Service Tag used for this IP Restriction. *)
-  virtual_network_subnet_id : string option; [@option]
+  virtual_network_subnet_id : string prop option; [@option]
       (** The Virtual Network Subnet ID used for this IP Restriction. *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__site_config__scm_ip_restriction *)
 
 type azurerm_windows_web_app__site_config__virtual_application__virtual_directory = {
-  physical_path : string option; [@option]  (** physical_path *)
-  virtual_path : string option; [@option]  (** virtual_path *)
+  physical_path : string prop option; [@option]  (** physical_path *)
+  virtual_path : string prop option; [@option]  (** virtual_path *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__site_config__virtual_application__virtual_directory *)
 
 type azurerm_windows_web_app__site_config__virtual_application = {
-  physical_path : string;  (** physical_path *)
-  preload : bool;  (** preload *)
-  virtual_path : string;  (** virtual_path *)
+  physical_path : string prop;  (** physical_path *)
+  preload : bool prop;  (** preload *)
+  virtual_path : string prop;  (** virtual_path *)
   virtual_directory :
     azurerm_windows_web_app__site_config__virtual_application__virtual_directory
     list;
@@ -621,60 +631,61 @@ type azurerm_windows_web_app__site_config__virtual_application = {
 (** azurerm_windows_web_app__site_config__virtual_application *)
 
 type azurerm_windows_web_app__site_config = {
-  always_on : bool option; [@option]  (** always_on *)
-  api_definition_url : string option; [@option]
+  always_on : bool prop option; [@option]  (** always_on *)
+  api_definition_url : string prop option; [@option]
       (** api_definition_url *)
-  api_management_api_id : string option; [@option]
+  api_management_api_id : string prop option; [@option]
       (** api_management_api_id *)
-  app_command_line : string option; [@option]
+  app_command_line : string prop option; [@option]
       (** app_command_line *)
-  auto_heal_enabled : bool option; [@option]
+  auto_heal_enabled : bool prop option; [@option]
       (** auto_heal_enabled *)
-  container_registry_managed_identity_client_id : string option;
+  container_registry_managed_identity_client_id : string prop option;
       [@option]
       (** container_registry_managed_identity_client_id *)
-  container_registry_use_managed_identity : bool option; [@option]
+  container_registry_use_managed_identity : bool prop option;
+      [@option]
       (** container_registry_use_managed_identity *)
-  default_documents : string list option; [@option]
+  default_documents : string prop list option; [@option]
       (** default_documents *)
-  detailed_error_logging_enabled : bool;
+  detailed_error_logging_enabled : bool prop;
       (** detailed_error_logging_enabled *)
-  ftps_state : string option; [@option]  (** ftps_state *)
-  health_check_eviction_time_in_min : float option; [@option]
+  ftps_state : string prop option; [@option]  (** ftps_state *)
+  health_check_eviction_time_in_min : float prop option; [@option]
       (** The amount of time in minutes that a node is unhealthy before being removed from the load balancer. Possible values are between `2` and `10`. Defaults to `10`. Only valid in conjunction with `health_check_path` *)
-  health_check_path : string option; [@option]
+  health_check_path : string prop option; [@option]
       (** health_check_path *)
-  http2_enabled : bool option; [@option]  (** http2_enabled *)
-  ip_restriction_default_action : string option; [@option]
+  http2_enabled : bool prop option; [@option]  (** http2_enabled *)
+  ip_restriction_default_action : string prop option; [@option]
       (** ip_restriction_default_action *)
-  linux_fx_version : string;  (** linux_fx_version *)
-  load_balancing_mode : string option; [@option]
+  linux_fx_version : string prop;  (** linux_fx_version *)
+  load_balancing_mode : string prop option; [@option]
       (** load_balancing_mode *)
-  local_mysql_enabled : bool option; [@option]
+  local_mysql_enabled : bool prop option; [@option]
       (** local_mysql_enabled *)
-  managed_pipeline_mode : string option; [@option]
+  managed_pipeline_mode : string prop option; [@option]
       (** managed_pipeline_mode *)
-  minimum_tls_version : string option; [@option]
+  minimum_tls_version : string prop option; [@option]
       (** minimum_tls_version *)
-  remote_debugging_enabled : bool option; [@option]
+  remote_debugging_enabled : bool prop option; [@option]
       (** remote_debugging_enabled *)
-  remote_debugging_version : string option; [@option]
+  remote_debugging_version : string prop option; [@option]
       (** remote_debugging_version *)
-  scm_ip_restriction_default_action : string option; [@option]
+  scm_ip_restriction_default_action : string prop option; [@option]
       (** scm_ip_restriction_default_action *)
-  scm_minimum_tls_version : string option; [@option]
+  scm_minimum_tls_version : string prop option; [@option]
       (** scm_minimum_tls_version *)
-  scm_type : string;  (** scm_type *)
-  scm_use_main_ip_restriction : bool option; [@option]
+  scm_type : string prop;  (** scm_type *)
+  scm_use_main_ip_restriction : bool prop option; [@option]
       (** scm_use_main_ip_restriction *)
-  use_32_bit_worker : bool option; [@option]
+  use_32_bit_worker : bool prop option; [@option]
       (** use_32_bit_worker *)
-  vnet_route_all_enabled : bool option; [@option]
+  vnet_route_all_enabled : bool prop option; [@option]
       (** Should all outbound traffic to have Virtual Network Security Groups and User Defined Routes applied? Defaults to `false`. *)
-  websockets_enabled : bool option; [@option]
+  websockets_enabled : bool prop option; [@option]
       (** websockets_enabled *)
-  windows_fx_version : string;  (** windows_fx_version *)
-  worker_count : float option; [@option]  (** worker_count *)
+  windows_fx_version : string prop;  (** windows_fx_version *)
+  worker_count : float prop option; [@option]  (** worker_count *)
   application_stack :
     azurerm_windows_web_app__site_config__application_stack list;
   auto_heal_setting :
@@ -691,71 +702,72 @@ type azurerm_windows_web_app__site_config = {
 (** azurerm_windows_web_app__site_config *)
 
 type azurerm_windows_web_app__sticky_settings = {
-  app_setting_names : string list option; [@option]
+  app_setting_names : string prop list option; [@option]
       (** app_setting_names *)
-  connection_string_names : string list option; [@option]
+  connection_string_names : string prop list option; [@option]
       (** connection_string_names *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__sticky_settings *)
 
 type azurerm_windows_web_app__storage_account = {
-  access_key : string;  (** access_key *)
-  account_name : string;  (** account_name *)
-  mount_path : string option; [@option]  (** mount_path *)
-  name : string;  (** name *)
-  share_name : string;  (** share_name *)
-  type_ : string; [@key "type"]  (** type *)
+  access_key : string prop;  (** access_key *)
+  account_name : string prop;  (** account_name *)
+  mount_path : string prop option; [@option]  (** mount_path *)
+  name : string prop;  (** name *)
+  share_name : string prop;  (** share_name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__storage_account *)
 
 type azurerm_windows_web_app__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_windows_web_app__timeouts *)
 
 type azurerm_windows_web_app__site_credential = {
-  name : string;  (** name *)
-  password : string;  (** password *)
+  name : string prop;  (** name *)
+  password : string prop;  (** password *)
 }
 [@@deriving yojson_of]
 
 type azurerm_windows_web_app = {
-  app_settings : (string * string) list option; [@option]
+  app_settings : (string * string prop) list option; [@option]
       (** app_settings *)
-  client_affinity_enabled : bool option; [@option]
+  client_affinity_enabled : bool prop option; [@option]
       (** client_affinity_enabled *)
-  client_certificate_enabled : bool option; [@option]
+  client_certificate_enabled : bool prop option; [@option]
       (** client_certificate_enabled *)
-  client_certificate_exclusion_paths : string option; [@option]
+  client_certificate_exclusion_paths : string prop option; [@option]
       (** Paths to exclude when using client certificates, separated by ; *)
-  client_certificate_mode : string option; [@option]
+  client_certificate_mode : string prop option; [@option]
       (** client_certificate_mode *)
-  enabled : bool option; [@option]  (** enabled *)
-  ftp_publish_basic_authentication_enabled : bool option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  ftp_publish_basic_authentication_enabled : bool prop option;
+      [@option]
       (** ftp_publish_basic_authentication_enabled *)
-  https_only : bool option; [@option]  (** https_only *)
-  id : string option; [@option]  (** id *)
-  key_vault_reference_identity_id : string option; [@option]
+  https_only : bool prop option; [@option]  (** https_only *)
+  id : string prop option; [@option]  (** id *)
+  key_vault_reference_identity_id : string prop option; [@option]
       (** key_vault_reference_identity_id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  service_plan_id : string;  (** service_plan_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  virtual_network_subnet_id : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  service_plan_id : string prop;  (** service_plan_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  virtual_network_subnet_id : string prop option; [@option]
       (** virtual_network_subnet_id *)
-  webdeploy_publish_basic_authentication_enabled : bool option;
+  webdeploy_publish_basic_authentication_enabled : bool prop option;
       [@option]
       (** webdeploy_publish_basic_authentication_enabled *)
-  zip_deploy_file : string option; [@option]
+  zip_deploy_file : string prop option; [@option]
       (** The local path and filename of the Zip packaged application to deploy to this Windows Web App. **Note:** Using this value requires either `WEBSITE_RUN_FROM_PACKAGE=1` or `SCM_DO_BUILD_DURING_DEPLOYMENT=true` to be set on the App in `app_settings`. *)
   auth_settings : azurerm_windows_web_app__auth_settings list;
   auth_settings_v2 : azurerm_windows_web_app__auth_settings_v2 list;

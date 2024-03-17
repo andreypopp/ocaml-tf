@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_function_app_function__file = {
-  content : string;  (** The content of the file. *)
-  name : string;  (** The filename of the file to be uploaded. *)
+  content : string prop;  (** The content of the file. *)
+  name : string prop;  (** The filename of the file to be uploaded. *)
 }
 [@@deriving yojson_of]
 (** azurerm_function_app_function__file *)
 
 type azurerm_function_app_function__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_function_app_function__timeouts *)
 
 type azurerm_function_app_function = {
-  config_json : string;
+  config_json : string prop;
       (** The config for this Function in JSON format. *)
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Should this function be enabled. Defaults to `true`. *)
-  function_app_id : string;
+  function_app_id : string prop;
       (** The ID of the Function App in which this function should reside. *)
-  id : string option; [@option]  (** id *)
-  language : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  language : string prop option; [@option]
       (** The language the Function is written in. *)
-  name : string;  (** The name of the function. *)
-  test_data : string option; [@option]
+  name : string prop;  (** The name of the function. *)
+  test_data : string prop option; [@option]
       (** The test data for the function. *)
   file : azurerm_function_app_function__file list;
   timeouts : azurerm_function_app_function__timeouts option;

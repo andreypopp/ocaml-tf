@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type aws_sagemaker_model_package_group_policy = {
-  id : string option; [@option]  (** id *)
-  model_package_group_name : string;  (** model_package_group_name *)
-  resource_policy : string;  (** resource_policy *)
+  id : string prop option; [@option]  (** id *)
+  model_package_group_name : string prop;
+      (** model_package_group_name *)
+  resource_policy : string prop;  (** resource_policy *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_model_package_group_policy *)

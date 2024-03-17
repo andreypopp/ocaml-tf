@@ -5,57 +5,58 @@
 open! Tf.Prelude
 
 type aws_ami__ebs_block_device = {
-  delete_on_termination : bool option; [@option]
+  delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
-  device_name : string;  (** device_name *)
-  encrypted : bool option; [@option]  (** encrypted *)
-  iops : float option; [@option]  (** iops *)
-  outpost_arn : string option; [@option]  (** outpost_arn *)
-  snapshot_id : string option; [@option]  (** snapshot_id *)
-  throughput : float option; [@option]  (** throughput *)
-  volume_size : float option; [@option]  (** volume_size *)
-  volume_type : string option; [@option]  (** volume_type *)
+  device_name : string prop;  (** device_name *)
+  encrypted : bool prop option; [@option]  (** encrypted *)
+  iops : float prop option; [@option]  (** iops *)
+  outpost_arn : string prop option; [@option]  (** outpost_arn *)
+  snapshot_id : string prop option; [@option]  (** snapshot_id *)
+  throughput : float prop option; [@option]  (** throughput *)
+  volume_size : float prop option; [@option]  (** volume_size *)
+  volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
 (** aws_ami__ebs_block_device *)
 
 type aws_ami__ephemeral_block_device = {
-  device_name : string;  (** device_name *)
-  virtual_name : string;  (** virtual_name *)
+  device_name : string prop;  (** device_name *)
+  virtual_name : string prop;  (** virtual_name *)
 }
 [@@deriving yojson_of]
 (** aws_ami__ephemeral_block_device *)
 
 type aws_ami__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_ami__timeouts *)
 
 type aws_ami = {
-  architecture : string option; [@option]  (** architecture *)
-  boot_mode : string option; [@option]  (** boot_mode *)
-  deprecation_time : string option; [@option]
+  architecture : string prop option; [@option]  (** architecture *)
+  boot_mode : string prop option; [@option]  (** boot_mode *)
+  deprecation_time : string prop option; [@option]
       (** deprecation_time *)
-  description : string option; [@option]  (** description *)
-  ena_support : bool option; [@option]  (** ena_support *)
-  id : string option; [@option]  (** id *)
-  image_location : string option; [@option]  (** image_location *)
-  imds_support : string option; [@option]  (** imds_support *)
-  kernel_id : string option; [@option]  (** kernel_id *)
-  name : string;  (** name *)
-  ramdisk_id : string option; [@option]  (** ramdisk_id *)
-  root_device_name : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  ena_support : bool prop option; [@option]  (** ena_support *)
+  id : string prop option; [@option]  (** id *)
+  image_location : string prop option; [@option]
+      (** image_location *)
+  imds_support : string prop option; [@option]  (** imds_support *)
+  kernel_id : string prop option; [@option]  (** kernel_id *)
+  name : string prop;  (** name *)
+  ramdisk_id : string prop option; [@option]  (** ramdisk_id *)
+  root_device_name : string prop option; [@option]
       (** root_device_name *)
-  sriov_net_support : string option; [@option]
+  sriov_net_support : string prop option; [@option]
       (** sriov_net_support *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  tpm_support : string option; [@option]  (** tpm_support *)
-  virtualization_type : string option; [@option]
+  tpm_support : string prop option; [@option]  (** tpm_support *)
+  virtualization_type : string prop option; [@option]
       (** virtualization_type *)
   ebs_block_device : aws_ami__ebs_block_device list;
   ephemeral_block_device : aws_ami__ephemeral_block_device list;

@@ -5,34 +5,35 @@
 open! Tf.Prelude
 
 type azurerm_automation_schedule__monthly_occurrence = {
-  day : string;  (** day *)
-  occurrence : float;  (** occurrence *)
+  day : string prop;  (** day *)
+  occurrence : float prop;  (** occurrence *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_schedule__monthly_occurrence *)
 
 type azurerm_automation_schedule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_schedule__timeouts *)
 
 type azurerm_automation_schedule = {
-  automation_account_name : string;  (** automation_account_name *)
-  description : string option; [@option]  (** description *)
-  expiry_time : string option; [@option]  (** expiry_time *)
-  frequency : string;  (** frequency *)
-  id : string option; [@option]  (** id *)
-  interval : float option; [@option]  (** interval *)
-  month_days : float list option; [@option]  (** month_days *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  start_time : string option; [@option]  (** start_time *)
-  timezone : string option; [@option]  (** timezone *)
-  week_days : string list option; [@option]  (** week_days *)
+  automation_account_name : string prop;
+      (** automation_account_name *)
+  description : string prop option; [@option]  (** description *)
+  expiry_time : string prop option; [@option]  (** expiry_time *)
+  frequency : string prop;  (** frequency *)
+  id : string prop option; [@option]  (** id *)
+  interval : float prop option; [@option]  (** interval *)
+  month_days : float prop list option; [@option]  (** month_days *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  start_time : string prop option; [@option]  (** start_time *)
+  timezone : string prop option; [@option]  (** timezone *)
+  week_days : string prop list option; [@option]  (** week_days *)
   monthly_occurrence :
     azurerm_automation_schedule__monthly_occurrence list;
   timeouts : azurerm_automation_schedule__timeouts option;

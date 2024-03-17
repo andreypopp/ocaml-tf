@@ -5,22 +5,24 @@
 open! Tf.Prelude
 
 type aws_rds_export_task__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-  delete : string option; [@option]
+  delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
 }
 [@@deriving yojson_of]
 (** aws_rds_export_task__timeouts *)
 
 type aws_rds_export_task = {
-  export_only : string list option; [@option]  (** export_only *)
-  export_task_identifier : string;  (** export_task_identifier *)
-  iam_role_arn : string;  (** iam_role_arn *)
-  kms_key_id : string;  (** kms_key_id *)
-  s3_bucket_name : string;  (** s3_bucket_name *)
-  s3_prefix : string option; [@option]  (** s3_prefix *)
-  source_arn : string;  (** source_arn *)
+  export_only : string prop list option; [@option]
+      (** export_only *)
+  export_task_identifier : string prop;
+      (** export_task_identifier *)
+  iam_role_arn : string prop;  (** iam_role_arn *)
+  kms_key_id : string prop;  (** kms_key_id *)
+  s3_bucket_name : string prop;  (** s3_bucket_name *)
+  s3_prefix : string prop option; [@option]  (** s3_prefix *)
+  source_arn : string prop;  (** source_arn *)
   timeouts : aws_rds_export_task__timeouts option;
 }
 [@@deriving yojson_of]

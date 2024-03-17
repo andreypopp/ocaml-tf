@@ -5,36 +5,36 @@
 open! Tf.Prelude
 
 type azurerm_synapse_sql_pool__restore = {
-  point_in_time : string;  (** point_in_time *)
-  source_database_id : string;  (** source_database_id *)
+  point_in_time : string prop;  (** point_in_time *)
+  source_database_id : string prop;  (** source_database_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_sql_pool__restore *)
 
 type azurerm_synapse_sql_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_sql_pool__timeouts *)
 
 type azurerm_synapse_sql_pool = {
-  collation : string option; [@option]  (** collation *)
-  create_mode : string option; [@option]  (** create_mode *)
-  data_encrypted : bool option; [@option]  (** data_encrypted *)
-  geo_backup_policy_enabled : bool option; [@option]
+  collation : string prop option; [@option]  (** collation *)
+  create_mode : string prop option; [@option]  (** create_mode *)
+  data_encrypted : bool prop option; [@option]  (** data_encrypted *)
+  geo_backup_policy_enabled : bool prop option; [@option]
       (** geo_backup_policy_enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  recovery_database_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  recovery_database_id : string prop option; [@option]
       (** recovery_database_id *)
-  sku_name : string;  (** sku_name *)
-  storage_account_type : string option; [@option]
+  sku_name : string prop;  (** sku_name *)
+  storage_account_type : string prop option; [@option]
       (** storage_account_type *)
-  synapse_workspace_id : string;  (** synapse_workspace_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  synapse_workspace_id : string prop;  (** synapse_workspace_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   restore : azurerm_synapse_sql_pool__restore list;
   timeouts : azurerm_synapse_sql_pool__timeouts option;
 }

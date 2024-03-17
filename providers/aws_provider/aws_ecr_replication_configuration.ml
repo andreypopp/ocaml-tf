@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_ecr_replication_configuration__replication_configuration__rule__destination = {
-  region : string;  (** region *)
-  registry_id : string;  (** registry_id *)
+  region : string prop;  (** region *)
+  registry_id : string prop;  (** registry_id *)
 }
 [@@deriving yojson_of]
 (** aws_ecr_replication_configuration__replication_configuration__rule__destination *)
 
 type aws_ecr_replication_configuration__replication_configuration__rule__repository_filter = {
-  filter : string;  (** filter *)
-  filter_type : string;  (** filter_type *)
+  filter : string prop;  (** filter *)
+  filter_type : string prop;  (** filter_type *)
 }
 [@@deriving yojson_of]
 (** aws_ecr_replication_configuration__replication_configuration__rule__repository_filter *)
@@ -38,7 +38,7 @@ type aws_ecr_replication_configuration__replication_configuration = {
 (** aws_ecr_replication_configuration__replication_configuration *)
 
 type aws_ecr_replication_configuration = {
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   replication_configuration :
     aws_ecr_replication_configuration__replication_configuration list;
 }

@@ -10,16 +10,16 @@ type azurerm_active_directory_domain_service__timeouts
 type azurerm_active_directory_domain_service
 
 val azurerm_active_directory_domain_service :
-  ?domain_configuration_type:string ->
-  ?filtered_sync_enabled:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?domain_configuration_type:string prop ->
+  ?filtered_sync_enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_active_directory_domain_service__timeouts ->
-  domain_name:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku:string ->
+  domain_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
   initial_replica_set:
     azurerm_active_directory_domain_service__initial_replica_set list ->
   notifications:

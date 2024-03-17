@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_key_vault_managed_hardware_security_module_role_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_hardware_security_module_role_assignment__timeouts *)
 
 type azurerm_key_vault_managed_hardware_security_module_role_assignment = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  principal_id : string;  (** principal_id *)
-  role_definition_id : string;  (** role_definition_id *)
-  scope : string;  (** scope *)
-  vault_base_url : string;  (** vault_base_url *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  principal_id : string prop;  (** principal_id *)
+  role_definition_id : string prop;  (** role_definition_id *)
+  scope : string prop;  (** scope *)
+  vault_base_url : string prop;  (** vault_base_url *)
   timeouts :
     azurerm_key_vault_managed_hardware_security_module_role_assignment__timeouts
     option;

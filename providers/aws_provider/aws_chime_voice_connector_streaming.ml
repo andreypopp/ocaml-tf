@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_chime_voice_connector_streaming__media_insights_configuration = {
-  configuration_arn : string option; [@option]
+  configuration_arn : string prop option; [@option]
       (** configuration_arn *)
-  disabled : bool option; [@option]  (** disabled *)
+  disabled : bool prop option; [@option]  (** disabled *)
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_streaming__media_insights_configuration *)
 
 type aws_chime_voice_connector_streaming = {
-  data_retention : float;  (** data_retention *)
-  disabled : bool option; [@option]  (** disabled *)
-  id : string option; [@option]  (** id *)
-  streaming_notification_targets : string list option; [@option]
+  data_retention : float prop;  (** data_retention *)
+  disabled : bool prop option; [@option]  (** disabled *)
+  id : string prop option; [@option]  (** id *)
+  streaming_notification_targets : string prop list option; [@option]
       (** streaming_notification_targets *)
-  voice_connector_id : string;  (** voice_connector_id *)
+  voice_connector_id : string prop;  (** voice_connector_id *)
   media_insights_configuration :
     aws_chime_voice_connector_streaming__media_insights_configuration
     list;

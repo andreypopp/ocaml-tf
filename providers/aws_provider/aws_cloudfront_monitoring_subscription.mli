@@ -8,8 +8,8 @@ type aws_cloudfront_monitoring_subscription__monitoring_subscription
 type aws_cloudfront_monitoring_subscription
 
 val aws_cloudfront_monitoring_subscription :
-  ?id:string ->
-  distribution_id:string ->
+  ?id:string prop ->
+  distribution_id:string prop ->
   monitoring_subscription:
     aws_cloudfront_monitoring_subscription__monitoring_subscription
     list ->

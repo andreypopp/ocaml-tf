@@ -5,4 +5,7 @@ open! Tf.Prelude
 type aws_inspector_resource_group
 
 val aws_inspector_resource_group :
-  ?id:string -> tags:(string * string) list -> string -> unit
+  ?id:string prop ->
+  tags:(string * string prop) list ->
+  string ->
+  unit

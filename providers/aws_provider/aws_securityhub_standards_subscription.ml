@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_securityhub_standards_subscription = {
-  id : string option; [@option]  (** id *)
-  standards_arn : string;  (** standards_arn *)
+  id : string prop option; [@option]  (** id *)
+  standards_arn : string prop;  (** standards_arn *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_standards_subscription *)

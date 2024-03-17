@@ -6,10 +6,10 @@ type azurerm_site_recovery_services_vault_hyperv_site__timeouts
 type azurerm_site_recovery_services_vault_hyperv_site
 
 val azurerm_site_recovery_services_vault_hyperv_site :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_site_recovery_services_vault_hyperv_site__timeouts ->
-  name:string ->
-  recovery_vault_id:string ->
+  name:string prop ->
+  recovery_vault_id:string prop ->
   string ->
   unit

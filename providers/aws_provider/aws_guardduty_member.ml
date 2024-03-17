@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_guardduty_member__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_member__timeouts *)
 
 type aws_guardduty_member = {
-  account_id : string;  (** account_id *)
-  detector_id : string;  (** detector_id *)
-  disable_email_notification : bool option; [@option]
+  account_id : string prop;  (** account_id *)
+  detector_id : string prop;  (** detector_id *)
+  disable_email_notification : bool prop option; [@option]
       (** disable_email_notification *)
-  email : string;  (** email *)
-  id : string option; [@option]  (** id *)
-  invitation_message : string option; [@option]
+  email : string prop;  (** email *)
+  id : string prop option; [@option]  (** id *)
+  invitation_message : string prop option; [@option]
       (** invitation_message *)
-  invite : bool option; [@option]  (** invite *)
+  invite : bool prop option; [@option]  (** invite *)
   timeouts : aws_guardduty_member__timeouts option;
 }
 [@@deriving yojson_of]

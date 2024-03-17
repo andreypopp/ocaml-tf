@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_zone_dnssec = {
-  id : string option; [@option]  (** id *)
-  modified_on : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  modified_on : string prop option; [@option]
       (** Zone DNSSEC updated time. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type aws_waf_rule_group__activated_rule__action = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_waf_rule_group__activated_rule__action *)
 
 type aws_waf_rule_group__activated_rule = {
-  priority : float;  (** priority *)
-  rule_id : string;  (** rule_id *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  priority : float prop;  (** priority *)
+  rule_id : string prop;  (** rule_id *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   action : aws_waf_rule_group__activated_rule__action list;
 }
 [@@deriving yojson_of]
 (** aws_waf_rule_group__activated_rule *)
 
 type aws_waf_rule_group = {
-  id : string option; [@option]  (** id *)
-  metric_name : string;  (** metric_name *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  metric_name : string prop;  (** metric_name *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   activated_rule : aws_waf_rule_group__activated_rule list;
 }

@@ -21,21 +21,21 @@ type aws_ecs_task_definition__volume
 type aws_ecs_task_definition
 
 val aws_ecs_task_definition :
-  ?cpu:string ->
-  ?execution_role_arn:string ->
-  ?id:string ->
-  ?ipc_mode:string ->
-  ?memory:string ->
-  ?network_mode:string ->
-  ?pid_mode:string ->
-  ?requires_compatibilities:string list ->
-  ?skip_destroy:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?task_role_arn:string ->
-  ?track_latest:bool ->
-  container_definitions:string ->
-  family:string ->
+  ?cpu:string prop ->
+  ?execution_role_arn:string prop ->
+  ?id:string prop ->
+  ?ipc_mode:string prop ->
+  ?memory:string prop ->
+  ?network_mode:string prop ->
+  ?pid_mode:string prop ->
+  ?requires_compatibilities:string prop list ->
+  ?skip_destroy:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?task_role_arn:string prop ->
+  ?track_latest:bool prop ->
+  container_definitions:string prop ->
+  family:string prop ->
   ephemeral_storage:aws_ecs_task_definition__ephemeral_storage list ->
   inference_accelerator:
     aws_ecs_task_definition__inference_accelerator list ->

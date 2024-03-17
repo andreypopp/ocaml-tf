@@ -6,13 +6,13 @@ type google_vertex_ai_featurestore_entitytype_feature__timeouts
 type google_vertex_ai_featurestore_entitytype_feature
 
 val google_vertex_ai_featurestore_entitytype_feature :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
   ?timeouts:
     google_vertex_ai_featurestore_entitytype_feature__timeouts ->
-  entitytype:string ->
-  value_type:string ->
+  entitytype:string prop ->
+  value_type:string prop ->
   string ->
   unit

@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_networkmanager_connect_peer__bgp_options = {
-  peer_asn : float option; [@option]  (** peer_asn *)
+  peer_asn : float prop option; [@option]  (** peer_asn *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_connect_peer__bgp_options *)
 
 type aws_networkmanager_connect_peer__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_connect_peer__timeouts *)
 
 type aws_networkmanager_connect_peer__configuration__bgp_configurations = {
-  core_network_address : string;  (** core_network_address *)
-  core_network_asn : float;  (** core_network_asn *)
-  peer_address : string;  (** peer_address *)
-  peer_asn : float;  (** peer_asn *)
+  core_network_address : string prop;  (** core_network_address *)
+  core_network_asn : float prop;  (** core_network_asn *)
+  peer_address : string prop;  (** peer_address *)
+  peer_asn : float prop;  (** peer_asn *)
 }
 [@@deriving yojson_of]
 
@@ -30,24 +30,24 @@ type aws_networkmanager_connect_peer__configuration = {
     aws_networkmanager_connect_peer__configuration__bgp_configurations
     list;
       (** bgp_configurations *)
-  core_network_address : string;  (** core_network_address *)
-  inside_cidr_blocks : string list;  (** inside_cidr_blocks *)
-  peer_address : string;  (** peer_address *)
-  protocol : string;  (** protocol *)
+  core_network_address : string prop;  (** core_network_address *)
+  inside_cidr_blocks : string prop list;  (** inside_cidr_blocks *)
+  peer_address : string prop;  (** peer_address *)
+  protocol : string prop;  (** protocol *)
 }
 [@@deriving yojson_of]
 
 type aws_networkmanager_connect_peer = {
-  connect_attachment_id : string;  (** connect_attachment_id *)
-  core_network_address : string option; [@option]
+  connect_attachment_id : string prop;  (** connect_attachment_id *)
+  core_network_address : string prop option; [@option]
       (** core_network_address *)
-  id : string option; [@option]  (** id *)
-  inside_cidr_blocks : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  inside_cidr_blocks : string prop list option; [@option]
       (** inside_cidr_blocks *)
-  peer_address : string;  (** peer_address *)
-  subnet_arn : string option; [@option]  (** subnet_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  peer_address : string prop;  (** peer_address *)
+  subnet_arn : string prop option; [@option]  (** subnet_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   bgp_options : aws_networkmanager_connect_peer__bgp_options list;
   timeouts : aws_networkmanager_connect_peer__timeouts option;

@@ -21,28 +21,28 @@ type google_container_attached_cluster__proxy_config
 type google_container_attached_cluster__timeouts
 
 type google_container_attached_cluster__errors = {
-  message : string;  (** message *)
+  message : string prop;  (** message *)
 }
 
 type google_container_attached_cluster__workload_identity_config = {
-  identity_provider : string;  (** identity_provider *)
-  issuer_uri : string;  (** issuer_uri *)
-  workload_pool : string;  (** workload_pool *)
+  identity_provider : string prop;  (** identity_provider *)
+  issuer_uri : string prop;  (** issuer_uri *)
+  workload_pool : string prop;  (** workload_pool *)
 }
 
 type google_container_attached_cluster
 
 val google_container_attached_cluster :
-  ?annotations:(string * string) list ->
-  ?deletion_policy:string ->
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
+  ?annotations:(string * string prop) list ->
+  ?deletion_policy:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_container_attached_cluster__timeouts ->
-  distribution:string ->
-  location:string ->
-  name:string ->
-  platform_version:string ->
+  distribution:string prop ->
+  location:string prop ->
+  name:string prop ->
+  platform_version:string prop ->
   authorization:google_container_attached_cluster__authorization list ->
   binary_authorization:
     google_container_attached_cluster__binary_authorization list ->

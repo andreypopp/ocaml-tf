@@ -5,27 +5,29 @@
 open! Tf.Prelude
 
 type aws_devicefarm_network_profile = {
-  description : string option; [@option]  (** description *)
-  downlink_bandwidth_bits : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  downlink_bandwidth_bits : float prop option; [@option]
       (** downlink_bandwidth_bits *)
-  downlink_delay_ms : float option; [@option]
+  downlink_delay_ms : float prop option; [@option]
       (** downlink_delay_ms *)
-  downlink_jitter_ms : float option; [@option]
+  downlink_jitter_ms : float prop option; [@option]
       (** downlink_jitter_ms *)
-  downlink_loss_percent : float option; [@option]
+  downlink_loss_percent : float prop option; [@option]
       (** downlink_loss_percent *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  project_arn : string;  (** project_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  project_arn : string prop;  (** project_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  uplink_bandwidth_bits : float option; [@option]
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  uplink_bandwidth_bits : float prop option; [@option]
       (** uplink_bandwidth_bits *)
-  uplink_delay_ms : float option; [@option]  (** uplink_delay_ms *)
-  uplink_jitter_ms : float option; [@option]  (** uplink_jitter_ms *)
-  uplink_loss_percent : float option; [@option]
+  uplink_delay_ms : float prop option; [@option]
+      (** uplink_delay_ms *)
+  uplink_jitter_ms : float prop option; [@option]
+      (** uplink_jitter_ms *)
+  uplink_loss_percent : float prop option; [@option]
       (** uplink_loss_percent *)
 }
 [@@deriving yojson_of]

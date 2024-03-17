@@ -5,43 +5,45 @@
 open! Tf.Prelude
 
 type aws_appstream_image_builder__access_endpoint = {
-  endpoint_type : string;  (** endpoint_type *)
-  vpce_id : string option; [@option]  (** vpce_id *)
+  endpoint_type : string prop;  (** endpoint_type *)
+  vpce_id : string prop option; [@option]  (** vpce_id *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_image_builder__access_endpoint *)
 
 type aws_appstream_image_builder__domain_join_info = {
-  directory_name : string option; [@option]  (** directory_name *)
-  organizational_unit_distinguished_name : string option; [@option]
+  directory_name : string prop option; [@option]
+      (** directory_name *)
+  organizational_unit_distinguished_name : string prop option;
+      [@option]
       (** organizational_unit_distinguished_name *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_image_builder__domain_join_info *)
 
 type aws_appstream_image_builder__vpc_config = {
-  security_group_ids : string list option; [@option]
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  subnet_ids : string list option; [@option]  (** subnet_ids *)
+  subnet_ids : string prop list option; [@option]  (** subnet_ids *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_image_builder__vpc_config *)
 
 type aws_appstream_image_builder = {
-  appstream_agent_version : string option; [@option]
+  appstream_agent_version : string prop option; [@option]
       (** appstream_agent_version *)
-  description : string option; [@option]  (** description *)
-  display_name : string option; [@option]  (** display_name *)
-  enable_default_internet_access : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop option; [@option]  (** display_name *)
+  enable_default_internet_access : bool prop option; [@option]
       (** enable_default_internet_access *)
-  iam_role_arn : string option; [@option]  (** iam_role_arn *)
-  id : string option; [@option]  (** id *)
-  image_arn : string option; [@option]  (** image_arn *)
-  image_name : string option; [@option]  (** image_name *)
-  instance_type : string;  (** instance_type *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  iam_role_arn : string prop option; [@option]  (** iam_role_arn *)
+  id : string prop option; [@option]  (** id *)
+  image_arn : string prop option; [@option]  (** image_arn *)
+  image_name : string prop option; [@option]  (** image_name *)
+  instance_type : string prop;  (** instance_type *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   access_endpoint :
     aws_appstream_image_builder__access_endpoint list;

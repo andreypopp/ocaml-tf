@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_firebase_app_check_play_integrity_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_firebase_app_check_play_integrity_config__timeouts *)
 
 type google_firebase_app_check_play_integrity_config = {
-  app_id : string;
+  app_id : string prop;
       (** The ID of an
 [Android App](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects.androidApps#AndroidApp.FIELDS.app_id). *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  token_ttl : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  token_ttl : string prop option; [@option]
       (** Specifies the duration for which App Check tokens exchanged from Play Integrity artifacts will be valid.
 If unset, a default value of 1 hour is assumed. Must be between 30 minutes and 7 days, inclusive.
 

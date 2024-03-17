@@ -21,20 +21,20 @@ type google_dataproc_job__sparksql_config
 type google_dataproc_job__timeouts
 
 type google_dataproc_job__status = {
-  details : string;  (** details *)
-  state : string;  (** state *)
-  state_start_time : string;  (** state_start_time *)
-  substate : string;  (** substate *)
+  details : string prop;  (** details *)
+  state : string prop;  (** state *)
+  state_start_time : string prop;  (** state_start_time *)
+  substate : string prop;  (** substate *)
 }
 
 type google_dataproc_job
 
 val google_dataproc_job :
-  ?force_delete:bool ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?region:string ->
+  ?force_delete:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_dataproc_job__timeouts ->
   hadoop_config:google_dataproc_job__hadoop_config list ->
   hive_config:google_dataproc_job__hive_config list ->

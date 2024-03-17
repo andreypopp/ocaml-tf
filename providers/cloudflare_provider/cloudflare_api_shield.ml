@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type cloudflare_api_shield__auth_id_characteristics = {
-  name : string option; [@option]
+  name : string prop option; [@option]
       (** The name of the characteristic. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of characteristic. Available values: `header`, `cookie`. *)
 }
 [@@deriving yojson_of]
 (** Characteristics define properties across which auth-ids can be computed in a privacy-preserving manner. *)
 
 type cloudflare_api_shield = {
-  id : string option; [@option]  (** id *)
-  zone_id : string;
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   auth_id_characteristics :
     cloudflare_api_shield__auth_id_characteristics list;

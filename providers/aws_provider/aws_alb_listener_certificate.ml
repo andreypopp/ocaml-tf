@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_alb_listener_certificate = {
-  certificate_arn : string;  (** certificate_arn *)
-  id : string option; [@option]  (** id *)
-  listener_arn : string;  (** listener_arn *)
+  certificate_arn : string prop;  (** certificate_arn *)
+  id : string prop option; [@option]  (** id *)
+  listener_arn : string prop;  (** listener_arn *)
 }
 [@@deriving yojson_of]
 (** aws_alb_listener_certificate *)

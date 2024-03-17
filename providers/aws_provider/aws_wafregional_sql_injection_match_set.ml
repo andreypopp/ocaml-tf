@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_wafregional_sql_injection_match_set__sql_injection_match_tuple__field_to_match = {
-  data : string option; [@option]  (** data *)
-  type_ : string; [@key "type"]  (** type *)
+  data : string prop option; [@option]  (** data *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_wafregional_sql_injection_match_set__sql_injection_match_tuple__field_to_match *)
 
 type aws_wafregional_sql_injection_match_set__sql_injection_match_tuple = {
-  text_transformation : string;  (** text_transformation *)
+  text_transformation : string prop;  (** text_transformation *)
   field_to_match :
     aws_wafregional_sql_injection_match_set__sql_injection_match_tuple__field_to_match
     list;
@@ -21,8 +21,8 @@ type aws_wafregional_sql_injection_match_set__sql_injection_match_tuple = {
 (** aws_wafregional_sql_injection_match_set__sql_injection_match_tuple *)
 
 type aws_wafregional_sql_injection_match_set = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   sql_injection_match_tuple :
     aws_wafregional_sql_injection_match_set__sql_injection_match_tuple
     list;

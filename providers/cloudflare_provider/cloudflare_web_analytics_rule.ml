@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type cloudflare_web_analytics_rule__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** cloudflare_web_analytics_rule__timeouts *)
 
 type cloudflare_web_analytics_rule = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  host : string;  (** The host to apply the rule to. *)
-  id : string option; [@option]  (** id *)
-  inclusive : bool;
+  host : string prop;  (** The host to apply the rule to. *)
+  id : string prop option; [@option]  (** id *)
+  inclusive : bool prop;
       (** Whether the rule includes or excludes the matched traffic from being measured in Web Analytics. *)
-  is_paused : bool;  (** Whether the rule is paused or not. *)
-  paths : string list;  (** A list of paths to apply the rule to. *)
-  ruleset_id : string;
+  is_paused : bool prop;  (** Whether the rule is paused or not. *)
+  paths : string prop list;
+      (** A list of paths to apply the rule to. *)
+  ruleset_id : string prop;
       (** The Web Analytics ruleset id. **Modifying this attribute will force creation of a new resource.** *)
   timeouts : cloudflare_web_analytics_rule__timeouts option;
 }

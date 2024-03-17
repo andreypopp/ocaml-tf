@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_portal_tenant_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_portal_tenant_configuration__timeouts *)
 
 type azurerm_portal_tenant_configuration = {
-  id : string option; [@option]  (** id *)
-  private_markdown_storage_enforced : bool;
+  id : string prop option; [@option]  (** id *)
+  private_markdown_storage_enforced : bool prop;
       (** private_markdown_storage_enforced *)
   timeouts : azurerm_portal_tenant_configuration__timeouts option;
 }

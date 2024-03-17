@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_s3outposts_endpoint__network_interfaces = {
-  network_interface_id : string;  (** network_interface_id *)
+  network_interface_id : string prop;  (** network_interface_id *)
 }
 [@@deriving yojson_of]
 
 type aws_s3outposts_endpoint = {
-  access_type : string option; [@option]  (** access_type *)
-  customer_owned_ipv4_pool : string option; [@option]
+  access_type : string prop option; [@option]  (** access_type *)
+  customer_owned_ipv4_pool : string prop option; [@option]
       (** customer_owned_ipv4_pool *)
-  id : string option; [@option]  (** id *)
-  outpost_id : string;  (** outpost_id *)
-  security_group_id : string;  (** security_group_id *)
-  subnet_id : string;  (** subnet_id *)
+  id : string prop option; [@option]  (** id *)
+  outpost_id : string prop;  (** outpost_id *)
+  security_group_id : string prop;  (** security_group_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** aws_s3outposts_endpoint *)

@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_elastic_san__sku = {
-  name : string;  (** name *)
-  tier : string option; [@option]  (** tier *)
+  name : string prop;  (** name *)
+  tier : string prop option; [@option]  (** tier *)
 }
 [@@deriving yojson_of]
 (** azurerm_elastic_san__sku *)
 
 type azurerm_elastic_san__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_elastic_san__timeouts *)
 
 type azurerm_elastic_san = {
-  base_size_in_tib : float;  (** base_size_in_tib *)
-  extended_size_in_tib : float option; [@option]
+  base_size_in_tib : float prop;  (** base_size_in_tib *)
+  extended_size_in_tib : float prop option; [@option]
       (** extended_size_in_tib *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  zones : string list option; [@option]  (** zones *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  zones : string prop list option; [@option]  (** zones *)
   sku : azurerm_elastic_san__sku list;
   timeouts : azurerm_elastic_san__timeouts option;
 }

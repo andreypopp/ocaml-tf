@@ -17245,15 +17245,15 @@ type aws_quicksight_dashboard__timeouts
 type aws_quicksight_dashboard
 
 val aws_quicksight_dashboard :
-    ?aws_account_id:string ->
-    ?id:string ->
-    ?tags:(string * string) list ->
-    ?tags_all:(string * string) list ->
-    ?theme_arn:string ->
+    ?aws_account_id:string prop ->
+    ?id:string prop ->
+    ?tags:(string * string prop) list ->
+    ?tags_all:(string * string prop) list ->
+    ?theme_arn:string prop ->
     ?timeouts:aws_quicksight_dashboard__timeouts ->
-    dashboard_id:string ->
-    name:string ->
-    version_description:string ->
+    dashboard_id:string prop ->
+    name:string prop ->
+    version_description:string prop ->
     dashboard_publish_options:aws_quicksight_dashboard__dashboard_publish_options list ->
     definition:aws_quicksight_dashboard__definition list ->
     parameters:aws_quicksight_dashboard__parameters list ->

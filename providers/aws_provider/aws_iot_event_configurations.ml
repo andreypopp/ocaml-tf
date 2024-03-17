@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_iot_event_configurations = {
-  event_configurations : (string * bool) list;
+  event_configurations : (string * bool prop) list;
       (** event_configurations *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_iot_event_configurations *)

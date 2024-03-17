@@ -7,11 +7,11 @@ type google_storage_transfer_agent_pool__timeouts
 type google_storage_transfer_agent_pool
 
 val google_storage_transfer_agent_pool :
-  ?display_name:string ->
-  ?id:string ->
-  ?project:string ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_storage_transfer_agent_pool__timeouts ->
-  name:string ->
+  name:string prop ->
   bandwidth_limit:
     google_storage_transfer_agent_pool__bandwidth_limit list ->
   string ->

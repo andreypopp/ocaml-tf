@@ -9,30 +9,30 @@ type azurerm_netapp_volume__timeouts
 type azurerm_netapp_volume
 
 val azurerm_netapp_volume :
-  ?azure_vmware_data_store_enabled:bool ->
-  ?create_from_snapshot_resource_id:string ->
-  ?encryption_key_source:string ->
-  ?id:string ->
-  ?key_vault_private_endpoint_id:string ->
-  ?network_features:string ->
-  ?protocols:string list ->
-  ?security_style:string ->
-  ?smb_access_based_enumeration_enabled:bool ->
-  ?smb_non_browsable_enabled:bool ->
-  ?snapshot_directory_visible:bool ->
-  ?tags:(string * string) list ->
-  ?throughput_in_mibps:float ->
-  ?zone:string ->
+  ?azure_vmware_data_store_enabled:bool prop ->
+  ?create_from_snapshot_resource_id:string prop ->
+  ?encryption_key_source:string prop ->
+  ?id:string prop ->
+  ?key_vault_private_endpoint_id:string prop ->
+  ?network_features:string prop ->
+  ?protocols:string prop list ->
+  ?security_style:string prop ->
+  ?smb_access_based_enumeration_enabled:bool prop ->
+  ?smb_non_browsable_enabled:bool prop ->
+  ?snapshot_directory_visible:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?throughput_in_mibps:float prop ->
+  ?zone:string prop ->
   ?timeouts:azurerm_netapp_volume__timeouts ->
-  account_name:string ->
-  location:string ->
-  name:string ->
-  pool_name:string ->
-  resource_group_name:string ->
-  service_level:string ->
-  storage_quota_in_gb:float ->
-  subnet_id:string ->
-  volume_path:string ->
+  account_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  pool_name:string prop ->
+  resource_group_name:string prop ->
+  service_level:string prop ->
+  storage_quota_in_gb:float prop ->
+  subnet_id:string prop ->
+  volume_path:string prop ->
   data_protection_replication:
     azurerm_netapp_volume__data_protection_replication list ->
   data_protection_snapshot_policy:

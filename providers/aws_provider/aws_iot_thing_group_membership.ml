@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_iot_thing_group_membership = {
-  id : string option; [@option]  (** id *)
-  override_dynamic_group : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  override_dynamic_group : bool prop option; [@option]
       (** override_dynamic_group *)
-  thing_group_name : string;  (** thing_group_name *)
-  thing_name : string;  (** thing_name *)
+  thing_group_name : string prop;  (** thing_group_name *)
+  thing_name : string prop;  (** thing_name *)
 }
 [@@deriving yojson_of]
 (** aws_iot_thing_group_membership *)

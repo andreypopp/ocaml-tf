@@ -107,15 +107,15 @@ type google_datastream_stream__timeouts
 type google_datastream_stream
 
 val google_datastream_stream :
-  ?customer_managed_encryption_key:string ->
-  ?desired_state:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?customer_managed_encryption_key:string prop ->
+  ?desired_state:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_datastream_stream__timeouts ->
-  display_name:string ->
-  location:string ->
-  stream_id:string ->
+  display_name:string prop ->
+  location:string prop ->
+  stream_id:string prop ->
   backfill_all:google_datastream_stream__backfill_all list ->
   backfill_none:google_datastream_stream__backfill_none list ->
   destination_config:

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_security_center_automation__action = {
-  connection_string : string option; [@option]
+  connection_string : string prop option; [@option]
       (** connection_string *)
-  resource_id : string;  (** resource_id *)
-  trigger_url : string option; [@option]  (** trigger_url *)
-  type_ : string; [@key "type"]  (** type *)
+  resource_id : string prop;  (** resource_id *)
+  trigger_url : string prop option; [@option]  (** trigger_url *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_automation__action *)
 
 type azurerm_security_center_automation__source__rule_set__rule = {
-  expected_value : string;  (** expected_value *)
-  operator : string;  (** operator *)
-  property_path : string;  (** property_path *)
-  property_type : string;  (** property_type *)
+  expected_value : string prop;  (** expected_value *)
+  operator : string prop;  (** operator *)
+  property_path : string prop;  (** property_path *)
+  property_type : string prop;  (** property_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_automation__source__rule_set__rule *)
@@ -31,7 +31,7 @@ type azurerm_security_center_automation__source__rule_set = {
 (** azurerm_security_center_automation__source__rule_set *)
 
 type azurerm_security_center_automation__source = {
-  event_source : string;  (** event_source *)
+  event_source : string prop;  (** event_source *)
   rule_set :
     azurerm_security_center_automation__source__rule_set list;
 }
@@ -39,23 +39,23 @@ type azurerm_security_center_automation__source = {
 (** azurerm_security_center_automation__source *)
 
 type azurerm_security_center_automation__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_automation__timeouts *)
 
 type azurerm_security_center_automation = {
-  description : string option; [@option]  (** description *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  scopes : string list;  (** scopes *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  description : string prop option; [@option]  (** description *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  scopes : string prop list;  (** scopes *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   action : azurerm_security_center_automation__action list;
   source : azurerm_security_center_automation__source list;
   timeouts : azurerm_security_center_automation__timeouts option;

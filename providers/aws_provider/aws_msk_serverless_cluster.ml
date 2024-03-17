@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_msk_serverless_cluster__client_authentication__sasl__iam = {
-  enabled : bool;  (** enabled *)
+  enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_msk_serverless_cluster__client_authentication__sasl__iam *)
@@ -24,25 +24,25 @@ type aws_msk_serverless_cluster__client_authentication = {
 (** aws_msk_serverless_cluster__client_authentication *)
 
 type aws_msk_serverless_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_msk_serverless_cluster__timeouts *)
 
 type aws_msk_serverless_cluster__vpc_config = {
-  security_group_ids : string list option; [@option]
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  subnet_ids : string list;  (** subnet_ids *)
+  subnet_ids : string prop list;  (** subnet_ids *)
 }
 [@@deriving yojson_of]
 (** aws_msk_serverless_cluster__vpc_config *)
 
 type aws_msk_serverless_cluster = {
-  cluster_name : string;  (** cluster_name *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   client_authentication :
     aws_msk_serverless_cluster__client_authentication list;

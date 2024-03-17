@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_service_discovery_service__dns_config__dns_records = {
-  ttl : float;  (** ttl *)
-  type_ : string; [@key "type"]  (** type *)
+  ttl : float prop;  (** ttl *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_service_discovery_service__dns_config__dns_records *)
 
 type aws_service_discovery_service__dns_config = {
-  namespace_id : string;  (** namespace_id *)
-  routing_policy : string option; [@option]  (** routing_policy *)
+  namespace_id : string prop;  (** namespace_id *)
+  routing_policy : string prop option; [@option]
+      (** routing_policy *)
   dns_records :
     aws_service_discovery_service__dns_config__dns_records list;
 }
@@ -21,31 +22,31 @@ type aws_service_discovery_service__dns_config = {
 (** aws_service_discovery_service__dns_config *)
 
 type aws_service_discovery_service__health_check_config = {
-  failure_threshold : float option; [@option]
+  failure_threshold : float prop option; [@option]
       (** failure_threshold *)
-  resource_path : string option; [@option]  (** resource_path *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  resource_path : string prop option; [@option]  (** resource_path *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_service_discovery_service__health_check_config *)
 
 type aws_service_discovery_service__health_check_custom_config = {
-  failure_threshold : float option; [@option]
+  failure_threshold : float prop option; [@option]
       (** failure_threshold *)
 }
 [@@deriving yojson_of]
 (** aws_service_discovery_service__health_check_custom_config *)
 
 type aws_service_discovery_service = {
-  description : string option; [@option]  (** description *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  namespace_id : string option; [@option]  (** namespace_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  namespace_id : string prop option; [@option]  (** namespace_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   dns_config : aws_service_discovery_service__dns_config list;
   health_check_config :
     aws_service_discovery_service__health_check_config list;

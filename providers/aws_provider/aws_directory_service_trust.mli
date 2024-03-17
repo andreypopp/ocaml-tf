@@ -5,13 +5,13 @@ open! Tf.Prelude
 type aws_directory_service_trust
 
 val aws_directory_service_trust :
-  ?conditional_forwarder_ip_addrs:string list ->
-  ?delete_associated_conditional_forwarder:bool ->
-  ?selective_auth:string ->
-  ?trust_type:string ->
-  directory_id:string ->
-  remote_domain_name:string ->
-  trust_direction:string ->
-  trust_password:string ->
+  ?conditional_forwarder_ip_addrs:string prop list ->
+  ?delete_associated_conditional_forwarder:bool prop ->
+  ?selective_auth:string prop ->
+  ?trust_type:string prop ->
+  directory_id:string prop ->
+  remote_domain_name:string prop ->
+  trust_direction:string prop ->
+  trust_password:string prop ->
   string ->
   unit

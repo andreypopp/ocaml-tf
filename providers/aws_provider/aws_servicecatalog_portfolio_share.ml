@@ -5,24 +5,26 @@
 open! Tf.Prelude
 
 type aws_servicecatalog_portfolio_share__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_portfolio_share__timeouts *)
 
 type aws_servicecatalog_portfolio_share = {
-  accept_language : string option; [@option]  (** accept_language *)
-  id : string option; [@option]  (** id *)
-  portfolio_id : string;  (** portfolio_id *)
-  principal_id : string;  (** principal_id *)
-  share_principals : bool option; [@option]  (** share_principals *)
-  share_tag_options : bool option; [@option]
+  accept_language : string prop option; [@option]
+      (** accept_language *)
+  id : string prop option; [@option]  (** id *)
+  portfolio_id : string prop;  (** portfolio_id *)
+  principal_id : string prop;  (** principal_id *)
+  share_principals : bool prop option; [@option]
+      (** share_principals *)
+  share_tag_options : bool prop option; [@option]
       (** share_tag_options *)
-  type_ : string; [@key "type"]  (** type *)
-  wait_for_acceptance : bool option; [@option]
+  type_ : string prop; [@key "type"]  (** type *)
+  wait_for_acceptance : bool prop option; [@option]
       (** wait_for_acceptance *)
   timeouts : aws_servicecatalog_portfolio_share__timeouts option;
 }

@@ -6,12 +6,12 @@ type google_dataproc_job_iam_binding__condition
 type google_dataproc_job_iam_binding
 
 val google_dataproc_job_iam_binding :
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
-  job_id:string ->
-  members:string list ->
-  role:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  job_id:string prop ->
+  members:string prop list ->
+  role:string prop ->
   condition:google_dataproc_job_iam_binding__condition list ->
   string ->
   unit

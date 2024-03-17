@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_secret_manager_secret__replication__auto__customer_managed_encryption = {
-  kms_key_name : string;
+  kms_key_name : string prop;
       (** The resource name of the Cloud KMS CryptoKey used to encrypt secret payloads. *)
 }
 [@@deriving yojson_of]
@@ -22,14 +22,14 @@ type google_secret_manager_secret__replication__auto = {
 (** The Secret will automatically be replicated without any restrictions. *)
 
 type google_secret_manager_secret__replication__user_managed__replicas__customer_managed_encryption = {
-  kms_key_name : string;
+  kms_key_name : string prop;
       (** Describes the Cloud KMS encryption key that will be used to protect destination secret. *)
 }
 [@@deriving yojson_of]
 (** Customer Managed Encryption for the secret. *)
 
 type google_secret_manager_secret__replication__user_managed__replicas = {
-  location : string;
+  location : string prop;
       (** The canonical IDs of the location to replicate data. For example: us-east1. *)
   customer_managed_encryption :
     google_secret_manager_secret__replication__user_managed__replicas__customer_managed_encryption
@@ -56,10 +56,10 @@ type google_secret_manager_secret__replication = {
 after the Secret has been created. *)
 
 type google_secret_manager_secret__rotation = {
-  next_rotation_time : string option; [@option]
+  next_rotation_time : string prop option; [@option]
       (** Timestamp in UTC at which the Secret is scheduled to rotate.
 A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
-  rotation_period : string option; [@option]
+  rotation_period : string prop option; [@option]
       (** The Duration between rotation notifications. Must be in seconds and at least 3600s (1h) and at most 3153600000s (100 years).
 If rotationPeriod is set, 'next_rotation_time' must be set. 'next_rotation_time' will be advanced by this period when the service automatically sends rotation notifications. *)
 }
@@ -67,15 +67,15 @@ If rotationPeriod is set, 'next_rotation_time' must be set. 'next_rotation_time'
 (** The rotation time and period for a Secret. At 'next_rotation_time', Secret Manager will send a Pub/Sub notification to the topics configured on the Secret. 'topics' must be set to configure rotation. *)
 
 type google_secret_manager_secret__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_secret_manager_secret__timeouts *)
 
 type google_secret_manager_secret__topics = {
-  name : string;
+  name : string prop;
       (** The resource name of the Pub/Sub topic that will be published to, in the following format: projects/*/topics/*.
 For publication to succeed, the Secret Manager Service Agent service account must have pubsub.publisher permissions on the topic. *)
 }
@@ -83,7 +83,7 @@ For publication to succeed, the Secret Manager Service Agent service account mus
 (** A list of up to 10 Pub/Sub topics to which messages are published when control plane operations are called on the secret or its versions. *)
 
 type google_secret_manager_secret = {
-  annotations : (string * string) list option; [@option]
+  annotations : (string * string prop) list option; [@option]
       (** Custom metadata about the secret.
 
 Annotations are distinct from various forms of labels. Annotations exist to allow
@@ -102,12 +102,12 @@ An object containing a list of key: value pairs. Example:
 
 **Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
 Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
-  expire_time : string option; [@option]
+  expire_time : string prop option; [@option]
       (** Timestamp in UTC when the Secret is scheduled to expire. This is always provided on output, regardless of what was sent on input.
 A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z.
 Only one of 'expire_time' or 'ttl' can be provided. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** The labels assigned to this Secret.
 
 Label keys must be between 1 and 63 characters long, have a UTF-8 encoding of maximum 128 bytes,
@@ -124,13 +124,14 @@ An object containing a list of key: value pairs. Example:
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  project : string option; [@option]  (** project *)
-  secret_id : string;  (** This must be unique within the project. *)
-  ttl : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  secret_id : string prop;
+      (** This must be unique within the project. *)
+  ttl : string prop option; [@option]
       (** The TTL for the Secret.
 A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s.
 Only one of 'ttl' or 'expire_time' can be provided. *)
-  version_aliases : (string * string) list option; [@option]
+  version_aliases : (string * string prop) list option; [@option]
       (** Mapping from version alias to version name.
 
 A version alias is a string with a maximum length of 63 characters and can contain

@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_server_side_encryption_configuration__rule__apply_server_side_encryption_by_default = {
-  kms_master_key_id : string option; [@option]
+  kms_master_key_id : string prop option; [@option]
       (** kms_master_key_id *)
-  sse_algorithm : string;  (** sse_algorithm *)
+  sse_algorithm : string prop;  (** sse_algorithm *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_server_side_encryption_configuration__rule__apply_server_side_encryption_by_default *)
 
 type aws_s3_bucket_server_side_encryption_configuration__rule = {
-  bucket_key_enabled : bool option; [@option]
+  bucket_key_enabled : bool prop option; [@option]
       (** bucket_key_enabled *)
   apply_server_side_encryption_by_default :
     aws_s3_bucket_server_side_encryption_configuration__rule__apply_server_side_encryption_by_default
@@ -23,10 +23,10 @@ type aws_s3_bucket_server_side_encryption_configuration__rule = {
 (** aws_s3_bucket_server_side_encryption_configuration__rule *)
 
 type aws_s3_bucket_server_side_encryption_configuration = {
-  bucket : string;  (** bucket *)
-  expected_bucket_owner : string option; [@option]
+  bucket : string prop;  (** bucket *)
+  expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   rule :
     aws_s3_bucket_server_side_encryption_configuration__rule list;
 }

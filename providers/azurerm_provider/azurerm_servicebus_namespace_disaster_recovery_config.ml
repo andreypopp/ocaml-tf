@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_servicebus_namespace_disaster_recovery_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_servicebus_namespace_disaster_recovery_config__timeouts *)
 
 type azurerm_servicebus_namespace_disaster_recovery_config = {
-  alias_authorization_rule_id : string option; [@option]
+  alias_authorization_rule_id : string prop option; [@option]
       (** alias_authorization_rule_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  partner_namespace_id : string;  (** partner_namespace_id *)
-  primary_namespace_id : string;  (** primary_namespace_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  partner_namespace_id : string prop;  (** partner_namespace_id *)
+  primary_namespace_id : string prop;  (** primary_namespace_id *)
   timeouts :
     azurerm_servicebus_namespace_disaster_recovery_config__timeouts
     option;

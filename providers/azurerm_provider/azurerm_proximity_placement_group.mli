@@ -6,13 +6,13 @@ type azurerm_proximity_placement_group__timeouts
 type azurerm_proximity_placement_group
 
 val azurerm_proximity_placement_group :
-  ?allowed_vm_sizes:string list ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?zone:string ->
+  ?allowed_vm_sizes:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zone:string prop ->
   ?timeouts:azurerm_proximity_placement_group__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

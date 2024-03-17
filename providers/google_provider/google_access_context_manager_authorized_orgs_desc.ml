@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type google_access_context_manager_authorized_orgs_desc__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_authorized_orgs_desc__timeouts *)
 
 type google_access_context_manager_authorized_orgs_desc = {
-  asset_type : string option; [@option]
+  asset_type : string prop option; [@option]
       (** The type of entities that need to use the authorization relationship during
 evaluation, such as a device. Valid values are ASSET_TYPE_DEVICE and
 ASSET_TYPE_CREDENTIAL_STRENGTH. Possible values: [ASSET_TYPE_DEVICE, ASSET_TYPE_CREDENTIAL_STRENGTH] *)
-  authorization_direction : string option; [@option]
+  authorization_direction : string prop option; [@option]
       (** The direction of the authorization relationship between this organization
 and the organizations listed in the orgs field. The valid values for this
 field include the following:
@@ -35,20 +35,20 @@ traffic, by specifying AUTHORIZATION_DIRECTION_TO as the authorization
 direction, organizations B and C must specify
 AUTHORIZATION_DIRECTION_FROM as the authorization direction in their
 AuthorizedOrgsDesc resource. Possible values: [AUTHORIZATION_DIRECTION_TO, AUTHORIZATION_DIRECTION_FROM] *)
-  authorization_type : string option; [@option]
+  authorization_type : string prop option; [@option]
       (** A granular control type for authorization levels. Valid value is AUTHORIZATION_TYPE_TRUST. Possible values: [AUTHORIZATION_TYPE_TRUST] *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** Resource name for the 'AuthorizedOrgsDesc'. Format:
 'accessPolicies/{access_policy}/authorizedOrgsDescs/{authorized_orgs_desc}'.
 The 'authorized_orgs_desc' component must begin with a letter, followed by
 alphanumeric characters or '_'.
 After you create an 'AuthorizedOrgsDesc', you cannot change its 'name'. *)
-  orgs : string list option; [@option]
+  orgs : string prop list option; [@option]
       (** The list of organization ids in this AuthorizedOrgsDesc.
 Format: 'organizations/<org_number>'
 Example: 'organizations/123456' *)
-  parent : string;
+  parent : string prop;
       (** Required. Resource name for the access policy which owns this 'AuthorizedOrgsDesc'. *)
   timeouts :
     google_access_context_manager_authorized_orgs_desc__timeouts

@@ -44,12 +44,12 @@ type google_document_ai_warehouse_document_schema__timeouts
 type google_document_ai_warehouse_document_schema
 
 val google_document_ai_warehouse_document_schema :
-  ?document_is_folder:bool ->
-  ?id:string ->
+  ?document_is_folder:bool prop ->
+  ?id:string prop ->
   ?timeouts:google_document_ai_warehouse_document_schema__timeouts ->
-  display_name:string ->
-  location:string ->
-  project_number:string ->
+  display_name:string prop ->
+  location:string prop ->
+  project_number:string prop ->
   property_definitions:
     google_document_ai_warehouse_document_schema__property_definitions
     list ->

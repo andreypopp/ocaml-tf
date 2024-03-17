@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_prometheus_rule_group_namespace
 
 val aws_prometheus_rule_group_namespace :
-  ?id:string ->
-  data:string ->
-  name:string ->
-  workspace_id:string ->
+  ?id:string prop ->
+  data:string prop ->
+  name:string prop ->
+  workspace_id:string prop ->
   string ->
   unit

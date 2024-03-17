@@ -6,11 +6,11 @@ type google_compute_region_network_firewall_policy__timeouts
 type google_compute_region_network_firewall_policy
 
 val google_compute_region_network_firewall_policy :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_compute_region_network_firewall_policy__timeouts ->
-  name:string ->
+  name:string prop ->
   string ->
   unit

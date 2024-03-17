@@ -5,30 +5,32 @@
 open! Tf.Prelude
 
 type aws_apigatewayv2_route__request_parameter = {
-  request_parameter_key : string;  (** request_parameter_key *)
-  required : bool;  (** required *)
+  request_parameter_key : string prop;  (** request_parameter_key *)
+  required : bool prop;  (** required *)
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_route__request_parameter *)
 
 type aws_apigatewayv2_route = {
-  api_id : string;  (** api_id *)
-  api_key_required : bool option; [@option]  (** api_key_required *)
-  authorization_scopes : string list option; [@option]
+  api_id : string prop;  (** api_id *)
+  api_key_required : bool prop option; [@option]
+      (** api_key_required *)
+  authorization_scopes : string prop list option; [@option]
       (** authorization_scopes *)
-  authorization_type : string option; [@option]
+  authorization_type : string prop option; [@option]
       (** authorization_type *)
-  authorizer_id : string option; [@option]  (** authorizer_id *)
-  id : string option; [@option]  (** id *)
-  model_selection_expression : string option; [@option]
+  authorizer_id : string prop option; [@option]  (** authorizer_id *)
+  id : string prop option; [@option]  (** id *)
+  model_selection_expression : string prop option; [@option]
       (** model_selection_expression *)
-  operation_name : string option; [@option]  (** operation_name *)
-  request_models : (string * string) list option; [@option]
+  operation_name : string prop option; [@option]
+      (** operation_name *)
+  request_models : (string * string prop) list option; [@option]
       (** request_models *)
-  route_key : string;  (** route_key *)
-  route_response_selection_expression : string option; [@option]
+  route_key : string prop;  (** route_key *)
+  route_response_selection_expression : string prop option; [@option]
       (** route_response_selection_expression *)
-  target : string option; [@option]  (** target *)
+  target : string prop option; [@option]  (** target *)
   request_parameter : aws_apigatewayv2_route__request_parameter list;
 }
 [@@deriving yojson_of]

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_identity_platform_default_supported_idp_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_identity_platform_default_supported_idp_config__timeouts *)
 
 type google_identity_platform_default_supported_idp_config = {
-  client_id : string;  (** OAuth client ID *)
-  client_secret : string;  (** OAuth client secret *)
-  enabled : bool option; [@option]
+  client_id : string prop;  (** OAuth client ID *)
+  client_secret : string prop;  (** OAuth client secret *)
+  enabled : bool prop option; [@option]
       (** If this IDP allows the user to sign in *)
-  id : string option; [@option]  (** id *)
-  idp_id : string;
+  id : string prop option; [@option]  (** id *)
+  idp_id : string prop;
       (** ID of the IDP. Possible values include:
 
 * 'apple.com'
@@ -40,7 +40,7 @@ type google_identity_platform_default_supported_idp_config = {
 * 'twitter.com'
 
 * 'yahoo.com' *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   timeouts :
     google_identity_platform_default_supported_idp_config__timeouts
     option;

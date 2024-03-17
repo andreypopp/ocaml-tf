@@ -20,14 +20,14 @@ type aws_vpclattice_listener_rule__timeouts
 type aws_vpclattice_listener_rule
 
 val aws_vpclattice_listener_rule :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_vpclattice_listener_rule__timeouts ->
-  listener_identifier:string ->
-  name:string ->
-  priority:float ->
-  service_identifier:string ->
+  listener_identifier:string prop ->
+  name:string prop ->
+  priority:float prop ->
+  service_identifier:string prop ->
   action:aws_vpclattice_listener_rule__action list ->
   match_:aws_vpclattice_listener_rule__match list ->
   string ->

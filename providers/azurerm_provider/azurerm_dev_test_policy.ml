@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_dev_test_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_policy__timeouts *)
 
 type azurerm_dev_test_policy = {
-  description : string option; [@option]  (** description *)
-  evaluator_type : string;  (** evaluator_type *)
-  fact_data : string option; [@option]  (** fact_data *)
-  id : string option; [@option]  (** id *)
-  lab_name : string;  (** lab_name *)
-  name : string;  (** name *)
-  policy_set_name : string;  (** policy_set_name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  threshold : string;  (** threshold *)
+  description : string prop option; [@option]  (** description *)
+  evaluator_type : string prop;  (** evaluator_type *)
+  fact_data : string prop option; [@option]  (** fact_data *)
+  id : string prop option; [@option]  (** id *)
+  lab_name : string prop;  (** lab_name *)
+  name : string prop;  (** name *)
+  policy_set_name : string prop;  (** policy_set_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  threshold : string prop;  (** threshold *)
   timeouts : azurerm_dev_test_policy__timeouts option;
 }
 [@@deriving yojson_of]

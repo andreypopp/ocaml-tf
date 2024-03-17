@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_cloudfront_function
 
 val aws_cloudfront_function :
-  ?comment:string ->
-  ?id:string ->
-  ?publish:bool ->
-  code:string ->
-  name:string ->
-  runtime:string ->
+  ?comment:string prop ->
+  ?id:string prop ->
+  ?publish:bool prop ->
+  code:string prop ->
+  name:string prop ->
+  runtime:string prop ->
   string ->
   unit

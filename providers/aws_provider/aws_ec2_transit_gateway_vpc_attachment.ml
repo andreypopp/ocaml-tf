@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_vpc_attachment = {
-  appliance_mode_support : string option; [@option]
+  appliance_mode_support : string prop option; [@option]
       (** appliance_mode_support *)
-  dns_support : string option; [@option]  (** dns_support *)
-  id : string option; [@option]  (** id *)
-  ipv6_support : string option; [@option]  (** ipv6_support *)
-  subnet_ids : string list;  (** subnet_ids *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  dns_support : string prop option; [@option]  (** dns_support *)
+  id : string prop option; [@option]  (** id *)
+  ipv6_support : string prop option; [@option]  (** ipv6_support *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  transit_gateway_default_route_table_association : bool option;
+  transit_gateway_default_route_table_association : bool prop option;
       [@option]
       (** transit_gateway_default_route_table_association *)
-  transit_gateway_default_route_table_propagation : bool option;
+  transit_gateway_default_route_table_propagation : bool prop option;
       [@option]
       (** transit_gateway_default_route_table_propagation *)
-  transit_gateway_id : string;  (** transit_gateway_id *)
-  vpc_id : string;  (** vpc_id *)
+  transit_gateway_id : string prop;  (** transit_gateway_id *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_vpc_attachment *)

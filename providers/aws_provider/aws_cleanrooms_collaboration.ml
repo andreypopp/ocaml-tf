@@ -5,41 +5,41 @@
 open! Tf.Prelude
 
 type aws_cleanrooms_collaboration__data_encryption_metadata = {
-  allow_clear_text : bool;  (** allow_clear_text *)
-  allow_duplicates : bool;  (** allow_duplicates *)
-  allow_joins_on_columns_with_different_names : bool;
+  allow_clear_text : bool prop;  (** allow_clear_text *)
+  allow_duplicates : bool prop;  (** allow_duplicates *)
+  allow_joins_on_columns_with_different_names : bool prop;
       (** allow_joins_on_columns_with_different_names *)
-  preserve_nulls : bool;  (** preserve_nulls *)
+  preserve_nulls : bool prop;  (** preserve_nulls *)
 }
 [@@deriving yojson_of]
 (** aws_cleanrooms_collaboration__data_encryption_metadata *)
 
 type aws_cleanrooms_collaboration__member = {
-  account_id : string;  (** account_id *)
-  display_name : string;  (** display_name *)
-  member_abilities : string list;  (** member_abilities *)
-  status : string;  (** status *)
+  account_id : string prop;  (** account_id *)
+  display_name : string prop;  (** display_name *)
+  member_abilities : string prop list;  (** member_abilities *)
+  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_cleanrooms_collaboration__member *)
 
 type aws_cleanrooms_collaboration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_cleanrooms_collaboration__timeouts *)
 
 type aws_cleanrooms_collaboration = {
-  creator_display_name : string;  (** creator_display_name *)
-  creator_member_abilities : string list;
+  creator_display_name : string prop;  (** creator_display_name *)
+  creator_member_abilities : string prop list;
       (** creator_member_abilities *)
-  description : string;  (** description *)
-  name : string;  (** name *)
-  query_log_status : string;  (** query_log_status *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop;  (** description *)
+  name : string prop;  (** name *)
+  query_log_status : string prop;  (** query_log_status *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   data_encryption_metadata :
     aws_cleanrooms_collaboration__data_encryption_metadata list;

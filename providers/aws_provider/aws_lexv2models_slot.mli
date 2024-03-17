@@ -144,14 +144,14 @@ type aws_lexv2models_slot__value_elicitation_setting
 type aws_lexv2models_slot
 
 val aws_lexv2models_slot :
-  ?description:string ->
-  ?slot_type_id:string ->
+  ?description:string prop ->
+  ?slot_type_id:string prop ->
   ?timeouts:aws_lexv2models_slot__timeouts ->
-  bot_id:string ->
-  bot_version:string ->
-  intent_id:string ->
-  locale_id:string ->
-  name:string ->
+  bot_id:string prop ->
+  bot_version:string prop ->
+  intent_id:string prop ->
+  locale_id:string prop ->
+  name:string prop ->
   multiple_values_setting:
     aws_lexv2models_slot__multiple_values_setting list ->
   obfuscation_setting:aws_lexv2models_slot__obfuscation_setting list ->

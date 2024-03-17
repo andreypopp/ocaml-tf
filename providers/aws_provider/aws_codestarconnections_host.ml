@@ -5,27 +5,28 @@
 open! Tf.Prelude
 
 type aws_codestarconnections_host__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_codestarconnections_host__timeouts *)
 
 type aws_codestarconnections_host__vpc_configuration = {
-  security_group_ids : string list;  (** security_group_ids *)
-  subnet_ids : string list;  (** subnet_ids *)
-  tls_certificate : string option; [@option]  (** tls_certificate *)
-  vpc_id : string;  (** vpc_id *)
+  security_group_ids : string prop list;  (** security_group_ids *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  tls_certificate : string prop option; [@option]
+      (** tls_certificate *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_codestarconnections_host__vpc_configuration *)
 
 type aws_codestarconnections_host = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  provider_endpoint : string;  (** provider_endpoint *)
-  provider_type : string;  (** provider_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  provider_endpoint : string prop;  (** provider_endpoint *)
+  provider_type : string prop;  (** provider_type *)
   timeouts : aws_codestarconnections_host__timeouts option;
   vpc_configuration :
     aws_codestarconnections_host__vpc_configuration list;

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_compute_global_forwarding_rule__metadata_filters__filter_labels = {
-  name : string;
+  name : string prop;
       (** Name of the metadata label. The length must be between
 1 and 1024 characters, inclusive. *)
-  value : string;
+  value : string prop;
       (** The value that the label must match. The value has a maximum
 length of 1024 characters. *)
 }
@@ -19,7 +19,7 @@ provided metadata based on filterMatchCriteria
 This list must not be empty and can have at the most 64 entries. *)
 
 type google_compute_global_forwarding_rule__metadata_filters = {
-  filter_match_criteria : string;
+  filter_match_criteria : string prop;
       (** Specifies how individual filterLabel matches within the list of
 filterLabels contribute towards the overall metadataFilter match.
 
@@ -51,9 +51,9 @@ metadataFilters only applies to Loadbalancers that have their
 loadBalancingScheme set to INTERNAL_SELF_MANAGED. *)
 
 type google_compute_global_forwarding_rule__service_directory_registrations = {
-  namespace : string option; [@option]
+  namespace : string prop option; [@option]
       (** Service Directory namespace to register the forwarding rule under. *)
-  service_directory_region : string option; [@option]
+  service_directory_region : string prop option; [@option]
       (** [Optional] Service Directory region to register this global forwarding rule under.
 Default to us-central1. Only used for PSC for Google APIs. All PSC for
 Google APIs Forwarding Rules on the same network should use the same Service
@@ -65,19 +65,19 @@ Directory region. *)
 Currently, only supports a single Service Directory resource. *)
 
 type google_compute_global_forwarding_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_global_forwarding_rule__timeouts *)
 
 type google_compute_global_forwarding_rule = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. *)
-  id : string option; [@option]  (** id *)
-  ip_address : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop option; [@option]
       (** IP address for which this forwarding rule accepts traffic. When a client
 sends traffic to this IP address, the forwarding rule directs the traffic
 to the referenced 'target'.
@@ -118,7 +118,7 @@ specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-con
 
 When reading an 'IPAddress', the API always returns the IP
 address number. *)
-  ip_protocol : string option; [@option]
+  ip_protocol : string prop option; [@option]
       (** The IP protocol to which this rule applies.
 
 For protocol forwarding, valid
@@ -129,20 +129,20 @@ options are 'TCP', 'UDP', 'ESP',
 The valid IP protocols are different for different load balancing products
 as described in [Load balancing
 features](https://cloud.google.com/load-balancing/docs/features#protocols_from_the_load_balancer_to_the_backends). Possible values: [TCP, UDP, ESP, AH, SCTP, ICMP] *)
-  ip_version : string option; [@option]
+  ip_version : string prop option; [@option]
       (** The IP Version that will be used by this global forwarding rule. Possible values: [IPV4, IPV6] *)
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** Labels to apply to this forwarding rule.  A list of key->value pairs.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  load_balancing_scheme : string option; [@option]
+  load_balancing_scheme : string prop option; [@option]
       (** Specifies the forwarding rule type.
 
 For more information about forwarding rules, refer to
 [Forwarding rule concepts](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts). Default value: EXTERNAL Possible values: [EXTERNAL, EXTERNAL_MANAGED, INTERNAL_MANAGED, INTERNAL_SELF_MANAGED] *)
-  name : string;
+  name : string prop;
       (** Name of the resource; provided by the client when the resource is created.
 The name must be 1-63 characters long, and comply with
 [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
@@ -156,7 +156,7 @@ cannot be a dash.
 For Private Service Connect forwarding rules that forward traffic to Google
 APIs, the forwarding rule name must be a 1-20 characters string with
 lowercase letters and numbers and must start with a letter. *)
-  network : string option; [@option]
+  network : string prop option; [@option]
       (** This field is not used for external load balancing.
 
 For Internal TCP/UDP Load Balancing, this field identifies the network that
@@ -167,9 +167,9 @@ be used.
 
 For Private Service Connect forwarding rules that forward traffic to Google
 APIs, a network must be provided. *)
-  no_automate_dns_zone : bool option; [@option]
+  no_automate_dns_zone : bool prop option; [@option]
       (** This is used in PSC consumer ForwardingRule to control whether it should try to auto-generate a DNS zone or not. Non-PSC forwarding rules do not use this field. *)
-  port_range : string option; [@option]
+  port_range : string prop option; [@option]
       (** The 'portRange' field has the following limitations:
 * It requires that the forwarding rule 'IPProtocol' be TCP, UDP, or SCTP,
 and
@@ -190,10 +190,10 @@ forwarding rules cannot use the same '[IPAddress, IPProtocol]' pair, and
 cannot have overlapping 'portRange's.
 
 @pattern: \d+(?:-\d+)? *)
-  project : string option; [@option]  (** project *)
-  source_ip_ranges : string list option; [@option]
+  project : string prop option; [@option]  (** project *)
+  source_ip_ranges : string prop list option; [@option]
       (** If not empty, this Forwarding Rule will only forward the traffic when the source IP address matches one of the IP addresses or CIDR ranges set here. Note that a Forwarding Rule can only have up to 64 source IP ranges, and this field can only be used with a regional Forwarding Rule whose scheme is EXTERNAL. Each sourceIpRange entry should be either an IP address (for example, 1.2.3.4) or a CIDR range (for example, 1.2.3.0/24). *)
-  subnetwork : string option; [@option]
+  subnetwork : string prop option; [@option]
       (** This field identifies the subnetwork that the load balanced IP should
 belong to for this Forwarding Rule, used in internal load balancing and
 network load balancing with IPv6.
@@ -201,7 +201,7 @@ network load balancing with IPv6.
 If the network specified is in auto subnet mode, this field is optional.
 However, a subnetwork must be specified if the network is in custom subnet
 mode or when creating external forwarding rule with IPv6. *)
-  target : string;
+  target : string prop;
       (** The URL of the target resource to receive the matched traffic.  For
 regional forwarding rules, this target must be in the same region as the
 forwarding rule. For global forwarding rules, this target must be a global

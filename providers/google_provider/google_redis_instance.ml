@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type google_redis_instance__maintenance_policy__weekly_maintenance_window__start_time = {
-  hours : float option; [@option]
+  hours : float prop option; [@option]
       (** Hours of day in 24 hour format. Should be from 0 to 23.
 An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
-  minutes : float option; [@option]
+  minutes : float prop option; [@option]
       (** Minutes of hour of day. Must be from 0 to 59. *)
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
-  seconds : float option; [@option]
+  seconds : float prop option; [@option]
       (** Seconds of minutes of the time. Must normally be from 0 to 59.
 An API may allow the value 60 if it allows leap-seconds. *)
 }
@@ -20,7 +20,7 @@ An API may allow the value 60 if it allows leap-seconds. *)
 (** Required. Start time of the window in UTC time. *)
 
 type google_redis_instance__maintenance_policy__weekly_maintenance_window = {
-  day : string;
+  day : string prop;
       (** Required. The day of week that maintenance updates occur.
 
 - DAY_OF_WEEK_UNSPECIFIED: The day of the week is unspecified.
@@ -31,7 +31,7 @@ type google_redis_instance__maintenance_policy__weekly_maintenance_window = {
 - FRIDAY: Friday
 - SATURDAY: Saturday
 - SUNDAY: Sunday Possible values: [DAY_OF_WEEK_UNSPECIFIED, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  duration : string;
+  duration : string prop;
       (** Output only. Duration of the maintenance window.
 The current window is fixed at 1 hour.
 A duration in seconds with up to nine fractional digits,
@@ -46,15 +46,15 @@ Minimum 1. For the current version, the maximum number
 of weekly_window is expected to be one. *)
 
 type google_redis_instance__maintenance_policy = {
-  create_time : string;
+  create_time : string prop;
       (** Output only. The time when the policy was created.
 A timestamp in RFC3339 UTC Zulu format, with nanosecond
 resolution and up to nine fractional digits. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Optional. Description of what this policy is for.
 Create/Update methods return INVALID_ARGUMENT if the
 length is greater than 512. *)
-  update_time : string;
+  update_time : string prop;
       (** Output only. The time when the policy was last updated.
 A timestamp in RFC3339 UTC Zulu format, with nanosecond
 resolution and up to nine fractional digits. *)
@@ -66,24 +66,24 @@ resolution and up to nine fractional digits. *)
 (** Maintenance policy for an instance. *)
 
 type google_redis_instance__persistence_config = {
-  persistence_mode : string option; [@option]
+  persistence_mode : string prop option; [@option]
       (** Optional. Controls whether Persistence features are enabled. If not provided, the existing value will be used.
 
 - DISABLED: 	Persistence is disabled for the instance, and any existing snapshots are deleted.
 - RDB: RDB based Persistence is enabled. Possible values: [DISABLED, RDB] *)
-  rdb_next_snapshot_time : string;
+  rdb_next_snapshot_time : string prop;
       (** Output only. The next time that a snapshot attempt is scheduled to occur.
 A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up
 to nine fractional digits.
 Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
-  rdb_snapshot_period : string option; [@option]
+  rdb_snapshot_period : string prop option; [@option]
       (** Optional. Available snapshot periods for scheduling.
 
 - ONE_HOUR:	Snapshot every 1 hour.
 - SIX_HOURS:	Snapshot every 6 hours.
 - TWELVE_HOURS:	Snapshot every 12 hours.
 - TWENTY_FOUR_HOURS:	Snapshot every 24 hours. Possible values: [ONE_HOUR, SIX_HOURS, TWELVE_HOURS, TWENTY_FOUR_HOURS] *)
-  rdb_snapshot_start_time : string option; [@option]
+  rdb_snapshot_start_time : string prop option; [@option]
       (** Optional. Date and time that the first snapshot was/will be attempted,
 and to which future snapshots will be aligned. If not provided,
 the current time will be used.
@@ -95,111 +95,112 @@ Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
 (** Persistence configuration for an instance. *)
 
 type google_redis_instance__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_redis_instance__timeouts *)
 
 type google_redis_instance__maintenance_schedule = {
-  end_time : string;  (** end_time *)
-  schedule_deadline_time : string;  (** schedule_deadline_time *)
-  start_time : string;  (** start_time *)
+  end_time : string prop;  (** end_time *)
+  schedule_deadline_time : string prop;
+      (** schedule_deadline_time *)
+  start_time : string prop;  (** start_time *)
 }
 [@@deriving yojson_of]
 
 type google_redis_instance__nodes = {
-  id : string;  (** id *)
-  zone : string;  (** zone *)
+  id : string prop;  (** id *)
+  zone : string prop;  (** zone *)
 }
 [@@deriving yojson_of]
 
 type google_redis_instance__server_ca_certs = {
-  cert : string;  (** cert *)
-  create_time : string;  (** create_time *)
-  expire_time : string;  (** expire_time *)
-  serial_number : string;  (** serial_number *)
-  sha1_fingerprint : string;  (** sha1_fingerprint *)
+  cert : string prop;  (** cert *)
+  create_time : string prop;  (** create_time *)
+  expire_time : string prop;  (** expire_time *)
+  serial_number : string prop;  (** serial_number *)
+  sha1_fingerprint : string prop;  (** sha1_fingerprint *)
 }
 [@@deriving yojson_of]
 
 type google_redis_instance = {
-  alternative_location_id : string option; [@option]
+  alternative_location_id : string prop option; [@option]
       (** Only applicable to STANDARD_HA tier which protects the instance
 against zonal failures by provisioning it across two zones.
 If provided, it must be a different zone from the one provided in
 [locationId]. *)
-  auth_enabled : bool option; [@option]
+  auth_enabled : bool prop option; [@option]
       (** Optional. Indicates whether OSS Redis AUTH is enabled for the
 instance. If set to true AUTH is enabled on the instance.
 Default value is false meaning AUTH is disabled. *)
-  authorized_network : string option; [@option]
+  authorized_network : string prop option; [@option]
       (** The full name of the Google Compute Engine network to which the
 instance is connected. If left unspecified, the default network
 will be used. *)
-  connect_mode : string option; [@option]
+  connect_mode : string prop option; [@option]
       (** The connection mode of the Redis instance. Default value: DIRECT_PEERING Possible values: [DIRECT_PEERING, PRIVATE_SERVICE_ACCESS] *)
-  customer_managed_key : string option; [@option]
+  customer_managed_key : string prop option; [@option]
       (** Optional. The KMS key reference that you want to use to encrypt the data at rest for this Redis
 instance. If this is provided, CMEK is enabled. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** An arbitrary and optional user-provided name for the instance. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location_id : string option; [@option]
+  location_id : string prop option; [@option]
       (** The zone where the instance will be provisioned. If not provided,
 the service will choose a zone for the instance. For STANDARD_HA tier,
 instances will be created across two zones for protection against
 zonal failures. If [alternativeLocationId] is also provided, it must
 be different from [locationId]. *)
-  memory_size_gb : float;  (** Redis memory size in GiB. *)
-  name : string;
+  memory_size_gb : float prop;  (** Redis memory size in GiB. *)
+  name : string prop;
       (** The ID of the instance or a fully qualified identifier for the instance. *)
-  project : string option; [@option]  (** project *)
-  read_replicas_mode : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  read_replicas_mode : string prop option; [@option]
       (** Optional. Read replica mode. Can only be specified when trying to create the instance.
 If not set, Memorystore Redis backend will default to READ_REPLICAS_DISABLED.
 - READ_REPLICAS_DISABLED: If disabled, read endpoint will not be provided and the
 instance cannot scale up or down the number of replicas.
 - READ_REPLICAS_ENABLED: If enabled, read endpoint will be provided and the instance
 can scale up and down the number of replicas. Possible values: [READ_REPLICAS_DISABLED, READ_REPLICAS_ENABLED] *)
-  redis_configs : (string * string) list option; [@option]
+  redis_configs : (string * string prop) list option; [@option]
       (** Redis configuration parameters, according to http://redis.io/topics/config.
 Please check Memorystore documentation for the list of supported parameters:
 https://cloud.google.com/memorystore/docs/redis/reference/rest/v1/projects.locations.instances#Instance.FIELDS.redis_configs *)
-  redis_version : string option; [@option]
+  redis_version : string prop option; [@option]
       (** The version of Redis software. If not provided, latest supported
 version will be used. Please check the API documentation linked
 at the top for the latest valid values. *)
-  region : string option; [@option]
+  region : string prop option; [@option]
       (** The name of the Redis region of the instance. *)
-  replica_count : float option; [@option]
+  replica_count : float prop option; [@option]
       (** Optional. The number of replica nodes. The valid range for the Standard Tier with
 read replicas enabled is [1-5] and defaults to 2. If read replicas are not enabled
 for a Standard Tier instance, the only valid value is 1 and the default is 1.
 The valid value for basic tier is 0 and the default is also 0. *)
-  reserved_ip_range : string option; [@option]
+  reserved_ip_range : string prop option; [@option]
       (** The CIDR range of internal addresses that are reserved for this
 instance. If not provided, the service will choose an unused /29
 block, for example, 10.0.0.0/29 or 192.168.0.0/29. Ranges must be
 unique and non-overlapping with existing subnets in an authorized
 network. *)
-  secondary_ip_range : string option; [@option]
+  secondary_ip_range : string prop option; [@option]
       (** Optional. Additional IP range for node placement. Required when enabling read replicas on
 an existing instance. For DIRECT_PEERING mode value must be a CIDR range of size /28, or
 auto. For PRIVATE_SERVICE_ACCESS mode value must be the name of an allocated address
 range associated with the private service access connection, or auto. *)
-  tier : string option; [@option]
+  tier : string prop option; [@option]
       (** The service tier of the instance. Must be one of these values:
 
 - BASIC: standalone instance
 - STANDARD_HA: highly available primary/replica instances Default value: BASIC Possible values: [BASIC, STANDARD_HA] *)
-  transit_encryption_mode : string option; [@option]
+  transit_encryption_mode : string prop option; [@option]
       (** The TLS mode of the Redis instance, If not provided, TLS is disabled for the instance.
 
 - SERVER_AUTHENTICATION: Client to Server traffic encryption enabled with server authentication Default value: DISABLED Possible values: [SERVER_AUTHENTICATION, DISABLED] *)

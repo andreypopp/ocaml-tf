@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_location_tracker = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  position_filtering : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  position_filtering : string prop option; [@option]
       (** position_filtering *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  tracker_name : string;  (** tracker_name *)
+  tracker_name : string prop;  (** tracker_name *)
 }
 [@@deriving yojson_of]
 (** aws_location_tracker *)

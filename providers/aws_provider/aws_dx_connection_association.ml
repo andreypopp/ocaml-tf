@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_dx_connection_association = {
-  connection_id : string;  (** connection_id *)
-  id : string option; [@option]  (** id *)
-  lag_id : string;  (** lag_id *)
+  connection_id : string prop;  (** connection_id *)
+  id : string prop option; [@option]  (** id *)
+  lag_id : string prop;  (** lag_id *)
 }
 [@@deriving yojson_of]
 (** aws_dx_connection_association *)

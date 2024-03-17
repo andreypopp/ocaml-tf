@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_network_manager_static_member__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_static_member__timeouts *)
 
 type azurerm_network_manager_static_member = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  network_group_id : string;  (** network_group_id *)
-  target_virtual_network_id : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  network_group_id : string prop;  (** network_group_id *)
+  target_virtual_network_id : string prop;
       (** target_virtual_network_id *)
   timeouts : azurerm_network_manager_static_member__timeouts option;
 }

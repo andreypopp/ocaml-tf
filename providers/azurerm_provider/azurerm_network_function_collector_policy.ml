@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type azurerm_network_function_collector_policy__ipfx_emission = {
-  destination_types : string list;  (** destination_types *)
+  destination_types : string prop list;  (** destination_types *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_function_collector_policy__ipfx_emission *)
 
 type azurerm_network_function_collector_policy__ipfx_ingestion = {
-  source_resource_ids : string list;  (** source_resource_ids *)
+  source_resource_ids : string prop list;  (** source_resource_ids *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_function_collector_policy__ipfx_ingestion *)
 
 type azurerm_network_function_collector_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_function_collector_policy__timeouts *)
 
 type azurerm_network_function_collector_policy = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  traffic_collector_id : string;  (** traffic_collector_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  traffic_collector_id : string prop;  (** traffic_collector_id *)
   ipfx_emission :
     azurerm_network_function_collector_policy__ipfx_emission list;
   ipfx_ingestion :

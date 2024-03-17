@@ -6,10 +6,10 @@ type google_storage_hmac_key__timeouts
 type google_storage_hmac_key
 
 val google_storage_hmac_key :
-  ?id:string ->
-  ?project:string ->
-  ?state:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?state:string prop ->
   ?timeouts:google_storage_hmac_key__timeouts ->
-  service_account_email:string ->
+  service_account_email:string prop ->
   string ->
   unit

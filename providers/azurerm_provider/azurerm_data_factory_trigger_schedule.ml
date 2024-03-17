@@ -5,25 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_trigger_schedule__pipeline = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_schedule__pipeline *)
 
 type azurerm_data_factory_trigger_schedule__schedule__monthly = {
-  week : float option; [@option]  (** week *)
-  weekday : string;  (** weekday *)
+  week : float prop option; [@option]  (** week *)
+  weekday : string prop;  (** weekday *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_schedule__schedule__monthly *)
 
 type azurerm_data_factory_trigger_schedule__schedule = {
-  days_of_month : float list option; [@option]  (** days_of_month *)
-  days_of_week : string list option; [@option]  (** days_of_week *)
-  hours : float list option; [@option]  (** hours *)
-  minutes : float list option; [@option]  (** minutes *)
+  days_of_month : float prop list option; [@option]
+      (** days_of_month *)
+  days_of_week : string prop list option; [@option]
+      (** days_of_week *)
+  hours : float prop list option; [@option]  (** hours *)
+  minutes : float prop list option; [@option]  (** minutes *)
   monthly :
     azurerm_data_factory_trigger_schedule__schedule__monthly list;
 }
@@ -31,29 +33,30 @@ type azurerm_data_factory_trigger_schedule__schedule = {
 (** azurerm_data_factory_trigger_schedule__schedule *)
 
 type azurerm_data_factory_trigger_schedule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_schedule__timeouts *)
 
 type azurerm_data_factory_trigger_schedule = {
-  activated : bool option; [@option]  (** activated *)
-  annotations : string list option; [@option]  (** annotations *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  end_time : string option; [@option]  (** end_time *)
-  frequency : string option; [@option]  (** frequency *)
-  id : string option; [@option]  (** id *)
-  interval : float option; [@option]  (** interval *)
-  name : string;  (** name *)
-  pipeline_name : string option; [@option]  (** pipeline_name *)
-  pipeline_parameters : (string * string) list option; [@option]
+  activated : bool prop option; [@option]  (** activated *)
+  annotations : string prop list option; [@option]
+      (** annotations *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  end_time : string prop option; [@option]  (** end_time *)
+  frequency : string prop option; [@option]  (** frequency *)
+  id : string prop option; [@option]  (** id *)
+  interval : float prop option; [@option]  (** interval *)
+  name : string prop;  (** name *)
+  pipeline_name : string prop option; [@option]  (** pipeline_name *)
+  pipeline_parameters : (string * string prop) list option; [@option]
       (** pipeline_parameters *)
-  start_time : string option; [@option]  (** start_time *)
-  time_zone : string option; [@option]  (** time_zone *)
+  start_time : string prop option; [@option]  (** start_time *)
+  time_zone : string prop option; [@option]  (** time_zone *)
   pipeline : azurerm_data_factory_trigger_schedule__pipeline list;
   schedule : azurerm_data_factory_trigger_schedule__schedule list;
   timeouts : azurerm_data_factory_trigger_schedule__timeouts option;

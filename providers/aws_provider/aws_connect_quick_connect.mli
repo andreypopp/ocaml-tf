@@ -9,12 +9,12 @@ type aws_connect_quick_connect__quick_connect_config
 type aws_connect_quick_connect
 
 val aws_connect_quick_connect :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  instance_id:string ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  instance_id:string prop ->
+  name:string prop ->
   quick_connect_config:
     aws_connect_quick_connect__quick_connect_config list ->
   string ->

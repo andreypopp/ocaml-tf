@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_biglake_catalog__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_biglake_catalog__timeouts *)
 
 type google_biglake_catalog = {
-  id : string option; [@option]  (** id *)
-  location : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;
       (** The geographic location where the Catalog should reside. *)
-  name : string;
+  name : string prop;
       (** The name of the Catalog. Format:
 projects/{project_id_or_number}/locations/{locationId}/catalogs/{catalogId} *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_biglake_catalog__timeouts option;
 }
 [@@deriving yojson_of]

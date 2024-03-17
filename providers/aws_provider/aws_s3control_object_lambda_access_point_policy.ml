@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_s3control_object_lambda_access_point_policy = {
-  account_id : string option; [@option]  (** account_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  policy : string;  (** policy *)
+  account_id : string prop option; [@option]  (** account_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_object_lambda_access_point_policy *)

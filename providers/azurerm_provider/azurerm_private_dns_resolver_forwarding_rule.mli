@@ -7,13 +7,13 @@ type azurerm_private_dns_resolver_forwarding_rule__timeouts
 type azurerm_private_dns_resolver_forwarding_rule
 
 val azurerm_private_dns_resolver_forwarding_rule :
-  ?enabled:bool ->
-  ?id:string ->
-  ?metadata:(string * string) list ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
   ?timeouts:azurerm_private_dns_resolver_forwarding_rule__timeouts ->
-  dns_forwarding_ruleset_id:string ->
-  domain_name:string ->
-  name:string ->
+  dns_forwarding_ruleset_id:string prop ->
+  domain_name:string prop ->
+  name:string prop ->
   target_dns_servers:
     azurerm_private_dns_resolver_forwarding_rule__target_dns_servers
     list ->

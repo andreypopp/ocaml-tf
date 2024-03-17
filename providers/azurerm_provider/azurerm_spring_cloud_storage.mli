@@ -6,11 +6,11 @@ type azurerm_spring_cloud_storage__timeouts
 type azurerm_spring_cloud_storage
 
 val azurerm_spring_cloud_storage :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_spring_cloud_storage__timeouts ->
-  name:string ->
-  spring_cloud_service_id:string ->
-  storage_account_key:string ->
-  storage_account_name:string ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
+  storage_account_key:string prop ->
+  storage_account_name:string prop ->
   string ->
   unit

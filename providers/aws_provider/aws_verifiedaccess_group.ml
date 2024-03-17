@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type aws_verifiedaccess_group__sse_configuration = {
-  customer_managed_key_enabled : bool option; [@option]
+  customer_managed_key_enabled : bool prop option; [@option]
       (** customer_managed_key_enabled *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedaccess_group__sse_configuration *)
 
 type aws_verifiedaccess_group = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  policy_document : string option; [@option]  (** policy_document *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  policy_document : string prop option; [@option]
+      (** policy_document *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  verifiedaccess_instance_id : string;
+  verifiedaccess_instance_id : string prop;
       (** verifiedaccess_instance_id *)
   sse_configuration :
     aws_verifiedaccess_group__sse_configuration list;

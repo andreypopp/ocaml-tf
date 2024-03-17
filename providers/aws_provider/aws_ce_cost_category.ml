@@ -5,32 +5,36 @@
 open! Tf.Prelude
 
 type aws_ce_cost_category__rule__inherited_value = {
-  dimension_key : string option; [@option]  (** dimension_key *)
-  dimension_name : string option; [@option]  (** dimension_name *)
+  dimension_key : string prop option; [@option]  (** dimension_key *)
+  dimension_name : string prop option; [@option]
+      (** dimension_name *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__inherited_value *)
 
 type aws_ce_cost_category__rule__rule__and__cost_category = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__and__cost_category *)
 
 type aws_ce_cost_category__rule__rule__and__dimension = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__and__dimension *)
 
 type aws_ce_cost_category__rule__rule__and__tags = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__and__tags *)
@@ -45,41 +49,46 @@ type aws_ce_cost_category__rule__rule__and = {
 (** aws_ce_cost_category__rule__rule__and *)
 
 type aws_ce_cost_category__rule__rule__cost_category = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__cost_category *)
 
 type aws_ce_cost_category__rule__rule__dimension = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__dimension *)
 
 type aws_ce_cost_category__rule__rule__not__cost_category = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__not__cost_category *)
 
 type aws_ce_cost_category__rule__rule__not__dimension = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__not__dimension *)
 
 type aws_ce_cost_category__rule__rule__not__tags = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__not__tags *)
@@ -94,25 +103,28 @@ type aws_ce_cost_category__rule__rule__not = {
 (** aws_ce_cost_category__rule__rule__not *)
 
 type aws_ce_cost_category__rule__rule__or__cost_category = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__or__cost_category *)
 
 type aws_ce_cost_category__rule__rule__or__dimension = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__or__dimension *)
 
 type aws_ce_cost_category__rule__rule__or__tags = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__or__tags *)
@@ -127,9 +139,10 @@ type aws_ce_cost_category__rule__rule__or = {
 (** aws_ce_cost_category__rule__rule__or *)
 
 type aws_ce_cost_category__rule__rule__tags = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__rule__rule__tags *)
@@ -147,8 +160,8 @@ type aws_ce_cost_category__rule__rule = {
 (** aws_ce_cost_category__rule__rule *)
 
 type aws_ce_cost_category__rule = {
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  value : string option; [@option]  (** value *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  value : string prop option; [@option]  (** value *)
   inherited_value : aws_ce_cost_category__rule__inherited_value list;
   rule : aws_ce_cost_category__rule__rule list;
 }
@@ -156,29 +169,30 @@ type aws_ce_cost_category__rule = {
 (** aws_ce_cost_category__rule *)
 
 type aws_ce_cost_category__split_charge_rule__parameter = {
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  values : string list option; [@option]  (** values *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__split_charge_rule__parameter *)
 
 type aws_ce_cost_category__split_charge_rule = {
-  method_ : string; [@key "method"]  (** method *)
-  source : string;  (** source *)
-  targets : string list;  (** targets *)
+  method_ : string prop; [@key "method"]  (** method *)
+  source : string prop;  (** source *)
+  targets : string prop list;  (** targets *)
   parameter : aws_ce_cost_category__split_charge_rule__parameter list;
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_category__split_charge_rule *)
 
 type aws_ce_cost_category = {
-  default_value : string option; [@option]  (** default_value *)
-  effective_start : string option; [@option]  (** effective_start *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  rule_version : string;  (** rule_version *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  default_value : string prop option; [@option]  (** default_value *)
+  effective_start : string prop option; [@option]
+      (** effective_start *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  rule_version : string prop;  (** rule_version *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   rule : aws_ce_cost_category__rule list;
   split_charge_rule : aws_ce_cost_category__split_charge_rule list;

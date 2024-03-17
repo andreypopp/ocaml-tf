@@ -5,17 +5,19 @@
 open! Tf.Prelude
 
 type aws_redshift_hsm_configuration = {
-  description : string;  (** description *)
-  hsm_configuration_identifier : string;
+  description : string prop;  (** description *)
+  hsm_configuration_identifier : string prop;
       (** hsm_configuration_identifier *)
-  hsm_ip_address : string;  (** hsm_ip_address *)
-  hsm_partition_name : string;  (** hsm_partition_name *)
-  hsm_partition_password : string;  (** hsm_partition_password *)
-  hsm_server_public_certificate : string;
+  hsm_ip_address : string prop;  (** hsm_ip_address *)
+  hsm_partition_name : string prop;  (** hsm_partition_name *)
+  hsm_partition_password : string prop;
+      (** hsm_partition_password *)
+  hsm_server_public_certificate : string prop;
       (** hsm_server_public_certificate *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_hsm_configuration *)

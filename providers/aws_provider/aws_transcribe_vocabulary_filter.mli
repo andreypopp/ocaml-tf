@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_transcribe_vocabulary_filter
 
 val aws_transcribe_vocabulary_filter :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?vocabulary_filter_file_uri:string ->
-  ?words:string list ->
-  language_code:string ->
-  vocabulary_filter_name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vocabulary_filter_file_uri:string prop ->
+  ?words:string prop list ->
+  language_code:string prop ->
+  vocabulary_filter_name:string prop ->
   string ->
   unit

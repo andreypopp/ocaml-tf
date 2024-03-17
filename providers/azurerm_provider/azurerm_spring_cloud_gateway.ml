@@ -5,101 +5,106 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_gateway__api_metadata = {
-  description : string option; [@option]  (** description *)
-  documentation_url : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  documentation_url : string prop option; [@option]
       (** documentation_url *)
-  server_url : string option; [@option]  (** server_url *)
-  title : string option; [@option]  (** title *)
-  version : string option; [@option]  (** version *)
+  server_url : string prop option; [@option]  (** server_url *)
+  title : string prop option; [@option]  (** title *)
+  version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway__api_metadata *)
 
 type azurerm_spring_cloud_gateway__client_authorization = {
-  certificate_ids : string list option; [@option]
+  certificate_ids : string prop list option; [@option]
       (** certificate_ids *)
-  verification_enabled : bool option; [@option]
+  verification_enabled : bool prop option; [@option]
       (** verification_enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway__client_authorization *)
 
 type azurerm_spring_cloud_gateway__cors = {
-  allowed_headers : string list option; [@option]
+  allowed_headers : string prop list option; [@option]
       (** allowed_headers *)
-  allowed_methods : string list option; [@option]
+  allowed_methods : string prop list option; [@option]
       (** allowed_methods *)
-  allowed_origin_patterns : string list option; [@option]
+  allowed_origin_patterns : string prop list option; [@option]
       (** allowed_origin_patterns *)
-  allowed_origins : string list option; [@option]
+  allowed_origins : string prop list option; [@option]
       (** allowed_origins *)
-  credentials_allowed : bool option; [@option]
+  credentials_allowed : bool prop option; [@option]
       (** credentials_allowed *)
-  exposed_headers : string list option; [@option]
+  exposed_headers : string prop list option; [@option]
       (** exposed_headers *)
-  max_age_seconds : float option; [@option]  (** max_age_seconds *)
+  max_age_seconds : float prop option; [@option]
+      (** max_age_seconds *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway__cors *)
 
 type azurerm_spring_cloud_gateway__local_response_cache_per_instance = {
-  size : string option; [@option]  (** size *)
-  time_to_live : string option; [@option]  (** time_to_live *)
+  size : string prop option; [@option]  (** size *)
+  time_to_live : string prop option; [@option]  (** time_to_live *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway__local_response_cache_per_instance *)
 
 type azurerm_spring_cloud_gateway__local_response_cache_per_route = {
-  size : string option; [@option]  (** size *)
-  time_to_live : string option; [@option]  (** time_to_live *)
+  size : string prop option; [@option]  (** size *)
+  time_to_live : string prop option; [@option]  (** time_to_live *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway__local_response_cache_per_route *)
 
 type azurerm_spring_cloud_gateway__quota = {
-  cpu : string option; [@option]  (** cpu *)
-  memory : string option; [@option]  (** memory *)
+  cpu : string prop option; [@option]  (** cpu *)
+  memory : string prop option; [@option]  (** memory *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway__quota *)
 
 type azurerm_spring_cloud_gateway__sso = {
-  client_id : string option; [@option]  (** client_id *)
-  client_secret : string option; [@option]  (** client_secret *)
-  issuer_uri : string option; [@option]  (** issuer_uri *)
-  scope : string list option; [@option]  (** scope *)
+  client_id : string prop option; [@option]  (** client_id *)
+  client_secret : string prop option; [@option]  (** client_secret *)
+  issuer_uri : string prop option; [@option]  (** issuer_uri *)
+  scope : string prop list option; [@option]  (** scope *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway__sso *)
 
 type azurerm_spring_cloud_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway__timeouts *)
 
 type azurerm_spring_cloud_gateway = {
-  application_performance_monitoring_ids : string list option;
+  application_performance_monitoring_ids : string prop list option;
       [@option]
       (** application_performance_monitoring_ids *)
-  application_performance_monitoring_types : string list option;
+  application_performance_monitoring_types : string prop list option;
       [@option]
       (** application_performance_monitoring_types *)
-  environment_variables : (string * string) list option; [@option]
+  environment_variables : (string * string prop) list option;
+      [@option]
       (** environment_variables *)
-  https_only : bool option; [@option]  (** https_only *)
-  id : string option; [@option]  (** id *)
-  instance_count : float option; [@option]  (** instance_count *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  https_only : bool prop option; [@option]  (** https_only *)
+  id : string prop option; [@option]  (** id *)
+  instance_count : float prop option; [@option]
+      (** instance_count *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  sensitive_environment_variables : (string * string) list option;
+  sensitive_environment_variables :
+    (string * string prop) list option;
       [@option]
       (** sensitive_environment_variables *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
   api_metadata : azurerm_spring_cloud_gateway__api_metadata list;
   client_authorization :
     azurerm_spring_cloud_gateway__client_authorization list;

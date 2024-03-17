@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_iot_time_series_insights_gen2_environment__storage = {
-  key : string;  (** key *)
-  name : string;  (** name *)
+  key : string prop;  (** key *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_gen2_environment__storage *)
 
 type azurerm_iot_time_series_insights_gen2_environment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_gen2_environment__timeouts *)
 
 type azurerm_iot_time_series_insights_gen2_environment = {
-  id : string option; [@option]  (** id *)
-  id_properties : string list;  (** id_properties *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  warm_store_data_retention_time : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  id_properties : string prop list;  (** id_properties *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  warm_store_data_retention_time : string prop option; [@option]
       (** warm_store_data_retention_time *)
   storage :
     azurerm_iot_time_series_insights_gen2_environment__storage list;

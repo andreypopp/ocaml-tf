@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type cloudflare_list__item__value__hostname = {
-  url_hostname : string;
+  url_hostname : string prop;
       (** The FQDN to match on. Wildcard sub-domain matching is allowed. Eg. *.abc.com. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_list__item__value__hostname *)
 
 type cloudflare_list__item__value__redirect = {
-  include_subdomains : string option; [@option]
+  include_subdomains : string prop option; [@option]
       (** Whether the redirect also matches subdomains of the source url. Available values: `disabled`, `enabled`. *)
-  preserve_path_suffix : string option; [@option]
+  preserve_path_suffix : string prop option; [@option]
       (** Whether to preserve the path suffix when doing subpath matching. Available values: `disabled`, `enabled`. *)
-  preserve_query_string : string option; [@option]
+  preserve_query_string : string prop option; [@option]
       (** Whether the redirect target url should keep the query string of the request's url. Available values: `disabled`, `enabled`. *)
-  source_url : string;  (** The source url of the redirect. *)
-  status_code : float option; [@option]
+  source_url : string prop;  (** The source url of the redirect. *)
+  status_code : float prop option; [@option]
       (** The status code to be used when redirecting a request. *)
-  subpath_matching : string option; [@option]
+  subpath_matching : string prop option; [@option]
       (** Whether the redirect also matches subpaths of the source url. Available values: `disabled`, `enabled`. *)
-  target_url : string;  (** The target url of the redirect. *)
+  target_url : string prop;  (** The target url of the redirect. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_list__item__value__redirect *)
 
 type cloudflare_list__item__value = {
-  asn : float option; [@option]  (** asn *)
-  ip : string option; [@option]  (** ip *)
+  asn : float prop option; [@option]  (** asn *)
+  ip : string prop option; [@option]  (** ip *)
   hostname : cloudflare_list__item__value__hostname list;
   redirect : cloudflare_list__item__value__redirect list;
 }
@@ -38,7 +38,7 @@ type cloudflare_list__item__value = {
 (** cloudflare_list__item__value *)
 
 type cloudflare_list__item = {
-  comment : string option; [@option]
+  comment : string prop option; [@option]
       (** An optional comment for the item. *)
   value : cloudflare_list__item__value list;
 }
@@ -46,14 +46,14 @@ type cloudflare_list__item = {
 (** cloudflare_list__item *)
 
 type cloudflare_list = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of the list. *)
-  id : string option; [@option]  (** id *)
-  kind : string;
+  id : string prop option; [@option]  (** id *)
+  kind : string prop;
       (** The type of items the list will contain. Available values: `ip`, `redirect`, `hostname`, `asn`. **Modifying this attribute will force creation of a new resource.** *)
-  name : string;
+  name : string prop;
       (** The name of the list. **Modifying this attribute will force creation of a new resource.** *)
   item : cloudflare_list__item list;
 }

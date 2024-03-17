@@ -12,7 +12,7 @@ type kubernetes_resource_quota_v1__timeouts
 type kubernetes_resource_quota_v1
 
 val kubernetes_resource_quota_v1 :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:kubernetes_resource_quota_v1__timeouts ->
   metadata:kubernetes_resource_quota_v1__metadata list ->
   spec:kubernetes_resource_quota_v1__spec list ->

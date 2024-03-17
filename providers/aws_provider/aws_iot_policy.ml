@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_iot_policy__timeouts = {
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_iot_policy__timeouts *)
 
 type aws_iot_policy = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  policy : string;  (** policy *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  policy : string prop;  (** policy *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_iot_policy__timeouts option;
 }

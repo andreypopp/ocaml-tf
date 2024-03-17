@@ -6,24 +6,24 @@ type digitalocean_droplet__timeouts
 type digitalocean_droplet
 
 val digitalocean_droplet :
-  ?backups:bool ->
-  ?droplet_agent:bool ->
-  ?graceful_shutdown:bool ->
-  ?id:string ->
-  ?ipv6:bool ->
-  ?ipv6_address:string ->
-  ?monitoring:bool ->
-  ?private_networking:bool ->
-  ?region:string ->
-  ?resize_disk:bool ->
-  ?ssh_keys:string list ->
-  ?tags:string list ->
-  ?user_data:string ->
-  ?volume_ids:string list ->
-  ?vpc_uuid:string ->
+  ?backups:bool prop ->
+  ?droplet_agent:bool prop ->
+  ?graceful_shutdown:bool prop ->
+  ?id:string prop ->
+  ?ipv6:bool prop ->
+  ?ipv6_address:string prop ->
+  ?monitoring:bool prop ->
+  ?private_networking:bool prop ->
+  ?region:string prop ->
+  ?resize_disk:bool prop ->
+  ?ssh_keys:string prop list ->
+  ?tags:string prop list ->
+  ?user_data:string prop ->
+  ?volume_ids:string prop list ->
+  ?vpc_uuid:string prop ->
   ?timeouts:digitalocean_droplet__timeouts ->
-  image:string ->
-  name:string ->
-  size:string ->
+  image:string prop ->
+  name:string prop ->
+  size:string prop ->
   string ->
   unit

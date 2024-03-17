@@ -5,40 +5,42 @@
 open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_origin__private_link = {
-  location : string;  (** location *)
-  private_link_target_id : string;  (** private_link_target_id *)
-  request_message : string option; [@option]  (** request_message *)
-  target_type : string option; [@option]  (** target_type *)
+  location : string prop;  (** location *)
+  private_link_target_id : string prop;
+      (** private_link_target_id *)
+  request_message : string prop option; [@option]
+      (** request_message *)
+  target_type : string prop option; [@option]  (** target_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_origin__private_link *)
 
 type azurerm_cdn_frontdoor_origin__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_origin__timeouts *)
 
 type azurerm_cdn_frontdoor_origin = {
-  cdn_frontdoor_origin_group_id : string;
+  cdn_frontdoor_origin_group_id : string prop;
       (** cdn_frontdoor_origin_group_id *)
-  certificate_name_check_enabled : bool;
+  certificate_name_check_enabled : bool prop;
       (** certificate_name_check_enabled *)
-  enabled : bool option; [@option]  (** enabled *)
-  health_probes_enabled : bool option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  health_probes_enabled : bool prop option; [@option]
       (** health_probes_enabled *)
-  host_name : string;  (** host_name *)
-  http_port : float option; [@option]  (** http_port *)
-  https_port : float option; [@option]  (** https_port *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  origin_host_header : string option; [@option]
+  host_name : string prop;  (** host_name *)
+  http_port : float prop option; [@option]  (** http_port *)
+  https_port : float prop option; [@option]  (** https_port *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  origin_host_header : string prop option; [@option]
       (** origin_host_header *)
-  priority : float option; [@option]  (** priority *)
-  weight : float option; [@option]  (** weight *)
+  priority : float prop option; [@option]  (** priority *)
+  weight : float prop option; [@option]  (** weight *)
   private_link : azurerm_cdn_frontdoor_origin__private_link list;
   timeouts : azurerm_cdn_frontdoor_origin__timeouts option;
 }

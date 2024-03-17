@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_vpc_dhcp_options_association = {
-  dhcp_options_id : string;  (** dhcp_options_id *)
-  id : string option; [@option]  (** id *)
-  vpc_id : string;  (** vpc_id *)
+  dhcp_options_id : string prop;  (** dhcp_options_id *)
+  id : string prop option; [@option]  (** id *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_dhcp_options_association *)

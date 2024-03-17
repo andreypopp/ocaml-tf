@@ -6,11 +6,11 @@ type azurerm_batch_pool__auto_scale
 type azurerm_batch_pool__certificate
 
 type azurerm_batch_pool__container_configuration__container_registries = {
-  password : string;  (** password *)
-  registry_server : string;  (** registry_server *)
-  user_assigned_identity_id : string;
+  password : string prop;  (** password *)
+  registry_server : string prop;  (** registry_server *)
+  user_assigned_identity_id : string prop;
       (** user_assigned_identity_id *)
-  user_name : string;  (** user_name *)
+  user_name : string prop;  (** user_name *)
 }
 
 type azurerm_batch_pool__container_configuration
@@ -46,21 +46,21 @@ type azurerm_batch_pool__windows
 type azurerm_batch_pool
 
 val azurerm_batch_pool :
-  ?display_name:string ->
-  ?id:string ->
-  ?inter_node_communication:string ->
-  ?license_type:string ->
-  ?max_tasks_per_node:float ->
-  ?metadata:(string * string) list ->
-  ?os_disk_placement:string ->
-  ?stop_pending_resize_operation:bool ->
-  ?target_node_communication_mode:string ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?inter_node_communication:string prop ->
+  ?license_type:string prop ->
+  ?max_tasks_per_node:float prop ->
+  ?metadata:(string * string prop) list ->
+  ?os_disk_placement:string prop ->
+  ?stop_pending_resize_operation:bool prop ->
+  ?target_node_communication_mode:string prop ->
   ?timeouts:azurerm_batch_pool__timeouts ->
-  account_name:string ->
-  name:string ->
-  node_agent_sku_id:string ->
-  resource_group_name:string ->
-  vm_size:string ->
+  account_name:string prop ->
+  name:string prop ->
+  node_agent_sku_id:string prop ->
+  resource_group_name:string prop ->
+  vm_size:string prop ->
   auto_scale:azurerm_batch_pool__auto_scale list ->
   certificate:azurerm_batch_pool__certificate list ->
   container_configuration:

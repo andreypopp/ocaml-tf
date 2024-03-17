@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type cloudflare_custom_pages = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
-  id : string option; [@option]  (** id *)
-  state : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  state : string prop option; [@option]
       (** Managed state of the custom page. Available values: `default`, `customized`. *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** The type of custom page you wish to update. Available values: `basic_challenge`, `waf_challenge`, `waf_block`, `ratelimit_block`, `country_challenge`, `ip_block`, `under_attack`, `500_errors`, `1000_errors`, `managed_challenge`. *)
-  url : string;
+  url : string prop;
       (** URL of where the custom page source is located. *)
-  zone_id : string option; [@option]
+  zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
 }
 [@@deriving yojson_of]

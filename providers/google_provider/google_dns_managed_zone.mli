@@ -16,15 +16,15 @@ type google_dns_managed_zone__timeouts
 type google_dns_managed_zone
 
 val google_dns_managed_zone :
-  ?description:string ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?visibility:string ->
+  ?description:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?visibility:string prop ->
   ?timeouts:google_dns_managed_zone__timeouts ->
-  dns_name:string ->
-  name:string ->
+  dns_name:string prop ->
+  name:string prop ->
   cloud_logging_config:
     google_dns_managed_zone__cloud_logging_config list ->
   dnssec_config:google_dns_managed_zone__dnssec_config list ->

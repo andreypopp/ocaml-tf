@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_autoscaling_attachment = {
-  autoscaling_group_name : string;  (** autoscaling_group_name *)
-  elb : string option; [@option]  (** elb *)
-  id : string option; [@option]  (** id *)
-  lb_target_group_arn : string option; [@option]
+  autoscaling_group_name : string prop;
+      (** autoscaling_group_name *)
+  elb : string prop option; [@option]  (** elb *)
+  id : string prop option; [@option]  (** id *)
+  lb_target_group_arn : string prop option; [@option]
       (** lb_target_group_arn *)
 }
 [@@deriving yojson_of]

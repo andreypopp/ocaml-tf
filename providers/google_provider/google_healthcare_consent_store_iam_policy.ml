@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_healthcare_consent_store_iam_policy = {
-  consent_store_id : string;  (** consent_store_id *)
-  dataset : string;  (** dataset *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
+  consent_store_id : string prop;  (** consent_store_id *)
+  dataset : string prop;  (** dataset *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_healthcare_consent_store_iam_policy *)

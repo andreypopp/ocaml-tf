@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type aws_vpclattice_target_group__config__health_check__matcher = {
-  value : string option; [@option]  (** value *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_target_group__config__health_check__matcher *)
 
 type aws_vpclattice_target_group__config__health_check = {
-  enabled : bool option; [@option]  (** enabled *)
-  health_check_interval_seconds : float option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  health_check_interval_seconds : float prop option; [@option]
       (** health_check_interval_seconds *)
-  health_check_timeout_seconds : float option; [@option]
+  health_check_timeout_seconds : float prop option; [@option]
       (** health_check_timeout_seconds *)
-  healthy_threshold_count : float option; [@option]
+  healthy_threshold_count : float prop option; [@option]
       (** healthy_threshold_count *)
-  path : string option; [@option]  (** path *)
-  port : float option; [@option]  (** port *)
-  protocol : string option; [@option]  (** protocol *)
-  protocol_version : string option; [@option]
+  path : string prop option; [@option]  (** path *)
+  port : float prop option; [@option]  (** port *)
+  protocol : string prop option; [@option]  (** protocol *)
+  protocol_version : string prop option; [@option]
       (** protocol_version *)
-  unhealthy_threshold_count : float option; [@option]
+  unhealthy_threshold_count : float prop option; [@option]
       (** unhealthy_threshold_count *)
   matcher :
     aws_vpclattice_target_group__config__health_check__matcher list;
@@ -32,14 +32,16 @@ type aws_vpclattice_target_group__config__health_check = {
 (** aws_vpclattice_target_group__config__health_check *)
 
 type aws_vpclattice_target_group__config = {
-  ip_address_type : string option; [@option]  (** ip_address_type *)
-  lambda_event_structure_version : string option; [@option]
+  ip_address_type : string prop option; [@option]
+      (** ip_address_type *)
+  lambda_event_structure_version : string prop option; [@option]
       (** lambda_event_structure_version *)
-  port : float option; [@option]  (** port *)
-  protocol : string option; [@option]  (** protocol *)
-  protocol_version : string option; [@option]
+  port : float prop option; [@option]  (** port *)
+  protocol : string prop option; [@option]  (** protocol *)
+  protocol_version : string prop option; [@option]
       (** protocol_version *)
-  vpc_identifier : string option; [@option]  (** vpc_identifier *)
+  vpc_identifier : string prop option; [@option]
+      (** vpc_identifier *)
   health_check :
     aws_vpclattice_target_group__config__health_check list;
 }
@@ -47,20 +49,20 @@ type aws_vpclattice_target_group__config = {
 (** aws_vpclattice_target_group__config *)
 
 type aws_vpclattice_target_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_target_group__timeouts *)
 
 type aws_vpclattice_target_group = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   config : aws_vpclattice_target_group__config list;
   timeouts : aws_vpclattice_target_group__timeouts option;
 }

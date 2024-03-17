@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_custom_domain_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_custom_domain_association__timeouts *)
 
 type azurerm_cdn_frontdoor_custom_domain_association = {
-  cdn_frontdoor_custom_domain_id : string;
+  cdn_frontdoor_custom_domain_id : string prop;
       (** cdn_frontdoor_custom_domain_id *)
-  cdn_frontdoor_route_ids : string list;
+  cdn_frontdoor_route_ids : string prop list;
       (** cdn_frontdoor_route_ids *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   timeouts :
     azurerm_cdn_frontdoor_custom_domain_association__timeouts option;
 }

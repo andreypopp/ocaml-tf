@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_storage_data_lake_gen2_path__ace = {
-  id : string option; [@option]  (** id *)
-  permissions : string;  (** permissions *)
-  scope : string option; [@option]  (** scope *)
-  type_ : string; [@key "type"]  (** type *)
+  id : string prop option; [@option]  (** id *)
+  permissions : string prop;  (** permissions *)
+  scope : string prop option; [@option]  (** scope *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_data_lake_gen2_path__ace *)
 
 type azurerm_storage_data_lake_gen2_path__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_data_lake_gen2_path__timeouts *)
 
 type azurerm_storage_data_lake_gen2_path = {
-  filesystem_name : string;  (** filesystem_name *)
-  group : string option; [@option]  (** group *)
-  id : string option; [@option]  (** id *)
-  owner : string option; [@option]  (** owner *)
-  path : string;  (** path *)
-  resource : string;  (** resource *)
-  storage_account_id : string;  (** storage_account_id *)
+  filesystem_name : string prop;  (** filesystem_name *)
+  group : string prop option; [@option]  (** group *)
+  id : string prop option; [@option]  (** id *)
+  owner : string prop option; [@option]  (** owner *)
+  path : string prop;  (** path *)
+  resource : string prop;  (** resource *)
+  storage_account_id : string prop;  (** storage_account_id *)
   ace : azurerm_storage_data_lake_gen2_path__ace list;
   timeouts : azurerm_storage_data_lake_gen2_path__timeouts option;
 }

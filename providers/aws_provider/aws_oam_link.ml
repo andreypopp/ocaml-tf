@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_oam_link__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_oam_link__timeouts *)
 
 type aws_oam_link = {
-  id : string option; [@option]  (** id *)
-  label_template : string;  (** label_template *)
-  resource_types : string list;  (** resource_types *)
-  sink_identifier : string;  (** sink_identifier *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  label_template : string prop;  (** label_template *)
+  resource_types : string prop list;  (** resource_types *)
+  sink_identifier : string prop;  (** sink_identifier *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_oam_link__timeouts option;
 }

@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_sagemaker_image
 
 val aws_sagemaker_image :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  image_name:string ->
-  role_arn:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  image_name:string prop ->
+  role_arn:string prop ->
   string ->
   unit

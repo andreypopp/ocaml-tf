@@ -5,8 +5,8 @@ open! Tf.Prelude
 type cloudflare_waiting_room_settings
 
 val cloudflare_waiting_room_settings :
-  ?id:string ->
-  ?search_engine_crawler_bypass:bool ->
-  zone_id:string ->
+  ?id:string prop ->
+  ?search_engine_crawler_bypass:bool prop ->
+  zone_id:string prop ->
   string ->
   unit

@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_bot_channel_email__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_email__timeouts *)
 
 type azurerm_bot_channel_email = {
-  bot_name : string;  (** bot_name *)
-  email_address : string;  (** email_address *)
-  email_password : string option; [@option]  (** email_password *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  magic_code : string option; [@option]  (** magic_code *)
-  resource_group_name : string;  (** resource_group_name *)
+  bot_name : string prop;  (** bot_name *)
+  email_address : string prop;  (** email_address *)
+  email_password : string prop option; [@option]
+      (** email_password *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  magic_code : string prop option; [@option]  (** magic_code *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_bot_channel_email__timeouts option;
 }
 [@@deriving yojson_of]

@@ -7,16 +7,16 @@ type google_monitoring_notification_channel__timeouts
 type google_monitoring_notification_channel
 
 val google_monitoring_notification_channel :
-  ?description:string ->
-  ?display_name:string ->
-  ?enabled:bool ->
-  ?force_delete:bool ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?user_labels:(string * string) list ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?enabled:bool prop ->
+  ?force_delete:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?user_labels:(string * string prop) list ->
   ?timeouts:google_monitoring_notification_channel__timeouts ->
-  type_:string ->
+  type_:string prop ->
   sensitive_labels:
     google_monitoring_notification_channel__sensitive_labels list ->
   string ->

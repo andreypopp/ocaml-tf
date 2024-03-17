@@ -5,33 +5,35 @@
 open! Tf.Prelude
 
 type azurerm_role_definition__permissions = {
-  actions : string list option; [@option]  (** actions *)
-  data_actions : string list option; [@option]  (** data_actions *)
-  not_actions : string list option; [@option]  (** not_actions *)
-  not_data_actions : string list option; [@option]
+  actions : string prop list option; [@option]  (** actions *)
+  data_actions : string prop list option; [@option]
+      (** data_actions *)
+  not_actions : string prop list option; [@option]
+      (** not_actions *)
+  not_data_actions : string prop list option; [@option]
       (** not_data_actions *)
 }
 [@@deriving yojson_of]
 (** azurerm_role_definition__permissions *)
 
 type azurerm_role_definition__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_role_definition__timeouts *)
 
 type azurerm_role_definition = {
-  assignable_scopes : string list option; [@option]
+  assignable_scopes : string prop list option; [@option]
       (** assignable_scopes *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  role_definition_id : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  role_definition_id : string prop option; [@option]
       (** role_definition_id *)
-  scope : string;  (** scope *)
+  scope : string prop;  (** scope *)
   permissions : azurerm_role_definition__permissions list;
   timeouts : azurerm_role_definition__timeouts option;
 }

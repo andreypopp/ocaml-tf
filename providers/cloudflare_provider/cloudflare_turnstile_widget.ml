@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type cloudflare_turnstile_widget = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  bot_fight_mode : bool option; [@option]
+  bot_fight_mode : bool prop option; [@option]
       (** If bot_fight_mode is set to true, Cloudflare issues computationally expensive challenges in response to malicious bots (Enterprise only). *)
-  domains : string list;  (** Domains where the widget is deployed *)
-  id : string option; [@option]
+  domains : string prop list;
+      (** Domains where the widget is deployed *)
+  id : string prop option; [@option]
       (** The identifier of this resource. This is the site key value. *)
-  mode : string;
+  mode : string prop;
       (** Widget Mode. Available values: `non-interactive`, `invisible`, `managed` *)
-  name : string;  (** Human readable widget name. *)
-  offlabel : bool option; [@option]
+  name : string prop;  (** Human readable widget name. *)
+  offlabel : bool prop option; [@option]
       (** Do not show any Cloudflare branding on the widget (Enterprise only). *)
-  region : string option; [@option]
+  region : string prop option; [@option]
       (** Region where this widget can be used. *)
 }
 [@@deriving yojson_of]

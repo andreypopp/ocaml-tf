@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_lightsail_lb_certificate__domain_validation_records = {
-  domain_name : string;  (** domain_name *)
-  resource_record_name : string;  (** resource_record_name *)
-  resource_record_type : string;  (** resource_record_type *)
-  resource_record_value : string;  (** resource_record_value *)
+  domain_name : string prop;  (** domain_name *)
+  resource_record_name : string prop;  (** resource_record_name *)
+  resource_record_type : string prop;  (** resource_record_type *)
+  resource_record_value : string prop;  (** resource_record_value *)
 }
 [@@deriving yojson_of]
 
 type aws_lightsail_lb_certificate = {
-  domain_name : string option; [@option]  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  lb_name : string;  (** lb_name *)
-  name : string;  (** name *)
-  subject_alternative_names : string list option; [@option]
+  domain_name : string prop option; [@option]  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  lb_name : string prop;  (** lb_name *)
+  name : string prop;  (** name *)
+  subject_alternative_names : string prop list option; [@option]
       (** subject_alternative_names *)
 }
 [@@deriving yojson_of]

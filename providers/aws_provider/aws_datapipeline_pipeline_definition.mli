@@ -10,8 +10,8 @@ type aws_datapipeline_pipeline_definition__pipeline_object
 type aws_datapipeline_pipeline_definition
 
 val aws_datapipeline_pipeline_definition :
-  ?id:string ->
-  pipeline_id:string ->
+  ?id:string prop ->
+  pipeline_id:string prop ->
   parameter_object:
     aws_datapipeline_pipeline_definition__parameter_object list ->
   parameter_value:

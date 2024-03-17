@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_api_management_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_certificate__timeouts *)
 
 type azurerm_api_management_certificate = {
-  api_management_name : string;  (** api_management_name *)
-  data : string option; [@option]  (** data *)
-  id : string option; [@option]  (** id *)
-  key_vault_identity_client_id : string option; [@option]
+  api_management_name : string prop;  (** api_management_name *)
+  data : string prop option; [@option]  (** data *)
+  id : string prop option; [@option]  (** id *)
+  key_vault_identity_client_id : string prop option; [@option]
       (** key_vault_identity_client_id *)
-  key_vault_secret_id : string option; [@option]
+  key_vault_secret_id : string prop option; [@option]
       (** key_vault_secret_id *)
-  name : string;  (** name *)
-  password : string option; [@option]  (** password *)
-  resource_group_name : string;  (** resource_group_name *)
+  name : string prop;  (** name *)
+  password : string prop option; [@option]  (** password *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_api_management_certificate__timeouts option;
 }
 [@@deriving yojson_of]

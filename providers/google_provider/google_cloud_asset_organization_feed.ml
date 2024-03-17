@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type google_cloud_asset_organization_feed__condition = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of the expression. This is a longer text which describes the expression,
 e.g. when hovered over it in a UI. *)
-  expression : string;
+  expression : string prop;
       (** Textual representation of an expression in Common Expression Language syntax. *)
-  location : string option; [@option]
+  location : string prop option; [@option]
       (** String indicating the location of the expression for error reporting, e.g. a file
 name and a position in the file. *)
-  title : string option; [@option]
+  title : string prop option; [@option]
       (** Title for the expression, i.e. a short string describing its purpose.
 This can be used e.g. in UIs which allow to enter the expression. *)
 }
@@ -25,7 +25,7 @@ expression temporal_asset.deleted == true will only publish Asset deletions. Oth
 condition are optional. *)
 
 type google_cloud_asset_organization_feed__feed_output_config__pubsub_destination = {
-  topic : string;  (** Destination on Cloud Pubsub topic. *)
+  topic : string prop;  (** Destination on Cloud Pubsub topic. *)
 }
 [@@deriving yojson_of]
 (** Destination on Cloud Pubsub. *)
@@ -39,35 +39,35 @@ type google_cloud_asset_organization_feed__feed_output_config = {
 (** Output configuration for asset feed destination. *)
 
 type google_cloud_asset_organization_feed__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_cloud_asset_organization_feed__timeouts *)
 
 type google_cloud_asset_organization_feed = {
-  asset_names : string list option; [@option]
+  asset_names : string prop list option; [@option]
       (** A list of the full names of the assets to receive updates. You must specify either or both of
 assetNames and assetTypes. Only asset updates matching specified assetNames and assetTypes are
 exported to the feed. For example: //compute.googleapis.com/projects/my_project_123/zones/zone1/instances/instance1.
 See https://cloud.google.com/apis/design/resourceNames#fullResourceName for more info. *)
-  asset_types : string list option; [@option]
+  asset_types : string prop list option; [@option]
       (** A list of types of the assets to receive updates. You must specify either or both of assetNames
 and assetTypes. Only asset updates matching specified assetNames and assetTypes are exported to
 the feed. For example: compute.googleapis.com/Disk
 See https://cloud.google.com/asset-inventory/docs/supported-asset-types for a list of all
 supported asset types. *)
-  billing_project : string;
+  billing_project : string prop;
       (** The project whose identity will be used when sending messages to the
 destination pubsub topic. It also specifies the project for API
 enablement check, quota, and billing. *)
-  content_type : string option; [@option]
+  content_type : string prop option; [@option]
       (** Asset content type. If not specified, no content but the asset name and type will be returned. Possible values: [CONTENT_TYPE_UNSPECIFIED, RESOURCE, IAM_POLICY, ORG_POLICY, OS_INVENTORY, ACCESS_POLICY] *)
-  feed_id : string;
+  feed_id : string prop;
       (** This is the client-assigned asset feed identifier and it needs to be unique under a specific parent. *)
-  id : string option; [@option]  (** id *)
-  org_id : string;
+  id : string prop option; [@option]  (** id *)
+  org_id : string prop;
       (** The organization this feed should be created in. *)
   condition : google_cloud_asset_organization_feed__condition list;
   feed_output_config :

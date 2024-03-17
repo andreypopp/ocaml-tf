@@ -5,30 +5,32 @@
 open! Tf.Prelude
 
 type aws_dx_transit_virtual_interface__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_dx_transit_virtual_interface__timeouts *)
 
 type aws_dx_transit_virtual_interface = {
-  address_family : string;  (** address_family *)
-  amazon_address : string option; [@option]  (** amazon_address *)
-  bgp_asn : float;  (** bgp_asn *)
-  bgp_auth_key : string option; [@option]  (** bgp_auth_key *)
-  connection_id : string;  (** connection_id *)
-  customer_address : string option; [@option]
+  address_family : string prop;  (** address_family *)
+  amazon_address : string prop option; [@option]
+      (** amazon_address *)
+  bgp_asn : float prop;  (** bgp_asn *)
+  bgp_auth_key : string prop option; [@option]  (** bgp_auth_key *)
+  connection_id : string prop;  (** connection_id *)
+  customer_address : string prop option; [@option]
       (** customer_address *)
-  dx_gateway_id : string;  (** dx_gateway_id *)
-  id : string option; [@option]  (** id *)
-  mtu : float option; [@option]  (** mtu *)
-  name : string;  (** name *)
-  sitelink_enabled : bool option; [@option]  (** sitelink_enabled *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  dx_gateway_id : string prop;  (** dx_gateway_id *)
+  id : string prop option; [@option]  (** id *)
+  mtu : float prop option; [@option]  (** mtu *)
+  name : string prop;  (** name *)
+  sitelink_enabled : bool prop option; [@option]
+      (** sitelink_enabled *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vlan : float;  (** vlan *)
+  vlan : float prop;  (** vlan *)
   timeouts : aws_dx_transit_virtual_interface__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_account_region__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_account_region__timeouts *)
 
 type aws_account_region = {
-  account_id : string option; [@option]  (** account_id *)
-  enabled : bool;  (** enabled *)
-  id : string option; [@option]  (** id *)
-  region_name : string;  (** region_name *)
+  account_id : string prop option; [@option]  (** account_id *)
+  enabled : bool prop;  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  region_name : string prop;  (** region_name *)
   timeouts : aws_account_region__timeouts option;
 }
 [@@deriving yojson_of]

@@ -138,9 +138,9 @@ type aws_securityhub_insight__filters
 type aws_securityhub_insight
 
 val aws_securityhub_insight :
-  ?id:string ->
-  group_by_attribute:string ->
-  name:string ->
+  ?id:string prop ->
+  group_by_attribute:string prop ->
+  name:string prop ->
   filters:aws_securityhub_insight__filters list ->
   string ->
   unit

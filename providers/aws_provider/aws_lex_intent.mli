@@ -23,13 +23,13 @@ type aws_lex_intent__timeouts
 type aws_lex_intent
 
 val aws_lex_intent :
-  ?create_version:bool ->
-  ?description:string ->
-  ?id:string ->
-  ?parent_intent_signature:string ->
-  ?sample_utterances:string list ->
+  ?create_version:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?parent_intent_signature:string prop ->
+  ?sample_utterances:string prop list ->
   ?timeouts:aws_lex_intent__timeouts ->
-  name:string ->
+  name:string prop ->
   conclusion_statement:aws_lex_intent__conclusion_statement list ->
   confirmation_prompt:aws_lex_intent__confirmation_prompt list ->
   dialog_code_hook:aws_lex_intent__dialog_code_hook list ->

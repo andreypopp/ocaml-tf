@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_servicequotas_template_association = {
-  skip_destroy : bool option; [@option]  (** skip_destroy *)
+  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
 }
 [@@deriving yojson_of]
 (** aws_servicequotas_template_association *)

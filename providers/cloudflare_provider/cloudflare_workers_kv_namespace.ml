@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_workers_kv_namespace = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  title : string;  (** Title value of the Worker KV Namespace. *)
+  id : string prop option; [@option]  (** id *)
+  title : string prop;  (** Title value of the Worker KV Namespace. *)
 }
 [@@deriving yojson_of]
 (** Provides the ability to manage Cloudflare Workers KV Namespace features. *)

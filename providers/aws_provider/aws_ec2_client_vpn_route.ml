@@ -5,18 +5,20 @@
 open! Tf.Prelude
 
 type aws_ec2_client_vpn_route__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_client_vpn_route__timeouts *)
 
 type aws_ec2_client_vpn_route = {
-  client_vpn_endpoint_id : string;  (** client_vpn_endpoint_id *)
-  description : string option; [@option]  (** description *)
-  destination_cidr_block : string;  (** destination_cidr_block *)
-  id : string option; [@option]  (** id *)
-  target_vpc_subnet_id : string;  (** target_vpc_subnet_id *)
+  client_vpn_endpoint_id : string prop;
+      (** client_vpn_endpoint_id *)
+  description : string prop option; [@option]  (** description *)
+  destination_cidr_block : string prop;
+      (** destination_cidr_block *)
+  id : string prop option; [@option]  (** id *)
+  target_vpc_subnet_id : string prop;  (** target_vpc_subnet_id *)
   timeouts : aws_ec2_client_vpn_route__timeouts option;
 }
 [@@deriving yojson_of]

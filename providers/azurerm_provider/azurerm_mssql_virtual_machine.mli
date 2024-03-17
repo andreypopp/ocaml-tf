@@ -22,17 +22,17 @@ type azurerm_mssql_virtual_machine__wsfc_domain_credential
 type azurerm_mssql_virtual_machine
 
 val azurerm_mssql_virtual_machine :
-  ?id:string ->
-  ?r_services_enabled:bool ->
-  ?sql_connectivity_port:float ->
-  ?sql_connectivity_type:string ->
-  ?sql_connectivity_update_password:string ->
-  ?sql_connectivity_update_username:string ->
-  ?sql_license_type:string ->
-  ?sql_virtual_machine_group_id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?r_services_enabled:bool prop ->
+  ?sql_connectivity_port:float prop ->
+  ?sql_connectivity_type:string prop ->
+  ?sql_connectivity_update_password:string prop ->
+  ?sql_connectivity_update_username:string prop ->
+  ?sql_license_type:string prop ->
+  ?sql_virtual_machine_group_id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_mssql_virtual_machine__timeouts ->
-  virtual_machine_id:string ->
+  virtual_machine_id:string prop ->
   assessment:azurerm_mssql_virtual_machine__assessment list ->
   auto_backup:azurerm_mssql_virtual_machine__auto_backup list ->
   auto_patching:azurerm_mssql_virtual_machine__auto_patching list ->

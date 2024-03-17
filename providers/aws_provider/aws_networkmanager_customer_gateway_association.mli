@@ -6,11 +6,11 @@ type aws_networkmanager_customer_gateway_association__timeouts
 type aws_networkmanager_customer_gateway_association
 
 val aws_networkmanager_customer_gateway_association :
-  ?id:string ->
-  ?link_id:string ->
+  ?id:string prop ->
+  ?link_id:string prop ->
   ?timeouts:aws_networkmanager_customer_gateway_association__timeouts ->
-  customer_gateway_arn:string ->
-  device_id:string ->
-  global_network_id:string ->
+  customer_gateway_arn:string prop ->
+  device_id:string prop ->
+  global_network_id:string prop ->
   string ->
   unit

@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_privateca_certificate_template_iam_policy = {
-  certificate_template : string;  (** certificate_template *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  certificate_template : string prop;  (** certificate_template *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_privateca_certificate_template_iam_policy *)

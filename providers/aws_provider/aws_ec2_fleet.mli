@@ -39,20 +39,20 @@ type aws_ec2_fleet__timeouts
 type aws_ec2_fleet
 
 val aws_ec2_fleet :
-  ?context:string ->
-  ?excess_capacity_termination_policy:string ->
-  ?fleet_state:string ->
-  ?fulfilled_capacity:float ->
-  ?fulfilled_on_demand_capacity:float ->
-  ?id:string ->
-  ?replace_unhealthy_instances:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?terminate_instances:bool ->
-  ?terminate_instances_with_expiration:bool ->
-  ?type_:string ->
-  ?valid_from:string ->
-  ?valid_until:string ->
+  ?context:string prop ->
+  ?excess_capacity_termination_policy:string prop ->
+  ?fleet_state:string prop ->
+  ?fulfilled_capacity:float prop ->
+  ?fulfilled_on_demand_capacity:float prop ->
+  ?id:string prop ->
+  ?replace_unhealthy_instances:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?terminate_instances:bool prop ->
+  ?terminate_instances_with_expiration:bool prop ->
+  ?type_:string prop ->
+  ?valid_from:string prop ->
+  ?valid_until:string prop ->
   ?timeouts:aws_ec2_fleet__timeouts ->
   fleet_instance_set:aws_ec2_fleet__fleet_instance_set list ->
   launch_template_config:aws_ec2_fleet__launch_template_config list ->

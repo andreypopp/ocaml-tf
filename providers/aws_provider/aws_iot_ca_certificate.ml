@@ -5,30 +5,31 @@
 open! Tf.Prelude
 
 type aws_iot_ca_certificate__registration_config = {
-  role_arn : string option; [@option]  (** role_arn *)
-  template_body : string option; [@option]  (** template_body *)
-  template_name : string option; [@option]  (** template_name *)
+  role_arn : string prop option; [@option]  (** role_arn *)
+  template_body : string prop option; [@option]  (** template_body *)
+  template_name : string prop option; [@option]  (** template_name *)
 }
 [@@deriving yojson_of]
 (** aws_iot_ca_certificate__registration_config *)
 
 type aws_iot_ca_certificate__validity = {
-  not_after : string;  (** not_after *)
-  not_before : string;  (** not_before *)
+  not_after : string prop;  (** not_after *)
+  not_before : string prop;  (** not_before *)
 }
 [@@deriving yojson_of]
 
 type aws_iot_ca_certificate = {
-  active : bool;  (** active *)
-  allow_auto_registration : bool;  (** allow_auto_registration *)
-  ca_certificate_pem : string;  (** ca_certificate_pem *)
-  certificate_mode : string option; [@option]
+  active : bool prop;  (** active *)
+  allow_auto_registration : bool prop;
+      (** allow_auto_registration *)
+  ca_certificate_pem : string prop;  (** ca_certificate_pem *)
+  certificate_mode : string prop option; [@option]
       (** certificate_mode *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  verification_certificate_pem : string option; [@option]
+  verification_certificate_pem : string prop option; [@option]
       (** verification_certificate_pem *)
   registration_config :
     aws_iot_ca_certificate__registration_config list;

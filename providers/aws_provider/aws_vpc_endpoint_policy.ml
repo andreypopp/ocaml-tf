@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_vpc_endpoint_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_policy__timeouts *)
 
 type aws_vpc_endpoint_policy = {
-  id : string option; [@option]  (** id *)
-  policy : string option; [@option]  (** policy *)
-  vpc_endpoint_id : string;  (** vpc_endpoint_id *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop option; [@option]  (** policy *)
+  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
   timeouts : aws_vpc_endpoint_policy__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_appconfig_application
 
 val aws_appconfig_application :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   string ->
   unit

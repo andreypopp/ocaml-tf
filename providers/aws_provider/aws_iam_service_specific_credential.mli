@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_iam_service_specific_credential
 
 val aws_iam_service_specific_credential :
-  ?id:string ->
-  ?status:string ->
-  service_name:string ->
-  user_name:string ->
+  ?id:string prop ->
+  ?status:string prop ->
+  service_name:string prop ->
+  user_name:string prop ->
   string ->
   unit

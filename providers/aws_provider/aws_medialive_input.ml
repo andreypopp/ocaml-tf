@@ -5,55 +5,57 @@
 open! Tf.Prelude
 
 type aws_medialive_input__destinations = {
-  stream_name : string;  (** stream_name *)
+  stream_name : string prop;  (** stream_name *)
 }
 [@@deriving yojson_of]
 (** aws_medialive_input__destinations *)
 
-type aws_medialive_input__input_devices = { id : string  (** id *) }
+type aws_medialive_input__input_devices = {
+  id : string prop;  (** id *)
+}
 [@@deriving yojson_of]
 (** aws_medialive_input__input_devices *)
 
 type aws_medialive_input__media_connect_flows = {
-  flow_arn : string;  (** flow_arn *)
+  flow_arn : string prop;  (** flow_arn *)
 }
 [@@deriving yojson_of]
 (** aws_medialive_input__media_connect_flows *)
 
 type aws_medialive_input__sources = {
-  password_param : string;  (** password_param *)
-  url : string;  (** url *)
-  username : string;  (** username *)
+  password_param : string prop;  (** password_param *)
+  url : string prop;  (** url *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** aws_medialive_input__sources *)
 
 type aws_medialive_input__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_medialive_input__timeouts *)
 
 type aws_medialive_input__vpc = {
-  security_group_ids : string list option; [@option]
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  subnet_ids : string list;  (** subnet_ids *)
+  subnet_ids : string prop list;  (** subnet_ids *)
 }
 [@@deriving yojson_of]
 (** aws_medialive_input__vpc *)
 
 type aws_medialive_input = {
-  id : string option; [@option]  (** id *)
-  input_security_groups : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  input_security_groups : string prop list option; [@option]
       (** input_security_groups *)
-  name : string;  (** name *)
-  role_arn : string option; [@option]  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  role_arn : string prop option; [@option]  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   destinations : aws_medialive_input__destinations list;
   input_devices : aws_medialive_input__input_devices list;
   media_connect_flows :

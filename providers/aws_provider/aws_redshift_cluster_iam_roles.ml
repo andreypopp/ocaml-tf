@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type aws_redshift_cluster_iam_roles__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_cluster_iam_roles__timeouts *)
 
 type aws_redshift_cluster_iam_roles = {
-  cluster_identifier : string;  (** cluster_identifier *)
-  default_iam_role_arn : string option; [@option]
+  cluster_identifier : string prop;  (** cluster_identifier *)
+  default_iam_role_arn : string prop option; [@option]
       (** default_iam_role_arn *)
-  iam_role_arns : string list option; [@option]  (** iam_role_arns *)
-  id : string option; [@option]  (** id *)
+  iam_role_arns : string prop list option; [@option]
+      (** iam_role_arns *)
+  id : string prop option; [@option]  (** id *)
   timeouts : aws_redshift_cluster_iam_roles__timeouts option;
 }
 [@@deriving yojson_of]

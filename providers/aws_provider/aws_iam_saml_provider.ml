@@ -5,11 +5,13 @@
 open! Tf.Prelude
 
 type aws_iam_saml_provider = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  saml_metadata_document : string;  (** saml_metadata_document *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  saml_metadata_document : string prop;
+      (** saml_metadata_document *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_iam_saml_provider *)

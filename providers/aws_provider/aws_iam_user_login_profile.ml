@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_iam_user_login_profile = {
-  id : string option; [@option]  (** id *)
-  password_length : float option; [@option]  (** password_length *)
-  password_reset_required : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  password_length : float prop option; [@option]
+      (** password_length *)
+  password_reset_required : bool prop option; [@option]
       (** password_reset_required *)
-  pgp_key : string option; [@option]  (** pgp_key *)
-  user : string;  (** user *)
+  pgp_key : string prop option; [@option]  (** pgp_key *)
+  user : string prop;  (** user *)
 }
 [@@deriving yojson_of]
 (** aws_iam_user_login_profile *)

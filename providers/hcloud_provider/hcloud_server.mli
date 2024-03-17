@@ -8,27 +8,27 @@ type hcloud_server__timeouts
 type hcloud_server
 
 val hcloud_server :
-  ?allow_deprecated_images:bool ->
-  ?backups:bool ->
-  ?datacenter:string ->
-  ?delete_protection:bool ->
-  ?firewall_ids:float list ->
-  ?id:string ->
-  ?ignore_remote_firewall_ids:bool ->
-  ?image:string ->
-  ?iso:string ->
-  ?keep_disk:bool ->
-  ?labels:(string * string) list ->
-  ?location:string ->
-  ?placement_group_id:float ->
-  ?rebuild_protection:bool ->
-  ?rescue:string ->
-  ?shutdown_before_deletion:bool ->
-  ?ssh_keys:string list ->
-  ?user_data:string ->
+  ?allow_deprecated_images:bool prop ->
+  ?backups:bool prop ->
+  ?datacenter:string prop ->
+  ?delete_protection:bool prop ->
+  ?firewall_ids:float prop list ->
+  ?id:string prop ->
+  ?ignore_remote_firewall_ids:bool prop ->
+  ?image:string prop ->
+  ?iso:string prop ->
+  ?keep_disk:bool prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?placement_group_id:float prop ->
+  ?rebuild_protection:bool prop ->
+  ?rescue:string prop ->
+  ?shutdown_before_deletion:bool prop ->
+  ?ssh_keys:string prop list ->
+  ?user_data:string prop ->
   ?timeouts:hcloud_server__timeouts ->
-  name:string ->
-  server_type:string ->
+  name:string prop ->
+  server_type:string prop ->
   network:hcloud_server__network list ->
   public_net:hcloud_server__public_net list ->
   string ->

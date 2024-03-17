@@ -19,13 +19,13 @@ type aws_kendra_index__user_token_configurations__jwt_token_type_configuration
 type aws_kendra_index__user_token_configurations
 
 type aws_kendra_index__index_statistics__text_document_statistics = {
-  indexed_text_bytes : float;  (** indexed_text_bytes *)
-  indexed_text_documents_count : float;
+  indexed_text_bytes : float prop;  (** indexed_text_bytes *)
+  indexed_text_documents_count : float prop;
       (** indexed_text_documents_count *)
 }
 
 type aws_kendra_index__index_statistics__faq_statistics = {
-  indexed_question_answers_count : float;
+  indexed_question_answers_count : float prop;
       (** indexed_question_answers_count *)
 }
 
@@ -41,15 +41,15 @@ type aws_kendra_index__index_statistics = {
 type aws_kendra_index
 
 val aws_kendra_index :
-  ?description:string ->
-  ?edition:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?user_context_policy:string ->
+  ?description:string prop ->
+  ?edition:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_context_policy:string prop ->
   ?timeouts:aws_kendra_index__timeouts ->
-  name:string ->
-  role_arn:string ->
+  name:string prop ->
+  role_arn:string prop ->
   capacity_units:aws_kendra_index__capacity_units list ->
   document_metadata_configuration_updates:
     aws_kendra_index__document_metadata_configuration_updates list ->

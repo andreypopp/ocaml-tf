@@ -11,10 +11,10 @@ type aws_s3_bucket_website_configuration__routing_rule
 type aws_s3_bucket_website_configuration
 
 val aws_s3_bucket_website_configuration :
-  ?expected_bucket_owner:string ->
-  ?id:string ->
-  ?routing_rules:string ->
-  bucket:string ->
+  ?expected_bucket_owner:string prop ->
+  ?id:string prop ->
+  ?routing_rules:string prop ->
+  bucket:string prop ->
   error_document:
     aws_s3_bucket_website_configuration__error_document list ->
   index_document:

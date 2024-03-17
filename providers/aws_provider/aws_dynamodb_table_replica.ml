@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_dynamodb_table_replica__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_dynamodb_table_replica__timeouts *)
 
 type aws_dynamodb_table_replica = {
-  global_table_arn : string;  (** global_table_arn *)
-  id : string option; [@option]  (** id *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
-  point_in_time_recovery : bool option; [@option]
+  global_table_arn : string prop;  (** global_table_arn *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  point_in_time_recovery : bool prop option; [@option]
       (** point_in_time_recovery *)
-  table_class_override : string option; [@option]
+  table_class_override : string prop option; [@option]
       (** table_class_override *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_dynamodb_table_replica__timeouts option;
 }

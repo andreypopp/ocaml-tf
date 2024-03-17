@@ -7,20 +7,20 @@ type azurerm_mssql_managed_instance_failover_group__read_write_endpoint_failover
 type azurerm_mssql_managed_instance_failover_group__timeouts
 
 type azurerm_mssql_managed_instance_failover_group__partner_region = {
-  location : string;  (** location *)
-  role : string;  (** role *)
+  location : string prop;  (** location *)
+  role : string prop;  (** role *)
 }
 
 type azurerm_mssql_managed_instance_failover_group
 
 val azurerm_mssql_managed_instance_failover_group :
-  ?id:string ->
-  ?readonly_endpoint_failover_policy_enabled:bool ->
+  ?id:string prop ->
+  ?readonly_endpoint_failover_policy_enabled:bool prop ->
   ?timeouts:azurerm_mssql_managed_instance_failover_group__timeouts ->
-  location:string ->
-  managed_instance_id:string ->
-  name:string ->
-  partner_managed_instance_id:string ->
+  location:string prop ->
+  managed_instance_id:string prop ->
+  name:string prop ->
+  partner_managed_instance_id:string prop ->
   read_write_endpoint_failover_policy:
     azurerm_mssql_managed_instance_failover_group__read_write_endpoint_failover_policy
     list ->

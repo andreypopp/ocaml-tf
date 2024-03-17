@@ -5,21 +5,21 @@ open! Tf.Prelude
 type aws_connect_phone_number__timeouts
 
 type aws_connect_phone_number__status = {
-  message : string;  (** message *)
-  status : string;  (** status *)
+  message : string prop;  (** message *)
+  status : string prop;  (** status *)
 }
 
 type aws_connect_phone_number
 
 val aws_connect_phone_number :
-  ?description:string ->
-  ?id:string ->
-  ?prefix:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_connect_phone_number__timeouts ->
-  country_code:string ->
-  target_arn:string ->
-  type_:string ->
+  country_code:string prop ->
+  target_arn:string prop ->
+  type_:string prop ->
   string ->
   unit

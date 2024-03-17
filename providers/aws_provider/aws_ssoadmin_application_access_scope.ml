@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_application_access_scope = {
-  application_arn : string;  (** application_arn *)
-  authorized_targets : string list option; [@option]
+  application_arn : string prop;  (** application_arn *)
+  authorized_targets : string prop list option; [@option]
       (** authorized_targets *)
-  scope : string;  (** scope *)
+  scope : string prop;  (** scope *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_application_access_scope *)

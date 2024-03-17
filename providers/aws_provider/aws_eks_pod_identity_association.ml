@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_eks_pod_identity_association = {
-  cluster_name : string;  (** cluster_name *)
-  namespace : string;  (** namespace *)
-  role_arn : string;  (** role_arn *)
-  service_account : string;  (** service_account *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  cluster_name : string prop;  (** cluster_name *)
+  namespace : string prop;  (** namespace *)
+  role_arn : string prop;  (** role_arn *)
+  service_account : string prop;  (** service_account *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_eks_pod_identity_association *)

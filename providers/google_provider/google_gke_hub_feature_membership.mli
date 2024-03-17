@@ -44,13 +44,13 @@ type google_gke_hub_feature_membership__timeouts
 type google_gke_hub_feature_membership
 
 val google_gke_hub_feature_membership :
-  ?id:string ->
-  ?membership_location:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?membership_location:string prop ->
+  ?project:string prop ->
   ?timeouts:google_gke_hub_feature_membership__timeouts ->
-  feature:string ->
-  location:string ->
-  membership:string ->
+  feature:string prop ->
+  location:string prop ->
+  membership:string prop ->
   configmanagement:
     google_gke_hub_feature_membership__configmanagement list ->
   mesh:google_gke_hub_feature_membership__mesh list ->

@@ -10,18 +10,18 @@ type azurerm_data_factory_dataset_parquet__timeouts
 type azurerm_data_factory_dataset_parquet
 
 val azurerm_data_factory_dataset_parquet :
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?compression_codec:string ->
-  ?compression_level:string ->
-  ?description:string ->
-  ?folder:string ->
-  ?id:string ->
-  ?parameters:(string * string) list ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?compression_codec:string prop ->
+  ?compression_level:string prop ->
+  ?description:string prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
   ?timeouts:azurerm_data_factory_dataset_parquet__timeouts ->
-  data_factory_id:string ->
-  linked_service_name:string ->
-  name:string ->
+  data_factory_id:string prop ->
+  linked_service_name:string prop ->
+  name:string prop ->
   azure_blob_fs_location:
     azurerm_data_factory_dataset_parquet__azure_blob_fs_location list ->
   azure_blob_storage_location:

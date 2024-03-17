@@ -6,12 +6,12 @@ type google_artifact_registry_repository_iam_binding__condition
 type google_artifact_registry_repository_iam_binding
 
 val google_artifact_registry_repository_iam_binding :
-  ?id:string ->
-  ?location:string ->
-  ?project:string ->
-  members:string list ->
-  repository:string ->
-  role:string ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  members:string prop list ->
+  repository:string prop ->
+  role:string prop ->
   condition:
     google_artifact_registry_repository_iam_binding__condition list ->
   string ->

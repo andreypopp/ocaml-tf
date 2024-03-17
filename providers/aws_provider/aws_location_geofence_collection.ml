@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_location_geofence_collection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_location_geofence_collection__timeouts *)
 
 type aws_location_geofence_collection = {
-  collection_name : string;  (** collection_name *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  collection_name : string prop;  (** collection_name *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_location_geofence_collection__timeouts option;
 }

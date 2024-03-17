@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type google_monitoring_slo__basic_sli__availability = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether an availability SLI is enabled or not. Must be set to true. Defaults to 'true'. *)
 }
 [@@deriving yojson_of]
 (** Availability based SLI, dervied from count of requests made to this service that return successfully. *)
 
 type google_monitoring_slo__basic_sli__latency = {
-  threshold : string;
+  threshold : string prop;
       (** A duration string, e.g. 10s.
 Good service is defined to be the count of requests made to
 this service that return in no more than threshold. *)
@@ -21,21 +21,21 @@ this service that return in no more than threshold. *)
 (** Parameters for a latency threshold SLI. *)
 
 type google_monitoring_slo__basic_sli = {
-  location : string list option; [@option]
+  location : string prop list option; [@option]
       (** An optional set of locations to which this SLI is relevant.
 Telemetry from other locations will not be used to calculate
 performance for this SLI. If omitted, this SLI applies to all
 locations in which the Service has activity. For service types
 that don't support breaking down by location, setting this
 field will result in an error. *)
-  method_ : string list option; [@option] [@key "method"]
+  method_ : string prop list option; [@option] [@key "method"]
       (** An optional set of RPCs to which this SLI is relevant.
 Telemetry from other methods will not be used to calculate
 performance for this SLI. If omitted, this SLI applies to all
 the Service's methods. For service types that don't support
 breaking down by method, setting this field will result in an
 error. *)
-  version : string list option; [@option]
+  version : string prop list option; [@option]
       (** The set of API versions to which this SLI is relevant.
 Telemetry from other API versions will not be used to
 calculate performance for this SLI. If omitted,
@@ -56,10 +56,10 @@ Exactly one of the following must be set:
 'basic_sli', 'request_based_sli', 'windows_based_sli' *)
 
 type google_monitoring_slo__request_based_sli__distribution_cut__range = {
-  max : float option; [@option]
+  max : float prop option; [@option]
       (** max value for the range (inclusive). If not given,
 will be set to 0 *)
-  min : float option; [@option]
+  min : float prop option; [@option]
       (** Min value for the range (inclusive). If not given,
 will be set to 0 *)
 }
@@ -71,7 +71,7 @@ max. Open ranges can be defined by setting
 just one of min or max. *)
 
 type google_monitoring_slo__request_based_sli__distribution_cut = {
-  distribution_filter : string;
+  distribution_filter : string prop;
       (** A TimeSeries [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 aggregating values to quantify the good service provided.
 
@@ -91,7 +91,7 @@ measuring good service and total service.
 Exactly one of 'distribution_cut' or 'good_total_ratio' can be set. *)
 
 type google_monitoring_slo__request_based_sli__good_total_ratio = {
-  bad_service_filter : string option; [@option]
+  bad_service_filter : string prop option; [@option]
       (** A TimeSeries [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 quantifying bad service provided, either demanded service that
 was not provided or demanded service that was of inadequate
@@ -102,7 +102,7 @@ must have MetricKind = DELTA or MetricKind = CUMULATIVE.
 
 Exactly two of 'good_service_filter','bad_service_filter','total_service_filter'
 must be set (good + bad = total is assumed). *)
-  good_service_filter : string option; [@option]
+  good_service_filter : string prop option; [@option]
       (** A TimeSeries [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 quantifying good service provided.
 Must have ValueType = DOUBLE or ValueType = INT64 and
@@ -110,7 +110,7 @@ must have MetricKind = DELTA or MetricKind = CUMULATIVE.
 
 Exactly two of 'good_service_filter','bad_service_filter','total_service_filter'
 must be set (good + bad = total is assumed). *)
-  total_service_filter : string option; [@option]
+  total_service_filter : string prop option; [@option]
       (** A TimeSeries [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 quantifying total demanded service.
 
@@ -146,22 +146,22 @@ Exactly one of the following must be set:
 'basic_sli', 'request_based_sli', 'windows_based_sli' *)
 
 type google_monitoring_slo__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_monitoring_slo__timeouts *)
 
 type google_monitoring_slo__windows_based_sli__good_total_ratio_threshold__basic_sli_performance__availability = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether an availability SLI is enabled or not. Must be set to 'true. Defaults to 'true'. *)
 }
 [@@deriving yojson_of]
 (** Availability based SLI, dervied from count of requests made to this service that return successfully. *)
 
 type google_monitoring_slo__windows_based_sli__good_total_ratio_threshold__basic_sli_performance__latency = {
-  threshold : string;
+  threshold : string prop;
       (** A duration string, e.g. 10s.
 Good service is defined to be the count of requests made to
 this service that return in no more than threshold. *)
@@ -170,21 +170,21 @@ this service that return in no more than threshold. *)
 (** Parameters for a latency threshold SLI. *)
 
 type google_monitoring_slo__windows_based_sli__good_total_ratio_threshold__basic_sli_performance = {
-  location : string list option; [@option]
+  location : string prop list option; [@option]
       (** An optional set of locations to which this SLI is relevant.
 Telemetry from other locations will not be used to calculate
 performance for this SLI. If omitted, this SLI applies to all
 locations in which the Service has activity. For service types
 that don't support breaking down by location, setting this
 field will result in an error. *)
-  method_ : string list option; [@option] [@key "method"]
+  method_ : string prop list option; [@option] [@key "method"]
       (** An optional set of RPCs to which this SLI is relevant.
 Telemetry from other methods will not be used to calculate
 performance for this SLI. If omitted, this SLI applies to all
 the Service's methods. For service types that don't support
 breaking down by method, setting this field will result in an
 error. *)
-  version : string list option; [@option]
+  version : string prop list option; [@option]
       (** The set of API versions to which this SLI is relevant.
 Telemetry from other API versions will not be used to
 calculate performance for this SLI. If omitted,
@@ -202,10 +202,10 @@ field will result in an error. *)
 (** Basic SLI to evaluate to judge window quality. *)
 
 type google_monitoring_slo__windows_based_sli__good_total_ratio_threshold__performance__distribution_cut__range = {
-  max : float option; [@option]
+  max : float prop option; [@option]
       (** max value for the range (inclusive). If not given,
 will be set to 0 *)
-  min : float option; [@option]
+  min : float prop option; [@option]
       (** Min value for the range (inclusive). If not given,
 will be set to 0 *)
 }
@@ -217,7 +217,7 @@ max. Open ranges can be defined by setting
 just one of min or max. *)
 
 type google_monitoring_slo__windows_based_sli__good_total_ratio_threshold__performance__distribution_cut = {
-  distribution_filter : string;
+  distribution_filter : string prop;
       (** A TimeSeries [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 aggregating values to quantify the good service provided.
 
@@ -235,7 +235,7 @@ Defines a distribution TimeSeries filter and thresholds used for
 measuring good service and total service. *)
 
 type google_monitoring_slo__windows_based_sli__good_total_ratio_threshold__performance__good_total_ratio = {
-  bad_service_filter : string option; [@option]
+  bad_service_filter : string prop option; [@option]
       (** A TimeSeries [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 quantifying bad service provided, either demanded service that
 was not provided or demanded service that was of inadequate
@@ -245,7 +245,7 @@ good + bad = total is assumed)
 
 Must have ValueType = DOUBLE or ValueType = INT64 and
 must have MetricKind = DELTA or MetricKind = CUMULATIVE. *)
-  good_service_filter : string option; [@option]
+  good_service_filter : string prop option; [@option]
       (** A TimeSeries [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 quantifying good service provided. Exactly two of
 good, bad, or total service filter must be defined (where
@@ -253,7 +253,7 @@ good + bad = total is assumed)
 
 Must have ValueType = DOUBLE or ValueType = INT64 and
 must have MetricKind = DELTA or MetricKind = CUMULATIVE. *)
-  total_service_filter : string option; [@option]
+  total_service_filter : string prop option; [@option]
       (** A TimeSeries [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 quantifying total demanded service. Exactly two of
 good, bad, or total service filter must be defined (where
@@ -281,7 +281,7 @@ type google_monitoring_slo__windows_based_sli__good_total_ratio_threshold__perfo
 (** Request-based SLI to evaluate to judge window quality. *)
 
 type google_monitoring_slo__windows_based_sli__good_total_ratio_threshold = {
-  threshold : float option; [@option]
+  threshold : float prop option; [@option]
       (** If window performance >= threshold, the window is counted
 as good. *)
   basic_sli_performance :
@@ -298,11 +298,11 @@ high enough. One of 'good_bad_metric_filter',
 'metric_sum_in_range' must be set for 'windows_based_sli'. *)
 
 type google_monitoring_slo__windows_based_sli__metric_mean_in_range__range = {
-  max : float option; [@option]
+  max : float prop option; [@option]
       (** max value for the range (inclusive). If not given,
 will be set to infinity, defining an open range
 >= range.min *)
-  min : float option; [@option]
+  min : float prop option; [@option]
       (** Min value for the range (inclusive). If not given,
 will be set to -infinity, defining an open range
 < range.max *)
@@ -317,7 +317,7 @@ values should satisfy 'range.min <= X <= range.max' for a
 good service. *)
 
 type google_monitoring_slo__windows_based_sli__metric_mean_in_range = {
-  time_series : string;
+  time_series : string prop;
       (** A [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 specifying the TimeSeries to use for evaluating window
 The provided TimeSeries must have ValueType = INT64 or
@@ -339,11 +339,11 @@ Average value X of 'time_series' should satisfy
 'range.min <= X <= range.max' for a good window. *)
 
 type google_monitoring_slo__windows_based_sli__metric_sum_in_range__range = {
-  max : float option; [@option]
+  max : float prop option; [@option]
       (** max value for the range (inclusive). If not given,
 will be set to infinity, defining an open range
 >= range.min *)
-  min : float option; [@option]
+  min : float prop option; [@option]
       (** Min value for the range (inclusive). If not given,
 will be set to -infinity, defining an open range
 < range.max *)
@@ -357,7 +357,7 @@ just one of min or max. Summed value 'X' should satisfy
 'range.min <= X <= range.max' for a good window. *)
 
 type google_monitoring_slo__windows_based_sli__metric_sum_in_range = {
-  time_series : string;
+  time_series : string prop;
       (** A [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 specifying the TimeSeries to use for evaluating window
 quality. The provided TimeSeries must have
@@ -381,13 +381,13 @@ One of 'good_bad_metric_filter',
 'metric_sum_in_range' must be set for 'windows_based_sli'. *)
 
 type google_monitoring_slo__windows_based_sli = {
-  good_bad_metric_filter : string option; [@option]
+  good_bad_metric_filter : string prop option; [@option]
       (** A TimeSeries [monitoring filter](https://cloud.google.com/monitoring/api/v3/filters)
 with ValueType = BOOL. The window is good if any true values
 appear in the window. One of 'good_bad_metric_filter',
 'good_total_ratio_threshold', 'metric_mean_in_range',
 'metric_sum_in_range' must be set for 'windows_based_sli'. *)
-  window_period : string option; [@option]
+  window_period : string prop option; [@option]
       (** Duration over which window quality is evaluated, given as a
 duration string {X}s representing X seconds. Must be an
 integer fraction of a day and at least 60s. *)
@@ -414,24 +414,24 @@ Exactly one of the following must be set:
 'basic_sli', 'request_based_sli', 'windows_based_sli' *)
 
 type google_monitoring_slo = {
-  calendar_period : string option; [@option]
+  calendar_period : string prop option; [@option]
       (** A calendar period, semantically since the start of the current
 <calendarPeriod>. Possible values: [DAY, WEEK, FORTNIGHT, MONTH] *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** Name used for UI elements listing this SLO. *)
-  goal : float;
+  goal : float prop;
       (** The fraction of service that must be good in order for this objective
 to be met. 0 < goal <= 0.999 *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  rolling_period_days : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  rolling_period_days : float prop option; [@option]
       (** A rolling time period, semantically in the past X days.
 Must be between 1 to 30 days, inclusive. *)
-  service : string;
+  service : string prop;
       (** ID of the service to which this SLO belongs. *)
-  slo_id : string option; [@option]
+  slo_id : string prop option; [@option]
       (** The id to use for this ServiceLevelObjective. If omitted, an id will be generated instead. *)
-  user_labels : (string * string) list option; [@option]
+  user_labels : (string * string prop) list option; [@option]
       (** This field is intended to be used for organizing and identifying the AlertPolicy
 objects.The field can contain up to 64 entries. Each key and value is limited
 to 63 Unicode characters or 128 bytes, whichever is smaller. Labels and values

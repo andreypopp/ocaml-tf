@@ -23,12 +23,12 @@ type azurerm_media_content_key_policy__timeouts
 type azurerm_media_content_key_policy
 
 val azurerm_media_content_key_policy :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_media_content_key_policy__timeouts ->
-  media_services_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  media_services_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   policy_option:azurerm_media_content_key_policy__policy_option list ->
   string ->
   unit

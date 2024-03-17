@@ -6,12 +6,12 @@ type azurerm_storage_mover_agent__timeouts
 type azurerm_storage_mover_agent
 
 val azurerm_storage_mover_agent :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_storage_mover_agent__timeouts ->
-  arc_virtual_machine_id:string ->
-  arc_virtual_machine_uuid:string ->
-  name:string ->
-  storage_mover_id:string ->
+  arc_virtual_machine_id:string prop ->
+  arc_virtual_machine_uuid:string prop ->
+  name:string prop ->
+  storage_mover_id:string prop ->
   string ->
   unit

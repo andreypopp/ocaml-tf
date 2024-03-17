@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_private_dns_resolver_forwarding_rule__target_dns_servers = {
-  ip_address : string;  (** ip_address *)
-  port : float option; [@option]  (** port *)
+  ip_address : string prop;  (** ip_address *)
+  port : float prop option; [@option]  (** port *)
 }
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_forwarding_rule__target_dns_servers *)
 
 type azurerm_private_dns_resolver_forwarding_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_forwarding_rule__timeouts *)
 
 type azurerm_private_dns_resolver_forwarding_rule = {
-  dns_forwarding_ruleset_id : string;
+  dns_forwarding_ruleset_id : string prop;
       (** dns_forwarding_ruleset_id *)
-  domain_name : string;  (** domain_name *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  metadata : (string * string) list option; [@option]
+  domain_name : string prop;  (** domain_name *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   target_dns_servers :
     azurerm_private_dns_resolver_forwarding_rule__target_dns_servers
     list;

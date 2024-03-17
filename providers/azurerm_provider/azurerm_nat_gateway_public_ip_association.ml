@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_nat_gateway_public_ip_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_nat_gateway_public_ip_association__timeouts *)
 
 type azurerm_nat_gateway_public_ip_association = {
-  id : string option; [@option]  (** id *)
-  nat_gateway_id : string;  (** nat_gateway_id *)
-  public_ip_address_id : string;  (** public_ip_address_id *)
+  id : string prop option; [@option]  (** id *)
+  nat_gateway_id : string prop;  (** nat_gateway_id *)
+  public_ip_address_id : string prop;  (** public_ip_address_id *)
   timeouts :
     azurerm_nat_gateway_public_ip_association__timeouts option;
 }

@@ -17,15 +17,15 @@ type google_secret_manager_secret__topics
 type google_secret_manager_secret
 
 val google_secret_manager_secret :
-  ?annotations:(string * string) list ->
-  ?expire_time:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?ttl:string ->
-  ?version_aliases:(string * string) list ->
+  ?annotations:(string * string prop) list ->
+  ?expire_time:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?ttl:string prop ->
+  ?version_aliases:(string * string prop) list ->
   ?timeouts:google_secret_manager_secret__timeouts ->
-  secret_id:string ->
+  secret_id:string prop ->
   replication:google_secret_manager_secret__replication list ->
   rotation:google_secret_manager_secret__rotation list ->
   topics:google_secret_manager_secret__topics list ->

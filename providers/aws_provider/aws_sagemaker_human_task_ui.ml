@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_sagemaker_human_task_ui__ui_template = {
-  content : string option; [@option]  (** content *)
-  content_sha256 : string;  (** content_sha256 *)
-  url : string;  (** url *)
+  content : string prop option; [@option]  (** content *)
+  content_sha256 : string prop;  (** content_sha256 *)
+  url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_human_task_ui__ui_template *)
 
 type aws_sagemaker_human_task_ui = {
-  human_task_ui_name : string;  (** human_task_ui_name *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  human_task_ui_name : string prop;  (** human_task_ui_name *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   ui_template : aws_sagemaker_human_task_ui__ui_template list;
 }

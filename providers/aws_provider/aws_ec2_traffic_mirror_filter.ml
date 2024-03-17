@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_ec2_traffic_mirror_filter = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  network_services : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  network_services : string prop list option; [@option]
       (** network_services *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_traffic_mirror_filter *)

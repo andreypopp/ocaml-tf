@@ -5,13 +5,15 @@
 open! Tf.Prelude
 
 type hcloud_rdns = {
-  dns_ptr : string;  (** dns_ptr *)
-  floating_ip_id : float option; [@option]  (** floating_ip_id *)
-  id : string option; [@option]  (** id *)
-  ip_address : string;  (** ip_address *)
-  load_balancer_id : float option; [@option]  (** load_balancer_id *)
-  primary_ip_id : float option; [@option]  (** primary_ip_id *)
-  server_id : float option; [@option]  (** server_id *)
+  dns_ptr : string prop;  (** dns_ptr *)
+  floating_ip_id : float prop option; [@option]
+      (** floating_ip_id *)
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop;  (** ip_address *)
+  load_balancer_id : float prop option; [@option]
+      (** load_balancer_id *)
+  primary_ip_id : float prop option; [@option]  (** primary_ip_id *)
+  server_id : float prop option; [@option]  (** server_id *)
 }
 [@@deriving yojson_of]
 (** hcloud_rdns *)

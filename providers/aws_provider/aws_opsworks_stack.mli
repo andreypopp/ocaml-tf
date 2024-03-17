@@ -7,30 +7,30 @@ type aws_opsworks_stack__timeouts
 type aws_opsworks_stack
 
 val aws_opsworks_stack :
-  ?agent_version:string ->
-  ?berkshelf_version:string ->
-  ?color:string ->
-  ?configuration_manager_name:string ->
-  ?configuration_manager_version:string ->
-  ?custom_json:string ->
-  ?default_availability_zone:string ->
-  ?default_os:string ->
-  ?default_root_device_type:string ->
-  ?default_ssh_key_name:string ->
-  ?default_subnet_id:string ->
-  ?hostname_theme:string ->
-  ?id:string ->
-  ?manage_berkshelf:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?use_custom_cookbooks:bool ->
-  ?use_opsworks_security_groups:bool ->
-  ?vpc_id:string ->
+  ?agent_version:string prop ->
+  ?berkshelf_version:string prop ->
+  ?color:string prop ->
+  ?configuration_manager_name:string prop ->
+  ?configuration_manager_version:string prop ->
+  ?custom_json:string prop ->
+  ?default_availability_zone:string prop ->
+  ?default_os:string prop ->
+  ?default_root_device_type:string prop ->
+  ?default_ssh_key_name:string prop ->
+  ?default_subnet_id:string prop ->
+  ?hostname_theme:string prop ->
+  ?id:string prop ->
+  ?manage_berkshelf:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?use_custom_cookbooks:bool prop ->
+  ?use_opsworks_security_groups:bool prop ->
+  ?vpc_id:string prop ->
   ?timeouts:aws_opsworks_stack__timeouts ->
-  default_instance_profile_arn:string ->
-  name:string ->
-  region:string ->
-  service_role_arn:string ->
+  default_instance_profile_arn:string prop ->
+  name:string prop ->
+  region:string prop ->
+  service_role_arn:string prop ->
   custom_cookbooks_source:
     aws_opsworks_stack__custom_cookbooks_source list ->
   string ->

@@ -6,8 +6,8 @@ type aws_ec2_image_block_public_access__timeouts
 type aws_ec2_image_block_public_access
 
 val aws_ec2_image_block_public_access :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_ec2_image_block_public_access__timeouts ->
-  state:string ->
+  state:string prop ->
   string ->
   unit

@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_wafregional_geo_match_set__geo_match_constraint = {
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_wafregional_geo_match_set__geo_match_constraint *)
 
 type aws_wafregional_geo_match_set = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   geo_match_constraint :
     aws_wafregional_geo_match_set__geo_match_constraint list;
 }

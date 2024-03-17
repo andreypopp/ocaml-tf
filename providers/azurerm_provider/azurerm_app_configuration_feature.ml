@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type azurerm_app_configuration_feature__targeting_filter__groups = {
-  name : string;  (** name *)
-  rollout_percentage : float;  (** rollout_percentage *)
+  name : string prop;  (** name *)
+  rollout_percentage : float prop;  (** rollout_percentage *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_configuration_feature__targeting_filter__groups *)
 
 type azurerm_app_configuration_feature__targeting_filter = {
-  default_rollout_percentage : float;
+  default_rollout_percentage : float prop;
       (** default_rollout_percentage *)
-  users : string list option; [@option]  (** users *)
+  users : string prop list option; [@option]  (** users *)
   groups :
     azurerm_app_configuration_feature__targeting_filter__groups list;
 }
@@ -22,34 +22,35 @@ type azurerm_app_configuration_feature__targeting_filter = {
 (** azurerm_app_configuration_feature__targeting_filter *)
 
 type azurerm_app_configuration_feature__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_configuration_feature__timeouts *)
 
 type azurerm_app_configuration_feature__timewindow_filter = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_configuration_feature__timewindow_filter *)
 
 type azurerm_app_configuration_feature = {
-  configuration_store_id : string;  (** configuration_store_id *)
-  description : string option; [@option]  (** description *)
-  enabled : bool option; [@option]  (** enabled *)
-  etag : string option; [@option]  (** etag *)
-  id : string option; [@option]  (** id *)
-  key : string option; [@option]  (** key *)
-  label : string option; [@option]  (** label *)
-  locked : bool option; [@option]  (** locked *)
-  name : string;  (** name *)
-  percentage_filter_value : float option; [@option]
+  configuration_store_id : string prop;
+      (** configuration_store_id *)
+  description : string prop option; [@option]  (** description *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  etag : string prop option; [@option]  (** etag *)
+  id : string prop option; [@option]  (** id *)
+  key : string prop option; [@option]  (** key *)
+  label : string prop option; [@option]  (** label *)
+  locked : bool prop option; [@option]  (** locked *)
+  name : string prop;  (** name *)
+  percentage_filter_value : float prop option; [@option]
       (** percentage_filter_value *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   targeting_filter :
     azurerm_app_configuration_feature__targeting_filter list;
   timeouts : azurerm_app_configuration_feature__timeouts option;

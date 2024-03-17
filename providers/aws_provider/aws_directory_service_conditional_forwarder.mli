@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_directory_service_conditional_forwarder
 
 val aws_directory_service_conditional_forwarder :
-  ?id:string ->
-  directory_id:string ->
-  dns_ips:string list ->
-  remote_domain_name:string ->
+  ?id:string prop ->
+  directory_id:string prop ->
+  dns_ips:string prop list ->
+  remote_domain_name:string prop ->
   string ->
   unit

@@ -6,10 +6,10 @@ type aws_ec2_instance_state__timeouts
 type aws_ec2_instance_state
 
 val aws_ec2_instance_state :
-  ?force:bool ->
-  ?id:string ->
+  ?force:bool prop ->
+  ?id:string prop ->
   ?timeouts:aws_ec2_instance_state__timeouts ->
-  instance_id:string ->
-  state:string ->
+  instance_id:string prop ->
+  state:string prop ->
   string ->
   unit

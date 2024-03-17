@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type aws_vpc_ipv6_cidr_block_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_ipv6_cidr_block_association__timeouts *)
 
 type aws_vpc_ipv6_cidr_block_association = {
-  id : string option; [@option]  (** id *)
-  ipv6_cidr_block : string option; [@option]  (** ipv6_cidr_block *)
-  ipv6_ipam_pool_id : string;  (** ipv6_ipam_pool_id *)
-  ipv6_netmask_length : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ipv6_cidr_block : string prop option; [@option]
+      (** ipv6_cidr_block *)
+  ipv6_ipam_pool_id : string prop;  (** ipv6_ipam_pool_id *)
+  ipv6_netmask_length : float prop option; [@option]
       (** ipv6_netmask_length *)
-  vpc_id : string;  (** vpc_id *)
+  vpc_id : string prop;  (** vpc_id *)
   timeouts : aws_vpc_ipv6_cidr_block_association__timeouts option;
 }
 [@@deriving yojson_of]

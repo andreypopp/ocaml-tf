@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_glue_schema = {
-  compatibility : string;  (** compatibility *)
-  data_format : string;  (** data_format *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  registry_arn : string option; [@option]  (** registry_arn *)
-  schema_definition : string;  (** schema_definition *)
-  schema_name : string;  (** schema_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  compatibility : string prop;  (** compatibility *)
+  data_format : string prop;  (** data_format *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  registry_arn : string prop option; [@option]  (** registry_arn *)
+  schema_definition : string prop;  (** schema_definition *)
+  schema_name : string prop;  (** schema_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_glue_schema *)

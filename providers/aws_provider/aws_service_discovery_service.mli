@@ -9,14 +9,14 @@ type aws_service_discovery_service__health_check_custom_config
 type aws_service_discovery_service
 
 val aws_service_discovery_service :
-  ?description:string ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?namespace_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?type_:string ->
-  name:string ->
+  ?description:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?namespace_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  name:string prop ->
   dns_config:aws_service_discovery_service__dns_config list ->
   health_check_config:
     aws_service_discovery_service__health_check_config list ->

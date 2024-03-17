@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_waf_web_acl__default_action = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_waf_web_acl__default_action *)
 
 type aws_waf_web_acl__logging_configuration__redacted_fields__field_to_match = {
-  data : string option; [@option]  (** data *)
-  type_ : string; [@key "type"]  (** type *)
+  data : string prop option; [@option]  (** data *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_waf_web_acl__logging_configuration__redacted_fields__field_to_match *)
@@ -26,7 +26,7 @@ type aws_waf_web_acl__logging_configuration__redacted_fields = {
 (** aws_waf_web_acl__logging_configuration__redacted_fields *)
 
 type aws_waf_web_acl__logging_configuration = {
-  log_destination : string;  (** log_destination *)
+  log_destination : string prop;  (** log_destination *)
   redacted_fields :
     aws_waf_web_acl__logging_configuration__redacted_fields list;
 }
@@ -34,21 +34,21 @@ type aws_waf_web_acl__logging_configuration = {
 (** aws_waf_web_acl__logging_configuration *)
 
 type aws_waf_web_acl__rules__action = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_waf_web_acl__rules__action *)
 
 type aws_waf_web_acl__rules__override_action = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_waf_web_acl__rules__override_action *)
 
 type aws_waf_web_acl__rules = {
-  priority : float;  (** priority *)
-  rule_id : string;  (** rule_id *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  priority : float prop;  (** priority *)
+  rule_id : string prop;  (** rule_id *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   action : aws_waf_web_acl__rules__action list;
   override_action : aws_waf_web_acl__rules__override_action list;
 }
@@ -56,11 +56,11 @@ type aws_waf_web_acl__rules = {
 (** aws_waf_web_acl__rules *)
 
 type aws_waf_web_acl = {
-  id : string option; [@option]  (** id *)
-  metric_name : string;  (** metric_name *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  metric_name : string prop;  (** metric_name *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   default_action : aws_waf_web_acl__default_action list;
   logging_configuration :

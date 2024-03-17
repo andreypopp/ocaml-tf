@@ -10,12 +10,12 @@ type azurerm_policy_virtual_machine_configuration_assignment__timeouts
 type azurerm_policy_virtual_machine_configuration_assignment
 
 val azurerm_policy_virtual_machine_configuration_assignment :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_policy_virtual_machine_configuration_assignment__timeouts ->
-  location:string ->
-  name:string ->
-  virtual_machine_id:string ->
+  location:string prop ->
+  name:string prop ->
+  virtual_machine_id:string prop ->
   configuration:
     azurerm_policy_virtual_machine_configuration_assignment__configuration
     list ->

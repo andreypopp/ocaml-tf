@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_quicksight_folder_membership = {
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  folder_id: string;  (** folder_id *)
-  member_id: string;  (** member_id *)
-  member_type: string;  (** member_type *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  folder_id: string prop;  (** folder_id *)
+  member_id: string prop;  (** member_id *)
+  member_type: string prop;  (** member_type *)
 } [@@deriving yojson_of]
 (** aws_quicksight_folder_membership *)
 

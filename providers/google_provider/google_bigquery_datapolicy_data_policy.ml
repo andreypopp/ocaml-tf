@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type google_bigquery_datapolicy_data_policy__data_masking_policy = {
-  predefined_expression : string;
+  predefined_expression : string prop;
       (** The available masking rules. Learn more here: https://cloud.google.com/bigquery/docs/column-data-masking-intro#masking_options. Possible values: [SHA256, ALWAYS_NULL, DEFAULT_MASKING_VALUE, LAST_FOUR_CHARACTERS, FIRST_FOUR_CHARACTERS, EMAIL_MASK, DATE_YEAR_MASK] *)
 }
 [@@deriving yojson_of]
 (** The data masking policy that specifies the data masking rule to use. *)
 
 type google_bigquery_datapolicy_data_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_bigquery_datapolicy_data_policy__timeouts *)
 
 type google_bigquery_datapolicy_data_policy = {
-  data_policy_id : string;
+  data_policy_id : string prop;
       (** User-assigned (human readable) ID of the data policy that needs to be unique within a project. Used as {dataPolicyId} in part of the resource name. *)
-  data_policy_type : string;
+  data_policy_type : string prop;
       (** The enrollment level of the service. Possible values: [COLUMN_LEVEL_SECURITY_POLICY, DATA_MASKING_POLICY] *)
-  id : string option; [@option]  (** id *)
-  location : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;
       (** The name of the location of the data policy. *)
-  policy_tag : string;
+  policy_tag : string prop;
       (** Policy tag resource name, in the format of projects/{project_number}/locations/{locationId}/taxonomies/{taxonomyId}/policyTags/{policyTag_id}. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   data_masking_policy :
     google_bigquery_datapolicy_data_policy__data_masking_policy list;
   timeouts : google_bigquery_datapolicy_data_policy__timeouts option;

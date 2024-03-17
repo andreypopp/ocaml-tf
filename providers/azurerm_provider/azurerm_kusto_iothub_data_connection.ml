@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type azurerm_kusto_iothub_data_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_iothub_data_connection__timeouts *)
 
 type azurerm_kusto_iothub_data_connection = {
-  cluster_name : string;  (** cluster_name *)
-  consumer_group : string;  (** consumer_group *)
-  data_format : string option; [@option]  (** data_format *)
-  database_name : string;  (** database_name *)
-  database_routing_type : string option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  consumer_group : string prop;  (** consumer_group *)
+  data_format : string prop option; [@option]  (** data_format *)
+  database_name : string prop;  (** database_name *)
+  database_routing_type : string prop option; [@option]
       (** database_routing_type *)
-  event_system_properties : string list option; [@option]
+  event_system_properties : string prop list option; [@option]
       (** event_system_properties *)
-  id : string option; [@option]  (** id *)
-  iothub_id : string;  (** iothub_id *)
-  location : string;  (** location *)
-  mapping_rule_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  iothub_id : string prop;  (** iothub_id *)
+  location : string prop;  (** location *)
+  mapping_rule_name : string prop option; [@option]
       (** mapping_rule_name *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  shared_access_policy_name : string;
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  shared_access_policy_name : string prop;
       (** shared_access_policy_name *)
-  table_name : string option; [@option]  (** table_name *)
+  table_name : string prop option; [@option]  (** table_name *)
   timeouts : azurerm_kusto_iothub_data_connection__timeouts option;
 }
 [@@deriving yojson_of]

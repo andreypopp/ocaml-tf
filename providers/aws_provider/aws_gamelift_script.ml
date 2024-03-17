@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type aws_gamelift_script__storage_location = {
-  bucket : string;  (** bucket *)
-  key : string;  (** key *)
-  object_version : string option; [@option]  (** object_version *)
-  role_arn : string;  (** role_arn *)
+  bucket : string prop;  (** bucket *)
+  key : string prop;  (** key *)
+  object_version : string prop option; [@option]
+      (** object_version *)
+  role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_gamelift_script__storage_location *)
 
 type aws_gamelift_script = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  version : string option; [@option]  (** version *)
-  zip_file : string option; [@option]  (** zip_file *)
+  version : string prop option; [@option]  (** version *)
+  zip_file : string prop option; [@option]  (** zip_file *)
   storage_location : aws_gamelift_script__storage_location list;
 }
 [@@deriving yojson_of]

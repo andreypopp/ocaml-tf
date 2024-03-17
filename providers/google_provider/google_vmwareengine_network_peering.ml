@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type google_vmwareengine_network_peering__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_network_peering__timeouts *)
 
 type google_vmwareengine_network_peering = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** User-provided description for this network peering. *)
-  export_custom_routes : bool option; [@option]
+  export_custom_routes : bool prop option; [@option]
       (** True if custom routes are exported to the peered network; false otherwise. *)
-  export_custom_routes_with_public_ip : bool option; [@option]
+  export_custom_routes_with_public_ip : bool prop option; [@option]
       (** True if all subnet routes with a public IP address range are exported; false otherwise. *)
-  id : string option; [@option]  (** id *)
-  import_custom_routes : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  import_custom_routes : bool prop option; [@option]
       (** True if custom routes are imported from the peered network; false otherwise. *)
-  import_custom_routes_with_public_ip : bool option; [@option]
+  import_custom_routes_with_public_ip : bool prop option; [@option]
       (** True if custom routes are imported from the peered network; false otherwise. *)
-  name : string;  (** The ID of the Network Peering. *)
-  peer_network : string;
+  name : string prop;  (** The ID of the Network Peering. *)
+  peer_network : string prop;
       (** The relative resource name of the network to peer with a standard VMware Engine network.
 The provided network can be a consumer VPC network or another standard VMware Engine network. *)
-  peer_network_type : string;
+  peer_network_type : string prop;
       (** The type of the network to peer with the VMware Engine network. Possible values: [STANDARD, VMWARE_ENGINE_NETWORK, PRIVATE_SERVICES_ACCESS, NETAPP_CLOUD_VOLUMES, THIRD_PARTY_SERVICE, DELL_POWERSCALE] *)
-  project : string option; [@option]  (** project *)
-  vmware_engine_network : string;
+  project : string prop option; [@option]  (** project *)
+  vmware_engine_network : string prop;
       (** The relative resource name of the VMware Engine network. Specify the name in the following form:
 projects/{project}/locations/{location}/vmwareEngineNetworks/{vmwareEngineNetworkId} where {project}
 can either be a project number or a project ID. *)

@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_api_management_api__contact = {
-  email : string option; [@option]  (** email *)
-  name : string option; [@option]  (** name *)
-  url : string option; [@option]  (** url *)
+  email : string prop option; [@option]  (** email *)
+  name : string prop option; [@option]  (** name *)
+  url : string prop option; [@option]  (** url *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api__contact *)
 
 type azurerm_api_management_api__import__wsdl_selector = {
-  endpoint_name : string;  (** endpoint_name *)
-  service_name : string;  (** service_name *)
+  endpoint_name : string prop;  (** endpoint_name *)
+  service_name : string prop;  (** service_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api__import__wsdl_selector *)
 
 type azurerm_api_management_api__import = {
-  content_format : string;  (** content_format *)
-  content_value : string;  (** content_value *)
+  content_format : string prop;  (** content_format *)
+  content_value : string prop;  (** content_value *)
   wsdl_selector :
     azurerm_api_management_api__import__wsdl_selector list;
 }
@@ -29,69 +29,70 @@ type azurerm_api_management_api__import = {
 (** azurerm_api_management_api__import *)
 
 type azurerm_api_management_api__license = {
-  name : string option; [@option]  (** name *)
-  url : string option; [@option]  (** url *)
+  name : string prop option; [@option]  (** name *)
+  url : string prop option; [@option]  (** url *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api__license *)
 
 type azurerm_api_management_api__oauth2_authorization = {
-  authorization_server_name : string;
+  authorization_server_name : string prop;
       (** authorization_server_name *)
-  scope : string option; [@option]  (** scope *)
+  scope : string prop option; [@option]  (** scope *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api__oauth2_authorization *)
 
 type azurerm_api_management_api__openid_authentication = {
-  bearer_token_sending_methods : string list option; [@option]
+  bearer_token_sending_methods : string prop list option; [@option]
       (** bearer_token_sending_methods *)
-  openid_provider_name : string;  (** openid_provider_name *)
+  openid_provider_name : string prop;  (** openid_provider_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api__openid_authentication *)
 
 type azurerm_api_management_api__subscription_key_parameter_names = {
-  header : string;  (** header *)
-  query : string;  (** query *)
+  header : string prop;  (** header *)
+  query : string prop;  (** query *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api__subscription_key_parameter_names *)
 
 type azurerm_api_management_api__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api__timeouts *)
 
 type azurerm_api_management_api = {
-  api_management_name : string;  (** api_management_name *)
-  api_type : string option; [@option]  (** api_type *)
-  description : string option; [@option]  (** description *)
-  display_name : string option; [@option]  (** display_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  path : string option; [@option]  (** path *)
-  protocols : string list option; [@option]  (** protocols *)
-  resource_group_name : string;  (** resource_group_name *)
-  revision : string;  (** revision *)
-  revision_description : string option; [@option]
+  api_management_name : string prop;  (** api_management_name *)
+  api_type : string prop option; [@option]  (** api_type *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop option; [@option]  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  path : string prop option; [@option]  (** path *)
+  protocols : string prop list option; [@option]  (** protocols *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  revision : string prop;  (** revision *)
+  revision_description : string prop option; [@option]
       (** revision_description *)
-  service_url : string option; [@option]  (** service_url *)
-  soap_pass_through : bool option; [@option]
+  service_url : string prop option; [@option]  (** service_url *)
+  soap_pass_through : bool prop option; [@option]
       (** soap_pass_through *)
-  source_api_id : string option; [@option]  (** source_api_id *)
-  subscription_required : bool option; [@option]
+  source_api_id : string prop option; [@option]  (** source_api_id *)
+  subscription_required : bool prop option; [@option]
       (** subscription_required *)
-  terms_of_service_url : string option; [@option]
+  terms_of_service_url : string prop option; [@option]
       (** terms_of_service_url *)
-  version : string option; [@option]  (** version *)
-  version_description : string option; [@option]
+  version : string prop option; [@option]  (** version *)
+  version_description : string prop option; [@option]
       (** version_description *)
-  version_set_id : string option; [@option]  (** version_set_id *)
+  version_set_id : string prop option; [@option]
+      (** version_set_id *)
   contact : azurerm_api_management_api__contact list;
   import : azurerm_api_management_api__import list;
   license : azurerm_api_management_api__license list;

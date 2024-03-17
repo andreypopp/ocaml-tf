@@ -6,13 +6,13 @@ type azurerm_automation_credential__timeouts
 type azurerm_automation_credential
 
 val azurerm_automation_credential :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_automation_credential__timeouts ->
-  automation_account_name:string ->
-  name:string ->
-  password:string ->
-  resource_group_name:string ->
-  username:string ->
+  automation_account_name:string prop ->
+  name:string prop ->
+  password:string prop ->
+  resource_group_name:string prop ->
+  username:string prop ->
   string ->
   unit

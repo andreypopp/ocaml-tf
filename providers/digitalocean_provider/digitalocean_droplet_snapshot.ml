@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type digitalocean_droplet_snapshot = {
-  droplet_id : string;  (** droplet_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  droplet_id : string prop;  (** droplet_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** digitalocean_droplet_snapshot *)

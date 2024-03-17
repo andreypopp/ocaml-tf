@@ -6,13 +6,13 @@ type azurerm_batch_job__timeouts
 type azurerm_batch_job
 
 val azurerm_batch_job :
-  ?common_environment_properties:(string * string) list ->
-  ?display_name:string ->
-  ?id:string ->
-  ?priority:float ->
-  ?task_retry_maximum:float ->
+  ?common_environment_properties:(string * string prop) list ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?task_retry_maximum:float prop ->
   ?timeouts:azurerm_batch_job__timeouts ->
-  batch_pool_id:string ->
-  name:string ->
+  batch_pool_id:string prop ->
+  name:string prop ->
   string ->
   unit

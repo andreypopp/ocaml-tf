@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_compute_node_template__node_type_flexibility = {
-  cpus : string option; [@option]
+  cpus : string prop option; [@option]
       (** Number of virtual CPUs to use. *)
-  local_ssd : string;  (** Use local SSD *)
-  memory : string option; [@option]
+  local_ssd : string prop;  (** Use local SSD *)
+  memory : string prop option; [@option]
       (** Physical memory available to the node, defined in MB. *)
 }
 [@@deriving yojson_of]
@@ -18,7 +18,7 @@ these properties. Only one of nodeTypeFlexibility and nodeType can
 be specified. *)
 
 type google_compute_node_template__server_binding = {
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** Type of server binding policy. If 'RESTART_NODE_ON_ANY_SERVER',
 nodes using this template will restart on any physical server
 following a maintenance event.
@@ -37,27 +37,28 @@ nodes will experience outages while maintenance is applied. Possible values: [RE
 where the nodes should restart following a maintenance event. *)
 
 type google_compute_node_template__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_node_template__timeouts *)
 
 type google_compute_node_template = {
-  cpu_overcommit_type : string option; [@option]
+  cpu_overcommit_type : string prop option; [@option]
       (** CPU overcommit. Default value: NONE Possible values: [ENABLED, NONE] *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional textual description of the resource. *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** Name of the resource. *)
-  node_affinity_labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** Name of the resource. *)
+  node_affinity_labels : (string * string prop) list option;
+      [@option]
       (** Labels to use for node affinity, which will be used in
 instance scheduling. *)
-  node_type : string option; [@option]
+  node_type : string prop option; [@option]
       (** Node type to use for nodes group that are created from this template.
 Only one of nodeTypeFlexibility and nodeType can be specified. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** Region where nodes using the node template will be created.
 If it is not provided, the provider region is used. *)
   node_type_flexibility :

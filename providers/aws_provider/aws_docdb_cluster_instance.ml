@@ -5,40 +5,41 @@
 open! Tf.Prelude
 
 type aws_docdb_cluster_instance__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_docdb_cluster_instance__timeouts *)
 
 type aws_docdb_cluster_instance = {
-  apply_immediately : bool option; [@option]
+  apply_immediately : bool prop option; [@option]
       (** apply_immediately *)
-  auto_minor_version_upgrade : bool option; [@option]
+  auto_minor_version_upgrade : bool prop option; [@option]
       (** auto_minor_version_upgrade *)
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  ca_cert_identifier : string option; [@option]
+  ca_cert_identifier : string prop option; [@option]
       (** ca_cert_identifier *)
-  cluster_identifier : string;  (** cluster_identifier *)
-  copy_tags_to_snapshot : bool option; [@option]
+  cluster_identifier : string prop;  (** cluster_identifier *)
+  copy_tags_to_snapshot : bool prop option; [@option]
       (** copy_tags_to_snapshot *)
-  enable_performance_insights : bool option; [@option]
+  enable_performance_insights : bool prop option; [@option]
       (** enable_performance_insights *)
-  engine : string option; [@option]  (** engine *)
-  id : string option; [@option]  (** id *)
-  identifier : string option; [@option]  (** identifier *)
-  identifier_prefix : string option; [@option]
+  engine : string prop option; [@option]  (** engine *)
+  id : string prop option; [@option]  (** id *)
+  identifier : string prop option; [@option]  (** identifier *)
+  identifier_prefix : string prop option; [@option]
       (** identifier_prefix *)
-  instance_class : string;  (** instance_class *)
-  performance_insights_kms_key_id : string option; [@option]
+  instance_class : string prop;  (** instance_class *)
+  performance_insights_kms_key_id : string prop option; [@option]
       (** performance_insights_kms_key_id *)
-  preferred_maintenance_window : string option; [@option]
+  preferred_maintenance_window : string prop option; [@option]
       (** preferred_maintenance_window *)
-  promotion_tier : float option; [@option]  (** promotion_tier *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  promotion_tier : float prop option; [@option]
+      (** promotion_tier *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_docdb_cluster_instance__timeouts option;
 }

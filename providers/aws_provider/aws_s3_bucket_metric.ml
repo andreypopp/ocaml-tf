@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_metric__filter = {
-  access_point : string option; [@option]  (** access_point *)
-  prefix : string option; [@option]  (** prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  access_point : string prop option; [@option]  (** access_point *)
+  prefix : string prop option; [@option]  (** prefix *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_metric__filter *)
 
 type aws_s3_bucket_metric = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   filter : aws_s3_bucket_metric__filter list;
 }
 [@@deriving yojson_of]

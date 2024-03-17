@@ -36,12 +36,12 @@ type azurerm_cdn_frontdoor_rule__timeouts
 type azurerm_cdn_frontdoor_rule
 
 val azurerm_cdn_frontdoor_rule :
-  ?behavior_on_match:string ->
-  ?id:string ->
+  ?behavior_on_match:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_cdn_frontdoor_rule__timeouts ->
-  cdn_frontdoor_rule_set_id:string ->
-  name:string ->
-  order:float ->
+  cdn_frontdoor_rule_set_id:string prop ->
+  name:string prop ->
+  order:float prop ->
   actions:azurerm_cdn_frontdoor_rule__actions list ->
   conditions:azurerm_cdn_frontdoor_rule__conditions list ->
   string ->

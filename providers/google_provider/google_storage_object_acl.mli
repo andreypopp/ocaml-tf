@@ -5,10 +5,10 @@ open! Tf.Prelude
 type google_storage_object_acl
 
 val google_storage_object_acl :
-  ?id:string ->
-  ?predefined_acl:string ->
-  ?role_entity:string list ->
-  bucket:string ->
-  object_:string ->
+  ?id:string prop ->
+  ?predefined_acl:string prop ->
+  ?role_entity:string prop list ->
+  bucket:string prop ->
+  object_:string prop ->
   string ->
   unit

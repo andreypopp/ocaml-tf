@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type digitalocean_cdn = {
-  certificate_id : string option; [@option]
+  certificate_id : string prop option; [@option]
       (** ID of a DigitalOcean managed TLS certificate for use with custom domains *)
-  certificate_name : string option; [@option]
+  certificate_name : string prop option; [@option]
       (** certificate_name *)
-  custom_domain : string option; [@option]
+  custom_domain : string prop option; [@option]
       (** fully qualified domain name (FQDN) for custom subdomain, (requires certificate_id) *)
-  id : string option; [@option]  (** id *)
-  origin : string;
+  id : string prop option; [@option]  (** id *)
+  origin : string prop;
       (** fully qualified domain name (FQDN) for the origin server *)
-  ttl : float option; [@option]
+  ttl : float prop option; [@option]
       (** The amount of time the content is cached in the CDN *)
 }
 [@@deriving yojson_of]

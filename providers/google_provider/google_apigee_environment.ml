@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type google_apigee_environment__node_config = {
-  current_aggregate_node_count : string;
+  current_aggregate_node_count : string prop;
       (** The current total number of gateway nodes that each environment currently has across
 all instances. *)
-  max_node_count : string option; [@option]
+  max_node_count : string prop option; [@option]
       (** The maximum total number of gateway nodes that the is reserved for all instances that
 has the specified environment. If not specified, the default is determined by the
 recommended maximum number of nodes for that gateway. *)
-  min_node_count : string option; [@option]
+  min_node_count : string prop option; [@option]
       (** The minimum total number of gateway nodes that the is reserved for all instances that
 has the specified environment. If not specified, the default is determined by the
 recommended minimum number of nodes for that gateway. *)
@@ -21,18 +21,18 @@ recommended minimum number of nodes for that gateway. *)
 (** NodeConfig for setting the min/max number of nodes associated with the environment. *)
 
 type google_apigee_environment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_apigee_environment__timeouts *)
 
 type google_apigee_environment = {
-  api_proxy_type : string option; [@option]
+  api_proxy_type : string prop option; [@option]
       (** Optional. API Proxy type supported by the environment. The type can be set when creating
 the Environment and cannot be changed. Possible values: [API_PROXY_TYPE_UNSPECIFIED, PROGRAMMABLE, CONFIGURABLE] *)
-  deployment_type : string option; [@option]
+  deployment_type : string prop option; [@option]
       (** Optional. Deployment type supported by the environment. The deployment type can be
 set when creating the environment and cannot be changed. When you enable archive
 deployment, you will be prevented from performing a subset of actions within the
@@ -40,16 +40,16 @@ environment, including:
 Managing the deployment of API proxy or shared flow revisions;
 Creating, updating, or deleting resource files;
 Creating, updating, or deleting target servers. Possible values: [DEPLOYMENT_TYPE_UNSPECIFIED, PROXY, ARCHIVE] *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of the environment. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** Display name of the environment. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The resource ID of the environment. *)
-  org_id : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The resource ID of the environment. *)
+  org_id : string prop;
       (** The Apigee Organization associated with the Apigee environment,
 in the format 'organizations/{{org_name}}'. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** Types that can be selected for an Environment. Each of the types are
 limited by capability and capacity. Refer to Apigee's public documentation
 to understand about each of these types in details.

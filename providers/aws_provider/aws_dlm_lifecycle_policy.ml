@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy__encryption_configuration = {
-  cmk_arn : string option; [@option]  (** cmk_arn *)
-  encrypted : bool option; [@option]  (** encrypted *)
+  cmk_arn : string prop option; [@option]  (** cmk_arn *)
+  encrypted : bool prop option; [@option]  (** encrypted *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy__encryption_configuration *)
 
 type aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy__retain_rule = {
-  interval : float;  (** interval *)
-  interval_unit : string;  (** interval_unit *)
+  interval : float prop;  (** interval *)
+  interval_unit : string prop;  (** interval_unit *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy__retain_rule *)
 
 type aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy = {
-  target : string;  (** target *)
+  target : string prop;  (** target *)
   encryption_configuration :
     aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy__encryption_configuration
     list;
@@ -31,7 +31,7 @@ type aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy = {
 (** aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy *)
 
 type aws_dlm_lifecycle_policy__policy_details__action = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   cross_region_copy :
     aws_dlm_lifecycle_policy__policy_details__action__cross_region_copy
     list;
@@ -40,15 +40,15 @@ type aws_dlm_lifecycle_policy__policy_details__action = {
 (** aws_dlm_lifecycle_policy__policy_details__action *)
 
 type aws_dlm_lifecycle_policy__policy_details__event_source__parameters = {
-  description_regex : string;  (** description_regex *)
-  event_type : string;  (** event_type *)
-  snapshot_owner : string list;  (** snapshot_owner *)
+  description_regex : string prop;  (** description_regex *)
+  event_type : string prop;  (** event_type *)
+  snapshot_owner : string prop list;  (** snapshot_owner *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__event_source__parameters *)
 
 type aws_dlm_lifecycle_policy__policy_details__event_source = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   parameters :
     aws_dlm_lifecycle_policy__policy_details__event_source__parameters
     list;
@@ -57,42 +57,43 @@ type aws_dlm_lifecycle_policy__policy_details__event_source = {
 (** aws_dlm_lifecycle_policy__policy_details__event_source *)
 
 type aws_dlm_lifecycle_policy__policy_details__parameters = {
-  exclude_boot_volume : bool option; [@option]
+  exclude_boot_volume : bool prop option; [@option]
       (** exclude_boot_volume *)
-  no_reboot : bool option; [@option]  (** no_reboot *)
+  no_reboot : bool prop option; [@option]  (** no_reboot *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__parameters *)
 
 type aws_dlm_lifecycle_policy__policy_details__schedule__create_rule = {
-  cron_expression : string option; [@option]  (** cron_expression *)
-  interval : float option; [@option]  (** interval *)
-  interval_unit : string option; [@option]  (** interval_unit *)
-  location : string option; [@option]  (** location *)
-  times : string list option; [@option]  (** times *)
+  cron_expression : string prop option; [@option]
+      (** cron_expression *)
+  interval : float prop option; [@option]  (** interval *)
+  interval_unit : string prop option; [@option]  (** interval_unit *)
+  location : string prop option; [@option]  (** location *)
+  times : string prop list option; [@option]  (** times *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__schedule__create_rule *)
 
 type aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule__deprecate_rule = {
-  interval : float;  (** interval *)
-  interval_unit : string;  (** interval_unit *)
+  interval : float prop;  (** interval *)
+  interval_unit : string prop;  (** interval_unit *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule__deprecate_rule *)
 
 type aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule__retain_rule = {
-  interval : float;  (** interval *)
-  interval_unit : string;  (** interval_unit *)
+  interval : float prop;  (** interval *)
+  interval_unit : string prop;  (** interval_unit *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule__retain_rule *)
 
 type aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule = {
-  cmk_arn : string option; [@option]  (** cmk_arn *)
-  copy_tags : bool option; [@option]  (** copy_tags *)
-  encrypted : bool;  (** encrypted *)
-  target : string;  (** target *)
+  cmk_arn : string prop option; [@option]  (** cmk_arn *)
+  copy_tags : bool prop option; [@option]  (** copy_tags *)
+  encrypted : bool prop;  (** encrypted *)
+  target : string prop;  (** target *)
   deprecate_rule :
     aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule__deprecate_rule
     list;
@@ -104,45 +105,46 @@ type aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule 
 (** aws_dlm_lifecycle_policy__policy_details__schedule__cross_region_copy_rule *)
 
 type aws_dlm_lifecycle_policy__policy_details__schedule__deprecate_rule = {
-  count : float option; [@option]  (** count *)
-  interval : float option; [@option]  (** interval *)
-  interval_unit : string option; [@option]  (** interval_unit *)
+  count : float prop option; [@option]  (** count *)
+  interval : float prop option; [@option]  (** interval *)
+  interval_unit : string prop option; [@option]  (** interval_unit *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__schedule__deprecate_rule *)
 
 type aws_dlm_lifecycle_policy__policy_details__schedule__fast_restore_rule = {
-  availability_zones : string list;  (** availability_zones *)
-  count : float option; [@option]  (** count *)
-  interval : float option; [@option]  (** interval *)
-  interval_unit : string option; [@option]  (** interval_unit *)
+  availability_zones : string prop list;  (** availability_zones *)
+  count : float prop option; [@option]  (** count *)
+  interval : float prop option; [@option]  (** interval *)
+  interval_unit : string prop option; [@option]  (** interval_unit *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__schedule__fast_restore_rule *)
 
 type aws_dlm_lifecycle_policy__policy_details__schedule__retain_rule = {
-  count : float option; [@option]  (** count *)
-  interval : float option; [@option]  (** interval *)
-  interval_unit : string option; [@option]  (** interval_unit *)
+  count : float prop option; [@option]  (** count *)
+  interval : float prop option; [@option]  (** interval *)
+  interval_unit : string prop option; [@option]  (** interval_unit *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__schedule__retain_rule *)
 
 type aws_dlm_lifecycle_policy__policy_details__schedule__share_rule = {
-  target_accounts : string list;  (** target_accounts *)
-  unshare_interval : float option; [@option]  (** unshare_interval *)
-  unshare_interval_unit : string option; [@option]
+  target_accounts : string prop list;  (** target_accounts *)
+  unshare_interval : float prop option; [@option]
+      (** unshare_interval *)
+  unshare_interval_unit : string prop option; [@option]
       (** unshare_interval_unit *)
 }
 [@@deriving yojson_of]
 (** aws_dlm_lifecycle_policy__policy_details__schedule__share_rule *)
 
 type aws_dlm_lifecycle_policy__policy_details__schedule = {
-  copy_tags : bool option; [@option]  (** copy_tags *)
-  name : string;  (** name *)
-  tags_to_add : (string * string) list option; [@option]
+  copy_tags : bool prop option; [@option]  (** copy_tags *)
+  name : string prop;  (** name *)
+  tags_to_add : (string * string prop) list option; [@option]
       (** tags_to_add *)
-  variable_tags : (string * string) list option; [@option]
+  variable_tags : (string * string prop) list option; [@option]
       (** variable_tags *)
   create_rule :
     aws_dlm_lifecycle_policy__policy_details__schedule__create_rule
@@ -167,12 +169,12 @@ type aws_dlm_lifecycle_policy__policy_details__schedule = {
 (** aws_dlm_lifecycle_policy__policy_details__schedule *)
 
 type aws_dlm_lifecycle_policy__policy_details = {
-  policy_type : string option; [@option]  (** policy_type *)
-  resource_locations : string list option; [@option]
+  policy_type : string prop option; [@option]  (** policy_type *)
+  resource_locations : string prop list option; [@option]
       (** resource_locations *)
-  resource_types : string list option; [@option]
+  resource_types : string prop list option; [@option]
       (** resource_types *)
-  target_tags : (string * string) list option; [@option]
+  target_tags : (string * string prop) list option; [@option]
       (** target_tags *)
   action : aws_dlm_lifecycle_policy__policy_details__action list;
   event_source :
@@ -185,12 +187,12 @@ type aws_dlm_lifecycle_policy__policy_details = {
 (** aws_dlm_lifecycle_policy__policy_details *)
 
 type aws_dlm_lifecycle_policy = {
-  description : string;  (** description *)
-  execution_role_arn : string;  (** execution_role_arn *)
-  id : string option; [@option]  (** id *)
-  state : string option; [@option]  (** state *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop;  (** description *)
+  execution_role_arn : string prop;  (** execution_role_arn *)
+  id : string prop option; [@option]  (** id *)
+  state : string prop option; [@option]  (** state *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   policy_details : aws_dlm_lifecycle_policy__policy_details list;
 }

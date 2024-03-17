@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type cloudflare_worker_cron_trigger = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  schedules : string list;
+  id : string prop option; [@option]  (** id *)
+  schedules : string prop list;
       (** Cron expressions to execute the Worker script. *)
-  script_name : string;
+  script_name : string prop;
       (** Worker script to target for the schedules. *)
 }
 [@@deriving yojson_of]

@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_notebooks_runtime_iam_policy = {
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  runtime_name : string;  (** runtime_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  runtime_name : string prop;  (** runtime_name *)
 }
 [@@deriving yojson_of]
 (** google_notebooks_runtime_iam_policy *)

@@ -10,24 +10,24 @@ type google_network_connectivity_policy_based_route__timeouts
 type google_network_connectivity_policy_based_route__virtual_machine
 
 type google_network_connectivity_policy_based_route__warnings = {
-  code : string;  (** code *)
-  data : (string * string) list;  (** data *)
-  warning_message : string;  (** warning_message *)
+  code : string prop;  (** code *)
+  data : (string * string prop) list;  (** data *)
+  warning_message : string prop;  (** warning_message *)
 }
 
 type google_network_connectivity_policy_based_route
 
 val google_network_connectivity_policy_based_route :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?next_hop_ilb_ip:string ->
-  ?next_hop_other_routes:string ->
-  ?priority:float ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?next_hop_ilb_ip:string prop ->
+  ?next_hop_other_routes:string prop ->
+  ?priority:float prop ->
+  ?project:string prop ->
   ?timeouts:google_network_connectivity_policy_based_route__timeouts ->
-  name:string ->
-  network:string ->
+  name:string prop ->
+  network:string prop ->
   filter:google_network_connectivity_policy_based_route__filter list ->
   interconnect_attachment:
     google_network_connectivity_policy_based_route__interconnect_attachment

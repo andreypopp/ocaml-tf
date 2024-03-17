@@ -5,103 +5,103 @@
 open! Tf.Prelude
 
 type aws_quicksight_data_source__credentials__credential_pair = {
-  password: string;  (** password *)
-  username: string;  (** username *)
+  password: string prop;  (** password *)
+  username: string prop;  (** username *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__credentials__credential_pair *)
 
 type aws_quicksight_data_source__credentials = {
-  copy_source_arn: string option; [@option] (** copy_source_arn *)
+  copy_source_arn: string prop option; [@option] (** copy_source_arn *)
   credential_pair: aws_quicksight_data_source__credentials__credential_pair list;
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__credentials *)
 
 type aws_quicksight_data_source__parameters__amazon_elasticsearch = {
-  domain: string;  (** domain *)
+  domain: string prop;  (** domain *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__amazon_elasticsearch *)
 
 type aws_quicksight_data_source__parameters__athena = {
-  work_group: string option; [@option] (** work_group *)
+  work_group: string prop option; [@option] (** work_group *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__athena *)
 
 type aws_quicksight_data_source__parameters__aurora = {
-  database: string;  (** database *)
-  host: string;  (** host *)
-  port: float;  (** port *)
+  database: string prop;  (** database *)
+  host: string prop;  (** host *)
+  port: float prop;  (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__aurora *)
 
 type aws_quicksight_data_source__parameters__aurora_postgresql = {
-  database: string;  (** database *)
-  host: string;  (** host *)
-  port: float;  (** port *)
+  database: string prop;  (** database *)
+  host: string prop;  (** host *)
+  port: float prop;  (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__aurora_postgresql *)
 
 type aws_quicksight_data_source__parameters__aws_iot_analytics = {
-  data_set_name: string;  (** data_set_name *)
+  data_set_name: string prop;  (** data_set_name *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__aws_iot_analytics *)
 
 type aws_quicksight_data_source__parameters__jira = {
-  site_base_url: string;  (** site_base_url *)
+  site_base_url: string prop;  (** site_base_url *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__jira *)
 
 type aws_quicksight_data_source__parameters__maria_db = {
-  database: string;  (** database *)
-  host: string;  (** host *)
-  port: float;  (** port *)
+  database: string prop;  (** database *)
+  host: string prop;  (** host *)
+  port: float prop;  (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__maria_db *)
 
 type aws_quicksight_data_source__parameters__mysql = {
-  database: string;  (** database *)
-  host: string;  (** host *)
-  port: float;  (** port *)
+  database: string prop;  (** database *)
+  host: string prop;  (** host *)
+  port: float prop;  (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__mysql *)
 
 type aws_quicksight_data_source__parameters__oracle = {
-  database: string;  (** database *)
-  host: string;  (** host *)
-  port: float;  (** port *)
+  database: string prop;  (** database *)
+  host: string prop;  (** host *)
+  port: float prop;  (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__oracle *)
 
 type aws_quicksight_data_source__parameters__postgresql = {
-  database: string;  (** database *)
-  host: string;  (** host *)
-  port: float;  (** port *)
+  database: string prop;  (** database *)
+  host: string prop;  (** host *)
+  port: float prop;  (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__postgresql *)
 
 type aws_quicksight_data_source__parameters__presto = {
-  catalog: string;  (** catalog *)
-  host: string;  (** host *)
-  port: float;  (** port *)
+  catalog: string prop;  (** catalog *)
+  host: string prop;  (** host *)
+  port: float prop;  (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__presto *)
 
 type aws_quicksight_data_source__parameters__rds = {
-  database: string;  (** database *)
-  instance_id: string;  (** instance_id *)
+  database: string prop;  (** database *)
+  instance_id: string prop;  (** instance_id *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__rds *)
 
 type aws_quicksight_data_source__parameters__redshift = {
-  cluster_id: string option; [@option] (** cluster_id *)
-  database: string;  (** database *)
-  host: string option; [@option] (** host *)
-  port: float option; [@option] (** port *)
+  cluster_id: string prop option; [@option] (** cluster_id *)
+  database: string prop;  (** database *)
+  host: string prop option; [@option] (** host *)
+  port: float prop option; [@option] (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__redshift *)
 
 type aws_quicksight_data_source__parameters__s3__manifest_file_location = {
-  bucket: string;  (** bucket *)
-  key: string;  (** key *)
+  bucket: string prop;  (** bucket *)
+  key: string prop;  (** key *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__s3__manifest_file_location *)
 
@@ -111,40 +111,40 @@ type aws_quicksight_data_source__parameters__s3 = {
 (** aws_quicksight_data_source__parameters__s3 *)
 
 type aws_quicksight_data_source__parameters__service_now = {
-  site_base_url: string;  (** site_base_url *)
+  site_base_url: string prop;  (** site_base_url *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__service_now *)
 
 type aws_quicksight_data_source__parameters__snowflake = {
-  database: string;  (** database *)
-  host: string;  (** host *)
-  warehouse: string;  (** warehouse *)
+  database: string prop;  (** database *)
+  host: string prop;  (** host *)
+  warehouse: string prop;  (** warehouse *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__snowflake *)
 
 type aws_quicksight_data_source__parameters__spark = {
-  host: string;  (** host *)
-  port: float;  (** port *)
+  host: string prop;  (** host *)
+  port: float prop;  (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__spark *)
 
 type aws_quicksight_data_source__parameters__sql_server = {
-  database: string;  (** database *)
-  host: string;  (** host *)
-  port: float;  (** port *)
+  database: string prop;  (** database *)
+  host: string prop;  (** host *)
+  port: float prop;  (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__sql_server *)
 
 type aws_quicksight_data_source__parameters__teradata = {
-  database: string;  (** database *)
-  host: string;  (** host *)
-  port: float;  (** port *)
+  database: string prop;  (** database *)
+  host: string prop;  (** host *)
+  port: float prop;  (** port *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__teradata *)
 
 type aws_quicksight_data_source__parameters__twitter = {
-  max_rows: float;  (** max_rows *)
-  query: string;  (** query *)
+  max_rows: float prop;  (** max_rows *)
+  query: string prop;  (** query *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__parameters__twitter *)
 
@@ -173,29 +173,29 @@ type aws_quicksight_data_source__parameters = {
 (** aws_quicksight_data_source__parameters *)
 
 type aws_quicksight_data_source__permission = {
-  actions: string list;  (** actions *)
-  principal: string;  (** principal *)
+  actions: string prop list;  (** actions *)
+  principal: string prop;  (** principal *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__permission *)
 
 type aws_quicksight_data_source__ssl_properties = {
-  disable_ssl: bool;  (** disable_ssl *)
+  disable_ssl: bool prop;  (** disable_ssl *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__ssl_properties *)
 
 type aws_quicksight_data_source__vpc_connection_properties = {
-  vpc_connection_arn: string;  (** vpc_connection_arn *)
+  vpc_connection_arn: string prop;  (** vpc_connection_arn *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_source__vpc_connection_properties *)
 
 type aws_quicksight_data_source = {
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  data_source_id: string;  (** data_source_id *)
-  id: string option; [@option] (** id *)
-  name: string;  (** name *)
-  tags: (string * string) list option; [@option] (** tags *)
-  tags_all: (string * string) list option; [@option] (** tags_all *)
-  type_: string; [@key "type"] (** type *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  data_source_id: string prop;  (** data_source_id *)
+  id: string prop option; [@option] (** id *)
+  name: string prop;  (** name *)
+  tags: (string * string prop) list option; [@option] (** tags *)
+  tags_all: (string * string prop) list option; [@option] (** tags_all *)
+  type_: string prop; [@key "type"] (** type *)
   credentials: aws_quicksight_data_source__credentials list;
   parameters: aws_quicksight_data_source__parameters list;
   permission: aws_quicksight_data_source__permission list;

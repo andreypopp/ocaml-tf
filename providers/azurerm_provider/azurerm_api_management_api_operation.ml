@@ -5,24 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_api_management_api_operation__request__header__example = {
-  description : string option; [@option]  (** description *)
-  external_value : string option; [@option]  (** external_value *)
-  name : string;  (** name *)
-  summary : string option; [@option]  (** summary *)
-  value : string option; [@option]  (** value *)
+  description : string prop option; [@option]  (** description *)
+  external_value : string prop option; [@option]
+      (** external_value *)
+  name : string prop;  (** name *)
+  summary : string prop option; [@option]  (** summary *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation__request__header__example *)
 
 type azurerm_api_management_api_operation__request__header = {
-  default_value : string option; [@option]  (** default_value *)
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  required : bool;  (** required *)
-  schema_id : string option; [@option]  (** schema_id *)
-  type_ : string; [@key "type"]  (** type *)
-  type_name : string option; [@option]  (** type_name *)
-  values : string list option; [@option]  (** values *)
+  default_value : string prop option; [@option]  (** default_value *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  required : bool prop;  (** required *)
+  schema_id : string prop option; [@option]  (** schema_id *)
+  type_ : string prop; [@key "type"]  (** type *)
+  type_name : string prop option; [@option]  (** type_name *)
+  values : string prop list option; [@option]  (** values *)
   example :
     azurerm_api_management_api_operation__request__header__example
     list;
@@ -31,24 +32,25 @@ type azurerm_api_management_api_operation__request__header = {
 (** azurerm_api_management_api_operation__request__header *)
 
 type azurerm_api_management_api_operation__request__query_parameter__example = {
-  description : string option; [@option]  (** description *)
-  external_value : string option; [@option]  (** external_value *)
-  name : string;  (** name *)
-  summary : string option; [@option]  (** summary *)
-  value : string option; [@option]  (** value *)
+  description : string prop option; [@option]  (** description *)
+  external_value : string prop option; [@option]
+      (** external_value *)
+  name : string prop;  (** name *)
+  summary : string prop option; [@option]  (** summary *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation__request__query_parameter__example *)
 
 type azurerm_api_management_api_operation__request__query_parameter = {
-  default_value : string option; [@option]  (** default_value *)
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  required : bool;  (** required *)
-  schema_id : string option; [@option]  (** schema_id *)
-  type_ : string; [@key "type"]  (** type *)
-  type_name : string option; [@option]  (** type_name *)
-  values : string list option; [@option]  (** values *)
+  default_value : string prop option; [@option]  (** default_value *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  required : bool prop;  (** required *)
+  schema_id : string prop option; [@option]  (** schema_id *)
+  type_ : string prop; [@key "type"]  (** type *)
+  type_name : string prop option; [@option]  (** type_name *)
+  values : string prop list option; [@option]  (** values *)
   example :
     azurerm_api_management_api_operation__request__query_parameter__example
     list;
@@ -57,34 +59,36 @@ type azurerm_api_management_api_operation__request__query_parameter = {
 (** azurerm_api_management_api_operation__request__query_parameter *)
 
 type azurerm_api_management_api_operation__request__representation__example = {
-  description : string option; [@option]  (** description *)
-  external_value : string option; [@option]  (** external_value *)
-  name : string;  (** name *)
-  summary : string option; [@option]  (** summary *)
-  value : string option; [@option]  (** value *)
+  description : string prop option; [@option]  (** description *)
+  external_value : string prop option; [@option]
+      (** external_value *)
+  name : string prop;  (** name *)
+  summary : string prop option; [@option]  (** summary *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation__request__representation__example *)
 
 type azurerm_api_management_api_operation__request__representation__form_parameter__example = {
-  description : string option; [@option]  (** description *)
-  external_value : string option; [@option]  (** external_value *)
-  name : string;  (** name *)
-  summary : string option; [@option]  (** summary *)
-  value : string option; [@option]  (** value *)
+  description : string prop option; [@option]  (** description *)
+  external_value : string prop option; [@option]
+      (** external_value *)
+  name : string prop;  (** name *)
+  summary : string prop option; [@option]  (** summary *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation__request__representation__form_parameter__example *)
 
 type azurerm_api_management_api_operation__request__representation__form_parameter = {
-  default_value : string option; [@option]  (** default_value *)
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  required : bool;  (** required *)
-  schema_id : string option; [@option]  (** schema_id *)
-  type_ : string; [@key "type"]  (** type *)
-  type_name : string option; [@option]  (** type_name *)
-  values : string list option; [@option]  (** values *)
+  default_value : string prop option; [@option]  (** default_value *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  required : bool prop;  (** required *)
+  schema_id : string prop option; [@option]  (** schema_id *)
+  type_ : string prop; [@key "type"]  (** type *)
+  type_name : string prop option; [@option]  (** type_name *)
+  values : string prop list option; [@option]  (** values *)
   example :
     azurerm_api_management_api_operation__request__representation__form_parameter__example
     list;
@@ -93,9 +97,9 @@ type azurerm_api_management_api_operation__request__representation__form_paramet
 (** azurerm_api_management_api_operation__request__representation__form_parameter *)
 
 type azurerm_api_management_api_operation__request__representation = {
-  content_type : string;  (** content_type *)
-  schema_id : string option; [@option]  (** schema_id *)
-  type_name : string option; [@option]  (** type_name *)
+  content_type : string prop;  (** content_type *)
+  schema_id : string prop option; [@option]  (** schema_id *)
+  type_name : string prop option; [@option]  (** type_name *)
   example :
     azurerm_api_management_api_operation__request__representation__example
     list;
@@ -107,7 +111,7 @@ type azurerm_api_management_api_operation__request__representation = {
 (** azurerm_api_management_api_operation__request__representation *)
 
 type azurerm_api_management_api_operation__request = {
-  description : string option; [@option]  (** description *)
+  description : string prop option; [@option]  (** description *)
   header :
     azurerm_api_management_api_operation__request__header list;
   query_parameter :
@@ -121,24 +125,25 @@ type azurerm_api_management_api_operation__request = {
 (** azurerm_api_management_api_operation__request *)
 
 type azurerm_api_management_api_operation__response__header__example = {
-  description : string option; [@option]  (** description *)
-  external_value : string option; [@option]  (** external_value *)
-  name : string;  (** name *)
-  summary : string option; [@option]  (** summary *)
-  value : string option; [@option]  (** value *)
+  description : string prop option; [@option]  (** description *)
+  external_value : string prop option; [@option]
+      (** external_value *)
+  name : string prop;  (** name *)
+  summary : string prop option; [@option]  (** summary *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation__response__header__example *)
 
 type azurerm_api_management_api_operation__response__header = {
-  default_value : string option; [@option]  (** default_value *)
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  required : bool;  (** required *)
-  schema_id : string option; [@option]  (** schema_id *)
-  type_ : string; [@key "type"]  (** type *)
-  type_name : string option; [@option]  (** type_name *)
-  values : string list option; [@option]  (** values *)
+  default_value : string prop option; [@option]  (** default_value *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  required : bool prop;  (** required *)
+  schema_id : string prop option; [@option]  (** schema_id *)
+  type_ : string prop; [@key "type"]  (** type *)
+  type_name : string prop option; [@option]  (** type_name *)
+  values : string prop list option; [@option]  (** values *)
   example :
     azurerm_api_management_api_operation__response__header__example
     list;
@@ -147,34 +152,36 @@ type azurerm_api_management_api_operation__response__header = {
 (** azurerm_api_management_api_operation__response__header *)
 
 type azurerm_api_management_api_operation__response__representation__example = {
-  description : string option; [@option]  (** description *)
-  external_value : string option; [@option]  (** external_value *)
-  name : string;  (** name *)
-  summary : string option; [@option]  (** summary *)
-  value : string option; [@option]  (** value *)
+  description : string prop option; [@option]  (** description *)
+  external_value : string prop option; [@option]
+      (** external_value *)
+  name : string prop;  (** name *)
+  summary : string prop option; [@option]  (** summary *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation__response__representation__example *)
 
 type azurerm_api_management_api_operation__response__representation__form_parameter__example = {
-  description : string option; [@option]  (** description *)
-  external_value : string option; [@option]  (** external_value *)
-  name : string;  (** name *)
-  summary : string option; [@option]  (** summary *)
-  value : string option; [@option]  (** value *)
+  description : string prop option; [@option]  (** description *)
+  external_value : string prop option; [@option]
+      (** external_value *)
+  name : string prop;  (** name *)
+  summary : string prop option; [@option]  (** summary *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation__response__representation__form_parameter__example *)
 
 type azurerm_api_management_api_operation__response__representation__form_parameter = {
-  default_value : string option; [@option]  (** default_value *)
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  required : bool;  (** required *)
-  schema_id : string option; [@option]  (** schema_id *)
-  type_ : string; [@key "type"]  (** type *)
-  type_name : string option; [@option]  (** type_name *)
-  values : string list option; [@option]  (** values *)
+  default_value : string prop option; [@option]  (** default_value *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  required : bool prop;  (** required *)
+  schema_id : string prop option; [@option]  (** schema_id *)
+  type_ : string prop; [@key "type"]  (** type *)
+  type_name : string prop option; [@option]  (** type_name *)
+  values : string prop list option; [@option]  (** values *)
   example :
     azurerm_api_management_api_operation__response__representation__form_parameter__example
     list;
@@ -183,9 +190,9 @@ type azurerm_api_management_api_operation__response__representation__form_parame
 (** azurerm_api_management_api_operation__response__representation__form_parameter *)
 
 type azurerm_api_management_api_operation__response__representation = {
-  content_type : string;  (** content_type *)
-  schema_id : string option; [@option]  (** schema_id *)
-  type_name : string option; [@option]  (** type_name *)
+  content_type : string prop;  (** content_type *)
+  schema_id : string prop option; [@option]  (** schema_id *)
+  type_name : string prop option; [@option]  (** type_name *)
   example :
     azurerm_api_management_api_operation__response__representation__example
     list;
@@ -197,8 +204,8 @@ type azurerm_api_management_api_operation__response__representation = {
 (** azurerm_api_management_api_operation__response__representation *)
 
 type azurerm_api_management_api_operation__response = {
-  description : string option; [@option]  (** description *)
-  status_code : float;  (** status_code *)
+  description : string prop option; [@option]  (** description *)
+  status_code : float prop;  (** status_code *)
   header :
     azurerm_api_management_api_operation__response__header list;
   representation :
@@ -209,24 +216,25 @@ type azurerm_api_management_api_operation__response = {
 (** azurerm_api_management_api_operation__response *)
 
 type azurerm_api_management_api_operation__template_parameter__example = {
-  description : string option; [@option]  (** description *)
-  external_value : string option; [@option]  (** external_value *)
-  name : string;  (** name *)
-  summary : string option; [@option]  (** summary *)
-  value : string option; [@option]  (** value *)
+  description : string prop option; [@option]  (** description *)
+  external_value : string prop option; [@option]
+      (** external_value *)
+  name : string prop;  (** name *)
+  summary : string prop option; [@option]  (** summary *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation__template_parameter__example *)
 
 type azurerm_api_management_api_operation__template_parameter = {
-  default_value : string option; [@option]  (** default_value *)
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  required : bool;  (** required *)
-  schema_id : string option; [@option]  (** schema_id *)
-  type_ : string; [@key "type"]  (** type *)
-  type_name : string option; [@option]  (** type_name *)
-  values : string list option; [@option]  (** values *)
+  default_value : string prop option; [@option]  (** default_value *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  required : bool prop;  (** required *)
+  schema_id : string prop option; [@option]  (** schema_id *)
+  type_ : string prop; [@key "type"]  (** type *)
+  type_name : string prop option; [@option]  (** type_name *)
+  values : string prop list option; [@option]  (** values *)
   example :
     azurerm_api_management_api_operation__template_parameter__example
     list;
@@ -235,24 +243,24 @@ type azurerm_api_management_api_operation__template_parameter = {
 (** azurerm_api_management_api_operation__template_parameter *)
 
 type azurerm_api_management_api_operation__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_api_operation__timeouts *)
 
 type azurerm_api_management_api_operation = {
-  api_management_name : string;  (** api_management_name *)
-  api_name : string;  (** api_name *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  method_ : string; [@key "method"]  (** method *)
-  operation_id : string;  (** operation_id *)
-  resource_group_name : string;  (** resource_group_name *)
-  url_template : string;  (** url_template *)
+  api_management_name : string prop;  (** api_management_name *)
+  api_name : string prop;  (** api_name *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  method_ : string prop; [@key "method"]  (** method *)
+  operation_id : string prop;  (** operation_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  url_template : string prop;  (** url_template *)
   request : azurerm_api_management_api_operation__request list;
   response : azurerm_api_management_api_operation__response list;
   template_parameter :

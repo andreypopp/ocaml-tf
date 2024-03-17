@@ -6,10 +6,10 @@ type azurerm_vmware_netapp_volume_attachment__timeouts
 type azurerm_vmware_netapp_volume_attachment
 
 val azurerm_vmware_netapp_volume_attachment :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_vmware_netapp_volume_attachment__timeouts ->
-  name:string ->
-  netapp_volume_id:string ->
-  vmware_cluster_id:string ->
+  name:string prop ->
+  netapp_volume_id:string prop ->
+  vmware_cluster_id:string prop ->
   string ->
   unit

@@ -5,37 +5,37 @@
 open! Tf.Prelude
 
 type aws_vpc_peering_connection__accepter = {
-  allow_remote_vpc_dns_resolution : bool option; [@option]
+  allow_remote_vpc_dns_resolution : bool prop option; [@option]
       (** allow_remote_vpc_dns_resolution *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection__accepter *)
 
 type aws_vpc_peering_connection__requester = {
-  allow_remote_vpc_dns_resolution : bool option; [@option]
+  allow_remote_vpc_dns_resolution : bool prop option; [@option]
       (** allow_remote_vpc_dns_resolution *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection__requester *)
 
 type aws_vpc_peering_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection__timeouts *)
 
 type aws_vpc_peering_connection = {
-  auto_accept : bool option; [@option]  (** auto_accept *)
-  id : string option; [@option]  (** id *)
-  peer_owner_id : string option; [@option]  (** peer_owner_id *)
-  peer_region : string option; [@option]  (** peer_region *)
-  peer_vpc_id : string;  (** peer_vpc_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  auto_accept : bool prop option; [@option]  (** auto_accept *)
+  id : string prop option; [@option]  (** id *)
+  peer_owner_id : string prop option; [@option]  (** peer_owner_id *)
+  peer_region : string prop option; [@option]  (** peer_region *)
+  peer_vpc_id : string prop;  (** peer_vpc_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_id : string;  (** vpc_id *)
+  vpc_id : string prop;  (** vpc_id *)
   accepter : aws_vpc_peering_connection__accepter list;
   requester : aws_vpc_peering_connection__requester list;
   timeouts : aws_vpc_peering_connection__timeouts option;

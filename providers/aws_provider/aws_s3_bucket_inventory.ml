@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_inventory__destination__bucket__encryption__sse_kms = {
-  key_id : string;  (** key_id *)
+  key_id : string prop;  (** key_id *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_inventory__destination__bucket__encryption__sse_kms *)
@@ -26,10 +26,10 @@ type aws_s3_bucket_inventory__destination__bucket__encryption = {
 (** aws_s3_bucket_inventory__destination__bucket__encryption *)
 
 type aws_s3_bucket_inventory__destination__bucket = {
-  account_id : string option; [@option]  (** account_id *)
-  bucket_arn : string;  (** bucket_arn *)
-  format : string;  (** format *)
-  prefix : string option; [@option]  (** prefix *)
+  account_id : string prop option; [@option]  (** account_id *)
+  bucket_arn : string prop;  (** bucket_arn *)
+  format : string prop;  (** format *)
+  prefix : string prop option; [@option]  (** prefix *)
   encryption :
     aws_s3_bucket_inventory__destination__bucket__encryption list;
 }
@@ -43,24 +43,25 @@ type aws_s3_bucket_inventory__destination = {
 (** aws_s3_bucket_inventory__destination *)
 
 type aws_s3_bucket_inventory__filter = {
-  prefix : string option; [@option]  (** prefix *)
+  prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_inventory__filter *)
 
 type aws_s3_bucket_inventory__schedule = {
-  frequency : string;  (** frequency *)
+  frequency : string prop;  (** frequency *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_inventory__schedule *)
 
 type aws_s3_bucket_inventory = {
-  bucket : string;  (** bucket *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  included_object_versions : string;  (** included_object_versions *)
-  name : string;  (** name *)
-  optional_fields : string list option; [@option]
+  bucket : string prop;  (** bucket *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  included_object_versions : string prop;
+      (** included_object_versions *)
+  name : string prop;  (** name *)
+  optional_fields : string prop list option; [@option]
       (** optional_fields *)
   destination : aws_s3_bucket_inventory__destination list;
   filter : aws_s3_bucket_inventory__filter list;

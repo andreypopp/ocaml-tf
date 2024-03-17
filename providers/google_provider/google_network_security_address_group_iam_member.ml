@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_network_security_address_group_iam_member__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_network_security_address_group_iam_member__condition *)
 
 type google_network_security_address_group_iam_member = {
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  member : string;  (** member *)
-  name : string;  (** name *)
-  project : string option; [@option]  (** project *)
-  role : string;  (** role *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  member : string prop;  (** member *)
+  name : string prop;  (** name *)
+  project : string prop option; [@option]  (** project *)
+  role : string prop;  (** role *)
   condition :
     google_network_security_address_group_iam_member__condition list;
 }

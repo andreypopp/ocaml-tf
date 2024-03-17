@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_api_management_user__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_user__timeouts *)
 
 type azurerm_api_management_user = {
-  api_management_name : string;  (** api_management_name *)
-  confirmation : string option; [@option]  (** confirmation *)
-  email : string;  (** email *)
-  first_name : string;  (** first_name *)
-  id : string option; [@option]  (** id *)
-  last_name : string;  (** last_name *)
-  note : string option; [@option]  (** note *)
-  password : string option; [@option]  (** password *)
-  resource_group_name : string;  (** resource_group_name *)
-  state : string option; [@option]  (** state *)
-  user_id : string;  (** user_id *)
+  api_management_name : string prop;  (** api_management_name *)
+  confirmation : string prop option; [@option]  (** confirmation *)
+  email : string prop;  (** email *)
+  first_name : string prop;  (** first_name *)
+  id : string prop option; [@option]  (** id *)
+  last_name : string prop;  (** last_name *)
+  note : string prop option; [@option]  (** note *)
+  password : string prop option; [@option]  (** password *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  state : string prop option; [@option]  (** state *)
+  user_id : string prop;  (** user_id *)
   timeouts : azurerm_api_management_user__timeouts option;
 }
 [@@deriving yojson_of]

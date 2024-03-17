@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_backup_vault_notifications = {
-  backup_vault_events : string list;  (** backup_vault_events *)
-  backup_vault_name : string;  (** backup_vault_name *)
-  id : string option; [@option]  (** id *)
-  sns_topic_arn : string;  (** sns_topic_arn *)
+  backup_vault_events : string prop list;  (** backup_vault_events *)
+  backup_vault_name : string prop;  (** backup_vault_name *)
+  id : string prop option; [@option]  (** id *)
+  sns_topic_arn : string prop;  (** sns_topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_backup_vault_notifications *)

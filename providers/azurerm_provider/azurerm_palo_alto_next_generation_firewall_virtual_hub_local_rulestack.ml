@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__destination_nat__backend_config = {
-  port : float;  (** port *)
-  public_ip_address : string;  (** public_ip_address *)
+  port : float prop;  (** port *)
+  public_ip_address : string prop;  (** public_ip_address *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__destination_nat__backend_config *)
 
 type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__destination_nat__frontend_config = {
-  port : float;  (** port *)
-  public_ip_address_id : string;  (** public_ip_address_id *)
+  port : float prop;  (** port *)
+  public_ip_address_id : string prop;  (** public_ip_address_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__destination_nat__frontend_config *)
 
 type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__destination_nat = {
-  name : string;  (** name *)
-  protocol : string;  (** protocol *)
+  name : string prop;  (** name *)
+  protocol : string prop;  (** protocol *)
   backend_config :
     azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__destination_nat__backend_config
     list;
@@ -32,48 +32,50 @@ type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__des
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__destination_nat *)
 
 type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__dns_settings = {
-  azure_dns_servers : string list;  (** azure_dns_servers *)
-  dns_servers : string list option; [@option]  (** dns_servers *)
-  use_azure_dns : bool option; [@option]  (** use_azure_dns *)
+  azure_dns_servers : string prop list;  (** azure_dns_servers *)
+  dns_servers : string prop list option; [@option]
+      (** dns_servers *)
+  use_azure_dns : bool prop option; [@option]  (** use_azure_dns *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__dns_settings *)
 
 type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__network_profile = {
-  egress_nat_ip_address_ids : string list option; [@option]
+  egress_nat_ip_address_ids : string prop list option; [@option]
       (** egress_nat_ip_address_ids *)
-  egress_nat_ip_addresses : string list;
+  egress_nat_ip_addresses : string prop list;
       (** egress_nat_ip_addresses *)
-  ip_of_trust_for_user_defined_routes : string;
+  ip_of_trust_for_user_defined_routes : string prop;
       (** ip_of_trust_for_user_defined_routes *)
-  network_virtual_appliance_id : string;
+  network_virtual_appliance_id : string prop;
       (** network_virtual_appliance_id *)
-  public_ip_address_ids : string list;  (** public_ip_address_ids *)
-  public_ip_addresses : string list;  (** public_ip_addresses *)
-  trusted_address_ranges : string list option; [@option]
+  public_ip_address_ids : string prop list;
+      (** public_ip_address_ids *)
+  public_ip_addresses : string prop list;  (** public_ip_addresses *)
+  trusted_address_ranges : string prop list option; [@option]
       (** trusted_address_ranges *)
-  trusted_subnet_id : string;  (** trusted_subnet_id *)
-  untrusted_subnet_id : string;  (** untrusted_subnet_id *)
-  virtual_hub_id : string;  (** virtual_hub_id *)
+  trusted_subnet_id : string prop;  (** trusted_subnet_id *)
+  untrusted_subnet_id : string prop;  (** untrusted_subnet_id *)
+  virtual_hub_id : string prop;  (** virtual_hub_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__network_profile *)
 
 type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__timeouts *)
 
 type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  rulestack_id : string;  (** rulestack_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  rulestack_id : string prop;  (** rulestack_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   destination_nat :
     azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__destination_nat
     list;

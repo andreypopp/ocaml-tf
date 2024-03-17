@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_permission_set__timeouts = {
-  update : string option; [@option]  (** update *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_permission_set__timeouts *)
 
 type aws_ssoadmin_permission_set = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  instance_arn : string;  (** instance_arn *)
-  name : string;  (** name *)
-  relay_state : string option; [@option]  (** relay_state *)
-  session_duration : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  instance_arn : string prop;  (** instance_arn *)
+  name : string prop;  (** name *)
+  relay_state : string prop option; [@option]  (** relay_state *)
+  session_duration : string prop option; [@option]
       (** session_duration *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_ssoadmin_permission_set__timeouts option;
 }

@@ -8,10 +8,10 @@ type aws_ssoadmin_customer_managed_policy_attachment__timeouts
 type aws_ssoadmin_customer_managed_policy_attachment
 
 val aws_ssoadmin_customer_managed_policy_attachment :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_ssoadmin_customer_managed_policy_attachment__timeouts ->
-  instance_arn:string ->
-  permission_set_arn:string ->
+  instance_arn:string prop ->
+  permission_set_arn:string prop ->
   customer_managed_policy_reference:
     aws_ssoadmin_customer_managed_policy_attachment__customer_managed_policy_reference
     list ->

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_device_policy_certificates = {
-  enabled : bool;
+  enabled : bool prop;
       (** `true` if certificate generation is enabled. *)
-  id : string option; [@option]  (** id *)
-  zone_id : string;
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
 }
 [@@deriving yojson_of]

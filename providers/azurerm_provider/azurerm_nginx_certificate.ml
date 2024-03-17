@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_nginx_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_nginx_certificate__timeouts *)
 
 type azurerm_nginx_certificate = {
-  certificate_virtual_path : string;  (** certificate_virtual_path *)
-  id : string option; [@option]  (** id *)
-  key_vault_secret_id : string;  (** key_vault_secret_id *)
-  key_virtual_path : string;  (** key_virtual_path *)
-  name : string;  (** name *)
-  nginx_deployment_id : string;  (** nginx_deployment_id *)
+  certificate_virtual_path : string prop;
+      (** certificate_virtual_path *)
+  id : string prop option; [@option]  (** id *)
+  key_vault_secret_id : string prop;  (** key_vault_secret_id *)
+  key_virtual_path : string prop;  (** key_virtual_path *)
+  name : string prop;  (** name *)
+  nginx_deployment_id : string prop;  (** nginx_deployment_id *)
   timeouts : azurerm_nginx_certificate__timeouts option;
 }
 [@@deriving yojson_of]

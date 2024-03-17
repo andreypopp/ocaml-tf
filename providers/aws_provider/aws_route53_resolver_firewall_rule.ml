@@ -5,19 +5,22 @@
 open! Tf.Prelude
 
 type aws_route53_resolver_firewall_rule = {
-  action : string;  (** action *)
-  block_override_dns_type : string option; [@option]
+  action : string prop;  (** action *)
+  block_override_dns_type : string prop option; [@option]
       (** block_override_dns_type *)
-  block_override_domain : string option; [@option]
+  block_override_domain : string prop option; [@option]
       (** block_override_domain *)
-  block_override_ttl : float option; [@option]
+  block_override_ttl : float prop option; [@option]
       (** block_override_ttl *)
-  block_response : string option; [@option]  (** block_response *)
-  firewall_domain_list_id : string;  (** firewall_domain_list_id *)
-  firewall_rule_group_id : string;  (** firewall_rule_group_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  priority : float;  (** priority *)
+  block_response : string prop option; [@option]
+      (** block_response *)
+  firewall_domain_list_id : string prop;
+      (** firewall_domain_list_id *)
+  firewall_rule_group_id : string prop;
+      (** firewall_rule_group_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
 }
 [@@deriving yojson_of]
 (** aws_route53_resolver_firewall_rule *)

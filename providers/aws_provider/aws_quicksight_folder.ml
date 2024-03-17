@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type aws_quicksight_folder__permissions = {
-  actions: string list;  (** actions *)
-  principal: string;  (** principal *)
+  actions: string prop list;  (** actions *)
+  principal: string prop;  (** principal *)
 } [@@deriving yojson_of]
 (** aws_quicksight_folder__permissions *)
 
 type aws_quicksight_folder__timeouts = {
-  create: string option; [@option] (** create *)
-  delete: string option; [@option] (** delete *)
-  read: string option; [@option] (** read *)
-  update: string option; [@option] (** update *)
+  create: string prop option; [@option] (** create *)
+  delete: string prop option; [@option] (** delete *)
+  read: string prop option; [@option] (** read *)
+  update: string prop option; [@option] (** update *)
 } [@@deriving yojson_of]
 (** aws_quicksight_folder__timeouts *)
 
 type aws_quicksight_folder = {
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  folder_id: string;  (** folder_id *)
-  folder_type: string option; [@option] (** folder_type *)
-  id: string option; [@option] (** id *)
-  name: string option; [@option] (** name *)
-  parent_folder_arn: string option; [@option] (** parent_folder_arn *)
-  tags: (string * string) list option; [@option] (** tags *)
-  tags_all: (string * string) list option; [@option] (** tags_all *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  folder_id: string prop;  (** folder_id *)
+  folder_type: string prop option; [@option] (** folder_type *)
+  id: string prop option; [@option] (** id *)
+  name: string prop option; [@option] (** name *)
+  parent_folder_arn: string prop option; [@option] (** parent_folder_arn *)
+  tags: (string * string prop) list option; [@option] (** tags *)
+  tags_all: (string * string prop) list option; [@option] (** tags_all *)
   permissions: aws_quicksight_folder__permissions list;
   timeouts: aws_quicksight_folder__timeouts option;
 } [@@deriving yojson_of]

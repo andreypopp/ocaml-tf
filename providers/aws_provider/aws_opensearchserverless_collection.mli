@@ -6,11 +6,11 @@ type aws_opensearchserverless_collection__timeouts
 type aws_opensearchserverless_collection
 
 val aws_opensearchserverless_collection :
-  ?description:string ->
-  ?standby_replicas:string ->
-  ?tags:(string * string) list ->
-  ?type_:string ->
+  ?description:string prop ->
+  ?standby_replicas:string prop ->
+  ?tags:(string * string prop) list ->
+  ?type_:string prop ->
   ?timeouts:aws_opensearchserverless_collection__timeouts ->
-  name:string ->
+  name:string prop ->
   string ->
   unit

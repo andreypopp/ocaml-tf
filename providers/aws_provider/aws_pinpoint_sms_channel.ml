@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_pinpoint_sms_channel = {
-  application_id : string;  (** application_id *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  sender_id : string option; [@option]  (** sender_id *)
-  short_code : string option; [@option]  (** short_code *)
+  application_id : string prop;  (** application_id *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  sender_id : string prop option; [@option]  (** sender_id *)
+  short_code : string prop option; [@option]  (** short_code *)
 }
 [@@deriving yojson_of]
 (** aws_pinpoint_sms_channel *)

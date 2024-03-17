@@ -89,16 +89,16 @@ type aws_sagemaker_domain__retention_policy
 type aws_sagemaker_domain
 
 val aws_sagemaker_domain :
-  ?app_network_access_type:string ->
-  ?app_security_group_management:string ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  auth_mode:string ->
-  domain_name:string ->
-  subnet_ids:string list ->
-  vpc_id:string ->
+  ?app_network_access_type:string prop ->
+  ?app_security_group_management:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  auth_mode:string prop ->
+  domain_name:string prop ->
+  subnet_ids:string prop list ->
+  vpc_id:string prop ->
   default_space_settings:
     aws_sagemaker_domain__default_space_settings list ->
   default_user_settings:

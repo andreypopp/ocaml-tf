@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_guardduty_organization_configuration__datasources__kubernetes__audit_logs = {
-  enable : bool;  (** enable *)
+  enable : bool prop;  (** enable *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_organization_configuration__datasources__kubernetes__audit_logs *)
@@ -19,7 +19,7 @@ type aws_guardduty_organization_configuration__datasources__kubernetes = {
 (** aws_guardduty_organization_configuration__datasources__kubernetes *)
 
 type aws_guardduty_organization_configuration__datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes = {
-  auto_enable : bool;  (** auto_enable *)
+  auto_enable : bool prop;  (** auto_enable *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_organization_configuration__datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes *)
@@ -41,7 +41,7 @@ type aws_guardduty_organization_configuration__datasources__malware_protection =
 (** aws_guardduty_organization_configuration__datasources__malware_protection *)
 
 type aws_guardduty_organization_configuration__datasources__s3_logs = {
-  auto_enable : bool;  (** auto_enable *)
+  auto_enable : bool prop;  (** auto_enable *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_organization_configuration__datasources__s3_logs *)
@@ -61,11 +61,11 @@ type aws_guardduty_organization_configuration__datasources = {
 (** aws_guardduty_organization_configuration__datasources *)
 
 type aws_guardduty_organization_configuration = {
-  auto_enable : bool option; [@option]  (** auto_enable *)
-  auto_enable_organization_members : string option; [@option]
+  auto_enable : bool prop option; [@option]  (** auto_enable *)
+  auto_enable_organization_members : string prop option; [@option]
       (** auto_enable_organization_members *)
-  detector_id : string;  (** detector_id *)
-  id : string option; [@option]  (** id *)
+  detector_id : string prop;  (** detector_id *)
+  id : string prop option; [@option]  (** id *)
   datasources :
     aws_guardduty_organization_configuration__datasources list;
 }

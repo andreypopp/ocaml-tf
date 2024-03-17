@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type aws_sagemaker_app__resource_spec = {
-  instance_type : string option; [@option]  (** instance_type *)
-  lifecycle_config_arn : string option; [@option]
+  instance_type : string prop option; [@option]  (** instance_type *)
+  lifecycle_config_arn : string prop option; [@option]
       (** lifecycle_config_arn *)
-  sagemaker_image_arn : string option; [@option]
+  sagemaker_image_arn : string prop option; [@option]
       (** sagemaker_image_arn *)
-  sagemaker_image_version_alias : string option; [@option]
+  sagemaker_image_version_alias : string prop option; [@option]
       (** sagemaker_image_version_alias *)
-  sagemaker_image_version_arn : string option; [@option]
+  sagemaker_image_version_arn : string prop option; [@option]
       (** sagemaker_image_version_arn *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_app__resource_spec *)
 
 type aws_sagemaker_app = {
-  app_name : string;  (** app_name *)
-  app_type : string;  (** app_type *)
-  domain_id : string;  (** domain_id *)
-  id : string option; [@option]  (** id *)
-  space_name : string option; [@option]  (** space_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  app_name : string prop;  (** app_name *)
+  app_type : string prop;  (** app_type *)
+  domain_id : string prop;  (** domain_id *)
+  id : string prop option; [@option]  (** id *)
+  space_name : string prop option; [@option]  (** space_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user_profile_name : string option; [@option]
+  user_profile_name : string prop option; [@option]
       (** user_profile_name *)
   resource_spec : aws_sagemaker_app__resource_spec list;
 }

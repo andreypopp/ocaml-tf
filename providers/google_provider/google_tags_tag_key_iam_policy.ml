@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_tags_tag_key_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  tag_key : string;  (** tag_key *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  tag_key : string prop;  (** tag_key *)
 }
 [@@deriving yojson_of]
 (** google_tags_tag_key_iam_policy *)

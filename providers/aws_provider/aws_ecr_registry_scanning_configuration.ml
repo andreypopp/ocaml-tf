@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_ecr_registry_scanning_configuration__rule__repository_filter = {
-  filter : string;  (** filter *)
-  filter_type : string;  (** filter_type *)
+  filter : string prop;  (** filter *)
+  filter_type : string prop;  (** filter_type *)
 }
 [@@deriving yojson_of]
 (** aws_ecr_registry_scanning_configuration__rule__repository_filter *)
 
 type aws_ecr_registry_scanning_configuration__rule = {
-  scan_frequency : string;  (** scan_frequency *)
+  scan_frequency : string prop;  (** scan_frequency *)
   repository_filter :
     aws_ecr_registry_scanning_configuration__rule__repository_filter
     list;
@@ -21,8 +21,8 @@ type aws_ecr_registry_scanning_configuration__rule = {
 (** aws_ecr_registry_scanning_configuration__rule *)
 
 type aws_ecr_registry_scanning_configuration = {
-  id : string option; [@option]  (** id *)
-  scan_type : string;  (** scan_type *)
+  id : string prop option; [@option]  (** id *)
+  scan_type : string prop;  (** scan_type *)
   rule : aws_ecr_registry_scanning_configuration__rule list;
 }
 [@@deriving yojson_of]

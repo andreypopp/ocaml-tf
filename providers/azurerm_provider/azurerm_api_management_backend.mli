@@ -14,16 +14,16 @@ type azurerm_api_management_backend__tls
 type azurerm_api_management_backend
 
 val azurerm_api_management_backend :
-  ?description:string ->
-  ?id:string ->
-  ?resource_id:string ->
-  ?title:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?resource_id:string prop ->
+  ?title:string prop ->
   ?timeouts:azurerm_api_management_backend__timeouts ->
-  api_management_name:string ->
-  name:string ->
-  protocol:string ->
-  resource_group_name:string ->
-  url:string ->
+  api_management_name:string prop ->
+  name:string prop ->
+  protocol:string prop ->
+  resource_group_name:string prop ->
+  url:string prop ->
   credentials:azurerm_api_management_backend__credentials list ->
   proxy:azurerm_api_management_backend__proxy list ->
   service_fabric_cluster:

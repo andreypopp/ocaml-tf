@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_custom_hostname_fallback_origin = {
-  id : string option; [@option]  (** id *)
-  origin : string;
+  id : string prop option; [@option]  (** id *)
+  origin : string prop;
       (** Hostname you intend to fallback requests to. Origin must be a proxied A/AAAA/CNAME DNS record within Clouldflare. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

@@ -12,16 +12,16 @@ type google_logging_metric__timeouts
 type google_logging_metric
 
 val google_logging_metric :
-  ?bucket_name:string ->
-  ?description:string ->
-  ?disabled:bool ->
-  ?id:string ->
-  ?label_extractors:(string * string) list ->
-  ?project:string ->
-  ?value_extractor:string ->
+  ?bucket_name:string prop ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  ?label_extractors:(string * string prop) list ->
+  ?project:string prop ->
+  ?value_extractor:string prop ->
   ?timeouts:google_logging_metric__timeouts ->
-  filter:string ->
-  name:string ->
+  filter:string prop ->
+  name:string prop ->
   bucket_options:google_logging_metric__bucket_options list ->
   metric_descriptor:google_logging_metric__metric_descriptor list ->
   string ->

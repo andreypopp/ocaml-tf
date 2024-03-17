@@ -7,17 +7,17 @@ type azurerm_analysis_services_server__timeouts
 type azurerm_analysis_services_server
 
 val azurerm_analysis_services_server :
-  ?admin_users:string list ->
-  ?backup_blob_container_uri:string ->
-  ?enable_power_bi_service:bool ->
-  ?id:string ->
-  ?querypool_connection_mode:string ->
-  ?tags:(string * string) list ->
+  ?admin_users:string prop list ->
+  ?backup_blob_container_uri:string prop ->
+  ?enable_power_bi_service:bool prop ->
+  ?id:string prop ->
+  ?querypool_connection_mode:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_analysis_services_server__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
   ipv4_firewall_rule:
     azurerm_analysis_services_server__ipv4_firewall_rule list ->
   string ->

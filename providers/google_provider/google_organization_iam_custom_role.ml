@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type google_organization_iam_custom_role = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A human-readable description for the role. *)
-  id : string option; [@option]  (** id *)
-  org_id : string;
+  id : string prop option; [@option]  (** id *)
+  org_id : string prop;
       (** The numeric ID of the organization in which you want to create a custom role. *)
-  permissions : string list;
+  permissions : string prop list;
       (** The names of the permissions this role grants when bound in an IAM policy. At least one permission must be specified. *)
-  role_id : string;  (** The role id to use for this role. *)
-  stage : string option; [@option]
+  role_id : string prop;  (** The role id to use for this role. *)
+  stage : string prop option; [@option]
       (** The current launch stage of the role. Defaults to GA. *)
-  title : string;  (** A human-readable title for the role. *)
+  title : string prop;  (** A human-readable title for the role. *)
 }
 [@@deriving yojson_of]
 (** google_organization_iam_custom_role *)

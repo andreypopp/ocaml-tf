@@ -6,11 +6,11 @@ type azurerm_log_analytics_linked_service__timeouts
 type azurerm_log_analytics_linked_service
 
 val azurerm_log_analytics_linked_service :
-  ?id:string ->
-  ?read_access_id:string ->
-  ?write_access_id:string ->
+  ?id:string prop ->
+  ?read_access_id:string prop ->
+  ?write_access_id:string prop ->
   ?timeouts:azurerm_log_analytics_linked_service__timeouts ->
-  resource_group_name:string ->
-  workspace_id:string ->
+  resource_group_name:string prop ->
+  workspace_id:string prop ->
   string ->
   unit

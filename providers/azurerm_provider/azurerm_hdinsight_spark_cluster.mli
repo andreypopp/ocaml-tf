@@ -39,16 +39,16 @@ type azurerm_hdinsight_spark_cluster__timeouts
 type azurerm_hdinsight_spark_cluster
 
 val azurerm_hdinsight_spark_cluster :
-  ?encryption_in_transit_enabled:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tls_min_version:string ->
+  ?encryption_in_transit_enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tls_min_version:string prop ->
   ?timeouts:azurerm_hdinsight_spark_cluster__timeouts ->
-  cluster_version:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  tier:string ->
+  cluster_version:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  tier:string prop ->
   component_version:
     azurerm_hdinsight_spark_cluster__component_version list ->
   compute_isolation:

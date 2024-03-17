@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_codecommit_repository
 
 val aws_codecommit_repository :
-  ?default_branch:string ->
-  ?description:string ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  repository_name:string ->
+  ?default_branch:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  repository_name:string prop ->
   string ->
   unit

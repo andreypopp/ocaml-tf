@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_macie2_classification_export_configuration__s3_destination = {
-  bucket_name : string;  (** bucket_name *)
-  key_prefix : string option; [@option]  (** key_prefix *)
-  kms_key_arn : string;  (** kms_key_arn *)
+  bucket_name : string prop;  (** bucket_name *)
+  key_prefix : string prop option; [@option]  (** key_prefix *)
+  kms_key_arn : string prop;  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_export_configuration__s3_destination *)
 
 type aws_macie2_classification_export_configuration = {
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   s3_destination :
     aws_macie2_classification_export_configuration__s3_destination
     list;

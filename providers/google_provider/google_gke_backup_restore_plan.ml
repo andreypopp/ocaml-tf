@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_gke_backup_restore_plan__restore_config__cluster_resource_restore_scope__excluded_group_kinds = {
-  resource_group : string option; [@option]
+  resource_group : string prop option; [@option]
       (** API Group string of a Kubernetes resource, e.g.
 apiextensions.k8s.io, storage.k8s.io, etc.
 Use empty string for core group. *)
-  resource_kind : string option; [@option]
+  resource_kind : string prop option; [@option]
       (** Kind of a Kubernetes resource, e.g.
 CustomResourceDefinition, StorageClass, etc. *)
 }
@@ -20,11 +20,11 @@ for those specified in the list.
 Mutually exclusive to any other field in 'clusterResourceRestoreScope'. *)
 
 type google_gke_backup_restore_plan__restore_config__cluster_resource_restore_scope__selected_group_kinds = {
-  resource_group : string option; [@option]
+  resource_group : string prop option; [@option]
       (** API Group string of a Kubernetes resource, e.g.
 apiextensions.k8s.io, storage.k8s.io, etc.
 Use empty string for core group. *)
-  resource_kind : string option; [@option]
+  resource_kind : string prop option; [@option]
       (** Kind of a Kubernetes resource, e.g.
 CustomResourceDefinition, StorageClass, etc. *)
 }
@@ -34,10 +34,10 @@ If specified, only the selected resources will be restored.
 Mutually exclusive to any other field in the 'clusterResourceRestoreScope'. *)
 
 type google_gke_backup_restore_plan__restore_config__cluster_resource_restore_scope = {
-  all_group_kinds : bool option; [@option]
+  all_group_kinds : bool prop option; [@option]
       (** If True, all valid cluster-scoped resources will be restored.
 Mutually exclusive to any other field in 'clusterResourceRestoreScope'. *)
-  no_group_kinds : bool option; [@option]
+  no_group_kinds : bool prop option; [@option]
       (** If True, no cluster-scoped resources will be restored.
 Mutually exclusive to any other field in 'clusterResourceRestoreScope'. *)
   excluded_group_kinds :
@@ -51,15 +51,17 @@ Mutually exclusive to any other field in 'clusterResourceRestoreScope'. *)
 (** Identifies the cluster-scoped resources to restore from the Backup. *)
 
 type google_gke_backup_restore_plan__restore_config__excluded_namespaces = {
-  namespaces : string list;  (** A list of Kubernetes Namespaces. *)
+  namespaces : string prop list;
+      (** A list of Kubernetes Namespaces. *)
 }
 [@@deriving yojson_of]
 (** A list of selected namespaces excluded from restoration.
 All namespaces except those in this list will be restored. *)
 
 type google_gke_backup_restore_plan__restore_config__selected_applications__namespaced_names = {
-  name : string;  (** The name of a Kubernetes Resource. *)
-  namespace : string;  (** The namespace of a Kubernetes Resource. *)
+  name : string prop;  (** The name of a Kubernetes Resource. *)
+  namespace : string prop;
+      (** The namespace of a Kubernetes Resource. *)
 }
 [@@deriving yojson_of]
 (** A list of namespaced Kubernetes resources. *)
@@ -75,22 +77,23 @@ The listed ProtectedApplications and all the resources
 to which they refer will be restored. *)
 
 type google_gke_backup_restore_plan__restore_config__selected_namespaces = {
-  namespaces : string list;  (** A list of Kubernetes Namespaces. *)
+  namespaces : string prop list;
+      (** A list of Kubernetes Namespaces. *)
 }
 [@@deriving yojson_of]
 (** A list of selected namespaces to restore from the Backup.
 The listed Namespaces and all resources contained in them will be restored. *)
 
 type google_gke_backup_restore_plan__restore_config__transformation_rules__field_actions = {
-  from_path : string option; [@option]
+  from_path : string prop option; [@option]
       (** A string containing a JSON Pointer value that references the
 location in the target document to move the value from. *)
-  op : string;
+  op : string prop;
       (** Specifies the operation to perform. Possible values: [REMOVE, MOVE, COPY, ADD, TEST, REPLACE] *)
-  path : string option; [@option]
+  path : string prop option; [@option]
       (** A string containing a JSON-Pointer value that references a
 location within the target document where the operation is performed. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** A string that specifies the desired value in string format
 to use for transformation. *)
 }
@@ -101,11 +104,11 @@ matters, as they could potentially interfere with each other and
 the first operation could affect the outcome of the second operation. *)
 
 type google_gke_backup_restore_plan__restore_config__transformation_rules__resource_filter__group_kinds = {
-  resource_group : string option; [@option]
+  resource_group : string prop option; [@option]
       (** API Group string of a Kubernetes resource, e.g.
 apiextensions.k8s.io, storage.k8s.io, etc.
 Use empty string for core group. *)
-  resource_kind : string option; [@option]
+  resource_kind : string prop option; [@option]
       (** Kind of a Kubernetes resource, e.g.
 CustomResourceDefinition, StorageClass, etc. *)
 }
@@ -117,12 +120,12 @@ no type filtering will be performed
 will be candidates for transformation). *)
 
 type google_gke_backup_restore_plan__restore_config__transformation_rules__resource_filter = {
-  json_path : string option; [@option]
+  json_path : string prop option; [@option]
       (** This is a JSONPath expression that matches specific fields of
 candidate resources and it operates as a filtering parameter
 (resources that are not matched with this expression will not
 be candidates for transformation). *)
-  namespaces : string list option; [@option]
+  namespaces : string prop list option; [@option]
       (** (Filtering parameter) Any resource subject to transformation must
 be contained within one of the listed Kubernetes Namespace in the
 Backup. If this field is not provided, no namespace filtering will
@@ -141,7 +144,7 @@ supplied transformation rule actions, and this will ensure that only
 specific resources are affected by transformation rule actions. *)
 
 type google_gke_backup_restore_plan__restore_config__transformation_rules = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description is a user specified string description
 of the transformation rule. *)
   field_actions :
@@ -159,27 +162,27 @@ as changes made by a rule may impact the filtering logic of subsequent
 rules. An empty list means no transformation will occur. *)
 
 type google_gke_backup_restore_plan__restore_config = {
-  all_namespaces : bool option; [@option]
+  all_namespaces : bool prop option; [@option]
       (** If True, restore all namespaced resources in the Backup.
 Setting this field to False will result in an error. *)
-  cluster_resource_conflict_policy : string option; [@option]
+  cluster_resource_conflict_policy : string prop option; [@option]
       (** Defines the behavior for handling the situation where cluster-scoped resources
 being restored already exist in the target cluster.
 This MUST be set to a value other than 'CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED'
 if 'clusterResourceRestoreScope' is anyting other than 'noGroupKinds'.
 See https://cloud.google.com/kubernetes-engine/docs/add-on/backup-for-gke/reference/rest/v1/RestoreConfig#clusterresourceconflictpolicy
 for more information on each policy option. Possible values: [USE_EXISTING_VERSION, USE_BACKUP_VERSION] *)
-  namespaced_resource_restore_mode : string option; [@option]
+  namespaced_resource_restore_mode : string prop option; [@option]
       (** Defines the behavior for handling the situation where sets of namespaced resources
 being restored already exist in the target cluster.
 This MUST be set to a value other than 'NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED'
 if the 'namespacedResourceRestoreScope' is anything other than 'noNamespaces'.
 See https://cloud.google.com/kubernetes-engine/docs/add-on/backup-for-gke/reference/rest/v1/RestoreConfig#namespacedresourcerestoremode
 for more information on each mode. Possible values: [DELETE_AND_RESTORE, FAIL_ON_CONFLICT] *)
-  no_namespaces : bool option; [@option]
+  no_namespaces : bool prop option; [@option]
       (** Do not restore any namespaced resources if set to True.
 Specifying this field to False is not allowed. *)
-  volume_data_restore_policy : string option; [@option]
+  volume_data_restore_policy : string prop option; [@option]
       (** Specifies the mechanism to be used to restore volume data.
 This should be set to a value other than 'NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED'
 if the 'namespacedResourceRestoreScope' is anything other than 'noNamespaces'.
@@ -206,23 +209,23 @@ for more information on each policy option. Possible values: [RESTORE_VOLUME_DAT
 (** Defines the configuration of Restores created via this RestorePlan. *)
 
 type google_gke_backup_restore_plan__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_gke_backup_restore_plan__timeouts *)
 
 type google_gke_backup_restore_plan = {
-  backup_plan : string;
+  backup_plan : string prop;
       (** A reference to the BackupPlan from which Backups may be used
 as the source for Restores created via this RestorePlan. *)
-  cluster : string;
+  cluster : string prop;
       (** The source cluster from which Restores will be created via this RestorePlan. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** User specified descriptive string for this RestorePlan. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Description: A set of custom labels supplied by the user.
 A list of key->value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }.
@@ -230,9 +233,10 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;  (** The region of the Restore Plan. *)
-  name : string;  (** The full name of the BackupPlan Resource. *)
-  project : string option; [@option]  (** project *)
+  location : string prop;  (** The region of the Restore Plan. *)
+  name : string prop;
+      (** The full name of the BackupPlan Resource. *)
+  project : string prop option; [@option]  (** project *)
   restore_config :
     google_gke_backup_restore_plan__restore_config list;
   timeouts : google_gke_backup_restore_plan__timeouts option;

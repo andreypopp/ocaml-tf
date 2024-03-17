@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type aws_connect_instance_storage_config__storage_config__kinesis_firehose_config = {
-  firehose_arn : string;  (** firehose_arn *)
+  firehose_arn : string prop;  (** firehose_arn *)
 }
 [@@deriving yojson_of]
 (** aws_connect_instance_storage_config__storage_config__kinesis_firehose_config *)
 
 type aws_connect_instance_storage_config__storage_config__kinesis_stream_config = {
-  stream_arn : string;  (** stream_arn *)
+  stream_arn : string prop;  (** stream_arn *)
 }
 [@@deriving yojson_of]
 (** aws_connect_instance_storage_config__storage_config__kinesis_stream_config *)
 
 type aws_connect_instance_storage_config__storage_config__kinesis_video_stream_config__encryption_config = {
-  encryption_type : string;  (** encryption_type *)
-  key_id : string;  (** key_id *)
+  encryption_type : string prop;  (** encryption_type *)
+  key_id : string prop;  (** key_id *)
 }
 [@@deriving yojson_of]
 (** aws_connect_instance_storage_config__storage_config__kinesis_video_stream_config__encryption_config *)
 
 type aws_connect_instance_storage_config__storage_config__kinesis_video_stream_config = {
-  prefix : string;  (** prefix *)
-  retention_period_hours : float;  (** retention_period_hours *)
+  prefix : string prop;  (** prefix *)
+  retention_period_hours : float prop;  (** retention_period_hours *)
   encryption_config :
     aws_connect_instance_storage_config__storage_config__kinesis_video_stream_config__encryption_config
     list;
@@ -34,15 +34,15 @@ type aws_connect_instance_storage_config__storage_config__kinesis_video_stream_c
 (** aws_connect_instance_storage_config__storage_config__kinesis_video_stream_config *)
 
 type aws_connect_instance_storage_config__storage_config__s3_config__encryption_config = {
-  encryption_type : string;  (** encryption_type *)
-  key_id : string;  (** key_id *)
+  encryption_type : string prop;  (** encryption_type *)
+  key_id : string prop;  (** key_id *)
 }
 [@@deriving yojson_of]
 (** aws_connect_instance_storage_config__storage_config__s3_config__encryption_config *)
 
 type aws_connect_instance_storage_config__storage_config__s3_config = {
-  bucket_name : string;  (** bucket_name *)
-  bucket_prefix : string;  (** bucket_prefix *)
+  bucket_name : string prop;  (** bucket_name *)
+  bucket_prefix : string prop;  (** bucket_prefix *)
   encryption_config :
     aws_connect_instance_storage_config__storage_config__s3_config__encryption_config
     list;
@@ -51,7 +51,7 @@ type aws_connect_instance_storage_config__storage_config__s3_config = {
 (** aws_connect_instance_storage_config__storage_config__s3_config *)
 
 type aws_connect_instance_storage_config__storage_config = {
-  storage_type : string;  (** storage_type *)
+  storage_type : string prop;  (** storage_type *)
   kinesis_firehose_config :
     aws_connect_instance_storage_config__storage_config__kinesis_firehose_config
     list;
@@ -69,9 +69,9 @@ type aws_connect_instance_storage_config__storage_config = {
 (** aws_connect_instance_storage_config__storage_config *)
 
 type aws_connect_instance_storage_config = {
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
-  resource_type : string;  (** resource_type *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
+  resource_type : string prop;  (** resource_type *)
   storage_config :
     aws_connect_instance_storage_config__storage_config list;
 }

@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type google_document_ai_processor_default_version__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_document_ai_processor_default_version__timeouts *)
 
 type google_document_ai_processor_default_version = {
-  id : string option; [@option]  (** id *)
-  processor : string;  (** The processor to set the version on. *)
-  version : string;
+  id : string prop option; [@option]  (** id *)
+  processor : string prop;
+      (** The processor to set the version on. *)
+  version : string prop;
       (** The version to set. Using 'stable' or 'rc' will cause the API to return the latest version in that release channel.
 Apply 'lifecycle.ignore_changes' to the 'version' field to suppress this diff. *)
   timeouts :

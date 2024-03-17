@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_monitoring_dashboard__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_monitoring_dashboard__timeouts *)
 
 type google_monitoring_dashboard = {
-  dashboard_json : string;
+  dashboard_json : string prop;
       (** The JSON representation of a dashboard, following the format at https://cloud.google.com/monitoring/api/ref_v3/rest/v1/projects.dashboards. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   timeouts : google_monitoring_dashboard__timeouts option;
 }

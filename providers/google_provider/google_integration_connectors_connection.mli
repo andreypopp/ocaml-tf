@@ -89,16 +89,17 @@ type google_integration_connectors_connection__ssl_config
 type google_integration_connectors_connection__timeouts
 
 type google_integration_connectors_connection__connector_version_infra_config = {
-  ratelimit_threshold : string;  (** ratelimit_threshold *)
+  ratelimit_threshold : string prop;  (** ratelimit_threshold *)
 }
 
 type google_integration_connectors_connection__eventing_runtime_data__status = {
-  description : string;  (** description *)
-  state : string;  (** state *)
+  description : string prop;  (** description *)
+  state : string prop;  (** state *)
 }
 
 type google_integration_connectors_connection__eventing_runtime_data = {
-  events_listener_endpoint : string;  (** events_listener_endpoint *)
+  events_listener_endpoint : string prop;
+      (** events_listener_endpoint *)
   status :
     google_integration_connectors_connection__eventing_runtime_data__status
     list;
@@ -106,25 +107,25 @@ type google_integration_connectors_connection__eventing_runtime_data = {
 }
 
 type google_integration_connectors_connection__status = {
-  description : string;  (** description *)
-  state : string;  (** state *)
-  status : string;  (** status *)
+  description : string prop;  (** description *)
+  state : string prop;  (** state *)
+  status : string prop;  (** status *)
 }
 
 type google_integration_connectors_connection
 
 val google_integration_connectors_connection :
-  ?description:string ->
-  ?eventing_enablement_type:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?service_account:string ->
-  ?suspended:bool ->
+  ?description:string prop ->
+  ?eventing_enablement_type:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?service_account:string prop ->
+  ?suspended:bool prop ->
   ?timeouts:google_integration_connectors_connection__timeouts ->
-  connector_version:string ->
-  location:string ->
-  name:string ->
+  connector_version:string prop ->
+  location:string prop ->
+  name:string prop ->
   auth_config:
     google_integration_connectors_connection__auth_config list ->
   config_variable:

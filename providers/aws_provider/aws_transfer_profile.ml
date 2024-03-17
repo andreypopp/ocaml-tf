@@ -5,13 +5,14 @@
 open! Tf.Prelude
 
 type aws_transfer_profile = {
-  as2_id : string;  (** as2_id *)
-  certificate_ids : string list option; [@option]
+  as2_id : string prop;  (** as2_id *)
+  certificate_ids : string prop list option; [@option]
       (** certificate_ids *)
-  id : string option; [@option]  (** id *)
-  profile_type : string;  (** profile_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  profile_type : string prop;  (** profile_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_transfer_profile *)

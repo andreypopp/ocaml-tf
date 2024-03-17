@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type aws_ebs_volume__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_ebs_volume__timeouts *)
 
 type aws_ebs_volume = {
-  availability_zone : string;  (** availability_zone *)
-  encrypted : bool option; [@option]  (** encrypted *)
-  final_snapshot : bool option; [@option]  (** final_snapshot *)
-  id : string option; [@option]  (** id *)
-  iops : float option; [@option]  (** iops *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  multi_attach_enabled : bool option; [@option]
+  availability_zone : string prop;  (** availability_zone *)
+  encrypted : bool prop option; [@option]  (** encrypted *)
+  final_snapshot : bool prop option; [@option]  (** final_snapshot *)
+  id : string prop option; [@option]  (** id *)
+  iops : float prop option; [@option]  (** iops *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  multi_attach_enabled : bool prop option; [@option]
       (** multi_attach_enabled *)
-  outpost_arn : string option; [@option]  (** outpost_arn *)
-  size : float option; [@option]  (** size *)
-  snapshot_id : string option; [@option]  (** snapshot_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  outpost_arn : string prop option; [@option]  (** outpost_arn *)
+  size : float prop option; [@option]  (** size *)
+  snapshot_id : string prop option; [@option]  (** snapshot_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  throughput : float option; [@option]  (** throughput *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  throughput : float prop option; [@option]  (** throughput *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   timeouts : aws_ebs_volume__timeouts option;
 }
 [@@deriving yojson_of]

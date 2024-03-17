@@ -5,39 +5,39 @@
 open! Tf.Prelude
 
 type azurerm_new_relic_tag_rule__log_tag_filter = {
-  action : string;  (** action *)
-  name : string;  (** name *)
-  value : string;  (** value *)
+  action : string prop;  (** action *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_new_relic_tag_rule__log_tag_filter *)
 
 type azurerm_new_relic_tag_rule__metric_tag_filter = {
-  action : string;  (** action *)
-  name : string;  (** name *)
-  value : string;  (** value *)
+  action : string prop;  (** action *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_new_relic_tag_rule__metric_tag_filter *)
 
 type azurerm_new_relic_tag_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_new_relic_tag_rule__timeouts *)
 
 type azurerm_new_relic_tag_rule = {
-  activity_log_enabled : bool option; [@option]
+  activity_log_enabled : bool prop option; [@option]
       (** activity_log_enabled *)
-  azure_active_directory_log_enabled : bool option; [@option]
+  azure_active_directory_log_enabled : bool prop option; [@option]
       (** azure_active_directory_log_enabled *)
-  id : string option; [@option]  (** id *)
-  metric_enabled : bool option; [@option]  (** metric_enabled *)
-  monitor_id : string;  (** monitor_id *)
-  subscription_log_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  metric_enabled : bool prop option; [@option]  (** metric_enabled *)
+  monitor_id : string prop;  (** monitor_id *)
+  subscription_log_enabled : bool prop option; [@option]
       (** subscription_log_enabled *)
   log_tag_filter : azurerm_new_relic_tag_rule__log_tag_filter list;
   metric_tag_filter :

@@ -6,10 +6,10 @@ type google_tags_tag_value__timeouts
 type google_tags_tag_value
 
 val google_tags_tag_value :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:google_tags_tag_value__timeouts ->
-  parent:string ->
-  short_name:string ->
+  parent:string prop ->
+  short_name:string prop ->
   string ->
   unit

@@ -9,20 +9,20 @@ type azurerm_firewall__virtual_hub
 type azurerm_firewall
 
 val azurerm_firewall :
-  ?dns_proxy_enabled:bool ->
-  ?dns_servers:string list ->
-  ?firewall_policy_id:string ->
-  ?id:string ->
-  ?private_ip_ranges:string list ->
-  ?tags:(string * string) list ->
-  ?threat_intel_mode:string ->
-  ?zones:string list ->
+  ?dns_proxy_enabled:bool prop ->
+  ?dns_servers:string prop list ->
+  ?firewall_policy_id:string prop ->
+  ?id:string prop ->
+  ?private_ip_ranges:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?threat_intel_mode:string prop ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_firewall__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
-  sku_tier:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  sku_tier:string prop ->
   ip_configuration:azurerm_firewall__ip_configuration list ->
   management_ip_configuration:
     azurerm_firewall__management_ip_configuration list ->

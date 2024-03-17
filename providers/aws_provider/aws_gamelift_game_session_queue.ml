@@ -5,26 +5,27 @@
 open! Tf.Prelude
 
 type aws_gamelift_game_session_queue__player_latency_policy = {
-  maximum_individual_player_latency_milliseconds : float;
+  maximum_individual_player_latency_milliseconds : float prop;
       (** maximum_individual_player_latency_milliseconds *)
-  policy_duration_seconds : float option; [@option]
+  policy_duration_seconds : float prop option; [@option]
       (** policy_duration_seconds *)
 }
 [@@deriving yojson_of]
 (** aws_gamelift_game_session_queue__player_latency_policy *)
 
 type aws_gamelift_game_session_queue = {
-  custom_event_data : string option; [@option]
+  custom_event_data : string prop option; [@option]
       (** custom_event_data *)
-  destinations : string list option; [@option]  (** destinations *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  notification_target : string option; [@option]
+  destinations : string prop list option; [@option]
+      (** destinations *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  notification_target : string prop option; [@option]
       (** notification_target *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeout_in_seconds : float option; [@option]
+  timeout_in_seconds : float prop option; [@option]
       (** timeout_in_seconds *)
   player_latency_policy :
     aws_gamelift_game_session_queue__player_latency_policy list;

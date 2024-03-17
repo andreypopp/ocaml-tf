@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_efs_file_system_policy = {
-  bypass_policy_lockout_safety_check : bool option; [@option]
+  bypass_policy_lockout_safety_check : bool prop option; [@option]
       (** bypass_policy_lockout_safety_check *)
-  file_system_id : string;  (** file_system_id *)
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
+  file_system_id : string prop;  (** file_system_id *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_efs_file_system_policy *)

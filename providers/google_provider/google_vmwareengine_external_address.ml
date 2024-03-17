@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type google_vmwareengine_external_address__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_external_address__timeouts *)
 
 type google_vmwareengine_external_address = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** User-provided description for this resource. *)
-  id : string option; [@option]  (** id *)
-  internal_ip : string;
+  id : string prop option; [@option]  (** id *)
+  internal_ip : string prop;
       (** The internal IP address of a workload VM. *)
-  name : string;  (** The ID of the external IP Address. *)
-  parent : string;
+  name : string prop;  (** The ID of the external IP Address. *)
+  parent : string prop;
       (** The resource name of the private cloud to create a new external address in.
 Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
 For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)

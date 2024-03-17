@@ -5,49 +5,50 @@
 open! Tf.Prelude
 
 type azurerm_mssql_virtual_machine_availability_group_listener__load_balancer_configuration = {
-  load_balancer_id : string;  (** load_balancer_id *)
-  private_ip_address : string;  (** private_ip_address *)
-  probe_port : float;  (** probe_port *)
-  sql_virtual_machine_ids : string list;
+  load_balancer_id : string prop;  (** load_balancer_id *)
+  private_ip_address : string prop;  (** private_ip_address *)
+  probe_port : float prop;  (** probe_port *)
+  sql_virtual_machine_ids : string prop list;
       (** sql_virtual_machine_ids *)
-  subnet_id : string;  (** subnet_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_machine_availability_group_listener__load_balancer_configuration *)
 
 type azurerm_mssql_virtual_machine_availability_group_listener__multi_subnet_ip_configuration = {
-  private_ip_address : string;  (** private_ip_address *)
-  sql_virtual_machine_id : string;  (** sql_virtual_machine_id *)
-  subnet_id : string;  (** subnet_id *)
+  private_ip_address : string prop;  (** private_ip_address *)
+  sql_virtual_machine_id : string prop;
+      (** sql_virtual_machine_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_machine_availability_group_listener__multi_subnet_ip_configuration *)
 
 type azurerm_mssql_virtual_machine_availability_group_listener__replica = {
-  commit : string;  (** commit *)
-  failover_mode : string;  (** failover_mode *)
-  readable_secondary : string;  (** readable_secondary *)
-  role : string;  (** role *)
-  sql_virtual_machine_id : string;  (** sql_virtual_machine_id *)
+  commit : string prop;  (** commit *)
+  failover_mode : string prop;  (** failover_mode *)
+  readable_secondary : string prop;  (** readable_secondary *)
+  role : string prop;  (** role *)
+  sql_virtual_machine_id : string prop;  (** sql_virtual_machine_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_machine_availability_group_listener__replica *)
 
 type azurerm_mssql_virtual_machine_availability_group_listener__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_virtual_machine_availability_group_listener__timeouts *)
 
 type azurerm_mssql_virtual_machine_availability_group_listener = {
-  availability_group_name : string option; [@option]
+  availability_group_name : string prop option; [@option]
       (** availability_group_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  port : float option; [@option]  (** port *)
-  sql_virtual_machine_group_id : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  port : float prop option; [@option]  (** port *)
+  sql_virtual_machine_group_id : string prop;
       (** sql_virtual_machine_group_id *)
   load_balancer_configuration :
     azurerm_mssql_virtual_machine_availability_group_listener__load_balancer_configuration

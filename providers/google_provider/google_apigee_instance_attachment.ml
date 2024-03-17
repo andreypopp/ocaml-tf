@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type google_apigee_instance_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_apigee_instance_attachment__timeouts *)
 
 type google_apigee_instance_attachment = {
-  environment : string;  (** The resource ID of the environment. *)
-  id : string option; [@option]  (** id *)
-  instance_id : string;
+  environment : string prop;
+      (** The resource ID of the environment. *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;
       (** The Apigee instance associated with the Apigee environment,
 in the format 'organizations/{{org_name}}/instances/{{instance_name}}'. *)
   timeouts : google_apigee_instance_attachment__timeouts option;

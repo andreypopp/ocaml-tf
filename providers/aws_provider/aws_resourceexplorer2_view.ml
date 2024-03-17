@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_resourceexplorer2_view__filters = {
-  filter_string : string;  (** filter_string *)
+  filter_string : string prop;  (** filter_string *)
 }
 [@@deriving yojson_of]
 (** aws_resourceexplorer2_view__filters *)
 
 type aws_resourceexplorer2_view__included_property = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_resourceexplorer2_view__included_property *)
 
 type aws_resourceexplorer2_view = {
-  default_view : bool option; [@option]  (** default_view *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  default_view : bool prop option; [@option]  (** default_view *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   filters : aws_resourceexplorer2_view__filters list;
   included_property :
     aws_resourceexplorer2_view__included_property list;

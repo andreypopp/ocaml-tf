@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_pinpoint_apns_channel = {
-  application_id : string;  (** application_id *)
-  bundle_id : string option; [@option]  (** bundle_id *)
-  certificate : string option; [@option]  (** certificate *)
-  default_authentication_method : string option; [@option]
+  application_id : string prop;  (** application_id *)
+  bundle_id : string prop option; [@option]  (** bundle_id *)
+  certificate : string prop option; [@option]  (** certificate *)
+  default_authentication_method : string prop option; [@option]
       (** default_authentication_method *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  private_key : string option; [@option]  (** private_key *)
-  team_id : string option; [@option]  (** team_id *)
-  token_key : string option; [@option]  (** token_key *)
-  token_key_id : string option; [@option]  (** token_key_id *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  private_key : string prop option; [@option]  (** private_key *)
+  team_id : string prop option; [@option]  (** team_id *)
+  token_key : string prop option; [@option]  (** token_key *)
+  token_key_id : string prop option; [@option]  (** token_key_id *)
 }
 [@@deriving yojson_of]
 (** aws_pinpoint_apns_channel *)

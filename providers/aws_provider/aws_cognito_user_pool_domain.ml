@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_cognito_user_pool_domain = {
-  certificate_arn : string option; [@option]  (** certificate_arn *)
-  domain : string;  (** domain *)
-  id : string option; [@option]  (** id *)
-  user_pool_id : string;  (** user_pool_id *)
+  certificate_arn : string prop option; [@option]
+      (** certificate_arn *)
+  domain : string prop;  (** domain *)
+  id : string prop option; [@option]  (** id *)
+  user_pool_id : string prop;  (** user_pool_id *)
 }
 [@@deriving yojson_of]
 (** aws_cognito_user_pool_domain *)

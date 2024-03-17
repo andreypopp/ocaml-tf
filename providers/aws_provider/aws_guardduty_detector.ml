@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_guardduty_detector__datasources__kubernetes__audit_logs = {
-  enable : bool;  (** enable *)
+  enable : bool prop;  (** enable *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_detector__datasources__kubernetes__audit_logs *)
@@ -18,7 +18,7 @@ type aws_guardduty_detector__datasources__kubernetes = {
 (** aws_guardduty_detector__datasources__kubernetes *)
 
 type aws_guardduty_detector__datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes = {
-  enable : bool;  (** enable *)
+  enable : bool prop;  (** enable *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_detector__datasources__malware_protection__scan_ec2_instance_with_findings__ebs_volumes *)
@@ -40,7 +40,7 @@ type aws_guardduty_detector__datasources__malware_protection = {
 (** aws_guardduty_detector__datasources__malware_protection *)
 
 type aws_guardduty_detector__datasources__s3_logs = {
-  enable : bool;  (** enable *)
+  enable : bool prop;  (** enable *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_detector__datasources__s3_logs *)
@@ -55,12 +55,12 @@ type aws_guardduty_detector__datasources = {
 (** aws_guardduty_detector__datasources *)
 
 type aws_guardduty_detector = {
-  enable : bool option; [@option]  (** enable *)
-  finding_publishing_frequency : string option; [@option]
+  enable : bool prop option; [@option]  (** enable *)
+  finding_publishing_frequency : string prop option; [@option]
       (** finding_publishing_frequency *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   datasources : aws_guardduty_detector__datasources list;
 }

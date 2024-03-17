@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_amplify_webhook = {
-  app_id : string;  (** app_id *)
-  branch_name : string;  (** branch_name *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
+  app_id : string prop;  (** app_id *)
+  branch_name : string prop;  (** branch_name *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_amplify_webhook *)

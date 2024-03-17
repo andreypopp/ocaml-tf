@@ -8,16 +8,16 @@ type azurerm_traffic_manager_azure_endpoint__timeouts
 type azurerm_traffic_manager_azure_endpoint
 
 val azurerm_traffic_manager_azure_endpoint :
-  ?always_serve_enabled:bool ->
-  ?enabled:bool ->
-  ?geo_mappings:string list ->
-  ?id:string ->
-  ?priority:float ->
-  ?weight:float ->
+  ?always_serve_enabled:bool prop ->
+  ?enabled:bool prop ->
+  ?geo_mappings:string prop list ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?weight:float prop ->
   ?timeouts:azurerm_traffic_manager_azure_endpoint__timeouts ->
-  name:string ->
-  profile_id:string ->
-  target_resource_id:string ->
+  name:string prop ->
+  profile_id:string prop ->
+  target_resource_id:string prop ->
   custom_header:
     azurerm_traffic_manager_azure_endpoint__custom_header list ->
   subnet:azurerm_traffic_manager_azure_endpoint__subnet list ->

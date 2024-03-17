@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_ssm_resource_data_sync__s3_destination = {
-  bucket_name : string;  (** bucket_name *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
-  prefix : string option; [@option]  (** prefix *)
-  region : string;  (** region *)
-  sync_format : string option; [@option]  (** sync_format *)
+  bucket_name : string prop;  (** bucket_name *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  prefix : string prop option; [@option]  (** prefix *)
+  region : string prop;  (** region *)
+  sync_format : string prop option; [@option]  (** sync_format *)
 }
 [@@deriving yojson_of]
 (** aws_ssm_resource_data_sync__s3_destination *)
 
 type aws_ssm_resource_data_sync = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   s3_destination : aws_ssm_resource_data_sync__s3_destination list;
 }
 [@@deriving yojson_of]

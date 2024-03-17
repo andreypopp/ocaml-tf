@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_dynamodb_contributor_insights__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_dynamodb_contributor_insights__timeouts *)
 
 type aws_dynamodb_contributor_insights = {
-  id : string option; [@option]  (** id *)
-  index_name : string option; [@option]  (** index_name *)
-  table_name : string;  (** table_name *)
+  id : string prop option; [@option]  (** id *)
+  index_name : string prop option; [@option]  (** index_name *)
+  table_name : string prop;  (** table_name *)
   timeouts : aws_dynamodb_contributor_insights__timeouts option;
 }
 [@@deriving yojson_of]

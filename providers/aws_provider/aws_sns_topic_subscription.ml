@@ -5,24 +5,26 @@
 open! Tf.Prelude
 
 type aws_sns_topic_subscription = {
-  confirmation_timeout_in_minutes : float option; [@option]
+  confirmation_timeout_in_minutes : float prop option; [@option]
       (** confirmation_timeout_in_minutes *)
-  delivery_policy : string option; [@option]  (** delivery_policy *)
-  endpoint : string;  (** endpoint *)
-  endpoint_auto_confirms : bool option; [@option]
+  delivery_policy : string prop option; [@option]
+      (** delivery_policy *)
+  endpoint : string prop;  (** endpoint *)
+  endpoint_auto_confirms : bool prop option; [@option]
       (** endpoint_auto_confirms *)
-  filter_policy : string option; [@option]  (** filter_policy *)
-  filter_policy_scope : string option; [@option]
+  filter_policy : string prop option; [@option]  (** filter_policy *)
+  filter_policy_scope : string prop option; [@option]
       (** filter_policy_scope *)
-  id : string option; [@option]  (** id *)
-  protocol : string;  (** protocol *)
-  raw_message_delivery : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  protocol : string prop;  (** protocol *)
+  raw_message_delivery : bool prop option; [@option]
       (** raw_message_delivery *)
-  redrive_policy : string option; [@option]  (** redrive_policy *)
-  replay_policy : string option; [@option]  (** replay_policy *)
-  subscription_role_arn : string option; [@option]
+  redrive_policy : string prop option; [@option]
+      (** redrive_policy *)
+  replay_policy : string prop option; [@option]  (** replay_policy *)
+  subscription_role_arn : string prop option; [@option]
       (** subscription_role_arn *)
-  topic_arn : string;  (** topic_arn *)
+  topic_arn : string prop;  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_sns_topic_subscription *)

@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_appmesh_virtual_service__spec__provider__virtual_node = {
-  virtual_node_name : string;  (** virtual_node_name *)
+  virtual_node_name : string prop;  (** virtual_node_name *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_service__spec__provider__virtual_node *)
 
 type aws_appmesh_virtual_service__spec__provider__virtual_router = {
-  virtual_router_name : string;  (** virtual_router_name *)
+  virtual_router_name : string prop;  (** virtual_router_name *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_service__spec__provider__virtual_router *)
@@ -32,12 +32,12 @@ type aws_appmesh_virtual_service__spec = {
 (** aws_appmesh_virtual_service__spec *)
 
 type aws_appmesh_virtual_service = {
-  id : string option; [@option]  (** id *)
-  mesh_name : string;  (** mesh_name *)
-  mesh_owner : string option; [@option]  (** mesh_owner *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  mesh_name : string prop;  (** mesh_name *)
+  mesh_owner : string prop option; [@option]  (** mesh_owner *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   spec : aws_appmesh_virtual_service__spec list;
 }

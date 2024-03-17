@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_finspace_kx_scaling_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_scaling_group__timeouts *)
 
 type aws_finspace_kx_scaling_group = {
-  availability_zone_id : string;  (** availability_zone_id *)
-  environment_id : string;  (** environment_id *)
-  host_type : string;  (** host_type *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  availability_zone_id : string prop;  (** availability_zone_id *)
+  environment_id : string prop;  (** environment_id *)
+  host_type : string prop;  (** host_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_finspace_kx_scaling_group__timeouts option;
 }

@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type hcloud_uploaded_certificate = {
-  certificate : string;  (** certificate *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  name : string;  (** name *)
-  private_key : string;  (** private_key *)
+  certificate : string prop;  (** certificate *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  name : string prop;  (** name *)
+  private_key : string prop;  (** private_key *)
 }
 [@@deriving yojson_of]
 (** hcloud_uploaded_certificate *)

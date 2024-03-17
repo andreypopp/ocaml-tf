@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_cloudfront_public_key
 
 val aws_cloudfront_public_key :
-  ?comment:string ->
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  encoded_key:string ->
+  ?comment:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  encoded_key:string prop ->
   string ->
   unit

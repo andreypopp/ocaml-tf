@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_xray_group__insights_configuration = {
-  insights_enabled : bool;  (** insights_enabled *)
-  notifications_enabled : bool option; [@option]
+  insights_enabled : bool prop;  (** insights_enabled *)
+  notifications_enabled : bool prop option; [@option]
       (** notifications_enabled *)
 }
 [@@deriving yojson_of]
 (** aws_xray_group__insights_configuration *)
 
 type aws_xray_group = {
-  filter_expression : string;  (** filter_expression *)
-  group_name : string;  (** group_name *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  filter_expression : string prop;  (** filter_expression *)
+  group_name : string prop;  (** group_name *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   insights_configuration :
     aws_xray_group__insights_configuration list;

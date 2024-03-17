@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type digitalocean_volume_snapshot = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : string list option; [@option]  (** tags *)
-  volume_id : string;  (** volume_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : string prop list option; [@option]  (** tags *)
+  volume_id : string prop;  (** volume_id *)
 }
 [@@deriving yojson_of]
 (** digitalocean_volume_snapshot *)

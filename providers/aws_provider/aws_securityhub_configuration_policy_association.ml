@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_securityhub_configuration_policy_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_configuration_policy_association__timeouts *)
 
 type aws_securityhub_configuration_policy_association = {
-  id : string option; [@option]  (** id *)
-  policy_id : string;
+  id : string prop option; [@option]  (** id *)
+  policy_id : string prop;
       (** The universally unique identifier (UUID) of the configuration policy. *)
-  target_id : string;
+  target_id : string prop;
       (** The identifier of the target account, organizational unit, or the root to associate with the specified configuration. *)
   timeouts :
     aws_securityhub_configuration_policy_association__timeouts option;

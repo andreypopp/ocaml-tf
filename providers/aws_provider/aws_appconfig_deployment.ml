@@ -5,17 +5,20 @@
 open! Tf.Prelude
 
 type aws_appconfig_deployment = {
-  application_id : string;  (** application_id *)
-  configuration_profile_id : string;  (** configuration_profile_id *)
-  configuration_version : string;  (** configuration_version *)
-  deployment_strategy_id : string;  (** deployment_strategy_id *)
-  description : string option; [@option]  (** description *)
-  environment_id : string;  (** environment_id *)
-  id : string option; [@option]  (** id *)
-  kms_key_identifier : string option; [@option]
+  application_id : string prop;  (** application_id *)
+  configuration_profile_id : string prop;
+      (** configuration_profile_id *)
+  configuration_version : string prop;  (** configuration_version *)
+  deployment_strategy_id : string prop;
+      (** deployment_strategy_id *)
+  description : string prop option; [@option]  (** description *)
+  environment_id : string prop;  (** environment_id *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_identifier : string prop option; [@option]
       (** kms_key_identifier *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_appconfig_deployment *)

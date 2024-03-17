@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_apigatewayv2_api_mapping = {
-  api_id : string;  (** api_id *)
-  api_mapping_key : string option; [@option]  (** api_mapping_key *)
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  stage : string;  (** stage *)
+  api_id : string prop;  (** api_id *)
+  api_mapping_key : string prop option; [@option]
+      (** api_mapping_key *)
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  stage : string prop;  (** stage *)
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_api_mapping *)

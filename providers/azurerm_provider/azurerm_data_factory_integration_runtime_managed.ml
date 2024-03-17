@@ -5,52 +5,54 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_integration_runtime_managed__catalog_info = {
-  administrator_login : string option; [@option]
+  administrator_login : string prop option; [@option]
       (** administrator_login *)
-  administrator_password : string option; [@option]
+  administrator_password : string prop option; [@option]
       (** administrator_password *)
-  pricing_tier : string option; [@option]  (** pricing_tier *)
-  server_endpoint : string;  (** server_endpoint *)
+  pricing_tier : string prop option; [@option]  (** pricing_tier *)
+  server_endpoint : string prop;  (** server_endpoint *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_managed__catalog_info *)
 
 type azurerm_data_factory_integration_runtime_managed__custom_setup_script = {
-  blob_container_uri : string;  (** blob_container_uri *)
-  sas_token : string;  (** sas_token *)
+  blob_container_uri : string prop;  (** blob_container_uri *)
+  sas_token : string prop;  (** sas_token *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_managed__custom_setup_script *)
 
 type azurerm_data_factory_integration_runtime_managed__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_managed__timeouts *)
 
 type azurerm_data_factory_integration_runtime_managed__vnet_integration = {
-  subnet_name : string;  (** subnet_name *)
-  vnet_id : string;  (** vnet_id *)
+  subnet_name : string prop;  (** subnet_name *)
+  vnet_id : string prop;  (** vnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_managed__vnet_integration *)
 
 type azurerm_data_factory_integration_runtime_managed = {
-  credential_name : string option; [@option]  (** credential_name *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  edition : string option; [@option]  (** edition *)
-  id : string option; [@option]  (** id *)
-  license_type : string option; [@option]  (** license_type *)
-  location : string;  (** location *)
-  max_parallel_executions_per_node : float option; [@option]
+  credential_name : string prop option; [@option]
+      (** credential_name *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  edition : string prop option; [@option]  (** edition *)
+  id : string prop option; [@option]  (** id *)
+  license_type : string prop option; [@option]  (** license_type *)
+  location : string prop;  (** location *)
+  max_parallel_executions_per_node : float prop option; [@option]
       (** max_parallel_executions_per_node *)
-  name : string;  (** name *)
-  node_size : string;  (** node_size *)
-  number_of_nodes : float option; [@option]  (** number_of_nodes *)
+  name : string prop;  (** name *)
+  node_size : string prop;  (** node_size *)
+  number_of_nodes : float prop option; [@option]
+      (** number_of_nodes *)
   catalog_info :
     azurerm_data_factory_integration_runtime_managed__catalog_info
     list;

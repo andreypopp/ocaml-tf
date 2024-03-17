@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_backup_vault__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_backup_vault__timeouts *)
 
 type aws_backup_vault = {
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  id : string option; [@option]  (** id *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_backup_vault__timeouts option;
 }

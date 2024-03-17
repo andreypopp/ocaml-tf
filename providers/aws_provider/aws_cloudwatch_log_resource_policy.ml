@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_log_resource_policy = {
-  id : string option; [@option]  (** id *)
-  policy_document : string;  (** policy_document *)
-  policy_name : string;  (** policy_name *)
+  id : string prop option; [@option]  (** id *)
+  policy_document : string prop;  (** policy_document *)
+  policy_name : string prop;  (** policy_name *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_resource_policy *)

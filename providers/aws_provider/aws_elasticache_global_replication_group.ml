@@ -5,33 +5,37 @@
 open! Tf.Prelude
 
 type aws_elasticache_global_replication_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_elasticache_global_replication_group__timeouts *)
 
 type aws_elasticache_global_replication_group__global_node_groups = {
-  global_node_group_id : string;  (** global_node_group_id *)
-  slots : string;  (** slots *)
+  global_node_group_id : string prop;  (** global_node_group_id *)
+  slots : string prop;  (** slots *)
 }
 [@@deriving yojson_of]
 
 type aws_elasticache_global_replication_group = {
-  automatic_failover_enabled : bool option; [@option]
+  automatic_failover_enabled : bool prop option; [@option]
       (** automatic_failover_enabled *)
-  cache_node_type : string option; [@option]  (** cache_node_type *)
-  engine_version : string option; [@option]  (** engine_version *)
-  global_replication_group_description : string option; [@option]
+  cache_node_type : string prop option; [@option]
+      (** cache_node_type *)
+  engine_version : string prop option; [@option]
+      (** engine_version *)
+  global_replication_group_description : string prop option;
+      [@option]
       (** global_replication_group_description *)
-  global_replication_group_id_suffix : string;
+  global_replication_group_id_suffix : string prop;
       (** global_replication_group_id_suffix *)
-  id : string option; [@option]  (** id *)
-  num_node_groups : float option; [@option]  (** num_node_groups *)
-  parameter_group_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  num_node_groups : float prop option; [@option]
+      (** num_node_groups *)
+  parameter_group_name : string prop option; [@option]
       (** parameter_group_name *)
-  primary_replication_group_id : string;
+  primary_replication_group_id : string prop;
       (** primary_replication_group_id *)
   timeouts :
     aws_elasticache_global_replication_group__timeouts option;

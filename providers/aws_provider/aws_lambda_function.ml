@@ -5,115 +5,118 @@
 open! Tf.Prelude
 
 type aws_lambda_function__dead_letter_config = {
-  target_arn : string;  (** target_arn *)
+  target_arn : string prop;  (** target_arn *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function__dead_letter_config *)
 
 type aws_lambda_function__environment = {
-  variables : (string * string) list option; [@option]
+  variables : (string * string prop) list option; [@option]
       (** variables *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function__environment *)
 
 type aws_lambda_function__ephemeral_storage = {
-  size : float option; [@option]  (** size *)
+  size : float prop option; [@option]  (** size *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function__ephemeral_storage *)
 
 type aws_lambda_function__file_system_config = {
-  arn : string;  (** arn *)
-  local_mount_path : string;  (** local_mount_path *)
+  arn : string prop;  (** arn *)
+  local_mount_path : string prop;  (** local_mount_path *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function__file_system_config *)
 
 type aws_lambda_function__image_config = {
-  command : string list option; [@option]  (** command *)
-  entry_point : string list option; [@option]  (** entry_point *)
-  working_directory : string option; [@option]
+  command : string prop list option; [@option]  (** command *)
+  entry_point : string prop list option; [@option]
+      (** entry_point *)
+  working_directory : string prop option; [@option]
       (** working_directory *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function__image_config *)
 
 type aws_lambda_function__logging_config = {
-  application_log_level : string option; [@option]
+  application_log_level : string prop option; [@option]
       (** application_log_level *)
-  log_format : string;  (** log_format *)
-  log_group : string option; [@option]  (** log_group *)
-  system_log_level : string option; [@option]  (** system_log_level *)
+  log_format : string prop;  (** log_format *)
+  log_group : string prop option; [@option]  (** log_group *)
+  system_log_level : string prop option; [@option]
+      (** system_log_level *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function__logging_config *)
 
 type aws_lambda_function__snap_start = {
-  apply_on : string;  (** apply_on *)
-  optimization_status : string;  (** optimization_status *)
+  apply_on : string prop;  (** apply_on *)
+  optimization_status : string prop;  (** optimization_status *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function__snap_start *)
 
 type aws_lambda_function__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function__timeouts *)
 
 type aws_lambda_function__tracing_config = {
-  mode : string;  (** mode *)
+  mode : string prop;  (** mode *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function__tracing_config *)
 
 type aws_lambda_function__vpc_config = {
-  ipv6_allowed_for_dual_stack : bool option; [@option]
+  ipv6_allowed_for_dual_stack : bool prop option; [@option]
       (** ipv6_allowed_for_dual_stack *)
-  security_group_ids : string list;  (** security_group_ids *)
-  subnet_ids : string list;  (** subnet_ids *)
-  vpc_id : string;  (** vpc_id *)
+  security_group_ids : string prop list;  (** security_group_ids *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function__vpc_config *)
 
 type aws_lambda_function = {
-  architectures : string list option; [@option]  (** architectures *)
-  code_signing_config_arn : string option; [@option]
+  architectures : string prop list option; [@option]
+      (** architectures *)
+  code_signing_config_arn : string prop option; [@option]
       (** code_signing_config_arn *)
-  description : string option; [@option]  (** description *)
-  filename : string option; [@option]  (** filename *)
-  function_name : string;  (** function_name *)
-  handler : string option; [@option]  (** handler *)
-  id : string option; [@option]  (** id *)
-  image_uri : string option; [@option]  (** image_uri *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
-  layers : string list option; [@option]  (** layers *)
-  memory_size : float option; [@option]  (** memory_size *)
-  package_type : string option; [@option]  (** package_type *)
-  publish : bool option; [@option]  (** publish *)
-  replace_security_groups_on_destroy : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  filename : string prop option; [@option]  (** filename *)
+  function_name : string prop;  (** function_name *)
+  handler : string prop option; [@option]  (** handler *)
+  id : string prop option; [@option]  (** id *)
+  image_uri : string prop option; [@option]  (** image_uri *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  layers : string prop list option; [@option]  (** layers *)
+  memory_size : float prop option; [@option]  (** memory_size *)
+  package_type : string prop option; [@option]  (** package_type *)
+  publish : bool prop option; [@option]  (** publish *)
+  replace_security_groups_on_destroy : bool prop option; [@option]
       (** replace_security_groups_on_destroy *)
-  replacement_security_group_ids : string list option; [@option]
+  replacement_security_group_ids : string prop list option; [@option]
       (** replacement_security_group_ids *)
-  reserved_concurrent_executions : float option; [@option]
+  reserved_concurrent_executions : float prop option; [@option]
       (** reserved_concurrent_executions *)
-  role : string;  (** role *)
-  runtime : string option; [@option]  (** runtime *)
-  s3_bucket : string option; [@option]  (** s3_bucket *)
-  s3_key : string option; [@option]  (** s3_key *)
-  s3_object_version : string option; [@option]
+  role : string prop;  (** role *)
+  runtime : string prop option; [@option]  (** runtime *)
+  s3_bucket : string prop option; [@option]  (** s3_bucket *)
+  s3_key : string prop option; [@option]  (** s3_key *)
+  s3_object_version : string prop option; [@option]
       (** s3_object_version *)
-  skip_destroy : bool option; [@option]  (** skip_destroy *)
-  source_code_hash : string option; [@option]
+  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  source_code_hash : string prop option; [@option]
       (** source_code_hash *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeout : float option; [@option]  (** timeout *)
+  timeout : float prop option; [@option]  (** timeout *)
   dead_letter_config : aws_lambda_function__dead_letter_config list;
   environment : aws_lambda_function__environment list;
   ephemeral_storage : aws_lambda_function__ephemeral_storage list;

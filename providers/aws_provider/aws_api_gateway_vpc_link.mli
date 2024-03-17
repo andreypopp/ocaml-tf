@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_api_gateway_vpc_link
 
 val aws_api_gateway_vpc_link :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
-  target_arns:string list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  target_arns:string prop list ->
   string ->
   unit

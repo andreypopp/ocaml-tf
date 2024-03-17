@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_synthetics_group_association = {
-  canary_arn : string;  (** canary_arn *)
-  group_name : string;  (** group_name *)
-  id : string option; [@option]  (** id *)
+  canary_arn : string prop;  (** canary_arn *)
+  group_name : string prop;  (** group_name *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_synthetics_group_association *)

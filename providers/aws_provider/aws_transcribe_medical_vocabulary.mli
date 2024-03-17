@@ -6,12 +6,12 @@ type aws_transcribe_medical_vocabulary__timeouts
 type aws_transcribe_medical_vocabulary
 
 val aws_transcribe_medical_vocabulary :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_transcribe_medical_vocabulary__timeouts ->
-  language_code:string ->
-  vocabulary_file_uri:string ->
-  vocabulary_name:string ->
+  language_code:string prop ->
+  vocabulary_file_uri:string prop ->
+  vocabulary_name:string prop ->
   string ->
   unit

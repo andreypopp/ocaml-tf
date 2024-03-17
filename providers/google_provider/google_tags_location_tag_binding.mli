@@ -6,10 +6,10 @@ type google_tags_location_tag_binding__timeouts
 type google_tags_location_tag_binding
 
 val google_tags_location_tag_binding :
-  ?id:string ->
-  ?location:string ->
+  ?id:string prop ->
+  ?location:string prop ->
   ?timeouts:google_tags_location_tag_binding__timeouts ->
-  parent:string ->
-  tag_value:string ->
+  parent:string prop ->
+  tag_value:string prop ->
   string ->
   unit

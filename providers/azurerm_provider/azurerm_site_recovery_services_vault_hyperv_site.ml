@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_site_recovery_services_vault_hyperv_site__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_services_vault_hyperv_site__timeouts *)
 
 type azurerm_site_recovery_services_vault_hyperv_site = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  recovery_vault_id : string;  (** recovery_vault_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  recovery_vault_id : string prop;  (** recovery_vault_id *)
   timeouts :
     azurerm_site_recovery_services_vault_hyperv_site__timeouts option;
 }

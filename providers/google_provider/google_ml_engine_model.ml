@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_ml_engine_model__default_version = {
-  name : string;
+  name : string prop;
       (** The name specified for the version when it was created. *)
 }
 [@@deriving yojson_of]
@@ -13,29 +13,29 @@ type google_ml_engine_model__default_version = {
 prediction requests that do not specify a version. *)
 
 type google_ml_engine_model__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_ml_engine_model__timeouts *)
 
 type google_ml_engine_model = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description specified for the model when it was created. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** One or more labels that you can add, to organize your models.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string;  (** The name specified for the model. *)
-  online_prediction_console_logging : bool option; [@option]
+  name : string prop;  (** The name specified for the model. *)
+  online_prediction_console_logging : bool prop option; [@option]
       (** If true, online prediction nodes send stderr and stdout streams to Stackdriver Logging *)
-  online_prediction_logging : bool option; [@option]
+  online_prediction_logging : bool prop option; [@option]
       (** If true, online prediction access logs are sent to StackDriver Logging. *)
-  project : string option; [@option]  (** project *)
-  regions : string list option; [@option]
+  project : string prop option; [@option]  (** project *)
+  regions : string prop list option; [@option]
       (** The list of regions where the model is going to be deployed.
 Currently only one region per model is supported *)
   default_version : google_ml_engine_model__default_version list;

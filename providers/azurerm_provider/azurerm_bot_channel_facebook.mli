@@ -7,13 +7,13 @@ type azurerm_bot_channel_facebook__timeouts
 type azurerm_bot_channel_facebook
 
 val azurerm_bot_channel_facebook :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_bot_channel_facebook__timeouts ->
-  bot_name:string ->
-  facebook_application_id:string ->
-  facebook_application_secret:string ->
-  location:string ->
-  resource_group_name:string ->
+  bot_name:string prop ->
+  facebook_application_id:string prop ->
+  facebook_application_secret:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
   page:azurerm_bot_channel_facebook__page list ->
   string ->
   unit

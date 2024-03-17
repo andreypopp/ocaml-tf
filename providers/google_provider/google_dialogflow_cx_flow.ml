@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_dialogflow_cx_flow__advanced_settings__audio_export_gcs_destination = {
-  uri : string option; [@option]
+  uri : string prop option; [@option]
       (** The Google Cloud Storage URI for the exported objects. Whether a full object name, or just a prefix, its usage depends on the Dialogflow operation.
 Format: gs://bucket/object-name-or-prefix *)
 }
@@ -15,11 +15,11 @@ Format: gs://bucket/object-name-or-prefix *)
 * Flow level *)
 
 type google_dialogflow_cx_flow__advanced_settings__dtmf_settings = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** If true, incoming audio is processed for DTMF (dual tone multi frequency) events. For example, if the caller presses a button on their telephone keypad and DTMF processing is enabled, Dialogflow will detect the event (e.g. a 3 was pressed) in the incoming audio and pass the event to the bot to drive business logic (e.g. when 3 is pressed, return the account balance). *)
-  finish_digit : string option; [@option]
+  finish_digit : string prop option; [@option]
       (** The digit that terminates a DTMF digit sequence. *)
-  max_digits : float option; [@option]
+  max_digits : float prop option; [@option]
       (** Max length of DTMF digits. *)
 }
 [@@deriving yojson_of]
@@ -41,7 +41,7 @@ type google_dialogflow_cx_flow__advanced_settings = {
 Hierarchy: Agent->Flow->Page->Fulfillment/Parameter. *)
 
 type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__conditional_cases = {
-  cases : string option; [@option]
+  cases : string prop option; [@option]
       (** A JSON encoded list of cascading if-else conditions. Cases are mutually exclusive. The first one with a matching condition is selected, all the rest ignored.
 See [Case](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/Fulfillment#case) for the schema. *)
 }
@@ -49,7 +49,7 @@ See [Case](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/Fulfill
 (** Conditional cases for this fulfillment. *)
 
 type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__conversation_success = {
-  metadata : string option; [@option]
+  metadata : string prop option; [@option]
       (** Custom metadata. Dialogflow doesn't impose any structure on this. *)
 }
 [@@deriving yojson_of]
@@ -60,7 +60,7 @@ You may set this, for example:
 * In a webhook response when you determine that you handled the customer issue. *)
 
 type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__live_agent_handoff = {
-  metadata : string option; [@option]
+  metadata : string prop option; [@option]
       (** Custom metadata. Dialogflow doesn't impose any structure on this. *)
 }
 [@@deriving yojson_of]
@@ -71,45 +71,45 @@ You may set this, for example:
 * In a webhook response when you determine that the customer issue can only be handled by a human. *)
 
 type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__output_audio_text = {
-  allow_playback_interruption : bool;
+  allow_playback_interruption : bool prop;
       (** Whether the playback of this message can be interrupted by the end user's speech and the client can then starts the next Dialogflow request. *)
-  ssml : string option; [@option]
+  ssml : string prop option; [@option]
       (** The SSML text to be synthesized. For more information, see SSML. *)
-  text : string option; [@option]
+  text : string prop option; [@option]
       (** The raw text to be synthesized. *)
 }
 [@@deriving yojson_of]
 (** A text or ssml response that is preferentially used for TTS output audio synthesis, as described in the comment on the ResponseMessage message. *)
 
 type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__play_audio = {
-  allow_playback_interruption : bool;
+  allow_playback_interruption : bool prop;
       (** Whether the playback of this message can be interrupted by the end user's speech and the client can then starts the next Dialogflow request. *)
-  audio_uri : string;
+  audio_uri : string prop;
       (** URI of the audio clip. Dialogflow does not impose any validation on this value. It is specific to the client that reads it. *)
 }
 [@@deriving yojson_of]
 (** Specifies an audio clip to be played by the client as part of the response. *)
 
 type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__telephony_transfer_call = {
-  phone_number : string;
+  phone_number : string prop;
       (** Transfer the call to a phone number in E.164 format. *)
 }
 [@@deriving yojson_of]
 (** Represents the signal that telles the client to transfer the phone call connected to the agent to a third-party endpoint. *)
 
 type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__text = {
-  allow_playback_interruption : bool;
+  allow_playback_interruption : bool prop;
       (** Whether the playback of this message can be interrupted by the end user's speech and the client can then starts the next Dialogflow request. *)
-  text : string list option; [@option]
+  text : string prop list option; [@option]
       (** A collection of text responses. *)
 }
 [@@deriving yojson_of]
 (** The text response message. *)
 
 type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages = {
-  channel : string option; [@option]
+  channel : string prop option; [@option]
       (** The channel which the response is associated with. Clients can specify the channel via QueryParameters.channel, and only associated channel response will be returned. *)
-  payload : string option; [@option]
+  payload : string prop option; [@option]
       (** A custom, platform-specific payload. *)
   conversation_success :
     google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages__conversation_success
@@ -134,20 +134,20 @@ type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__messages = 
 (** The list of rich message responses to present to the user. *)
 
 type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__set_parameter_actions = {
-  parameter : string option; [@option]
+  parameter : string prop option; [@option]
       (** Display name of the parameter. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** The new JSON-encoded value of the parameter. A null value clears the parameter. *)
 }
 [@@deriving yojson_of]
 (** Set parameter values before executing the webhook. *)
 
 type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment = {
-  return_partial_responses : bool option; [@option]
+  return_partial_responses : bool prop option; [@option]
       (** Whether Dialogflow should return currently queued fulfillment response messages in streaming APIs. If a webhook is specified, it happens before Dialogflow invokes webhook. Warning: 1) This flag only affects streaming API. Responses are still queued and returned once in non-streaming API. 2) The flag can be enabled in any fulfillment but only the first 3 partial responses will be returned. You may only want to apply it to fulfillments that have slow webhooks. *)
-  tag : string option; [@option]
+  tag : string prop option; [@option]
       (** The tag used by the webhook to identify which fulfillment is being called. This field is required if webhook is specified. *)
-  webhook : string option; [@option]
+  webhook : string prop option; [@option]
       (** The webhook to call. Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/webhooks/<Webhook ID>. *)
   conditional_cases :
     google_dialogflow_cx_flow__event_handlers__trigger_fulfillment__conditional_cases
@@ -163,13 +163,14 @@ type google_dialogflow_cx_flow__event_handlers__trigger_fulfillment = {
 (** The fulfillment to call when the event occurs. Handling webhook errors with a fulfillment enabled with webhook could cause infinite loop. It is invalid to specify such fulfillment for a handler handling webhooks. *)
 
 type google_dialogflow_cx_flow__event_handlers = {
-  event : string option; [@option]
+  event : string prop option; [@option]
       (** The name of the event to handle. *)
-  name : string;  (** The unique identifier of this event handler. *)
-  target_flow : string option; [@option]
+  name : string prop;
+      (** The unique identifier of this event handler. *)
+  target_flow : string prop option; [@option]
       (** The target flow to transition to.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>. *)
-  target_page : string option; [@option]
+  target_page : string prop option; [@option]
       (** The target page to transition to.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>/pages/<Page ID>. *)
   trigger_fulfillment :
@@ -183,14 +184,14 @@ They are inherited by every page's [event handlers][Page.event_handlers], which 
 Unlike transitionRoutes, these handlers are evaluated on a first-match basis. The first one that matches the event get executed, with the rest being ignored. *)
 
 type google_dialogflow_cx_flow__nlu_settings = {
-  classification_threshold : float option; [@option]
+  classification_threshold : float prop option; [@option]
       (** To filter out false positive results and still get variety in matched natural language inputs for your agent, you can tune the machine learning classification threshold.
 If the returned score value is less than the threshold value, then a no-match event will be triggered. The score values range from 0.0 (completely uncertain) to 1.0 (completely certain). If set to 0.0, the default of 0.3 is used. *)
-  model_training_mode : string option; [@option]
+  model_training_mode : string prop option; [@option]
       (** Indicates NLU model training mode.
 * MODEL_TRAINING_MODE_AUTOMATIC: NLU model training is automatically triggered when a flow gets modified. User can also manually trigger model training in this mode.
 * MODEL_TRAINING_MODE_MANUAL: User needs to manually trigger NLU model training. Best for large flows whose models take long time to train. Possible values: [MODEL_TRAINING_MODE_AUTOMATIC, MODEL_TRAINING_MODE_MANUAL] *)
-  model_type : string option; [@option]
+  model_type : string prop option; [@option]
       (** Indicates the type of NLU model.
 * MODEL_TYPE_STANDARD: Use standard NLU model.
 * MODEL_TYPE_ADVANCED: Use advanced NLU model. Possible values: [MODEL_TYPE_STANDARD, MODEL_TYPE_ADVANCED] *)
@@ -199,15 +200,15 @@ If the returned score value is less than the threshold value, then a no-match ev
 (** NLU related settings of the flow. *)
 
 type google_dialogflow_cx_flow__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_flow__timeouts *)
 
 type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__conditional_cases = {
-  cases : string option; [@option]
+  cases : string prop option; [@option]
       (** A JSON encoded list of cascading if-else conditions. Cases are mutually exclusive. The first one with a matching condition is selected, all the rest ignored.
 See [Case](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/Fulfillment#case) for the schema. *)
 }
@@ -215,7 +216,7 @@ See [Case](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/Fulfill
 (** Conditional cases for this fulfillment. *)
 
 type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__conversation_success = {
-  metadata : string option; [@option]
+  metadata : string prop option; [@option]
       (** Custom metadata. Dialogflow doesn't impose any structure on this. *)
 }
 [@@deriving yojson_of]
@@ -226,7 +227,7 @@ You may set this, for example:
 * In a webhook response when you determine that you handled the customer issue. *)
 
 type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__live_agent_handoff = {
-  metadata : string option; [@option]
+  metadata : string prop option; [@option]
       (** Custom metadata. Dialogflow doesn't impose any structure on this. *)
 }
 [@@deriving yojson_of]
@@ -237,45 +238,45 @@ You may set this, for example:
 * In a webhook response when you determine that the customer issue can only be handled by a human. *)
 
 type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__output_audio_text = {
-  allow_playback_interruption : bool;
+  allow_playback_interruption : bool prop;
       (** Whether the playback of this message can be interrupted by the end user's speech and the client can then starts the next Dialogflow request. *)
-  ssml : string option; [@option]
+  ssml : string prop option; [@option]
       (** The SSML text to be synthesized. For more information, see SSML. *)
-  text : string option; [@option]
+  text : string prop option; [@option]
       (** The raw text to be synthesized. *)
 }
 [@@deriving yojson_of]
 (** A text or ssml response that is preferentially used for TTS output audio synthesis, as described in the comment on the ResponseMessage message. *)
 
 type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__play_audio = {
-  allow_playback_interruption : bool;
+  allow_playback_interruption : bool prop;
       (** Whether the playback of this message can be interrupted by the end user's speech and the client can then starts the next Dialogflow request. *)
-  audio_uri : string;
+  audio_uri : string prop;
       (** URI of the audio clip. Dialogflow does not impose any validation on this value. It is specific to the client that reads it. *)
 }
 [@@deriving yojson_of]
 (** Specifies an audio clip to be played by the client as part of the response. *)
 
 type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__telephony_transfer_call = {
-  phone_number : string;
+  phone_number : string prop;
       (** Transfer the call to a phone number in E.164 format. *)
 }
 [@@deriving yojson_of]
 (** Represents the signal that telles the client to transfer the phone call connected to the agent to a third-party endpoint. *)
 
 type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__text = {
-  allow_playback_interruption : bool;
+  allow_playback_interruption : bool prop;
       (** Whether the playback of this message can be interrupted by the end user's speech and the client can then starts the next Dialogflow request. *)
-  text : string list option; [@option]
+  text : string prop list option; [@option]
       (** A collection of text responses. *)
 }
 [@@deriving yojson_of]
 (** The text response message. *)
 
 type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages = {
-  channel : string option; [@option]
+  channel : string prop option; [@option]
       (** The channel which the response is associated with. Clients can specify the channel via QueryParameters.channel, and only associated channel response will be returned. *)
-  payload : string option; [@option]
+  payload : string prop option; [@option]
       (** A custom, platform-specific payload. *)
   conversation_success :
     google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages__conversation_success
@@ -300,20 +301,20 @@ type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__messages
 (** The list of rich message responses to present to the user. *)
 
 type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__set_parameter_actions = {
-  parameter : string option; [@option]
+  parameter : string prop option; [@option]
       (** Display name of the parameter. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** The new JSON-encoded value of the parameter. A null value clears the parameter. *)
 }
 [@@deriving yojson_of]
 (** Set parameter values before executing the webhook. *)
 
 type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment = {
-  return_partial_responses : bool option; [@option]
+  return_partial_responses : bool prop option; [@option]
       (** Whether Dialogflow should return currently queued fulfillment response messages in streaming APIs. If a webhook is specified, it happens before Dialogflow invokes webhook. Warning: 1) This flag only affects streaming API. Responses are still queued and returned once in non-streaming API. 2) The flag can be enabled in any fulfillment but only the first 3 partial responses will be returned. You may only want to apply it to fulfillments that have slow webhooks. *)
-  tag : string option; [@option]
+  tag : string prop option; [@option]
       (** The tag used by the webhook to identify which fulfillment is being called. This field is required if webhook is specified. *)
-  webhook : string option; [@option]
+  webhook : string prop option; [@option]
       (** The webhook to call. Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/webhooks/<Webhook ID>. *)
   conditional_cases :
     google_dialogflow_cx_flow__transition_routes__trigger_fulfillment__conditional_cases
@@ -329,18 +330,18 @@ type google_dialogflow_cx_flow__transition_routes__trigger_fulfillment = {
 (** The fulfillment to call when the condition is satisfied. At least one of triggerFulfillment and target must be specified. When both are defined, triggerFulfillment is executed first. *)
 
 type google_dialogflow_cx_flow__transition_routes = {
-  condition : string option; [@option]
+  condition : string prop option; [@option]
       (** The condition to evaluate against form parameters or session parameters.
 At least one of intent or condition must be specified. When both intent and condition are specified, the transition can only happen when both are fulfilled. *)
-  intent : string option; [@option]
+  intent : string prop option; [@option]
       (** The unique identifier of an Intent.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/intents/<Intent ID>. Indicates that the transition can only happen when the given intent is matched. At least one of intent or condition must be specified. When both intent and condition are specified, the transition can only happen when both are fulfilled. *)
-  name : string;
+  name : string prop;
       (** The unique identifier of this transition route. *)
-  target_flow : string option; [@option]
+  target_flow : string prop option; [@option]
       (** The target flow to transition to.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>. *)
-  target_page : string option; [@option]
+  target_page : string prop option; [@option]
       (** The target page to transition to.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>/pages/<Page ID>. *)
   trigger_fulfillment :
@@ -358,26 +359,27 @@ TransitionRoutes are evalauted in the following order:
   TransitionRoutes with intent specified are inherited by pages in the flow. *)
 
 type google_dialogflow_cx_flow = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description of the flow. The maximum length is 500 characters. If exceeded, the request is rejected. *)
-  display_name : string;  (** The human-readable name of the flow. *)
-  id : string option; [@option]  (** id *)
-  is_default_start_flow : bool option; [@option]
+  display_name : string prop;
+      (** The human-readable name of the flow. *)
+  id : string prop option; [@option]  (** id *)
+  is_default_start_flow : bool prop option; [@option]
       (** Marks this as the [Default Start Flow](https://cloud.google.com/dialogflow/cx/docs/concept/flow#start) for an agent. When you create an agent, the Default Start Flow is created automatically.
 The Default Start Flow cannot be deleted; deleting the 'google_dialogflow_cx_flow' resource does nothing to the underlying GCP resources.
 
 ~> Avoid having multiple 'google_dialogflow_cx_flow' resources linked to the same agent with 'is_default_start_flow = true' because they will compete to control a single Default Start Flow resource in GCP. *)
-  language_code : string option; [@option]
+  language_code : string prop option; [@option]
       (** The language of the following fields in flow:
 Flow.event_handlers.trigger_fulfillment.messages
 Flow.event_handlers.trigger_fulfillment.conditional_cases
 Flow.transition_routes.trigger_fulfillment.messages
 Flow.transition_routes.trigger_fulfillment.conditional_cases
 If not specified, the agent's default language is used. Many languages are supported. Note: languages must be enabled in the agent before they can be used. *)
-  parent : string option; [@option]
+  parent : string prop option; [@option]
       (** The agent to create a flow for.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
-  transition_route_groups : string list option; [@option]
+  transition_route_groups : string prop list option; [@option]
       (** A flow's transition route group serve two purposes:
 They are responsible for matching the user's first utterances in the flow.
 They are inherited by every page's [transition route groups][Page.transition_route_groups]. Transition route groups defined in the page have higher priority than those defined in the flow.

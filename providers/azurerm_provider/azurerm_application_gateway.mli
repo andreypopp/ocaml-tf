@@ -56,24 +56,24 @@ type azurerm_application_gateway__waf_configuration__exclusion
 type azurerm_application_gateway__waf_configuration
 
 type azurerm_application_gateway__private_endpoint_connection = {
-  id : string;  (** id *)
-  name : string;  (** name *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 
 type azurerm_application_gateway
 
 val azurerm_application_gateway :
-  ?enable_http2:bool ->
-  ?fips_enabled:bool ->
-  ?firewall_policy_id:string ->
-  ?force_firewall_policy_association:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?zones:string list ->
+  ?enable_http2:bool prop ->
+  ?fips_enabled:bool prop ->
+  ?firewall_policy_id:string prop ->
+  ?force_firewall_policy_association:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_application_gateway__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   authentication_certificate:
     azurerm_application_gateway__authentication_certificate list ->
   autoscale_configuration:

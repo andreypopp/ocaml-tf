@@ -7,8 +7,8 @@ type kubernetes_namespace__timeouts
 type kubernetes_namespace
 
 val kubernetes_namespace :
-  ?id:string ->
-  ?wait_for_default_service_account:bool ->
+  ?id:string prop ->
+  ?wait_for_default_service_account:bool prop ->
   ?timeouts:kubernetes_namespace__timeouts ->
   metadata:kubernetes_namespace__metadata list ->
   string ->

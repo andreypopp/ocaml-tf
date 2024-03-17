@@ -6,15 +6,15 @@ type azurerm_lb_probe__timeouts
 type azurerm_lb_probe
 
 val azurerm_lb_probe :
-  ?id:string ->
-  ?interval_in_seconds:float ->
-  ?number_of_probes:float ->
-  ?probe_threshold:float ->
-  ?protocol:string ->
-  ?request_path:string ->
+  ?id:string prop ->
+  ?interval_in_seconds:float prop ->
+  ?number_of_probes:float prop ->
+  ?probe_threshold:float prop ->
+  ?protocol:string prop ->
+  ?request_path:string prop ->
   ?timeouts:azurerm_lb_probe__timeouts ->
-  loadbalancer_id:string ->
-  name:string ->
-  port:float ->
+  loadbalancer_id:string prop ->
+  name:string prop ->
+  port:float prop ->
   string ->
   unit

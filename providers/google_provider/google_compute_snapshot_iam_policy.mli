@@ -5,9 +5,9 @@ open! Tf.Prelude
 type google_compute_snapshot_iam_policy
 
 val google_compute_snapshot_iam_policy :
-  ?id:string ->
-  ?project:string ->
-  name:string ->
-  policy_data:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  name:string prop ->
+  policy_data:string prop ->
   string ->
   unit

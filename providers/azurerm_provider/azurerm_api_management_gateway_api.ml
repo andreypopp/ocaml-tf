@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_api_management_gateway_api__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_gateway_api__timeouts *)
 
 type azurerm_api_management_gateway_api = {
-  api_id : string;  (** api_id *)
-  gateway_id : string;  (** gateway_id *)
-  id : string option; [@option]  (** id *)
+  api_id : string prop;  (** api_id *)
+  gateway_id : string prop;  (** gateway_id *)
+  id : string prop option; [@option]  (** id *)
   timeouts : azurerm_api_management_gateway_api__timeouts option;
 }
 [@@deriving yojson_of]

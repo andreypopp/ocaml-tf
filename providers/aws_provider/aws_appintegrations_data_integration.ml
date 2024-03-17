@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_appintegrations_data_integration__schedule_config = {
-  first_execution_from : string;  (** first_execution_from *)
-  object_ : string; [@key "object"]  (** object *)
-  schedule_expression : string;  (** schedule_expression *)
+  first_execution_from : string prop;  (** first_execution_from *)
+  object_ : string prop; [@key "object"]  (** object *)
+  schedule_expression : string prop;  (** schedule_expression *)
 }
 [@@deriving yojson_of]
 (** aws_appintegrations_data_integration__schedule_config *)
 
 type aws_appintegrations_data_integration = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  kms_key : string;  (** kms_key *)
-  name : string;  (** name *)
-  source_uri : string;  (** source_uri *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  kms_key : string prop;  (** kms_key *)
+  name : string prop;  (** name *)
+  source_uri : string prop;  (** source_uri *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   schedule_config :
     aws_appintegrations_data_integration__schedule_config list;

@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_kubernetes_fleet_manager__hub_profile = {
-  dns_prefix : string;  (** dns_prefix *)
-  fqdn : string;  (** fqdn *)
-  kubernetes_version : string;  (** kubernetes_version *)
+  dns_prefix : string prop;  (** dns_prefix *)
+  fqdn : string prop;  (** fqdn *)
+  kubernetes_version : string prop;  (** kubernetes_version *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_manager__hub_profile *)
 
 type azurerm_kubernetes_fleet_manager__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_manager__timeouts *)
 
 type azurerm_kubernetes_fleet_manager = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   hub_profile : azurerm_kubernetes_fleet_manager__hub_profile list;
   timeouts : azurerm_kubernetes_fleet_manager__timeouts option;
 }

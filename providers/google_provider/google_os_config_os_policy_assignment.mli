@@ -93,13 +93,13 @@ type google_os_config_os_policy_assignment__timeouts
 type google_os_config_os_policy_assignment
 
 val google_os_config_os_policy_assignment :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
-  ?skip_await_rollout:bool ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?skip_await_rollout:bool prop ->
   ?timeouts:google_os_config_os_policy_assignment__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   instance_filter:
     google_os_config_os_policy_assignment__instance_filter list ->
   os_policies:google_os_config_os_policy_assignment__os_policies list ->

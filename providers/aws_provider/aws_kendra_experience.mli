@@ -9,19 +9,19 @@ type aws_kendra_experience__configuration
 type aws_kendra_experience__timeouts
 
 type aws_kendra_experience__endpoints = {
-  endpoint : string;  (** endpoint *)
-  endpoint_type : string;  (** endpoint_type *)
+  endpoint : string prop;  (** endpoint *)
+  endpoint_type : string prop;  (** endpoint_type *)
 }
 
 type aws_kendra_experience
 
 val aws_kendra_experience :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:aws_kendra_experience__timeouts ->
-  index_id:string ->
-  name:string ->
-  role_arn:string ->
+  index_id:string prop ->
+  name:string prop ->
+  role_arn:string prop ->
   configuration:aws_kendra_experience__configuration list ->
   string ->
   unit

@@ -115,12 +115,12 @@ type aws_appmesh_virtual_node__spec
 type aws_appmesh_virtual_node
 
 val aws_appmesh_virtual_node :
-  ?id:string ->
-  ?mesh_owner:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  mesh_name:string ->
-  name:string ->
+  ?id:string prop ->
+  ?mesh_owner:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  mesh_name:string prop ->
+  name:string prop ->
   spec:aws_appmesh_virtual_node__spec list ->
   string ->
   unit

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_network_manager_admin_rule_collection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_admin_rule_collection__timeouts *)
 
 type azurerm_network_manager_admin_rule_collection = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  network_group_ids : string list;  (** network_group_ids *)
-  security_admin_configuration_id : string;
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  network_group_ids : string prop list;  (** network_group_ids *)
+  security_admin_configuration_id : string prop;
       (** security_admin_configuration_id *)
   timeouts :
     azurerm_network_manager_admin_rule_collection__timeouts option;

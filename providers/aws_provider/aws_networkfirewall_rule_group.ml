@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_networkfirewall_rule_group__encryption_configuration = {
-  key_id : string option; [@option]  (** key_id *)
-  type_ : string; [@key "type"]  (** type *)
+  key_id : string prop option; [@option]  (** key_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__encryption_configuration *)
 
 type aws_networkfirewall_rule_group__rule_group__reference_sets__ip_set_references__ip_set_reference = {
-  reference_arn : string;  (** reference_arn *)
+  reference_arn : string prop;  (** reference_arn *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__reference_sets__ip_set_references__ip_set_reference *)
 
 type aws_networkfirewall_rule_group__rule_group__reference_sets__ip_set_references = {
-  key : string;  (** key *)
+  key : string prop;  (** key *)
   ip_set_reference :
     aws_networkfirewall_rule_group__rule_group__reference_sets__ip_set_references__ip_set_reference
     list;
@@ -35,13 +35,13 @@ type aws_networkfirewall_rule_group__rule_group__reference_sets = {
 (** aws_networkfirewall_rule_group__rule_group__reference_sets *)
 
 type aws_networkfirewall_rule_group__rule_group__rule_variables__ip_sets__ip_set = {
-  definition : string list;  (** definition *)
+  definition : string prop list;  (** definition *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rule_variables__ip_sets__ip_set *)
 
 type aws_networkfirewall_rule_group__rule_group__rule_variables__ip_sets = {
-  key : string;  (** key *)
+  key : string prop;  (** key *)
   ip_set :
     aws_networkfirewall_rule_group__rule_group__rule_variables__ip_sets__ip_set
     list;
@@ -50,13 +50,13 @@ type aws_networkfirewall_rule_group__rule_group__rule_variables__ip_sets = {
 (** aws_networkfirewall_rule_group__rule_group__rule_variables__ip_sets *)
 
 type aws_networkfirewall_rule_group__rule_group__rule_variables__port_sets__port_set = {
-  definition : string list;  (** definition *)
+  definition : string prop list;  (** definition *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rule_variables__port_sets__port_set *)
 
 type aws_networkfirewall_rule_group__rule_group__rule_variables__port_sets = {
-  key : string;  (** key *)
+  key : string prop;  (** key *)
   port_set :
     aws_networkfirewall_rule_group__rule_group__rule_variables__port_sets__port_set
     list;
@@ -76,33 +76,33 @@ type aws_networkfirewall_rule_group__rule_group__rule_variables = {
 (** aws_networkfirewall_rule_group__rule_group__rule_variables *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__rules_source_list = {
-  generated_rules_type : string;  (** generated_rules_type *)
-  target_types : string list;  (** target_types *)
-  targets : string list;  (** targets *)
+  generated_rules_type : string prop;  (** generated_rules_type *)
+  target_types : string prop list;  (** target_types *)
+  targets : string prop list;  (** targets *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rules_source__rules_source_list *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule__header = {
-  destination : string;  (** destination *)
-  destination_port : string;  (** destination_port *)
-  direction : string;  (** direction *)
-  protocol : string;  (** protocol *)
-  source : string;  (** source *)
-  source_port : string;  (** source_port *)
+  destination : string prop;  (** destination *)
+  destination_port : string prop;  (** destination_port *)
+  direction : string prop;  (** direction *)
+  protocol : string prop;  (** protocol *)
+  source : string prop;  (** source *)
+  source_port : string prop;  (** source_port *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule__header *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule__rule_option = {
-  keyword : string;  (** keyword *)
-  settings : string list option; [@option]  (** settings *)
+  keyword : string prop;  (** keyword *)
+  settings : string prop list option; [@option]  (** settings *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule__rule_option *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule = {
-  action : string;  (** action *)
+  action : string prop;  (** action *)
   header :
     aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule__header
     list;
@@ -114,7 +114,7 @@ type aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule = {
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateful_rule *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__custom_action__action_definition__publish_metric_action__dimension = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__custom_action__action_definition__publish_metric_action__dimension *)
@@ -136,7 +136,7 @@ type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_a
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__custom_action__action_definition *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__custom_action = {
-  action_name : string;  (** action_name *)
+  action_name : string prop;  (** action_name *)
   action_definition :
     aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__custom_action__action_definition
     list;
@@ -145,40 +145,40 @@ type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_a
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__custom_action *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__destination = {
-  address_definition : string;  (** address_definition *)
+  address_definition : string prop;  (** address_definition *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__destination *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__destination_port = {
-  from_port : float;  (** from_port *)
-  to_port : float option; [@option]  (** to_port *)
+  from_port : float prop;  (** from_port *)
+  to_port : float prop option; [@option]  (** to_port *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__destination_port *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__source = {
-  address_definition : string;  (** address_definition *)
+  address_definition : string prop;  (** address_definition *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__source *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__source_port = {
-  from_port : float;  (** from_port *)
-  to_port : float option; [@option]  (** to_port *)
+  from_port : float prop;  (** from_port *)
+  to_port : float prop option; [@option]  (** to_port *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__source_port *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__tcp_flag = {
-  flags : string list;  (** flags *)
-  masks : string list option; [@option]  (** masks *)
+  flags : string prop list;  (** flags *)
+  masks : string prop list option; [@option]  (** masks *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__tcp_flag *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes = {
-  protocols : float list option; [@option]  (** protocols *)
+  protocols : float prop list option; [@option]  (** protocols *)
   destination :
     aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes__destination
     list;
@@ -199,7 +199,7 @@ type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_a
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition = {
-  actions : string list;  (** actions *)
+  actions : string prop list;  (** actions *)
   match_attributes :
     aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition__match_attributes
     list;
@@ -208,7 +208,7 @@ type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_a
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule = {
-  priority : float;  (** priority *)
+  priority : float prop;  (** priority *)
   rule_definition :
     aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions__stateless_rule__rule_definition
     list;
@@ -228,7 +228,7 @@ type aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_a
 (** aws_networkfirewall_rule_group__rule_group__rules_source__stateless_rules_and_custom_actions *)
 
 type aws_networkfirewall_rule_group__rule_group__rules_source = {
-  rules_string : string option; [@option]  (** rules_string *)
+  rules_string : string prop option; [@option]  (** rules_string *)
   rules_source_list :
     aws_networkfirewall_rule_group__rule_group__rules_source__rules_source_list
     list;
@@ -243,7 +243,7 @@ type aws_networkfirewall_rule_group__rule_group__rules_source = {
 (** aws_networkfirewall_rule_group__rule_group__rules_source *)
 
 type aws_networkfirewall_rule_group__rule_group__stateful_rule_options = {
-  rule_order : string;  (** rule_order *)
+  rule_order : string prop;  (** rule_order *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_rule_group__rule_group__stateful_rule_options *)
@@ -263,15 +263,15 @@ type aws_networkfirewall_rule_group__rule_group = {
 (** aws_networkfirewall_rule_group__rule_group *)
 
 type aws_networkfirewall_rule_group = {
-  capacity : float;  (** capacity *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  rules : string option; [@option]  (** rules *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  capacity : float prop;  (** capacity *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  rules : string prop option; [@option]  (** rules *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   encryption_configuration :
     aws_networkfirewall_rule_group__encryption_configuration list;
   rule_group : aws_networkfirewall_rule_group__rule_group list;

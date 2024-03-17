@@ -5,84 +5,85 @@
 open! Tf.Prelude
 
 type digitalocean_app__spec__alert = {
-  disabled : bool option; [@option]  (** disabled *)
-  rule : string;  (** rule *)
+  disabled : bool prop option; [@option]  (** disabled *)
+  rule : string prop;  (** rule *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__alert *)
 
 type digitalocean_app__spec__database = {
-  cluster_name : string option; [@option]
+  cluster_name : string prop option; [@option]
       (** The name of the underlying DigitalOcean DBaaS cluster. This is required for production databases. For dev databases, if cluster_name is not set, a new cluster will be provisioned. *)
-  db_name : string option; [@option]
+  db_name : string prop option; [@option]
       (** The name of the MySQL or PostgreSQL database to configure. *)
-  db_user : string option; [@option]
+  db_user : string prop option; [@option]
       (** The name of the MySQL or PostgreSQL user to configure. *)
-  engine : string option; [@option]
+  engine : string prop option; [@option]
       (** The database engine to use. *)
-  name : string option; [@option]  (** The name of the component *)
-  production : bool option; [@option]
+  name : string prop option; [@option]
+      (** The name of the component *)
+  production : bool prop option; [@option]
       (** Whether this is a production or dev database. *)
-  version : string option; [@option]
+  version : string prop option; [@option]
       (** The version of the database engine. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__database *)
 
 type digitalocean_app__spec__domain = {
-  name : string;  (** The hostname for the domain. *)
-  type_ : string option; [@option] [@key "type"]
+  name : string prop;  (** The hostname for the domain. *)
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of the domain. *)
-  wildcard : bool option; [@option]
+  wildcard : bool prop option; [@option]
       (** Indicates whether the domain includes all sub-domains, in addition to the given domain. *)
-  zone : string option; [@option]
+  zone : string prop option; [@option]
       (** If the domain uses DigitalOcean DNS and you would like App Platform to automatically manage it for you, set this to the name of the domain on your account. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__domain *)
 
 type digitalocean_app__spec__env = {
-  key : string option; [@option]
+  key : string prop option; [@option]
       (** The name of the environment variable. *)
-  scope : string option; [@option]
+  scope : string prop option; [@option]
       (** The visibility scope of the environment variable. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of the environment variable. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** The value of the environment variable. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__env *)
 
 type digitalocean_app__spec__function__alert = {
-  disabled : bool option; [@option]  (** disabled *)
-  operator : string;  (** operator *)
-  rule : string;  (** rule *)
-  value : float;  (** value *)
-  window : string;  (** window *)
+  disabled : bool prop option; [@option]  (** disabled *)
+  operator : string prop;  (** operator *)
+  rule : string prop;  (** rule *)
+  value : float prop;  (** value *)
+  window : string prop;  (** window *)
 }
 [@@deriving yojson_of]
 (** Alert policies for the app component *)
 
 type digitalocean_app__spec__function__cors__allow_origins = {
-  exact : string option; [@option]  (** Exact string match. *)
-  prefix : string option; [@option]  (** Prefix-based match.  *)
-  regex : string option; [@option]
+  exact : string prop option; [@option]  (** Exact string match. *)
+  prefix : string prop option; [@option]  (** Prefix-based match.  *)
+  regex : string prop option; [@option]
       (** RE2 style regex-based match. *)
 }
 [@@deriving yojson_of]
 (** The set of allowed CORS origins. This configures the Access-Control-Allow-Origin header. *)
 
 type digitalocean_app__spec__function__cors = {
-  allow_credentials : bool option; [@option]
+  allow_credentials : bool prop option; [@option]
       (** Whether browsers should expose the response to the client-side JavaScript code when the request’s credentials mode is `include`. This configures the Access-Control-Allow-Credentials header. *)
-  allow_headers : string list option; [@option]
+  allow_headers : string prop list option; [@option]
       (** The set of allowed HTTP request headers. This configures the Access-Control-Allow-Headers header. *)
-  allow_methods : string list option; [@option]
+  allow_methods : string prop list option; [@option]
       (** The set of allowed HTTP methods. This configures the Access-Control-Allow-Methods header. *)
-  expose_headers : string list option; [@option]
+  expose_headers : string prop list option; [@option]
       (** The set of HTTP response headers that browsers are allowed to access. This configures the Access-Control-Expose-Headers header. *)
-  max_age : string option; [@option]
+  max_age : string prop option; [@option]
       (** An optional duration specifying how long browsers can cache the results of a preflight request. This configures the Access-Control-Max-Age header. Example: `5h30m`. *)
   allow_origins :
     digitalocean_app__spec__function__cors__allow_origins list;
@@ -91,71 +92,71 @@ type digitalocean_app__spec__function__cors = {
 (** digitalocean_app__spec__function__cors *)
 
 type digitalocean_app__spec__function__env = {
-  key : string option; [@option]
+  key : string prop option; [@option]
       (** The name of the environment variable. *)
-  scope : string option; [@option]
+  scope : string prop option; [@option]
       (** The visibility scope of the environment variable. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of the environment variable. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** The value of the environment variable. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__function__env *)
 
 type digitalocean_app__spec__function__git = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  repo_clone_url : string option; [@option]
+  repo_clone_url : string prop option; [@option]
       (** The clone URL of the repo. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__function__git *)
 
 type digitalocean_app__spec__function__github = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  deploy_on_push : bool option; [@option]
+  deploy_on_push : bool prop option; [@option]
       (** Whether to automatically deploy new commits made to the repo *)
-  repo : string option; [@option]
+  repo : string prop option; [@option]
       (** The name of the repo in the format `owner/repo`. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__function__github *)
 
 type digitalocean_app__spec__function__gitlab = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  deploy_on_push : bool option; [@option]
+  deploy_on_push : bool prop option; [@option]
       (** Whether to automatically deploy new commits made to the repo *)
-  repo : string option; [@option]
+  repo : string prop option; [@option]
       (** The name of the repo in the format `owner/repo`. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__function__gitlab *)
 
 type digitalocean_app__spec__function__log_destination__datadog = {
-  api_key : string;  (** Datadog API key. *)
-  endpoint : string option; [@option]
+  api_key : string prop;  (** Datadog API key. *)
+  endpoint : string prop option; [@option]
       (** Datadog HTTP log intake endpoint. *)
 }
 [@@deriving yojson_of]
 (** Datadog configuration. *)
 
 type digitalocean_app__spec__function__log_destination__logtail = {
-  token : string;  (** Logtail token. *)
+  token : string prop;  (** Logtail token. *)
 }
 [@@deriving yojson_of]
 (** Logtail configuration. *)
 
 type digitalocean_app__spec__function__log_destination__papertrail = {
-  endpoint : string;  (** Papertrail syslog endpoint. *)
+  endpoint : string prop;  (** Papertrail syslog endpoint. *)
 }
 [@@deriving yojson_of]
 (** Papertrail configuration. *)
 
 type digitalocean_app__spec__function__log_destination = {
-  name : string;  (** Name of the log destination *)
+  name : string prop;  (** Name of the log destination *)
   datadog :
     digitalocean_app__spec__function__log_destination__datadog list;
   logtail :
@@ -168,17 +169,17 @@ type digitalocean_app__spec__function__log_destination = {
 (** Logs *)
 
 type digitalocean_app__spec__function__routes = {
-  path : string option; [@option]
+  path : string prop option; [@option]
       (** Path specifies an route by HTTP path prefix. Paths must start with / and must be unique within the app. *)
-  preserve_path_prefix : bool option; [@option]
+  preserve_path_prefix : bool prop option; [@option]
       (**  An optional flag to preserve the path that is forwarded to the backend service. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__function__routes *)
 
 type digitalocean_app__spec__function = {
-  name : string;  (** The name of the component *)
-  source_dir : string option; [@option]
+  name : string prop;  (** The name of the component *)
+  source_dir : string prop option; [@option]
       (** An optional path to the working directory to use for the build. *)
   alert : digitalocean_app__spec__function__alert list;
   cors : digitalocean_app__spec__function__cors list;
@@ -194,33 +195,33 @@ type digitalocean_app__spec__function = {
 (** digitalocean_app__spec__function *)
 
 type digitalocean_app__spec__ingress__rule__component = {
-  name : string option; [@option]  (** name *)
-  preserve_path_prefix : bool option; [@option]
+  name : string prop option; [@option]  (** name *)
+  preserve_path_prefix : bool prop option; [@option]
       (** preserve_path_prefix *)
-  rewrite : string option; [@option]  (** rewrite *)
+  rewrite : string prop option; [@option]  (** rewrite *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__ingress__rule__component *)
 
 type digitalocean_app__spec__ingress__rule__cors__allow_origins = {
-  exact : string option; [@option]  (** Exact string match. *)
-  prefix : string option; [@option]  (** Prefix-based match.  *)
-  regex : string option; [@option]
+  exact : string prop option; [@option]  (** Exact string match. *)
+  prefix : string prop option; [@option]  (** Prefix-based match.  *)
+  regex : string prop option; [@option]
       (** RE2 style regex-based match. *)
 }
 [@@deriving yojson_of]
 (** The set of allowed CORS origins. This configures the Access-Control-Allow-Origin header. *)
 
 type digitalocean_app__spec__ingress__rule__cors = {
-  allow_credentials : bool option; [@option]
+  allow_credentials : bool prop option; [@option]
       (** Whether browsers should expose the response to the client-side JavaScript code when the request’s credentials mode is `include`. This configures the Access-Control-Allow-Credentials header. *)
-  allow_headers : string list option; [@option]
+  allow_headers : string prop list option; [@option]
       (** The set of allowed HTTP request headers. This configures the Access-Control-Allow-Headers header. *)
-  allow_methods : string list option; [@option]
+  allow_methods : string prop list option; [@option]
       (** The set of allowed HTTP methods. This configures the Access-Control-Allow-Methods header. *)
-  expose_headers : string list option; [@option]
+  expose_headers : string prop list option; [@option]
       (** The set of HTTP response headers that browsers are allowed to access. This configures the Access-Control-Expose-Headers header. *)
-  max_age : string option; [@option]
+  max_age : string prop option; [@option]
       (** An optional duration specifying how long browsers can cache the results of a preflight request. This configures the Access-Control-Max-Age header. Example: `5h30m`. *)
   allow_origins :
     digitalocean_app__spec__ingress__rule__cors__allow_origins list;
@@ -229,7 +230,7 @@ type digitalocean_app__spec__ingress__rule__cors = {
 (** digitalocean_app__spec__ingress__rule__cors *)
 
 type digitalocean_app__spec__ingress__rule__match__path = {
-  prefix : string option; [@option]  (** prefix *)
+  prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__ingress__rule__match__path *)
@@ -241,11 +242,11 @@ type digitalocean_app__spec__ingress__rule__match = {
 (** digitalocean_app__spec__ingress__rule__match *)
 
 type digitalocean_app__spec__ingress__rule__redirect = {
-  authority : string option; [@option]  (** authority *)
-  port : float option; [@option]  (** port *)
-  redirect_code : float option; [@option]  (** redirect_code *)
-  scheme : string option; [@option]  (** scheme *)
-  uri : string option; [@option]  (** uri *)
+  authority : string prop option; [@option]  (** authority *)
+  port : float prop option; [@option]  (** port *)
+  redirect_code : float prop option; [@option]  (** redirect_code *)
+  scheme : string prop option; [@option]  (** scheme *)
+  uri : string prop option; [@option]  (** uri *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__ingress__rule__redirect *)
@@ -266,72 +267,72 @@ type digitalocean_app__spec__ingress = {
 (** digitalocean_app__spec__ingress *)
 
 type digitalocean_app__spec__job__alert = {
-  disabled : bool option; [@option]  (** disabled *)
-  operator : string;  (** operator *)
-  rule : string;  (** rule *)
-  value : float;  (** value *)
-  window : string;  (** window *)
+  disabled : bool prop option; [@option]  (** disabled *)
+  operator : string prop;  (** operator *)
+  rule : string prop;  (** rule *)
+  value : float prop;  (** value *)
+  window : string prop;  (** window *)
 }
 [@@deriving yojson_of]
 (** Alert policies for the app component *)
 
 type digitalocean_app__spec__job__env = {
-  key : string option; [@option]
+  key : string prop option; [@option]
       (** The name of the environment variable. *)
-  scope : string option; [@option]
+  scope : string prop option; [@option]
       (** The visibility scope of the environment variable. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of the environment variable. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** The value of the environment variable. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__job__env *)
 
 type digitalocean_app__spec__job__git = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  repo_clone_url : string option; [@option]
+  repo_clone_url : string prop option; [@option]
       (** The clone URL of the repo. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__job__git *)
 
 type digitalocean_app__spec__job__github = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  deploy_on_push : bool option; [@option]
+  deploy_on_push : bool prop option; [@option]
       (** Whether to automatically deploy new commits made to the repo *)
-  repo : string option; [@option]
+  repo : string prop option; [@option]
       (** The name of the repo in the format `owner/repo`. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__job__github *)
 
 type digitalocean_app__spec__job__gitlab = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  deploy_on_push : bool option; [@option]
+  deploy_on_push : bool prop option; [@option]
       (** Whether to automatically deploy new commits made to the repo *)
-  repo : string option; [@option]
+  repo : string prop option; [@option]
       (** The name of the repo in the format `owner/repo`. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__job__gitlab *)
 
 type digitalocean_app__spec__job__image__deploy_on_push = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether to automatically deploy images pushed to DOCR. *)
 }
 [@@deriving yojson_of]
 (** Configures automatically deploying images pushed to DOCR. *)
 
 type digitalocean_app__spec__job__image = {
-  registry : string option; [@option]
+  registry : string prop option; [@option]
       (** The registry name. Must be left empty for the DOCR registry type. *)
-  registry_type : string;  (** The registry type. *)
-  repository : string;  (** The repository name. *)
-  tag : string option; [@option]
+  registry_type : string prop;  (** The registry type. *)
+  repository : string prop;  (** The repository name. *)
+  tag : string prop option; [@option]
       (** The repository tag. Defaults to latest if not provided. *)
   deploy_on_push :
     digitalocean_app__spec__job__image__deploy_on_push list;
@@ -340,27 +341,27 @@ type digitalocean_app__spec__job__image = {
 (** digitalocean_app__spec__job__image *)
 
 type digitalocean_app__spec__job__log_destination__datadog = {
-  api_key : string;  (** Datadog API key. *)
-  endpoint : string option; [@option]
+  api_key : string prop;  (** Datadog API key. *)
+  endpoint : string prop option; [@option]
       (** Datadog HTTP log intake endpoint. *)
 }
 [@@deriving yojson_of]
 (** Datadog configuration. *)
 
 type digitalocean_app__spec__job__log_destination__logtail = {
-  token : string;  (** Logtail token. *)
+  token : string prop;  (** Logtail token. *)
 }
 [@@deriving yojson_of]
 (** Logtail configuration. *)
 
 type digitalocean_app__spec__job__log_destination__papertrail = {
-  endpoint : string;  (** Papertrail syslog endpoint. *)
+  endpoint : string prop;  (** Papertrail syslog endpoint. *)
 }
 [@@deriving yojson_of]
 (** Papertrail configuration. *)
 
 type digitalocean_app__spec__job__log_destination = {
-  name : string;  (** Name of the log destination *)
+  name : string prop;  (** Name of the log destination *)
   datadog :
     digitalocean_app__spec__job__log_destination__datadog list;
   logtail :
@@ -372,22 +373,22 @@ type digitalocean_app__spec__job__log_destination = {
 (** Logs *)
 
 type digitalocean_app__spec__job = {
-  build_command : string option; [@option]
+  build_command : string prop option; [@option]
       (** An optional build command to run while building this component from source. *)
-  dockerfile_path : string option; [@option]
+  dockerfile_path : string prop option; [@option]
       (** The path to a Dockerfile relative to the root of the repo. If set, overrides usage of buildpacks. *)
-  environment_slug : string option; [@option]
+  environment_slug : string prop option; [@option]
       (** An environment slug describing the type of this app. *)
-  instance_count : float option; [@option]
+  instance_count : float prop option; [@option]
       (** The amount of instances that this component should be scaled to. *)
-  instance_size_slug : string option; [@option]
+  instance_size_slug : string prop option; [@option]
       (** The instance size to use for this component. *)
-  kind : string option; [@option]
+  kind : string prop option; [@option]
       (** The type of job and when it will be run during the deployment process. *)
-  name : string;  (** The name of the component *)
-  run_command : string option; [@option]
+  name : string prop;  (** The name of the component *)
+  run_command : string prop option; [@option]
       (** An optional run command to override the component's default. *)
-  source_dir : string option; [@option]
+  source_dir : string prop option; [@option]
       (** An optional path to the working directory to use for the build. *)
   alert : digitalocean_app__spec__job__alert list;
   env : digitalocean_app__spec__job__env list;
@@ -401,34 +402,34 @@ type digitalocean_app__spec__job = {
 (** digitalocean_app__spec__job *)
 
 type digitalocean_app__spec__service__alert = {
-  disabled : bool option; [@option]  (** disabled *)
-  operator : string;  (** operator *)
-  rule : string;  (** rule *)
-  value : float;  (** value *)
-  window : string;  (** window *)
+  disabled : bool prop option; [@option]  (** disabled *)
+  operator : string prop;  (** operator *)
+  rule : string prop;  (** rule *)
+  value : float prop;  (** value *)
+  window : string prop;  (** window *)
 }
 [@@deriving yojson_of]
 (** Alert policies for the app component *)
 
 type digitalocean_app__spec__service__cors__allow_origins = {
-  exact : string option; [@option]  (** Exact string match. *)
-  prefix : string option; [@option]  (** Prefix-based match.  *)
-  regex : string option; [@option]
+  exact : string prop option; [@option]  (** Exact string match. *)
+  prefix : string prop option; [@option]  (** Prefix-based match.  *)
+  regex : string prop option; [@option]
       (** RE2 style regex-based match. *)
 }
 [@@deriving yojson_of]
 (** The set of allowed CORS origins. This configures the Access-Control-Allow-Origin header. *)
 
 type digitalocean_app__spec__service__cors = {
-  allow_credentials : bool option; [@option]
+  allow_credentials : bool prop option; [@option]
       (** Whether browsers should expose the response to the client-side JavaScript code when the request’s credentials mode is `include`. This configures the Access-Control-Allow-Credentials header. *)
-  allow_headers : string list option; [@option]
+  allow_headers : string prop list option; [@option]
       (** The set of allowed HTTP request headers. This configures the Access-Control-Allow-Headers header. *)
-  allow_methods : string list option; [@option]
+  allow_methods : string prop list option; [@option]
       (** The set of allowed HTTP methods. This configures the Access-Control-Allow-Methods header. *)
-  expose_headers : string list option; [@option]
+  expose_headers : string prop list option; [@option]
       (** The set of HTTP response headers that browsers are allowed to access. This configures the Access-Control-Expose-Headers header. *)
-  max_age : string option; [@option]
+  max_age : string prop option; [@option]
       (** An optional duration specifying how long browsers can cache the results of a preflight request. This configures the Access-Control-Max-Age header. Example: `5h30m`. *)
   allow_origins :
     digitalocean_app__spec__service__cors__allow_origins list;
@@ -437,81 +438,81 @@ type digitalocean_app__spec__service__cors = {
 (** digitalocean_app__spec__service__cors *)
 
 type digitalocean_app__spec__service__env = {
-  key : string option; [@option]
+  key : string prop option; [@option]
       (** The name of the environment variable. *)
-  scope : string option; [@option]
+  scope : string prop option; [@option]
       (** The visibility scope of the environment variable. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of the environment variable. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** The value of the environment variable. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__service__env *)
 
 type digitalocean_app__spec__service__git = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  repo_clone_url : string option; [@option]
+  repo_clone_url : string prop option; [@option]
       (** The clone URL of the repo. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__service__git *)
 
 type digitalocean_app__spec__service__github = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  deploy_on_push : bool option; [@option]
+  deploy_on_push : bool prop option; [@option]
       (** Whether to automatically deploy new commits made to the repo *)
-  repo : string option; [@option]
+  repo : string prop option; [@option]
       (** The name of the repo in the format `owner/repo`. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__service__github *)
 
 type digitalocean_app__spec__service__gitlab = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  deploy_on_push : bool option; [@option]
+  deploy_on_push : bool prop option; [@option]
       (** Whether to automatically deploy new commits made to the repo *)
-  repo : string option; [@option]
+  repo : string prop option; [@option]
       (** The name of the repo in the format `owner/repo`. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__service__gitlab *)
 
 type digitalocean_app__spec__service__health_check = {
-  failure_threshold : float option; [@option]
+  failure_threshold : float prop option; [@option]
       (** The number of failed health checks before considered unhealthy. *)
-  http_path : string option; [@option]
+  http_path : string prop option; [@option]
       (** The route path used for the HTTP health check ping. *)
-  initial_delay_seconds : float option; [@option]
+  initial_delay_seconds : float prop option; [@option]
       (** The number of seconds to wait before beginning health checks. *)
-  period_seconds : float option; [@option]
+  period_seconds : float prop option; [@option]
       (** The number of seconds to wait between health checks. *)
-  port : float option; [@option]
+  port : float prop option; [@option]
       (** The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port. *)
-  success_threshold : float option; [@option]
+  success_threshold : float prop option; [@option]
       (** The number of successful health checks before considered healthy. *)
-  timeout_seconds : float option; [@option]
+  timeout_seconds : float prop option; [@option]
       (** The number of seconds after which the check times out. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__service__health_check *)
 
 type digitalocean_app__spec__service__image__deploy_on_push = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether to automatically deploy images pushed to DOCR. *)
 }
 [@@deriving yojson_of]
 (** Configures automatically deploying images pushed to DOCR. *)
 
 type digitalocean_app__spec__service__image = {
-  registry : string option; [@option]
+  registry : string prop option; [@option]
       (** The registry name. Must be left empty for the DOCR registry type. *)
-  registry_type : string;  (** The registry type. *)
-  repository : string;  (** The repository name. *)
-  tag : string option; [@option]
+  registry_type : string prop;  (** The registry type. *)
+  repository : string prop;  (** The repository name. *)
+  tag : string prop option; [@option]
       (** The repository tag. Defaults to latest if not provided. *)
   deploy_on_push :
     digitalocean_app__spec__service__image__deploy_on_push list;
@@ -520,27 +521,27 @@ type digitalocean_app__spec__service__image = {
 (** digitalocean_app__spec__service__image *)
 
 type digitalocean_app__spec__service__log_destination__datadog = {
-  api_key : string;  (** Datadog API key. *)
-  endpoint : string option; [@option]
+  api_key : string prop;  (** Datadog API key. *)
+  endpoint : string prop option; [@option]
       (** Datadog HTTP log intake endpoint. *)
 }
 [@@deriving yojson_of]
 (** Datadog configuration. *)
 
 type digitalocean_app__spec__service__log_destination__logtail = {
-  token : string;  (** Logtail token. *)
+  token : string prop;  (** Logtail token. *)
 }
 [@@deriving yojson_of]
 (** Logtail configuration. *)
 
 type digitalocean_app__spec__service__log_destination__papertrail = {
-  endpoint : string;  (** Papertrail syslog endpoint. *)
+  endpoint : string prop;  (** Papertrail syslog endpoint. *)
 }
 [@@deriving yojson_of]
 (** Papertrail configuration. *)
 
 type digitalocean_app__spec__service__log_destination = {
-  name : string;  (** Name of the log destination *)
+  name : string prop;  (** Name of the log destination *)
   datadog :
     digitalocean_app__spec__service__log_destination__datadog list;
   logtail :
@@ -552,33 +553,33 @@ type digitalocean_app__spec__service__log_destination = {
 (** Logs *)
 
 type digitalocean_app__spec__service__routes = {
-  path : string option; [@option]
+  path : string prop option; [@option]
       (** Path specifies an route by HTTP path prefix. Paths must start with / and must be unique within the app. *)
-  preserve_path_prefix : bool option; [@option]
+  preserve_path_prefix : bool prop option; [@option]
       (**  An optional flag to preserve the path that is forwarded to the backend service. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__service__routes *)
 
 type digitalocean_app__spec__service = {
-  build_command : string option; [@option]
+  build_command : string prop option; [@option]
       (** An optional build command to run while building this component from source. *)
-  dockerfile_path : string option; [@option]
+  dockerfile_path : string prop option; [@option]
       (** The path to a Dockerfile relative to the root of the repo. If set, overrides usage of buildpacks. *)
-  environment_slug : string option; [@option]
+  environment_slug : string prop option; [@option]
       (** An environment slug describing the type of this app. *)
-  http_port : float option; [@option]
+  http_port : float prop option; [@option]
       (** The internal port on which this service's run command will listen. *)
-  instance_count : float option; [@option]
+  instance_count : float prop option; [@option]
       (** The amount of instances that this component should be scaled to. *)
-  instance_size_slug : string option; [@option]
+  instance_size_slug : string prop option; [@option]
       (** The instance size to use for this component. *)
-  internal_ports : float list option; [@option]
+  internal_ports : float prop list option; [@option]
       (** internal_ports *)
-  name : string;  (** The name of the component *)
-  run_command : string option; [@option]
+  name : string prop;  (** The name of the component *)
+  run_command : string prop option; [@option]
       (** An optional run command to override the component's default. *)
-  source_dir : string option; [@option]
+  source_dir : string prop option; [@option]
       (** An optional path to the working directory to use for the build. *)
   alert : digitalocean_app__spec__service__alert list;
   cors : digitalocean_app__spec__service__cors list;
@@ -596,24 +597,24 @@ type digitalocean_app__spec__service = {
 (** digitalocean_app__spec__service *)
 
 type digitalocean_app__spec__static_site__cors__allow_origins = {
-  exact : string option; [@option]  (** Exact string match. *)
-  prefix : string option; [@option]  (** Prefix-based match.  *)
-  regex : string option; [@option]
+  exact : string prop option; [@option]  (** Exact string match. *)
+  prefix : string prop option; [@option]  (** Prefix-based match.  *)
+  regex : string prop option; [@option]
       (** RE2 style regex-based match. *)
 }
 [@@deriving yojson_of]
 (** The set of allowed CORS origins. This configures the Access-Control-Allow-Origin header. *)
 
 type digitalocean_app__spec__static_site__cors = {
-  allow_credentials : bool option; [@option]
+  allow_credentials : bool prop option; [@option]
       (** Whether browsers should expose the response to the client-side JavaScript code when the request’s credentials mode is `include`. This configures the Access-Control-Allow-Credentials header. *)
-  allow_headers : string list option; [@option]
+  allow_headers : string prop list option; [@option]
       (** The set of allowed HTTP request headers. This configures the Access-Control-Allow-Headers header. *)
-  allow_methods : string list option; [@option]
+  allow_methods : string prop list option; [@option]
       (** The set of allowed HTTP methods. This configures the Access-Control-Allow-Methods header. *)
-  expose_headers : string list option; [@option]
+  expose_headers : string prop list option; [@option]
       (** The set of HTTP response headers that browsers are allowed to access. This configures the Access-Control-Expose-Headers header. *)
-  max_age : string option; [@option]
+  max_age : string prop option; [@option]
       (** An optional duration specifying how long browsers can cache the results of a preflight request. This configures the Access-Control-Max-Age header. Example: `5h30m`. *)
   allow_origins :
     digitalocean_app__spec__static_site__cors__allow_origins list;
@@ -622,75 +623,75 @@ type digitalocean_app__spec__static_site__cors = {
 (** digitalocean_app__spec__static_site__cors *)
 
 type digitalocean_app__spec__static_site__env = {
-  key : string option; [@option]
+  key : string prop option; [@option]
       (** The name of the environment variable. *)
-  scope : string option; [@option]
+  scope : string prop option; [@option]
       (** The visibility scope of the environment variable. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of the environment variable. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** The value of the environment variable. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__static_site__env *)
 
 type digitalocean_app__spec__static_site__git = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  repo_clone_url : string option; [@option]
+  repo_clone_url : string prop option; [@option]
       (** The clone URL of the repo. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__static_site__git *)
 
 type digitalocean_app__spec__static_site__github = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  deploy_on_push : bool option; [@option]
+  deploy_on_push : bool prop option; [@option]
       (** Whether to automatically deploy new commits made to the repo *)
-  repo : string option; [@option]
+  repo : string prop option; [@option]
       (** The name of the repo in the format `owner/repo`. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__static_site__github *)
 
 type digitalocean_app__spec__static_site__gitlab = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  deploy_on_push : bool option; [@option]
+  deploy_on_push : bool prop option; [@option]
       (** Whether to automatically deploy new commits made to the repo *)
-  repo : string option; [@option]
+  repo : string prop option; [@option]
       (** The name of the repo in the format `owner/repo`. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__static_site__gitlab *)
 
 type digitalocean_app__spec__static_site__routes = {
-  path : string option; [@option]
+  path : string prop option; [@option]
       (** Path specifies an route by HTTP path prefix. Paths must start with / and must be unique within the app. *)
-  preserve_path_prefix : bool option; [@option]
+  preserve_path_prefix : bool prop option; [@option]
       (**  An optional flag to preserve the path that is forwarded to the backend service. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__static_site__routes *)
 
 type digitalocean_app__spec__static_site = {
-  build_command : string option; [@option]
+  build_command : string prop option; [@option]
       (** An optional build command to run while building this component from source. *)
-  catchall_document : string option; [@option]
+  catchall_document : string prop option; [@option]
       (** The name of the document to use as the fallback for any requests to documents that are not found when serving this static site. *)
-  dockerfile_path : string option; [@option]
+  dockerfile_path : string prop option; [@option]
       (** The path to a Dockerfile relative to the root of the repo. If set, overrides usage of buildpacks. *)
-  environment_slug : string option; [@option]
+  environment_slug : string prop option; [@option]
       (** An environment slug describing the type of this app. *)
-  error_document : string option; [@option]
+  error_document : string prop option; [@option]
       (** The name of the error document to use when serving this static site. *)
-  index_document : string option; [@option]
+  index_document : string prop option; [@option]
       (** The name of the index document to use when serving this static site. *)
-  name : string;  (** The name of the component *)
-  output_dir : string option; [@option]
+  name : string prop;  (** The name of the component *)
+  output_dir : string prop option; [@option]
       (** An optional path to where the built assets will be located, relative to the build context. If not set, App Platform will automatically scan for these directory names: `_static`, `dist`, `public`. *)
-  source_dir : string option; [@option]
+  source_dir : string prop option; [@option]
       (** An optional path to the working directory to use for the build. *)
   cors : digitalocean_app__spec__static_site__cors list;
   env : digitalocean_app__spec__static_site__env list;
@@ -703,72 +704,72 @@ type digitalocean_app__spec__static_site = {
 (** digitalocean_app__spec__static_site *)
 
 type digitalocean_app__spec__worker__alert = {
-  disabled : bool option; [@option]  (** disabled *)
-  operator : string;  (** operator *)
-  rule : string;  (** rule *)
-  value : float;  (** value *)
-  window : string;  (** window *)
+  disabled : bool prop option; [@option]  (** disabled *)
+  operator : string prop;  (** operator *)
+  rule : string prop;  (** rule *)
+  value : float prop;  (** value *)
+  window : string prop;  (** window *)
 }
 [@@deriving yojson_of]
 (** Alert policies for the app component *)
 
 type digitalocean_app__spec__worker__env = {
-  key : string option; [@option]
+  key : string prop option; [@option]
       (** The name of the environment variable. *)
-  scope : string option; [@option]
+  scope : string prop option; [@option]
       (** The visibility scope of the environment variable. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of the environment variable. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** The value of the environment variable. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__worker__env *)
 
 type digitalocean_app__spec__worker__git = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  repo_clone_url : string option; [@option]
+  repo_clone_url : string prop option; [@option]
       (** The clone URL of the repo. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__worker__git *)
 
 type digitalocean_app__spec__worker__github = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  deploy_on_push : bool option; [@option]
+  deploy_on_push : bool prop option; [@option]
       (** Whether to automatically deploy new commits made to the repo *)
-  repo : string option; [@option]
+  repo : string prop option; [@option]
       (** The name of the repo in the format `owner/repo`. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__worker__github *)
 
 type digitalocean_app__spec__worker__gitlab = {
-  branch : string option; [@option]
+  branch : string prop option; [@option]
       (** The name of the branch to use. *)
-  deploy_on_push : bool option; [@option]
+  deploy_on_push : bool prop option; [@option]
       (** Whether to automatically deploy new commits made to the repo *)
-  repo : string option; [@option]
+  repo : string prop option; [@option]
       (** The name of the repo in the format `owner/repo`. *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__spec__worker__gitlab *)
 
 type digitalocean_app__spec__worker__image__deploy_on_push = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether to automatically deploy images pushed to DOCR. *)
 }
 [@@deriving yojson_of]
 (** Configures automatically deploying images pushed to DOCR. *)
 
 type digitalocean_app__spec__worker__image = {
-  registry : string option; [@option]
+  registry : string prop option; [@option]
       (** The registry name. Must be left empty for the DOCR registry type. *)
-  registry_type : string;  (** The registry type. *)
-  repository : string;  (** The repository name. *)
-  tag : string option; [@option]
+  registry_type : string prop;  (** The registry type. *)
+  repository : string prop;  (** The repository name. *)
+  tag : string prop option; [@option]
       (** The repository tag. Defaults to latest if not provided. *)
   deploy_on_push :
     digitalocean_app__spec__worker__image__deploy_on_push list;
@@ -777,27 +778,27 @@ type digitalocean_app__spec__worker__image = {
 (** digitalocean_app__spec__worker__image *)
 
 type digitalocean_app__spec__worker__log_destination__datadog = {
-  api_key : string;  (** Datadog API key. *)
-  endpoint : string option; [@option]
+  api_key : string prop;  (** Datadog API key. *)
+  endpoint : string prop option; [@option]
       (** Datadog HTTP log intake endpoint. *)
 }
 [@@deriving yojson_of]
 (** Datadog configuration. *)
 
 type digitalocean_app__spec__worker__log_destination__logtail = {
-  token : string;  (** Logtail token. *)
+  token : string prop;  (** Logtail token. *)
 }
 [@@deriving yojson_of]
 (** Logtail configuration. *)
 
 type digitalocean_app__spec__worker__log_destination__papertrail = {
-  endpoint : string;  (** Papertrail syslog endpoint. *)
+  endpoint : string prop;  (** Papertrail syslog endpoint. *)
 }
 [@@deriving yojson_of]
 (** Papertrail configuration. *)
 
 type digitalocean_app__spec__worker__log_destination = {
-  name : string;  (** Name of the log destination *)
+  name : string prop;  (** Name of the log destination *)
   datadog :
     digitalocean_app__spec__worker__log_destination__datadog list;
   logtail :
@@ -809,20 +810,20 @@ type digitalocean_app__spec__worker__log_destination = {
 (** Logs *)
 
 type digitalocean_app__spec__worker = {
-  build_command : string option; [@option]
+  build_command : string prop option; [@option]
       (** An optional build command to run while building this component from source. *)
-  dockerfile_path : string option; [@option]
+  dockerfile_path : string prop option; [@option]
       (** The path to a Dockerfile relative to the root of the repo. If set, overrides usage of buildpacks. *)
-  environment_slug : string option; [@option]
+  environment_slug : string prop option; [@option]
       (** An environment slug describing the type of this app. *)
-  instance_count : float option; [@option]
+  instance_count : float prop option; [@option]
       (** The amount of instances that this component should be scaled to. *)
-  instance_size_slug : string option; [@option]
+  instance_size_slug : string prop option; [@option]
       (** The instance size to use for this component. *)
-  name : string;  (** The name of the component *)
-  run_command : string option; [@option]
+  name : string prop;  (** The name of the component *)
+  run_command : string prop option; [@option]
       (** An optional run command to override the component's default. *)
-  source_dir : string option; [@option]
+  source_dir : string prop option; [@option]
       (** An optional path to the working directory to use for the build. *)
   alert : digitalocean_app__spec__worker__alert list;
   env : digitalocean_app__spec__worker__env list;
@@ -837,12 +838,12 @@ type digitalocean_app__spec__worker = {
 (** digitalocean_app__spec__worker *)
 
 type digitalocean_app__spec = {
-  domains : string list option; [@option]  (** domains *)
-  features : string list option; [@option]
+  domains : string prop list option; [@option]  (** domains *)
+  features : string prop list option; [@option]
       (** List of features which is applied to the app *)
-  name : string;
+  name : string prop;
       (** The name of the app. Must be unique across all apps in the same account. *)
-  region : string option; [@option]
+  region : string prop option; [@option]
       (** The slug for the DigitalOcean data center region hosting the app *)
   alert : digitalocean_app__spec__alert list;
   database : digitalocean_app__spec__database list;
@@ -859,14 +860,14 @@ type digitalocean_app__spec = {
 (** A DigitalOcean App Platform Spec *)
 
 type digitalocean_app__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** digitalocean_app__timeouts *)
 
 type digitalocean_app = {
-  id : string option; [@option]  (** id *)
-  project_id : string option; [@option]  (** project_id *)
+  id : string prop option; [@option]  (** id *)
+  project_id : string prop option; [@option]  (** project_id *)
   spec : digitalocean_app__spec list;
   timeouts : digitalocean_app__timeouts option;
 }

@@ -15,16 +15,16 @@ type aws_lb_listener__timeouts
 type aws_lb_listener
 
 val aws_lb_listener :
-  ?alpn_policy:string ->
-  ?certificate_arn:string ->
-  ?id:string ->
-  ?port:float ->
-  ?protocol:string ->
-  ?ssl_policy:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?alpn_policy:string prop ->
+  ?certificate_arn:string prop ->
+  ?id:string prop ->
+  ?port:float prop ->
+  ?protocol:string prop ->
+  ?ssl_policy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_lb_listener__timeouts ->
-  load_balancer_arn:string ->
+  load_balancer_arn:string prop ->
   default_action:aws_lb_listener__default_action list ->
   mutual_authentication:aws_lb_listener__mutual_authentication list ->
   string ->

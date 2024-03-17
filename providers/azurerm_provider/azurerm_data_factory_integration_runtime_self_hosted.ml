@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_integration_runtime_self_hosted__rbac_authorization = {
-  resource_id : string;  (** resource_id *)
+  resource_id : string prop;  (** resource_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_self_hosted__rbac_authorization *)
 
 type azurerm_data_factory_integration_runtime_self_hosted__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_self_hosted__timeouts *)
 
 type azurerm_data_factory_integration_runtime_self_hosted = {
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   rbac_authorization :
     azurerm_data_factory_integration_runtime_self_hosted__rbac_authorization
     list;

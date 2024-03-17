@@ -5,37 +5,38 @@
 open! Tf.Prelude
 
 type aws_memorydb_snapshot__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_memorydb_snapshot__timeouts *)
 
 type aws_memorydb_snapshot__cluster_configuration = {
-  description : string;  (** description *)
-  engine_version : string;  (** engine_version *)
-  maintenance_window : string;  (** maintenance_window *)
-  name : string;  (** name *)
-  node_type : string;  (** node_type *)
-  num_shards : float;  (** num_shards *)
-  parameter_group_name : string;  (** parameter_group_name *)
-  port : float;  (** port *)
-  snapshot_retention_limit : float;  (** snapshot_retention_limit *)
-  snapshot_window : string;  (** snapshot_window *)
-  subnet_group_name : string;  (** subnet_group_name *)
-  topic_arn : string;  (** topic_arn *)
-  vpc_id : string;  (** vpc_id *)
+  description : string prop;  (** description *)
+  engine_version : string prop;  (** engine_version *)
+  maintenance_window : string prop;  (** maintenance_window *)
+  name : string prop;  (** name *)
+  node_type : string prop;  (** node_type *)
+  num_shards : float prop;  (** num_shards *)
+  parameter_group_name : string prop;  (** parameter_group_name *)
+  port : float prop;  (** port *)
+  snapshot_retention_limit : float prop;
+      (** snapshot_retention_limit *)
+  snapshot_window : string prop;  (** snapshot_window *)
+  subnet_group_name : string prop;  (** subnet_group_name *)
+  topic_arn : string prop;  (** topic_arn *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 
 type aws_memorydb_snapshot = {
-  cluster_name : string;  (** cluster_name *)
-  id : string option; [@option]  (** id *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_memorydb_snapshot__timeouts option;
 }

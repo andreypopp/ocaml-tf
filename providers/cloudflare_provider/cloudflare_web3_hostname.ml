@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type cloudflare_web3_hostname = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of the hostname. *)
-  dnslink : string option; [@option]
+  dnslink : string prop option; [@option]
       (** DNSLink value used if the target is ipfs. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The hostname that will point to the target gateway via CNAME. *)
-  target : string;  (** Target gateway of the hostname. *)
-  zone_id : string;
+  target : string prop;  (** Target gateway of the hostname. *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
 }
 [@@deriving yojson_of]

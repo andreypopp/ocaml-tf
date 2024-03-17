@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_sesv2_email_identity_feedback_attributes = {
-  email_forwarding_enabled : bool option; [@option]
+  email_forwarding_enabled : bool prop option; [@option]
       (** email_forwarding_enabled *)
-  email_identity : string;  (** email_identity *)
-  id : string option; [@option]  (** id *)
+  email_identity : string prop;  (** email_identity *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_email_identity_feedback_attributes *)

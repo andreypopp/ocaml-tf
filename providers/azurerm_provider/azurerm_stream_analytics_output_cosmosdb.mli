@@ -6,14 +6,14 @@ type azurerm_stream_analytics_output_cosmosdb__timeouts
 type azurerm_stream_analytics_output_cosmosdb
 
 val azurerm_stream_analytics_output_cosmosdb :
-  ?document_id:string ->
-  ?id:string ->
-  ?partition_key:string ->
+  ?document_id:string prop ->
+  ?id:string prop ->
+  ?partition_key:string prop ->
   ?timeouts:azurerm_stream_analytics_output_cosmosdb__timeouts ->
-  container_name:string ->
-  cosmosdb_account_key:string ->
-  cosmosdb_sql_database_id:string ->
-  name:string ->
-  stream_analytics_job_id:string ->
+  container_name:string prop ->
+  cosmosdb_account_key:string prop ->
+  cosmosdb_sql_database_id:string prop ->
+  name:string prop ->
+  stream_analytics_job_id:string prop ->
   string ->
   unit

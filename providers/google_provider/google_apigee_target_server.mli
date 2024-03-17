@@ -8,15 +8,15 @@ type google_apigee_target_server__timeouts
 type google_apigee_target_server
 
 val google_apigee_target_server :
-  ?description:string ->
-  ?id:string ->
-  ?is_enabled:bool ->
-  ?protocol:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?is_enabled:bool prop ->
+  ?protocol:string prop ->
   ?timeouts:google_apigee_target_server__timeouts ->
-  env_id:string ->
-  host:string ->
-  name:string ->
-  port:float ->
+  env_id:string prop ->
+  host:string prop ->
+  name:string prop ->
+  port:float prop ->
   s_sl_info:google_apigee_target_server__s_sl_info list ->
   string ->
   unit

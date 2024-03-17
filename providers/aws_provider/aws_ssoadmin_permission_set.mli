@@ -6,14 +6,14 @@ type aws_ssoadmin_permission_set__timeouts
 type aws_ssoadmin_permission_set
 
 val aws_ssoadmin_permission_set :
-  ?description:string ->
-  ?id:string ->
-  ?relay_state:string ->
-  ?session_duration:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?relay_state:string prop ->
+  ?session_duration:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_ssoadmin_permission_set__timeouts ->
-  instance_arn:string ->
-  name:string ->
+  instance_arn:string prop ->
+  name:string prop ->
   string ->
   unit

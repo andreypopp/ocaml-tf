@@ -12,13 +12,13 @@ type google_compute_packet_mirroring__timeouts
 type google_compute_packet_mirroring
 
 val google_compute_packet_mirroring :
-  ?description:string ->
-  ?id:string ->
-  ?priority:float ->
-  ?project:string ->
-  ?region:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_compute_packet_mirroring__timeouts ->
-  name:string ->
+  name:string prop ->
   collector_ilb:google_compute_packet_mirroring__collector_ilb list ->
   filter:google_compute_packet_mirroring__filter list ->
   mirrored_resources:

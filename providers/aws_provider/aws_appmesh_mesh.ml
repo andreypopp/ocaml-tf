@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_appmesh_mesh__spec__egress_filter = {
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_mesh__spec__egress_filter *)
@@ -17,10 +17,10 @@ type aws_appmesh_mesh__spec = {
 (** aws_appmesh_mesh__spec *)
 
 type aws_appmesh_mesh = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   spec : aws_appmesh_mesh__spec list;
 }

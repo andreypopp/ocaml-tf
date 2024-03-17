@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type aws_iam_server_certificate = {
-  certificate_body : string;  (** certificate_body *)
-  certificate_chain : string option; [@option]
+  certificate_body : string prop;  (** certificate_body *)
+  certificate_chain : string prop option; [@option]
       (** certificate_chain *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  path : string option; [@option]  (** path *)
-  private_key : string;  (** private_key *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  path : string prop option; [@option]  (** path *)
+  private_key : string prop;  (** private_key *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_iam_server_certificate *)

@@ -6,9 +6,9 @@ type google_notebooks_location__timeouts
 type google_notebooks_location
 
 val google_notebooks_location :
-  ?id:string ->
-  ?name:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
   ?timeouts:google_notebooks_location__timeouts ->
   string ->
   unit

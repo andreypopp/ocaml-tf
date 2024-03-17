@@ -5,17 +5,17 @@ open! Tf.Prelude
 type aws_api_gateway_method
 
 val aws_api_gateway_method :
-  ?api_key_required:bool ->
-  ?authorization_scopes:string list ->
-  ?authorizer_id:string ->
-  ?id:string ->
-  ?operation_name:string ->
-  ?request_models:(string * string) list ->
-  ?request_parameters:(string * bool) list ->
-  ?request_validator_id:string ->
-  authorization:string ->
-  http_method:string ->
-  resource_id:string ->
-  rest_api_id:string ->
+  ?api_key_required:bool prop ->
+  ?authorization_scopes:string prop list ->
+  ?authorizer_id:string prop ->
+  ?id:string prop ->
+  ?operation_name:string prop ->
+  ?request_models:(string * string prop) list ->
+  ?request_parameters:(string * bool prop) list ->
+  ?request_validator_id:string prop ->
+  authorization:string prop ->
+  http_method:string prop ->
+  resource_id:string prop ->
+  rest_api_id:string prop ->
   string ->
   unit

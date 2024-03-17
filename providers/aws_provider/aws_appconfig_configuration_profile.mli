@@ -6,16 +6,16 @@ type aws_appconfig_configuration_profile__validator
 type aws_appconfig_configuration_profile
 
 val aws_appconfig_configuration_profile :
-  ?description:string ->
-  ?id:string ->
-  ?kms_key_identifier:string ->
-  ?retrieval_role_arn:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?type_:string ->
-  application_id:string ->
-  location_uri:string ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_identifier:string prop ->
+  ?retrieval_role_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  application_id:string prop ->
+  location_uri:string prop ->
+  name:string prop ->
   validator:aws_appconfig_configuration_profile__validator list ->
   string ->
   unit

@@ -5,37 +5,37 @@
 open! Tf.Prelude
 
 type aws_kendra_index__capacity_units = {
-  query_capacity_units : float option; [@option]
+  query_capacity_units : float prop option; [@option]
       (** query_capacity_units *)
-  storage_capacity_units : float option; [@option]
+  storage_capacity_units : float prop option; [@option]
       (** storage_capacity_units *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_index__capacity_units *)
 
 type aws_kendra_index__document_metadata_configuration_updates__relevance = {
-  duration : string option; [@option]  (** duration *)
-  freshness : bool option; [@option]  (** freshness *)
-  importance : float option; [@option]  (** importance *)
-  rank_order : string option; [@option]  (** rank_order *)
-  values_importance_map : (string * float) list option; [@option]
+  duration : string prop option; [@option]  (** duration *)
+  freshness : bool prop option; [@option]  (** freshness *)
+  importance : float prop option; [@option]  (** importance *)
+  rank_order : string prop option; [@option]  (** rank_order *)
+  values_importance_map : (string * float prop) list option; [@option]
       (** values_importance_map *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_index__document_metadata_configuration_updates__relevance *)
 
 type aws_kendra_index__document_metadata_configuration_updates__search = {
-  displayable : bool option; [@option]  (** displayable *)
-  facetable : bool option; [@option]  (** facetable *)
-  searchable : bool option; [@option]  (** searchable *)
-  sortable : bool option; [@option]  (** sortable *)
+  displayable : bool prop option; [@option]  (** displayable *)
+  facetable : bool prop option; [@option]  (** facetable *)
+  searchable : bool prop option; [@option]  (** searchable *)
+  sortable : bool prop option; [@option]  (** sortable *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_index__document_metadata_configuration_updates__search *)
 
 type aws_kendra_index__document_metadata_configuration_updates = {
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
   relevance :
     aws_kendra_index__document_metadata_configuration_updates__relevance
     list;
@@ -47,44 +47,44 @@ type aws_kendra_index__document_metadata_configuration_updates = {
 (** aws_kendra_index__document_metadata_configuration_updates *)
 
 type aws_kendra_index__server_side_encryption_configuration = {
-  kms_key_id : string option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_index__server_side_encryption_configuration *)
 
 type aws_kendra_index__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_index__timeouts *)
 
 type aws_kendra_index__user_group_resolution_configuration = {
-  user_group_resolution_mode : string;
+  user_group_resolution_mode : string prop;
       (** user_group_resolution_mode *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_index__user_group_resolution_configuration *)
 
 type aws_kendra_index__user_token_configurations__json_token_type_configuration = {
-  group_attribute_field : string;  (** group_attribute_field *)
-  user_name_attribute_field : string;
+  group_attribute_field : string prop;  (** group_attribute_field *)
+  user_name_attribute_field : string prop;
       (** user_name_attribute_field *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_index__user_token_configurations__json_token_type_configuration *)
 
 type aws_kendra_index__user_token_configurations__jwt_token_type_configuration = {
-  claim_regex : string option; [@option]  (** claim_regex *)
-  group_attribute_field : string option; [@option]
+  claim_regex : string prop option; [@option]  (** claim_regex *)
+  group_attribute_field : string prop option; [@option]
       (** group_attribute_field *)
-  issuer : string option; [@option]  (** issuer *)
-  key_location : string;  (** key_location *)
-  secrets_manager_arn : string option; [@option]
+  issuer : string prop option; [@option]  (** issuer *)
+  key_location : string prop;  (** key_location *)
+  secrets_manager_arn : string prop option; [@option]
       (** secrets_manager_arn *)
-  url : string option; [@option]  (** url *)
-  user_name_attribute_field : string option; [@option]
+  url : string prop option; [@option]  (** url *)
+  user_name_attribute_field : string prop option; [@option]
       (** user_name_attribute_field *)
 }
 [@@deriving yojson_of]
@@ -102,14 +102,14 @@ type aws_kendra_index__user_token_configurations = {
 (** aws_kendra_index__user_token_configurations *)
 
 type aws_kendra_index__index_statistics__text_document_statistics = {
-  indexed_text_bytes : float;  (** indexed_text_bytes *)
-  indexed_text_documents_count : float;
+  indexed_text_bytes : float prop;  (** indexed_text_bytes *)
+  indexed_text_documents_count : float prop;
       (** indexed_text_documents_count *)
 }
 [@@deriving yojson_of]
 
 type aws_kendra_index__index_statistics__faq_statistics = {
-  indexed_question_answers_count : float;
+  indexed_question_answers_count : float prop;
       (** indexed_question_answers_count *)
 }
 [@@deriving yojson_of]
@@ -125,15 +125,15 @@ type aws_kendra_index__index_statistics = {
 [@@deriving yojson_of]
 
 type aws_kendra_index = {
-  description : string option; [@option]  (** description *)
-  edition : string option; [@option]  (** edition *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  edition : string prop option; [@option]  (** edition *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user_context_policy : string option; [@option]
+  user_context_policy : string prop option; [@option]
       (** user_context_policy *)
   capacity_units : aws_kendra_index__capacity_units list;
   document_metadata_configuration_updates :

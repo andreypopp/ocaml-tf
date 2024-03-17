@@ -7,9 +7,9 @@ type azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association__t
 type azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association
 
 val azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_palo_alto_local_rulestack_outbound_trust_certificate_association__timeouts ->
-  certificate_id:string ->
+  certificate_id:string prop ->
   string ->
   unit

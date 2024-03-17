@@ -6,13 +6,13 @@ type aws_account_alternate_contact__timeouts
 type aws_account_alternate_contact
 
 val aws_account_alternate_contact :
-  ?account_id:string ->
-  ?id:string ->
+  ?account_id:string prop ->
+  ?id:string prop ->
   ?timeouts:aws_account_alternate_contact__timeouts ->
-  alternate_contact_type:string ->
-  email_address:string ->
-  name:string ->
-  phone_number:string ->
-  title:string ->
+  alternate_contact_type:string prop ->
+  email_address:string prop ->
+  name:string prop ->
+  phone_number:string prop ->
+  title:string prop ->
   string ->
   unit

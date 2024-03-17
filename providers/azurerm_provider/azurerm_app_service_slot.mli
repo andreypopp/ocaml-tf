@@ -21,44 +21,44 @@ type azurerm_app_service_slot__logs
 type azurerm_app_service_slot__site_config__cors
 
 type azurerm_app_service_slot__site_config__ip_restriction__headers = {
-  x_azure_fdid : string list;  (** x_azure_fdid *)
-  x_fd_health_probe : string list;  (** x_fd_health_probe *)
-  x_forwarded_for : string list;  (** x_forwarded_for *)
-  x_forwarded_host : string list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;  (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;  (** x_forwarded_for *)
+  x_forwarded_host : string prop list;  (** x_forwarded_host *)
 }
 
 type azurerm_app_service_slot__site_config__ip_restriction = {
-  action : string;  (** action *)
+  action : string prop;  (** action *)
   headers :
     azurerm_app_service_slot__site_config__ip_restriction__headers
     list;
       (** headers *)
-  ip_address : string;  (** ip_address *)
-  name : string;  (** name *)
-  priority : float;  (** priority *)
-  service_tag : string;  (** service_tag *)
-  virtual_network_subnet_id : string;
+  ip_address : string prop;  (** ip_address *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  service_tag : string prop;  (** service_tag *)
+  virtual_network_subnet_id : string prop;
       (** virtual_network_subnet_id *)
 }
 
 type azurerm_app_service_slot__site_config__scm_ip_restriction__headers = {
-  x_azure_fdid : string list;  (** x_azure_fdid *)
-  x_fd_health_probe : string list;  (** x_fd_health_probe *)
-  x_forwarded_for : string list;  (** x_forwarded_for *)
-  x_forwarded_host : string list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;  (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;  (** x_forwarded_for *)
+  x_forwarded_host : string prop list;  (** x_forwarded_host *)
 }
 
 type azurerm_app_service_slot__site_config__scm_ip_restriction = {
-  action : string;  (** action *)
+  action : string prop;  (** action *)
   headers :
     azurerm_app_service_slot__site_config__scm_ip_restriction__headers
     list;
       (** headers *)
-  ip_address : string;  (** ip_address *)
-  name : string;  (** name *)
-  priority : float;  (** priority *)
-  service_tag : string;  (** service_tag *)
-  virtual_network_subnet_id : string;
+  ip_address : string prop;  (** ip_address *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  service_tag : string prop;  (** service_tag *)
+  virtual_network_subnet_id : string prop;
       (** virtual_network_subnet_id *)
 }
 
@@ -67,26 +67,26 @@ type azurerm_app_service_slot__storage_account
 type azurerm_app_service_slot__timeouts
 
 type azurerm_app_service_slot__site_credential = {
-  password : string;  (** password *)
-  username : string;  (** username *)
+  password : string prop;  (** password *)
+  username : string prop;  (** username *)
 }
 
 type azurerm_app_service_slot
 
 val azurerm_app_service_slot :
-  ?app_settings:(string * string) list ->
-  ?client_affinity_enabled:bool ->
-  ?enabled:bool ->
-  ?https_only:bool ->
-  ?id:string ->
-  ?key_vault_reference_identity_id:string ->
-  ?tags:(string * string) list ->
+  ?app_settings:(string * string prop) list ->
+  ?client_affinity_enabled:bool prop ->
+  ?enabled:bool prop ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?key_vault_reference_identity_id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_app_service_slot__timeouts ->
-  app_service_name:string ->
-  app_service_plan_id:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  app_service_name:string prop ->
+  app_service_plan_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   auth_settings:azurerm_app_service_slot__auth_settings list ->
   connection_string:azurerm_app_service_slot__connection_string list ->
   identity:azurerm_app_service_slot__identity list ->

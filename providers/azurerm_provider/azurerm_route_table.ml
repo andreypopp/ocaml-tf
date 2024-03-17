@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_route_table__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_route_table__timeouts *)
 
 type azurerm_route_table__route = {
-  address_prefix : string;  (** address_prefix *)
-  name : string;  (** name *)
-  next_hop_in_ip_address : string;  (** next_hop_in_ip_address *)
-  next_hop_type : string;  (** next_hop_type *)
+  address_prefix : string prop;  (** address_prefix *)
+  name : string prop;  (** name *)
+  next_hop_in_ip_address : string prop;
+      (** next_hop_in_ip_address *)
+  next_hop_type : string prop;  (** next_hop_type *)
 }
 [@@deriving yojson_of]
 
 type azurerm_route_table = {
-  disable_bgp_route_propagation : bool option; [@option]
+  disable_bgp_route_propagation : bool prop option; [@option]
       (** disable_bgp_route_propagation *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   route : azurerm_route_table__route list option; [@option]
       (** route *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_route_table__timeouts option;
 }
 [@@deriving yojson_of]

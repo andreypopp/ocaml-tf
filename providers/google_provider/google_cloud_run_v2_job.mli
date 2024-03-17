@@ -32,46 +32,46 @@ type google_cloud_run_v2_job__template
 type google_cloud_run_v2_job__timeouts
 
 type google_cloud_run_v2_job__conditions = {
-  execution_reason : string;  (** execution_reason *)
-  last_transition_time : string;  (** last_transition_time *)
-  message : string;  (** message *)
-  reason : string;  (** reason *)
-  revision_reason : string;  (** revision_reason *)
-  severity : string;  (** severity *)
-  state : string;  (** state *)
-  type_ : string; [@key "type"]  (** type *)
+  execution_reason : string prop;  (** execution_reason *)
+  last_transition_time : string prop;  (** last_transition_time *)
+  message : string prop;  (** message *)
+  reason : string prop;  (** reason *)
+  revision_reason : string prop;  (** revision_reason *)
+  severity : string prop;  (** severity *)
+  state : string prop;  (** state *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_cloud_run_v2_job__latest_created_execution = {
-  completion_time : string;  (** completion_time *)
-  create_time : string;  (** create_time *)
-  name : string;  (** name *)
+  completion_time : string prop;  (** completion_time *)
+  create_time : string prop;  (** create_time *)
+  name : string prop;  (** name *)
 }
 
 type google_cloud_run_v2_job__terminal_condition = {
-  execution_reason : string;  (** execution_reason *)
-  last_transition_time : string;  (** last_transition_time *)
-  message : string;  (** message *)
-  reason : string;  (** reason *)
-  revision_reason : string;  (** revision_reason *)
-  severity : string;  (** severity *)
-  state : string;  (** state *)
-  type_ : string; [@key "type"]  (** type *)
+  execution_reason : string prop;  (** execution_reason *)
+  last_transition_time : string prop;  (** last_transition_time *)
+  message : string prop;  (** message *)
+  reason : string prop;  (** reason *)
+  revision_reason : string prop;  (** revision_reason *)
+  severity : string prop;  (** severity *)
+  state : string prop;  (** state *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_cloud_run_v2_job
 
 val google_cloud_run_v2_job :
-  ?annotations:(string * string) list ->
-  ?client:string ->
-  ?client_version:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?launch_stage:string ->
-  ?project:string ->
+  ?annotations:(string * string prop) list ->
+  ?client:string prop ->
+  ?client_version:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?launch_stage:string prop ->
+  ?project:string prop ->
   ?timeouts:google_cloud_run_v2_job__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   binary_authorization:
     google_cloud_run_v2_job__binary_authorization list ->
   template:google_cloud_run_v2_job__template list ->

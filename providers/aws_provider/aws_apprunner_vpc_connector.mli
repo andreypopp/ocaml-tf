@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_apprunner_vpc_connector
 
 val aws_apprunner_vpc_connector :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  security_groups:string list ->
-  subnets:string list ->
-  vpc_connector_name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  security_groups:string prop list ->
+  subnets:string prop list ->
+  vpc_connector_name:string prop ->
   string ->
   unit

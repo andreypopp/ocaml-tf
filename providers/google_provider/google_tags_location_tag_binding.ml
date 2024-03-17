@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_tags_location_tag_binding__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_tags_location_tag_binding__timeouts *)
 
 type google_tags_location_tag_binding = {
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]
       (** The geographic location where the transfer config should reside.
 Examples: US, EU, asia-northeast1. The default value is US. *)
-  parent : string;
+  parent : string prop;
       (** The full resource name of the resource the TagValue is bound to. E.g. //cloudresourcemanager.googleapis.com/projects/123 *)
-  tag_value : string;
+  tag_value : string prop;
       (** The TagValue of the TagBinding. Must be of the form tagValues/456. *)
   timeouts : google_tags_location_tag_binding__timeouts option;
 }

@@ -5,13 +5,14 @@
 open! Tf.Prelude
 
 type aws_signer_signing_profile_permission = {
-  action : string;  (** action *)
-  id : string option; [@option]  (** id *)
-  principal : string;  (** principal *)
-  profile_name : string;  (** profile_name *)
-  profile_version : string option; [@option]  (** profile_version *)
-  statement_id : string option; [@option]  (** statement_id *)
-  statement_id_prefix : string option; [@option]
+  action : string prop;  (** action *)
+  id : string prop option; [@option]  (** id *)
+  principal : string prop;  (** principal *)
+  profile_name : string prop;  (** profile_name *)
+  profile_version : string prop option; [@option]
+      (** profile_version *)
+  statement_id : string prop option; [@option]  (** statement_id *)
+  statement_id_prefix : string prop option; [@option]
       (** statement_id_prefix *)
 }
 [@@deriving yojson_of]

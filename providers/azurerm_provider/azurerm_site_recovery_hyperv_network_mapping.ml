@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_site_recovery_hyperv_network_mapping__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_hyperv_network_mapping__timeouts *)
 
 type azurerm_site_recovery_hyperv_network_mapping = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  recovery_vault_id : string;  (** recovery_vault_id *)
-  source_network_name : string;  (** source_network_name *)
-  source_system_center_virtual_machine_manager_name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  recovery_vault_id : string prop;  (** recovery_vault_id *)
+  source_network_name : string prop;  (** source_network_name *)
+  source_system_center_virtual_machine_manager_name : string prop;
       (** source_system_center_virtual_machine_manager_name *)
-  target_network_id : string;  (** target_network_id *)
+  target_network_id : string prop;  (** target_network_id *)
   timeouts :
     azurerm_site_recovery_hyperv_network_mapping__timeouts option;
 }

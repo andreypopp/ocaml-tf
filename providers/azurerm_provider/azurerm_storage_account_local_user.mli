@@ -9,13 +9,13 @@ type azurerm_storage_account_local_user__timeouts
 type azurerm_storage_account_local_user
 
 val azurerm_storage_account_local_user :
-  ?home_directory:string ->
-  ?id:string ->
-  ?ssh_key_enabled:bool ->
-  ?ssh_password_enabled:bool ->
+  ?home_directory:string prop ->
+  ?id:string prop ->
+  ?ssh_key_enabled:bool prop ->
+  ?ssh_password_enabled:bool prop ->
   ?timeouts:azurerm_storage_account_local_user__timeouts ->
-  name:string ->
-  storage_account_id:string ->
+  name:string prop ->
+  storage_account_id:string prop ->
   permission_scope:
     azurerm_storage_account_local_user__permission_scope list ->
   ssh_authorized_key:

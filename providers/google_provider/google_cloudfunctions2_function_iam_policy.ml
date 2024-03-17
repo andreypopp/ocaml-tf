@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_cloudfunctions2_function_iam_policy = {
-  cloud_function : string;  (** cloud_function *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  cloud_function : string prop;  (** cloud_function *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_cloudfunctions2_function_iam_policy *)

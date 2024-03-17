@@ -13,15 +13,15 @@ type azurerm_mobile_network_sim_policy__user_equipment_aggregate_maximum_bit_rat
 type azurerm_mobile_network_sim_policy
 
 val azurerm_mobile_network_sim_policy :
-  ?id:string ->
-  ?rat_frequency_selection_priority_index:float ->
-  ?registration_timer_in_seconds:float ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?rat_frequency_selection_priority_index:float prop ->
+  ?registration_timer_in_seconds:float prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_mobile_network_sim_policy__timeouts ->
-  default_slice_id:string ->
-  location:string ->
-  mobile_network_id:string ->
-  name:string ->
+  default_slice_id:string prop ->
+  location:string prop ->
+  mobile_network_id:string prop ->
+  name:string prop ->
   slice:azurerm_mobile_network_sim_policy__slice list ->
   user_equipment_aggregate_maximum_bit_rate:
     azurerm_mobile_network_sim_policy__user_equipment_aggregate_maximum_bit_rate

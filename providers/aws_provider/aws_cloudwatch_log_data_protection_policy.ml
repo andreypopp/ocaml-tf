@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_log_data_protection_policy = {
-  id : string option; [@option]  (** id *)
-  log_group_name : string;  (** log_group_name *)
-  policy_document : string;  (** policy_document *)
+  id : string prop option; [@option]  (** id *)
+  log_group_name : string prop;  (** log_group_name *)
+  policy_document : string prop;  (** policy_document *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_data_protection_policy *)

@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type google_dataproc_autoscaling_policy__basic_algorithm__yarn_config = {
-  graceful_decommission_timeout : string;
+  graceful_decommission_timeout : string prop;
       (** Timeout for YARN graceful decommissioning of Node Managers. Specifies the
 duration to wait for jobs to complete before forcefully removing workers
 (and potentially interrupting jobs). Only applicable to downscaling operations.
 
 Bounds: [0s, 1d]. *)
-  scale_down_factor : float;
+  scale_down_factor : float prop;
       (** Fraction of average pending memory in the last cooldown period for which to
 remove workers. A scale-down factor of 1 will result in scaling down so that there
 is no available memory remaining after the update (more aggressive scaling).
@@ -19,14 +19,14 @@ A scale-down factor of 0 disables removing workers, which can be beneficial for
 autoscaling a single job.
 
 Bounds: [0.0, 1.0]. *)
-  scale_down_min_worker_fraction : float option; [@option]
+  scale_down_min_worker_fraction : float prop option; [@option]
       (** Minimum scale-down threshold as a fraction of total cluster size before scaling occurs.
 For example, in a 20-worker cluster, a threshold of 0.1 means the autoscaler must
 recommend at least a 2 worker scale-down for the cluster to scale. A threshold of 0
 means the autoscaler will scale down on any recommended change.
 
 Bounds: [0.0, 1.0]. Default: 0.0. *)
-  scale_up_factor : float;
+  scale_up_factor : float prop;
       (** Fraction of average pending memory in the last cooldown period for which to
 add workers. A scale-up factor of 1.0 will result in scaling up so that there
 is no pending memory remaining after the update (more aggressive scaling).
@@ -34,7 +34,7 @@ A scale-up factor closer to 0 will result in a smaller magnitude of scaling up
 (less aggressive scaling).
 
 Bounds: [0.0, 1.0]. *)
-  scale_up_min_worker_fraction : float option; [@option]
+  scale_up_min_worker_fraction : float prop option; [@option]
       (** Minimum scale-up threshold as a fraction of total cluster size before scaling
 occurs. For example, in a 20-worker cluster, a threshold of 0.1 means the autoscaler
 must recommend at least a 2-worker scale-up for the cluster to scale. A threshold of
@@ -46,7 +46,7 @@ Bounds: [0.0, 1.0]. Default: 0.0. *)
 (** YARN autoscaling configuration. *)
 
 type google_dataproc_autoscaling_policy__basic_algorithm = {
-  cooldown_period : string option; [@option]
+  cooldown_period : string prop option; [@option]
       (** Duration between scaling events. A scaling period starts after the
 update operation from the previous event has completed.
 
@@ -59,13 +59,13 @@ Bounds: [2m, 1d]. Default: 2m. *)
 (** Basic algorithm for autoscaling. *)
 
 type google_dataproc_autoscaling_policy__secondary_worker_config = {
-  max_instances : float option; [@option]
+  max_instances : float prop option; [@option]
       (** Maximum number of instances for this group. Note that by default, clusters will not use
 secondary workers. Required for secondary workers if the minimum secondary instances is set.
 Bounds: [minInstances, ). Defaults to 0. *)
-  min_instances : float option; [@option]
+  min_instances : float prop option; [@option]
       (** Minimum number of instances for this group. Bounds: [0, maxInstances]. Defaults to 0. *)
-  weight : float option; [@option]
+  weight : float prop option; [@option]
       (** Weight for the instance group, which is used to determine the fraction of total workers
 in the cluster from this instance group. For example, if primary workers have weight 2,
 and secondary workers have weight 1, the cluster will have approximately 2 primary workers
@@ -85,19 +85,19 @@ only on primary workers, the cluster will use primary workers only and no second
 (** Describes how the autoscaler will operate for secondary workers. *)
 
 type google_dataproc_autoscaling_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_dataproc_autoscaling_policy__timeouts *)
 
 type google_dataproc_autoscaling_policy__worker_config = {
-  max_instances : float;
+  max_instances : float prop;
       (** Maximum number of instances for this group. *)
-  min_instances : float option; [@option]
+  min_instances : float prop option; [@option]
       (** Minimum number of instances for this group. Bounds: [2, maxInstances]. Defaults to 2. *)
-  weight : float option; [@option]
+  weight : float prop option; [@option]
       (** Weight for the instance group, which is used to determine the fraction of total workers
 in the cluster from this instance group. For example, if primary workers have weight 2,
 and secondary workers have weight 1, the cluster will have approximately 2 primary workers
@@ -117,15 +117,15 @@ only on primary workers, the cluster will use primary workers only and no second
 (** Describes how the autoscaler will operate for primary workers. *)
 
 type google_dataproc_autoscaling_policy = {
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]
       (** The  location where the autoscaling policy should reside.
 The default value is 'global'. *)
-  policy_id : string;
+  policy_id : string prop;
       (** The policy id. The id must contain only letters (a-z, A-Z), numbers (0-9), underscores (_),
 and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of between
 3 and 50 characters. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   basic_algorithm :
     google_dataproc_autoscaling_policy__basic_algorithm list;
   secondary_worker_config :

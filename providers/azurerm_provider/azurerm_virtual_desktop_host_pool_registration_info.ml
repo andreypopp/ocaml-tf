@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_virtual_desktop_host_pool_registration_info__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_host_pool_registration_info__timeouts *)
 
 type azurerm_virtual_desktop_host_pool_registration_info = {
-  expiration_date : string;  (** expiration_date *)
-  hostpool_id : string;  (** hostpool_id *)
-  id : string option; [@option]  (** id *)
+  expiration_date : string prop;  (** expiration_date *)
+  hostpool_id : string prop;  (** hostpool_id *)
+  id : string prop option; [@option]  (** id *)
   timeouts :
     azurerm_virtual_desktop_host_pool_registration_info__timeouts
     option;

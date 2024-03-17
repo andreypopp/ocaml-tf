@@ -7,13 +7,13 @@ type azurerm_servicebus_namespace_network_rule_set__timeouts
 type azurerm_servicebus_namespace_network_rule_set
 
 val azurerm_servicebus_namespace_network_rule_set :
-  ?default_action:string ->
-  ?id:string ->
-  ?ip_rules:string list ->
-  ?public_network_access_enabled:bool ->
-  ?trusted_services_allowed:bool ->
+  ?default_action:string prop ->
+  ?id:string prop ->
+  ?ip_rules:string prop list ->
+  ?public_network_access_enabled:bool prop ->
+  ?trusted_services_allowed:bool prop ->
   ?timeouts:azurerm_servicebus_namespace_network_rule_set__timeouts ->
-  namespace_id:string ->
+  namespace_id:string prop ->
   network_rules:
     azurerm_servicebus_namespace_network_rule_set__network_rules list ->
   string ->

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_prometheus_alert_manager_definition = {
-  definition : string;  (** definition *)
-  id : string option; [@option]  (** id *)
-  workspace_id : string;  (** workspace_id *)
+  definition : string prop;  (** definition *)
+  id : string prop option; [@option]  (** id *)
+  workspace_id : string prop;  (** workspace_id *)
 }
 [@@deriving yojson_of]
 (** aws_prometheus_alert_manager_definition *)

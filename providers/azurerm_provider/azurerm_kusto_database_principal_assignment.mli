@@ -6,15 +6,15 @@ type azurerm_kusto_database_principal_assignment__timeouts
 type azurerm_kusto_database_principal_assignment
 
 val azurerm_kusto_database_principal_assignment :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_kusto_database_principal_assignment__timeouts ->
-  cluster_name:string ->
-  database_name:string ->
-  name:string ->
-  principal_id:string ->
-  principal_type:string ->
-  resource_group_name:string ->
-  role:string ->
-  tenant_id:string ->
+  cluster_name:string prop ->
+  database_name:string prop ->
+  name:string prop ->
+  principal_id:string prop ->
+  principal_type:string prop ->
+  resource_group_name:string prop ->
+  role:string prop ->
+  tenant_id:string prop ->
   string ->
   unit

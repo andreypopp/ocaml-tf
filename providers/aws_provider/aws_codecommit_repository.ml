@@ -5,13 +5,15 @@
 open! Tf.Prelude
 
 type aws_codecommit_repository = {
-  default_branch : string option; [@option]  (** default_branch *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  repository_name : string;  (** repository_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  default_branch : string prop option; [@option]
+      (** default_branch *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  repository_name : string prop;  (** repository_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_codecommit_repository *)

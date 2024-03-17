@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_disk_pool_iscsi_target__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_disk_pool_iscsi_target__timeouts *)
 
 type azurerm_disk_pool_iscsi_target = {
-  acl_mode : string;  (** acl_mode *)
-  disks_pool_id : string;  (** disks_pool_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  target_iqn : string option; [@option]  (** target_iqn *)
+  acl_mode : string prop;  (** acl_mode *)
+  disks_pool_id : string prop;  (** disks_pool_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  target_iqn : string prop option; [@option]  (** target_iqn *)
   timeouts : azurerm_disk_pool_iscsi_target__timeouts option;
 }
 [@@deriving yojson_of]

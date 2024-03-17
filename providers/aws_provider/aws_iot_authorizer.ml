@@ -5,15 +5,19 @@
 open! Tf.Prelude
 
 type aws_iot_authorizer = {
-  authorizer_function_arn : string;  (** authorizer_function_arn *)
-  enable_caching_for_http : bool option; [@option]
+  authorizer_function_arn : string prop;
+      (** authorizer_function_arn *)
+  enable_caching_for_http : bool prop option; [@option]
       (** enable_caching_for_http *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  signing_disabled : bool option; [@option]  (** signing_disabled *)
-  status : string option; [@option]  (** status *)
-  token_key_name : string option; [@option]  (** token_key_name *)
-  token_signing_public_keys : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  signing_disabled : bool prop option; [@option]
+      (** signing_disabled *)
+  status : string prop option; [@option]  (** status *)
+  token_key_name : string prop option; [@option]
+      (** token_key_name *)
+  token_signing_public_keys : (string * string prop) list option;
+      [@option]
       (** token_signing_public_keys *)
 }
 [@@deriving yojson_of]

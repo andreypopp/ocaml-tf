@@ -5,80 +5,80 @@
 open! Tf.Prelude
 
 type aws_s3_object_copy__grant = {
-  email : string option; [@option]  (** email *)
-  id : string option; [@option]  (** id *)
-  permissions : string list;  (** permissions *)
-  type_ : string; [@key "type"]  (** type *)
-  uri : string option; [@option]  (** uri *)
+  email : string prop option; [@option]  (** email *)
+  id : string prop option; [@option]  (** id *)
+  permissions : string prop list;  (** permissions *)
+  type_ : string prop; [@key "type"]  (** type *)
+  uri : string prop option; [@option]  (** uri *)
 }
 [@@deriving yojson_of]
 (** aws_s3_object_copy__grant *)
 
 type aws_s3_object_copy = {
-  acl : string option; [@option]  (** acl *)
-  bucket : string;  (** bucket *)
-  bucket_key_enabled : bool option; [@option]
+  acl : string prop option; [@option]  (** acl *)
+  bucket : string prop;  (** bucket *)
+  bucket_key_enabled : bool prop option; [@option]
       (** bucket_key_enabled *)
-  cache_control : string option; [@option]  (** cache_control *)
-  checksum_algorithm : string option; [@option]
+  cache_control : string prop option; [@option]  (** cache_control *)
+  checksum_algorithm : string prop option; [@option]
       (** checksum_algorithm *)
-  content_disposition : string option; [@option]
+  content_disposition : string prop option; [@option]
       (** content_disposition *)
-  content_encoding : string option; [@option]
+  content_encoding : string prop option; [@option]
       (** content_encoding *)
-  content_language : string option; [@option]
+  content_language : string prop option; [@option]
       (** content_language *)
-  content_type : string option; [@option]  (** content_type *)
-  copy_if_match : string option; [@option]  (** copy_if_match *)
-  copy_if_modified_since : string option; [@option]
+  content_type : string prop option; [@option]  (** content_type *)
+  copy_if_match : string prop option; [@option]  (** copy_if_match *)
+  copy_if_modified_since : string prop option; [@option]
       (** copy_if_modified_since *)
-  copy_if_none_match : string option; [@option]
+  copy_if_none_match : string prop option; [@option]
       (** copy_if_none_match *)
-  copy_if_unmodified_since : string option; [@option]
+  copy_if_unmodified_since : string prop option; [@option]
       (** copy_if_unmodified_since *)
-  customer_algorithm : string option; [@option]
+  customer_algorithm : string prop option; [@option]
       (** customer_algorithm *)
-  customer_key : string option; [@option]  (** customer_key *)
-  customer_key_md5 : string option; [@option]
+  customer_key : string prop option; [@option]  (** customer_key *)
+  customer_key_md5 : string prop option; [@option]
       (** customer_key_md5 *)
-  expected_bucket_owner : string option; [@option]
+  expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
-  expected_source_bucket_owner : string option; [@option]
+  expected_source_bucket_owner : string prop option; [@option]
       (** expected_source_bucket_owner *)
-  expires : string option; [@option]  (** expires *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  id : string option; [@option]  (** id *)
-  key : string;  (** key *)
-  kms_encryption_context : string option; [@option]
+  expires : string prop option; [@option]  (** expires *)
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  id : string prop option; [@option]  (** id *)
+  key : string prop;  (** key *)
+  kms_encryption_context : string prop option; [@option]
       (** kms_encryption_context *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  metadata : (string * string) list option; [@option]
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  metadata_directive : string option; [@option]
+  metadata_directive : string prop option; [@option]
       (** metadata_directive *)
-  object_lock_legal_hold_status : string option; [@option]
+  object_lock_legal_hold_status : string prop option; [@option]
       (** object_lock_legal_hold_status *)
-  object_lock_mode : string option; [@option]
+  object_lock_mode : string prop option; [@option]
       (** object_lock_mode *)
-  object_lock_retain_until_date : string option; [@option]
+  object_lock_retain_until_date : string prop option; [@option]
       (** object_lock_retain_until_date *)
-  request_payer : string option; [@option]  (** request_payer *)
-  server_side_encryption : string option; [@option]
+  request_payer : string prop option; [@option]  (** request_payer *)
+  server_side_encryption : string prop option; [@option]
       (** server_side_encryption *)
-  source : string;  (** source *)
-  source_customer_algorithm : string option; [@option]
+  source : string prop;  (** source *)
+  source_customer_algorithm : string prop option; [@option]
       (** source_customer_algorithm *)
-  source_customer_key : string option; [@option]
+  source_customer_key : string prop option; [@option]
       (** source_customer_key *)
-  source_customer_key_md5 : string option; [@option]
+  source_customer_key_md5 : string prop option; [@option]
       (** source_customer_key_md5 *)
-  storage_class : string option; [@option]  (** storage_class *)
-  tagging_directive : string option; [@option]
+  storage_class : string prop option; [@option]  (** storage_class *)
+  tagging_directive : string prop option; [@option]
       (** tagging_directive *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  website_redirect : string option; [@option]
+  website_redirect : string prop option; [@option]
       (** website_redirect *)
   grant : aws_s3_object_copy__grant list;
 }

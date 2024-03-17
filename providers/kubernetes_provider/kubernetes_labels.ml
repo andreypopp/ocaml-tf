@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type kubernetes_labels__metadata = {
-  name : string;  (** The name of the resource. *)
-  namespace : string option; [@option]
+  name : string prop;  (** The name of the resource. *)
+  namespace : string prop option; [@option]
       (** The namespace of the resource. *)
 }
 [@@deriving yojson_of]
 (** kubernetes_labels__metadata *)
 
 type kubernetes_labels = {
-  api_version : string;
+  api_version : string prop;
       (** The apiVersion of the resource to label. *)
-  field_manager : string option; [@option]
+  field_manager : string prop option; [@option]
       (** Set the name of the field manager for the specified labels. *)
-  force : bool option; [@option]
+  force : bool prop option; [@option]
       (** Force overwriting labels that were created or edited outside of Terraform. *)
-  id : string option; [@option]  (** id *)
-  kind : string;  (** The kind of the resource to label. *)
-  labels : (string * string) list;
+  id : string prop option; [@option]  (** id *)
+  kind : string prop;  (** The kind of the resource to label. *)
+  labels : (string * string prop) list;
       (** A map of labels to apply to the resource. *)
   metadata : kubernetes_labels__metadata list;
 }

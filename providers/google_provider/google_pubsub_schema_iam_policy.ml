@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_pubsub_schema_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  schema : string;  (** schema *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  schema : string prop;  (** schema *)
 }
 [@@deriving yojson_of]
 (** google_pubsub_schema_iam_policy *)

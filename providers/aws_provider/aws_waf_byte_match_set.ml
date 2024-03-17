@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_waf_byte_match_set__byte_match_tuples__field_to_match = {
-  data : string option; [@option]  (** data *)
-  type_ : string; [@key "type"]  (** type *)
+  data : string prop option; [@option]  (** data *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_waf_byte_match_set__byte_match_tuples__field_to_match *)
 
 type aws_waf_byte_match_set__byte_match_tuples = {
-  positional_constraint : string;  (** positional_constraint *)
-  target_string : string option; [@option]  (** target_string *)
-  text_transformation : string;  (** text_transformation *)
+  positional_constraint : string prop;  (** positional_constraint *)
+  target_string : string prop option; [@option]  (** target_string *)
+  text_transformation : string prop;  (** text_transformation *)
   field_to_match :
     aws_waf_byte_match_set__byte_match_tuples__field_to_match list;
 }
@@ -22,8 +22,8 @@ type aws_waf_byte_match_set__byte_match_tuples = {
 (** aws_waf_byte_match_set__byte_match_tuples *)
 
 type aws_waf_byte_match_set = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   byte_match_tuples : aws_waf_byte_match_set__byte_match_tuples list;
 }
 [@@deriving yojson_of]

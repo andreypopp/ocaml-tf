@@ -5,38 +5,38 @@
 open! Tf.Prelude
 
 type azurerm_subscription_cost_management_export__export_data_options = {
-  time_frame : string;  (** time_frame *)
-  type_ : string; [@key "type"]  (** type *)
+  time_frame : string prop;  (** time_frame *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_subscription_cost_management_export__export_data_options *)
 
 type azurerm_subscription_cost_management_export__export_data_storage_location = {
-  container_id : string;  (** container_id *)
-  root_folder_path : string;  (** root_folder_path *)
+  container_id : string prop;  (** container_id *)
+  root_folder_path : string prop;  (** root_folder_path *)
 }
 [@@deriving yojson_of]
 (** azurerm_subscription_cost_management_export__export_data_storage_location *)
 
 type azurerm_subscription_cost_management_export__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_subscription_cost_management_export__timeouts *)
 
 type azurerm_subscription_cost_management_export = {
-  active : bool option; [@option]  (** active *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  recurrence_period_end_date : string;
+  active : bool prop option; [@option]  (** active *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  recurrence_period_end_date : string prop;
       (** recurrence_period_end_date *)
-  recurrence_period_start_date : string;
+  recurrence_period_start_date : string prop;
       (** recurrence_period_start_date *)
-  recurrence_type : string;  (** recurrence_type *)
-  subscription_id : string;  (** subscription_id *)
+  recurrence_type : string prop;  (** recurrence_type *)
+  subscription_id : string prop;  (** subscription_id *)
   export_data_options :
     azurerm_subscription_cost_management_export__export_data_options
     list;

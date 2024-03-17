@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_s3control_bucket = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  outpost_id : string;  (** outpost_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  outpost_id : string prop;  (** outpost_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_bucket *)

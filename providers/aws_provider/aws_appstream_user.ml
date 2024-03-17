@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_appstream_user = {
-  authentication_type : string;  (** authentication_type *)
-  enabled : bool option; [@option]  (** enabled *)
-  first_name : string option; [@option]  (** first_name *)
-  id : string option; [@option]  (** id *)
-  last_name : string option; [@option]  (** last_name *)
-  send_email_notification : bool option; [@option]
+  authentication_type : string prop;  (** authentication_type *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  first_name : string prop option; [@option]  (** first_name *)
+  id : string prop option; [@option]  (** id *)
+  last_name : string prop option; [@option]  (** last_name *)
+  send_email_notification : bool prop option; [@option]
       (** send_email_notification *)
-  user_name : string;  (** user_name *)
+  user_name : string prop;  (** user_name *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_user *)

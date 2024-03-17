@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type cloudflare_teams_list = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description of the teams list. *)
-  id : string option; [@option]  (** id *)
-  items : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  items : string prop list option; [@option]
       (** The items of the teams list. *)
-  name : string;  (** Name of the teams list. *)
-  type_ : string; [@key "type"]
+  name : string prop;  (** Name of the teams list. *)
+  type_ : string prop; [@key "type"]
       (** The teams list type. Available values: `IP`, `SERIAL`, `URL`, `DOMAIN`, `EMAIL`. *)
 }
 [@@deriving yojson_of]

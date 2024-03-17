@@ -19,46 +19,46 @@ type azurerm_linux_virtual_machine__timeouts
 type azurerm_linux_virtual_machine
 
 val azurerm_linux_virtual_machine :
-  ?admin_password:string ->
-  ?allow_extension_operations:bool ->
-  ?availability_set_id:string ->
-  ?bypass_platform_safety_checks_on_user_schedule_enabled:bool ->
-  ?capacity_reservation_group_id:string ->
-  ?computer_name:string ->
-  ?custom_data:string ->
-  ?dedicated_host_group_id:string ->
-  ?dedicated_host_id:string ->
-  ?disable_password_authentication:bool ->
-  ?disk_controller_type:string ->
-  ?edge_zone:string ->
-  ?encryption_at_host_enabled:bool ->
-  ?eviction_policy:string ->
-  ?extensions_time_budget:string ->
-  ?id:string ->
-  ?license_type:string ->
-  ?max_bid_price:float ->
-  ?patch_assessment_mode:string ->
-  ?patch_mode:string ->
-  ?platform_fault_domain:float ->
-  ?priority:string ->
-  ?provision_vm_agent:bool ->
-  ?proximity_placement_group_id:string ->
-  ?reboot_setting:string ->
-  ?secure_boot_enabled:bool ->
-  ?source_image_id:string ->
-  ?tags:(string * string) list ->
-  ?user_data:string ->
-  ?virtual_machine_scale_set_id:string ->
-  ?vm_agent_platform_updates_enabled:bool ->
-  ?vtpm_enabled:bool ->
-  ?zone:string ->
+  ?admin_password:string prop ->
+  ?allow_extension_operations:bool prop ->
+  ?availability_set_id:string prop ->
+  ?bypass_platform_safety_checks_on_user_schedule_enabled:bool prop ->
+  ?capacity_reservation_group_id:string prop ->
+  ?computer_name:string prop ->
+  ?custom_data:string prop ->
+  ?dedicated_host_group_id:string prop ->
+  ?dedicated_host_id:string prop ->
+  ?disable_password_authentication:bool prop ->
+  ?disk_controller_type:string prop ->
+  ?edge_zone:string prop ->
+  ?encryption_at_host_enabled:bool prop ->
+  ?eviction_policy:string prop ->
+  ?extensions_time_budget:string prop ->
+  ?id:string prop ->
+  ?license_type:string prop ->
+  ?max_bid_price:float prop ->
+  ?patch_assessment_mode:string prop ->
+  ?patch_mode:string prop ->
+  ?platform_fault_domain:float prop ->
+  ?priority:string prop ->
+  ?provision_vm_agent:bool prop ->
+  ?proximity_placement_group_id:string prop ->
+  ?reboot_setting:string prop ->
+  ?secure_boot_enabled:bool prop ->
+  ?source_image_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?user_data:string prop ->
+  ?virtual_machine_scale_set_id:string prop ->
+  ?vm_agent_platform_updates_enabled:bool prop ->
+  ?vtpm_enabled:bool prop ->
+  ?zone:string prop ->
   ?timeouts:azurerm_linux_virtual_machine__timeouts ->
-  admin_username:string ->
-  location:string ->
-  name:string ->
-  network_interface_ids:string list ->
-  resource_group_name:string ->
-  size:string ->
+  admin_username:string prop ->
+  location:string prop ->
+  name:string prop ->
+  network_interface_ids:string prop list ->
+  resource_group_name:string prop ->
+  size:string prop ->
   additional_capabilities:
     azurerm_linux_virtual_machine__additional_capabilities list ->
   admin_ssh_key:azurerm_linux_virtual_machine__admin_ssh_key list ->

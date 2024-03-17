@@ -7,14 +7,14 @@ type google_identity_platform_tenant_default_supported_idp_config__timeouts
 type google_identity_platform_tenant_default_supported_idp_config
 
 val google_identity_platform_tenant_default_supported_idp_config :
-  ?enabled:bool ->
-  ?id:string ->
-  ?project:string ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:
     google_identity_platform_tenant_default_supported_idp_config__timeouts ->
-  client_id:string ->
-  client_secret:string ->
-  idp_id:string ->
-  tenant:string ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  idp_id:string prop ->
+  tenant:string prop ->
   string ->
   unit

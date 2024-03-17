@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_ce_anomaly_monitor = {
-  id : string option; [@option]  (** id *)
-  monitor_dimension : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  monitor_dimension : string prop option; [@option]
       (** monitor_dimension *)
-  monitor_specification : string option; [@option]
+  monitor_specification : string prop option; [@option]
       (** monitor_specification *)
-  monitor_type : string;  (** monitor_type *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  monitor_type : string prop;  (** monitor_type *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_monitor *)

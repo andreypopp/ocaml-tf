@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_lightsail_static_ip_attachment = {
-  id : string option; [@option]  (** id *)
-  instance_name : string;  (** instance_name *)
-  static_ip_name : string;  (** static_ip_name *)
+  id : string prop option; [@option]  (** id *)
+  instance_name : string prop;  (** instance_name *)
+  static_ip_name : string prop;  (** static_ip_name *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_static_ip_attachment *)

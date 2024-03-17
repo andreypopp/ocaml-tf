@@ -44,14 +44,14 @@ type azurerm_container_app__timeouts
 type azurerm_container_app
 
 val azurerm_container_app :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?workload_profile_name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?workload_profile_name:string prop ->
   ?timeouts:azurerm_container_app__timeouts ->
-  container_app_environment_id:string ->
-  name:string ->
-  resource_group_name:string ->
-  revision_mode:string ->
+  container_app_environment_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  revision_mode:string prop ->
   dapr:azurerm_container_app__dapr list ->
   identity:azurerm_container_app__identity list ->
   ingress:azurerm_container_app__ingress list ->

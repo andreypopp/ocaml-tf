@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_disk_pool_managed_disk_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_disk_pool_managed_disk_attachment__timeouts *)
 
 type azurerm_disk_pool_managed_disk_attachment = {
-  disk_pool_id : string;  (** disk_pool_id *)
-  id : string option; [@option]  (** id *)
-  managed_disk_id : string;  (** managed_disk_id *)
+  disk_pool_id : string prop;  (** disk_pool_id *)
+  id : string prop option; [@option]  (** id *)
+  managed_disk_id : string prop;  (** managed_disk_id *)
   timeouts :
     azurerm_disk_pool_managed_disk_attachment__timeouts option;
 }

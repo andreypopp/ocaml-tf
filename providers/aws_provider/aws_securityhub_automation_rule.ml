@@ -5,39 +5,39 @@
 open! Tf.Prelude
 
 type aws_securityhub_automation_rule__actions__finding_fields_update__note = {
-  text : string;  (** text *)
-  updated_by : string;  (** updated_by *)
+  text : string prop;  (** text *)
+  updated_by : string prop;  (** updated_by *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__actions__finding_fields_update__note *)
 
 type aws_securityhub_automation_rule__actions__finding_fields_update__related_findings = {
-  id : string;  (** id *)
-  product_arn : string;  (** product_arn *)
+  id : string prop;  (** id *)
+  product_arn : string prop;  (** product_arn *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__actions__finding_fields_update__related_findings *)
 
 type aws_securityhub_automation_rule__actions__finding_fields_update__severity = {
-  label : string option; [@option]  (** label *)
-  product : float option; [@option]  (** product *)
+  label : string prop option; [@option]  (** label *)
+  product : float prop option; [@option]  (** product *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__actions__finding_fields_update__severity *)
 
 type aws_securityhub_automation_rule__actions__finding_fields_update__workflow = {
-  status : string option; [@option]  (** status *)
+  status : string prop option; [@option]  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__actions__finding_fields_update__workflow *)
 
 type aws_securityhub_automation_rule__actions__finding_fields_update = {
-  confidence : float option; [@option]  (** confidence *)
-  criticality : float option; [@option]  (** criticality *)
-  types : string list option; [@option]  (** types *)
-  user_defined_fields : (string * string) list option; [@option]
+  confidence : float prop option; [@option]  (** confidence *)
+  criticality : float prop option; [@option]  (** criticality *)
+  types : string prop list option; [@option]  (** types *)
+  user_defined_fields : (string * string prop) list option; [@option]
       (** user_defined_fields *)
-  verification_state : string option; [@option]
+  verification_state : string prop option; [@option]
       (** verification_state *)
   note :
     aws_securityhub_automation_rule__actions__finding_fields_update__note
@@ -56,7 +56,7 @@ type aws_securityhub_automation_rule__actions__finding_fields_update = {
 (** aws_securityhub_automation_rule__actions__finding_fields_update *)
 
 type aws_securityhub_automation_rule__actions = {
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   finding_fields_update :
     aws_securityhub_automation_rule__actions__finding_fields_update
     list;
@@ -65,67 +65,67 @@ type aws_securityhub_automation_rule__actions = {
 (** aws_securityhub_automation_rule__actions *)
 
 type aws_securityhub_automation_rule__criteria__aws_account_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__aws_account_id *)
 
 type aws_securityhub_automation_rule__criteria__aws_account_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__aws_account_name *)
 
 type aws_securityhub_automation_rule__criteria__company_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__company_name *)
 
 type aws_securityhub_automation_rule__criteria__compliance_associated_standards_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__compliance_associated_standards_id *)
 
 type aws_securityhub_automation_rule__criteria__compliance_security_control_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__compliance_security_control_id *)
 
 type aws_securityhub_automation_rule__criteria__compliance_status = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__compliance_status *)
 
 type aws_securityhub_automation_rule__criteria__confidence = {
-  eq : float option; [@option]  (** eq *)
-  gt : float option; [@option]  (** gt *)
-  gte : float option; [@option]  (** gte *)
-  lt : float option; [@option]  (** lt *)
-  lte : float option; [@option]  (** lte *)
+  eq : float prop option; [@option]  (** eq *)
+  gt : float prop option; [@option]  (** gt *)
+  gte : float prop option; [@option]  (** gte *)
+  lt : float prop option; [@option]  (** lt *)
+  lte : float prop option; [@option]  (** lte *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__confidence *)
 
 type aws_securityhub_automation_rule__criteria__created_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__created_at__date_range *)
 
 type aws_securityhub_automation_rule__criteria__created_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_automation_rule__criteria__created_at__date_range
     list;
@@ -134,32 +134,32 @@ type aws_securityhub_automation_rule__criteria__created_at = {
 (** aws_securityhub_automation_rule__criteria__created_at *)
 
 type aws_securityhub_automation_rule__criteria__criticality = {
-  eq : float option; [@option]  (** eq *)
-  gt : float option; [@option]  (** gt *)
-  gte : float option; [@option]  (** gte *)
-  lt : float option; [@option]  (** lt *)
-  lte : float option; [@option]  (** lte *)
+  eq : float prop option; [@option]  (** eq *)
+  gt : float prop option; [@option]  (** gt *)
+  gte : float prop option; [@option]  (** gte *)
+  lt : float prop option; [@option]  (** lt *)
+  lte : float prop option; [@option]  (** lte *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__criticality *)
 
 type aws_securityhub_automation_rule__criteria__description = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__description *)
 
 type aws_securityhub_automation_rule__criteria__first_observed_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__first_observed_at__date_range *)
 
 type aws_securityhub_automation_rule__criteria__first_observed_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_automation_rule__criteria__first_observed_at__date_range
     list;
@@ -168,29 +168,29 @@ type aws_securityhub_automation_rule__criteria__first_observed_at = {
 (** aws_securityhub_automation_rule__criteria__first_observed_at *)
 
 type aws_securityhub_automation_rule__criteria__generator_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__generator_id *)
 
 type aws_securityhub_automation_rule__criteria__id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__id *)
 
 type aws_securityhub_automation_rule__criteria__last_observed_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__last_observed_at__date_range *)
 
 type aws_securityhub_automation_rule__criteria__last_observed_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_automation_rule__criteria__last_observed_at__date_range
     list;
@@ -199,22 +199,22 @@ type aws_securityhub_automation_rule__criteria__last_observed_at = {
 (** aws_securityhub_automation_rule__criteria__last_observed_at *)
 
 type aws_securityhub_automation_rule__criteria__note_text = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__note_text *)
 
 type aws_securityhub_automation_rule__criteria__note_updated_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__note_updated_at__date_range *)
 
 type aws_securityhub_automation_rule__criteria__note_updated_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_automation_rule__criteria__note_updated_at__date_range
     list;
@@ -223,143 +223,143 @@ type aws_securityhub_automation_rule__criteria__note_updated_at = {
 (** aws_securityhub_automation_rule__criteria__note_updated_at *)
 
 type aws_securityhub_automation_rule__criteria__note_updated_by = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__note_updated_by *)
 
 type aws_securityhub_automation_rule__criteria__product_arn = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__product_arn *)
 
 type aws_securityhub_automation_rule__criteria__product_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__product_name *)
 
 type aws_securityhub_automation_rule__criteria__record_state = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__record_state *)
 
 type aws_securityhub_automation_rule__criteria__related_findings_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__related_findings_id *)
 
 type aws_securityhub_automation_rule__criteria__related_findings_product_arn = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__related_findings_product_arn *)
 
 type aws_securityhub_automation_rule__criteria__resource_application_arn = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__resource_application_arn *)
 
 type aws_securityhub_automation_rule__criteria__resource_application_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__resource_application_name *)
 
 type aws_securityhub_automation_rule__criteria__resource_details_other = {
-  comparison : string;  (** comparison *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__resource_details_other *)
 
 type aws_securityhub_automation_rule__criteria__resource_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__resource_id *)
 
 type aws_securityhub_automation_rule__criteria__resource_partition = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__resource_partition *)
 
 type aws_securityhub_automation_rule__criteria__resource_region = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__resource_region *)
 
 type aws_securityhub_automation_rule__criteria__resource_tags = {
-  comparison : string;  (** comparison *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__resource_tags *)
 
 type aws_securityhub_automation_rule__criteria__resource_type = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__resource_type *)
 
 type aws_securityhub_automation_rule__criteria__severity_label = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__severity_label *)
 
 type aws_securityhub_automation_rule__criteria__source_url = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__source_url *)
 
 type aws_securityhub_automation_rule__criteria__title = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__title *)
 
 type aws_securityhub_automation_rule__criteria__type = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__type *)
 
 type aws_securityhub_automation_rule__criteria__updated_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__updated_at__date_range *)
 
 type aws_securityhub_automation_rule__criteria__updated_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_automation_rule__criteria__updated_at__date_range
     list;
@@ -368,23 +368,23 @@ type aws_securityhub_automation_rule__criteria__updated_at = {
 (** aws_securityhub_automation_rule__criteria__updated_at *)
 
 type aws_securityhub_automation_rule__criteria__user_defined_fields = {
-  comparison : string;  (** comparison *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__user_defined_fields *)
 
 type aws_securityhub_automation_rule__criteria__verification_state = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__verification_state *)
 
 type aws_securityhub_automation_rule__criteria__workflow_status = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_automation_rule__criteria__workflow_status *)
@@ -478,12 +478,12 @@ type aws_securityhub_automation_rule__criteria = {
 (** aws_securityhub_automation_rule__criteria *)
 
 type aws_securityhub_automation_rule = {
-  description : string;  (** description *)
-  is_terminal : bool option; [@option]  (** is_terminal *)
-  rule_name : string;  (** rule_name *)
-  rule_order : float;  (** rule_order *)
-  rule_status : string option; [@option]  (** rule_status *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  description : string prop;  (** description *)
+  is_terminal : bool prop option; [@option]  (** is_terminal *)
+  rule_name : string prop;  (** rule_name *)
+  rule_order : float prop;  (** rule_order *)
+  rule_status : string prop option; [@option]  (** rule_status *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   actions : aws_securityhub_automation_rule__actions list;
   criteria : aws_securityhub_automation_rule__criteria list;
 }

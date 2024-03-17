@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_gke_hub_membership_iam_policy = {
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  membership_id : string;  (** membership_id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  membership_id : string prop;  (** membership_id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_gke_hub_membership_iam_policy *)

@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_ses_identity_notification_topic = {
-  id : string option; [@option]  (** id *)
-  identity : string;  (** identity *)
-  include_original_headers : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  identity : string prop;  (** identity *)
+  include_original_headers : bool prop option; [@option]
       (** include_original_headers *)
-  notification_type : string;  (** notification_type *)
-  topic_arn : string option; [@option]  (** topic_arn *)
+  notification_type : string prop;  (** notification_type *)
+  topic_arn : string prop option; [@option]  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ses_identity_notification_topic *)

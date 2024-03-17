@@ -6,16 +6,16 @@ type azurerm_dev_test_policy__timeouts
 type azurerm_dev_test_policy
 
 val azurerm_dev_test_policy :
-  ?description:string ->
-  ?fact_data:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?description:string prop ->
+  ?fact_data:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_dev_test_policy__timeouts ->
-  evaluator_type:string ->
-  lab_name:string ->
-  name:string ->
-  policy_set_name:string ->
-  resource_group_name:string ->
-  threshold:string ->
+  evaluator_type:string prop ->
+  lab_name:string prop ->
+  name:string prop ->
+  policy_set_name:string prop ->
+  resource_group_name:string prop ->
+  threshold:string prop ->
   string ->
   unit

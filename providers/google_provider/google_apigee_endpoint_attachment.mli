@@ -6,11 +6,11 @@ type google_apigee_endpoint_attachment__timeouts
 type google_apigee_endpoint_attachment
 
 val google_apigee_endpoint_attachment :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_apigee_endpoint_attachment__timeouts ->
-  endpoint_attachment_id:string ->
-  location:string ->
-  org_id:string ->
-  service_attachment:string ->
+  endpoint_attachment_id:string prop ->
+  location:string prop ->
+  org_id:string prop ->
+  service_attachment:string prop ->
   string ->
   unit

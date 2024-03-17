@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type hcloud_load_balancer_network = {
-  enable_public_interface : bool option; [@option]
+  enable_public_interface : bool prop option; [@option]
       (** enable_public_interface *)
-  id : string option; [@option]  (** id *)
-  ip : string option; [@option]  (** ip *)
-  load_balancer_id : float;  (** load_balancer_id *)
-  network_id : float option; [@option]  (** network_id *)
-  subnet_id : string option; [@option]  (** subnet_id *)
+  id : string prop option; [@option]  (** id *)
+  ip : string prop option; [@option]  (** ip *)
+  load_balancer_id : float prop;  (** load_balancer_id *)
+  network_id : float prop option; [@option]  (** network_id *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** hcloud_load_balancer_network *)

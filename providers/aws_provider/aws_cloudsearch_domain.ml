@@ -5,51 +5,52 @@
 open! Tf.Prelude
 
 type aws_cloudsearch_domain__endpoint_options = {
-  enforce_https : bool option; [@option]  (** enforce_https *)
-  tls_security_policy : string option; [@option]
+  enforce_https : bool prop option; [@option]  (** enforce_https *)
+  tls_security_policy : string prop option; [@option]
       (** tls_security_policy *)
 }
 [@@deriving yojson_of]
 (** aws_cloudsearch_domain__endpoint_options *)
 
 type aws_cloudsearch_domain__index_field = {
-  analysis_scheme : string option; [@option]  (** analysis_scheme *)
-  default_value : string option; [@option]  (** default_value *)
-  facet : bool option; [@option]  (** facet *)
-  highlight : bool option; [@option]  (** highlight *)
-  name : string;  (** name *)
-  return : bool option; [@option]  (** return *)
-  search : bool option; [@option]  (** search *)
-  sort : bool option; [@option]  (** sort *)
-  source_fields : string option; [@option]  (** source_fields *)
-  type_ : string; [@key "type"]  (** type *)
+  analysis_scheme : string prop option; [@option]
+      (** analysis_scheme *)
+  default_value : string prop option; [@option]  (** default_value *)
+  facet : bool prop option; [@option]  (** facet *)
+  highlight : bool prop option; [@option]  (** highlight *)
+  name : string prop;  (** name *)
+  return : bool prop option; [@option]  (** return *)
+  search : bool prop option; [@option]  (** search *)
+  sort : bool prop option; [@option]  (** sort *)
+  source_fields : string prop option; [@option]  (** source_fields *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_cloudsearch_domain__index_field *)
 
 type aws_cloudsearch_domain__scaling_parameters = {
-  desired_instance_type : string option; [@option]
+  desired_instance_type : string prop option; [@option]
       (** desired_instance_type *)
-  desired_partition_count : float option; [@option]
+  desired_partition_count : float prop option; [@option]
       (** desired_partition_count *)
-  desired_replication_count : float option; [@option]
+  desired_replication_count : float prop option; [@option]
       (** desired_replication_count *)
 }
 [@@deriving yojson_of]
 (** aws_cloudsearch_domain__scaling_parameters *)
 
 type aws_cloudsearch_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_cloudsearch_domain__timeouts *)
 
 type aws_cloudsearch_domain = {
-  id : string option; [@option]  (** id *)
-  multi_az : bool option; [@option]  (** multi_az *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  multi_az : bool prop option; [@option]  (** multi_az *)
+  name : string prop;  (** name *)
   endpoint_options : aws_cloudsearch_domain__endpoint_options list;
   index_field : aws_cloudsearch_domain__index_field list;
   scaling_parameters :

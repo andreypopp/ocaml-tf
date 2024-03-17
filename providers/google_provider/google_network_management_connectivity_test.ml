@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_network_management_connectivity_test__destination = {
-  instance : string option; [@option]
+  instance : string prop option; [@option]
       (** A Compute Engine instance URI. *)
-  ip_address : string option; [@option]
+  ip_address : string prop option; [@option]
       (** The IP address of the endpoint, which can be an external or
 internal IP. An IPv6 address is only allowed when the test's
 destination is a global load balancer VIP. *)
-  network : string option; [@option]
+  network : string prop option; [@option]
       (** A Compute Engine network URI. *)
-  port : float option; [@option]
+  port : float prop option; [@option]
       (** The IP protocol port of the endpoint. Only applicable when
 protocol is TCP or UDP. *)
-  project_id : string option; [@option]
+  project_id : string prop option; [@option]
       (** Project ID where the endpoint is located. The Project ID can be
 derived from the URI if you provide a VM instance or network URI.
 The following are two cases where you must provide the project ID:
@@ -47,20 +47,20 @@ is ambiguous. However, the result can include endpoints that you
 don't intend to test. *)
 
 type google_network_management_connectivity_test__source = {
-  instance : string option; [@option]
+  instance : string prop option; [@option]
       (** A Compute Engine instance URI. *)
-  ip_address : string option; [@option]
+  ip_address : string prop option; [@option]
       (** The IP address of the endpoint, which can be an external or
 internal IP. An IPv6 address is only allowed when the test's
 destination is a global load balancer VIP. *)
-  network : string option; [@option]
+  network : string prop option; [@option]
       (** A Compute Engine network URI. *)
-  network_type : string option; [@option]
+  network_type : string prop option; [@option]
       (** Type of the network where the endpoint is located. Possible values: [GCP_NETWORK, NON_GCP_NETWORK] *)
-  port : float option; [@option]
+  port : float prop option; [@option]
       (** The IP protocol port of the endpoint. Only applicable when
 protocol is TCP or UDP. *)
-  project_id : string option; [@option]
+  project_id : string prop option; [@option]
       (** Project ID where the endpoint is located. The Project ID can be
 derived from the URI if you provide a VM instance or network URI.
 The following are two cases where you must provide the project ID:
@@ -98,29 +98,29 @@ ambiguous. However, the test result may include endpoints that
 you don't intend to test. *)
 
 type google_network_management_connectivity_test__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_network_management_connectivity_test__timeouts *)
 
 type google_network_management_connectivity_test = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The user-supplied description of the Connectivity Test.
 Maximum of 512 characters. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Resource labels to represent user-provided metadata.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string;  (** Unique name for the connectivity test. *)
-  project : string option; [@option]  (** project *)
-  protocol : string option; [@option]
+  name : string prop;  (** Unique name for the connectivity test. *)
+  project : string prop option; [@option]  (** project *)
+  protocol : string prop option; [@option]
       (** IP Protocol of the test. When not provided, TCP is assumed. *)
-  related_projects : string list option; [@option]
+  related_projects : string prop list option; [@option]
       (** Other projects that may be relevant for reachability analysis.
 This is applicable to scenarios where a test can cross project
 boundaries. *)

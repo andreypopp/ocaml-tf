@@ -5,50 +5,50 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_flowlet_data_flow__sink__dataset = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__sink__dataset *)
 
 type azurerm_data_factory_flowlet_data_flow__sink__flowlet = {
-  dataset_parameters : string option; [@option]
+  dataset_parameters : string prop option; [@option]
       (** dataset_parameters *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__sink__flowlet *)
 
 type azurerm_data_factory_flowlet_data_flow__sink__linked_service = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__sink__linked_service *)
 
 type azurerm_data_factory_flowlet_data_flow__sink__rejected_linked_service = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__sink__rejected_linked_service *)
 
 type azurerm_data_factory_flowlet_data_flow__sink__schema_linked_service = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__sink__schema_linked_service *)
 
 type azurerm_data_factory_flowlet_data_flow__sink = {
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
   dataset :
     azurerm_data_factory_flowlet_data_flow__sink__dataset list;
   flowlet :
@@ -66,50 +66,50 @@ type azurerm_data_factory_flowlet_data_flow__sink = {
 (** azurerm_data_factory_flowlet_data_flow__sink *)
 
 type azurerm_data_factory_flowlet_data_flow__source__dataset = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__source__dataset *)
 
 type azurerm_data_factory_flowlet_data_flow__source__flowlet = {
-  dataset_parameters : string option; [@option]
+  dataset_parameters : string prop option; [@option]
       (** dataset_parameters *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__source__flowlet *)
 
 type azurerm_data_factory_flowlet_data_flow__source__linked_service = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__source__linked_service *)
 
 type azurerm_data_factory_flowlet_data_flow__source__rejected_linked_service = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__source__rejected_linked_service *)
 
 type azurerm_data_factory_flowlet_data_flow__source__schema_linked_service = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__source__schema_linked_service *)
 
 type azurerm_data_factory_flowlet_data_flow__source = {
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
   dataset :
     azurerm_data_factory_flowlet_data_flow__source__dataset list;
   flowlet :
@@ -128,43 +128,43 @@ type azurerm_data_factory_flowlet_data_flow__source = {
 (** azurerm_data_factory_flowlet_data_flow__source *)
 
 type azurerm_data_factory_flowlet_data_flow__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__timeouts *)
 
 type azurerm_data_factory_flowlet_data_flow__transformation__dataset = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__transformation__dataset *)
 
 type azurerm_data_factory_flowlet_data_flow__transformation__flowlet = {
-  dataset_parameters : string option; [@option]
+  dataset_parameters : string prop option; [@option]
       (** dataset_parameters *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__transformation__flowlet *)
 
 type azurerm_data_factory_flowlet_data_flow__transformation__linked_service = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_flowlet_data_flow__transformation__linked_service *)
 
 type azurerm_data_factory_flowlet_data_flow__transformation = {
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
   dataset :
     azurerm_data_factory_flowlet_data_flow__transformation__dataset
     list;
@@ -179,14 +179,16 @@ type azurerm_data_factory_flowlet_data_flow__transformation = {
 (** azurerm_data_factory_flowlet_data_flow__transformation *)
 
 type azurerm_data_factory_flowlet_data_flow = {
-  annotations : string list option; [@option]  (** annotations *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  folder : string option; [@option]  (** folder *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  script : string option; [@option]  (** script *)
-  script_lines : string list option; [@option]  (** script_lines *)
+  annotations : string prop list option; [@option]
+      (** annotations *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  folder : string prop option; [@option]  (** folder *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  script : string prop option; [@option]  (** script *)
+  script_lines : string prop list option; [@option]
+      (** script_lines *)
   sink : azurerm_data_factory_flowlet_data_flow__sink list;
   source : azurerm_data_factory_flowlet_data_flow__source list;
   timeouts : azurerm_data_factory_flowlet_data_flow__timeouts option;

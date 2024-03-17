@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_waiting_room_settings = {
-  id : string option; [@option]  (** id *)
-  search_engine_crawler_bypass : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  search_engine_crawler_bypass : bool prop option; [@option]
       (** Whether to allow verified search engine crawlers to bypass all waiting rooms on this zone. Defaults to `false`. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

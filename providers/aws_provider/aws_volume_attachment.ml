@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_volume_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_volume_attachment__timeouts *)
 
 type aws_volume_attachment = {
-  device_name : string;  (** device_name *)
-  force_detach : bool option; [@option]  (** force_detach *)
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
-  skip_destroy : bool option; [@option]  (** skip_destroy *)
-  stop_instance_before_detaching : bool option; [@option]
+  device_name : string prop;  (** device_name *)
+  force_detach : bool prop option; [@option]  (** force_detach *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
+  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  stop_instance_before_detaching : bool prop option; [@option]
       (** stop_instance_before_detaching *)
-  volume_id : string;  (** volume_id *)
+  volume_id : string prop;  (** volume_id *)
   timeouts : aws_volume_attachment__timeouts option;
 }
 [@@deriving yojson_of]

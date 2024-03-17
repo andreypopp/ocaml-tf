@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_guardduty_threatintelset = {
-  activate : bool;  (** activate *)
-  detector_id : string;  (** detector_id *)
-  format : string;  (** format *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  activate : bool prop;  (** activate *)
+  detector_id : string prop;  (** detector_id *)
+  format : string prop;  (** format *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_threatintelset *)

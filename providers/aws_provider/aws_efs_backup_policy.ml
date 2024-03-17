@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_efs_backup_policy__backup_policy = {
-  status : string;  (** status *)
+  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_efs_backup_policy__backup_policy *)
 
 type aws_efs_backup_policy = {
-  file_system_id : string;  (** file_system_id *)
-  id : string option; [@option]  (** id *)
+  file_system_id : string prop;  (** file_system_id *)
+  id : string prop option; [@option]  (** id *)
   backup_policy : aws_efs_backup_policy__backup_policy list;
 }
 [@@deriving yojson_of]

@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type aws_s3_directory_bucket__location = {
-  name : string;  (** name *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_s3_directory_bucket__location *)
 
 type aws_s3_directory_bucket = {
-  bucket : string;  (** bucket *)
-  data_redundancy : string option; [@option]  (** data_redundancy *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  bucket : string prop;  (** bucket *)
+  data_redundancy : string prop option; [@option]
+      (** data_redundancy *)
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   location : aws_s3_directory_bucket__location list;
 }
 [@@deriving yojson_of]

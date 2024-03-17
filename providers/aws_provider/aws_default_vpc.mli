@@ -5,17 +5,17 @@ open! Tf.Prelude
 type aws_default_vpc
 
 val aws_default_vpc :
-  ?assign_generated_ipv6_cidr_block:bool ->
-  ?enable_dns_hostnames:bool ->
-  ?enable_dns_support:bool ->
-  ?enable_network_address_usage_metrics:bool ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?ipv6_cidr_block:string ->
-  ?ipv6_cidr_block_network_border_group:string ->
-  ?ipv6_ipam_pool_id:string ->
-  ?ipv6_netmask_length:float ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?assign_generated_ipv6_cidr_block:bool prop ->
+  ?enable_dns_hostnames:bool prop ->
+  ?enable_dns_support:bool prop ->
+  ?enable_network_address_usage_metrics:bool prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?ipv6_cidr_block:string prop ->
+  ?ipv6_cidr_block_network_border_group:string prop ->
+  ?ipv6_ipam_pool_id:string prop ->
+  ?ipv6_netmask_length:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   string ->
   unit

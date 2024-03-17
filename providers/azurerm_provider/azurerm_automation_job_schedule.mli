@@ -6,14 +6,14 @@ type azurerm_automation_job_schedule__timeouts
 type azurerm_automation_job_schedule
 
 val azurerm_automation_job_schedule :
-  ?id:string ->
-  ?job_schedule_id:string ->
-  ?parameters:(string * string) list ->
-  ?run_on:string ->
+  ?id:string prop ->
+  ?job_schedule_id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?run_on:string prop ->
   ?timeouts:azurerm_automation_job_schedule__timeouts ->
-  automation_account_name:string ->
-  resource_group_name:string ->
-  runbook_name:string ->
-  schedule_name:string ->
+  automation_account_name:string prop ->
+  resource_group_name:string prop ->
+  runbook_name:string prop ->
+  schedule_name:string prop ->
   string ->
   unit

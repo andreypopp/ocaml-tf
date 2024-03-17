@@ -6,22 +6,22 @@ type aws_vpc_ipam_pool__timeouts
 type aws_vpc_ipam_pool
 
 val aws_vpc_ipam_pool :
-  ?allocation_default_netmask_length:float ->
-  ?allocation_max_netmask_length:float ->
-  ?allocation_min_netmask_length:float ->
-  ?allocation_resource_tags:(string * string) list ->
-  ?auto_import:bool ->
-  ?aws_service:string ->
-  ?description:string ->
-  ?id:string ->
-  ?locale:string ->
-  ?public_ip_source:string ->
-  ?publicly_advertisable:bool ->
-  ?source_ipam_pool_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?allocation_default_netmask_length:float prop ->
+  ?allocation_max_netmask_length:float prop ->
+  ?allocation_min_netmask_length:float prop ->
+  ?allocation_resource_tags:(string * string prop) list ->
+  ?auto_import:bool prop ->
+  ?aws_service:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?locale:string prop ->
+  ?public_ip_source:string prop ->
+  ?publicly_advertisable:bool prop ->
+  ?source_ipam_pool_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_vpc_ipam_pool__timeouts ->
-  address_family:string ->
-  ipam_scope_id:string ->
+  address_family:string prop ->
+  ipam_scope_id:string prop ->
   string ->
   unit

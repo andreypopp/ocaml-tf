@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type google_firebase_app_check_debug_token__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_firebase_app_check_debug_token__timeouts *)
 
 type google_firebase_app_check_debug_token = {
-  app_id : string;
+  app_id : string prop;
       (** The ID of a
 [Web App](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects.webApps#WebApp.FIELDS.app_id),
 [Apple App](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects.iosApps#IosApp.FIELDS.app_id),
 or [Android App](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects.androidApps#AndroidApp.FIELDS.app_id) *)
-  display_name : string;
+  display_name : string prop;
       (** A human readable display name used to identify this debug token. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  token : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  token : string prop;
       (** The secret token itself. Must be provided during creation, and must be a UUID4,
 case insensitive. You may use a method of your choice such as random/random_uuid
 to generate the token.

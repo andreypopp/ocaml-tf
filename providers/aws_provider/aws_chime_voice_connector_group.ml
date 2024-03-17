@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_chime_voice_connector_group__connector = {
-  priority : float;  (** priority *)
-  voice_connector_id : string;  (** voice_connector_id *)
+  priority : float prop;  (** priority *)
+  voice_connector_id : string prop;  (** voice_connector_id *)
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_group__connector *)
 
 type aws_chime_voice_connector_group = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   connector : aws_chime_voice_connector_group__connector list;
 }
 [@@deriving yojson_of]

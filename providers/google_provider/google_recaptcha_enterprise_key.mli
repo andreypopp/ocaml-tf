@@ -11,11 +11,11 @@ type google_recaptcha_enterprise_key__web_settings
 type google_recaptcha_enterprise_key
 
 val google_recaptcha_enterprise_key :
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_recaptcha_enterprise_key__timeouts ->
-  display_name:string ->
+  display_name:string prop ->
   android_settings:
     google_recaptcha_enterprise_key__android_settings list ->
   ios_settings:google_recaptcha_enterprise_key__ios_settings list ->

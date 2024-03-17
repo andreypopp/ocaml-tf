@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_elastic_cloud_elasticsearch__logs__filtering_tag = {
-  action : string;  (** action *)
-  name : string;  (** name *)
-  value : string;  (** value *)
+  action : string prop;  (** action *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_elastic_cloud_elasticsearch__logs__filtering_tag *)
 
 type azurerm_elastic_cloud_elasticsearch__logs = {
-  send_activity_logs : bool option; [@option]
+  send_activity_logs : bool prop option; [@option]
       (** send_activity_logs *)
-  send_azuread_logs : bool option; [@option]
+  send_azuread_logs : bool prop option; [@option]
       (** send_azuread_logs *)
-  send_subscription_logs : bool option; [@option]
+  send_subscription_logs : bool prop option; [@option]
       (** send_subscription_logs *)
   filtering_tag :
     azurerm_elastic_cloud_elasticsearch__logs__filtering_tag list;
@@ -26,25 +26,25 @@ type azurerm_elastic_cloud_elasticsearch__logs = {
 (** azurerm_elastic_cloud_elasticsearch__logs *)
 
 type azurerm_elastic_cloud_elasticsearch__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_elastic_cloud_elasticsearch__timeouts *)
 
 type azurerm_elastic_cloud_elasticsearch = {
-  elastic_cloud_email_address : string;
+  elastic_cloud_email_address : string prop;
       (** elastic_cloud_email_address *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  monitoring_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  monitoring_enabled : bool prop option; [@option]
       (** monitoring_enabled *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   logs : azurerm_elastic_cloud_elasticsearch__logs list;
   timeouts : azurerm_elastic_cloud_elasticsearch__timeouts option;
 }

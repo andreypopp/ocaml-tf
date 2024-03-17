@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_express_route_circuit_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit_connection__timeouts *)
 
 type azurerm_express_route_circuit_connection = {
-  address_prefix_ipv4 : string;  (** address_prefix_ipv4 *)
-  address_prefix_ipv6 : string option; [@option]
+  address_prefix_ipv4 : string prop;  (** address_prefix_ipv4 *)
+  address_prefix_ipv6 : string prop option; [@option]
       (** address_prefix_ipv6 *)
-  authorization_key : string option; [@option]
+  authorization_key : string prop option; [@option]
       (** authorization_key *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  peer_peering_id : string;  (** peer_peering_id *)
-  peering_id : string;  (** peering_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  peer_peering_id : string prop;  (** peer_peering_id *)
+  peering_id : string prop;  (** peering_id *)
   timeouts :
     azurerm_express_route_circuit_connection__timeouts option;
 }

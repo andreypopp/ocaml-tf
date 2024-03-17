@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_spot_datafeed_subscription
 
 val aws_spot_datafeed_subscription :
-  ?id:string -> ?prefix:string -> bucket:string -> string -> unit
+  ?id:string prop ->
+  ?prefix:string prop ->
+  bucket:string prop ->
+  string ->
+  unit

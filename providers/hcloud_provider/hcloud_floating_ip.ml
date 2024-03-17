@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type hcloud_floating_ip = {
-  delete_protection : bool option; [@option]
+  delete_protection : bool prop option; [@option]
       (** delete_protection *)
-  description : string option; [@option]  (** description *)
-  home_location : string option; [@option]  (** home_location *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  name : string option; [@option]  (** name *)
-  server_id : float option; [@option]  (** server_id *)
-  type_ : string; [@key "type"]  (** type *)
+  description : string prop option; [@option]  (** description *)
+  home_location : string prop option; [@option]  (** home_location *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  name : string prop option; [@option]  (** name *)
+  server_id : float prop option; [@option]  (** server_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** hcloud_floating_ip *)

@@ -11,9 +11,9 @@ type aws_quicksight_refresh_schedule__schedule
 type aws_quicksight_refresh_schedule
 
 val aws_quicksight_refresh_schedule :
-    ?aws_account_id:string ->
-    data_set_id:string ->
-    schedule_id:string ->
+    ?aws_account_id:string prop ->
+    data_set_id:string prop ->
+    schedule_id:string prop ->
     schedule:aws_quicksight_refresh_schedule__schedule list ->
     string ->
     unit

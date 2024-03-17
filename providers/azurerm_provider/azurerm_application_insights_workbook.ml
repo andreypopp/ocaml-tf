@@ -5,36 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_application_insights_workbook__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_workbook__identity *)
 
 type azurerm_application_insights_workbook__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_workbook__timeouts *)
 
 type azurerm_application_insights_workbook = {
-  category : string option; [@option]  (** category *)
-  data_json : string;  (** data_json *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  source_id : string option; [@option]  (** source_id *)
-  storage_container_id : string option; [@option]
+  category : string prop option; [@option]  (** category *)
+  data_json : string prop;  (** data_json *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  source_id : string prop option; [@option]  (** source_id *)
+  storage_container_id : string prop option; [@option]
       (** storage_container_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   identity : azurerm_application_insights_workbook__identity list;
   timeouts : azurerm_application_insights_workbook__timeouts option;
 }

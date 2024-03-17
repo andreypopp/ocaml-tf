@@ -5,31 +5,34 @@
 open! Tf.Prelude
 
 type aws_medialive_multiplex__multiplex_settings = {
-  maximum_video_buffer_delay_milliseconds : float option; [@option]
+  maximum_video_buffer_delay_milliseconds : float prop option;
+      [@option]
       (** maximum_video_buffer_delay_milliseconds *)
-  transport_stream_bitrate : float;  (** transport_stream_bitrate *)
-  transport_stream_id : float;  (** transport_stream_id *)
-  transport_stream_reserved_bitrate : float option; [@option]
+  transport_stream_bitrate : float prop;
+      (** transport_stream_bitrate *)
+  transport_stream_id : float prop;  (** transport_stream_id *)
+  transport_stream_reserved_bitrate : float prop option; [@option]
       (** transport_stream_reserved_bitrate *)
 }
 [@@deriving yojson_of]
 (** aws_medialive_multiplex__multiplex_settings *)
 
 type aws_medialive_multiplex__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_medialive_multiplex__timeouts *)
 
 type aws_medialive_multiplex = {
-  availability_zones : string list;  (** availability_zones *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  start_multiplex : bool option; [@option]  (** start_multiplex *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  availability_zones : string prop list;  (** availability_zones *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  start_multiplex : bool prop option; [@option]
+      (** start_multiplex *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   multiplex_settings :
     aws_medialive_multiplex__multiplex_settings list;

@@ -5,76 +5,76 @@
 open! Tf.Prelude
 
 type azurerm_backup_policy_vm__backup = {
-  frequency : string;  (** frequency *)
-  hour_duration : float option; [@option]  (** hour_duration *)
-  hour_interval : float option; [@option]  (** hour_interval *)
-  time : string;  (** time *)
-  weekdays : string list option; [@option]  (** weekdays *)
+  frequency : string prop;  (** frequency *)
+  hour_duration : float prop option; [@option]  (** hour_duration *)
+  hour_interval : float prop option; [@option]  (** hour_interval *)
+  time : string prop;  (** time *)
+  weekdays : string prop list option; [@option]  (** weekdays *)
 }
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm__backup *)
 
 type azurerm_backup_policy_vm__instant_restore_resource_group = {
-  prefix : string;  (** prefix *)
-  suffix : string option; [@option]  (** suffix *)
+  prefix : string prop;  (** prefix *)
+  suffix : string prop option; [@option]  (** suffix *)
 }
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm__instant_restore_resource_group *)
 
 type azurerm_backup_policy_vm__retention_daily = {
-  count : float;  (** count *)
+  count : float prop;  (** count *)
 }
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm__retention_daily *)
 
 type azurerm_backup_policy_vm__retention_monthly = {
-  count : float;  (** count *)
-  days : float list option; [@option]  (** days *)
-  include_last_days : bool option; [@option]
+  count : float prop;  (** count *)
+  days : float prop list option; [@option]  (** days *)
+  include_last_days : bool prop option; [@option]
       (** include_last_days *)
-  weekdays : string list option; [@option]  (** weekdays *)
-  weeks : string list option; [@option]  (** weeks *)
+  weekdays : string prop list option; [@option]  (** weekdays *)
+  weeks : string prop list option; [@option]  (** weeks *)
 }
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm__retention_monthly *)
 
 type azurerm_backup_policy_vm__retention_weekly = {
-  count : float;  (** count *)
-  weekdays : string list;  (** weekdays *)
+  count : float prop;  (** count *)
+  weekdays : string prop list;  (** weekdays *)
 }
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm__retention_weekly *)
 
 type azurerm_backup_policy_vm__retention_yearly = {
-  count : float;  (** count *)
-  days : float list option; [@option]  (** days *)
-  include_last_days : bool option; [@option]
+  count : float prop;  (** count *)
+  days : float prop list option; [@option]  (** days *)
+  include_last_days : bool prop option; [@option]
       (** include_last_days *)
-  months : string list;  (** months *)
-  weekdays : string list option; [@option]  (** weekdays *)
-  weeks : string list option; [@option]  (** weeks *)
+  months : string prop list;  (** months *)
+  weekdays : string prop list option; [@option]  (** weekdays *)
+  weeks : string prop list option; [@option]  (** weeks *)
 }
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm__retention_yearly *)
 
 type azurerm_backup_policy_vm__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_backup_policy_vm__timeouts *)
 
 type azurerm_backup_policy_vm = {
-  id : string option; [@option]  (** id *)
-  instant_restore_retention_days : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instant_restore_retention_days : float prop option; [@option]
       (** instant_restore_retention_days *)
-  name : string;  (** name *)
-  policy_type : string option; [@option]  (** policy_type *)
-  recovery_vault_name : string;  (** recovery_vault_name *)
-  resource_group_name : string;  (** resource_group_name *)
-  timezone : string option; [@option]  (** timezone *)
+  name : string prop;  (** name *)
+  policy_type : string prop option; [@option]  (** policy_type *)
+  recovery_vault_name : string prop;  (** recovery_vault_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  timezone : string prop option; [@option]  (** timezone *)
   backup : azurerm_backup_policy_vm__backup list;
   instant_restore_resource_group :
     azurerm_backup_policy_vm__instant_restore_resource_group list;

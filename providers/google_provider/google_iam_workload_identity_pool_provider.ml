@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type google_iam_workload_identity_pool_provider__aws = {
-  account_id : string;  (** The AWS account ID. *)
+  account_id : string prop;  (** The AWS account ID. *)
 }
 [@@deriving yojson_of]
 (** An Amazon Web Services identity provider. Not compatible with the property oidc or saml. *)
 
 type google_iam_workload_identity_pool_provider__oidc = {
-  allowed_audiences : string list option; [@option]
+  allowed_audiences : string prop list option; [@option]
       (** Acceptable values for the 'aud' field (audience) in the OIDC token. Token exchange
 requests are rejected if the token audience does not match one of the configured
 values. Each audience may be at most 256 characters. A maximum of 10 audiences may
@@ -24,8 +24,8 @@ For example:
 //iam.googleapis.com/projects/<project-number>/locations/<location>/workloadIdentityPools/<pool-id>/providers/<provider-id>
 https://iam.googleapis.com/projects/<project-number>/locations/<location>/workloadIdentityPools/<pool-id>/providers/<provider-id>
 ''' *)
-  issuer_uri : string;  (** The OIDC issuer URL. *)
-  jwks_json : string option; [@option]
+  issuer_uri : string prop;  (** The OIDC issuer URL. *)
+  jwks_json : string prop option; [@option]
       (** OIDC JWKs in JSON String format. For details on definition of a
 JWK, see https:tools.ietf.org/html/rfc7517. If not set, then we
 use the 'jwks_uri' from the discovery document fetched from the
@@ -54,22 +54,22 @@ the following fields:
 (** An OpenId Connect 1.0 identity provider. Not compatible with the property aws or saml. *)
 
 type google_iam_workload_identity_pool_provider__saml = {
-  idp_metadata_xml : string;
+  idp_metadata_xml : string prop;
       (** SAML Identity provider configuration metadata xml doc. *)
 }
 [@@deriving yojson_of]
 (** An SAML 2.0 identity provider. Not compatible with the property oidc or aws. *)
 
 type google_iam_workload_identity_pool_provider__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_iam_workload_identity_pool_provider__timeouts *)
 
 type google_iam_workload_identity_pool_provider = {
-  attribute_condition : string option; [@option]
+  attribute_condition : string prop option; [@option]
       (** [A Common Expression Language](https://opensource.google/projects/cel) expression, in
 plain text, to restrict what otherwise valid authentication credentials issued by the
 provider should not be accepted.
@@ -89,7 +89,7 @@ value of 'admins':
 '''
 'admins' in google.groups
 ''' *)
-  attribute_mapping : (string * string) list option; [@option]
+  attribute_mapping : (string * string prop) list option; [@option]
       (** Maps attributes from authentication credentials issued by an external identity provider
 to Google Cloud attributes, such as 'subject' and 'segment'.
 
@@ -150,20 +150,20 @@ For OIDC providers, the following rules apply:
     '''
     {google.subject: assertion.sub}
     ''' *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A description for the provider. Cannot exceed 256 characters. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** Whether the provider is disabled. You cannot use a disabled provider to exchange tokens.
 However, existing tokens still grant access. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** A display name for the provider. Cannot exceed 32 characters. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  workload_identity_pool_id : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  workload_identity_pool_id : string prop;
       (** The ID used for the pool, which is the final component of the pool resource name. This
 value should be 4-32 characters, and may contain the characters [a-z0-9-]. The prefix
 'gcp-' is reserved for use by Google, and may not be specified. *)
-  workload_identity_pool_provider_id : string;
+  workload_identity_pool_provider_id : string prop;
       (** The ID for the provider, which becomes the final component of the resource name. This
 value must be 4-32 characters, and may contain the characters [a-z0-9-]. The prefix
 'gcp-' is reserved for use by Google, and may not be specified. *)

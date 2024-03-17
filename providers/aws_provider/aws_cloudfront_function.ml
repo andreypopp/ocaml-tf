@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_cloudfront_function = {
-  code : string;  (** code *)
-  comment : string option; [@option]  (** comment *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  publish : bool option; [@option]  (** publish *)
-  runtime : string;  (** runtime *)
+  code : string prop;  (** code *)
+  comment : string prop option; [@option]  (** comment *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  publish : bool prop option; [@option]  (** publish *)
+  runtime : string prop;  (** runtime *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_function *)

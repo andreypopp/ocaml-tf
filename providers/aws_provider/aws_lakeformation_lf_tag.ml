@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_lakeformation_lf_tag = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  id : string option; [@option]  (** id *)
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  id : string prop option; [@option]  (** id *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_lf_tag *)

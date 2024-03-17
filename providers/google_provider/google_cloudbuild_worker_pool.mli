@@ -8,13 +8,13 @@ type google_cloudbuild_worker_pool__worker_config
 type google_cloudbuild_worker_pool
 
 val google_cloudbuild_worker_pool :
-  ?annotations:(string * string) list ->
-  ?display_name:string ->
-  ?id:string ->
-  ?project:string ->
+  ?annotations:(string * string prop) list ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_cloudbuild_worker_pool__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   network_config:google_cloudbuild_worker_pool__network_config list ->
   worker_config:google_cloudbuild_worker_pool__worker_config list ->
   string ->

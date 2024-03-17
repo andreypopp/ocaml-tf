@@ -6,13 +6,13 @@ type kubernetes_annotations__metadata
 type kubernetes_annotations
 
 val kubernetes_annotations :
-  ?annotations:(string * string) list ->
-  ?field_manager:string ->
-  ?force:bool ->
-  ?id:string ->
-  ?template_annotations:(string * string) list ->
-  api_version:string ->
-  kind:string ->
+  ?annotations:(string * string prop) list ->
+  ?field_manager:string prop ->
+  ?force:bool prop ->
+  ?id:string prop ->
+  ?template_annotations:(string * string prop) list ->
+  api_version:string prop ->
+  kind:string prop ->
   metadata:kubernetes_annotations__metadata list ->
   string ->
   unit

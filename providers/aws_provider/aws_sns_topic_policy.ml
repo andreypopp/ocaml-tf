@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_sns_topic_policy = {
-  arn : string;  (** arn *)
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
+  arn : string prop;  (** arn *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_sns_topic_policy *)

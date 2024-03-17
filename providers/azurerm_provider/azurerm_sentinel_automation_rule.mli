@@ -9,17 +9,17 @@ type azurerm_sentinel_automation_rule__timeouts
 type azurerm_sentinel_automation_rule
 
 val azurerm_sentinel_automation_rule :
-  ?condition_json:string ->
-  ?enabled:bool ->
-  ?expiration:string ->
-  ?id:string ->
-  ?triggers_on:string ->
-  ?triggers_when:string ->
+  ?condition_json:string prop ->
+  ?enabled:bool prop ->
+  ?expiration:string prop ->
+  ?id:string prop ->
+  ?triggers_on:string prop ->
+  ?triggers_when:string prop ->
   ?timeouts:azurerm_sentinel_automation_rule__timeouts ->
-  display_name:string ->
-  log_analytics_workspace_id:string ->
-  name:string ->
-  order:float ->
+  display_name:string prop ->
+  log_analytics_workspace_id:string prop ->
+  name:string prop ->
+  order:float prop ->
   action_incident:
     azurerm_sentinel_automation_rule__action_incident list ->
   action_playbook:

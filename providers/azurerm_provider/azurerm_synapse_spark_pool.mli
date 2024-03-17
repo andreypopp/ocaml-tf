@@ -10,23 +10,23 @@ type azurerm_synapse_spark_pool__timeouts
 type azurerm_synapse_spark_pool
 
 val azurerm_synapse_spark_pool :
-  ?cache_size:float ->
-  ?compute_isolation_enabled:bool ->
-  ?dynamic_executor_allocation_enabled:bool ->
-  ?id:string ->
-  ?max_executors:float ->
-  ?min_executors:float ->
-  ?node_count:float ->
-  ?session_level_packages_enabled:bool ->
-  ?spark_events_folder:string ->
-  ?spark_log_folder:string ->
-  ?spark_version:string ->
-  ?tags:(string * string) list ->
+  ?cache_size:float prop ->
+  ?compute_isolation_enabled:bool prop ->
+  ?dynamic_executor_allocation_enabled:bool prop ->
+  ?id:string prop ->
+  ?max_executors:float prop ->
+  ?min_executors:float prop ->
+  ?node_count:float prop ->
+  ?session_level_packages_enabled:bool prop ->
+  ?spark_events_folder:string prop ->
+  ?spark_log_folder:string prop ->
+  ?spark_version:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_synapse_spark_pool__timeouts ->
-  name:string ->
-  node_size:string ->
-  node_size_family:string ->
-  synapse_workspace_id:string ->
+  name:string prop ->
+  node_size:string prop ->
+  node_size_family:string prop ->
+  synapse_workspace_id:string prop ->
   auto_pause:azurerm_synapse_spark_pool__auto_pause list ->
   auto_scale:azurerm_synapse_spark_pool__auto_scale list ->
   library_requirement:

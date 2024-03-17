@@ -5,35 +5,35 @@
 open! Tf.Prelude
 
 type aws_cloudfront_response_headers_policy__cors_config__access_control_allow_headers = {
-  items : string list option; [@option]  (** items *)
+  items : string prop list option; [@option]  (** items *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__cors_config__access_control_allow_headers *)
 
 type aws_cloudfront_response_headers_policy__cors_config__access_control_allow_methods = {
-  items : string list option; [@option]  (** items *)
+  items : string prop list option; [@option]  (** items *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__cors_config__access_control_allow_methods *)
 
 type aws_cloudfront_response_headers_policy__cors_config__access_control_allow_origins = {
-  items : string list option; [@option]  (** items *)
+  items : string prop list option; [@option]  (** items *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__cors_config__access_control_allow_origins *)
 
 type aws_cloudfront_response_headers_policy__cors_config__access_control_expose_headers = {
-  items : string list option; [@option]  (** items *)
+  items : string prop list option; [@option]  (** items *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__cors_config__access_control_expose_headers *)
 
 type aws_cloudfront_response_headers_policy__cors_config = {
-  access_control_allow_credentials : bool;
+  access_control_allow_credentials : bool prop;
       (** access_control_allow_credentials *)
-  access_control_max_age_sec : float option; [@option]
+  access_control_max_age_sec : float prop option; [@option]
       (** access_control_max_age_sec *)
-  origin_override : bool;  (** origin_override *)
+  origin_override : bool prop;  (** origin_override *)
   access_control_allow_headers :
     aws_cloudfront_response_headers_policy__cors_config__access_control_allow_headers
     list;
@@ -51,9 +51,9 @@ type aws_cloudfront_response_headers_policy__cors_config = {
 (** aws_cloudfront_response_headers_policy__cors_config *)
 
 type aws_cloudfront_response_headers_policy__custom_headers_config__items = {
-  header : string;  (** header *)
-  override : bool;  (** override *)
-  value : string;  (** value *)
+  header : string prop;  (** header *)
+  override : bool prop;  (** override *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__custom_headers_config__items *)
@@ -67,7 +67,7 @@ type aws_cloudfront_response_headers_policy__custom_headers_config = {
 (** aws_cloudfront_response_headers_policy__custom_headers_config *)
 
 type aws_cloudfront_response_headers_policy__remove_headers_config__items = {
-  header : string;  (** header *)
+  header : string prop;  (** header *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__remove_headers_config__items *)
@@ -81,48 +81,49 @@ type aws_cloudfront_response_headers_policy__remove_headers_config = {
 (** aws_cloudfront_response_headers_policy__remove_headers_config *)
 
 type aws_cloudfront_response_headers_policy__security_headers_config__content_security_policy = {
-  content_security_policy : string;  (** content_security_policy *)
-  override : bool;  (** override *)
+  content_security_policy : string prop;
+      (** content_security_policy *)
+  override : bool prop;  (** override *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__security_headers_config__content_security_policy *)
 
 type aws_cloudfront_response_headers_policy__security_headers_config__content_type_options = {
-  override : bool;  (** override *)
+  override : bool prop;  (** override *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__security_headers_config__content_type_options *)
 
 type aws_cloudfront_response_headers_policy__security_headers_config__frame_options = {
-  frame_option : string;  (** frame_option *)
-  override : bool;  (** override *)
+  frame_option : string prop;  (** frame_option *)
+  override : bool prop;  (** override *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__security_headers_config__frame_options *)
 
 type aws_cloudfront_response_headers_policy__security_headers_config__referrer_policy = {
-  override : bool;  (** override *)
-  referrer_policy : string;  (** referrer_policy *)
+  override : bool prop;  (** override *)
+  referrer_policy : string prop;  (** referrer_policy *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__security_headers_config__referrer_policy *)
 
 type aws_cloudfront_response_headers_policy__security_headers_config__strict_transport_security = {
-  access_control_max_age_sec : float;
+  access_control_max_age_sec : float prop;
       (** access_control_max_age_sec *)
-  include_subdomains : bool option; [@option]
+  include_subdomains : bool prop option; [@option]
       (** include_subdomains *)
-  override : bool;  (** override *)
-  preload : bool option; [@option]  (** preload *)
+  override : bool prop;  (** override *)
+  preload : bool prop option; [@option]  (** preload *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__security_headers_config__strict_transport_security *)
 
 type aws_cloudfront_response_headers_policy__security_headers_config__xss_protection = {
-  mode_block : bool option; [@option]  (** mode_block *)
-  override : bool;  (** override *)
-  protection : bool;  (** protection *)
-  report_uri : string option; [@option]  (** report_uri *)
+  mode_block : bool prop option; [@option]  (** mode_block *)
+  override : bool prop;  (** override *)
+  protection : bool prop;  (** protection *)
+  report_uri : string prop option; [@option]  (** report_uri *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__security_headers_config__xss_protection *)
@@ -151,17 +152,17 @@ type aws_cloudfront_response_headers_policy__security_headers_config = {
 (** aws_cloudfront_response_headers_policy__security_headers_config *)
 
 type aws_cloudfront_response_headers_policy__server_timing_headers_config = {
-  enabled : bool;  (** enabled *)
-  sampling_rate : float;  (** sampling_rate *)
+  enabled : bool prop;  (** enabled *)
+  sampling_rate : float prop;  (** sampling_rate *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_response_headers_policy__server_timing_headers_config *)
 
 type aws_cloudfront_response_headers_policy = {
-  comment : string option; [@option]  (** comment *)
-  etag : string option; [@option]  (** etag *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  comment : string prop option; [@option]  (** comment *)
+  etag : string prop option; [@option]  (** etag *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   cors_config :
     aws_cloudfront_response_headers_policy__cors_config list;
   custom_headers_config :

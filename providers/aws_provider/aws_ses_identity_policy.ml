@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_ses_identity_policy = {
-  id : string option; [@option]  (** id *)
-  identity : string;  (** identity *)
-  name : string;  (** name *)
-  policy : string;  (** policy *)
+  id : string prop option; [@option]  (** id *)
+  identity : string prop;  (** identity *)
+  name : string prop;  (** name *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_ses_identity_policy *)

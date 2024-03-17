@@ -5,37 +5,38 @@
 open! Tf.Prelude
 
 type azurerm_mssql_failover_group__partner_server = {
-  id : string;  (** id *)
-  location : string;  (** location *)
-  role : string;  (** role *)
+  id : string prop;  (** id *)
+  location : string prop;  (** location *)
+  role : string prop;  (** role *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_failover_group__partner_server *)
 
 type azurerm_mssql_failover_group__read_write_endpoint_failover_policy = {
-  grace_minutes : float option; [@option]  (** grace_minutes *)
-  mode : string;  (** mode *)
+  grace_minutes : float prop option; [@option]  (** grace_minutes *)
+  mode : string prop;  (** mode *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_failover_group__read_write_endpoint_failover_policy *)
 
 type azurerm_mssql_failover_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_failover_group__timeouts *)
 
 type azurerm_mssql_failover_group = {
-  databases : string list option; [@option]  (** databases *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  readonly_endpoint_failover_policy_enabled : bool option; [@option]
+  databases : string prop list option; [@option]  (** databases *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  readonly_endpoint_failover_policy_enabled : bool prop option;
+      [@option]
       (** readonly_endpoint_failover_policy_enabled *)
-  server_id : string;  (** server_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  server_id : string prop;  (** server_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   partner_server : azurerm_mssql_failover_group__partner_server list;
   read_write_endpoint_failover_policy :
     azurerm_mssql_failover_group__read_write_endpoint_failover_policy

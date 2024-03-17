@@ -6,7 +6,7 @@ type aws_chimesdkvoice_global_settings__voice_connector
 type aws_chimesdkvoice_global_settings
 
 val aws_chimesdkvoice_global_settings :
-  ?id:string ->
+  ?id:string prop ->
   voice_connector:
     aws_chimesdkvoice_global_settings__voice_connector list ->
   string ->

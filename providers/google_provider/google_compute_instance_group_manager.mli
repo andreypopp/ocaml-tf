@@ -15,15 +15,15 @@ type google_compute_instance_group_manager__version__target_size
 type google_compute_instance_group_manager__version
 
 type google_compute_instance_group_manager__status__version_target = {
-  is_reached : bool;  (** is_reached *)
+  is_reached : bool prop;  (** is_reached *)
 }
 
 type google_compute_instance_group_manager__status__stateful__per_instance_configs = {
-  all_effective : bool;  (** all_effective *)
+  all_effective : bool prop;  (** all_effective *)
 }
 
 type google_compute_instance_group_manager__status__stateful = {
-  has_stateful_config : bool;  (** has_stateful_config *)
+  has_stateful_config : bool prop;  (** has_stateful_config *)
   per_instance_configs :
     google_compute_instance_group_manager__status__stateful__per_instance_configs
     list;
@@ -31,7 +31,7 @@ type google_compute_instance_group_manager__status__stateful = {
 }
 
 type google_compute_instance_group_manager__status__all_instances_config = {
-  effective : bool;  (** effective *)
+  effective : bool prop;  (** effective *)
 }
 
 type google_compute_instance_group_manager__status = {
@@ -39,7 +39,7 @@ type google_compute_instance_group_manager__status = {
     google_compute_instance_group_manager__status__all_instances_config
     list;
       (** all_instances_config *)
-  is_stable : bool;  (** is_stable *)
+  is_stable : bool prop;  (** is_stable *)
   stateful :
     google_compute_instance_group_manager__status__stateful list;
       (** stateful *)
@@ -52,18 +52,18 @@ type google_compute_instance_group_manager__status = {
 type google_compute_instance_group_manager
 
 val google_compute_instance_group_manager :
-  ?description:string ->
-  ?id:string ->
-  ?list_managed_instances_results:string ->
-  ?project:string ->
-  ?target_pools:string list ->
-  ?target_size:float ->
-  ?wait_for_instances:bool ->
-  ?wait_for_instances_status:string ->
-  ?zone:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?list_managed_instances_results:string prop ->
+  ?project:string prop ->
+  ?target_pools:string prop list ->
+  ?target_size:float prop ->
+  ?wait_for_instances:bool prop ->
+  ?wait_for_instances_status:string prop ->
+  ?zone:string prop ->
   ?timeouts:google_compute_instance_group_manager__timeouts ->
-  base_instance_name:string ->
-  name:string ->
+  base_instance_name:string prop ->
+  name:string prop ->
   all_instances_config:
     google_compute_instance_group_manager__all_instances_config list ->
   auto_healing_policies:

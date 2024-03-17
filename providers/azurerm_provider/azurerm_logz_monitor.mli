@@ -8,15 +8,15 @@ type azurerm_logz_monitor__user
 type azurerm_logz_monitor
 
 val azurerm_logz_monitor :
-  ?company_name:string ->
-  ?enabled:bool ->
-  ?enterprise_app_id:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?company_name:string prop ->
+  ?enabled:bool prop ->
+  ?enterprise_app_id:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_logz_monitor__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   plan:azurerm_logz_monitor__plan list ->
   user:azurerm_logz_monitor__user list ->
   string ->

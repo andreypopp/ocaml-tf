@@ -6,12 +6,12 @@ type azurerm_api_management_email_template__timeouts
 type azurerm_api_management_email_template
 
 val azurerm_api_management_email_template :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_api_management_email_template__timeouts ->
-  api_management_name:string ->
-  body:string ->
-  resource_group_name:string ->
-  subject:string ->
-  template_name:string ->
+  api_management_name:string prop ->
+  body:string prop ->
+  resource_group_name:string prop ->
+  subject:string prop ->
+  template_name:string prop ->
   string ->
   unit

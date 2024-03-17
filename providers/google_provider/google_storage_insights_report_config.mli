@@ -20,11 +20,11 @@ type google_storage_insights_report_config__timeouts
 type google_storage_insights_report_config
 
 val google_storage_insights_report_config :
-  ?display_name:string ->
-  ?id:string ->
-  ?project:string ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_storage_insights_report_config__timeouts ->
-  location:string ->
+  location:string prop ->
   csv_options:google_storage_insights_report_config__csv_options list ->
   frequency_options:
     google_storage_insights_report_config__frequency_options list ->

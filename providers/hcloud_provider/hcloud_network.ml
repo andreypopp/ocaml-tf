@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type hcloud_network = {
-  delete_protection : bool option; [@option]
+  delete_protection : bool prop option; [@option]
       (** delete_protection *)
-  expose_routes_to_vswitch : bool option; [@option]
+  expose_routes_to_vswitch : bool prop option; [@option]
       (** Enable or disable exposing the routes to the vSwitch connection. The exposing only takes effect if a vSwitch connection is active. *)
-  id : string option; [@option]  (** id *)
-  ip_range : string;  (** ip_range *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  ip_range : string prop;  (** ip_range *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** hcloud_network *)

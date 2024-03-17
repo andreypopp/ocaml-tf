@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type google_compute_url_map__default_route_action__cors_policy = {
-  allow_credentials : bool option; [@option]
+  allow_credentials : bool prop option; [@option]
       (** In response to a preflight request, setting this to true indicates that the actual request can include user credentials.
 This translates to the Access-Control-Allow-Credentials header. *)
-  allow_headers : string list option; [@option]
+  allow_headers : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Allow-Headers header. *)
-  allow_methods : string list option; [@option]
+  allow_methods : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Allow-Methods header. *)
-  allow_origin_regexes : string list option; [@option]
+  allow_origin_regexes : string prop list option; [@option]
       (** Specifies the regular expression patterns that match allowed origins. For regular expression grammar
 please see en.cppreference.com/w/cpp/regex/ecmascript
 An origin is allowed if it matches either an item in allowOrigins or an item in allowOriginRegexes. *)
-  allow_origins : string list option; [@option]
+  allow_origins : string prop list option; [@option]
       (** Specifies the list of origins that will be allowed to do CORS requests.
 An origin is allowed if it matches either an item in allowOrigins or an item in allowOriginRegexes. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** If true, specifies the CORS policy is disabled. The default value is false, which indicates that the CORS policy is in effect. *)
-  expose_headers : string list option; [@option]
+  expose_headers : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Expose-Headers header. *)
-  max_age : float option; [@option]
+  max_age : float prop option; [@option]
       (** Specifies how long results of a preflight request can be cached in seconds.
 This translates to the Access-Control-Max-Age header. *)
 }
@@ -32,10 +32,10 @@ This translates to the Access-Control-Max-Age header. *)
 [W3C Recommendation for Cross Origin Resource Sharing](https://www.w3.org/TR/cors/) *)
 
 type google_compute_url_map__default_route_action__fault_injection_policy__abort = {
-  http_status : float option; [@option]
+  http_status : float prop option; [@option]
       (** The HTTP status code used to abort the request.
 The value must be between 200 and 599 inclusive. *)
-  percentage : float option; [@option]
+  percentage : float prop option; [@option]
       (** The percentage of traffic (connections/operations/requests) which will be aborted as part of fault injection.
 The value must be between 0.0 and 100.0 inclusive. *)
 }
@@ -43,10 +43,10 @@ The value must be between 0.0 and 100.0 inclusive. *)
 (** The specification for how client requests are aborted as part of fault injection. *)
 
 type google_compute_url_map__default_route_action__fault_injection_policy__delay__fixed_delay = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are
 represented with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string option; [@option]
+  seconds : string prop option; [@option]
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000 inclusive.
 Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years *)
 }
@@ -54,7 +54,7 @@ Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.2
 (** Specifies the value of the fixed delay interval. *)
 
 type google_compute_url_map__default_route_action__fault_injection_policy__delay = {
-  percentage : float option; [@option]
+  percentage : float prop option; [@option]
       (** The percentage of traffic (connections/operations/requests) on which delay will be introduced as part of fault injection.
 The value must be between 0.0 and 100.0 inclusive. *)
   fixed_delay :
@@ -81,7 +81,7 @@ by the Loadbalancer for a percentage of requests.
 timeout and retryPolicy will be ignored by clients that are configured with a faultInjectionPolicy. *)
 
 type google_compute_url_map__default_route_action__request_mirror_policy = {
-  backend_service : string;
+  backend_service : string prop;
       (** The full or partial URL to the BackendService resource being mirrored to. *)
 }
 [@@deriving yojson_of]
@@ -90,10 +90,10 @@ Loadbalancer does not wait for responses from the shadow service. Prior to sendi
 the host / authority header is suffixed with -shadow. *)
 
 type google_compute_url_map__default_route_action__retry_policy__per_try_timeout = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are
 represented with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string option; [@option]
+  seconds : string prop option; [@option]
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000 inclusive.
 Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years *)
 }
@@ -104,9 +104,9 @@ If not specified, will use the timeout set in HttpRouteAction. If timeout in Htt
 will use the largest timeout among all backend services associated with the route. *)
 
 type google_compute_url_map__default_route_action__retry_policy = {
-  num_retries : float option; [@option]
+  num_retries : float prop option; [@option]
       (** Specifies the allowed number retries. This number must be > 0. If not specified, defaults to 1. *)
-  retry_conditions : string list option; [@option]
+  retry_conditions : string prop list option; [@option]
       (** Specfies one or more conditions when this retry rule applies. Valid values are:
 
 * 5xx: Loadbalancer will attempt a retry if the backend service responds with any 5xx response code,
@@ -131,10 +131,10 @@ type google_compute_url_map__default_route_action__retry_policy = {
 (** Specifies the retry policy associated with this route. *)
 
 type google_compute_url_map__default_route_action__timeout = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are represented
 with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string option; [@option]
+  seconds : string prop option; [@option]
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000 inclusive.
 Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years *)
 }
@@ -145,12 +145,12 @@ fully processed (i.e. end-of-stream) up until the response has been completely p
 If not specified, will use the largest timeout among all backend services associated with the route. *)
 
 type google_compute_url_map__default_route_action__url_rewrite = {
-  host_rewrite : string option; [@option]
+  host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected service, the request's host header is replaced
 with contents of hostRewrite.
 
 The value must be between 1 and 255 characters. *)
-  path_prefix_rewrite : string option; [@option]
+  path_prefix_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected backend service, the matching portion of the
 request's path is replaced by pathPrefixRewrite.
 
@@ -160,11 +160,11 @@ The value must be between 1 and 1024 characters. *)
 (** The spec to modify the URL of the request, prior to forwarding the request to the matched service. *)
 
 type google_compute_url_map__default_route_action__weighted_backend_services__header_action__request_headers_to_add = {
-  header_name : string option; [@option]
+  header_name : string prop option; [@option]
       (** The name of the header to add. *)
-  header_value : string option; [@option]
+  header_value : string prop option; [@option]
       (** The value of the header to add. *)
-  replace : bool option; [@option]
+  replace : bool prop option; [@option]
       (** If false, headerValue is appended to any values that already exist for the header.
 If true, headerValue is set for the header, discarding any values that were set for that header. *)
 }
@@ -172,11 +172,11 @@ If true, headerValue is set for the header, discarding any values that were set 
 (** Headers to add to a matching request prior to forwarding the request to the backendService. *)
 
 type google_compute_url_map__default_route_action__weighted_backend_services__header_action__response_headers_to_add = {
-  header_name : string option; [@option]
+  header_name : string prop option; [@option]
       (** The name of the header to add. *)
-  header_value : string option; [@option]
+  header_value : string prop option; [@option]
       (** The value of the header to add. *)
-  replace : bool option; [@option]
+  replace : bool prop option; [@option]
       (** If false, headerValue is appended to any values that already exist for the header.
 If true, headerValue is set for the header, discarding any values that were set for that header. *)
 }
@@ -184,10 +184,10 @@ If true, headerValue is set for the header, discarding any values that were set 
 (** Headers to add the response prior to sending the response back to the client. *)
 
 type google_compute_url_map__default_route_action__weighted_backend_services__header_action = {
-  request_headers_to_remove : string list option; [@option]
+  request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request prior to
 forwarding the request to the backendService. *)
-  response_headers_to_remove : string list option; [@option]
+  response_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the response prior to sending the
 response back to the client. *)
   request_headers_to_add :
@@ -205,11 +205,11 @@ headerAction specified here take effect before headerAction in the enclosing
 HttpRouteRule, PathMatcher and UrlMap. *)
 
 type google_compute_url_map__default_route_action__weighted_backend_services = {
-  backend_service : string option; [@option]
+  backend_service : string prop option; [@option]
       (** The full or partial URL to the default BackendService resource. Before forwarding the
 request to backendService, the loadbalancer applies any relevant headerActions
 specified as part of this backendServiceWeight. *)
-  weight : float option; [@option]
+  weight : float prop option; [@option]
       (** Specifies the fraction of traffic sent to backendService, computed as
 weight / (sum of all weightedBackendService weights in routeAction) .
 
@@ -260,27 +260,27 @@ is set, defaultRouteAction cannot contain any weightedBackendServices.
 Only one of defaultRouteAction or defaultUrlRedirect must be set. *)
 
 type google_compute_url_map__default_url_redirect = {
-  host_redirect : string option; [@option]
+  host_redirect : string prop option; [@option]
       (** The host that will be used in the redirect response instead of the one that was
 supplied in the request. The value must be between 1 and 255 characters. *)
-  https_redirect : bool option; [@option]
+  https_redirect : bool prop option; [@option]
       (** If set to true, the URL scheme in the redirected request is set to https. If set to
 false, the URL scheme of the redirected request will remain the same as that of the
 request. This must only be set for UrlMaps used in TargetHttpProxys. Setting this
 true for TargetHttpsProxy is not permitted. The default is set to false. *)
-  path_redirect : string option; [@option]
+  path_redirect : string prop option; [@option]
       (** The path that will be used in the redirect response instead of the one that was
 supplied in the request. pathRedirect cannot be supplied together with
 prefixRedirect. Supply one alone or neither. If neither is supplied, the path of the
 original request will be used for the redirect. The value must be between 1 and 1024
 characters. *)
-  prefix_redirect : string option; [@option]
+  prefix_redirect : string prop option; [@option]
       (** The prefix that replaces the prefixMatch specified in the HttpRouteRuleMatch,
 retaining the remaining portion of the URL before redirecting the request.
 prefixRedirect cannot be supplied together with pathRedirect. Supply one alone or
 neither. If neither is supplied, the path of the original request will be used for
 the redirect. The value must be between 1 and 1024 characters. *)
-  redirect_response_code : string option; [@option]
+  redirect_response_code : string prop option; [@option]
       (** The HTTP Status code to use for this RedirectAction. Supported values are:
 
 * MOVED_PERMANENTLY_DEFAULT, which is the default value and corresponds to 301.
@@ -294,7 +294,7 @@ will be retained.
 
 * PERMANENT_REDIRECT, which corresponds to 308. In this case,
 the request method will be retained. Possible values: [FOUND, MOVED_PERMANENTLY_DEFAULT, PERMANENT_REDIRECT, SEE_OTHER, TEMPORARY_REDIRECT] *)
-  strip_query : bool;
+  strip_query : bool prop;
       (** If set to true, any accompanying query portion of the original URL is removed prior
 to redirecting the request. If set to false, the query portion of the original URL is
 retained. The default is set to false.
@@ -306,9 +306,9 @@ by defaultUrlRedirect. If defaultUrlRedirect is specified, defaultService or
 defaultRouteAction must not be set. *)
 
 type google_compute_url_map__header_action__request_headers_to_add = {
-  header_name : string;  (** The name of the header. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool;
+  header_name : string prop;  (** The name of the header. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop;
       (** If false, headerValue is appended to any values that already exist for the
 header. If true, headerValue is set for the header, discarding any values that
 were set for that header. *)
@@ -318,9 +318,9 @@ were set for that header. *)
 backendService. *)
 
 type google_compute_url_map__header_action__response_headers_to_add = {
-  header_name : string;  (** The name of the header. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool;
+  header_name : string prop;  (** The name of the header. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop;
       (** If false, headerValue is appended to any values that already exist for the
 header. If true, headerValue is set for the header, discarding any values that
 were set for that header. *)
@@ -329,10 +329,10 @@ were set for that header. *)
 (** Headers to add the response prior to sending the response back to the client. *)
 
 type google_compute_url_map__header_action = {
-  request_headers_to_remove : string list option; [@option]
+  request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request
 prior to forwarding the request to the backendService. *)
-  response_headers_to_remove : string list option; [@option]
+  response_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the response
 prior to sending the response back to the client. *)
   request_headers_to_add :
@@ -348,14 +348,14 @@ the selected backendService. The headerAction specified here take effect after
 headerAction specified under pathMatcher. *)
 
 type google_compute_url_map__host_rule = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. Provide this property when you create
 the resource. *)
-  hosts : string list;
+  hosts : string prop list;
       (** The list of host patterns to match. They must be valid hostnames, except * will
 match any string of ([a-z0-9-.]\*\). In that case, * must be the first character
 and must be followed in the pattern by either - or .. *)
-  path_matcher : string;
+  path_matcher : string prop;
       (** The name of the PathMatcher to use to match the path portion of the URL if the
 hostRule matches the URL's host portion. *)
 }
@@ -363,25 +363,25 @@ hostRule matches the URL's host portion. *)
 (** The list of HostRules to use against the URL. *)
 
 type google_compute_url_map__path_matcher__default_route_action__cors_policy = {
-  allow_credentials : bool option; [@option]
+  allow_credentials : bool prop option; [@option]
       (** In response to a preflight request, setting this to true indicates that the actual request can include user credentials.
 This translates to the Access-Control-Allow-Credentials header. *)
-  allow_headers : string list option; [@option]
+  allow_headers : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Allow-Headers header. *)
-  allow_methods : string list option; [@option]
+  allow_methods : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Allow-Methods header. *)
-  allow_origin_regexes : string list option; [@option]
+  allow_origin_regexes : string prop list option; [@option]
       (** Specifies the regular expression patterns that match allowed origins. For regular expression grammar
 please see en.cppreference.com/w/cpp/regex/ecmascript
 An origin is allowed if it matches either an item in allowOrigins or an item in allowOriginRegexes. *)
-  allow_origins : string list option; [@option]
+  allow_origins : string prop list option; [@option]
       (** Specifies the list of origins that will be allowed to do CORS requests.
 An origin is allowed if it matches either an item in allowOrigins or an item in allowOriginRegexes. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** If true, specifies the CORS policy is disabled. The default value is false, which indicates that the CORS policy is in effect. *)
-  expose_headers : string list option; [@option]
+  expose_headers : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Expose-Headers header. *)
-  max_age : float option; [@option]
+  max_age : float prop option; [@option]
       (** Specifies how long results of a preflight request can be cached in seconds.
 This translates to the Access-Control-Max-Age header. *)
 }
@@ -390,10 +390,10 @@ This translates to the Access-Control-Max-Age header. *)
 [W3C Recommendation for Cross Origin Resource Sharing](https://www.w3.org/TR/cors/) *)
 
 type google_compute_url_map__path_matcher__default_route_action__fault_injection_policy__abort = {
-  http_status : float option; [@option]
+  http_status : float prop option; [@option]
       (** The HTTP status code used to abort the request.
 The value must be between 200 and 599 inclusive. *)
-  percentage : float option; [@option]
+  percentage : float prop option; [@option]
       (** The percentage of traffic (connections/operations/requests) which will be aborted as part of fault injection.
 The value must be between 0.0 and 100.0 inclusive. *)
 }
@@ -401,10 +401,10 @@ The value must be between 0.0 and 100.0 inclusive. *)
 (** The specification for how client requests are aborted as part of fault injection. *)
 
 type google_compute_url_map__path_matcher__default_route_action__fault_injection_policy__delay__fixed_delay = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are
 represented with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string option; [@option]
+  seconds : string prop option; [@option]
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000 inclusive.
 Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years *)
 }
@@ -412,7 +412,7 @@ Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.2
 (** Specifies the value of the fixed delay interval. *)
 
 type google_compute_url_map__path_matcher__default_route_action__fault_injection_policy__delay = {
-  percentage : float option; [@option]
+  percentage : float prop option; [@option]
       (** The percentage of traffic (connections/operations/requests) on which delay will be introduced as part of fault injection.
 The value must be between 0.0 and 100.0 inclusive. *)
   fixed_delay :
@@ -439,7 +439,7 @@ by the Loadbalancer for a percentage of requests.
 timeout and retryPolicy will be ignored by clients that are configured with a faultInjectionPolicy. *)
 
 type google_compute_url_map__path_matcher__default_route_action__request_mirror_policy = {
-  backend_service : string;
+  backend_service : string prop;
       (** The full or partial URL to the BackendService resource being mirrored to. *)
 }
 [@@deriving yojson_of]
@@ -448,10 +448,10 @@ Loadbalancer does not wait for responses from the shadow service. Prior to sendi
 the host / authority header is suffixed with -shadow. *)
 
 type google_compute_url_map__path_matcher__default_route_action__retry_policy__per_try_timeout = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are
 represented with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string option; [@option]
+  seconds : string prop option; [@option]
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000 inclusive.
 Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years *)
 }
@@ -462,9 +462,9 @@ If not specified, will use the timeout set in HttpRouteAction. If timeout in Htt
 will use the largest timeout among all backend services associated with the route. *)
 
 type google_compute_url_map__path_matcher__default_route_action__retry_policy = {
-  num_retries : float option; [@option]
+  num_retries : float prop option; [@option]
       (** Specifies the allowed number retries. This number must be > 0. If not specified, defaults to 1. *)
-  retry_conditions : string list option; [@option]
+  retry_conditions : string prop list option; [@option]
       (** Specfies one or more conditions when this retry rule applies. Valid values are:
 
 * 5xx: Loadbalancer will attempt a retry if the backend service responds with any 5xx response code,
@@ -489,10 +489,10 @@ type google_compute_url_map__path_matcher__default_route_action__retry_policy = 
 (** Specifies the retry policy associated with this route. *)
 
 type google_compute_url_map__path_matcher__default_route_action__timeout = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations less than one second are represented
 with a 0 seconds field and a positive nanos field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string option; [@option]
+  seconds : string prop option; [@option]
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000 inclusive.
 Note: these bounds are computed from: 60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years *)
 }
@@ -503,12 +503,12 @@ fully processed (i.e. end-of-stream) up until the response has been completely p
 If not specified, will use the largest timeout among all backend services associated with the route. *)
 
 type google_compute_url_map__path_matcher__default_route_action__url_rewrite = {
-  host_rewrite : string option; [@option]
+  host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected service, the request's host header is replaced
 with contents of hostRewrite.
 
 The value must be between 1 and 255 characters. *)
-  path_prefix_rewrite : string option; [@option]
+  path_prefix_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected backend service, the matching portion of the
 request's path is replaced by pathPrefixRewrite.
 
@@ -518,11 +518,11 @@ The value must be between 1 and 1024 characters. *)
 (** The spec to modify the URL of the request, prior to forwarding the request to the matched service. *)
 
 type google_compute_url_map__path_matcher__default_route_action__weighted_backend_services__header_action__request_headers_to_add = {
-  header_name : string option; [@option]
+  header_name : string prop option; [@option]
       (** The name of the header to add. *)
-  header_value : string option; [@option]
+  header_value : string prop option; [@option]
       (** The value of the header to add. *)
-  replace : bool option; [@option]
+  replace : bool prop option; [@option]
       (** If false, headerValue is appended to any values that already exist for the header.
 If true, headerValue is set for the header, discarding any values that were set for that header. *)
 }
@@ -530,11 +530,11 @@ If true, headerValue is set for the header, discarding any values that were set 
 (** Headers to add to a matching request prior to forwarding the request to the backendService. *)
 
 type google_compute_url_map__path_matcher__default_route_action__weighted_backend_services__header_action__response_headers_to_add = {
-  header_name : string option; [@option]
+  header_name : string prop option; [@option]
       (** The name of the header to add. *)
-  header_value : string option; [@option]
+  header_value : string prop option; [@option]
       (** The value of the header to add. *)
-  replace : bool option; [@option]
+  replace : bool prop option; [@option]
       (** If false, headerValue is appended to any values that already exist for the header.
 If true, headerValue is set for the header, discarding any values that were set for that header. *)
 }
@@ -542,10 +542,10 @@ If true, headerValue is set for the header, discarding any values that were set 
 (** Headers to add the response prior to sending the response back to the client. *)
 
 type google_compute_url_map__path_matcher__default_route_action__weighted_backend_services__header_action = {
-  request_headers_to_remove : string list option; [@option]
+  request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request prior to
 forwarding the request to the backendService. *)
-  response_headers_to_remove : string list option; [@option]
+  response_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the response prior to sending the
 response back to the client. *)
   request_headers_to_add :
@@ -563,11 +563,11 @@ headerAction specified here take effect before headerAction in the enclosing
 HttpRouteRule, PathMatcher and UrlMap. *)
 
 type google_compute_url_map__path_matcher__default_route_action__weighted_backend_services = {
-  backend_service : string option; [@option]
+  backend_service : string prop option; [@option]
       (** The full or partial URL to the default BackendService resource. Before forwarding the
 request to backendService, the loadbalancer applies any relevant headerActions
 specified as part of this backendServiceWeight. *)
-  weight : float option; [@option]
+  weight : float prop option; [@option]
       (** Specifies the fraction of traffic sent to backendService, computed as
 weight / (sum of all weightedBackendService weights in routeAction) .
 
@@ -622,27 +622,27 @@ Conversely if defaultService is set, defaultRouteAction cannot contain any weigh
 Only one of defaultRouteAction or defaultUrlRedirect must be set. *)
 
 type google_compute_url_map__path_matcher__default_url_redirect = {
-  host_redirect : string option; [@option]
+  host_redirect : string prop option; [@option]
       (** The host that will be used in the redirect response instead of the one that was
 supplied in the request. The value must be between 1 and 255 characters. *)
-  https_redirect : bool option; [@option]
+  https_redirect : bool prop option; [@option]
       (** If set to true, the URL scheme in the redirected request is set to https. If set to
 false, the URL scheme of the redirected request will remain the same as that of the
 request. This must only be set for UrlMaps used in TargetHttpProxys. Setting this
 true for TargetHttpsProxy is not permitted. The default is set to false. *)
-  path_redirect : string option; [@option]
+  path_redirect : string prop option; [@option]
       (** The path that will be used in the redirect response instead of the one that was
 supplied in the request. pathRedirect cannot be supplied together with
 prefixRedirect. Supply one alone or neither. If neither is supplied, the path of the
 original request will be used for the redirect. The value must be between 1 and 1024
 characters. *)
-  prefix_redirect : string option; [@option]
+  prefix_redirect : string prop option; [@option]
       (** The prefix that replaces the prefixMatch specified in the HttpRouteRuleMatch,
 retaining the remaining portion of the URL before redirecting the request.
 prefixRedirect cannot be supplied together with pathRedirect. Supply one alone or
 neither. If neither is supplied, the path of the original request will be used for
 the redirect. The value must be between 1 and 1024 characters. *)
-  redirect_response_code : string option; [@option]
+  redirect_response_code : string prop option; [@option]
       (** The HTTP Status code to use for this RedirectAction. Supported values are:
 
 * MOVED_PERMANENTLY_DEFAULT, which is the default value and corresponds to 301.
@@ -656,7 +656,7 @@ will be retained.
 
 * PERMANENT_REDIRECT, which corresponds to 308. In this case,
 the request method will be retained. Possible values: [FOUND, MOVED_PERMANENTLY_DEFAULT, PERMANENT_REDIRECT, SEE_OTHER, TEMPORARY_REDIRECT] *)
-  strip_query : bool;
+  strip_query : bool prop;
       (** If set to true, any accompanying query portion of the original URL is removed prior
 to redirecting the request. If set to false, the query portion of the original URL is
 retained.
@@ -668,9 +668,9 @@ by defaultUrlRedirect. If defaultUrlRedirect is specified, defaultService or
 defaultRouteAction must not be set. *)
 
 type google_compute_url_map__path_matcher__header_action__request_headers_to_add = {
-  header_name : string;  (** The name of the header. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool;
+  header_name : string prop;  (** The name of the header. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop;
       (** If false, headerValue is appended to any values that already exist for the
 header. If true, headerValue is set for the header, discarding any values that
 were set for that header. *)
@@ -680,9 +680,9 @@ were set for that header. *)
 backendService. *)
 
 type google_compute_url_map__path_matcher__header_action__response_headers_to_add = {
-  header_name : string;  (** The name of the header. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool;
+  header_name : string prop;  (** The name of the header. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop;
       (** If false, headerValue is appended to any values that already exist for the
 header. If true, headerValue is set for the header, discarding any values that
 were set for that header. *)
@@ -691,10 +691,10 @@ were set for that header. *)
 (** Headers to add the response prior to sending the response back to the client. *)
 
 type google_compute_url_map__path_matcher__header_action = {
-  request_headers_to_remove : string list option; [@option]
+  request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request
 prior to forwarding the request to the backendService. *)
-  response_headers_to_remove : string list option; [@option]
+  response_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the response
 prior to sending the response back to the client. *)
   request_headers_to_add :
@@ -710,26 +710,26 @@ the selected backendService. HeaderAction specified here are applied after the
 matching HttpRouteRule HeaderAction and before the HeaderAction in the UrlMap *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__cors_policy = {
-  allow_credentials : bool option; [@option]
+  allow_credentials : bool prop option; [@option]
       (** In response to a preflight request, setting this to true indicates that the
 actual request can include user credentials. This translates to the Access-
 Control-Allow-Credentials header. Defaults to false. *)
-  allow_headers : string list option; [@option]
+  allow_headers : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Allow-Headers header. *)
-  allow_methods : string list option; [@option]
+  allow_methods : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Allow-Methods header. *)
-  allow_origin_regexes : string list option; [@option]
+  allow_origin_regexes : string prop list option; [@option]
       (** Specifies the regular expression patterns that match allowed origins. For
 regular expression grammar please see en.cppreference.com/w/cpp/regex/ecmascript
 An origin is allowed if it matches either allow_origins or allow_origin_regex. *)
-  allow_origins : string list option; [@option]
+  allow_origins : string prop list option; [@option]
       (** Specifies the list of origins that will be allowed to do CORS requests. An
 origin is allowed if it matches either allow_origins or allow_origin_regex. *)
-  disabled : bool;
+  disabled : bool prop;
       (** If true, specifies the CORS policy is disabled. *)
-  expose_headers : string list option; [@option]
+  expose_headers : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Expose-Headers header. *)
-  max_age : float option; [@option]
+  max_age : float prop option; [@option]
       (** Specifies how long the results of a preflight request can be cached. This
 translates to the content for the Access-Control-Max-Age header. *)
 }
@@ -738,10 +738,10 @@ translates to the content for the Access-Control-Max-Age header. *)
 Recommendation for Cross Origin Resource Sharing *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy__abort = {
-  http_status : float;
+  http_status : float prop;
       (** The HTTP status code used to abort the request. The value must be between 200
 and 599 inclusive. *)
-  percentage : float;
+  percentage : float prop;
       (** The percentage of traffic (connections/operations/requests) which will be
 aborted as part of fault injection. The value must be between 0.0 and 100.0
 inclusive. *)
@@ -751,11 +751,11 @@ inclusive. *)
 injection. *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy__delay__fixed_delay = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
 'nanos' field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string;
+  seconds : string prop;
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000
 inclusive. *)
 }
@@ -763,7 +763,7 @@ inclusive. *)
 (** Specifies the value of the fixed delay interval. *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__fault_injection_policy__delay = {
-  percentage : float;
+  percentage : float prop;
       (** The percentage of traffic (connections/operations/requests) on which delay will
 be introduced as part of fault injection. The value must be between 0.0 and
 100.0 inclusive. *)
@@ -793,7 +793,7 @@ Loadbalancer for a percentage of requests. timeout and retry_policy will be
 ignored by clients that are configured with a fault_injection_policy. *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__request_mirror_policy = {
-  backend_service : string;
+  backend_service : string prop;
       (** The BackendService resource being mirrored to. *)
 }
 [@@deriving yojson_of]
@@ -803,11 +803,11 @@ responses from the shadow service. Prior to sending traffic to the shadow
 service, the host / authority header is suffixed with -shadow. *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__retry_policy__per_try_timeout = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
 'nanos' field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string;
+  seconds : string prop;
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000
 inclusive. *)
 }
@@ -815,9 +815,9 @@ inclusive. *)
 (** Specifies a non-zero timeout per retry attempt. *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__retry_policy = {
-  num_retries : float option; [@option]
+  num_retries : float prop option; [@option]
       (** Specifies the allowed number retries. This number must be > 0. *)
-  retry_conditions : string list option; [@option]
+  retry_conditions : string prop list option; [@option]
       (** Specifies one or more conditions when this retry rule applies. Valid values are:
 
 * 5xx: Loadbalancer will attempt a retry if the backend service responds with
@@ -848,11 +848,11 @@ the gRPC status code in the response header is set to unavailable *)
 (** Specifies the retry policy associated with this route. *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__timeout = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
 'nanos' field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string;
+  seconds : string prop;
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000
 inclusive. *)
 }
@@ -863,11 +863,11 @@ response has been completely processed. Timeout includes all retries. If not
 specified, the default value is 15 seconds. *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__url_rewrite = {
-  host_rewrite : string option; [@option]
+  host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected service, the request's host
 header is replaced with contents of hostRewrite. The value must be between 1 and
 255 characters. *)
-  path_prefix_rewrite : string option; [@option]
+  path_prefix_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected backend service, the matching
 portion of the request's path is replaced by pathPrefixRewrite. The value must
 be between 1 and 1024 characters. *)
@@ -877,9 +877,9 @@ be between 1 and 1024 characters. *)
 the matched service *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services__header_action__request_headers_to_add = {
-  header_name : string;  (** The name of the header. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool;
+  header_name : string prop;  (** The name of the header. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop;
       (** If false, headerValue is appended to any values that already exist for the
 header. If true, headerValue is set for the header, discarding any values that
 were set for that header. *)
@@ -889,9 +889,9 @@ were set for that header. *)
 backendService. *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services__header_action__response_headers_to_add = {
-  header_name : string;  (** The name of the header. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool;
+  header_name : string prop;  (** The name of the header. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop;
       (** If false, headerValue is appended to any values that already exist for the
 header. If true, headerValue is set for the header, discarding any values that
 were set for that header. *)
@@ -900,10 +900,10 @@ were set for that header. *)
 (** Headers to add the response prior to sending the response back to the client. *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services__header_action = {
-  request_headers_to_remove : string list option; [@option]
+  request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request
 prior to forwarding the request to the backendService. *)
-  response_headers_to_remove : string list option; [@option]
+  response_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the response
 prior to sending the response back to the client. *)
   request_headers_to_add :
@@ -919,11 +919,11 @@ the selected backendService. headerAction specified here take effect before
 headerAction in the enclosing HttpRouteRule, PathMatcher and UrlMap. *)
 
 type google_compute_url_map__path_matcher__path_rule__route_action__weighted_backend_services = {
-  backend_service : string;
+  backend_service : string prop;
       (** The default BackendService resource. Before
 forwarding the request to backendService, the loadbalancer applies any relevant
 headerActions specified as part of this backendServiceWeight. *)
-  weight : float;
+  weight : float prop;
       (** Specifies the fraction of traffic sent to backendService, computed as weight /
 (sum of all weightedBackendService weights in routeAction) . The selection of a
 backend service is determined only for new traffic. Once a user's request has
@@ -976,30 +976,30 @@ routeAction cannot contain any  weightedBackendServices. Only one of routeAction
 or urlRedirect must be set. *)
 
 type google_compute_url_map__path_matcher__path_rule__url_redirect = {
-  host_redirect : string option; [@option]
+  host_redirect : string prop option; [@option]
       (** The host that will be used in the redirect response instead of the one
 that was supplied in the request. The value must be between 1 and 255
 characters. *)
-  https_redirect : bool option; [@option]
+  https_redirect : bool prop option; [@option]
       (** If set to true, the URL scheme in the redirected request is set to https.
 If set to false, the URL scheme of the redirected request will remain the
 same as that of the request. This must only be set for UrlMaps used in
 TargetHttpProxys. Setting this true for TargetHttpsProxy is not
 permitted. The default is set to false. *)
-  path_redirect : string option; [@option]
+  path_redirect : string prop option; [@option]
       (** The path that will be used in the redirect response instead of the one
 that was supplied in the request. pathRedirect cannot be supplied
 together with prefixRedirect. Supply one alone or neither. If neither is
 supplied, the path of the original request will be used for the redirect.
 The value must be between 1 and 1024 characters. *)
-  prefix_redirect : string option; [@option]
+  prefix_redirect : string prop option; [@option]
       (** The prefix that replaces the prefixMatch specified in the
 HttpRouteRuleMatch, retaining the remaining portion of the URL before
 redirecting the request. prefixRedirect cannot be supplied together with
 pathRedirect. Supply one alone or neither. If neither is supplied, the
 path of the original request will be used for the redirect. The value
 must be between 1 and 1024 characters. *)
-  redirect_response_code : string option; [@option]
+  redirect_response_code : string prop option; [@option]
       (** The HTTP Status code to use for this RedirectAction. Supported values are:
 
 * MOVED_PERMANENTLY_DEFAULT, which is the default value and corresponds to 301.
@@ -1013,7 +1013,7 @@ will be retained.
 
 * PERMANENT_REDIRECT, which corresponds to 308. In this case,
 the request method will be retained. Possible values: [FOUND, MOVED_PERMANENTLY_DEFAULT, PERMANENT_REDIRECT, SEE_OTHER, TEMPORARY_REDIRECT] *)
-  strip_query : bool;
+  strip_query : bool prop;
       (** If set to true, any accompanying query portion of the original URL is
 removed prior to redirecting the request. If set to false, the query
 portion of the original URL is retained.
@@ -1025,12 +1025,12 @@ by urlRedirect. If urlRedirect is specified, service or routeAction must not
 be set. *)
 
 type google_compute_url_map__path_matcher__path_rule = {
-  paths : string list;
+  paths : string prop list;
       (** The list of path patterns to match. Each must start with / and the only place a
 \* is allowed is at the end following a /. The string fed to the path matcher
 does not include any text after the first ? or #, and those chars are not
 allowed here. *)
-  service : string option; [@option]
+  service : string prop option; [@option]
       (** The backend service or backend bucket to use if any of the given paths match. *)
   route_action :
     google_compute_url_map__path_matcher__path_rule__route_action
@@ -1048,9 +1048,9 @@ irrespective of the order in which those paths appear in this list. Within a
 given pathMatcher, only one of pathRules or routeRules must be set. *)
 
 type google_compute_url_map__path_matcher__route_rules__header_action__request_headers_to_add = {
-  header_name : string;  (** The name of the header. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool;
+  header_name : string prop;  (** The name of the header. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop;
       (** If false, headerValue is appended to any values that already exist for the
 header. If true, headerValue is set for the header, discarding any values that
 were set for that header. *)
@@ -1060,9 +1060,9 @@ were set for that header. *)
 backendService. *)
 
 type google_compute_url_map__path_matcher__route_rules__header_action__response_headers_to_add = {
-  header_name : string;  (** The name of the header. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool;
+  header_name : string prop;  (** The name of the header. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop;
       (** If false, headerValue is appended to any values that already exist for the
 header. If true, headerValue is set for the header, discarding any values that
 were set for that header. *)
@@ -1071,10 +1071,10 @@ were set for that header. *)
 (** Headers to add the response prior to sending the response back to the client. *)
 
 type google_compute_url_map__path_matcher__route_rules__header_action = {
-  request_headers_to_remove : string list option; [@option]
+  request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request
 prior to forwarding the request to the backendService. *)
-  response_headers_to_remove : string list option; [@option]
+  response_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the response
 prior to sending the response back to the client. *)
   request_headers_to_add :
@@ -1091,8 +1091,9 @@ the matching pathMatchers[].headerAction and after pathMatchers[].routeRules[].r
 outeAction.weightedBackendService.backendServiceWeightAction[].headerAction *)
 
 type google_compute_url_map__path_matcher__route_rules__match_rules__header_matches__range_match = {
-  range_end : float;  (** The end of the range (exclusive). *)
-  range_start : float;  (** The start of the range (inclusive). *)
+  range_end : float prop;  (** The end of the range (exclusive). *)
+  range_start : float prop;
+      (** The start of the range (inclusive). *)
 }
 [@@deriving yojson_of]
 (** The header value must be an integer and its value must be in the range specified
@@ -1103,26 +1104,26 @@ exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch
 must be set. *)
 
 type google_compute_url_map__path_matcher__route_rules__match_rules__header_matches = {
-  exact_match : string option; [@option]
+  exact_match : string prop option; [@option]
       (** The value should exactly match contents of exactMatch. Only one of exactMatch,
 prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch must be set. *)
-  header_name : string;
+  header_name : string prop;
       (** The name of the HTTP header to match. For matching against the HTTP request's
 authority, use a headerMatch with the header name :authority. For matching a
 request's method, use the headerName :method. *)
-  invert_match : bool option; [@option]
+  invert_match : bool prop option; [@option]
       (** If set to false, the headerMatch is considered a match if the match criteria
 above are met. If set to true, the headerMatch is considered a match if the
 match criteria above are NOT met. Defaults to false. *)
-  prefix_match : string option; [@option]
+  prefix_match : string prop option; [@option]
       (** The value of the header must start with the contents of prefixMatch. Only one of
 exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch
 must be set. *)
-  present_match : bool option; [@option]
+  present_match : bool prop option; [@option]
       (** A header with the contents of headerName must exist. The match takes place
 whether or not the request's header has a value or not. Only one of exactMatch,
 prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch must be set. *)
-  regex_match : string option; [@option]
+  regex_match : string prop option; [@option]
       (** The value of the header must match the regular expression specified in
 regexMatch. For regular expression grammar, please see:
 en.cppreference.com/w/cpp/regex/ecmascript  For matching against a port
@@ -1130,7 +1131,7 @@ specified in the HTTP request, use a headerMatch with headerName set to PORT and
 a regular expression that satisfies the RFC2616 Host header's port specifier.
 Only one of exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or
 rangeMatch must be set. *)
-  suffix_match : string option; [@option]
+  suffix_match : string prop option; [@option]
       (** The value of the header must end with the contents of suffixMatch. Only one of
 exactMatch, prefixMatch, suffixMatch, regexMatch, presentMatch or rangeMatch
 must be set. *)
@@ -1143,10 +1144,10 @@ must be set. *)
 headers in the request. *)
 
 type google_compute_url_map__path_matcher__route_rules__match_rules__metadata_filters__filter_labels = {
-  name : string;
+  name : string prop;
       (** Name of metadata label. The name can have a maximum length of 1024 characters
 and must be at least 1 character long. *)
-  value : string;
+  value : string prop;
       (** The value of the label must match the specified value. value can have a maximum
 length of 1024 characters. *)
 }
@@ -1156,7 +1157,7 @@ based on filterMatchCriteria  This list must not be empty and can have at the
 most 64 entries. *)
 
 type google_compute_url_map__path_matcher__route_rules__match_rules__metadata_filters = {
-  filter_match_criteria : string;
+  filter_match_criteria : string prop;
       (** Specifies how individual filterLabel matches within the list of filterLabels
 contribute towards the overall metadataFilter match. Supported values are:
   - MATCH_ANY: At least one of the filterLabels must have a matching label in the
@@ -1181,18 +1182,18 @@ UrlMap. metadataFilters only applies to Loadbalancers that have their
 loadBalancingScheme set to INTERNAL_SELF_MANAGED. *)
 
 type google_compute_url_map__path_matcher__route_rules__match_rules__query_parameter_matches = {
-  exact_match : string option; [@option]
+  exact_match : string prop option; [@option]
       (** The queryParameterMatch matches if the value of the parameter exactly matches
 the contents of exactMatch. Only one of presentMatch, exactMatch and regexMatch
 must be set. *)
-  name : string;
+  name : string prop;
       (** The name of the query parameter to match. The query parameter must exist in the
 request, in the absence of which the request match fails. *)
-  present_match : bool option; [@option]
+  present_match : bool prop option; [@option]
       (** Specifies that the queryParameterMatch matches if the request contains the query
 parameter, irrespective of whether the parameter has a value or not. Only one of
 presentMatch, exactMatch and regexMatch must be set. *)
-  regex_match : string option; [@option]
+  regex_match : string prop option; [@option]
       (** The queryParameterMatch matches if the value of the parameter matches the
 regular expression specified by regexMatch. For the regular expression grammar,
 please see en.cppreference.com/w/cpp/regex/ecmascript  Only one of presentMatch,
@@ -1203,16 +1204,16 @@ exactMatch and regexMatch must be set. *)
 corresponding query parameters in the request. *)
 
 type google_compute_url_map__path_matcher__route_rules__match_rules = {
-  full_path_match : string option; [@option]
+  full_path_match : string prop option; [@option]
       (** For satisfying the matchRule condition, the path of the request must exactly
 match the value specified in fullPathMatch after removing any query parameters
 and anchor that may be part of the original URL. FullPathMatch must be between 1
 and 1024 characters. Only one of prefixMatch, fullPathMatch or regexMatch must
 be specified. *)
-  ignore_case : bool option; [@option]
+  ignore_case : bool prop option; [@option]
       (** Specifies that prefixMatch and fullPathMatch matches are case sensitive.
 Defaults to false. *)
-  path_template_match : string option; [@option]
+  path_template_match : string prop option; [@option]
       (** For satisfying the matchRule condition, the path of the request
 must match the wildcard pattern specified in pathTemplateMatch
 after removing any query parameters and anchor that may be part
@@ -1222,12 +1223,12 @@ pathTemplateMatch must be between 1 and 255 characters
 (inclusive).  The pattern specified by pathTemplateMatch may
 have at most 5 wildcard operators and at most 5 variable
 captures in total. *)
-  prefix_match : string option; [@option]
+  prefix_match : string prop option; [@option]
       (** For satisfying the matchRule condition, the request's path must begin with the
 specified prefixMatch. prefixMatch must begin with a /. The value must be
 between 1 and 1024 characters. Only one of prefixMatch, fullPathMatch or
 regexMatch must be specified. *)
-  regex_match : string option; [@option]
+  regex_match : string prop option; [@option]
       (** For satisfying the matchRule condition, the path of the request must satisfy the
 regular expression specified in regexMatch after removing any query parameters
 and anchor supplied with the original URL. For regular expression grammar please
@@ -1247,27 +1248,27 @@ fullPathMatch or regexMatch must be specified. *)
 (** The rules for determining a match. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__cors_policy = {
-  allow_credentials : bool option; [@option]
+  allow_credentials : bool prop option; [@option]
       (** In response to a preflight request, setting this to true indicates that the
 actual request can include user credentials. This translates to the Access-
 Control-Allow-Credentials header. Defaults to false. *)
-  allow_headers : string list option; [@option]
+  allow_headers : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Allow-Headers header. *)
-  allow_methods : string list option; [@option]
+  allow_methods : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Allow-Methods header. *)
-  allow_origin_regexes : string list option; [@option]
+  allow_origin_regexes : string prop list option; [@option]
       (** Specifies the regular expression patterns that match allowed origins. For
 regular expression grammar please see en.cppreference.com/w/cpp/regex/ecmascript
 An origin is allowed if it matches either allow_origins or allow_origin_regex. *)
-  allow_origins : string list option; [@option]
+  allow_origins : string prop list option; [@option]
       (** Specifies the list of origins that will be allowed to do CORS requests. An
 origin is allowed if it matches either allow_origins or allow_origin_regex. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** If true, specifies the CORS policy is disabled.
 which indicates that the CORS policy is in effect. Defaults to false. *)
-  expose_headers : string list option; [@option]
+  expose_headers : string prop list option; [@option]
       (** Specifies the content for the Access-Control-Expose-Headers header. *)
-  max_age : float option; [@option]
+  max_age : float prop option; [@option]
       (** Specifies how long the results of a preflight request can be cached. This
 translates to the content for the Access-Control-Max-Age header. *)
 }
@@ -1276,10 +1277,10 @@ translates to the content for the Access-Control-Max-Age header. *)
 Recommendation for Cross Origin Resource Sharing *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy__abort = {
-  http_status : float option; [@option]
+  http_status : float prop option; [@option]
       (** The HTTP status code used to abort the request. The value must be between 200
 and 599 inclusive. *)
-  percentage : float option; [@option]
+  percentage : float prop option; [@option]
       (** The percentage of traffic (connections/operations/requests) which will be
 aborted as part of fault injection. The value must be between 0.0 and 100.0
 inclusive. *)
@@ -1289,11 +1290,11 @@ inclusive. *)
 injection. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy__delay__fixed_delay = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
 'nanos' field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string;
+  seconds : string prop;
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000
 inclusive. *)
 }
@@ -1301,7 +1302,7 @@ inclusive. *)
 (** Specifies the value of the fixed delay interval. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__fault_injection_policy__delay = {
-  percentage : float option; [@option]
+  percentage : float prop option; [@option]
       (** The percentage of traffic (connections/operations/requests) on which delay will
 be introduced as part of fault injection. The value must be between 0.0 and
 100.0 inclusive. *)
@@ -1331,7 +1332,7 @@ Loadbalancer for a percentage of requests. timeout and retry_policy will be
 ignored by clients that are configured with a fault_injection_policy. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__request_mirror_policy = {
-  backend_service : string;
+  backend_service : string prop;
       (** The BackendService resource being mirrored to. *)
 }
 [@@deriving yojson_of]
@@ -1341,11 +1342,11 @@ responses from the shadow service. Prior to sending traffic to the shadow
 service, the host / authority header is suffixed with -shadow. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__retry_policy__per_try_timeout = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
 'nanos' field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string;
+  seconds : string prop;
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000
 inclusive. *)
 }
@@ -1355,9 +1356,9 @@ If not specified, will use the timeout set in HttpRouteAction. If timeout in Htt
 is not set, will use the largest timeout among all backend services associated with the route. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__retry_policy = {
-  num_retries : float;
+  num_retries : float prop;
       (** Specifies the allowed number retries. This number must be > 0. *)
-  retry_conditions : string list option; [@option]
+  retry_conditions : string prop list option; [@option]
       (** Specfies one or more conditions when this retry rule applies. Valid values are:
 
 * 5xx: Loadbalancer will attempt a retry if the backend service responds with
@@ -1388,11 +1389,11 @@ type google_compute_url_map__path_matcher__route_rules__route_action__retry_poli
 (** Specifies the retry policy associated with this route. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__timeout = {
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Span of time that's a fraction of a second at nanosecond resolution. Durations
 less than one second are represented with a 0 'seconds' field and a positive
 'nanos' field. Must be from 0 to 999,999,999 inclusive. *)
-  seconds : string;
+  seconds : string prop;
       (** Span of time at a resolution of a second. Must be from 0 to 315,576,000,000
 inclusive. *)
 }
@@ -1403,15 +1404,15 @@ response has been completely processed. Timeout includes all retries. If not
 specified, the default value is 15 seconds. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__url_rewrite = {
-  host_rewrite : string option; [@option]
+  host_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected service, the request's host
 header is replaced with contents of hostRewrite. The value must be between 1 and
 255 characters. *)
-  path_prefix_rewrite : string option; [@option]
+  path_prefix_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected backend service, the matching
 portion of the request's path is replaced by pathPrefixRewrite. The value must
 be between 1 and 1024 characters. *)
-  path_template_rewrite : string option; [@option]
+  path_template_rewrite : string prop option; [@option]
       (** Prior to forwarding the request to the selected origin, if the
 request matched a pathTemplateMatch, the matching portion of the
 request's path is replaced re-written using the pattern specified
@@ -1432,9 +1433,9 @@ specified. *)
 the matched service *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add = {
-  header_name : string;  (** The name of the header. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool;
+  header_name : string prop;  (** The name of the header. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop;
       (** If false, headerValue is appended to any values that already exist for the
 header. If true, headerValue is set for the header, discarding any values that
 were set for that header. *)
@@ -1444,9 +1445,9 @@ were set for that header. *)
 backendService. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services__header_action__response_headers_to_add = {
-  header_name : string;  (** The name of the header. *)
-  header_value : string;  (** The value of the header to add. *)
-  replace : bool;
+  header_name : string prop;  (** The name of the header. *)
+  header_value : string prop;  (** The value of the header to add. *)
+  replace : bool prop;
       (** If false, headerValue is appended to any values that already exist for the
 header. If true, headerValue is set for the header, discarding any values that
 were set for that header. *)
@@ -1455,10 +1456,10 @@ were set for that header. *)
 (** Headers to add the response prior to sending the response back to the client. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services__header_action = {
-  request_headers_to_remove : string list option; [@option]
+  request_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the request
 prior to forwarding the request to the backendService. *)
-  response_headers_to_remove : string list option; [@option]
+  response_headers_to_remove : string prop list option; [@option]
       (** A list of header names for headers that need to be removed from the response
 prior to sending the response back to the client. *)
   request_headers_to_add :
@@ -1474,11 +1475,11 @@ the selected backendService. headerAction specified here take effect before
 headerAction in the enclosing HttpRouteRule, PathMatcher and UrlMap. *)
 
 type google_compute_url_map__path_matcher__route_rules__route_action__weighted_backend_services = {
-  backend_service : string;
+  backend_service : string prop;
       (** The default BackendService resource. Before
 forwarding the request to backendService, the loadbalancer applies any relevant
 headerActions specified as part of this backendServiceWeight. *)
-  weight : float;
+  weight : float prop;
       (** Specifies the fraction of traffic sent to backendService, computed as weight /
 (sum of all weightedBackendService weights in routeAction) . The selection of a
 backend service is determined only for new traffic. Once a user's request has
@@ -1531,22 +1532,22 @@ routeAction cannot contain any  weightedBackendServices. Only one of routeAction
 or urlRedirect must be set. *)
 
 type google_compute_url_map__path_matcher__route_rules__url_redirect = {
-  host_redirect : string option; [@option]
+  host_redirect : string prop option; [@option]
       (** The host that will be used in the redirect response instead of the one that was
 supplied in the request. The value must be between 1 and 255 characters. *)
-  https_redirect : bool option; [@option]
+  https_redirect : bool prop option; [@option]
       (** If set to true, the URL scheme in the redirected request is set to https. If set
 to false, the URL scheme of the redirected request will remain the same as that
 of the request. This must only be set for UrlMaps used in TargetHttpProxys.
 Setting this true for TargetHttpsProxy is not permitted. Defaults to false. *)
-  path_redirect : string option; [@option]
+  path_redirect : string prop option; [@option]
       (** The path that will be used in the redirect response instead of the one that was
 supplied in the request. Only one of pathRedirect or prefixRedirect must be
 specified. The value must be between 1 and 1024 characters. *)
-  prefix_redirect : string option; [@option]
+  prefix_redirect : string prop option; [@option]
       (** The prefix that replaces the prefixMatch specified in the HttpRouteRuleMatch,
 retaining the remaining portion of the URL before redirecting the request. *)
-  redirect_response_code : string option; [@option]
+  redirect_response_code : string prop option; [@option]
       (** The HTTP Status code to use for this RedirectAction. Supported values are:
 
 * MOVED_PERMANENTLY_DEFAULT, which is the default value and corresponds to 301.
@@ -1558,7 +1559,7 @@ retaining the remaining portion of the URL before redirecting the request. *)
 * TEMPORARY_REDIRECT, which corresponds to 307. In this case, the request method will be retained.
 
 * PERMANENT_REDIRECT, which corresponds to 308. In this case, the request method will be retained. Possible values: [FOUND, MOVED_PERMANENTLY_DEFAULT, PERMANENT_REDIRECT, SEE_OTHER, TEMPORARY_REDIRECT] *)
-  strip_query : bool option; [@option]
+  strip_query : bool prop option; [@option]
       (** If set to true, any accompanying query portion of the original URL is removed
 prior to redirecting the request. If set to false, the query portion of the
 original URL is retained. Defaults to false. *)
@@ -1569,7 +1570,7 @@ urlRedirect. If urlRedirect is specified, service or routeAction must not be
 set. *)
 
 type google_compute_url_map__path_matcher__route_rules = {
-  priority : float;
+  priority : float prop;
       (** For routeRules within a given pathMatcher, priority determines the order
 in which load balancer will interpret routeRules. RouteRules are evaluated
 in order of priority, from the lowest to highest number. The priority of
@@ -1585,7 +1586,7 @@ in the future without affecting the rest of the rules. For example,
 1, 2, 3, 4, 5, 9, 12, 16 is a valid series of priority numbers to which
 you could add rules numbered from 6 to 8, 10 to 11, and 13 to 15 in the
 future without any impact on existing rules. *)
-  service : string option; [@option]
+  service : string prop option; [@option]
       (** The backend service resource to which traffic is
 directed if this rule is matched. If routeAction is additionally specified,
 advanced routing actions like URL Rewrites, etc. take effect prior to sending
@@ -1615,12 +1616,12 @@ routeRules must be set. routeRules are not supported in UrlMaps intended for
 External load balancers. *)
 
 type google_compute_url_map__path_matcher = {
-  default_service : string option; [@option]
+  default_service : string prop option; [@option]
       (** The backend service or backend bucket to use when none of the given paths match. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. Provide this property when you create
 the resource. *)
-  name : string;
+  name : string prop;
       (** The name to which this PathMatcher is referred by the HostRule. *)
   default_route_action :
     google_compute_url_map__path_matcher__default_route_action list;
@@ -1636,11 +1637,11 @@ the resource. *)
 (** The list of named PathMatchers to use against the URL. *)
 
 type google_compute_url_map__test = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of this test case. *)
-  host : string;  (** Host portion of the URL. *)
-  path : string;  (** Path portion of the URL. *)
-  service : string;
+  host : string prop;  (** Host portion of the URL. *)
+  path : string prop;  (** Path portion of the URL. *)
+  service : string prop;
       (** The backend service or backend bucket link that should be matched by this test. *)
 }
 [@@deriving yojson_of]
@@ -1649,28 +1650,28 @@ succeed only if all of the test cases pass. You can specify a maximum of 100
 tests per UrlMap. *)
 
 type google_compute_url_map__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_url_map__timeouts *)
 
 type google_compute_url_map = {
-  default_service : string option; [@option]
+  default_service : string prop option; [@option]
       (** The backend service or backend bucket to use when none of the given rules match. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. Provide this property when you create
 the resource. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** Name of the resource. Provided by the client when the resource is created. The
 name must be 1-63 characters long, and comply with RFC1035. Specifically, the
 name must be 1-63 characters long and match the regular expression
 '[a-z]([-a-z0-9]*[a-z0-9])?' which means the first character must be a lowercase
 letter, and all following characters must be a dash, lowercase letter, or digit,
 except the last character, which cannot be a dash. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   default_route_action :
     google_compute_url_map__default_route_action list;
   default_url_redirect :

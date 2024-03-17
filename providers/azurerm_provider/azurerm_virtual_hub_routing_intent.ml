@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_virtual_hub_routing_intent__routing_policy = {
-  destinations : string list;  (** destinations *)
-  name : string;  (** name *)
-  next_hop : string;  (** next_hop *)
+  destinations : string prop list;  (** destinations *)
+  name : string prop;  (** name *)
+  next_hop : string prop;  (** next_hop *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_routing_intent__routing_policy *)
 
 type azurerm_virtual_hub_routing_intent__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_routing_intent__timeouts *)
 
 type azurerm_virtual_hub_routing_intent = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  virtual_hub_id : string;  (** virtual_hub_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  virtual_hub_id : string prop;  (** virtual_hub_id *)
   routing_policy :
     azurerm_virtual_hub_routing_intent__routing_policy list;
   timeouts : azurerm_virtual_hub_routing_intent__timeouts option;

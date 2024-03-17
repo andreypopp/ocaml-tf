@@ -13,10 +13,10 @@ type aws_sesv2_configuration_set__vdm_options
 type aws_sesv2_configuration_set
 
 val aws_sesv2_configuration_set :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  configuration_set_name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  configuration_set_name:string prop ->
   delivery_options:aws_sesv2_configuration_set__delivery_options list ->
   reputation_options:
     aws_sesv2_configuration_set__reputation_options list ->

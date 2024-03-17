@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_athena_named_query = {
-  database : string;  (** database *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  query : string;  (** query *)
-  workgroup : string option; [@option]  (** workgroup *)
+  database : string prop;  (** database *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  query : string prop;  (** query *)
+  workgroup : string prop option; [@option]  (** workgroup *)
 }
 [@@deriving yojson_of]
 (** aws_athena_named_query *)

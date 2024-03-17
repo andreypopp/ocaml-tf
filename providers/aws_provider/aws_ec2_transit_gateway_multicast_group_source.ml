@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_multicast_group_source = {
-  group_ip_address : string;  (** group_ip_address *)
-  id : string option; [@option]  (** id *)
-  network_interface_id : string;  (** network_interface_id *)
-  transit_gateway_multicast_domain_id : string;
+  group_ip_address : string prop;  (** group_ip_address *)
+  id : string prop option; [@option]  (** id *)
+  network_interface_id : string prop;  (** network_interface_id *)
+  transit_gateway_multicast_domain_id : string prop;
       (** transit_gateway_multicast_domain_id *)
 }
 [@@deriving yojson_of]

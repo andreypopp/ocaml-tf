@@ -8,15 +8,15 @@ type azurerm_elastic_cloud_elasticsearch__timeouts
 type azurerm_elastic_cloud_elasticsearch
 
 val azurerm_elastic_cloud_elasticsearch :
-  ?id:string ->
-  ?monitoring_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?monitoring_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_elastic_cloud_elasticsearch__timeouts ->
-  elastic_cloud_email_address:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
+  elastic_cloud_email_address:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
   logs:azurerm_elastic_cloud_elasticsearch__logs list ->
   string ->
   unit

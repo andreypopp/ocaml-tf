@@ -7,11 +7,11 @@ type aws_accessanalyzer_analyzer__configuration
 type aws_accessanalyzer_analyzer
 
 val aws_accessanalyzer_analyzer :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?type_:string ->
-  analyzer_name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  analyzer_name:string prop ->
   configuration:aws_accessanalyzer_analyzer__configuration list ->
   string ->
   unit

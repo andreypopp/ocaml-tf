@@ -10,16 +10,16 @@ type azurerm_maintenance_configuration__window
 type azurerm_maintenance_configuration
 
 val azurerm_maintenance_configuration :
-  ?id:string ->
-  ?in_guest_user_patch_mode:string ->
-  ?properties:(string * string) list ->
-  ?tags:(string * string) list ->
-  ?visibility:string ->
+  ?id:string prop ->
+  ?in_guest_user_patch_mode:string prop ->
+  ?properties:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?visibility:string prop ->
   ?timeouts:azurerm_maintenance_configuration__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  scope:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scope:string prop ->
   install_patches:
     azurerm_maintenance_configuration__install_patches list ->
   window:azurerm_maintenance_configuration__window list ->

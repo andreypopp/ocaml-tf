@@ -14,10 +14,10 @@ type google_org_policy_policy__timeouts
 type google_org_policy_policy
 
 val google_org_policy_policy :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_org_policy_policy__timeouts ->
-  name:string ->
-  parent:string ->
+  name:string prop ->
+  parent:string prop ->
   dry_run_spec:google_org_policy_policy__dry_run_spec list ->
   spec:google_org_policy_policy__spec list ->
   string ->

@@ -5,22 +5,24 @@
 open! Tf.Prelude
 
 type aws_verifiedaccess_instance__verified_access_trust_providers = {
-  description : string;  (** description *)
-  device_trust_provider_type : string;
+  description : string prop;  (** description *)
+  device_trust_provider_type : string prop;
       (** device_trust_provider_type *)
-  trust_provider_type : string;  (** trust_provider_type *)
-  user_trust_provider_type : string;  (** user_trust_provider_type *)
-  verified_access_trust_provider_id : string;
+  trust_provider_type : string prop;  (** trust_provider_type *)
+  user_trust_provider_type : string prop;
+      (** user_trust_provider_type *)
+  verified_access_trust_provider_id : string prop;
       (** verified_access_trust_provider_id *)
 }
 [@@deriving yojson_of]
 
 type aws_verifiedaccess_instance = {
-  description : string option; [@option]  (** description *)
-  fips_enabled : bool option; [@option]  (** fips_enabled *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  description : string prop option; [@option]  (** description *)
+  fips_enabled : bool prop option; [@option]  (** fips_enabled *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedaccess_instance *)

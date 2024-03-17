@@ -5,31 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_app_dynamics_application_performance_monitoring__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app_dynamics_application_performance_monitoring__timeouts *)
 
 type azurerm_spring_cloud_app_dynamics_application_performance_monitoring = {
-  agent_account_access_key : string;  (** agent_account_access_key *)
-  agent_account_name : string;  (** agent_account_name *)
-  agent_application_name : string option; [@option]
+  agent_account_access_key : string prop;
+      (** agent_account_access_key *)
+  agent_account_name : string prop;  (** agent_account_name *)
+  agent_application_name : string prop option; [@option]
       (** agent_application_name *)
-  agent_node_name : string option; [@option]  (** agent_node_name *)
-  agent_tier_name : string option; [@option]  (** agent_tier_name *)
-  agent_unique_host_id : string option; [@option]
+  agent_node_name : string prop option; [@option]
+      (** agent_node_name *)
+  agent_tier_name : string prop option; [@option]
+      (** agent_tier_name *)
+  agent_unique_host_id : string prop option; [@option]
       (** agent_unique_host_id *)
-  controller_host_name : string;  (** controller_host_name *)
-  controller_port : float option; [@option]  (** controller_port *)
-  controller_ssl_enabled : bool option; [@option]
+  controller_host_name : string prop;  (** controller_host_name *)
+  controller_port : float prop option; [@option]
+      (** controller_port *)
+  controller_ssl_enabled : bool prop option; [@option]
       (** controller_ssl_enabled *)
-  globally_enabled : bool option; [@option]  (** globally_enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
+  globally_enabled : bool prop option; [@option]
+      (** globally_enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
   timeouts :
     azurerm_spring_cloud_app_dynamics_application_performance_monitoring__timeouts
     option;

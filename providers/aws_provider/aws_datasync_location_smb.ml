@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_datasync_location_smb__mount_options = {
-  version : string option; [@option]  (** version *)
+  version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_smb__mount_options *)
 
 type aws_datasync_location_smb = {
-  agent_arns : string list;  (** agent_arns *)
-  domain : string option; [@option]  (** domain *)
-  id : string option; [@option]  (** id *)
-  password : string;  (** password *)
-  server_hostname : string;  (** server_hostname *)
-  subdirectory : string;  (** subdirectory *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  agent_arns : string prop list;  (** agent_arns *)
+  domain : string prop option; [@option]  (** domain *)
+  id : string prop option; [@option]  (** id *)
+  password : string prop;  (** password *)
+  server_hostname : string prop;  (** server_hostname *)
+  subdirectory : string prop;  (** subdirectory *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user : string;  (** user *)
+  user : string prop;  (** user *)
   mount_options : aws_datasync_location_smb__mount_options list;
 }
 [@@deriving yojson_of]

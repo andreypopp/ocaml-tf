@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type cloudflare_mtls_certificate = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  ca : bool;
+  ca : bool prop;
       (** Whether this is a CA or leaf certificate. **Modifying this attribute will force creation of a new resource.** *)
-  certificates : string;
+  certificates : string prop;
       (** Certificate you intend to use with mTLS-enabled services. **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]
       (** Optional unique name for the certificate. **Modifying this attribute will force creation of a new resource.** *)
-  private_key : string option; [@option]
+  private_key : string prop option; [@option]
       (** The certificate's private key. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

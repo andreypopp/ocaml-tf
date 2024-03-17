@@ -56,29 +56,29 @@ type azurerm_orchestrated_virtual_machine_scale_set__timeouts
 type azurerm_orchestrated_virtual_machine_scale_set
 
 val azurerm_orchestrated_virtual_machine_scale_set :
-  ?capacity_reservation_group_id:string ->
-  ?encryption_at_host_enabled:bool ->
-  ?eviction_policy:string ->
-  ?extension_operations_enabled:bool ->
-  ?extensions_time_budget:string ->
-  ?id:string ->
-  ?instances:float ->
-  ?license_type:string ->
-  ?max_bid_price:float ->
-  ?priority:string ->
-  ?proximity_placement_group_id:string ->
-  ?single_placement_group:bool ->
-  ?sku_name:string ->
-  ?source_image_id:string ->
-  ?tags:(string * string) list ->
-  ?user_data_base64:string ->
-  ?zone_balance:bool ->
-  ?zones:string list ->
+  ?capacity_reservation_group_id:string prop ->
+  ?encryption_at_host_enabled:bool prop ->
+  ?eviction_policy:string prop ->
+  ?extension_operations_enabled:bool prop ->
+  ?extensions_time_budget:string prop ->
+  ?id:string prop ->
+  ?instances:float prop ->
+  ?license_type:string prop ->
+  ?max_bid_price:float prop ->
+  ?priority:string prop ->
+  ?proximity_placement_group_id:string prop ->
+  ?single_placement_group:bool prop ->
+  ?sku_name:string prop ->
+  ?source_image_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?user_data_base64:string prop ->
+  ?zone_balance:bool prop ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_orchestrated_virtual_machine_scale_set__timeouts ->
-  location:string ->
-  name:string ->
-  platform_fault_domain_count:float ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  platform_fault_domain_count:float prop ->
+  resource_group_name:string prop ->
   additional_capabilities:
     azurerm_orchestrated_virtual_machine_scale_set__additional_capabilities
     list ->

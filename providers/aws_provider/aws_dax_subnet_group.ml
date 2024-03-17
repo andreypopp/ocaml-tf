@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_dax_subnet_group = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  subnet_ids : string list;  (** subnet_ids *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  subnet_ids : string prop list;  (** subnet_ids *)
 }
 [@@deriving yojson_of]
 (** aws_dax_subnet_group *)

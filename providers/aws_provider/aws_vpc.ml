@@ -5,31 +5,34 @@
 open! Tf.Prelude
 
 type aws_vpc = {
-  assign_generated_ipv6_cidr_block : bool option; [@option]
+  assign_generated_ipv6_cidr_block : bool prop option; [@option]
       (** assign_generated_ipv6_cidr_block *)
-  cidr_block : string option; [@option]  (** cidr_block *)
-  enable_dns_hostnames : bool option; [@option]
+  cidr_block : string prop option; [@option]  (** cidr_block *)
+  enable_dns_hostnames : bool prop option; [@option]
       (** enable_dns_hostnames *)
-  enable_dns_support : bool option; [@option]
+  enable_dns_support : bool prop option; [@option]
       (** enable_dns_support *)
-  enable_network_address_usage_metrics : bool option; [@option]
+  enable_network_address_usage_metrics : bool prop option; [@option]
       (** enable_network_address_usage_metrics *)
-  id : string option; [@option]  (** id *)
-  instance_tenancy : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instance_tenancy : string prop option; [@option]
       (** instance_tenancy *)
-  ipv4_ipam_pool_id : string option; [@option]
+  ipv4_ipam_pool_id : string prop option; [@option]
       (** ipv4_ipam_pool_id *)
-  ipv4_netmask_length : float option; [@option]
+  ipv4_netmask_length : float prop option; [@option]
       (** ipv4_netmask_length *)
-  ipv6_cidr_block : string option; [@option]  (** ipv6_cidr_block *)
-  ipv6_cidr_block_network_border_group : string option; [@option]
+  ipv6_cidr_block : string prop option; [@option]
+      (** ipv6_cidr_block *)
+  ipv6_cidr_block_network_border_group : string prop option;
+      [@option]
       (** ipv6_cidr_block_network_border_group *)
-  ipv6_ipam_pool_id : string option; [@option]
+  ipv6_ipam_pool_id : string prop option; [@option]
       (** ipv6_ipam_pool_id *)
-  ipv6_netmask_length : float option; [@option]
+  ipv6_netmask_length : float prop option; [@option]
       (** ipv6_netmask_length *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_vpc *)

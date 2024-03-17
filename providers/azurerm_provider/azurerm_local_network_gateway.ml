@@ -5,31 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_local_network_gateway__bgp_settings = {
-  asn : float;  (** asn *)
-  bgp_peering_address : string;  (** bgp_peering_address *)
-  peer_weight : float option; [@option]  (** peer_weight *)
+  asn : float prop;  (** asn *)
+  bgp_peering_address : string prop;  (** bgp_peering_address *)
+  peer_weight : float prop option; [@option]  (** peer_weight *)
 }
 [@@deriving yojson_of]
 (** azurerm_local_network_gateway__bgp_settings *)
 
 type azurerm_local_network_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_local_network_gateway__timeouts *)
 
 type azurerm_local_network_gateway = {
-  address_space : string list option; [@option]  (** address_space *)
-  gateway_address : string option; [@option]  (** gateway_address *)
-  gateway_fqdn : string option; [@option]  (** gateway_fqdn *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  address_space : string prop list option; [@option]
+      (** address_space *)
+  gateway_address : string prop option; [@option]
+      (** gateway_address *)
+  gateway_fqdn : string prop option; [@option]  (** gateway_fqdn *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   bgp_settings : azurerm_local_network_gateway__bgp_settings list;
   timeouts : azurerm_local_network_gateway__timeouts option;
 }

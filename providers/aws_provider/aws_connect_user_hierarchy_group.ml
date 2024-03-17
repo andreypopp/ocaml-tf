@@ -5,37 +5,37 @@
 open! Tf.Prelude
 
 type aws_connect_user_hierarchy_group__hierarchy_path__level_two = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
 type aws_connect_user_hierarchy_group__hierarchy_path__level_three = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
 type aws_connect_user_hierarchy_group__hierarchy_path__level_one = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
 type aws_connect_user_hierarchy_group__hierarchy_path__level_four = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
 type aws_connect_user_hierarchy_group__hierarchy_path__level_five = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
@@ -60,12 +60,14 @@ type aws_connect_user_hierarchy_group__hierarchy_path = {
 [@@deriving yojson_of]
 
 type aws_connect_user_hierarchy_group = {
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
-  name : string;  (** name *)
-  parent_group_id : string option; [@option]  (** parent_group_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
+  name : string prop;  (** name *)
+  parent_group_id : string prop option; [@option]
+      (** parent_group_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_connect_user_hierarchy_group *)

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_detective_organization_configuration = {
-  auto_enable : bool;  (** auto_enable *)
-  graph_arn : string;  (** graph_arn *)
-  id : string option; [@option]  (** id *)
+  auto_enable : bool prop;  (** auto_enable *)
+  graph_arn : string prop;  (** graph_arn *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_detective_organization_configuration *)

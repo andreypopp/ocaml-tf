@@ -8,11 +8,11 @@ type azurerm_automation_module__timeouts
 type azurerm_automation_module
 
 val azurerm_automation_module :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_automation_module__timeouts ->
-  automation_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  automation_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   module_link:azurerm_automation_module__module_link list ->
   string ->
   unit

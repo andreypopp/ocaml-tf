@@ -20,12 +20,12 @@ type azurerm_backup_policy_vm_workload__timeouts
 type azurerm_backup_policy_vm_workload
 
 val azurerm_backup_policy_vm_workload :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_backup_policy_vm_workload__timeouts ->
-  name:string ->
-  recovery_vault_name:string ->
-  resource_group_name:string ->
-  workload_type:string ->
+  name:string prop ->
+  recovery_vault_name:string prop ->
+  resource_group_name:string prop ->
+  workload_type:string prop ->
   protection_policy:
     azurerm_backup_policy_vm_workload__protection_policy list ->
   settings:azurerm_backup_policy_vm_workload__settings list ->

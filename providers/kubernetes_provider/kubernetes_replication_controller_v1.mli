@@ -384,7 +384,7 @@ type kubernetes_replication_controller_v1__timeouts
 type kubernetes_replication_controller_v1
 
 val kubernetes_replication_controller_v1 :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:kubernetes_replication_controller_v1__timeouts ->
   metadata:kubernetes_replication_controller_v1__metadata list ->
   spec:kubernetes_replication_controller_v1__spec list ->

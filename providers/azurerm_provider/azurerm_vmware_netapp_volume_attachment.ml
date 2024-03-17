@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_vmware_netapp_volume_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_vmware_netapp_volume_attachment__timeouts *)
 
 type azurerm_vmware_netapp_volume_attachment = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  netapp_volume_id : string;  (** netapp_volume_id *)
-  vmware_cluster_id : string;  (** vmware_cluster_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  netapp_volume_id : string prop;  (** netapp_volume_id *)
+  vmware_cluster_id : string prop;  (** vmware_cluster_id *)
   timeouts : azurerm_vmware_netapp_volume_attachment__timeouts option;
 }
 [@@deriving yojson_of]

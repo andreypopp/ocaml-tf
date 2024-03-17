@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_waf_xss_match_set__xss_match_tuples__field_to_match = {
-  data : string option; [@option]  (** data *)
-  type_ : string; [@key "type"]  (** type *)
+  data : string prop option; [@option]  (** data *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_waf_xss_match_set__xss_match_tuples__field_to_match *)
 
 type aws_waf_xss_match_set__xss_match_tuples = {
-  text_transformation : string;  (** text_transformation *)
+  text_transformation : string prop;  (** text_transformation *)
   field_to_match :
     aws_waf_xss_match_set__xss_match_tuples__field_to_match list;
 }
@@ -20,8 +20,8 @@ type aws_waf_xss_match_set__xss_match_tuples = {
 (** aws_waf_xss_match_set__xss_match_tuples *)
 
 type aws_waf_xss_match_set = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   xss_match_tuples : aws_waf_xss_match_set__xss_match_tuples list;
 }
 [@@deriving yojson_of]

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_proxy_protocol_policy = {
-  id : string option; [@option]  (** id *)
-  instance_ports : string list;  (** instance_ports *)
-  load_balancer : string;  (** load_balancer *)
+  id : string prop option; [@option]  (** id *)
+  instance_ports : string prop list;  (** instance_ports *)
+  load_balancer : string prop;  (** load_balancer *)
 }
 [@@deriving yojson_of]
 (** aws_proxy_protocol_policy *)

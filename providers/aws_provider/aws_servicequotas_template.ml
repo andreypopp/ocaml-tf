@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_servicequotas_template = {
-  quota_code : string;  (** quota_code *)
-  region : string;  (** region *)
-  service_code : string;  (** service_code *)
-  value : float;  (** value *)
+  quota_code : string prop;  (** quota_code *)
+  region : string prop;  (** region *)
+  service_code : string prop;  (** service_code *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_servicequotas_template *)

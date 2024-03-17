@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_globalaccelerator_custom_routing_listener__port_range = {
-  from_port : float option; [@option]  (** from_port *)
-  to_port : float option; [@option]  (** to_port *)
+  from_port : float prop option; [@option]  (** from_port *)
+  to_port : float prop option; [@option]  (** to_port *)
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_listener__port_range *)
 
 type aws_globalaccelerator_custom_routing_listener__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_listener__timeouts *)
 
 type aws_globalaccelerator_custom_routing_listener = {
-  accelerator_arn : string;  (** accelerator_arn *)
-  id : string option; [@option]  (** id *)
+  accelerator_arn : string prop;  (** accelerator_arn *)
+  id : string prop option; [@option]  (** id *)
   port_range :
     aws_globalaccelerator_custom_routing_listener__port_range list;
   timeouts :

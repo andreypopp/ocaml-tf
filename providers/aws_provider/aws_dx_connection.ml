@@ -5,16 +5,18 @@
 open! Tf.Prelude
 
 type aws_dx_connection = {
-  bandwidth : string;  (** bandwidth *)
-  encryption_mode : string option; [@option]  (** encryption_mode *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  provider_name : string option; [@option]  (** provider_name *)
-  request_macsec : bool option; [@option]  (** request_macsec *)
-  skip_destroy : bool option; [@option]  (** skip_destroy *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  bandwidth : string prop;  (** bandwidth *)
+  encryption_mode : string prop option; [@option]
+      (** encryption_mode *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  provider_name : string prop option; [@option]  (** provider_name *)
+  request_macsec : bool prop option; [@option]  (** request_macsec *)
+  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_dx_connection *)

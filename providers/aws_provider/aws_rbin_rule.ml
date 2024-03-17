@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_rbin_rule__lock_configuration__unlock_delay = {
-  unlock_delay_unit : string;  (** unlock_delay_unit *)
-  unlock_delay_value : float;  (** unlock_delay_value *)
+  unlock_delay_unit : string prop;  (** unlock_delay_unit *)
+  unlock_delay_value : float prop;  (** unlock_delay_value *)
 }
 [@@deriving yojson_of]
 (** aws_rbin_rule__lock_configuration__unlock_delay *)
@@ -18,33 +18,33 @@ type aws_rbin_rule__lock_configuration = {
 (** aws_rbin_rule__lock_configuration *)
 
 type aws_rbin_rule__resource_tags = {
-  resource_tag_key : string;  (** resource_tag_key *)
-  resource_tag_value : string option; [@option]
+  resource_tag_key : string prop;  (** resource_tag_key *)
+  resource_tag_value : string prop option; [@option]
       (** resource_tag_value *)
 }
 [@@deriving yojson_of]
 (** aws_rbin_rule__resource_tags *)
 
 type aws_rbin_rule__retention_period = {
-  retention_period_unit : string;  (** retention_period_unit *)
-  retention_period_value : float;  (** retention_period_value *)
+  retention_period_unit : string prop;  (** retention_period_unit *)
+  retention_period_value : float prop;  (** retention_period_value *)
 }
 [@@deriving yojson_of]
 (** aws_rbin_rule__retention_period *)
 
 type aws_rbin_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_rbin_rule__timeouts *)
 
 type aws_rbin_rule = {
-  description : string option; [@option]  (** description *)
-  resource_type : string;  (** resource_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  resource_type : string prop;  (** resource_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   lock_configuration : aws_rbin_rule__lock_configuration list;
   resource_tags : aws_rbin_rule__resource_tags list;

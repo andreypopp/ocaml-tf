@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_beyondcorp_app_connector__principal_info__service_account = {
-  email : string;  (** Email address of the service account. *)
+  email : string prop;  (** Email address of the service account. *)
 }
 [@@deriving yojson_of]
 (** ServiceAccount represents a GCP service account. *)
@@ -19,26 +19,26 @@ type google_beyondcorp_app_connector__principal_info = {
 (** Principal information about the Identity of the AppConnector. *)
 
 type google_beyondcorp_app_connector__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_beyondcorp_app_connector__timeouts *)
 
 type google_beyondcorp_app_connector = {
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** An arbitrary user-provided name for the AppConnector. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string;  (** ID of the AppConnector. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  name : string prop;  (** ID of the AppConnector. *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** The region of the AppConnector. *)
   principal_info :
     google_beyondcorp_app_connector__principal_info list;

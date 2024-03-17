@@ -6,15 +6,15 @@ type azurerm_api_management_api_schema__timeouts
 type azurerm_api_management_api_schema
 
 val azurerm_api_management_api_schema :
-  ?components:string ->
-  ?definitions:string ->
-  ?id:string ->
-  ?value:string ->
+  ?components:string prop ->
+  ?definitions:string prop ->
+  ?id:string prop ->
+  ?value:string prop ->
   ?timeouts:azurerm_api_management_api_schema__timeouts ->
-  api_management_name:string ->
-  api_name:string ->
-  content_type:string ->
-  resource_group_name:string ->
-  schema_id:string ->
+  api_management_name:string prop ->
+  api_name:string prop ->
+  content_type:string prop ->
+  resource_group_name:string prop ->
+  schema_id:string prop ->
   string ->
   unit

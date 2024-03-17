@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_app_cosmosdb_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app_cosmosdb_association__timeouts *)
 
 type azurerm_spring_cloud_app_cosmosdb_association = {
-  api_type : string;  (** api_type *)
-  cosmosdb_access_key : string;  (** cosmosdb_access_key *)
-  cosmosdb_account_id : string;  (** cosmosdb_account_id *)
-  cosmosdb_cassandra_keyspace_name : string option; [@option]
+  api_type : string prop;  (** api_type *)
+  cosmosdb_access_key : string prop;  (** cosmosdb_access_key *)
+  cosmosdb_account_id : string prop;  (** cosmosdb_account_id *)
+  cosmosdb_cassandra_keyspace_name : string prop option; [@option]
       (** cosmosdb_cassandra_keyspace_name *)
-  cosmosdb_gremlin_database_name : string option; [@option]
+  cosmosdb_gremlin_database_name : string prop option; [@option]
       (** cosmosdb_gremlin_database_name *)
-  cosmosdb_gremlin_graph_name : string option; [@option]
+  cosmosdb_gremlin_graph_name : string prop option; [@option]
       (** cosmosdb_gremlin_graph_name *)
-  cosmosdb_mongo_database_name : string option; [@option]
+  cosmosdb_mongo_database_name : string prop option; [@option]
       (** cosmosdb_mongo_database_name *)
-  cosmosdb_sql_database_name : string option; [@option]
+  cosmosdb_sql_database_name : string prop option; [@option]
       (** cosmosdb_sql_database_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  spring_cloud_app_id : string;  (** spring_cloud_app_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  spring_cloud_app_id : string prop;  (** spring_cloud_app_id *)
   timeouts :
     azurerm_spring_cloud_app_cosmosdb_association__timeouts option;
 }

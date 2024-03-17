@@ -5,31 +5,32 @@
 open! Tf.Prelude
 
 type google_compute_public_delegated_prefix__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_public_delegated_prefix__timeouts *)
 
 type google_compute_public_delegated_prefix = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. *)
-  id : string option; [@option]  (** id *)
-  ip_cidr_range : string;
+  id : string prop option; [@option]  (** id *)
+  ip_cidr_range : string prop;
       (** The IPv4 address range, in CIDR format, represented by this public advertised prefix. *)
-  is_live_migration : bool option; [@option]
+  is_live_migration : bool prop option; [@option]
       (** If true, the prefix will be live migrated. *)
-  name : string;
+  name : string prop;
       (** Name of the resource. The name must be 1-63 characters long, and
 comply with RFC1035. Specifically, the name must be 1-63 characters
 long and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?'
 which means the first character must be a lowercase letter, and all
 following characters must be a dash, lowercase letter, or digit,
 except the last character, which cannot be a dash. *)
-  parent_prefix : string;
+  parent_prefix : string prop;
       (** The URL of parent prefix. Either PublicAdvertisedPrefix or PublicDelegatedPrefix. *)
-  project : string option; [@option]  (** project *)
-  region : string;  (** A region where the prefix will reside. *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop;
+      (** A region where the prefix will reside. *)
   timeouts : google_compute_public_delegated_prefix__timeouts option;
 }
 [@@deriving yojson_of]

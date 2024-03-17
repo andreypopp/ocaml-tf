@@ -6,11 +6,11 @@ type google_binary_authorization_attestor_iam_binding__condition
 type google_binary_authorization_attestor_iam_binding
 
 val google_binary_authorization_attestor_iam_binding :
-  ?id:string ->
-  ?project:string ->
-  attestor:string ->
-  members:string list ->
-  role:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  attestor:string prop ->
+  members:string prop list ->
+  role:string prop ->
   condition:
     google_binary_authorization_attestor_iam_binding__condition list ->
   string ->

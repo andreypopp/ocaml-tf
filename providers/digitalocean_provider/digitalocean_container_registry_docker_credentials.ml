@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type digitalocean_container_registry_docker_credentials = {
-  expiry_seconds : float option; [@option]  (** expiry_seconds *)
-  id : string option; [@option]  (** id *)
-  registry_name : string;  (** registry_name *)
-  write : bool option; [@option]  (** write *)
+  expiry_seconds : float prop option; [@option]
+      (** expiry_seconds *)
+  id : string prop option; [@option]  (** id *)
+  registry_name : string prop;  (** registry_name *)
+  write : bool prop option; [@option]  (** write *)
 }
 [@@deriving yojson_of]
 (** digitalocean_container_registry_docker_credentials *)

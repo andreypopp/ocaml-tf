@@ -6,13 +6,13 @@ type azurerm_route__timeouts
 type azurerm_route
 
 val azurerm_route :
-  ?id:string ->
-  ?next_hop_in_ip_address:string ->
+  ?id:string prop ->
+  ?next_hop_in_ip_address:string prop ->
   ?timeouts:azurerm_route__timeouts ->
-  address_prefix:string ->
-  name:string ->
-  next_hop_type:string ->
-  resource_group_name:string ->
-  route_table_name:string ->
+  address_prefix:string prop ->
+  name:string prop ->
+  next_hop_type:string prop ->
+  resource_group_name:string prop ->
+  route_table_name:string prop ->
   string ->
   unit

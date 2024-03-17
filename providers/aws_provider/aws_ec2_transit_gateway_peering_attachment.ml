@@ -5,14 +5,16 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_peering_attachment = {
-  id : string option; [@option]  (** id *)
-  peer_account_id : string option; [@option]  (** peer_account_id *)
-  peer_region : string;  (** peer_region *)
-  peer_transit_gateway_id : string;  (** peer_transit_gateway_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  peer_account_id : string prop option; [@option]
+      (** peer_account_id *)
+  peer_region : string prop;  (** peer_region *)
+  peer_transit_gateway_id : string prop;
+      (** peer_transit_gateway_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  transit_gateway_id : string;  (** transit_gateway_id *)
+  transit_gateway_id : string prop;  (** transit_gateway_id *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_peering_attachment *)

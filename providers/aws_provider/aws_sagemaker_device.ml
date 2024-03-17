@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type aws_sagemaker_device__device = {
-  description : string option; [@option]  (** description *)
-  device_name : string;  (** device_name *)
-  iot_thing_name : string option; [@option]  (** iot_thing_name *)
+  description : string prop option; [@option]  (** description *)
+  device_name : string prop;  (** device_name *)
+  iot_thing_name : string prop option; [@option]
+      (** iot_thing_name *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_device__device *)
 
 type aws_sagemaker_device = {
-  device_fleet_name : string;  (** device_fleet_name *)
-  id : string option; [@option]  (** id *)
+  device_fleet_name : string prop;  (** device_fleet_name *)
+  id : string prop option; [@option]  (** id *)
   device : aws_sagemaker_device__device list;
 }
 [@@deriving yojson_of]

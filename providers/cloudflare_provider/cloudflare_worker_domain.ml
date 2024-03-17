@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type cloudflare_worker_domain = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  environment : string option; [@option]
+  environment : string prop option; [@option]
       (** The name of the Worker environment. Defaults to `production`. *)
-  hostname : string;  (** Hostname of the Worker Domain. *)
-  id : string option; [@option]  (** id *)
-  service : string;
+  hostname : string prop;  (** Hostname of the Worker Domain. *)
+  id : string prop option; [@option]  (** id *)
+  service : string prop;
       (** Name of worker script to attach the domain to. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type hcloud_managed_certificate = {
-  domain_names : string list;  (** domain_names *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  name : string;  (** name *)
+  domain_names : string prop list;  (** domain_names *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** hcloud_managed_certificate *)

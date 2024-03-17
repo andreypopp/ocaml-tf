@@ -5,11 +5,11 @@ open! Tf.Prelude
 type google_logging_organization_exclusion
 
 val google_logging_organization_exclusion :
-  ?description:string ->
-  ?disabled:bool ->
-  ?id:string ->
-  filter:string ->
-  name:string ->
-  org_id:string ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  filter:string prop ->
+  name:string prop ->
+  org_id:string prop ->
   string ->
   unit

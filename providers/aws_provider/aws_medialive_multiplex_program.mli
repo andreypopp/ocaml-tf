@@ -12,8 +12,8 @@ type aws_medialive_multiplex_program__multiplex_program_settings
 type aws_medialive_multiplex_program
 
 val aws_medialive_multiplex_program :
-  multiplex_id:string ->
-  program_name:string ->
+  multiplex_id:string prop ->
+  program_name:string prop ->
   multiplex_program_settings:
     aws_medialive_multiplex_program__multiplex_program_settings list ->
   string ->

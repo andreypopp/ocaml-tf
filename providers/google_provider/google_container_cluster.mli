@@ -23,8 +23,9 @@ type google_container_cluster__authenticator_groups_config
 type google_container_cluster__binary_authorization
 
 type google_container_cluster__cluster_autoscaling__auto_provisioning_defaults__management__upgrade_options = {
-  auto_upgrade_start_time : string;  (** auto_upgrade_start_time *)
-  description : string;  (** description *)
+  auto_upgrade_start_time : string prop;
+      (** auto_upgrade_start_time *)
+  description : string prop;  (** description *)
 }
 
 type google_container_cluster__cluster_autoscaling__auto_provisioning_defaults__management
@@ -103,33 +104,33 @@ type google_container_cluster__node_config__taint
 type google_container_cluster__node_config__workload_metadata_config
 
 type google_container_cluster__node_config__effective_taints = {
-  effect : string;  (** effect *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  effect : string prop;  (** effect *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 
 type google_container_cluster__node_config__guest_accelerator__gpu_sharing_config = {
-  gpu_sharing_strategy : string;  (** gpu_sharing_strategy *)
-  max_shared_clients_per_gpu : float;
+  gpu_sharing_strategy : string prop;  (** gpu_sharing_strategy *)
+  max_shared_clients_per_gpu : float prop;
       (** max_shared_clients_per_gpu *)
 }
 
 type google_container_cluster__node_config__guest_accelerator__gpu_driver_installation_config = {
-  gpu_driver_version : string;  (** gpu_driver_version *)
+  gpu_driver_version : string prop;  (** gpu_driver_version *)
 }
 
 type google_container_cluster__node_config__guest_accelerator = {
-  count : float;  (** count *)
+  count : float prop;  (** count *)
   gpu_driver_installation_config :
     google_container_cluster__node_config__guest_accelerator__gpu_driver_installation_config
     list;
       (** gpu_driver_installation_config *)
-  gpu_partition_size : string;  (** gpu_partition_size *)
+  gpu_partition_size : string prop;  (** gpu_partition_size *)
   gpu_sharing_config :
     google_container_cluster__node_config__guest_accelerator__gpu_sharing_config
     list;
       (** gpu_sharing_config *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_container_cluster__node_config
@@ -173,33 +174,33 @@ type google_container_cluster__node_pool__node_config__taint
 type google_container_cluster__node_pool__node_config__workload_metadata_config
 
 type google_container_cluster__node_pool__node_config__effective_taints = {
-  effect : string;  (** effect *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  effect : string prop;  (** effect *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 
 type google_container_cluster__node_pool__node_config__guest_accelerator__gpu_sharing_config = {
-  gpu_sharing_strategy : string;  (** gpu_sharing_strategy *)
-  max_shared_clients_per_gpu : float;
+  gpu_sharing_strategy : string prop;  (** gpu_sharing_strategy *)
+  max_shared_clients_per_gpu : float prop;
       (** max_shared_clients_per_gpu *)
 }
 
 type google_container_cluster__node_pool__node_config__guest_accelerator__gpu_driver_installation_config = {
-  gpu_driver_version : string;  (** gpu_driver_version *)
+  gpu_driver_version : string prop;  (** gpu_driver_version *)
 }
 
 type google_container_cluster__node_pool__node_config__guest_accelerator = {
-  count : float;  (** count *)
+  count : float prop;  (** count *)
   gpu_driver_installation_config :
     google_container_cluster__node_pool__node_config__guest_accelerator__gpu_driver_installation_config
     list;
       (** gpu_driver_installation_config *)
-  gpu_partition_size : string;  (** gpu_partition_size *)
+  gpu_partition_size : string prop;  (** gpu_partition_size *)
   gpu_sharing_config :
     google_container_cluster__node_pool__node_config__guest_accelerator__gpu_sharing_config
     list;
       (** gpu_sharing_config *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_container_cluster__node_pool__node_config
@@ -237,36 +238,36 @@ type google_container_cluster__workload_identity_config
 type google_container_cluster
 
 val google_container_cluster :
-  ?allow_net_admin:bool ->
-  ?cluster_ipv4_cidr:string ->
-  ?datapath_provider:string ->
-  ?default_max_pods_per_node:float ->
-  ?deletion_protection:bool ->
-  ?description:string ->
-  ?enable_autopilot:bool ->
-  ?enable_intranode_visibility:bool ->
-  ?enable_kubernetes_alpha:bool ->
-  ?enable_l4_ilb_subsetting:bool ->
-  ?enable_legacy_abac:bool ->
-  ?enable_shielded_nodes:bool ->
-  ?enable_tpu:bool ->
-  ?id:string ->
-  ?initial_node_count:float ->
-  ?location:string ->
-  ?logging_service:string ->
-  ?min_master_version:string ->
-  ?monitoring_service:string ->
-  ?network:string ->
-  ?networking_mode:string ->
-  ?node_locations:string list ->
-  ?node_version:string ->
-  ?private_ipv6_google_access:string ->
-  ?project:string ->
-  ?remove_default_node_pool:bool ->
-  ?resource_labels:(string * string) list ->
-  ?subnetwork:string ->
+  ?allow_net_admin:bool prop ->
+  ?cluster_ipv4_cidr:string prop ->
+  ?datapath_provider:string prop ->
+  ?default_max_pods_per_node:float prop ->
+  ?deletion_protection:bool prop ->
+  ?description:string prop ->
+  ?enable_autopilot:bool prop ->
+  ?enable_intranode_visibility:bool prop ->
+  ?enable_kubernetes_alpha:bool prop ->
+  ?enable_l4_ilb_subsetting:bool prop ->
+  ?enable_legacy_abac:bool prop ->
+  ?enable_shielded_nodes:bool prop ->
+  ?enable_tpu:bool prop ->
+  ?id:string prop ->
+  ?initial_node_count:float prop ->
+  ?location:string prop ->
+  ?logging_service:string prop ->
+  ?min_master_version:string prop ->
+  ?monitoring_service:string prop ->
+  ?network:string prop ->
+  ?networking_mode:string prop ->
+  ?node_locations:string prop list ->
+  ?node_version:string prop ->
+  ?private_ipv6_google_access:string prop ->
+  ?project:string prop ->
+  ?remove_default_node_pool:bool prop ->
+  ?resource_labels:(string * string prop) list ->
+  ?subnetwork:string prop ->
   ?timeouts:google_container_cluster__timeouts ->
-  name:string ->
+  name:string prop ->
   addons_config:google_container_cluster__addons_config list ->
   authenticator_groups_config:
     google_container_cluster__authenticator_groups_config list ->

@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type google_alloydb_user__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_alloydb_user__timeouts *)
 
 type google_alloydb_user = {
-  cluster : string;
+  cluster : string prop;
       (** Identifies the alloydb cluster. Must be in the format
 'projects/{project}/locations/{location}/clusters/{cluster_id}' *)
-  database_roles : string list option; [@option]
+  database_roles : string prop list option; [@option]
       (** List of database roles this database user has. *)
-  id : string option; [@option]  (** id *)
-  password : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  password : string prop option; [@option]
       (** Password for this database user. *)
-  user_id : string;  (** The database role name of the user. *)
-  user_type : string;
+  user_id : string prop;  (** The database role name of the user. *)
+  user_type : string prop;
       (** The type of this user. Possible values: [ALLOYDB_BUILT_IN, ALLOYDB_IAM_USER] *)
   timeouts : google_alloydb_user__timeouts option;
 }

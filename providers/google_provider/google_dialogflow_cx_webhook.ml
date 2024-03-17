@@ -5,29 +5,30 @@
 open! Tf.Prelude
 
 type google_dialogflow_cx_webhook__generic_web_service = {
-  allowed_ca_certs : string list option; [@option]
+  allowed_ca_certs : string prop list option; [@option]
       (** Specifies a list of allowed custom CA certificates (in DER format) for HTTPS verification. *)
-  request_headers : (string * string) list option; [@option]
+  request_headers : (string * string prop) list option; [@option]
       (** The HTTP request headers to send together with webhook requests. *)
-  uri : string;
+  uri : string prop;
       (** Whether to use speech adaptation for speech recognition. *)
 }
 [@@deriving yojson_of]
 (** Configuration for a generic web service. *)
 
 type google_dialogflow_cx_webhook__service_directory__generic_web_service = {
-  allowed_ca_certs : string list option; [@option]
+  allowed_ca_certs : string prop list option; [@option]
       (** Specifies a list of allowed custom CA certificates (in DER format) for HTTPS verification. *)
-  request_headers : (string * string) list option; [@option]
+  request_headers : (string * string prop) list option; [@option]
       (** The HTTP request headers to send together with webhook requests. *)
-  uri : string;
+  uri : string prop;
       (** Whether to use speech adaptation for speech recognition. *)
 }
 [@@deriving yojson_of]
 (** The name of Service Directory service. *)
 
 type google_dialogflow_cx_webhook__service_directory = {
-  service : string;  (** The name of Service Directory service. *)
+  service : string prop;
+      (** The name of Service Directory service. *)
   generic_web_service :
     google_dialogflow_cx_webhook__service_directory__generic_web_service
     list;
@@ -36,29 +37,29 @@ type google_dialogflow_cx_webhook__service_directory = {
 (** Configuration for a Service Directory service. *)
 
 type google_dialogflow_cx_webhook__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_webhook__timeouts *)
 
 type google_dialogflow_cx_webhook = {
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** Indicates whether the webhook is disabled. *)
-  display_name : string;
+  display_name : string prop;
       (** The human-readable name of the webhook, unique within the agent. *)
-  enable_spell_correction : bool option; [@option]
+  enable_spell_correction : bool prop option; [@option]
       (** Indicates if automatic spell correction is enabled in detect intent requests. *)
-  enable_stackdriver_logging : bool option; [@option]
+  enable_stackdriver_logging : bool prop option; [@option]
       (** Determines whether this agent should log conversation queries. *)
-  id : string option; [@option]  (** id *)
-  parent : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  parent : string prop option; [@option]
       (** The agent to create a webhook for.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
-  security_settings : string option; [@option]
+  security_settings : string prop option; [@option]
       (** Name of the SecuritySettings reference for the agent. Format: projects/<Project ID>/locations/<Location ID>/securitySettings/<Security Settings ID>. *)
-  timeout : string option; [@option]
+  timeout : string prop option; [@option]
       (** Webhook execution timeout. *)
   generic_web_service :
     google_dialogflow_cx_webhook__generic_web_service list;

@@ -5,22 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_elastic_application_performance_monitoring__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_elastic_application_performance_monitoring__timeouts *)
 
 type azurerm_spring_cloud_elastic_application_performance_monitoring = {
-  application_packages : string list;  (** application_packages *)
-  globally_enabled : bool option; [@option]  (** globally_enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  server_url : string;  (** server_url *)
-  service_name : string;  (** service_name *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
+  application_packages : string prop list;
+      (** application_packages *)
+  globally_enabled : bool prop option; [@option]
+      (** globally_enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  server_url : string prop;  (** server_url *)
+  service_name : string prop;  (** service_name *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
   timeouts :
     azurerm_spring_cloud_elastic_application_performance_monitoring__timeouts
     option;

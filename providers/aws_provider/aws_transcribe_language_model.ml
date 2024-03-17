@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type aws_transcribe_language_model__input_data_config = {
-  data_access_role_arn : string;  (** data_access_role_arn *)
-  s3_uri : string;  (** s3_uri *)
-  tuning_data_s3_uri : string option; [@option]
+  data_access_role_arn : string prop;  (** data_access_role_arn *)
+  s3_uri : string prop;  (** s3_uri *)
+  tuning_data_s3_uri : string prop option; [@option]
       (** tuning_data_s3_uri *)
 }
 [@@deriving yojson_of]
 (** aws_transcribe_language_model__input_data_config *)
 
 type aws_transcribe_language_model__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_transcribe_language_model__timeouts *)
 
 type aws_transcribe_language_model = {
-  base_model_name : string;  (** base_model_name *)
-  id : string option; [@option]  (** id *)
-  language_code : string;  (** language_code *)
-  model_name : string;  (** model_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  base_model_name : string prop;  (** base_model_name *)
+  id : string prop option; [@option]  (** id *)
+  language_code : string prop;  (** language_code *)
+  model_name : string prop;  (** model_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   input_data_config :
     aws_transcribe_language_model__input_data_config list;

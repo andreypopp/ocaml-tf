@@ -6,11 +6,11 @@ type azurerm_monitor_private_link_scoped_service__timeouts
 type azurerm_monitor_private_link_scoped_service
 
 val azurerm_monitor_private_link_scoped_service :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_monitor_private_link_scoped_service__timeouts ->
-  linked_resource_id:string ->
-  name:string ->
-  resource_group_name:string ->
-  scope_name:string ->
+  linked_resource_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scope_name:string prop ->
   string ->
   unit

@@ -5,33 +5,37 @@
 open! Tf.Prelude
 
 type aws_grafana_workspace_saml_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_grafana_workspace_saml_configuration__timeouts *)
 
 type aws_grafana_workspace_saml_configuration = {
-  admin_role_values : string list option; [@option]
+  admin_role_values : string prop list option; [@option]
       (** admin_role_values *)
-  allowed_organizations : string list option; [@option]
+  allowed_organizations : string prop list option; [@option]
       (** allowed_organizations *)
-  editor_role_values : string list;  (** editor_role_values *)
-  email_assertion : string option; [@option]  (** email_assertion *)
-  groups_assertion : string option; [@option]
+  editor_role_values : string prop list;  (** editor_role_values *)
+  email_assertion : string prop option; [@option]
+      (** email_assertion *)
+  groups_assertion : string prop option; [@option]
       (** groups_assertion *)
-  id : string option; [@option]  (** id *)
-  idp_metadata_url : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  idp_metadata_url : string prop option; [@option]
       (** idp_metadata_url *)
-  idp_metadata_xml : string option; [@option]
+  idp_metadata_xml : string prop option; [@option]
       (** idp_metadata_xml *)
-  login_assertion : string option; [@option]  (** login_assertion *)
-  login_validity_duration : float option; [@option]
+  login_assertion : string prop option; [@option]
+      (** login_assertion *)
+  login_validity_duration : float prop option; [@option]
       (** login_validity_duration *)
-  name_assertion : string option; [@option]  (** name_assertion *)
-  org_assertion : string option; [@option]  (** org_assertion *)
-  role_assertion : string option; [@option]  (** role_assertion *)
-  workspace_id : string;  (** workspace_id *)
+  name_assertion : string prop option; [@option]
+      (** name_assertion *)
+  org_assertion : string prop option; [@option]  (** org_assertion *)
+  role_assertion : string prop option; [@option]
+      (** role_assertion *)
+  workspace_id : string prop;  (** workspace_id *)
   timeouts :
     aws_grafana_workspace_saml_configuration__timeouts option;
 }

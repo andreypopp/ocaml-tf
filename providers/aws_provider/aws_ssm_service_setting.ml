@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_ssm_service_setting = {
-  id : string option; [@option]  (** id *)
-  setting_id : string;  (** setting_id *)
-  setting_value : string;  (** setting_value *)
+  id : string prop option; [@option]  (** id *)
+  setting_id : string prop;  (** setting_id *)
+  setting_value : string prop;  (** setting_value *)
 }
 [@@deriving yojson_of]
 (** aws_ssm_service_setting *)

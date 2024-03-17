@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type aws_appconfig_deployment_strategy = {
-  deployment_duration_in_minutes : float;
+  deployment_duration_in_minutes : float prop;
       (** deployment_duration_in_minutes *)
-  description : string option; [@option]  (** description *)
-  final_bake_time_in_minutes : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  final_bake_time_in_minutes : float prop option; [@option]
       (** final_bake_time_in_minutes *)
-  growth_factor : float;  (** growth_factor *)
-  growth_type : string option; [@option]  (** growth_type *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  replicate_to : string;  (** replicate_to *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  growth_factor : float prop;  (** growth_factor *)
+  growth_type : string prop option; [@option]  (** growth_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  replicate_to : string prop;  (** replicate_to *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_appconfig_deployment_strategy *)

@@ -5,14 +5,14 @@ open! Tf.Prelude
 type aws_redshift_usage_limit
 
 val aws_redshift_usage_limit :
-  ?breach_action:string ->
-  ?id:string ->
-  ?period:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  amount:float ->
-  cluster_identifier:string ->
-  feature_type:string ->
-  limit_type:string ->
+  ?breach_action:string prop ->
+  ?id:string prop ->
+  ?period:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  amount:float prop ->
+  cluster_identifier:string prop ->
+  feature_type:string prop ->
+  limit_type:string prop ->
   string ->
   unit

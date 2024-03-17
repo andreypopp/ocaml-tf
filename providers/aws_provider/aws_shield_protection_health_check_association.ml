@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_shield_protection_health_check_association = {
-  health_check_arn : string;  (** health_check_arn *)
-  id : string option; [@option]  (** id *)
-  shield_protection_id : string;  (** shield_protection_id *)
+  health_check_arn : string prop;  (** health_check_arn *)
+  id : string prop option; [@option]  (** id *)
+  shield_protection_id : string prop;  (** shield_protection_id *)
 }
 [@@deriving yojson_of]
 (** aws_shield_protection_health_check_association *)

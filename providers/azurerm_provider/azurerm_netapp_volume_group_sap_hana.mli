@@ -13,14 +13,14 @@ type azurerm_netapp_volume_group_sap_hana__volume
 type azurerm_netapp_volume_group_sap_hana
 
 val azurerm_netapp_volume_group_sap_hana :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_netapp_volume_group_sap_hana__timeouts ->
-  account_name:string ->
-  application_identifier:string ->
-  group_description:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  account_name:string prop ->
+  application_identifier:string prop ->
+  group_description:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   volume:azurerm_netapp_volume_group_sap_hana__volume list ->
   string ->
   unit

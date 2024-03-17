@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_web_pubsub_custom_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_custom_domain__timeouts *)
 
 type azurerm_web_pubsub_custom_domain = {
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  web_pubsub_custom_certificate_id : string;
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  web_pubsub_custom_certificate_id : string prop;
       (** web_pubsub_custom_certificate_id *)
-  web_pubsub_id : string;  (** web_pubsub_id *)
+  web_pubsub_id : string prop;  (** web_pubsub_id *)
   timeouts : azurerm_web_pubsub_custom_domain__timeouts option;
 }
 [@@deriving yojson_of]

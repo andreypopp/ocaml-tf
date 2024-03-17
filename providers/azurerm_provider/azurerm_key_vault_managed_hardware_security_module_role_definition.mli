@@ -9,13 +9,13 @@ type azurerm_key_vault_managed_hardware_security_module_role_definition__timeout
 type azurerm_key_vault_managed_hardware_security_module_role_definition
 
 val azurerm_key_vault_managed_hardware_security_module_role_definition :
-  ?description:string ->
-  ?id:string ->
-  ?role_name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?role_name:string prop ->
   ?timeouts:
     azurerm_key_vault_managed_hardware_security_module_role_definition__timeouts ->
-  name:string ->
-  vault_base_url:string ->
+  name:string prop ->
+  vault_base_url:string prop ->
   permission:
     azurerm_key_vault_managed_hardware_security_module_role_definition__permission
     list ->

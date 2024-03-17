@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type aws_s3control_multi_region_access_point__details__public_access_block = {
-  block_public_acls : bool option; [@option]
+  block_public_acls : bool prop option; [@option]
       (** block_public_acls *)
-  block_public_policy : bool option; [@option]
+  block_public_policy : bool prop option; [@option]
       (** block_public_policy *)
-  ignore_public_acls : bool option; [@option]
+  ignore_public_acls : bool prop option; [@option]
       (** ignore_public_acls *)
-  restrict_public_buckets : bool option; [@option]
+  restrict_public_buckets : bool prop option; [@option]
       (** restrict_public_buckets *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_multi_region_access_point__details__public_access_block *)
 
 type aws_s3control_multi_region_access_point__details__region = {
-  bucket : string;  (** bucket *)
-  bucket_account_id : string option; [@option]
+  bucket : string prop;  (** bucket *)
+  bucket_account_id : string prop option; [@option]
       (** bucket_account_id *)
-  region : string;  (** region *)
+  region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_multi_region_access_point__details__region *)
 
 type aws_s3control_multi_region_access_point__details = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   public_access_block :
     aws_s3control_multi_region_access_point__details__public_access_block
     list;
@@ -38,15 +38,15 @@ type aws_s3control_multi_region_access_point__details = {
 (** aws_s3control_multi_region_access_point__details *)
 
 type aws_s3control_multi_region_access_point__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_multi_region_access_point__timeouts *)
 
 type aws_s3control_multi_region_access_point = {
-  account_id : string option; [@option]  (** account_id *)
-  id : string option; [@option]  (** id *)
+  account_id : string prop option; [@option]  (** account_id *)
+  id : string prop option; [@option]  (** id *)
   details : aws_s3control_multi_region_access_point__details list;
   timeouts : aws_s3control_multi_region_access_point__timeouts option;
 }

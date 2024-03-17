@@ -7,14 +7,14 @@ type google_firebaserules_ruleset__source
 type google_firebaserules_ruleset__timeouts
 
 type google_firebaserules_ruleset__metadata = {
-  services : string list;  (** services *)
+  services : string prop list;  (** services *)
 }
 
 type google_firebaserules_ruleset
 
 val google_firebaserules_ruleset :
-  ?id:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_firebaserules_ruleset__timeouts ->
   source:google_firebaserules_ruleset__source list ->
   string ->

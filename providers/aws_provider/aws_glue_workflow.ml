@@ -5,15 +5,17 @@
 open! Tf.Prelude
 
 type aws_glue_workflow = {
-  default_run_properties : (string * string) list option; [@option]
+  default_run_properties : (string * string prop) list option;
+      [@option]
       (** default_run_properties *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  max_concurrent_runs : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  max_concurrent_runs : float prop option; [@option]
       (** max_concurrent_runs *)
-  name : string option; [@option]  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  name : string prop option; [@option]  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_glue_workflow *)

@@ -10,7 +10,7 @@ type aws_securitylake_subscriber_notification__configuration
 type aws_securitylake_subscriber_notification
 
 val aws_securitylake_subscriber_notification :
-  subscriber_id:string ->
+  subscriber_id:string prop ->
   configuration:
     aws_securitylake_subscriber_notification__configuration list ->
   string ->

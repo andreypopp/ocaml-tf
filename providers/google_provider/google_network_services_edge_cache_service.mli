@@ -45,18 +45,18 @@ type google_network_services_edge_cache_service__timeouts
 type google_network_services_edge_cache_service
 
 val google_network_services_edge_cache_service :
-  ?description:string ->
-  ?disable_http2:bool ->
-  ?disable_quic:bool ->
-  ?edge_security_policy:string ->
-  ?edge_ssl_certificates:string list ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?require_tls:bool ->
-  ?ssl_policy:string ->
+  ?description:string prop ->
+  ?disable_http2:bool prop ->
+  ?disable_quic:bool prop ->
+  ?edge_security_policy:string prop ->
+  ?edge_ssl_certificates:string prop list ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?require_tls:bool prop ->
+  ?ssl_policy:string prop ->
   ?timeouts:google_network_services_edge_cache_service__timeouts ->
-  name:string ->
+  name:string prop ->
   log_config:
     google_network_services_edge_cache_service__log_config list ->
   routing:google_network_services_edge_cache_service__routing list ->

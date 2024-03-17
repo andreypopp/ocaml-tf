@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_iothub_dps_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_dps_certificate__timeouts *)
 
 type azurerm_iothub_dps_certificate = {
-  certificate_content : string;  (** certificate_content *)
-  id : string option; [@option]  (** id *)
-  iot_dps_name : string;  (** iot_dps_name *)
-  is_verified : bool option; [@option]  (** is_verified *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  certificate_content : string prop;  (** certificate_content *)
+  id : string prop option; [@option]  (** id *)
+  iot_dps_name : string prop;  (** iot_dps_name *)
+  is_verified : bool prop option; [@option]  (** is_verified *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_iothub_dps_certificate__timeouts option;
 }
 [@@deriving yojson_of]

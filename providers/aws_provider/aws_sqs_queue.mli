@@ -5,25 +5,25 @@ open! Tf.Prelude
 type aws_sqs_queue
 
 val aws_sqs_queue :
-  ?content_based_deduplication:bool ->
-  ?deduplication_scope:string ->
-  ?delay_seconds:float ->
-  ?fifo_queue:bool ->
-  ?fifo_throughput_limit:string ->
-  ?id:string ->
-  ?kms_data_key_reuse_period_seconds:float ->
-  ?kms_master_key_id:string ->
-  ?max_message_size:float ->
-  ?message_retention_seconds:float ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?policy:string ->
-  ?receive_wait_time_seconds:float ->
-  ?redrive_allow_policy:string ->
-  ?redrive_policy:string ->
-  ?sqs_managed_sse_enabled:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?visibility_timeout_seconds:float ->
+  ?content_based_deduplication:bool prop ->
+  ?deduplication_scope:string prop ->
+  ?delay_seconds:float prop ->
+  ?fifo_queue:bool prop ->
+  ?fifo_throughput_limit:string prop ->
+  ?id:string prop ->
+  ?kms_data_key_reuse_period_seconds:float prop ->
+  ?kms_master_key_id:string prop ->
+  ?max_message_size:float prop ->
+  ?message_retention_seconds:float prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?policy:string prop ->
+  ?receive_wait_time_seconds:float prop ->
+  ?redrive_allow_policy:string prop ->
+  ?redrive_policy:string prop ->
+  ?sqs_managed_sse_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?visibility_timeout_seconds:float prop ->
   string ->
   unit

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_evidently_launch__groups = {
-  description : string option; [@option]  (** description *)
-  feature : string;  (** feature *)
-  name : string;  (** name *)
-  variation : string;  (** variation *)
+  description : string prop option; [@option]  (** description *)
+  feature : string prop;  (** feature *)
+  name : string prop;  (** name *)
+  variation : string prop;  (** variation *)
 }
 [@@deriving yojson_of]
 (** aws_evidently_launch__groups *)
 
 type aws_evidently_launch__metric_monitors__metric_definition = {
-  entity_id_key : string;  (** entity_id_key *)
-  event_pattern : string option; [@option]  (** event_pattern *)
-  name : string;  (** name *)
-  unit_label : string option; [@option]  (** unit_label *)
-  value_key : string;  (** value_key *)
+  entity_id_key : string prop;  (** entity_id_key *)
+  event_pattern : string prop option; [@option]  (** event_pattern *)
+  name : string prop;  (** name *)
+  unit_label : string prop option; [@option]  (** unit_label *)
+  value_key : string prop;  (** value_key *)
 }
 [@@deriving yojson_of]
 (** aws_evidently_launch__metric_monitors__metric_definition *)
@@ -31,16 +31,16 @@ type aws_evidently_launch__metric_monitors = {
 (** aws_evidently_launch__metric_monitors *)
 
 type aws_evidently_launch__scheduled_splits_config__steps__segment_overrides = {
-  evaluation_order : float;  (** evaluation_order *)
-  segment : string;  (** segment *)
-  weights : (string * float) list;  (** weights *)
+  evaluation_order : float prop;  (** evaluation_order *)
+  segment : string prop;  (** segment *)
+  weights : (string * float prop) list;  (** weights *)
 }
 [@@deriving yojson_of]
 (** aws_evidently_launch__scheduled_splits_config__steps__segment_overrides *)
 
 type aws_evidently_launch__scheduled_splits_config__steps = {
-  group_weights : (string * float) list;  (** group_weights *)
-  start_time : string;  (** start_time *)
+  group_weights : (string * float prop) list;  (** group_weights *)
+  start_time : string prop;  (** start_time *)
   segment_overrides :
     aws_evidently_launch__scheduled_splits_config__steps__segment_overrides
     list;
@@ -55,28 +55,28 @@ type aws_evidently_launch__scheduled_splits_config = {
 (** aws_evidently_launch__scheduled_splits_config *)
 
 type aws_evidently_launch__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_evidently_launch__timeouts *)
 
 type aws_evidently_launch__execution = {
-  ended_time : string;  (** ended_time *)
-  started_time : string;  (** started_time *)
+  ended_time : string prop;  (** ended_time *)
+  started_time : string prop;  (** started_time *)
 }
 [@@deriving yojson_of]
 
 type aws_evidently_launch = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  project : string;  (** project *)
-  randomization_salt : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  project : string prop;  (** project *)
+  randomization_salt : string prop option; [@option]
       (** randomization_salt *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   groups : aws_evidently_launch__groups list;
   metric_monitors : aws_evidently_launch__metric_monitors list;

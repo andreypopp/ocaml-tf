@@ -5,53 +5,54 @@
 open! Tf.Prelude
 
 type aws_appstream_stack__access_endpoints = {
-  endpoint_type : string;  (** endpoint_type *)
-  vpce_id : string option; [@option]  (** vpce_id *)
+  endpoint_type : string prop;  (** endpoint_type *)
+  vpce_id : string prop option; [@option]  (** vpce_id *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_stack__access_endpoints *)
 
 type aws_appstream_stack__application_settings = {
-  enabled : bool;  (** enabled *)
-  settings_group : string option; [@option]  (** settings_group *)
+  enabled : bool prop;  (** enabled *)
+  settings_group : string prop option; [@option]
+      (** settings_group *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_stack__application_settings *)
 
 type aws_appstream_stack__storage_connectors = {
-  connector_type : string;  (** connector_type *)
-  domains : string list option; [@option]  (** domains *)
-  resource_identifier : string option; [@option]
+  connector_type : string prop;  (** connector_type *)
+  domains : string prop list option; [@option]  (** domains *)
+  resource_identifier : string prop option; [@option]
       (** resource_identifier *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_stack__storage_connectors *)
 
 type aws_appstream_stack__streaming_experience_settings = {
-  preferred_protocol : string option; [@option]
+  preferred_protocol : string prop option; [@option]
       (** preferred_protocol *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_stack__streaming_experience_settings *)
 
 type aws_appstream_stack__user_settings = {
-  action : string;  (** action *)
-  permission : string;  (** permission *)
+  action : string prop;  (** action *)
+  permission : string prop;  (** permission *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_stack__user_settings *)
 
 type aws_appstream_stack = {
-  description : string option; [@option]  (** description *)
-  display_name : string option; [@option]  (** display_name *)
-  embed_host_domains : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop option; [@option]  (** display_name *)
+  embed_host_domains : string prop list option; [@option]
       (** embed_host_domains *)
-  feedback_url : string option; [@option]  (** feedback_url *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  redirect_url : string option; [@option]  (** redirect_url *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  feedback_url : string prop option; [@option]  (** feedback_url *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  redirect_url : string prop option; [@option]  (** redirect_url *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   access_endpoints : aws_appstream_stack__access_endpoints list;
   application_settings :

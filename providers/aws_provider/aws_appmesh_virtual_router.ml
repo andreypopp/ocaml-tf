@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_appmesh_virtual_router__spec__listener__port_mapping = {
-  port : float;  (** port *)
-  protocol : string;  (** protocol *)
+  port : float prop;  (** port *)
+  protocol : string prop;  (** protocol *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_router__spec__listener__port_mapping *)
@@ -25,12 +25,12 @@ type aws_appmesh_virtual_router__spec = {
 (** aws_appmesh_virtual_router__spec *)
 
 type aws_appmesh_virtual_router = {
-  id : string option; [@option]  (** id *)
-  mesh_name : string;  (** mesh_name *)
-  mesh_owner : string option; [@option]  (** mesh_owner *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  mesh_name : string prop;  (** mesh_name *)
+  mesh_owner : string prop option; [@option]  (** mesh_owner *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   spec : aws_appmesh_virtual_router__spec list;
 }

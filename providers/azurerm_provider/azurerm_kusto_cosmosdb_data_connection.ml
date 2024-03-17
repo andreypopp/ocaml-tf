@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_kusto_cosmosdb_data_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_cosmosdb_data_connection__timeouts *)
 
 type azurerm_kusto_cosmosdb_data_connection = {
-  cosmosdb_container_id : string;  (** cosmosdb_container_id *)
-  id : string option; [@option]  (** id *)
-  kusto_database_id : string;  (** kusto_database_id *)
-  location : string;  (** location *)
-  managed_identity_id : string;  (** managed_identity_id *)
-  mapping_rule_name : string option; [@option]
+  cosmosdb_container_id : string prop;  (** cosmosdb_container_id *)
+  id : string prop option; [@option]  (** id *)
+  kusto_database_id : string prop;  (** kusto_database_id *)
+  location : string prop;  (** location *)
+  managed_identity_id : string prop;  (** managed_identity_id *)
+  mapping_rule_name : string prop option; [@option]
       (** mapping_rule_name *)
-  name : string;  (** name *)
-  retrieval_start_date : string option; [@option]
+  name : string prop;  (** name *)
+  retrieval_start_date : string prop option; [@option]
       (** retrieval_start_date *)
-  table_name : string;  (** table_name *)
+  table_name : string prop;  (** table_name *)
   timeouts : azurerm_kusto_cosmosdb_data_connection__timeouts option;
 }
 [@@deriving yojson_of]

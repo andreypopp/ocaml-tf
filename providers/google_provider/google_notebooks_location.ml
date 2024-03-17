@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_notebooks_location__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_notebooks_location__timeouts *)
 
 type google_notebooks_location = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]
       (** Name of the Location resource. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_notebooks_location__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_digital_twins_endpoint_eventhub__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_digital_twins_endpoint_eventhub__timeouts *)
 
 type azurerm_digital_twins_endpoint_eventhub = {
-  dead_letter_storage_secret : string option; [@option]
+  dead_letter_storage_secret : string prop option; [@option]
       (** dead_letter_storage_secret *)
-  digital_twins_id : string;  (** digital_twins_id *)
-  eventhub_primary_connection_string : string;
+  digital_twins_id : string prop;  (** digital_twins_id *)
+  eventhub_primary_connection_string : string prop;
       (** eventhub_primary_connection_string *)
-  eventhub_secondary_connection_string : string;
+  eventhub_secondary_connection_string : string prop;
       (** eventhub_secondary_connection_string *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   timeouts : azurerm_digital_twins_endpoint_eventhub__timeouts option;
 }
 [@@deriving yojson_of]

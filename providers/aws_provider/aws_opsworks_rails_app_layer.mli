@@ -14,34 +14,34 @@ type aws_opsworks_rails_app_layer__load_based_auto_scaling
 type aws_opsworks_rails_app_layer
 
 val aws_opsworks_rails_app_layer :
-  ?app_server:string ->
-  ?auto_assign_elastic_ips:bool ->
-  ?auto_assign_public_ips:bool ->
-  ?auto_healing:bool ->
-  ?bundler_version:string ->
-  ?custom_configure_recipes:string list ->
-  ?custom_deploy_recipes:string list ->
-  ?custom_instance_profile_arn:string ->
-  ?custom_json:string ->
-  ?custom_security_group_ids:string list ->
-  ?custom_setup_recipes:string list ->
-  ?custom_shutdown_recipes:string list ->
-  ?custom_undeploy_recipes:string list ->
-  ?drain_elb_on_shutdown:bool ->
-  ?elastic_load_balancer:string ->
-  ?id:string ->
-  ?install_updates_on_boot:bool ->
-  ?instance_shutdown_timeout:float ->
-  ?manage_bundler:bool ->
-  ?name:string ->
-  ?passenger_version:string ->
-  ?ruby_version:string ->
-  ?rubygems_version:string ->
-  ?system_packages:string list ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?use_ebs_optimized_instances:bool ->
-  stack_id:string ->
+  ?app_server:string prop ->
+  ?auto_assign_elastic_ips:bool prop ->
+  ?auto_assign_public_ips:bool prop ->
+  ?auto_healing:bool prop ->
+  ?bundler_version:string prop ->
+  ?custom_configure_recipes:string prop list ->
+  ?custom_deploy_recipes:string prop list ->
+  ?custom_instance_profile_arn:string prop ->
+  ?custom_json:string prop ->
+  ?custom_security_group_ids:string prop list ->
+  ?custom_setup_recipes:string prop list ->
+  ?custom_shutdown_recipes:string prop list ->
+  ?custom_undeploy_recipes:string prop list ->
+  ?drain_elb_on_shutdown:bool prop ->
+  ?elastic_load_balancer:string prop ->
+  ?id:string prop ->
+  ?install_updates_on_boot:bool prop ->
+  ?instance_shutdown_timeout:float prop ->
+  ?manage_bundler:bool prop ->
+  ?name:string prop ->
+  ?passenger_version:string prop ->
+  ?ruby_version:string prop ->
+  ?rubygems_version:string prop ->
+  ?system_packages:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?use_ebs_optimized_instances:bool prop ->
+  stack_id:string prop ->
   cloudwatch_configuration:
     aws_opsworks_rails_app_layer__cloudwatch_configuration list ->
   ebs_volume:aws_opsworks_rails_app_layer__ebs_volume list ->

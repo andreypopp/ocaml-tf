@@ -5,65 +5,66 @@
 open! Tf.Prelude
 
 type azurerm_mobile_network_packet_core_control_plane__identity = {
-  identity_ids : string list;  (** identity_ids *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list;  (** identity_ids *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_mobile_network_packet_core_control_plane__identity *)
 
 type azurerm_mobile_network_packet_core_control_plane__local_diagnostics_access = {
-  authentication_type : string;  (** authentication_type *)
-  https_server_certificate_url : string option; [@option]
+  authentication_type : string prop;  (** authentication_type *)
+  https_server_certificate_url : string prop option; [@option]
       (** https_server_certificate_url *)
 }
 [@@deriving yojson_of]
 (** azurerm_mobile_network_packet_core_control_plane__local_diagnostics_access *)
 
 type azurerm_mobile_network_packet_core_control_plane__platform = {
-  arc_kubernetes_cluster_id : string option; [@option]
+  arc_kubernetes_cluster_id : string prop option; [@option]
       (** arc_kubernetes_cluster_id *)
-  custom_location_id : string option; [@option]
+  custom_location_id : string prop option; [@option]
       (** custom_location_id *)
-  edge_device_id : string option; [@option]  (** edge_device_id *)
-  stack_hci_cluster_id : string option; [@option]
+  edge_device_id : string prop option; [@option]
+      (** edge_device_id *)
+  stack_hci_cluster_id : string prop option; [@option]
       (** stack_hci_cluster_id *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_mobile_network_packet_core_control_plane__platform *)
 
 type azurerm_mobile_network_packet_core_control_plane__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mobile_network_packet_core_control_plane__timeouts *)
 
 type azurerm_mobile_network_packet_core_control_plane = {
-  control_plane_access_ipv4_address : string option; [@option]
+  control_plane_access_ipv4_address : string prop option; [@option]
       (** control_plane_access_ipv4_address *)
-  control_plane_access_ipv4_gateway : string option; [@option]
+  control_plane_access_ipv4_gateway : string prop option; [@option]
       (** control_plane_access_ipv4_gateway *)
-  control_plane_access_ipv4_subnet : string option; [@option]
+  control_plane_access_ipv4_subnet : string prop option; [@option]
       (** control_plane_access_ipv4_subnet *)
-  control_plane_access_name : string option; [@option]
+  control_plane_access_name : string prop option; [@option]
       (** control_plane_access_name *)
-  core_network_technology : string option; [@option]
+  core_network_technology : string prop option; [@option]
       (** core_network_technology *)
-  id : string option; [@option]  (** id *)
-  interoperability_settings_json : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  interoperability_settings_json : string prop option; [@option]
       (** interoperability_settings_json *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  site_ids : string list;  (** site_ids *)
-  sku : string;  (** sku *)
-  software_version : string option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  site_ids : string prop list;  (** site_ids *)
+  sku : string prop;  (** sku *)
+  software_version : string prop option; [@option]
       (** software_version *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  user_equipment_mtu_in_bytes : float option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  user_equipment_mtu_in_bytes : float prop option; [@option]
       (** user_equipment_mtu_in_bytes *)
   identity :
     azurerm_mobile_network_packet_core_control_plane__identity list;

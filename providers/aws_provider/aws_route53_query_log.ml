@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type aws_route53_query_log = {
-  cloudwatch_log_group_arn : string;  (** cloudwatch_log_group_arn *)
-  id : string option; [@option]  (** id *)
-  zone_id : string;  (** zone_id *)
+  cloudwatch_log_group_arn : string prop;
+      (** cloudwatch_log_group_arn *)
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;  (** zone_id *)
 }
 [@@deriving yojson_of]
 (** aws_route53_query_log *)

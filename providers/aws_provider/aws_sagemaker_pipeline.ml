@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type aws_sagemaker_pipeline__parallelism_configuration = {
-  max_parallel_execution_steps : float;
+  max_parallel_execution_steps : float prop;
       (** max_parallel_execution_steps *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_pipeline__parallelism_configuration *)
 
 type aws_sagemaker_pipeline__pipeline_definition_s3_location = {
-  bucket : string;  (** bucket *)
-  object_key : string;  (** object_key *)
-  version_id : string option; [@option]  (** version_id *)
+  bucket : string prop;  (** bucket *)
+  object_key : string prop;  (** object_key *)
+  version_id : string prop option; [@option]  (** version_id *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_pipeline__pipeline_definition_s3_location *)
 
 type aws_sagemaker_pipeline = {
-  id : string option; [@option]  (** id *)
-  pipeline_definition : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  pipeline_definition : string prop option; [@option]
       (** pipeline_definition *)
-  pipeline_description : string option; [@option]
+  pipeline_description : string prop option; [@option]
       (** pipeline_description *)
-  pipeline_display_name : string;  (** pipeline_display_name *)
-  pipeline_name : string;  (** pipeline_name *)
-  role_arn : string option; [@option]  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  pipeline_display_name : string prop;  (** pipeline_display_name *)
+  pipeline_name : string prop;  (** pipeline_name *)
+  role_arn : string prop option; [@option]  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   parallelism_configuration :
     aws_sagemaker_pipeline__parallelism_configuration list;

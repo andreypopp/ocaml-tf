@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_swf_domain
 
 val aws_swf_domain :
-  ?description:string ->
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  workflow_execution_retention_period_in_days:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  workflow_execution_retention_period_in_days:string prop ->
   string ->
   unit

@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_management_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_management_group__timeouts *)
 
 type azurerm_management_group = {
-  display_name : string option; [@option]  (** display_name *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  parent_management_group_id : string option; [@option]
+  display_name : string prop option; [@option]  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  parent_management_group_id : string prop option; [@option]
       (** parent_management_group_id *)
-  subscription_ids : string list option; [@option]
+  subscription_ids : string prop list option; [@option]
       (** subscription_ids *)
   timeouts : azurerm_management_group__timeouts option;
 }

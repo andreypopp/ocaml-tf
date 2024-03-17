@@ -5,66 +5,67 @@
 open! Tf.Prelude
 
 type aws_identitystore_user__addresses = {
-  country : string option; [@option]  (** country *)
-  formatted : string option; [@option]  (** formatted *)
-  locality : string option; [@option]  (** locality *)
-  postal_code : string option; [@option]  (** postal_code *)
-  primary : bool option; [@option]  (** primary *)
-  region : string option; [@option]  (** region *)
-  street_address : string option; [@option]  (** street_address *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  country : string prop option; [@option]  (** country *)
+  formatted : string prop option; [@option]  (** formatted *)
+  locality : string prop option; [@option]  (** locality *)
+  postal_code : string prop option; [@option]  (** postal_code *)
+  primary : bool prop option; [@option]  (** primary *)
+  region : string prop option; [@option]  (** region *)
+  street_address : string prop option; [@option]
+      (** street_address *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_identitystore_user__addresses *)
 
 type aws_identitystore_user__emails = {
-  primary : bool option; [@option]  (** primary *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  value : string option; [@option]  (** value *)
+  primary : bool prop option; [@option]  (** primary *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_identitystore_user__emails *)
 
 type aws_identitystore_user__name = {
-  family_name : string;  (** family_name *)
-  formatted : string option; [@option]  (** formatted *)
-  given_name : string;  (** given_name *)
-  honorific_prefix : string option; [@option]
+  family_name : string prop;  (** family_name *)
+  formatted : string prop option; [@option]  (** formatted *)
+  given_name : string prop;  (** given_name *)
+  honorific_prefix : string prop option; [@option]
       (** honorific_prefix *)
-  honorific_suffix : string option; [@option]
+  honorific_suffix : string prop option; [@option]
       (** honorific_suffix *)
-  middle_name : string option; [@option]  (** middle_name *)
+  middle_name : string prop option; [@option]  (** middle_name *)
 }
 [@@deriving yojson_of]
 (** aws_identitystore_user__name *)
 
 type aws_identitystore_user__phone_numbers = {
-  primary : bool option; [@option]  (** primary *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  value : string option; [@option]  (** value *)
+  primary : bool prop option; [@option]  (** primary *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_identitystore_user__phone_numbers *)
 
 type aws_identitystore_user__external_ids = {
-  id : string;  (** id *)
-  issuer : string;  (** issuer *)
+  id : string prop;  (** id *)
+  issuer : string prop;  (** issuer *)
 }
 [@@deriving yojson_of]
 
 type aws_identitystore_user = {
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  identity_store_id : string;  (** identity_store_id *)
-  locale : string option; [@option]  (** locale *)
-  nickname : string option; [@option]  (** nickname *)
-  preferred_language : string option; [@option]
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  identity_store_id : string prop;  (** identity_store_id *)
+  locale : string prop option; [@option]  (** locale *)
+  nickname : string prop option; [@option]  (** nickname *)
+  preferred_language : string prop option; [@option]
       (** preferred_language *)
-  profile_url : string option; [@option]  (** profile_url *)
-  timezone : string option; [@option]  (** timezone *)
-  title : string option; [@option]  (** title *)
-  user_name : string;  (** user_name *)
-  user_type : string option; [@option]  (** user_type *)
+  profile_url : string prop option; [@option]  (** profile_url *)
+  timezone : string prop option; [@option]  (** timezone *)
+  title : string prop option; [@option]  (** title *)
+  user_name : string prop;  (** user_name *)
+  user_type : string prop option; [@option]  (** user_type *)
   addresses : aws_identitystore_user__addresses list;
   emails : aws_identitystore_user__emails list;
   name : aws_identitystore_user__name list;

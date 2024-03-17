@@ -5,35 +5,35 @@
 open! Tf.Prelude
 
 type aws_appsync_graphql_api__additional_authentication_provider__lambda_authorizer_config = {
-  authorizer_result_ttl_in_seconds : float option; [@option]
+  authorizer_result_ttl_in_seconds : float prop option; [@option]
       (** authorizer_result_ttl_in_seconds *)
-  authorizer_uri : string;  (** authorizer_uri *)
-  identity_validation_expression : string option; [@option]
+  authorizer_uri : string prop;  (** authorizer_uri *)
+  identity_validation_expression : string prop option; [@option]
       (** identity_validation_expression *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_graphql_api__additional_authentication_provider__lambda_authorizer_config *)
 
 type aws_appsync_graphql_api__additional_authentication_provider__openid_connect_config = {
-  auth_ttl : float option; [@option]  (** auth_ttl *)
-  client_id : string option; [@option]  (** client_id *)
-  iat_ttl : float option; [@option]  (** iat_ttl *)
-  issuer : string;  (** issuer *)
+  auth_ttl : float prop option; [@option]  (** auth_ttl *)
+  client_id : string prop option; [@option]  (** client_id *)
+  iat_ttl : float prop option; [@option]  (** iat_ttl *)
+  issuer : string prop;  (** issuer *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_graphql_api__additional_authentication_provider__openid_connect_config *)
 
 type aws_appsync_graphql_api__additional_authentication_provider__user_pool_config = {
-  app_id_client_regex : string option; [@option]
+  app_id_client_regex : string prop option; [@option]
       (** app_id_client_regex *)
-  aws_region : string option; [@option]  (** aws_region *)
-  user_pool_id : string;  (** user_pool_id *)
+  aws_region : string prop option; [@option]  (** aws_region *)
+  user_pool_id : string prop;  (** user_pool_id *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_graphql_api__additional_authentication_provider__user_pool_config *)
 
 type aws_appsync_graphql_api__additional_authentication_provider = {
-  authentication_type : string;  (** authentication_type *)
+  authentication_type : string prop;  (** authentication_type *)
   lambda_authorizer_config :
     aws_appsync_graphql_api__additional_authentication_provider__lambda_authorizer_config
     list;
@@ -48,59 +48,60 @@ type aws_appsync_graphql_api__additional_authentication_provider = {
 (** aws_appsync_graphql_api__additional_authentication_provider *)
 
 type aws_appsync_graphql_api__lambda_authorizer_config = {
-  authorizer_result_ttl_in_seconds : float option; [@option]
+  authorizer_result_ttl_in_seconds : float prop option; [@option]
       (** authorizer_result_ttl_in_seconds *)
-  authorizer_uri : string;  (** authorizer_uri *)
-  identity_validation_expression : string option; [@option]
+  authorizer_uri : string prop;  (** authorizer_uri *)
+  identity_validation_expression : string prop option; [@option]
       (** identity_validation_expression *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_graphql_api__lambda_authorizer_config *)
 
 type aws_appsync_graphql_api__log_config = {
-  cloudwatch_logs_role_arn : string;  (** cloudwatch_logs_role_arn *)
-  exclude_verbose_content : bool option; [@option]
+  cloudwatch_logs_role_arn : string prop;
+      (** cloudwatch_logs_role_arn *)
+  exclude_verbose_content : bool prop option; [@option]
       (** exclude_verbose_content *)
-  field_log_level : string;  (** field_log_level *)
+  field_log_level : string prop;  (** field_log_level *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_graphql_api__log_config *)
 
 type aws_appsync_graphql_api__openid_connect_config = {
-  auth_ttl : float option; [@option]  (** auth_ttl *)
-  client_id : string option; [@option]  (** client_id *)
-  iat_ttl : float option; [@option]  (** iat_ttl *)
-  issuer : string;  (** issuer *)
+  auth_ttl : float prop option; [@option]  (** auth_ttl *)
+  client_id : string prop option; [@option]  (** client_id *)
+  iat_ttl : float prop option; [@option]  (** iat_ttl *)
+  issuer : string prop;  (** issuer *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_graphql_api__openid_connect_config *)
 
 type aws_appsync_graphql_api__user_pool_config = {
-  app_id_client_regex : string option; [@option]
+  app_id_client_regex : string prop option; [@option]
       (** app_id_client_regex *)
-  aws_region : string option; [@option]  (** aws_region *)
-  default_action : string;  (** default_action *)
-  user_pool_id : string;  (** user_pool_id *)
+  aws_region : string prop option; [@option]  (** aws_region *)
+  default_action : string prop;  (** default_action *)
+  user_pool_id : string prop;  (** user_pool_id *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_graphql_api__user_pool_config *)
 
 type aws_appsync_graphql_api = {
-  authentication_type : string;  (** authentication_type *)
-  id : string option; [@option]  (** id *)
-  introspection_config : string option; [@option]
+  authentication_type : string prop;  (** authentication_type *)
+  id : string prop option; [@option]  (** id *)
+  introspection_config : string prop option; [@option]
       (** introspection_config *)
-  name : string;  (** name *)
-  query_depth_limit : float option; [@option]
+  name : string prop;  (** name *)
+  query_depth_limit : float prop option; [@option]
       (** query_depth_limit *)
-  resolver_count_limit : float option; [@option]
+  resolver_count_limit : float prop option; [@option]
       (** resolver_count_limit *)
-  schema : string option; [@option]  (** schema *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  schema : string prop option; [@option]  (** schema *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  visibility : string option; [@option]  (** visibility *)
-  xray_enabled : bool option; [@option]  (** xray_enabled *)
+  visibility : string prop option; [@option]  (** visibility *)
+  xray_enabled : bool prop option; [@option]  (** xray_enabled *)
   additional_authentication_provider :
     aws_appsync_graphql_api__additional_authentication_provider list;
   lambda_authorizer_config :

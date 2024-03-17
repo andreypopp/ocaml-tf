@@ -5,56 +5,59 @@
 open! Tf.Prelude
 
 type azurerm_lab_service_plan__default_auto_shutdown = {
-  disconnect_delay : string option; [@option]
+  disconnect_delay : string prop option; [@option]
       (** disconnect_delay *)
-  idle_delay : string option; [@option]  (** idle_delay *)
-  no_connect_delay : string option; [@option]
+  idle_delay : string prop option; [@option]  (** idle_delay *)
+  no_connect_delay : string prop option; [@option]
       (** no_connect_delay *)
-  shutdown_on_idle : string option; [@option]  (** shutdown_on_idle *)
+  shutdown_on_idle : string prop option; [@option]
+      (** shutdown_on_idle *)
 }
 [@@deriving yojson_of]
 (** azurerm_lab_service_plan__default_auto_shutdown *)
 
 type azurerm_lab_service_plan__default_connection = {
-  client_rdp_access : string option; [@option]
+  client_rdp_access : string prop option; [@option]
       (** client_rdp_access *)
-  client_ssh_access : string option; [@option]
+  client_ssh_access : string prop option; [@option]
       (** client_ssh_access *)
-  web_rdp_access : string option; [@option]  (** web_rdp_access *)
-  web_ssh_access : string option; [@option]  (** web_ssh_access *)
+  web_rdp_access : string prop option; [@option]
+      (** web_rdp_access *)
+  web_ssh_access : string prop option; [@option]
+      (** web_ssh_access *)
 }
 [@@deriving yojson_of]
 (** azurerm_lab_service_plan__default_connection *)
 
 type azurerm_lab_service_plan__support = {
-  email : string option; [@option]  (** email *)
-  instructions : string option; [@option]  (** instructions *)
-  phone : string option; [@option]  (** phone *)
-  url : string option; [@option]  (** url *)
+  email : string prop option; [@option]  (** email *)
+  instructions : string prop option; [@option]  (** instructions *)
+  phone : string prop option; [@option]  (** phone *)
+  url : string prop option; [@option]  (** url *)
 }
 [@@deriving yojson_of]
 (** azurerm_lab_service_plan__support *)
 
 type azurerm_lab_service_plan__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_lab_service_plan__timeouts *)
 
 type azurerm_lab_service_plan = {
-  allowed_regions : string list;  (** allowed_regions *)
-  default_network_subnet_id : string option; [@option]
+  allowed_regions : string prop list;  (** allowed_regions *)
+  default_network_subnet_id : string prop option; [@option]
       (** default_network_subnet_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  shared_gallery_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  shared_gallery_id : string prop option; [@option]
       (** shared_gallery_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   default_auto_shutdown :
     azurerm_lab_service_plan__default_auto_shutdown list;
   default_connection :

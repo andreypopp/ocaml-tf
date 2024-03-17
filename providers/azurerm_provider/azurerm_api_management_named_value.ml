@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_api_management_named_value__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_named_value__timeouts *)
 
 type azurerm_api_management_named_value__value_from_key_vault = {
-  identity_client_id : string option; [@option]
+  identity_client_id : string prop option; [@option]
       (** identity_client_id *)
-  secret_id : string;  (** secret_id *)
+  secret_id : string prop;  (** secret_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_named_value__value_from_key_vault *)
 
 type azurerm_api_management_named_value = {
-  api_management_name : string;  (** api_management_name *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  secret : bool option; [@option]  (** secret *)
-  tags : string list option; [@option]  (** tags *)
-  value : string option; [@option]  (** value *)
+  api_management_name : string prop;  (** api_management_name *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  secret : bool prop option; [@option]  (** secret *)
+  tags : string prop list option; [@option]  (** tags *)
+  value : string prop option; [@option]  (** value *)
   timeouts : azurerm_api_management_named_value__timeouts option;
   value_from_key_vault :
     azurerm_api_management_named_value__value_from_key_vault list;

@@ -5,21 +5,23 @@
 open! Tf.Prelude
 
 type aws_ssm_parameter = {
-  allowed_pattern : string option; [@option]  (** allowed_pattern *)
-  arn : string option; [@option]  (** arn *)
-  data_type : string option; [@option]  (** data_type *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  insecure_value : string option; [@option]  (** insecure_value *)
-  key_id : string option; [@option]  (** key_id *)
-  name : string;  (** name *)
-  overwrite : bool option; [@option]  (** overwrite *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  allowed_pattern : string prop option; [@option]
+      (** allowed_pattern *)
+  arn : string prop option; [@option]  (** arn *)
+  data_type : string prop option; [@option]  (** data_type *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  insecure_value : string prop option; [@option]
+      (** insecure_value *)
+  key_id : string prop option; [@option]  (** key_id *)
+  name : string prop;  (** name *)
+  overwrite : bool prop option; [@option]  (** overwrite *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  tier : string option; [@option]  (** tier *)
-  type_ : string; [@key "type"]  (** type *)
-  value : string option; [@option]  (** value *)
+  tier : string prop option; [@option]  (** tier *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_ssm_parameter *)

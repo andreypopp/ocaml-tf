@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_kinesis_stream_consumer = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  stream_arn : string;  (** stream_arn *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  stream_arn : string prop;  (** stream_arn *)
 }
 [@@deriving yojson_of]
 (** aws_kinesis_stream_consumer *)

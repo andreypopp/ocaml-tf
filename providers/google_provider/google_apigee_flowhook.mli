@@ -6,13 +6,13 @@ type google_apigee_flowhook__timeouts
 type google_apigee_flowhook
 
 val google_apigee_flowhook :
-  ?continue_on_error:bool ->
-  ?description:string ->
-  ?id:string ->
+  ?continue_on_error:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:google_apigee_flowhook__timeouts ->
-  environment:string ->
-  flow_hook_point:string ->
-  org_id:string ->
-  sharedflow:string ->
+  environment:string prop ->
+  flow_hook_point:string prop ->
+  org_id:string prop ->
+  sharedflow:string prop ->
   string ->
   unit

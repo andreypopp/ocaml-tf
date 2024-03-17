@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_multicast_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_multicast_domain__timeouts *)
 
 type aws_ec2_transit_gateway_multicast_domain = {
-  auto_accept_shared_associations : string option; [@option]
+  auto_accept_shared_associations : string prop option; [@option]
       (** auto_accept_shared_associations *)
-  id : string option; [@option]  (** id *)
-  igmpv2_support : string option; [@option]  (** igmpv2_support *)
-  static_sources_support : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  igmpv2_support : string prop option; [@option]
+      (** igmpv2_support *)
+  static_sources_support : string prop option; [@option]
       (** static_sources_support *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  transit_gateway_id : string;  (** transit_gateway_id *)
+  transit_gateway_id : string prop;  (** transit_gateway_id *)
   timeouts :
     aws_ec2_transit_gateway_multicast_domain__timeouts option;
 }

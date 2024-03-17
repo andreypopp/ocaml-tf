@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_shield_drt_access_role_arn_association__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-  delete : string option; [@option]
+  delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
-  update : string option; [@option]
+  update : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
 (** aws_shield_drt_access_role_arn_association__timeouts *)
 
 type aws_shield_drt_access_role_arn_association = {
-  role_arn : string;  (** role_arn *)
+  role_arn : string prop;  (** role_arn *)
   timeouts :
     aws_shield_drt_access_role_arn_association__timeouts option;
 }

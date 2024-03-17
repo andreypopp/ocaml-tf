@@ -6,9 +6,9 @@ type aws_guardduty_invite_accepter__timeouts
 type aws_guardduty_invite_accepter
 
 val aws_guardduty_invite_accepter :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_guardduty_invite_accepter__timeouts ->
-  detector_id:string ->
-  master_account_id:string ->
+  detector_id:string prop ->
+  master_account_id:string prop ->
   string ->
   unit

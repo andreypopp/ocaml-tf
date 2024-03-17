@@ -8,27 +8,27 @@ type aws_storagegateway_nfs_file_share__timeouts
 type aws_storagegateway_nfs_file_share
 
 val aws_storagegateway_nfs_file_share :
-  ?audit_destination_arn:string ->
-  ?bucket_region:string ->
-  ?default_storage_class:string ->
-  ?file_share_name:string ->
-  ?guess_mime_type_enabled:bool ->
-  ?id:string ->
-  ?kms_encrypted:bool ->
-  ?kms_key_arn:string ->
-  ?notification_policy:string ->
-  ?object_acl:string ->
-  ?read_only:bool ->
-  ?requester_pays:bool ->
-  ?squash:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?vpc_endpoint_dns_name:string ->
+  ?audit_destination_arn:string prop ->
+  ?bucket_region:string prop ->
+  ?default_storage_class:string prop ->
+  ?file_share_name:string prop ->
+  ?guess_mime_type_enabled:bool prop ->
+  ?id:string prop ->
+  ?kms_encrypted:bool prop ->
+  ?kms_key_arn:string prop ->
+  ?notification_policy:string prop ->
+  ?object_acl:string prop ->
+  ?read_only:bool prop ->
+  ?requester_pays:bool prop ->
+  ?squash:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_endpoint_dns_name:string prop ->
   ?timeouts:aws_storagegateway_nfs_file_share__timeouts ->
-  client_list:string list ->
-  gateway_arn:string ->
-  location_arn:string ->
-  role_arn:string ->
+  client_list:string prop list ->
+  gateway_arn:string prop ->
+  location_arn:string prop ->
+  role_arn:string prop ->
   cache_attributes:
     aws_storagegateway_nfs_file_share__cache_attributes list ->
   nfs_file_share_defaults:

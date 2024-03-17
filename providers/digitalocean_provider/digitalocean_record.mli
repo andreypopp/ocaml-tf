@@ -5,16 +5,16 @@ open! Tf.Prelude
 type digitalocean_record
 
 val digitalocean_record :
-  ?flags:float ->
-  ?id:string ->
-  ?port:float ->
-  ?priority:float ->
-  ?tag:string ->
-  ?ttl:float ->
-  ?weight:float ->
-  domain:string ->
-  name:string ->
-  type_:string ->
-  value:string ->
+  ?flags:float prop ->
+  ?id:string prop ->
+  ?port:float prop ->
+  ?priority:float prop ->
+  ?tag:string prop ->
+  ?ttl:float prop ->
+  ?weight:float prop ->
+  domain:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  value:string prop ->
   string ->
   unit

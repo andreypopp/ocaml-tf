@@ -5,13 +5,13 @@ open! Tf.Prelude
 type aws_lambda_layer_version_permission
 
 val aws_lambda_layer_version_permission :
-  ?id:string ->
-  ?organization_id:string ->
-  ?skip_destroy:bool ->
-  action:string ->
-  layer_name:string ->
-  principal:string ->
-  statement_id:string ->
-  version_number:float ->
+  ?id:string prop ->
+  ?organization_id:string prop ->
+  ?skip_destroy:bool prop ->
+  action:string prop ->
+  layer_name:string prop ->
+  principal:string prop ->
+  statement_id:string prop ->
+  version_number:float prop ->
   string ->
   unit

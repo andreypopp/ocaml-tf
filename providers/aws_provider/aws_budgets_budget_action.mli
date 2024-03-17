@@ -12,14 +12,14 @@ type aws_budgets_budget_action__timeouts
 type aws_budgets_budget_action
 
 val aws_budgets_budget_action :
-  ?account_id:string ->
-  ?id:string ->
+  ?account_id:string prop ->
+  ?id:string prop ->
   ?timeouts:aws_budgets_budget_action__timeouts ->
-  action_type:string ->
-  approval_model:string ->
-  budget_name:string ->
-  execution_role_arn:string ->
-  notification_type:string ->
+  action_type:string prop ->
+  approval_model:string prop ->
+  budget_name:string prop ->
+  execution_role_arn:string prop ->
+  notification_type:string prop ->
   action_threshold:aws_budgets_budget_action__action_threshold list ->
   definition:aws_budgets_budget_action__definition list ->
   subscriber:aws_budgets_budget_action__subscriber list ->

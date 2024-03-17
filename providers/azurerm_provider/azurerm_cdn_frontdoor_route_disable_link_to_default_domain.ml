@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_route_disable_link_to_default_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_route_disable_link_to_default_domain__timeouts *)
 
 type azurerm_cdn_frontdoor_route_disable_link_to_default_domain = {
-  cdn_frontdoor_custom_domain_ids : string list;
+  cdn_frontdoor_custom_domain_ids : string prop list;
       (** cdn_frontdoor_custom_domain_ids *)
-  cdn_frontdoor_route_id : string;  (** cdn_frontdoor_route_id *)
-  id : string option; [@option]  (** id *)
+  cdn_frontdoor_route_id : string prop;
+      (** cdn_frontdoor_route_id *)
+  id : string prop option; [@option]  (** id *)
   timeouts :
     azurerm_cdn_frontdoor_route_disable_link_to_default_domain__timeouts
     option;

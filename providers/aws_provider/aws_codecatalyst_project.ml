@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_codecatalyst_project__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_codecatalyst_project__timeouts *)
 
 type aws_codecatalyst_project = {
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  space_name : string;  (** space_name *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  space_name : string prop;  (** space_name *)
   timeouts : aws_codecatalyst_project__timeouts option;
 }
 [@@deriving yojson_of]

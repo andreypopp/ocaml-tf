@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_iotcentral_organization__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iotcentral_organization__timeouts *)
 
 type azurerm_iotcentral_organization = {
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  iotcentral_application_id : string;
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  iotcentral_application_id : string prop;
       (** iotcentral_application_id *)
-  organization_id : string;  (** organization_id *)
-  parent_organization_id : string option; [@option]
+  organization_id : string prop;  (** organization_id *)
+  parent_organization_id : string prop option; [@option]
       (** parent_organization_id *)
   timeouts : azurerm_iotcentral_organization__timeouts option;
 }

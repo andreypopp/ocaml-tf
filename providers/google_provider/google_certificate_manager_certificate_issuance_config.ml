@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_certificate_manager_certificate_issuance_config__certificate_authority_config__certificate_authority_service_config = {
-  ca_pool : string;
+  ca_pool : string prop;
       (** A CA pool resource used to issue a certificate.
 The CA pool string has a relative resource path following the form
 projects/{project}/locations/{location}/caPools/{caPool}. *)
@@ -22,36 +22,36 @@ type google_certificate_manager_certificate_issuance_config__certificate_authori
 (** The CA that issues the workload certificate. It includes the CA address, type, authentication to CA service, etc. *)
 
 type google_certificate_manager_certificate_issuance_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_certificate_issuance_config__timeouts *)
 
 type google_certificate_manager_certificate_issuance_config = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** One or more paragraphs of text description of a CertificateIssuanceConfig. *)
-  id : string option; [@option]  (** id *)
-  key_algorithm : string;
+  id : string prop option; [@option]  (** id *)
+  key_algorithm : string prop;
       (** Key algorithm to use when generating the private key. Possible values: [RSA_2048, ECDSA_P256] *)
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** 'Set of label tags associated with the CertificateIssuanceConfig resource.
  An object containing a list of key: value pairs. Example: { name: wrench, count: 3 }.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  lifetime : string;
+  lifetime : string prop;
       (** Lifetime of issued certificates. A duration in seconds with up to nine fractional digits, ending with 's'.
 Example: 1814400s. Valid values are from 21 days (1814400s) to 30 days (2592000s) *)
-  location : string option; [@option]
+  location : string prop option; [@option]
       (** The Certificate Manager location. If not specified, global is used. *)
-  name : string;
+  name : string prop;
       (** A user-defined name of the certificate issuance config.
 CertificateIssuanceConfig names must be unique globally. *)
-  project : string option; [@option]  (** project *)
-  rotation_window_percentage : float;
+  project : string prop option; [@option]  (** project *)
+  rotation_window_percentage : float prop;
       (** It specifies the percentage of elapsed time of the certificate lifetime to wait before renewing the certificate.
 Must be a number between 1-99, inclusive.
 You must set the rotation window percentage in relation to the certificate lifetime so that certificate renewal occurs at least 7 days after

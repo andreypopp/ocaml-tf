@@ -15,15 +15,15 @@ type google_access_context_manager_access_level_condition__vpc_network_sources
 type google_access_context_manager_access_level_condition
 
 val google_access_context_manager_access_level_condition :
-  ?id:string ->
-  ?ip_subnetworks:string list ->
-  ?members:string list ->
-  ?negate:bool ->
-  ?regions:string list ->
-  ?required_access_levels:string list ->
+  ?id:string prop ->
+  ?ip_subnetworks:string prop list ->
+  ?members:string prop list ->
+  ?negate:bool prop ->
+  ?regions:string prop list ->
+  ?required_access_levels:string prop list ->
   ?timeouts:
     google_access_context_manager_access_level_condition__timeouts ->
-  access_level:string ->
+  access_level:string prop ->
   device_policy:
     google_access_context_manager_access_level_condition__device_policy
     list ->

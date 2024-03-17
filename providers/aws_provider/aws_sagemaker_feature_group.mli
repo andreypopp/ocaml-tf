@@ -15,14 +15,14 @@ type aws_sagemaker_feature_group__online_store_config
 type aws_sagemaker_feature_group
 
 val aws_sagemaker_feature_group :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  event_time_feature_name:string ->
-  feature_group_name:string ->
-  record_identifier_feature_name:string ->
-  role_arn:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  event_time_feature_name:string prop ->
+  feature_group_name:string prop ->
+  record_identifier_feature_name:string prop ->
+  role_arn:string prop ->
   feature_definition:
     aws_sagemaker_feature_group__feature_definition list ->
   offline_store_config:

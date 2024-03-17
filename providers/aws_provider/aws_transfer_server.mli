@@ -10,25 +10,25 @@ type aws_transfer_server__workflow_details
 type aws_transfer_server
 
 val aws_transfer_server :
-  ?certificate:string ->
-  ?directory_id:string ->
-  ?domain:string ->
-  ?endpoint_type:string ->
-  ?force_destroy:bool ->
-  ?function_:string ->
-  ?host_key:string ->
-  ?id:string ->
-  ?identity_provider_type:string ->
-  ?invocation_role:string ->
-  ?logging_role:string ->
-  ?post_authentication_login_banner:string ->
-  ?pre_authentication_login_banner:string ->
-  ?protocols:string list ->
-  ?security_policy_name:string ->
-  ?structured_log_destinations:string list ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?url:string ->
+  ?certificate:string prop ->
+  ?directory_id:string prop ->
+  ?domain:string prop ->
+  ?endpoint_type:string prop ->
+  ?force_destroy:bool prop ->
+  ?function_:string prop ->
+  ?host_key:string prop ->
+  ?id:string prop ->
+  ?identity_provider_type:string prop ->
+  ?invocation_role:string prop ->
+  ?logging_role:string prop ->
+  ?post_authentication_login_banner:string prop ->
+  ?pre_authentication_login_banner:string prop ->
+  ?protocols:string prop list ->
+  ?security_policy_name:string prop ->
+  ?structured_log_destinations:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?url:string prop ->
   endpoint_details:aws_transfer_server__endpoint_details list ->
   protocol_details:aws_transfer_server__protocol_details list ->
   workflow_details:aws_transfer_server__workflow_details list ->

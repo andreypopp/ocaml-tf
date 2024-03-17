@@ -5,20 +5,23 @@
 open! Tf.Prelude
 
 type aws_iam_account_password_policy = {
-  allow_users_to_change_password : bool option; [@option]
+  allow_users_to_change_password : bool prop option; [@option]
       (** allow_users_to_change_password *)
-  hard_expiry : bool option; [@option]  (** hard_expiry *)
-  id : string option; [@option]  (** id *)
-  max_password_age : float option; [@option]  (** max_password_age *)
-  minimum_password_length : float option; [@option]
+  hard_expiry : bool prop option; [@option]  (** hard_expiry *)
+  id : string prop option; [@option]  (** id *)
+  max_password_age : float prop option; [@option]
+      (** max_password_age *)
+  minimum_password_length : float prop option; [@option]
       (** minimum_password_length *)
-  password_reuse_prevention : float option; [@option]
+  password_reuse_prevention : float prop option; [@option]
       (** password_reuse_prevention *)
-  require_lowercase_characters : bool option; [@option]
+  require_lowercase_characters : bool prop option; [@option]
       (** require_lowercase_characters *)
-  require_numbers : bool option; [@option]  (** require_numbers *)
-  require_symbols : bool option; [@option]  (** require_symbols *)
-  require_uppercase_characters : bool option; [@option]
+  require_numbers : bool prop option; [@option]
+      (** require_numbers *)
+  require_symbols : bool prop option; [@option]
+      (** require_symbols *)
+  require_uppercase_characters : bool prop option; [@option]
       (** require_uppercase_characters *)
 }
 [@@deriving yojson_of]

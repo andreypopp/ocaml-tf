@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_point_to_site_vpn_gateway__connection_configuration__route__propagated_route_table = {
-  ids : string list;  (** ids *)
-  labels : string list option; [@option]  (** labels *)
+  ids : string prop list;  (** ids *)
+  labels : string prop list option; [@option]  (** labels *)
 }
 [@@deriving yojson_of]
 (** azurerm_point_to_site_vpn_gateway__connection_configuration__route__propagated_route_table *)
 
 type azurerm_point_to_site_vpn_gateway__connection_configuration__route = {
-  associated_route_table_id : string;
+  associated_route_table_id : string prop;
       (** associated_route_table_id *)
-  inbound_route_map_id : string option; [@option]
+  inbound_route_map_id : string prop option; [@option]
       (** inbound_route_map_id *)
-  outbound_route_map_id : string option; [@option]
+  outbound_route_map_id : string prop option; [@option]
       (** outbound_route_map_id *)
   propagated_route_table :
     azurerm_point_to_site_vpn_gateway__connection_configuration__route__propagated_route_table
@@ -26,15 +26,15 @@ type azurerm_point_to_site_vpn_gateway__connection_configuration__route = {
 (** azurerm_point_to_site_vpn_gateway__connection_configuration__route *)
 
 type azurerm_point_to_site_vpn_gateway__connection_configuration__vpn_client_address_pool = {
-  address_prefixes : string list;  (** address_prefixes *)
+  address_prefixes : string prop list;  (** address_prefixes *)
 }
 [@@deriving yojson_of]
 (** azurerm_point_to_site_vpn_gateway__connection_configuration__vpn_client_address_pool *)
 
 type azurerm_point_to_site_vpn_gateway__connection_configuration = {
-  internet_security_enabled : bool option; [@option]
+  internet_security_enabled : bool prop option; [@option]
       (** internet_security_enabled *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   route :
     azurerm_point_to_site_vpn_gateway__connection_configuration__route
     list;
@@ -46,26 +46,27 @@ type azurerm_point_to_site_vpn_gateway__connection_configuration = {
 (** azurerm_point_to_site_vpn_gateway__connection_configuration *)
 
 type azurerm_point_to_site_vpn_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_point_to_site_vpn_gateway__timeouts *)
 
 type azurerm_point_to_site_vpn_gateway = {
-  dns_servers : string list option; [@option]  (** dns_servers *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  routing_preference_internet_enabled : bool option; [@option]
+  dns_servers : string prop list option; [@option]
+      (** dns_servers *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  routing_preference_internet_enabled : bool prop option; [@option]
       (** routing_preference_internet_enabled *)
-  scale_unit : float;  (** scale_unit *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  virtual_hub_id : string;  (** virtual_hub_id *)
-  vpn_server_configuration_id : string;
+  scale_unit : float prop;  (** scale_unit *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  virtual_hub_id : string prop;  (** virtual_hub_id *)
+  vpn_server_configuration_id : string prop;
       (** vpn_server_configuration_id *)
   connection_configuration :
     azurerm_point_to_site_vpn_gateway__connection_configuration list;

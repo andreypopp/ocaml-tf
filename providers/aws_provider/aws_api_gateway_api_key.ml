@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_api_gateway_api_key = {
-  customer_id : string option; [@option]  (** customer_id *)
-  description : string option; [@option]  (** description *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  customer_id : string prop option; [@option]  (** customer_id *)
+  description : string prop option; [@option]  (** description *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  value : string option; [@option]  (** value *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_api_key *)

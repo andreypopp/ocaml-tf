@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type cloudflare_hostname_tls_setting = {
-  hostname : string;
+  hostname : string prop;
       (** Hostname that belongs to this zone name. **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  setting : string;
+  id : string prop option; [@option]  (** id *)
+  setting : string prop;
       (** TLS setting name. **Modifying this attribute will force creation of a new resource.** *)
-  value : string;  (** TLS setting value. *)
-  zone_id : string;
+  value : string prop;  (** TLS setting value. *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

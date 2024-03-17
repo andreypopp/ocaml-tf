@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_apigee_env_keystore__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_apigee_env_keystore__timeouts *)
 
 type google_apigee_env_keystore = {
-  env_id : string;
+  env_id : string prop;
       (** The Apigee environment group associated with the Apigee environment,
 in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]
       (** The name of the newly created keystore. *)
   timeouts : google_apigee_env_keystore__timeouts option;
 }

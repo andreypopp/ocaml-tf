@@ -17,10 +17,10 @@ type aws_guardduty_organization_configuration__datasources
 type aws_guardduty_organization_configuration
 
 val aws_guardduty_organization_configuration :
-  ?auto_enable:bool ->
-  ?auto_enable_organization_members:string ->
-  ?id:string ->
-  detector_id:string ->
+  ?auto_enable:bool prop ->
+  ?auto_enable_organization_members:string prop ->
+  ?id:string prop ->
+  detector_id:string prop ->
   datasources:
     aws_guardduty_organization_configuration__datasources list ->
   string ->

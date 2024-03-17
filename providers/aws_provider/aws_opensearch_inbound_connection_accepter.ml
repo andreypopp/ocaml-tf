@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_opensearch_inbound_connection_accepter__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_opensearch_inbound_connection_accepter__timeouts *)
 
 type aws_opensearch_inbound_connection_accepter = {
-  connection_id : string;  (** connection_id *)
-  id : string option; [@option]  (** id *)
+  connection_id : string prop;  (** connection_id *)
+  id : string prop option; [@option]  (** id *)
   timeouts :
     aws_opensearch_inbound_connection_accepter__timeouts option;
 }

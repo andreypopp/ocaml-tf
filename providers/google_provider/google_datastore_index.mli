@@ -7,11 +7,11 @@ type google_datastore_index__timeouts
 type google_datastore_index
 
 val google_datastore_index :
-  ?ancestor:string ->
-  ?id:string ->
-  ?project:string ->
+  ?ancestor:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_datastore_index__timeouts ->
-  kind:string ->
+  kind:string prop ->
   properties:google_datastore_index__properties list ->
   string ->
   unit

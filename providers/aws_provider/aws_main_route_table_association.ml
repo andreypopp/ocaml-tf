@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_main_route_table_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_main_route_table_association__timeouts *)
 
 type aws_main_route_table_association = {
-  id : string option; [@option]  (** id *)
-  route_table_id : string;  (** route_table_id *)
-  vpc_id : string;  (** vpc_id *)
+  id : string prop option; [@option]  (** id *)
+  route_table_id : string prop;  (** route_table_id *)
+  vpc_id : string prop;  (** vpc_id *)
   timeouts : aws_main_route_table_association__timeouts option;
 }
 [@@deriving yojson_of]

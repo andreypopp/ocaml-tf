@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_backup_region_settings = {
-  id : string option; [@option]  (** id *)
-  resource_type_management_preference : (string * bool) list option;
+  id : string prop option; [@option]  (** id *)
+  resource_type_management_preference :
+    (string * bool prop) list option;
       [@option]
       (** resource_type_management_preference *)
-  resource_type_opt_in_preference : (string * bool) list;
+  resource_type_opt_in_preference : (string * bool prop) list;
       (** resource_type_opt_in_preference *)
 }
 [@@deriving yojson_of]

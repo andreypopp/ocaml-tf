@@ -6,15 +6,15 @@ type aws_ebs_snapshot__timeouts
 type aws_ebs_snapshot
 
 val aws_ebs_snapshot :
-  ?description:string ->
-  ?id:string ->
-  ?outpost_arn:string ->
-  ?permanent_restore:bool ->
-  ?storage_tier:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?temporary_restore_days:float ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?outpost_arn:string prop ->
+  ?permanent_restore:bool prop ->
+  ?storage_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?temporary_restore_days:float prop ->
   ?timeouts:aws_ebs_snapshot__timeouts ->
-  volume_id:string ->
+  volume_id:string prop ->
   string ->
   unit

@@ -5,25 +5,28 @@
 open! Tf.Prelude
 
 type aws_datasync_agent__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_agent__timeouts *)
 
 type aws_datasync_agent = {
-  activation_key : string option; [@option]  (** activation_key *)
-  id : string option; [@option]  (** id *)
-  ip_address : string option; [@option]  (** ip_address *)
-  name : string option; [@option]  (** name *)
-  private_link_endpoint : string option; [@option]
+  activation_key : string prop option; [@option]
+      (** activation_key *)
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop option; [@option]  (** ip_address *)
+  name : string prop option; [@option]  (** name *)
+  private_link_endpoint : string prop option; [@option]
       (** private_link_endpoint *)
-  security_group_arns : string list option; [@option]
+  security_group_arns : string prop list option; [@option]
       (** security_group_arns *)
-  subnet_arns : string list option; [@option]  (** subnet_arns *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  subnet_arns : string prop list option; [@option]
+      (** subnet_arns *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_endpoint_id : string option; [@option]  (** vpc_endpoint_id *)
+  vpc_endpoint_id : string prop option; [@option]
+      (** vpc_endpoint_id *)
   timeouts : aws_datasync_agent__timeouts option;
 }
 [@@deriving yojson_of]

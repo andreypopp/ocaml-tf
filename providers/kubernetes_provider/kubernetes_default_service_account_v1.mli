@@ -9,8 +9,8 @@ type kubernetes_default_service_account_v1__timeouts
 type kubernetes_default_service_account_v1
 
 val kubernetes_default_service_account_v1 :
-  ?automount_service_account_token:bool ->
-  ?id:string ->
+  ?automount_service_account_token:bool prop ->
+  ?id:string prop ->
   ?timeouts:kubernetes_default_service_account_v1__timeouts ->
   image_pull_secret:
     kubernetes_default_service_account_v1__image_pull_secret list ->

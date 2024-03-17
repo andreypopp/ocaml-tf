@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_opsworks_permission = {
-  allow_ssh : bool option; [@option]  (** allow_ssh *)
-  allow_sudo : bool option; [@option]  (** allow_sudo *)
-  id : string option; [@option]  (** id *)
-  level : string option; [@option]  (** level *)
-  stack_id : string;  (** stack_id *)
-  user_arn : string;  (** user_arn *)
+  allow_ssh : bool prop option; [@option]  (** allow_ssh *)
+  allow_sudo : bool prop option; [@option]  (** allow_sudo *)
+  id : string prop option; [@option]  (** id *)
+  level : string prop option; [@option]  (** level *)
+  stack_id : string prop;  (** stack_id *)
+  user_arn : string prop;  (** user_arn *)
 }
 [@@deriving yojson_of]
 (** aws_opsworks_permission *)

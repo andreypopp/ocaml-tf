@@ -5,44 +5,46 @@
 open! Tf.Prelude
 
 type azurerm_firewall_policy__dns = {
-  proxy_enabled : bool option; [@option]  (** proxy_enabled *)
-  servers : string list option; [@option]  (** servers *)
+  proxy_enabled : bool prop option; [@option]  (** proxy_enabled *)
+  servers : string prop list option; [@option]  (** servers *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_policy__dns *)
 
 type azurerm_firewall_policy__explicit_proxy = {
-  enable_pac_file : bool option; [@option]  (** enable_pac_file *)
-  enabled : bool option; [@option]  (** enabled *)
-  http_port : float option; [@option]  (** http_port *)
-  https_port : float option; [@option]  (** https_port *)
-  pac_file : string option; [@option]  (** pac_file *)
-  pac_file_port : float option; [@option]  (** pac_file_port *)
+  enable_pac_file : bool prop option; [@option]
+      (** enable_pac_file *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  http_port : float prop option; [@option]  (** http_port *)
+  https_port : float prop option; [@option]  (** https_port *)
+  pac_file : string prop option; [@option]  (** pac_file *)
+  pac_file_port : float prop option; [@option]  (** pac_file_port *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_policy__explicit_proxy *)
 
 type azurerm_firewall_policy__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_policy__identity *)
 
 type azurerm_firewall_policy__insights__log_analytics_workspace = {
-  firewall_location : string;  (** firewall_location *)
-  id : string;  (** id *)
+  firewall_location : string prop;  (** firewall_location *)
+  id : string prop;  (** id *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_policy__insights__log_analytics_workspace *)
 
 type azurerm_firewall_policy__insights = {
-  default_log_analytics_workspace_id : string;
+  default_log_analytics_workspace_id : string prop;
       (** default_log_analytics_workspace_id *)
-  enabled : bool;  (** enabled *)
-  retention_in_days : float option; [@option]
+  enabled : bool prop;  (** enabled *)
+  retention_in_days : float prop option; [@option]
       (** retention_in_days *)
   log_analytics_workspace :
     azurerm_firewall_policy__insights__log_analytics_workspace list;
@@ -51,33 +53,33 @@ type azurerm_firewall_policy__insights = {
 (** azurerm_firewall_policy__insights *)
 
 type azurerm_firewall_policy__intrusion_detection__signature_overrides = {
-  id : string option; [@option]  (** id *)
-  state : string option; [@option]  (** state *)
+  id : string prop option; [@option]  (** id *)
+  state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_policy__intrusion_detection__signature_overrides *)
 
 type azurerm_firewall_policy__intrusion_detection__traffic_bypass = {
-  description : string option; [@option]  (** description *)
-  destination_addresses : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  destination_addresses : string prop list option; [@option]
       (** destination_addresses *)
-  destination_ip_groups : string list option; [@option]
+  destination_ip_groups : string prop list option; [@option]
       (** destination_ip_groups *)
-  destination_ports : string list option; [@option]
+  destination_ports : string prop list option; [@option]
       (** destination_ports *)
-  name : string;  (** name *)
-  protocol : string;  (** protocol *)
-  source_addresses : string list option; [@option]
+  name : string prop;  (** name *)
+  protocol : string prop;  (** protocol *)
+  source_addresses : string prop list option; [@option]
       (** source_addresses *)
-  source_ip_groups : string list option; [@option]
+  source_ip_groups : string prop list option; [@option]
       (** source_ip_groups *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_policy__intrusion_detection__traffic_bypass *)
 
 type azurerm_firewall_policy__intrusion_detection = {
-  mode : string option; [@option]  (** mode *)
-  private_ranges : string list option; [@option]
+  mode : string prop option; [@option]  (** mode *)
+  private_ranges : string prop list option; [@option]
       (** private_ranges *)
   signature_overrides :
     azurerm_firewall_policy__intrusion_detection__signature_overrides
@@ -89,43 +91,45 @@ type azurerm_firewall_policy__intrusion_detection = {
 (** azurerm_firewall_policy__intrusion_detection *)
 
 type azurerm_firewall_policy__threat_intelligence_allowlist = {
-  fqdns : string list option; [@option]  (** fqdns *)
-  ip_addresses : string list option; [@option]  (** ip_addresses *)
+  fqdns : string prop list option; [@option]  (** fqdns *)
+  ip_addresses : string prop list option; [@option]
+      (** ip_addresses *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_policy__threat_intelligence_allowlist *)
 
 type azurerm_firewall_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_policy__timeouts *)
 
 type azurerm_firewall_policy__tls_certificate = {
-  key_vault_secret_id : string;  (** key_vault_secret_id *)
-  name : string;  (** name *)
+  key_vault_secret_id : string prop;  (** key_vault_secret_id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_policy__tls_certificate *)
 
 type azurerm_firewall_policy = {
-  auto_learn_private_ranges_enabled : bool option; [@option]
+  auto_learn_private_ranges_enabled : bool prop option; [@option]
       (** auto_learn_private_ranges_enabled *)
-  base_policy_id : string option; [@option]  (** base_policy_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  private_ip_ranges : string list option; [@option]
+  base_policy_id : string prop option; [@option]
+      (** base_policy_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  private_ip_ranges : string prop list option; [@option]
       (** private_ip_ranges *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku : string option; [@option]  (** sku *)
-  sql_redirect_allowed : bool option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku : string prop option; [@option]  (** sku *)
+  sql_redirect_allowed : bool prop option; [@option]
       (** sql_redirect_allowed *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  threat_intelligence_mode : string option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  threat_intelligence_mode : string prop option; [@option]
       (** threat_intelligence_mode *)
   dns : azurerm_firewall_policy__dns list;
   explicit_proxy : azurerm_firewall_policy__explicit_proxy list;

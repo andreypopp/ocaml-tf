@@ -5,41 +5,44 @@
 open! Tf.Prelude
 
 type aws_gamelift_fleet__certificate_configuration = {
-  certificate_type : string option; [@option]  (** certificate_type *)
+  certificate_type : string prop option; [@option]
+      (** certificate_type *)
 }
 [@@deriving yojson_of]
 (** aws_gamelift_fleet__certificate_configuration *)
 
 type aws_gamelift_fleet__ec2_inbound_permission = {
-  from_port : float;  (** from_port *)
-  ip_range : string;  (** ip_range *)
-  protocol : string;  (** protocol *)
-  to_port : float;  (** to_port *)
+  from_port : float prop;  (** from_port *)
+  ip_range : string prop;  (** ip_range *)
+  protocol : string prop;  (** protocol *)
+  to_port : float prop;  (** to_port *)
 }
 [@@deriving yojson_of]
 (** aws_gamelift_fleet__ec2_inbound_permission *)
 
 type aws_gamelift_fleet__resource_creation_limit_policy = {
-  new_game_sessions_per_creator : float option; [@option]
+  new_game_sessions_per_creator : float prop option; [@option]
       (** new_game_sessions_per_creator *)
-  policy_period_in_minutes : float option; [@option]
+  policy_period_in_minutes : float prop option; [@option]
       (** policy_period_in_minutes *)
 }
 [@@deriving yojson_of]
 (** aws_gamelift_fleet__resource_creation_limit_policy *)
 
 type aws_gamelift_fleet__runtime_configuration__server_process = {
-  concurrent_executions : float;  (** concurrent_executions *)
-  launch_path : string;  (** launch_path *)
-  parameters : string option; [@option]  (** parameters *)
+  concurrent_executions : float prop;  (** concurrent_executions *)
+  launch_path : string prop;  (** launch_path *)
+  parameters : string prop option; [@option]  (** parameters *)
 }
 [@@deriving yojson_of]
 (** aws_gamelift_fleet__runtime_configuration__server_process *)
 
 type aws_gamelift_fleet__runtime_configuration = {
-  game_session_activation_timeout_seconds : float option; [@option]
+  game_session_activation_timeout_seconds : float prop option;
+      [@option]
       (** game_session_activation_timeout_seconds *)
-  max_concurrent_game_session_activations : float option; [@option]
+  max_concurrent_game_session_activations : float prop option;
+      [@option]
       (** max_concurrent_game_session_activations *)
   server_process :
     aws_gamelift_fleet__runtime_configuration__server_process list;
@@ -48,27 +51,28 @@ type aws_gamelift_fleet__runtime_configuration = {
 (** aws_gamelift_fleet__runtime_configuration *)
 
 type aws_gamelift_fleet__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_gamelift_fleet__timeouts *)
 
 type aws_gamelift_fleet = {
-  build_id : string option; [@option]  (** build_id *)
-  description : string option; [@option]  (** description *)
-  ec2_instance_type : string;  (** ec2_instance_type *)
-  fleet_type : string option; [@option]  (** fleet_type *)
-  id : string option; [@option]  (** id *)
-  instance_role_arn : string option; [@option]
+  build_id : string prop option; [@option]  (** build_id *)
+  description : string prop option; [@option]  (** description *)
+  ec2_instance_type : string prop;  (** ec2_instance_type *)
+  fleet_type : string prop option; [@option]  (** fleet_type *)
+  id : string prop option; [@option]  (** id *)
+  instance_role_arn : string prop option; [@option]
       (** instance_role_arn *)
-  metric_groups : string list option; [@option]  (** metric_groups *)
-  name : string;  (** name *)
-  new_game_session_protection_policy : string option; [@option]
+  metric_groups : string prop list option; [@option]
+      (** metric_groups *)
+  name : string prop;  (** name *)
+  new_game_session_protection_policy : string prop option; [@option]
       (** new_game_session_protection_policy *)
-  script_id : string option; [@option]  (** script_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  script_id : string prop option; [@option]  (** script_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   certificate_configuration :
     aws_gamelift_fleet__certificate_configuration list;

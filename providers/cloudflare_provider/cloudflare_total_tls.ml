@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type cloudflare_total_tls = {
-  certificate_authority : string option; [@option]
+  certificate_authority : string prop option; [@option]
       (** The Certificate Authority that Total TLS certificates will be issued through. Available values: `google`, `lets_encrypt`. *)
-  enabled : bool;  (** Enable Total TLS for the zone. *)
-  id : string option; [@option]  (** id *)
-  zone_id : string;
+  enabled : bool prop;  (** Enable Total TLS for the zone. *)
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

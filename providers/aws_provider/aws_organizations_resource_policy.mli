@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_organizations_resource_policy
 
 val aws_organizations_resource_policy :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  content:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  content:string prop ->
   string ->
   unit

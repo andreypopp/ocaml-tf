@@ -5,39 +5,41 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_linked_service_azure_databricks__instance_pool = {
-  cluster_version : string;  (** cluster_version *)
-  instance_pool_id : string;  (** instance_pool_id *)
-  max_number_of_workers : float option; [@option]
+  cluster_version : string prop;  (** cluster_version *)
+  instance_pool_id : string prop;  (** instance_pool_id *)
+  max_number_of_workers : float prop option; [@option]
       (** max_number_of_workers *)
-  min_number_of_workers : float option; [@option]
+  min_number_of_workers : float prop option; [@option]
       (** min_number_of_workers *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_azure_databricks__instance_pool *)
 
 type azurerm_data_factory_linked_service_azure_databricks__key_vault_password = {
-  linked_service_name : string;  (** linked_service_name *)
-  secret_name : string;  (** secret_name *)
+  linked_service_name : string prop;  (** linked_service_name *)
+  secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_azure_databricks__key_vault_password *)
 
 type azurerm_data_factory_linked_service_azure_databricks__new_cluster_config = {
-  cluster_version : string;  (** cluster_version *)
-  custom_tags : (string * string) list option; [@option]
+  cluster_version : string prop;  (** cluster_version *)
+  custom_tags : (string * string prop) list option; [@option]
       (** custom_tags *)
-  driver_node_type : string option; [@option]
+  driver_node_type : string prop option; [@option]
       (** driver_node_type *)
-  init_scripts : string list option; [@option]  (** init_scripts *)
-  log_destination : string option; [@option]  (** log_destination *)
-  max_number_of_workers : float option; [@option]
+  init_scripts : string prop list option; [@option]
+      (** init_scripts *)
+  log_destination : string prop option; [@option]
+      (** log_destination *)
+  max_number_of_workers : float prop option; [@option]
       (** max_number_of_workers *)
-  min_number_of_workers : float option; [@option]
+  min_number_of_workers : float prop option; [@option]
       (** min_number_of_workers *)
-  node_type : string;  (** node_type *)
-  spark_config : (string * string) list option; [@option]
+  node_type : string prop;  (** node_type *)
+  spark_config : (string * string prop) list option; [@option]
       (** spark_config *)
-  spark_environment_variables : (string * string) list option;
+  spark_environment_variables : (string * string prop) list option;
       [@option]
       (** spark_environment_variables *)
 }
@@ -45,31 +47,33 @@ type azurerm_data_factory_linked_service_azure_databricks__new_cluster_config = 
 (** azurerm_data_factory_linked_service_azure_databricks__new_cluster_config *)
 
 type azurerm_data_factory_linked_service_azure_databricks__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_azure_databricks__timeouts *)
 
 type azurerm_data_factory_linked_service_azure_databricks = {
-  access_token : string option; [@option]  (** access_token *)
-  adb_domain : string;  (** adb_domain *)
-  additional_properties : (string * string) list option; [@option]
+  access_token : string prop option; [@option]  (** access_token *)
+  adb_domain : string prop;  (** adb_domain *)
+  additional_properties : (string * string prop) list option;
+      [@option]
       (** additional_properties *)
-  annotations : string list option; [@option]  (** annotations *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  existing_cluster_id : string option; [@option]
+  annotations : string prop list option; [@option]
+      (** annotations *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  existing_cluster_id : string prop option; [@option]
       (** existing_cluster_id *)
-  id : string option; [@option]  (** id *)
-  integration_runtime_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  integration_runtime_name : string prop option; [@option]
       (** integration_runtime_name *)
-  msi_work_space_resource_id : string option; [@option]
+  msi_work_space_resource_id : string prop option; [@option]
       (** msi_work_space_resource_id *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
   instance_pool :
     azurerm_data_factory_linked_service_azure_databricks__instance_pool

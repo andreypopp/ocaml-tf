@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type google_storage_hmac_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_storage_hmac_key__timeouts *)
 
 type google_storage_hmac_key = {
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  service_account_email : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  service_account_email : string prop;
       (** The email address of the key's associated service account. *)
-  state : string option; [@option]
+  state : string prop option; [@option]
       (** The state of the key. Can be set to one of ACTIVE, INACTIVE. Default value: ACTIVE Possible values: [ACTIVE, INACTIVE] *)
   timeouts : google_storage_hmac_key__timeouts option;
 }

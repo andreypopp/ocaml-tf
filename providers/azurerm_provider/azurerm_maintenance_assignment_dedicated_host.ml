@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_maintenance_assignment_dedicated_host__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_maintenance_assignment_dedicated_host__timeouts *)
 
 type azurerm_maintenance_assignment_dedicated_host = {
-  dedicated_host_id : string;  (** dedicated_host_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  maintenance_configuration_id : string;
+  dedicated_host_id : string prop;  (** dedicated_host_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  maintenance_configuration_id : string prop;
       (** maintenance_configuration_id *)
   timeouts :
     azurerm_maintenance_assignment_dedicated_host__timeouts option;

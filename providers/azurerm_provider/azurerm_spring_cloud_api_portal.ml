@@ -5,35 +5,38 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_api_portal__sso = {
-  client_id : string option; [@option]  (** client_id *)
-  client_secret : string option; [@option]  (** client_secret *)
-  issuer_uri : string option; [@option]  (** issuer_uri *)
-  scope : string list option; [@option]  (** scope *)
+  client_id : string prop option; [@option]  (** client_id *)
+  client_secret : string prop option; [@option]  (** client_secret *)
+  issuer_uri : string prop option; [@option]  (** issuer_uri *)
+  scope : string prop list option; [@option]  (** scope *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_api_portal__sso *)
 
 type azurerm_spring_cloud_api_portal__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_api_portal__timeouts *)
 
 type azurerm_spring_cloud_api_portal = {
-  api_try_out_enabled : bool option; [@option]
+  api_try_out_enabled : bool prop option; [@option]
       (** api_try_out_enabled *)
-  gateway_ids : string list option; [@option]  (** gateway_ids *)
-  https_only_enabled : bool option; [@option]
+  gateway_ids : string prop list option; [@option]
+      (** gateway_ids *)
+  https_only_enabled : bool prop option; [@option]
       (** https_only_enabled *)
-  id : string option; [@option]  (** id *)
-  instance_count : float option; [@option]  (** instance_count *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instance_count : float prop option; [@option]
+      (** instance_count *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
   sso : azurerm_spring_cloud_api_portal__sso list;
   timeouts : azurerm_spring_cloud_api_portal__timeouts option;
 }

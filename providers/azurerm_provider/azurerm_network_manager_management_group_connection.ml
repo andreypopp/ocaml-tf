@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_network_manager_management_group_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_management_group_connection__timeouts *)
 
 type azurerm_network_manager_management_group_connection = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  management_group_id : string;  (** management_group_id *)
-  name : string;  (** name *)
-  network_manager_id : string;  (** network_manager_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  management_group_id : string prop;  (** management_group_id *)
+  name : string prop;  (** name *)
+  network_manager_id : string prop;  (** network_manager_id *)
   timeouts :
     azurerm_network_manager_management_group_connection__timeouts
     option;

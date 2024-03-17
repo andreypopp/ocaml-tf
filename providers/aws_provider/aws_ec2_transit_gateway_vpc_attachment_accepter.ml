@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_vpc_attachment_accepter = {
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  transit_gateway_attachment_id : string;
+  transit_gateway_attachment_id : string prop;
       (** transit_gateway_attachment_id *)
-  transit_gateway_default_route_table_association : bool option;
+  transit_gateway_default_route_table_association : bool prop option;
       [@option]
       (** transit_gateway_default_route_table_association *)
-  transit_gateway_default_route_table_propagation : bool option;
+  transit_gateway_default_route_table_propagation : bool prop option;
       [@option]
       (** transit_gateway_default_route_table_propagation *)
 }

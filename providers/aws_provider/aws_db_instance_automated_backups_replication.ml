@@ -5,18 +5,21 @@
 open! Tf.Prelude
 
 type aws_db_instance_automated_backups_replication__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_db_instance_automated_backups_replication__timeouts *)
 
 type aws_db_instance_automated_backups_replication = {
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  pre_signed_url : string option; [@option]  (** pre_signed_url *)
-  retention_period : float option; [@option]  (** retention_period *)
-  source_db_instance_arn : string;  (** source_db_instance_arn *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  pre_signed_url : string prop option; [@option]
+      (** pre_signed_url *)
+  retention_period : float prop option; [@option]
+      (** retention_period *)
+  source_db_instance_arn : string prop;
+      (** source_db_instance_arn *)
   timeouts :
     aws_db_instance_automated_backups_replication__timeouts option;
 }

@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_storagegateway_cached_iscsi_volume = {
-  gateway_arn : string;  (** gateway_arn *)
-  id : string option; [@option]  (** id *)
-  kms_encrypted : bool option; [@option]  (** kms_encrypted *)
-  kms_key : string option; [@option]  (** kms_key *)
-  network_interface_id : string;  (** network_interface_id *)
-  snapshot_id : string option; [@option]  (** snapshot_id *)
-  source_volume_arn : string option; [@option]
+  gateway_arn : string prop;  (** gateway_arn *)
+  id : string prop option; [@option]  (** id *)
+  kms_encrypted : bool prop option; [@option]  (** kms_encrypted *)
+  kms_key : string prop option; [@option]  (** kms_key *)
+  network_interface_id : string prop;  (** network_interface_id *)
+  snapshot_id : string prop option; [@option]  (** snapshot_id *)
+  source_volume_arn : string prop option; [@option]
       (** source_volume_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  target_name : string;  (** target_name *)
-  volume_size_in_bytes : float;  (** volume_size_in_bytes *)
+  target_name : string prop;  (** target_name *)
+  volume_size_in_bytes : float prop;  (** volume_size_in_bytes *)
 }
 [@@deriving yojson_of]
 (** aws_storagegateway_cached_iscsi_volume *)

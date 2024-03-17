@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_compute_managed_ssl_certificate__managed = {
-  domains : string list;
+  domains : string prop list;
       (** Domains for which a managed SSL certificate will be valid.  Currently,
 there can be up to 100 domains in this list. *)
 }
@@ -14,19 +14,19 @@ there can be up to 100 domains in this list. *)
 certificate is managed (as indicated by a value of 'MANAGED' in 'type'). *)
 
 type google_compute_managed_ssl_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_managed_ssl_certificate__timeouts *)
 
 type google_compute_managed_ssl_certificate = {
-  certificate_id : float option; [@option]
+  certificate_id : float prop option; [@option]
       (** The unique identifier for the resource. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
 RFC1035. Specifically, the name must be 1-63 characters long and match
@@ -37,8 +37,8 @@ character, which cannot be a dash.
 
 
 These are in the same namespace as the managed SSL certificates. *)
-  project : string option; [@option]  (** project *)
-  type_ : string option; [@option] [@key "type"]
+  project : string prop option; [@option]  (** project *)
+  type_ : string prop option; [@option] [@key "type"]
       (** Enum field whose value is always 'MANAGED' - used to signal to the API
 which type this is. Default value: MANAGED Possible values: [MANAGED] *)
   managed : google_compute_managed_ssl_certificate__managed list;

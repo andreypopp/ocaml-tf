@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_securityhub_action_target = {
-  description : string;  (** description *)
-  id : string option; [@option]  (** id *)
-  identifier : string;  (** identifier *)
-  name : string;  (** name *)
+  description : string prop;  (** description *)
+  id : string prop option; [@option]  (** id *)
+  identifier : string prop;  (** identifier *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_action_target *)

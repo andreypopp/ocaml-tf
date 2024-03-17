@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type cloudflare_access_custom_page = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
-  app_count : float option; [@option]
+  app_count : float prop option; [@option]
       (** Number of apps to display on the custom page. *)
-  custom_html : string option; [@option]
+  custom_html : string prop option; [@option]
       (** Custom HTML to display on the custom page. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** Friendly name of the Access Custom Page configuration. *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** Type of Access custom page to create. Available values: `identity_denied`, `forbidden`. *)
-  zone_id : string option; [@option]
+  zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_msk_cluster_policy = {
-  cluster_arn : string;  (** cluster_arn *)
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
+  cluster_arn : string prop;  (** cluster_arn *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster_policy *)

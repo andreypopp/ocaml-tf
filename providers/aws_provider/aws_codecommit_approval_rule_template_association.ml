@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_codecommit_approval_rule_template_association = {
-  approval_rule_template_name : string;
+  approval_rule_template_name : string prop;
       (** approval_rule_template_name *)
-  id : string option; [@option]  (** id *)
-  repository_name : string;  (** repository_name *)
+  id : string prop option; [@option]  (** id *)
+  repository_name : string prop;  (** repository_name *)
 }
 [@@deriving yojson_of]
 (** aws_codecommit_approval_rule_template_association *)

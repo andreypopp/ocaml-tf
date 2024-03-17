@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_data_catalog_entry_group_iam_policy = {
-  entry_group : string;  (** entry_group *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** region *)
+  entry_group : string prop;  (** entry_group *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]  (** region *)
 }
 [@@deriving yojson_of]
 (** google_data_catalog_entry_group_iam_policy *)

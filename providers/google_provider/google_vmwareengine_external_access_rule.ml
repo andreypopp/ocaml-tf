@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_vmwareengine_external_access_rule__destination_ip_ranges = {
-  external_address : string option; [@option]
+  external_address : string prop option; [@option]
       (** The name of an 'ExternalAddress' resource. *)
-  ip_address_range : string option; [@option]
+  ip_address_range : string prop option; [@option]
       (** An IP address range in the CIDR format. *)
 }
 [@@deriving yojson_of]
@@ -15,8 +15,9 @@ type google_vmwareengine_external_access_rule__destination_ip_ranges = {
 traffic that has a destination IP address in these ranges. *)
 
 type google_vmwareengine_external_access_rule__source_ip_ranges = {
-  ip_address : string option; [@option]  (** A single IP address. *)
-  ip_address_range : string option; [@option]
+  ip_address : string prop option; [@option]
+      (** A single IP address. *)
+  ip_address_range : string prop option; [@option]
       (** An IP address range in the CIDR format. *)
 }
 [@@deriving yojson_of]
@@ -24,31 +25,31 @@ type google_vmwareengine_external_access_rule__source_ip_ranges = {
 traffic that has a source IP address in these ranges. *)
 
 type google_vmwareengine_external_access_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_external_access_rule__timeouts *)
 
 type google_vmwareengine_external_access_rule = {
-  action : string;
+  action : string prop;
       (** The action that the external access rule performs. Possible values: [ALLOW, DENY] *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** User-provided description for the external access rule. *)
-  destination_ports : string list;
+  destination_ports : string prop list;
       (** A list of destination ports to which the external access rule applies. *)
-  id : string option; [@option]  (** id *)
-  ip_protocol : string;
+  id : string prop option; [@option]  (** id *)
+  ip_protocol : string prop;
       (** The IP protocol to which the external access rule applies. *)
-  name : string;  (** The ID of the external access rule. *)
-  parent : string;
+  name : string prop;  (** The ID of the external access rule. *)
+  parent : string prop;
       (** The resource name of the network policy.
 Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
 For example: projects/my-project/locations/us-west1-a/networkPolicies/my-policy *)
-  priority : float;
+  priority : float prop;
       (** External access rule priority, which determines the external access rule to use when multiple rules apply. *)
-  source_ports : string list;
+  source_ports : string prop list;
       (** A list of source ports to which the external access rule applies. *)
   destination_ip_ranges :
     google_vmwareengine_external_access_rule__destination_ip_ranges

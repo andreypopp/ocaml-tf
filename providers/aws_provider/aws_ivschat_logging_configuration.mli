@@ -12,10 +12,10 @@ type aws_ivschat_logging_configuration__timeouts
 type aws_ivschat_logging_configuration
 
 val aws_ivschat_logging_configuration :
-  ?id:string ->
-  ?name:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_ivschat_logging_configuration__timeouts ->
   destination_configuration:
     aws_ivschat_logging_configuration__destination_configuration list ->

@@ -7,7 +7,7 @@ type aws_shield_application_layer_automatic_response
 
 val aws_shield_application_layer_automatic_response :
   ?timeouts:aws_shield_application_layer_automatic_response__timeouts ->
-  action:string ->
-  resource_arn:string ->
+  action:string prop ->
+  resource_arn:string prop ->
   string ->
   unit

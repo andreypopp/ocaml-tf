@@ -5,40 +5,41 @@
 open! Tf.Prelude
 
 type azurerm_network_manager_admin_rule__destination = {
-  address_prefix : string;  (** address_prefix *)
-  address_prefix_type : string;  (** address_prefix_type *)
+  address_prefix : string prop;  (** address_prefix *)
+  address_prefix_type : string prop;  (** address_prefix_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_admin_rule__destination *)
 
 type azurerm_network_manager_admin_rule__source = {
-  address_prefix : string;  (** address_prefix *)
-  address_prefix_type : string;  (** address_prefix_type *)
+  address_prefix : string prop;  (** address_prefix *)
+  address_prefix_type : string prop;  (** address_prefix_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_admin_rule__source *)
 
 type azurerm_network_manager_admin_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_admin_rule__timeouts *)
 
 type azurerm_network_manager_admin_rule = {
-  action : string;  (** action *)
-  admin_rule_collection_id : string;  (** admin_rule_collection_id *)
-  description : string option; [@option]  (** description *)
-  destination_port_ranges : string list option; [@option]
+  action : string prop;  (** action *)
+  admin_rule_collection_id : string prop;
+      (** admin_rule_collection_id *)
+  description : string prop option; [@option]  (** description *)
+  destination_port_ranges : string prop list option; [@option]
       (** destination_port_ranges *)
-  direction : string;  (** direction *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  priority : float;  (** priority *)
-  protocol : string;  (** protocol *)
-  source_port_ranges : string list option; [@option]
+  direction : string prop;  (** direction *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  protocol : string prop;  (** protocol *)
+  source_port_ranges : string prop list option; [@option]
       (** source_port_ranges *)
   destination : azurerm_network_manager_admin_rule__destination list;
   source : azurerm_network_manager_admin_rule__source list;

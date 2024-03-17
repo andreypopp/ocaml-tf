@@ -5,43 +5,44 @@
 open! Tf.Prelude
 
 type azurerm_app_service_environment_v3__cluster_setting = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_environment_v3__cluster_setting *)
 
 type azurerm_app_service_environment_v3__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_environment_v3__timeouts *)
 
 type azurerm_app_service_environment_v3__inbound_network_dependencies = {
-  description : string;  (** description *)
-  ip_addresses : string list;  (** ip_addresses *)
-  ports : string list;  (** ports *)
+  description : string prop;  (** description *)
+  ip_addresses : string prop list;  (** ip_addresses *)
+  ports : string prop list;  (** ports *)
 }
 [@@deriving yojson_of]
 
 type azurerm_app_service_environment_v3 = {
-  allow_new_private_endpoint_connections : bool option; [@option]
+  allow_new_private_endpoint_connections : bool prop option;
+      [@option]
       (** allow_new_private_endpoint_connections *)
-  dedicated_host_count : float option; [@option]
+  dedicated_host_count : float prop option; [@option]
       (** dedicated_host_count *)
-  id : string option; [@option]  (** id *)
-  internal_load_balancing_mode : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  internal_load_balancing_mode : string prop option; [@option]
       (** internal_load_balancing_mode *)
-  name : string;  (** name *)
-  remote_debugging_enabled : bool option; [@option]
+  name : string prop;  (** name *)
+  remote_debugging_enabled : bool prop option; [@option]
       (** remote_debugging_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  subnet_id : string;  (** subnet_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  zone_redundant : bool option; [@option]  (** zone_redundant *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  subnet_id : string prop;  (** subnet_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  zone_redundant : bool prop option; [@option]  (** zone_redundant *)
   cluster_setting :
     azurerm_app_service_environment_v3__cluster_setting list;
   timeouts : azurerm_app_service_environment_v3__timeouts option;

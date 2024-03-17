@@ -8,14 +8,14 @@ type azurerm_eventhub__timeouts
 type azurerm_eventhub
 
 val azurerm_eventhub :
-  ?id:string ->
-  ?status:string ->
+  ?id:string prop ->
+  ?status:string prop ->
   ?timeouts:azurerm_eventhub__timeouts ->
-  message_retention:float ->
-  name:string ->
-  namespace_name:string ->
-  partition_count:float ->
-  resource_group_name:string ->
+  message_retention:float prop ->
+  name:string prop ->
+  namespace_name:string prop ->
+  partition_count:float prop ->
+  resource_group_name:string prop ->
   capture_description:azurerm_eventhub__capture_description list ->
   string ->
   unit

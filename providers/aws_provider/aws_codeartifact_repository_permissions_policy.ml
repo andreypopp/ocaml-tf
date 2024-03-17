@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_codeartifact_repository_permissions_policy = {
-  domain : string;  (** domain *)
-  domain_owner : string option; [@option]  (** domain_owner *)
-  id : string option; [@option]  (** id *)
-  policy_document : string;  (** policy_document *)
-  policy_revision : string option; [@option]  (** policy_revision *)
-  repository : string;  (** repository *)
+  domain : string prop;  (** domain *)
+  domain_owner : string prop option; [@option]  (** domain_owner *)
+  id : string prop option; [@option]  (** id *)
+  policy_document : string prop;  (** policy_document *)
+  policy_revision : string prop option; [@option]
+      (** policy_revision *)
+  repository : string prop;  (** repository *)
 }
 [@@deriving yojson_of]
 (** aws_codeartifact_repository_permissions_policy *)

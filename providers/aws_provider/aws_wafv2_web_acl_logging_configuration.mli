@@ -25,9 +25,9 @@ type aws_wafv2_web_acl_logging_configuration__redacted_fields
 type aws_wafv2_web_acl_logging_configuration
 
 val aws_wafv2_web_acl_logging_configuration :
-    ?id:string ->
-    log_destination_configs:string list ->
-    resource_arn:string ->
+    ?id:string prop ->
+    log_destination_configs:string prop list ->
+    resource_arn:string prop ->
     logging_filter:aws_wafv2_web_acl_logging_configuration__logging_filter list ->
     redacted_fields:aws_wafv2_web_acl_logging_configuration__redacted_fields list ->
     string ->

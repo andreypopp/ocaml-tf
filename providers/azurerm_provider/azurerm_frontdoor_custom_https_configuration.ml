@@ -5,36 +5,38 @@
 open! Tf.Prelude
 
 type azurerm_frontdoor_custom_https_configuration__custom_https_configuration = {
-  azure_key_vault_certificate_secret_name : string option; [@option]
+  azure_key_vault_certificate_secret_name : string prop option;
+      [@option]
       (** azure_key_vault_certificate_secret_name *)
-  azure_key_vault_certificate_secret_version : string option;
+  azure_key_vault_certificate_secret_version : string prop option;
       [@option]
       (** azure_key_vault_certificate_secret_version *)
-  azure_key_vault_certificate_vault_id : string option; [@option]
+  azure_key_vault_certificate_vault_id : string prop option;
+      [@option]
       (** azure_key_vault_certificate_vault_id *)
-  certificate_source : string option; [@option]
+  certificate_source : string prop option; [@option]
       (** certificate_source *)
-  minimum_tls_version : string;  (** minimum_tls_version *)
-  provisioning_state : string;  (** provisioning_state *)
-  provisioning_substate : string;  (** provisioning_substate *)
+  minimum_tls_version : string prop;  (** minimum_tls_version *)
+  provisioning_state : string prop;  (** provisioning_state *)
+  provisioning_substate : string prop;  (** provisioning_substate *)
 }
 [@@deriving yojson_of]
 (** azurerm_frontdoor_custom_https_configuration__custom_https_configuration *)
 
 type azurerm_frontdoor_custom_https_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_frontdoor_custom_https_configuration__timeouts *)
 
 type azurerm_frontdoor_custom_https_configuration = {
-  custom_https_provisioning_enabled : bool;
+  custom_https_provisioning_enabled : bool prop;
       (** custom_https_provisioning_enabled *)
-  frontend_endpoint_id : string;  (** frontend_endpoint_id *)
-  id : string option; [@option]  (** id *)
+  frontend_endpoint_id : string prop;  (** frontend_endpoint_id *)
+  id : string prop option; [@option]  (** id *)
   custom_https_configuration :
     azurerm_frontdoor_custom_https_configuration__custom_https_configuration
     list;

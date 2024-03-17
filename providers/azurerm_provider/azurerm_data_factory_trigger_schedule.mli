@@ -9,20 +9,20 @@ type azurerm_data_factory_trigger_schedule__timeouts
 type azurerm_data_factory_trigger_schedule
 
 val azurerm_data_factory_trigger_schedule :
-  ?activated:bool ->
-  ?annotations:string list ->
-  ?description:string ->
-  ?end_time:string ->
-  ?frequency:string ->
-  ?id:string ->
-  ?interval:float ->
-  ?pipeline_name:string ->
-  ?pipeline_parameters:(string * string) list ->
-  ?start_time:string ->
-  ?time_zone:string ->
+  ?activated:bool prop ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?end_time:string prop ->
+  ?frequency:string prop ->
+  ?id:string prop ->
+  ?interval:float prop ->
+  ?pipeline_name:string prop ->
+  ?pipeline_parameters:(string * string prop) list ->
+  ?start_time:string prop ->
+  ?time_zone:string prop ->
   ?timeouts:azurerm_data_factory_trigger_schedule__timeouts ->
-  data_factory_id:string ->
-  name:string ->
+  data_factory_id:string prop ->
+  name:string prop ->
   pipeline:azurerm_data_factory_trigger_schedule__pipeline list ->
   schedule:azurerm_data_factory_trigger_schedule__schedule list ->
   string ->

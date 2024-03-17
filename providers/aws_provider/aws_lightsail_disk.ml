@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_lightsail_disk = {
-  availability_zone : string;  (** availability_zone *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  size_in_gb : float;  (** size_in_gb *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  availability_zone : string prop;  (** availability_zone *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  size_in_gb : float prop;  (** size_in_gb *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_disk *)

@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_customer_managed_policy_attachment__customer_managed_policy_reference = {
-  name : string;  (** name *)
-  path : string option; [@option]  (** path *)
+  name : string prop;  (** name *)
+  path : string prop option; [@option]  (** path *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_customer_managed_policy_attachment__customer_managed_policy_reference *)
 
 type aws_ssoadmin_customer_managed_policy_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_customer_managed_policy_attachment__timeouts *)
 
 type aws_ssoadmin_customer_managed_policy_attachment = {
-  id : string option; [@option]  (** id *)
-  instance_arn : string;  (** instance_arn *)
-  permission_set_arn : string;  (** permission_set_arn *)
+  id : string prop option; [@option]  (** id *)
+  instance_arn : string prop;  (** instance_arn *)
+  permission_set_arn : string prop;  (** permission_set_arn *)
   customer_managed_policy_reference :
     aws_ssoadmin_customer_managed_policy_attachment__customer_managed_policy_reference
     list;

@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_lambda_function_event_invoke_config__destination_config__on_failure = {
-  destination : string;  (** destination *)
+  destination : string prop;  (** destination *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function_event_invoke_config__destination_config__on_failure *)
 
 type aws_lambda_function_event_invoke_config__destination_config__on_success = {
-  destination : string;  (** destination *)
+  destination : string prop;  (** destination *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_function_event_invoke_config__destination_config__on_success *)
@@ -28,13 +28,13 @@ type aws_lambda_function_event_invoke_config__destination_config = {
 (** aws_lambda_function_event_invoke_config__destination_config *)
 
 type aws_lambda_function_event_invoke_config = {
-  function_name : string;  (** function_name *)
-  id : string option; [@option]  (** id *)
-  maximum_event_age_in_seconds : float option; [@option]
+  function_name : string prop;  (** function_name *)
+  id : string prop option; [@option]  (** id *)
+  maximum_event_age_in_seconds : float prop option; [@option]
       (** maximum_event_age_in_seconds *)
-  maximum_retry_attempts : float option; [@option]
+  maximum_retry_attempts : float prop option; [@option]
       (** maximum_retry_attempts *)
-  qualifier : string option; [@option]  (** qualifier *)
+  qualifier : string prop option; [@option]  (** qualifier *)
   destination_config :
     aws_lambda_function_event_invoke_config__destination_config list;
 }

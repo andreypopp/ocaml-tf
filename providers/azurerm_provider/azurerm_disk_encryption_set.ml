@@ -5,35 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_disk_encryption_set__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_disk_encryption_set__identity *)
 
 type azurerm_disk_encryption_set__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_disk_encryption_set__timeouts *)
 
 type azurerm_disk_encryption_set = {
-  auto_key_rotation_enabled : bool option; [@option]
+  auto_key_rotation_enabled : bool prop option; [@option]
       (** auto_key_rotation_enabled *)
-  encryption_type : string option; [@option]  (** encryption_type *)
-  federated_client_id : string option; [@option]
+  encryption_type : string prop option; [@option]
+      (** encryption_type *)
+  federated_client_id : string prop option; [@option]
       (** federated_client_id *)
-  id : string option; [@option]  (** id *)
-  key_vault_key_id : string;  (** key_vault_key_id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  key_vault_key_id : string prop;  (** key_vault_key_id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   identity : azurerm_disk_encryption_set__identity list;
   timeouts : azurerm_disk_encryption_set__timeouts option;
 }

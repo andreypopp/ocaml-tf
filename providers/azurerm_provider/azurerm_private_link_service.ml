@@ -5,40 +5,40 @@
 open! Tf.Prelude
 
 type azurerm_private_link_service__nat_ip_configuration = {
-  name : string;  (** name *)
-  primary : bool;  (** primary *)
-  private_ip_address : string option; [@option]
+  name : string prop;  (** name *)
+  primary : bool prop;  (** primary *)
+  private_ip_address : string prop option; [@option]
       (** private_ip_address *)
-  private_ip_address_version : string option; [@option]
+  private_ip_address_version : string prop option; [@option]
       (** private_ip_address_version *)
-  subnet_id : string;  (** subnet_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_private_link_service__nat_ip_configuration *)
 
 type azurerm_private_link_service__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_private_link_service__timeouts *)
 
 type azurerm_private_link_service = {
-  auto_approval_subscription_ids : string list option; [@option]
+  auto_approval_subscription_ids : string prop list option; [@option]
       (** auto_approval_subscription_ids *)
-  enable_proxy_protocol : bool option; [@option]
+  enable_proxy_protocol : bool prop option; [@option]
       (** enable_proxy_protocol *)
-  fqdns : string list option; [@option]  (** fqdns *)
-  id : string option; [@option]  (** id *)
-  load_balancer_frontend_ip_configuration_ids : string list;
+  fqdns : string prop list option; [@option]  (** fqdns *)
+  id : string prop option; [@option]  (** id *)
+  load_balancer_frontend_ip_configuration_ids : string prop list;
       (** load_balancer_frontend_ip_configuration_ids *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  visibility_subscription_ids : string list option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  visibility_subscription_ids : string prop list option; [@option]
       (** visibility_subscription_ids *)
   nat_ip_configuration :
     azurerm_private_link_service__nat_ip_configuration list;

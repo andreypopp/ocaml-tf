@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_config_configuration_recorder__recording_group__exclusion_by_resource_types = {
-  resource_types : string list option; [@option]
+  resource_types : string prop list option; [@option]
       (** resource_types *)
 }
 [@@deriving yojson_of]
 (** aws_config_configuration_recorder__recording_group__exclusion_by_resource_types *)
 
 type aws_config_configuration_recorder__recording_group__recording_strategy = {
-  use_only : string option; [@option]  (** use_only *)
+  use_only : string prop option; [@option]  (** use_only *)
 }
 [@@deriving yojson_of]
 (** aws_config_configuration_recorder__recording_group__recording_strategy *)
 
 type aws_config_configuration_recorder__recording_group = {
-  all_supported : bool option; [@option]  (** all_supported *)
-  include_global_resource_types : bool option; [@option]
+  all_supported : bool prop option; [@option]  (** all_supported *)
+  include_global_resource_types : bool prop option; [@option]
       (** include_global_resource_types *)
-  resource_types : string list option; [@option]
+  resource_types : string prop list option; [@option]
       (** resource_types *)
   exclusion_by_resource_types :
     aws_config_configuration_recorder__recording_group__exclusion_by_resource_types
@@ -34,15 +34,15 @@ type aws_config_configuration_recorder__recording_group = {
 (** aws_config_configuration_recorder__recording_group *)
 
 type aws_config_configuration_recorder__recording_mode__recording_mode_override = {
-  description : string option; [@option]  (** description *)
-  recording_frequency : string;  (** recording_frequency *)
-  resource_types : string list;  (** resource_types *)
+  description : string prop option; [@option]  (** description *)
+  recording_frequency : string prop;  (** recording_frequency *)
+  resource_types : string prop list;  (** resource_types *)
 }
 [@@deriving yojson_of]
 (** aws_config_configuration_recorder__recording_mode__recording_mode_override *)
 
 type aws_config_configuration_recorder__recording_mode = {
-  recording_frequency : string option; [@option]
+  recording_frequency : string prop option; [@option]
       (** recording_frequency *)
   recording_mode_override :
     aws_config_configuration_recorder__recording_mode__recording_mode_override
@@ -52,9 +52,9 @@ type aws_config_configuration_recorder__recording_mode = {
 (** aws_config_configuration_recorder__recording_mode *)
 
 type aws_config_configuration_recorder = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  role_arn : string;  (** role_arn *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  role_arn : string prop;  (** role_arn *)
   recording_group :
     aws_config_configuration_recorder__recording_group list;
   recording_mode :

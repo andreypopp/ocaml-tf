@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_eventhub__capture_description__destination = {
-  archive_name_format : string;  (** archive_name_format *)
-  blob_container_name : string;  (** blob_container_name *)
-  name : string;  (** name *)
-  storage_account_id : string;  (** storage_account_id *)
+  archive_name_format : string prop;  (** archive_name_format *)
+  blob_container_name : string prop;  (** blob_container_name *)
+  name : string prop;  (** name *)
+  storage_account_id : string prop;  (** storage_account_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventhub__capture_description__destination *)
 
 type azurerm_eventhub__capture_description = {
-  enabled : bool;  (** enabled *)
-  encoding : string;  (** encoding *)
-  interval_in_seconds : float option; [@option]
+  enabled : bool prop;  (** enabled *)
+  encoding : string prop;  (** encoding *)
+  interval_in_seconds : float prop option; [@option]
       (** interval_in_seconds *)
-  size_limit_in_bytes : float option; [@option]
+  size_limit_in_bytes : float prop option; [@option]
       (** size_limit_in_bytes *)
-  skip_empty_archives : bool option; [@option]
+  skip_empty_archives : bool prop option; [@option]
       (** skip_empty_archives *)
   destination :
     azurerm_eventhub__capture_description__destination list;
@@ -29,22 +29,22 @@ type azurerm_eventhub__capture_description = {
 (** azurerm_eventhub__capture_description *)
 
 type azurerm_eventhub__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventhub__timeouts *)
 
 type azurerm_eventhub = {
-  id : string option; [@option]  (** id *)
-  message_retention : float;  (** message_retention *)
-  name : string;  (** name *)
-  namespace_name : string;  (** namespace_name *)
-  partition_count : float;  (** partition_count *)
-  resource_group_name : string;  (** resource_group_name *)
-  status : string option; [@option]  (** status *)
+  id : string prop option; [@option]  (** id *)
+  message_retention : float prop;  (** message_retention *)
+  name : string prop;  (** name *)
+  namespace_name : string prop;  (** namespace_name *)
+  partition_count : float prop;  (** partition_count *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  status : string prop option; [@option]  (** status *)
   capture_description : azurerm_eventhub__capture_description list;
   timeouts : azurerm_eventhub__timeouts option;
 }

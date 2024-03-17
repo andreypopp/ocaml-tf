@@ -6,11 +6,11 @@ type google_pubsub_subscription_iam_binding__condition
 type google_pubsub_subscription_iam_binding
 
 val google_pubsub_subscription_iam_binding :
-  ?id:string ->
-  ?project:string ->
-  members:string list ->
-  role:string ->
-  subscription:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  members:string prop list ->
+  role:string prop ->
+  subscription:string prop ->
   condition:google_pubsub_subscription_iam_binding__condition list ->
   string ->
   unit

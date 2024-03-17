@@ -7,11 +7,11 @@ type azurerm_api_management_gateway__timeouts
 type azurerm_api_management_gateway
 
 val azurerm_api_management_gateway :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_api_management_gateway__timeouts ->
-  api_management_id:string ->
-  name:string ->
+  api_management_id:string prop ->
+  name:string prop ->
   location_data:azurerm_api_management_gateway__location_data list ->
   string ->
   unit

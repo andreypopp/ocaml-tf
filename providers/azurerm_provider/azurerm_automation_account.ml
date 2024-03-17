@@ -5,49 +5,50 @@
 open! Tf.Prelude
 
 type azurerm_automation_account__encryption = {
-  key_source : string option; [@option]  (** key_source *)
-  key_vault_key_id : string;  (** key_vault_key_id *)
-  user_assigned_identity_id : string option; [@option]
+  key_source : string prop option; [@option]  (** key_source *)
+  key_vault_key_id : string prop;  (** key_vault_key_id *)
+  user_assigned_identity_id : string prop option; [@option]
       (** user_assigned_identity_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_account__encryption *)
 
 type azurerm_automation_account__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_account__identity *)
 
 type azurerm_automation_account__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_account__timeouts *)
 
 type azurerm_automation_account__private_endpoint_connection = {
-  id : string;  (** id *)
-  name : string;  (** name *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
 type azurerm_automation_account = {
-  id : string option; [@option]  (** id *)
-  local_authentication_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  local_authentication_enabled : bool prop option; [@option]
       (** local_authentication_enabled *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   encryption : azurerm_automation_account__encryption list;
   identity : azurerm_automation_account__identity list;
   timeouts : azurerm_automation_account__timeouts option;

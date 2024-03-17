@@ -5,39 +5,39 @@
 open! Tf.Prelude
 
 type azurerm_dedicated_hardware_security_module__management_network_profile = {
-  network_interface_private_ip_addresses : string list;
+  network_interface_private_ip_addresses : string prop list;
       (** network_interface_private_ip_addresses *)
-  subnet_id : string;  (** subnet_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_dedicated_hardware_security_module__management_network_profile *)
 
 type azurerm_dedicated_hardware_security_module__network_profile = {
-  network_interface_private_ip_addresses : string list;
+  network_interface_private_ip_addresses : string prop list;
       (** network_interface_private_ip_addresses *)
-  subnet_id : string;  (** subnet_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_dedicated_hardware_security_module__network_profile *)
 
 type azurerm_dedicated_hardware_security_module__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_dedicated_hardware_security_module__timeouts *)
 
 type azurerm_dedicated_hardware_security_module = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  stamp_id : string option; [@option]  (** stamp_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  zones : string list option; [@option]  (** zones *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  stamp_id : string prop option; [@option]  (** stamp_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  zones : string prop list option; [@option]  (** zones *)
   management_network_profile :
     azurerm_dedicated_hardware_security_module__management_network_profile
     list;

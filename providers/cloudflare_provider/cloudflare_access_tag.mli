@@ -5,10 +5,10 @@ open! Tf.Prelude
 type cloudflare_access_tag
 
 val cloudflare_access_tag :
-  ?account_id:string ->
-  ?app_count:float ->
-  ?id:string ->
-  ?zone_id:string ->
-  name:string ->
+  ?account_id:string prop ->
+  ?app_count:float prop ->
+  ?id:string prop ->
+  ?zone_id:string prop ->
+  name:string prop ->
   string ->
   unit

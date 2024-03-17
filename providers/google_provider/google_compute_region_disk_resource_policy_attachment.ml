@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type google_compute_region_disk_resource_policy_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_region_disk_resource_policy_attachment__timeouts *)
 
 type google_compute_region_disk_resource_policy_attachment = {
-  disk : string;
+  disk : string prop;
       (** The name of the regional disk in which the resource policies are attached to. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The resource policy to be attached to the disk for scheduling snapshot
 creation. Do not specify the self link. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** A reference to the region where the disk resides. *)
   timeouts :
     google_compute_region_disk_resource_policy_attachment__timeouts

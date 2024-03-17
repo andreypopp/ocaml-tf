@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_logpull_retention = {
-  enabled : bool;  (** Whether you wish to retain logs or not. *)
-  id : string option; [@option]  (** id *)
-  zone_id : string;
+  enabled : bool prop;
+      (** Whether you wish to retain logs or not. *)
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

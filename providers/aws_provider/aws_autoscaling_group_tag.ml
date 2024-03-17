@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type aws_autoscaling_group_tag__tag = {
-  key : string;  (** key *)
-  propagate_at_launch : bool;  (** propagate_at_launch *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  propagate_at_launch : bool prop;  (** propagate_at_launch *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group_tag__tag *)
 
 type aws_autoscaling_group_tag = {
-  autoscaling_group_name : string;  (** autoscaling_group_name *)
-  id : string option; [@option]  (** id *)
+  autoscaling_group_name : string prop;
+      (** autoscaling_group_name *)
+  id : string prop option; [@option]  (** id *)
   tag : aws_autoscaling_group_tag__tag list;
 }
 [@@deriving yojson_of]

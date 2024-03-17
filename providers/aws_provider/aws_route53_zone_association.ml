@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_route53_zone_association = {
-  id : string option; [@option]  (** id *)
-  vpc_id : string;  (** vpc_id *)
-  vpc_region : string option; [@option]  (** vpc_region *)
-  zone_id : string;  (** zone_id *)
+  id : string prop option; [@option]  (** id *)
+  vpc_id : string prop;  (** vpc_id *)
+  vpc_region : string prop option; [@option]  (** vpc_region *)
+  zone_id : string prop;  (** zone_id *)
 }
 [@@deriving yojson_of]
 (** aws_route53_zone_association *)

@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_appconfig_hosted_configuration_version = {
-  application_id : string;  (** application_id *)
-  configuration_profile_id : string;  (** configuration_profile_id *)
-  content : string;  (** content *)
-  content_type : string;  (** content_type *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
+  application_id : string prop;  (** application_id *)
+  configuration_profile_id : string prop;
+      (** configuration_profile_id *)
+  content : string prop;  (** content *)
+  content_type : string prop;  (** content_type *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_appconfig_hosted_configuration_version *)

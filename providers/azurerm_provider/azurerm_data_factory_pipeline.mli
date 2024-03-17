@@ -6,17 +6,17 @@ type azurerm_data_factory_pipeline__timeouts
 type azurerm_data_factory_pipeline
 
 val azurerm_data_factory_pipeline :
-  ?activities_json:string ->
-  ?annotations:string list ->
-  ?concurrency:float ->
-  ?description:string ->
-  ?folder:string ->
-  ?id:string ->
-  ?moniter_metrics_after_duration:string ->
-  ?parameters:(string * string) list ->
-  ?variables:(string * string) list ->
+  ?activities_json:string prop ->
+  ?annotations:string prop list ->
+  ?concurrency:float prop ->
+  ?description:string prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?moniter_metrics_after_duration:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?variables:(string * string prop) list ->
   ?timeouts:azurerm_data_factory_pipeline__timeouts ->
-  data_factory_id:string ->
-  name:string ->
+  data_factory_id:string prop ->
+  name:string prop ->
   string ->
   unit

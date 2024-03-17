@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_ssm_service_setting
 
 val aws_ssm_service_setting :
-  ?id:string ->
-  setting_id:string ->
-  setting_value:string ->
+  ?id:string prop ->
+  setting_id:string prop ->
+  setting_value:string prop ->
   string ->
   unit

@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_kms_key_policy = {
-  bypass_policy_lockout_safety_check : bool option; [@option]
+  bypass_policy_lockout_safety_check : bool prop option; [@option]
       (** bypass_policy_lockout_safety_check *)
-  id : string option; [@option]  (** id *)
-  key_id : string;  (** key_id *)
-  policy : string;  (** policy *)
+  id : string prop option; [@option]  (** id *)
+  key_id : string prop;  (** key_id *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_kms_key_policy *)

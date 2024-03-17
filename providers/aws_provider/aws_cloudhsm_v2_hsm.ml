@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_cloudhsm_v2_hsm__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_cloudhsm_v2_hsm__timeouts *)
 
 type aws_cloudhsm_v2_hsm = {
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  cluster_id : string;  (** cluster_id *)
-  id : string option; [@option]  (** id *)
-  ip_address : string option; [@option]  (** ip_address *)
-  subnet_id : string option; [@option]  (** subnet_id *)
+  cluster_id : string prop;  (** cluster_id *)
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop option; [@option]  (** ip_address *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
   timeouts : aws_cloudhsm_v2_hsm__timeouts option;
 }
 [@@deriving yojson_of]

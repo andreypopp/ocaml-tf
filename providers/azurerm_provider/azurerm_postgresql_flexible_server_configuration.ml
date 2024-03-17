@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_postgresql_flexible_server_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_postgresql_flexible_server_configuration__timeouts *)
 
 type azurerm_postgresql_flexible_server_configuration = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  server_id : string;  (** server_id *)
-  value : string;  (** value *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  server_id : string prop;  (** server_id *)
+  value : string prop;  (** value *)
   timeouts :
     azurerm_postgresql_flexible_server_configuration__timeouts option;
 }

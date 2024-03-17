@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_access_context_manager_access_policy_iam_policy = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  policy_data : string;  (** policy_data *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_access_policy_iam_policy *)

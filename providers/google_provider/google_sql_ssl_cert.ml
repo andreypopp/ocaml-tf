@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type google_sql_ssl_cert__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_sql_ssl_cert__timeouts *)
 
 type google_sql_ssl_cert = {
-  common_name : string;
+  common_name : string prop;
       (** The common name to be used in the certificate to identify the client. Constrained to [a-zA-Z.-_ ]+. Changing this forces a new resource to be created. *)
-  id : string option; [@option]  (** id *)
-  instance : string;
+  id : string prop option; [@option]  (** id *)
+  instance : string prop;
       (** The name of the Cloud SQL instance. Changing this forces a new resource to be created. *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   timeouts : google_sql_ssl_cert__timeouts option;
 }

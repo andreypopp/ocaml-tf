@@ -9,20 +9,20 @@ type azurerm_data_factory_trigger_tumbling_window__trigger_dependency
 type azurerm_data_factory_trigger_tumbling_window
 
 val azurerm_data_factory_trigger_tumbling_window :
-  ?activated:bool ->
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?delay:string ->
-  ?description:string ->
-  ?end_time:string ->
-  ?id:string ->
-  ?max_concurrency:float ->
+  ?activated:bool prop ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?delay:string prop ->
+  ?description:string prop ->
+  ?end_time:string prop ->
+  ?id:string prop ->
+  ?max_concurrency:float prop ->
   ?timeouts:azurerm_data_factory_trigger_tumbling_window__timeouts ->
-  data_factory_id:string ->
-  frequency:string ->
-  interval:float ->
-  name:string ->
-  start_time:string ->
+  data_factory_id:string prop ->
+  frequency:string prop ->
+  interval:float prop ->
+  name:string prop ->
+  start_time:string prop ->
   pipeline:
     azurerm_data_factory_trigger_tumbling_window__pipeline list ->
   retry:azurerm_data_factory_trigger_tumbling_window__retry list ->

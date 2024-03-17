@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type cloudflare_zone_hold = {
-  hold : bool;  (** Enablement status of the zone hold. *)
-  hold_after : string option; [@option]
+  hold : bool prop;  (** Enablement status of the zone hold. *)
+  hold_after : string prop option; [@option]
       (** The RFC3339 compatible timestamp when to automatically re-enable the zone hold. *)
-  id : string option; [@option]  (** id *)
-  include_subdomains : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  include_subdomains : bool prop option; [@option]
       (** Whether to extend to block any subdomain of the given zone. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
 }
 [@@deriving yojson_of]

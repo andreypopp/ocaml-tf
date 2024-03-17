@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_nat_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_nat_gateway__timeouts *)
 
 type azurerm_nat_gateway = {
-  id : string option; [@option]  (** id *)
-  idle_timeout_in_minutes : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  idle_timeout_in_minutes : float prop option; [@option]
       (** idle_timeout_in_minutes *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string option; [@option]  (** sku_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  zones : string list option; [@option]  (** zones *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop option; [@option]  (** sku_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  zones : string prop list option; [@option]  (** zones *)
   timeouts : azurerm_nat_gateway__timeouts option;
 }
 [@@deriving yojson_of]

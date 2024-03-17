@@ -22,12 +22,12 @@ type aws_sagemaker_model__vpc_config
 type aws_sagemaker_model
 
 val aws_sagemaker_model :
-  ?enable_network_isolation:bool ->
-  ?id:string ->
-  ?name:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  execution_role_arn:string ->
+  ?enable_network_isolation:bool prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  execution_role_arn:string prop ->
   container:aws_sagemaker_model__container list ->
   inference_execution_config:
     aws_sagemaker_model__inference_execution_config list ->

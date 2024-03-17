@@ -6,11 +6,11 @@ type google_bigquery_dataset_iam_member__condition
 type google_bigquery_dataset_iam_member
 
 val google_bigquery_dataset_iam_member :
-  ?id:string ->
-  ?project:string ->
-  dataset_id:string ->
-  member:string ->
-  role:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  dataset_id:string prop ->
+  member:string prop ->
+  role:string prop ->
   condition:google_bigquery_dataset_iam_member__condition list ->
   string ->
   unit

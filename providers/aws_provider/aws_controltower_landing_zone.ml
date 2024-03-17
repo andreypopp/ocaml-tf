@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type aws_controltower_landing_zone__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_controltower_landing_zone__timeouts *)
 
 type aws_controltower_landing_zone__drift_status = {
-  status : string;  (** status *)
+  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
 
 type aws_controltower_landing_zone = {
-  id : string option; [@option]  (** id *)
-  manifest_json : string;  (** manifest_json *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  manifest_json : string prop;  (** manifest_json *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  version : string;  (** version *)
+  version : string prop;  (** version *)
   timeouts : aws_controltower_landing_zone__timeouts option;
 }
 [@@deriving yojson_of]

@@ -142,13 +142,13 @@ type google_data_loss_prevention_job_trigger__triggers
 type google_data_loss_prevention_job_trigger
 
 val google_data_loss_prevention_job_trigger :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?status:string ->
-  ?trigger_id:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?status:string prop ->
+  ?trigger_id:string prop ->
   ?timeouts:google_data_loss_prevention_job_trigger__timeouts ->
-  parent:string ->
+  parent:string prop ->
   inspect_job:
     google_data_loss_prevention_job_trigger__inspect_job list ->
   triggers:google_data_loss_prevention_job_trigger__triggers list ->

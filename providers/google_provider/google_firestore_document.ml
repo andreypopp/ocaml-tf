@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type google_firestore_document__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_firestore_document__timeouts *)
 
 type google_firestore_document = {
-  collection : string;
+  collection : string prop;
       (** The collection ID, relative to database. For example: chatrooms or chatrooms/my-document/private-messages. *)
-  database : string option; [@option]
+  database : string prop option; [@option]
       (** The Firestore database id. Defaults to '(default)'. *)
-  document_id : string;
+  document_id : string prop;
       (** The client-assigned document ID to use for this document during creation. *)
-  fields : string;
+  fields : string prop;
       (** The document's [fields](https://cloud.google.com/firestore/docs/reference/rest/v1/projects.databases.documents) formated as a json string. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_firestore_document__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,18 +5,21 @@
 open! Tf.Prelude
 
 type aws_rolesanywhere_profile = {
-  duration_seconds : float option; [@option]  (** duration_seconds *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  managed_policy_arns : string list option; [@option]
+  duration_seconds : float prop option; [@option]
+      (** duration_seconds *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  managed_policy_arns : string prop list option; [@option]
       (** managed_policy_arns *)
-  name : string;  (** name *)
-  require_instance_properties : bool option; [@option]
+  name : string prop;  (** name *)
+  require_instance_properties : bool prop option; [@option]
       (** require_instance_properties *)
-  role_arns : string list;  (** role_arns *)
-  session_policy : string option; [@option]  (** session_policy *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  role_arns : string prop list;  (** role_arns *)
+  session_policy : string prop option; [@option]
+      (** session_policy *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_rolesanywhere_profile *)

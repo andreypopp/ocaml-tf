@@ -8,26 +8,26 @@ type google_firestore_backup_schedule__daily_recurrence = unit
 [@@deriving yojson_of]
 
 type google_firestore_backup_schedule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_firestore_backup_schedule__timeouts *)
 
 type google_firestore_backup_schedule__weekly_recurrence = {
-  day : string option; [@option]
+  day : string prop option; [@option]
       (** The day of week to run. Possible values: [DAY_OF_WEEK_UNSPECIFIED, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
 }
 [@@deriving yojson_of]
 (** For a schedule that runs weekly on a specific day and time. *)
 
 type google_firestore_backup_schedule = {
-  database : string option; [@option]
+  database : string prop option; [@option]
       (** The Firestore database id. Defaults to '(default)'. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  retention : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  retention : string prop;
       (** At what relative time in the future, compared to its creation time, the backup should be deleted, e.g. keep backups for 7 days.
 A duration in seconds with up to nine fractional digits, ending with 's'. Example: 3.5s.
 

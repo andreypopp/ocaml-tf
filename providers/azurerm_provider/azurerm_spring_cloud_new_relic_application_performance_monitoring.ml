@@ -5,32 +5,36 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_new_relic_application_performance_monitoring__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_new_relic_application_performance_monitoring__timeouts *)
 
 type azurerm_spring_cloud_new_relic_application_performance_monitoring = {
-  agent_enabled : bool option; [@option]  (** agent_enabled *)
-  app_name : string;  (** app_name *)
-  app_server_port : float option; [@option]  (** app_server_port *)
-  audit_mode_enabled : bool option; [@option]
+  agent_enabled : bool prop option; [@option]  (** agent_enabled *)
+  app_name : string prop;  (** app_name *)
+  app_server_port : float prop option; [@option]
+      (** app_server_port *)
+  audit_mode_enabled : bool prop option; [@option]
       (** audit_mode_enabled *)
-  auto_app_naming_enabled : bool option; [@option]
+  auto_app_naming_enabled : bool prop option; [@option]
       (** auto_app_naming_enabled *)
-  auto_transaction_naming_enabled : bool option; [@option]
+  auto_transaction_naming_enabled : bool prop option; [@option]
       (** auto_transaction_naming_enabled *)
-  custom_tracing_enabled : bool option; [@option]
+  custom_tracing_enabled : bool prop option; [@option]
       (** custom_tracing_enabled *)
-  globally_enabled : bool option; [@option]  (** globally_enabled *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  license_key : string;  (** license_key *)
-  name : string;  (** name *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
+  globally_enabled : bool prop option; [@option]
+      (** globally_enabled *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  license_key : string prop;  (** license_key *)
+  name : string prop;  (** name *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
   timeouts :
     azurerm_spring_cloud_new_relic_application_performance_monitoring__timeouts
     option;

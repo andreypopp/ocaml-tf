@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type google_eventarc_channel__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_eventarc_channel__timeouts *)
 
 type google_eventarc_channel = {
-  crypto_key_name : string option; [@option]
+  crypto_key_name : string prop option; [@option]
       (** Optional. Resource name of a KMS crypto key (managed by the user) used to encrypt/decrypt their event data. It must match the pattern `projects/*/locations/*/keyRings/*/cryptoKeys/*`. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location for the resource *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location for the resource *)
+  name : string prop;
       (** Required. The resource name of the channel. Must be unique within the location on the project. *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The project for the resource *)
-  third_party_provider : string option; [@option]
+  third_party_provider : string prop option; [@option]
       (** The name of the event provider (e.g. Eventarc SaaS partner) associated with the channel. This provider will be granted permissions to publish events to the channel. Format: `projects/{project}/locations/{location}/providers/{provider_id}`. *)
   timeouts : google_eventarc_channel__timeouts option;
 }

@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_postgresql_flexible_server_active_directory_administrator__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_postgresql_flexible_server_active_directory_administrator__timeouts *)
 
 type azurerm_postgresql_flexible_server_active_directory_administrator = {
-  id : string option; [@option]  (** id *)
-  object_id : string;  (** object_id *)
-  principal_name : string;  (** principal_name *)
-  principal_type : string;  (** principal_type *)
-  resource_group_name : string;  (** resource_group_name *)
-  server_name : string;  (** server_name *)
-  tenant_id : string;  (** tenant_id *)
+  id : string prop option; [@option]  (** id *)
+  object_id : string prop;  (** object_id *)
+  principal_name : string prop;  (** principal_name *)
+  principal_type : string prop;  (** principal_type *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  server_name : string prop;  (** server_name *)
+  tenant_id : string prop;  (** tenant_id *)
   timeouts :
     azurerm_postgresql_flexible_server_active_directory_administrator__timeouts
     option;

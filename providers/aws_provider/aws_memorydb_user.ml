@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_memorydb_user__authentication_mode = {
-  password_count : float;  (** password_count *)
-  passwords : string list;  (** passwords *)
-  type_ : string; [@key "type"]  (** type *)
+  password_count : float prop;  (** password_count *)
+  passwords : string prop list;  (** passwords *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_memorydb_user__authentication_mode *)
 
 type aws_memorydb_user = {
-  access_string : string;  (** access_string *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  access_string : string prop;  (** access_string *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user_name : string;  (** user_name *)
+  user_name : string prop;  (** user_name *)
   authentication_mode : aws_memorydb_user__authentication_mode list;
 }
 [@@deriving yojson_of]

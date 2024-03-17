@@ -17,23 +17,23 @@ type aws_dynamodb_table__ttl
 type aws_dynamodb_table
 
 val aws_dynamodb_table :
-  ?billing_mode:string ->
-  ?deletion_protection_enabled:bool ->
-  ?hash_key:string ->
-  ?id:string ->
-  ?range_key:string ->
-  ?read_capacity:float ->
-  ?restore_date_time:string ->
-  ?restore_source_name:string ->
-  ?restore_to_latest_time:bool ->
-  ?stream_enabled:bool ->
-  ?stream_view_type:string ->
-  ?table_class:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?write_capacity:float ->
+  ?billing_mode:string prop ->
+  ?deletion_protection_enabled:bool prop ->
+  ?hash_key:string prop ->
+  ?id:string prop ->
+  ?range_key:string prop ->
+  ?read_capacity:float prop ->
+  ?restore_date_time:string prop ->
+  ?restore_source_name:string prop ->
+  ?restore_to_latest_time:bool prop ->
+  ?stream_enabled:bool prop ->
+  ?stream_view_type:string prop ->
+  ?table_class:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?write_capacity:float prop ->
   ?timeouts:aws_dynamodb_table__timeouts ->
-  name:string ->
+  name:string prop ->
   attribute:aws_dynamodb_table__attribute list ->
   global_secondary_index:
     aws_dynamodb_table__global_secondary_index list ->

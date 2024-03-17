@@ -9,13 +9,13 @@ type azurerm_sql_failover_group__timeouts
 type azurerm_sql_failover_group
 
 val azurerm_sql_failover_group :
-  ?databases:string list ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?databases:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_sql_failover_group__timeouts ->
-  name:string ->
-  resource_group_name:string ->
-  server_name:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
   partner_servers:azurerm_sql_failover_group__partner_servers list ->
   read_write_endpoint_failover_policy:
     azurerm_sql_failover_group__read_write_endpoint_failover_policy

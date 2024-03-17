@@ -109,12 +109,12 @@ type aws_appflow_flow__trigger_config
 type aws_appflow_flow
 
 val aws_appflow_flow :
-  ?description:string ->
-  ?id:string ->
-  ?kms_arn:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   destination_flow_config:
     aws_appflow_flow__destination_flow_config list ->
   source_flow_config:aws_appflow_flow__source_flow_config list ->

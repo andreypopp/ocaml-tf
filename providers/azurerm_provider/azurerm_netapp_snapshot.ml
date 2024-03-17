@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_netapp_snapshot__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_snapshot__timeouts *)
 
 type azurerm_netapp_snapshot = {
-  account_name : string;  (** account_name *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  pool_name : string;  (** pool_name *)
-  resource_group_name : string;  (** resource_group_name *)
-  volume_name : string;  (** volume_name *)
+  account_name : string prop;  (** account_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  pool_name : string prop;  (** pool_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  volume_name : string prop;  (** volume_name *)
   timeouts : azurerm_netapp_snapshot__timeouts option;
 }
 [@@deriving yojson_of]

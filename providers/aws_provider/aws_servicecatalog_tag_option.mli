@@ -6,10 +6,10 @@ type aws_servicecatalog_tag_option__timeouts
 type aws_servicecatalog_tag_option
 
 val aws_servicecatalog_tag_option :
-  ?active:bool ->
-  ?id:string ->
+  ?active:bool prop ->
+  ?id:string prop ->
   ?timeouts:aws_servicecatalog_tag_option__timeouts ->
-  key:string ->
-  value:string ->
+  key:string prop ->
+  value:string prop ->
   string ->
   unit

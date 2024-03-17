@@ -5,7 +5,8 @@
 open! Tf.Prelude
 
 type google_data_catalog_tag_template__fields__type__enum_type__allowed_values = {
-  display_name : string;  (** The display name of the enum value. *)
+  display_name : string prop;
+      (** The display name of the enum value. *)
 }
 [@@deriving yojson_of]
 (** The set of allowed values for this enum. The display names of the
@@ -24,7 +25,7 @@ type google_data_catalog_tag_template__fields__type__enum_type = {
  Exactly one of 'primitive_type' or 'enum_type' must be set *)
 
 type google_data_catalog_tag_template__fields__type = {
-  primitive_type : string option; [@option]
+  primitive_type : string prop option; [@option]
       (** Represents primitive types - string, bool etc.
  Exactly one of 'primitive_type' or 'enum_type' must be set Possible values: [DOUBLE, STRING, BOOL, TIMESTAMP] *)
   enum_type :
@@ -34,16 +35,16 @@ type google_data_catalog_tag_template__fields__type = {
 (** The type of value this tag field can contain. *)
 
 type google_data_catalog_tag_template__fields = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A description for this field. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** The display name for this field. *)
-  field_id : string;  (** field_id *)
-  is_required : bool option; [@option]
+  field_id : string prop;  (** field_id *)
+  is_required : bool prop option; [@option]
       (** Whether this is a required field. Defaults to false. *)
-  name : string;
+  name : string prop;
       (** The resource name of the tag template field in URL format. Example: projects/{project_id}/locations/{location}/tagTemplates/{tagTemplateId}/fields/{field} *)
-  order : float option; [@option]
+  order : float prop option; [@option]
       (** The order of this field with respect to other fields in this tag template.
 A higher value indicates a more important field. The value can be negative.
 Multiple fields can have the same order, and field orders within a tag do not have to be sequential. *)
@@ -53,22 +54,23 @@ Multiple fields can have the same order, and field orders within a tag do not ha
 (** Set of tag template field IDs and the settings for the field. This set is an exhaustive list of the allowed fields. This set must contain at least one field and at most 500 fields. The change of field_id will be resulting in re-creating of field. The change of primitive_type will be resulting in re-creating of field, however if the field is a required, you cannot update it. *)
 
 type google_data_catalog_tag_template__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_data_catalog_tag_template__timeouts *)
 
 type google_data_catalog_tag_template = {
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** The display name for this template. *)
-  force_delete : bool option; [@option]
+  force_delete : bool prop option; [@option]
       (** This confirms the deletion of any possible tags using this template. Must be set to true in order to delete the tag template. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** Template location region. *)
-  tag_template_id : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
+      (** Template location region. *)
+  tag_template_id : string prop;
       (** The id of the tag template to create. *)
   fields : google_data_catalog_tag_template__fields list;
   timeouts : google_data_catalog_tag_template__timeouts option;

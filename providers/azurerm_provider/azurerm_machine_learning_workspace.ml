@@ -5,76 +5,79 @@
 open! Tf.Prelude
 
 type azurerm_machine_learning_workspace__encryption = {
-  key_id : string;  (** key_id *)
-  key_vault_id : string;  (** key_vault_id *)
-  user_assigned_identity_id : string option; [@option]
+  key_id : string prop;  (** key_id *)
+  key_vault_id : string prop;  (** key_vault_id *)
+  user_assigned_identity_id : string prop option; [@option]
       (** user_assigned_identity_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_workspace__encryption *)
 
 type azurerm_machine_learning_workspace__feature_store = {
-  computer_spark_runtime_version : string option; [@option]
+  computer_spark_runtime_version : string prop option; [@option]
       (** computer_spark_runtime_version *)
-  offline_connection_name : string option; [@option]
+  offline_connection_name : string prop option; [@option]
       (** offline_connection_name *)
-  online_connection_name : string option; [@option]
+  online_connection_name : string prop option; [@option]
       (** online_connection_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_workspace__feature_store *)
 
 type azurerm_machine_learning_workspace__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_workspace__identity *)
 
 type azurerm_machine_learning_workspace__managed_network = {
-  isolation_mode : string option; [@option]  (** isolation_mode *)
+  isolation_mode : string prop option; [@option]
+      (** isolation_mode *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_workspace__managed_network *)
 
 type azurerm_machine_learning_workspace__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_workspace__timeouts *)
 
 type azurerm_machine_learning_workspace = {
-  application_insights_id : string;  (** application_insights_id *)
-  container_registry_id : string option; [@option]
+  application_insights_id : string prop;
+      (** application_insights_id *)
+  container_registry_id : string prop option; [@option]
       (** container_registry_id *)
-  description : string option; [@option]  (** description *)
-  friendly_name : string option; [@option]  (** friendly_name *)
-  high_business_impact : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  friendly_name : string prop option; [@option]  (** friendly_name *)
+  high_business_impact : bool prop option; [@option]
       (** high_business_impact *)
-  id : string option; [@option]  (** id *)
-  image_build_compute_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  image_build_compute_name : string prop option; [@option]
       (** image_build_compute_name *)
-  key_vault_id : string;  (** key_vault_id *)
-  kind : string option; [@option]  (** kind *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  primary_user_assigned_identity : string option; [@option]
+  key_vault_id : string prop;  (** key_vault_id *)
+  kind : string prop option; [@option]  (** kind *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  primary_user_assigned_identity : string prop option; [@option]
       (** primary_user_assigned_identity *)
-  public_access_behind_virtual_network_enabled : bool option;
+  public_access_behind_virtual_network_enabled : bool prop option;
       [@option]
       (** public_access_behind_virtual_network_enabled *)
-  public_network_access_enabled : bool option; [@option]
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string option; [@option]  (** sku_name *)
-  storage_account_id : string;  (** storage_account_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  v1_legacy_mode_enabled : bool option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop option; [@option]  (** sku_name *)
+  storage_account_id : string prop;  (** storage_account_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  v1_legacy_mode_enabled : bool prop option; [@option]
       (** v1_legacy_mode_enabled *)
   encryption : azurerm_machine_learning_workspace__encryption list;
   feature_store :

@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type google_compute_shared_vpc_host_project__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_shared_vpc_host_project__timeouts *)
 
 type google_compute_shared_vpc_host_project = {
-  id : string option; [@option]  (** id *)
-  project : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop;
       (** The ID of the project that will serve as a Shared VPC host project *)
   timeouts : google_compute_shared_vpc_host_project__timeouts option;
 }

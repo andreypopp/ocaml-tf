@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_servicequotas_template_association
 
 val aws_servicequotas_template_association :
-  ?skip_destroy:bool -> string -> unit
+  ?skip_destroy:bool prop -> string -> unit

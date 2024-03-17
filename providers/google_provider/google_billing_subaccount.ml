@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type google_billing_subaccount = {
-  deletion_policy : string option; [@option]  (** deletion_policy *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  master_billing_account : string;  (** master_billing_account *)
+  deletion_policy : string prop option; [@option]
+      (** deletion_policy *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  master_billing_account : string prop;  (** master_billing_account *)
 }
 [@@deriving yojson_of]
 (** google_billing_subaccount *)

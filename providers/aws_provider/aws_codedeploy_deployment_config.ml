@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type aws_codedeploy_deployment_config__minimum_healthy_hosts = {
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  value : float option; [@option]  (** value *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  value : float prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_config__minimum_healthy_hosts *)
 
 type aws_codedeploy_deployment_config__traffic_routing_config__time_based_canary = {
-  interval : float option; [@option]  (** interval *)
-  percentage : float option; [@option]  (** percentage *)
+  interval : float prop option; [@option]  (** interval *)
+  percentage : float prop option; [@option]  (** percentage *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_config__traffic_routing_config__time_based_canary *)
 
 type aws_codedeploy_deployment_config__traffic_routing_config__time_based_linear = {
-  interval : float option; [@option]  (** interval *)
-  percentage : float option; [@option]  (** percentage *)
+  interval : float prop option; [@option]  (** interval *)
+  percentage : float prop option; [@option]  (** percentage *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_config__traffic_routing_config__time_based_linear *)
 
 type aws_codedeploy_deployment_config__traffic_routing_config = {
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   time_based_canary :
     aws_codedeploy_deployment_config__traffic_routing_config__time_based_canary
     list;
@@ -38,10 +38,11 @@ type aws_codedeploy_deployment_config__traffic_routing_config = {
 (** aws_codedeploy_deployment_config__traffic_routing_config *)
 
 type aws_codedeploy_deployment_config = {
-  compute_platform : string option; [@option]
+  compute_platform : string prop option; [@option]
       (** compute_platform *)
-  deployment_config_name : string;  (** deployment_config_name *)
-  id : string option; [@option]  (** id *)
+  deployment_config_name : string prop;
+      (** deployment_config_name *)
+  id : string prop option; [@option]  (** id *)
   minimum_healthy_hosts :
     aws_codedeploy_deployment_config__minimum_healthy_hosts list;
   traffic_routing_config :

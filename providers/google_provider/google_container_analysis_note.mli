@@ -9,14 +9,14 @@ type google_container_analysis_note__timeouts
 type google_container_analysis_note
 
 val google_container_analysis_note :
-  ?expiration_time:string ->
-  ?id:string ->
-  ?long_description:string ->
-  ?project:string ->
-  ?related_note_names:string list ->
-  ?short_description:string ->
+  ?expiration_time:string prop ->
+  ?id:string prop ->
+  ?long_description:string prop ->
+  ?project:string prop ->
+  ?related_note_names:string prop list ->
+  ?short_description:string prop ->
   ?timeouts:google_container_analysis_note__timeouts ->
-  name:string ->
+  name:string prop ->
   attestation_authority:
     google_container_analysis_note__attestation_authority list ->
   related_url:google_container_analysis_note__related_url list ->

@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type google_netapp_kmsconfig__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_netapp_kmsconfig__timeouts *)
 
 type google_netapp_kmsconfig = {
-  crypto_key_name : string;
+  crypto_key_name : string prop;
       (** Resource name of the KMS key to use. Only regional keys are supported. Format: 'projects/{{project}}/locations/{{location}}/keyRings/{{key_ring}}/cryptoKeys/{{key}}'. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description for the CMEK policy. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;
+  location : string prop;
       (** Name of the policy location. CMEK policies apply to the whole region. *)
-  name : string;  (** Name of the CMEK policy. *)
-  project : string option; [@option]  (** project *)
+  name : string prop;  (** Name of the CMEK policy. *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_netapp_kmsconfig__timeouts option;
 }
 [@@deriving yojson_of]

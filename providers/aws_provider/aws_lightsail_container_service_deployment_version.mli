@@ -12,10 +12,10 @@ type aws_lightsail_container_service_deployment_version__timeouts
 type aws_lightsail_container_service_deployment_version
 
 val aws_lightsail_container_service_deployment_version :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     aws_lightsail_container_service_deployment_version__timeouts ->
-  service_name:string ->
+  service_name:string prop ->
   container:
     aws_lightsail_container_service_deployment_version__container
     list ->

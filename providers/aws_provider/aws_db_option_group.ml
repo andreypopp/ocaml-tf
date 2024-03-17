@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_db_option_group__option__option_settings = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_db_option_group__option__option_settings *)
 
 type aws_db_option_group__option = {
-  db_security_group_memberships : string list option; [@option]
+  db_security_group_memberships : string prop list option; [@option]
       (** db_security_group_memberships *)
-  option_name : string;  (** option_name *)
-  port : float option; [@option]  (** port *)
-  version : string option; [@option]  (** version *)
-  vpc_security_group_memberships : string list option; [@option]
+  option_name : string prop;  (** option_name *)
+  port : float prop option; [@option]  (** port *)
+  version : string prop option; [@option]  (** version *)
+  vpc_security_group_memberships : string prop list option; [@option]
       (** vpc_security_group_memberships *)
   option_settings : aws_db_option_group__option__option_settings list;
 }
@@ -25,21 +25,21 @@ type aws_db_option_group__option = {
 (** aws_db_option_group__option *)
 
 type aws_db_option_group__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_db_option_group__timeouts *)
 
 type aws_db_option_group = {
-  engine_name : string;  (** engine_name *)
-  id : string option; [@option]  (** id *)
-  major_engine_version : string;  (** major_engine_version *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  option_group_description : string option; [@option]
+  engine_name : string prop;  (** engine_name *)
+  id : string prop option; [@option]  (** id *)
+  major_engine_version : string prop;  (** major_engine_version *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  option_group_description : string prop option; [@option]
       (** option_group_description *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   option : aws_db_option_group__option list;
   timeouts : aws_db_option_group__timeouts option;

@@ -9,31 +9,31 @@ type aws_synthetics_canary__schedule
 type aws_synthetics_canary__vpc_config
 
 type aws_synthetics_canary__timeline = {
-  created : string;  (** created *)
-  last_modified : string;  (** last_modified *)
-  last_started : string;  (** last_started *)
-  last_stopped : string;  (** last_stopped *)
+  created : string prop;  (** created *)
+  last_modified : string prop;  (** last_modified *)
+  last_started : string prop;  (** last_started *)
+  last_stopped : string prop;  (** last_stopped *)
 }
 
 type aws_synthetics_canary
 
 val aws_synthetics_canary :
-  ?delete_lambda:bool ->
-  ?failure_retention_period:float ->
-  ?id:string ->
-  ?s3_bucket:string ->
-  ?s3_key:string ->
-  ?s3_version:string ->
-  ?start_canary:bool ->
-  ?success_retention_period:float ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?zip_file:string ->
-  artifact_s3_location:string ->
-  execution_role_arn:string ->
-  handler:string ->
-  name:string ->
-  runtime_version:string ->
+  ?delete_lambda:bool prop ->
+  ?failure_retention_period:float prop ->
+  ?id:string prop ->
+  ?s3_bucket:string prop ->
+  ?s3_key:string prop ->
+  ?s3_version:string prop ->
+  ?start_canary:bool prop ->
+  ?success_retention_period:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?zip_file:string prop ->
+  artifact_s3_location:string prop ->
+  execution_role_arn:string prop ->
+  handler:string prop ->
+  name:string prop ->
+  runtime_version:string prop ->
   artifact_config:aws_synthetics_canary__artifact_config list ->
   run_config:aws_synthetics_canary__run_config list ->
   schedule:aws_synthetics_canary__schedule list ->

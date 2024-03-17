@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type aws_chimesdkvoice_sip_rule__target_applications = {
-  aws_region : string;  (** aws_region *)
-  priority : float;  (** priority *)
-  sip_media_application_id : string;  (** sip_media_application_id *)
+  aws_region : string prop;  (** aws_region *)
+  priority : float prop;  (** priority *)
+  sip_media_application_id : string prop;
+      (** sip_media_application_id *)
 }
 [@@deriving yojson_of]
 (** aws_chimesdkvoice_sip_rule__target_applications *)
 
 type aws_chimesdkvoice_sip_rule = {
-  disabled : bool option; [@option]  (** disabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  trigger_type : string;  (** trigger_type *)
-  trigger_value : string;  (** trigger_value *)
+  disabled : bool prop option; [@option]  (** disabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  trigger_type : string prop;  (** trigger_type *)
+  trigger_value : string prop;  (** trigger_value *)
   target_applications :
     aws_chimesdkvoice_sip_rule__target_applications list;
 }

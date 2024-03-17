@@ -6,9 +6,9 @@ type azurerm_security_center_setting__timeouts
 type azurerm_security_center_setting
 
 val azurerm_security_center_setting :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_security_center_setting__timeouts ->
-  enabled:bool ->
-  setting_name:string ->
+  enabled:bool prop ->
+  setting_name:string prop ->
   string ->
   unit

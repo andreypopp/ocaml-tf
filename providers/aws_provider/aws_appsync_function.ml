@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_appsync_function__runtime = {
-  name : string;  (** name *)
-  runtime_version : string;  (** runtime_version *)
+  name : string prop;  (** name *)
+  runtime_version : string prop;  (** runtime_version *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_function__runtime *)
 
 type aws_appsync_function__sync_config__lambda_conflict_handler_config = {
-  lambda_conflict_handler_arn : string option; [@option]
+  lambda_conflict_handler_arn : string prop option; [@option]
       (** lambda_conflict_handler_arn *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_function__sync_config__lambda_conflict_handler_config *)
 
 type aws_appsync_function__sync_config = {
-  conflict_detection : string option; [@option]
+  conflict_detection : string prop option; [@option]
       (** conflict_detection *)
-  conflict_handler : string option; [@option]
+  conflict_handler : string prop option; [@option]
       (** conflict_handler *)
   lambda_conflict_handler_config :
     aws_appsync_function__sync_config__lambda_conflict_handler_config
@@ -31,18 +31,19 @@ type aws_appsync_function__sync_config = {
 (** aws_appsync_function__sync_config *)
 
 type aws_appsync_function = {
-  api_id : string;  (** api_id *)
-  code : string option; [@option]  (** code *)
-  data_source : string;  (** data_source *)
-  description : string option; [@option]  (** description *)
-  function_version : string option; [@option]
+  api_id : string prop;  (** api_id *)
+  code : string prop option; [@option]  (** code *)
+  data_source : string prop;  (** data_source *)
+  description : string prop option; [@option]  (** description *)
+  function_version : string prop option; [@option]
       (** function_version *)
-  id : string option; [@option]  (** id *)
-  max_batch_size : float option; [@option]  (** max_batch_size *)
-  name : string;  (** name *)
-  request_mapping_template : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  max_batch_size : float prop option; [@option]
+      (** max_batch_size *)
+  name : string prop;  (** name *)
+  request_mapping_template : string prop option; [@option]
       (** request_mapping_template *)
-  response_mapping_template : string option; [@option]
+  response_mapping_template : string prop option; [@option]
       (** response_mapping_template *)
   runtime : aws_appsync_function__runtime list;
   sync_config : aws_appsync_function__sync_config list;

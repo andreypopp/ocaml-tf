@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_active_directory_domain_service_trust__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_active_directory_domain_service_trust__timeouts *)
 
 type azurerm_active_directory_domain_service_trust = {
-  domain_service_id : string;  (** domain_service_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  password : string;  (** password *)
-  trusted_domain_dns_ips : string list;
+  domain_service_id : string prop;  (** domain_service_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  password : string prop;  (** password *)
+  trusted_domain_dns_ips : string prop list;
       (** trusted_domain_dns_ips *)
-  trusted_domain_fqdn : string;  (** trusted_domain_fqdn *)
+  trusted_domain_fqdn : string prop;  (** trusted_domain_fqdn *)
   timeouts :
     azurerm_active_directory_domain_service_trust__timeouts option;
 }

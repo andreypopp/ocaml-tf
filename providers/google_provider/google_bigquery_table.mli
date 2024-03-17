@@ -32,19 +32,19 @@ type google_bigquery_table__view
 type google_bigquery_table
 
 val google_bigquery_table :
-  ?clustering:string list ->
-  ?deletion_protection:bool ->
-  ?description:string ->
-  ?expiration_time:float ->
-  ?friendly_name:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?max_staleness:string ->
-  ?project:string ->
-  ?require_partition_filter:bool ->
-  ?schema:string ->
-  dataset_id:string ->
-  table_id:string ->
+  ?clustering:string prop list ->
+  ?deletion_protection:bool prop ->
+  ?description:string prop ->
+  ?expiration_time:float prop ->
+  ?friendly_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?max_staleness:string prop ->
+  ?project:string prop ->
+  ?require_partition_filter:bool prop ->
+  ?schema:string prop ->
+  dataset_id:string prop ->
+  table_id:string prop ->
   encryption_configuration:
     google_bigquery_table__encryption_configuration list ->
   external_data_configuration:

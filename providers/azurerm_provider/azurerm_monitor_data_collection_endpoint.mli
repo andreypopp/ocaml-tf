@@ -6,14 +6,14 @@ type azurerm_monitor_data_collection_endpoint__timeouts
 type azurerm_monitor_data_collection_endpoint
 
 val azurerm_monitor_data_collection_endpoint :
-  ?description:string ->
-  ?id:string ->
-  ?kind:string ->
-  ?public_network_access_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kind:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_monitor_data_collection_endpoint__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

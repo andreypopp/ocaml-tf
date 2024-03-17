@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_key_vault_key__rotation_policy__automatic = {
-  time_after_creation : string option; [@option]
+  time_after_creation : string prop option; [@option]
       (** time_after_creation *)
-  time_before_expiry : string option; [@option]
+  time_before_expiry : string prop option; [@option]
       (** time_before_expiry *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_key__rotation_policy__automatic *)
 
 type azurerm_key_vault_key__rotation_policy = {
-  expire_after : string option; [@option]  (** expire_after *)
-  notify_before_expiry : string option; [@option]
+  expire_after : string prop option; [@option]  (** expire_after *)
+  notify_before_expiry : string prop option; [@option]
       (** notify_before_expiry *)
   automatic : azurerm_key_vault_key__rotation_policy__automatic list;
 }
@@ -23,25 +23,27 @@ type azurerm_key_vault_key__rotation_policy = {
 (** azurerm_key_vault_key__rotation_policy *)
 
 type azurerm_key_vault_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_key__timeouts *)
 
 type azurerm_key_vault_key = {
-  curve : string option; [@option]  (** curve *)
-  expiration_date : string option; [@option]  (** expiration_date *)
-  id : string option; [@option]  (** id *)
-  key_opts : string list;  (** key_opts *)
-  key_size : float option; [@option]  (** key_size *)
-  key_type : string;  (** key_type *)
-  key_vault_id : string;  (** key_vault_id *)
-  name : string;  (** name *)
-  not_before_date : string option; [@option]  (** not_before_date *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  curve : string prop option; [@option]  (** curve *)
+  expiration_date : string prop option; [@option]
+      (** expiration_date *)
+  id : string prop option; [@option]  (** id *)
+  key_opts : string prop list;  (** key_opts *)
+  key_size : float prop option; [@option]  (** key_size *)
+  key_type : string prop;  (** key_type *)
+  key_vault_id : string prop;  (** key_vault_id *)
+  name : string prop;  (** name *)
+  not_before_date : string prop option; [@option]
+      (** not_before_date *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   rotation_policy : azurerm_key_vault_key__rotation_policy list;
   timeouts : azurerm_key_vault_key__timeouts option;
 }

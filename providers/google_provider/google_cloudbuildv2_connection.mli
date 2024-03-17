@@ -20,21 +20,21 @@ type google_cloudbuildv2_connection__gitlab_config
 type google_cloudbuildv2_connection__timeouts
 
 type google_cloudbuildv2_connection__installation_state = {
-  action_uri : string;  (** action_uri *)
-  message : string;  (** message *)
-  stage : string;  (** stage *)
+  action_uri : string prop;  (** action_uri *)
+  message : string prop;  (** message *)
+  stage : string prop;  (** stage *)
 }
 
 type google_cloudbuildv2_connection
 
 val google_cloudbuildv2_connection :
-  ?annotations:(string * string) list ->
-  ?disabled:bool ->
-  ?id:string ->
-  ?project:string ->
+  ?annotations:(string * string prop) list ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_cloudbuildv2_connection__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   github_config:google_cloudbuildv2_connection__github_config list ->
   github_enterprise_config:
     google_cloudbuildv2_connection__github_enterprise_config list ->

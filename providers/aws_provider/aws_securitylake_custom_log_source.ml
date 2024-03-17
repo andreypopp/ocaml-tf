@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_securitylake_custom_log_source__configuration__crawler_configuration = {
-  role_arn : string;  (** role_arn *)
+  role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_securitylake_custom_log_source__configuration__crawler_configuration *)
 
 type aws_securitylake_custom_log_source__configuration__provider_identity = {
-  external_id : string;  (** external_id *)
-  principal : string;  (** principal *)
+  external_id : string prop;  (** external_id *)
+  principal : string prop;  (** principal *)
 }
 [@@deriving yojson_of]
 (** aws_securitylake_custom_log_source__configuration__provider_identity *)
@@ -29,22 +29,24 @@ type aws_securitylake_custom_log_source__configuration = {
 (** aws_securitylake_custom_log_source__configuration *)
 
 type aws_securitylake_custom_log_source__attributes = {
-  crawler_arn : string;  (** crawler_arn *)
-  database_arn : string;  (** database_arn *)
-  table_arn : string;  (** table_arn *)
+  crawler_arn : string prop;  (** crawler_arn *)
+  database_arn : string prop;  (** database_arn *)
+  table_arn : string prop;  (** table_arn *)
 }
 [@@deriving yojson_of]
 
 type aws_securitylake_custom_log_source__provider_details = {
-  location : string;  (** location *)
-  role_arn : string;  (** role_arn *)
+  location : string prop;  (** location *)
+  role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
 
 type aws_securitylake_custom_log_source = {
-  event_classes : string list option; [@option]  (** event_classes *)
-  source_name : string;  (** source_name *)
-  source_version : string option; [@option]  (** source_version *)
+  event_classes : string prop list option; [@option]
+      (** event_classes *)
+  source_name : string prop;  (** source_name *)
+  source_version : string prop option; [@option]
+      (** source_version *)
   configuration :
     aws_securitylake_custom_log_source__configuration list;
 }

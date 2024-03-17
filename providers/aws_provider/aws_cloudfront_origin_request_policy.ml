@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_cloudfront_origin_request_policy__cookies_config__cookies = {
-  items : string list option; [@option]  (** items *)
+  items : string prop list option; [@option]  (** items *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_request_policy__cookies_config__cookies *)
 
 type aws_cloudfront_origin_request_policy__cookies_config = {
-  cookie_behavior : string;  (** cookie_behavior *)
+  cookie_behavior : string prop;  (** cookie_behavior *)
   cookies :
     aws_cloudfront_origin_request_policy__cookies_config__cookies
     list;
@@ -20,13 +20,14 @@ type aws_cloudfront_origin_request_policy__cookies_config = {
 (** aws_cloudfront_origin_request_policy__cookies_config *)
 
 type aws_cloudfront_origin_request_policy__headers_config__headers = {
-  items : string list option; [@option]  (** items *)
+  items : string prop list option; [@option]  (** items *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_request_policy__headers_config__headers *)
 
 type aws_cloudfront_origin_request_policy__headers_config = {
-  header_behavior : string option; [@option]  (** header_behavior *)
+  header_behavior : string prop option; [@option]
+      (** header_behavior *)
   headers :
     aws_cloudfront_origin_request_policy__headers_config__headers
     list;
@@ -35,13 +36,13 @@ type aws_cloudfront_origin_request_policy__headers_config = {
 (** aws_cloudfront_origin_request_policy__headers_config *)
 
 type aws_cloudfront_origin_request_policy__query_strings_config__query_strings = {
-  items : string list option; [@option]  (** items *)
+  items : string prop list option; [@option]  (** items *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_request_policy__query_strings_config__query_strings *)
 
 type aws_cloudfront_origin_request_policy__query_strings_config = {
-  query_string_behavior : string;  (** query_string_behavior *)
+  query_string_behavior : string prop;  (** query_string_behavior *)
   query_strings :
     aws_cloudfront_origin_request_policy__query_strings_config__query_strings
     list;
@@ -50,9 +51,9 @@ type aws_cloudfront_origin_request_policy__query_strings_config = {
 (** aws_cloudfront_origin_request_policy__query_strings_config *)
 
 type aws_cloudfront_origin_request_policy = {
-  comment : string option; [@option]  (** comment *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  comment : string prop option; [@option]  (** comment *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   cookies_config :
     aws_cloudfront_origin_request_policy__cookies_config list;
   headers_config :

@@ -8,12 +8,12 @@ type azurerm_cognitive_deployment__timeouts
 type azurerm_cognitive_deployment
 
 val azurerm_cognitive_deployment :
-  ?id:string ->
-  ?rai_policy_name:string ->
-  ?version_upgrade_option:string ->
+  ?id:string prop ->
+  ?rai_policy_name:string prop ->
+  ?version_upgrade_option:string prop ->
   ?timeouts:azurerm_cognitive_deployment__timeouts ->
-  cognitive_account_id:string ->
-  name:string ->
+  cognitive_account_id:string prop ->
+  name:string prop ->
   model:azurerm_cognitive_deployment__model list ->
   scale:azurerm_cognitive_deployment__scale list ->
   string ->

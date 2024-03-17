@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_sql_function__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_function__timeouts *)
 
 type azurerm_cosmosdb_sql_function = {
-  body : string;  (** body *)
-  container_id : string;  (** container_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  body : string prop;  (** body *)
+  container_id : string prop;  (** container_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   timeouts : azurerm_cosmosdb_sql_function__timeouts option;
 }
 [@@deriving yojson_of]

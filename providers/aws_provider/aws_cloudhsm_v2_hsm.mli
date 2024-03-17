@@ -6,11 +6,11 @@ type aws_cloudhsm_v2_hsm__timeouts
 type aws_cloudhsm_v2_hsm
 
 val aws_cloudhsm_v2_hsm :
-  ?availability_zone:string ->
-  ?id:string ->
-  ?ip_address:string ->
-  ?subnet_id:string ->
+  ?availability_zone:string prop ->
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?subnet_id:string prop ->
   ?timeouts:aws_cloudhsm_v2_hsm__timeouts ->
-  cluster_id:string ->
+  cluster_id:string prop ->
   string ->
   unit

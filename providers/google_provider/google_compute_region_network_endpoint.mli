@@ -6,13 +6,13 @@ type google_compute_region_network_endpoint__timeouts
 type google_compute_region_network_endpoint
 
 val google_compute_region_network_endpoint :
-  ?fqdn:string ->
-  ?id:string ->
-  ?ip_address:string ->
-  ?project:string ->
-  ?region:string ->
+  ?fqdn:string prop ->
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_compute_region_network_endpoint__timeouts ->
-  port:float ->
-  region_network_endpoint_group:string ->
+  port:float prop ->
+  region_network_endpoint_group:string prop ->
   string ->
   unit

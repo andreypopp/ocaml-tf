@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_kms_alias = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  target_key_id : string;  (** target_key_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  target_key_id : string prop;  (** target_key_id *)
 }
 [@@deriving yojson_of]
 (** aws_kms_alias *)

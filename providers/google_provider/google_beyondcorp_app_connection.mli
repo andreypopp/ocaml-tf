@@ -8,15 +8,15 @@ type google_beyondcorp_app_connection__timeouts
 type google_beyondcorp_app_connection
 
 val google_beyondcorp_app_connection :
-  ?connectors:string list ->
-  ?display_name:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?region:string ->
-  ?type_:string ->
+  ?connectors:string prop list ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?type_:string prop ->
   ?timeouts:google_beyondcorp_app_connection__timeouts ->
-  name:string ->
+  name:string prop ->
   application_endpoint:
     google_beyondcorp_app_connection__application_endpoint list ->
   gateway:google_beyondcorp_app_connection__gateway list ->

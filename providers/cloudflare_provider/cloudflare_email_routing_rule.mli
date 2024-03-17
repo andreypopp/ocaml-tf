@@ -7,10 +7,10 @@ type cloudflare_email_routing_rule__matcher
 type cloudflare_email_routing_rule
 
 val cloudflare_email_routing_rule :
-  ?enabled:bool ->
-  ?priority:float ->
-  name:string ->
-  zone_id:string ->
+  ?enabled:bool prop ->
+  ?priority:float prop ->
+  name:string prop ->
+  zone_id:string prop ->
   action:cloudflare_email_routing_rule__action list ->
   matcher:cloudflare_email_routing_rule__matcher list ->
   string ->

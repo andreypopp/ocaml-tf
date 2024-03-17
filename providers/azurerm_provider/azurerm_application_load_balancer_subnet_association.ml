@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_application_load_balancer_subnet_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_load_balancer_subnet_association__timeouts *)
 
 type azurerm_application_load_balancer_subnet_association = {
-  application_load_balancer_id : string;
+  application_load_balancer_id : string prop;
       (** application_load_balancer_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  subnet_id : string;  (** subnet_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  subnet_id : string prop;  (** subnet_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts :
     azurerm_application_load_balancer_subnet_association__timeouts
     option;

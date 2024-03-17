@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_dns_ns_record__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_dns_ns_record__timeouts *)
 
 type azurerm_dns_ns_record = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  records : string list;  (** records *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  ttl : float;  (** ttl *)
-  zone_name : string;  (** zone_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  records : string prop list;  (** records *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  ttl : float prop;  (** ttl *)
+  zone_name : string prop;  (** zone_name *)
   timeouts : azurerm_dns_ns_record__timeouts option;
 }
 [@@deriving yojson_of]

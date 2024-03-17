@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_access_context_manager_access_policy_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_access_policy_iam_binding__condition *)
 
 type google_access_context_manager_access_policy_iam_binding = {
-  id : string option; [@option]  (** id *)
-  members : string list;  (** members *)
-  name : string;  (** name *)
-  role : string;  (** role *)
+  id : string prop option; [@option]  (** id *)
+  members : string prop list;  (** members *)
+  name : string prop;  (** name *)
+  role : string prop;  (** role *)
   condition :
     google_access_context_manager_access_policy_iam_binding__condition
     list;

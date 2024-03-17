@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_eip_association = {
-  allocation_id : string option; [@option]  (** allocation_id *)
-  allow_reassociation : bool option; [@option]
+  allocation_id : string prop option; [@option]  (** allocation_id *)
+  allow_reassociation : bool prop option; [@option]
       (** allow_reassociation *)
-  id : string option; [@option]  (** id *)
-  instance_id : string option; [@option]  (** instance_id *)
-  network_interface_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop option; [@option]  (** instance_id *)
+  network_interface_id : string prop option; [@option]
       (** network_interface_id *)
-  private_ip_address : string option; [@option]
+  private_ip_address : string prop option; [@option]
       (** private_ip_address *)
-  public_ip : string option; [@option]  (** public_ip *)
+  public_ip : string prop option; [@option]  (** public_ip *)
 }
 [@@deriving yojson_of]
 (** aws_eip_association *)

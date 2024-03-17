@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type cloudflare_tunnel_virtual_network = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  comment : string option; [@option]
+  comment : string prop option; [@option]
       (** Description of the tunnel virtual network. *)
-  id : string option; [@option]  (** id *)
-  is_default_network : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  is_default_network : bool prop option; [@option]
       (** Whether this virtual network is the default one for the account. This means IP Routes belong to this virtual network and Teams Clients in the account route through this virtual network, unless specified otherwise for each case. *)
-  name : string;
+  name : string prop;
       (** A user-friendly name chosen when the virtual network is created. *)
 }
 [@@deriving yojson_of]

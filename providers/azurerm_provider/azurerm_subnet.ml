@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type azurerm_subnet__delegation__service_delegation = {
-  actions : string list option; [@option]  (** actions *)
-  name : string;  (** name *)
+  actions : string prop list option; [@option]  (** actions *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_subnet__delegation__service_delegation *)
 
 type azurerm_subnet__delegation = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   service_delegation :
     azurerm_subnet__delegation__service_delegation list;
 }
@@ -20,35 +20,36 @@ type azurerm_subnet__delegation = {
 (** azurerm_subnet__delegation *)
 
 type azurerm_subnet__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_subnet__timeouts *)
 
 type azurerm_subnet = {
-  address_prefixes : string list;  (** address_prefixes *)
-  enforce_private_link_endpoint_network_policies : bool option;
+  address_prefixes : string prop list;  (** address_prefixes *)
+  enforce_private_link_endpoint_network_policies : bool prop option;
       [@option]
       (** enforce_private_link_endpoint_network_policies *)
-  enforce_private_link_service_network_policies : bool option;
+  enforce_private_link_service_network_policies : bool prop option;
       [@option]
       (** enforce_private_link_service_network_policies *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  private_endpoint_network_policies_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  private_endpoint_network_policies_enabled : bool prop option;
+      [@option]
       (** private_endpoint_network_policies_enabled *)
-  private_link_service_network_policies_enabled : bool option;
+  private_link_service_network_policies_enabled : bool prop option;
       [@option]
       (** private_link_service_network_policies_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  service_endpoint_policy_ids : string list option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  service_endpoint_policy_ids : string prop list option; [@option]
       (** service_endpoint_policy_ids *)
-  service_endpoints : string list option; [@option]
+  service_endpoints : string prop list option; [@option]
       (** service_endpoints *)
-  virtual_network_name : string;  (** virtual_network_name *)
+  virtual_network_name : string prop;  (** virtual_network_name *)
   delegation : azurerm_subnet__delegation list;
   timeouts : azurerm_subnet__timeouts option;
 }

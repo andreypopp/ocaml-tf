@@ -5,30 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_java_deployment__quota = {
-  cpu : string option; [@option]  (** cpu *)
-  memory : string option; [@option]  (** memory *)
+  cpu : string prop option; [@option]  (** cpu *)
+  memory : string prop option; [@option]  (** memory *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_java_deployment__quota *)
 
 type azurerm_spring_cloud_java_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_java_deployment__timeouts *)
 
 type azurerm_spring_cloud_java_deployment = {
-  environment_variables : (string * string) list option; [@option]
+  environment_variables : (string * string prop) list option;
+      [@option]
       (** environment_variables *)
-  id : string option; [@option]  (** id *)
-  instance_count : float option; [@option]  (** instance_count *)
-  jvm_options : string option; [@option]  (** jvm_options *)
-  name : string;  (** name *)
-  runtime_version : string option; [@option]  (** runtime_version *)
-  spring_cloud_app_id : string;  (** spring_cloud_app_id *)
+  id : string prop option; [@option]  (** id *)
+  instance_count : float prop option; [@option]
+      (** instance_count *)
+  jvm_options : string prop option; [@option]  (** jvm_options *)
+  name : string prop;  (** name *)
+  runtime_version : string prop option; [@option]
+      (** runtime_version *)
+  spring_cloud_app_id : string prop;  (** spring_cloud_app_id *)
   quota : azurerm_spring_cloud_java_deployment__quota list;
   timeouts : azurerm_spring_cloud_java_deployment__timeouts option;
 }

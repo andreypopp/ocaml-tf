@@ -13,13 +13,13 @@ type aws_athena_workgroup__configuration
 type aws_athena_workgroup
 
 val aws_athena_workgroup :
-  ?description:string ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?state:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?description:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?state:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   configuration:aws_athena_workgroup__configuration list ->
   string ->
   unit

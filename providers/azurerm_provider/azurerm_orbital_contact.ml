@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_orbital_contact__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_orbital_contact__timeouts *)
 
 type azurerm_orbital_contact = {
-  contact_profile_id : string;  (** contact_profile_id *)
-  ground_station_name : string;  (** ground_station_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  reservation_end_time : string;  (** reservation_end_time *)
-  reservation_start_time : string;  (** reservation_start_time *)
-  spacecraft_id : string;  (** spacecraft_id *)
+  contact_profile_id : string prop;  (** contact_profile_id *)
+  ground_station_name : string prop;  (** ground_station_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  reservation_end_time : string prop;  (** reservation_end_time *)
+  reservation_start_time : string prop;
+      (** reservation_start_time *)
+  spacecraft_id : string prop;  (** spacecraft_id *)
   timeouts : azurerm_orbital_contact__timeouts option;
 }
 [@@deriving yojson_of]

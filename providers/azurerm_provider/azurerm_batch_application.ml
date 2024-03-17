@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_batch_application__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_batch_application__timeouts *)
 
 type azurerm_batch_application = {
-  account_name : string;  (** account_name *)
-  allow_updates : bool option; [@option]  (** allow_updates *)
-  default_version : string option; [@option]  (** default_version *)
-  display_name : string option; [@option]  (** display_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  account_name : string prop;  (** account_name *)
+  allow_updates : bool prop option; [@option]  (** allow_updates *)
+  default_version : string prop option; [@option]
+      (** default_version *)
+  display_name : string prop option; [@option]  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_batch_application__timeouts option;
 }
 [@@deriving yojson_of]

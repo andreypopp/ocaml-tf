@@ -5,52 +5,55 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_trigger_tumbling_window__pipeline = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_tumbling_window__pipeline *)
 
 type azurerm_data_factory_trigger_tumbling_window__retry = {
-  count : float;  (** count *)
-  interval : float option; [@option]  (** interval *)
+  count : float prop;  (** count *)
+  interval : float prop option; [@option]  (** interval *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_tumbling_window__retry *)
 
 type azurerm_data_factory_trigger_tumbling_window__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_tumbling_window__timeouts *)
 
 type azurerm_data_factory_trigger_tumbling_window__trigger_dependency = {
-  offset : string option; [@option]  (** offset *)
-  size : string option; [@option]  (** size *)
-  trigger_name : string option; [@option]  (** trigger_name *)
+  offset : string prop option; [@option]  (** offset *)
+  size : string prop option; [@option]  (** size *)
+  trigger_name : string prop option; [@option]  (** trigger_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_trigger_tumbling_window__trigger_dependency *)
 
 type azurerm_data_factory_trigger_tumbling_window = {
-  activated : bool option; [@option]  (** activated *)
-  additional_properties : (string * string) list option; [@option]
+  activated : bool prop option; [@option]  (** activated *)
+  additional_properties : (string * string prop) list option;
+      [@option]
       (** additional_properties *)
-  annotations : string list option; [@option]  (** annotations *)
-  data_factory_id : string;  (** data_factory_id *)
-  delay : string option; [@option]  (** delay *)
-  description : string option; [@option]  (** description *)
-  end_time : string option; [@option]  (** end_time *)
-  frequency : string;  (** frequency *)
-  id : string option; [@option]  (** id *)
-  interval : float;  (** interval *)
-  max_concurrency : float option; [@option]  (** max_concurrency *)
-  name : string;  (** name *)
-  start_time : string;  (** start_time *)
+  annotations : string prop list option; [@option]
+      (** annotations *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  delay : string prop option; [@option]  (** delay *)
+  description : string prop option; [@option]  (** description *)
+  end_time : string prop option; [@option]  (** end_time *)
+  frequency : string prop;  (** frequency *)
+  id : string prop option; [@option]  (** id *)
+  interval : float prop;  (** interval *)
+  max_concurrency : float prop option; [@option]
+      (** max_concurrency *)
+  name : string prop;  (** name *)
+  start_time : string prop;  (** start_time *)
   pipeline :
     azurerm_data_factory_trigger_tumbling_window__pipeline list;
   retry : azurerm_data_factory_trigger_tumbling_window__retry list;

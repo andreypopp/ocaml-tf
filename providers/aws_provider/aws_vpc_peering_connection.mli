@@ -8,15 +8,15 @@ type aws_vpc_peering_connection__timeouts
 type aws_vpc_peering_connection
 
 val aws_vpc_peering_connection :
-  ?auto_accept:bool ->
-  ?id:string ->
-  ?peer_owner_id:string ->
-  ?peer_region:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?auto_accept:bool prop ->
+  ?id:string prop ->
+  ?peer_owner_id:string prop ->
+  ?peer_region:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_vpc_peering_connection__timeouts ->
-  peer_vpc_id:string ->
-  vpc_id:string ->
+  peer_vpc_id:string prop ->
+  vpc_id:string prop ->
   accepter:aws_vpc_peering_connection__accepter list ->
   requester:aws_vpc_peering_connection__requester list ->
   string ->

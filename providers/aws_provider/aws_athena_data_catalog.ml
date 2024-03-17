@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_athena_data_catalog = {
-  description : string;  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  parameters : (string * string) list;  (** parameters *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop;  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list;  (** parameters *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_athena_data_catalog *)

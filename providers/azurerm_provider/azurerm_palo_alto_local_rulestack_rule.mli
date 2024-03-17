@@ -9,24 +9,24 @@ type azurerm_palo_alto_local_rulestack_rule__timeouts
 type azurerm_palo_alto_local_rulestack_rule
 
 val azurerm_palo_alto_local_rulestack_rule :
-  ?audit_comment:string ->
-  ?decryption_rule_type:string ->
-  ?description:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?inspection_certificate_id:string ->
-  ?logging_enabled:bool ->
-  ?negate_destination:bool ->
-  ?negate_source:bool ->
-  ?protocol:string ->
-  ?protocol_ports:string list ->
-  ?tags:(string * string) list ->
+  ?audit_comment:string prop ->
+  ?decryption_rule_type:string prop ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?inspection_certificate_id:string prop ->
+  ?logging_enabled:bool prop ->
+  ?negate_destination:bool prop ->
+  ?negate_source:bool prop ->
+  ?protocol:string prop ->
+  ?protocol_ports:string prop list ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_palo_alto_local_rulestack_rule__timeouts ->
-  action:string ->
-  applications:string list ->
-  name:string ->
-  priority:float ->
-  rulestack_id:string ->
+  action:string prop ->
+  applications:string prop list ->
+  name:string prop ->
+  priority:float prop ->
+  rulestack_id:string prop ->
   category:azurerm_palo_alto_local_rulestack_rule__category list ->
   destination:
     azurerm_palo_alto_local_rulestack_rule__destination list ->

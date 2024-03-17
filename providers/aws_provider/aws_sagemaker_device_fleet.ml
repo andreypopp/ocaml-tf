@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_sagemaker_device_fleet__output_config = {
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  s3_output_location : string;  (** s3_output_location *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  s3_output_location : string prop;  (** s3_output_location *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_device_fleet__output_config *)
 
 type aws_sagemaker_device_fleet = {
-  description : string option; [@option]  (** description *)
-  device_fleet_name : string;  (** device_fleet_name *)
-  enable_iot_role_alias : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  device_fleet_name : string prop;  (** device_fleet_name *)
+  enable_iot_role_alias : bool prop option; [@option]
       (** enable_iot_role_alias *)
-  id : string option; [@option]  (** id *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   output_config : aws_sagemaker_device_fleet__output_config list;
 }

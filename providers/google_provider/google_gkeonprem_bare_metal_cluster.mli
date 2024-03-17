@@ -80,30 +80,30 @@ type google_gkeonprem_bare_metal_cluster__timeouts
 type google_gkeonprem_bare_metal_cluster__upgrade_policy
 
 type google_gkeonprem_bare_metal_cluster__fleet = {
-  membership : string;  (** membership *)
+  membership : string prop;  (** membership *)
 }
 
 type google_gkeonprem_bare_metal_cluster__status__conditions = {
-  last_transition_time : string;  (** last_transition_time *)
-  message : string;  (** message *)
-  reason : string;  (** reason *)
-  state : string;  (** state *)
-  type_ : string; [@key "type"]  (** type *)
+  last_transition_time : string prop;  (** last_transition_time *)
+  message : string prop;  (** message *)
+  reason : string prop;  (** reason *)
+  state : string prop;  (** state *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_gkeonprem_bare_metal_cluster__status = {
   conditions :
     google_gkeonprem_bare_metal_cluster__status__conditions list;
       (** conditions *)
-  error_message : string;  (** error_message *)
+  error_message : string prop;  (** error_message *)
 }
 
 type google_gkeonprem_bare_metal_cluster__validation_check__status__result = {
-  category : string;  (** category *)
-  description : string;  (** description *)
-  details : string;  (** details *)
-  options : string;  (** options *)
-  reason : string;  (** reason *)
+  category : string prop;  (** category *)
+  description : string prop;  (** description *)
+  details : string prop;  (** details *)
+  options : string prop;  (** options *)
+  reason : string prop;  (** reason *)
 }
 
 type google_gkeonprem_bare_metal_cluster__validation_check__status = {
@@ -114,8 +114,8 @@ type google_gkeonprem_bare_metal_cluster__validation_check__status = {
 }
 
 type google_gkeonprem_bare_metal_cluster__validation_check = {
-  options : string;  (** options *)
-  scenario : string;  (** scenario *)
+  options : string prop;  (** options *)
+  scenario : string prop;  (** scenario *)
   status :
     google_gkeonprem_bare_metal_cluster__validation_check__status
     list;
@@ -125,15 +125,15 @@ type google_gkeonprem_bare_metal_cluster__validation_check = {
 type google_gkeonprem_bare_metal_cluster
 
 val google_gkeonprem_bare_metal_cluster :
-  ?annotations:(string * string) list ->
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
+  ?annotations:(string * string prop) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_gkeonprem_bare_metal_cluster__timeouts ->
-  admin_cluster_membership:string ->
-  bare_metal_version:string ->
-  location:string ->
-  name:string ->
+  admin_cluster_membership:string prop ->
+  bare_metal_version:string prop ->
+  location:string prop ->
+  name:string prop ->
   binary_authorization:
     google_gkeonprem_bare_metal_cluster__binary_authorization list ->
   cluster_operations:

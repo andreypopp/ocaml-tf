@@ -6,9 +6,9 @@ type aws_inspector2_enabler__timeouts
 type aws_inspector2_enabler
 
 val aws_inspector2_enabler :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_inspector2_enabler__timeouts ->
-  account_ids:string list ->
-  resource_types:string list ->
+  account_ids:string prop list ->
+  resource_types:string prop list ->
   string ->
   unit

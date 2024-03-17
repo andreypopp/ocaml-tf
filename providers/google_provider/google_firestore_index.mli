@@ -7,13 +7,13 @@ type google_firestore_index__timeouts
 type google_firestore_index
 
 val google_firestore_index :
-  ?api_scope:string ->
-  ?database:string ->
-  ?id:string ->
-  ?project:string ->
-  ?query_scope:string ->
+  ?api_scope:string prop ->
+  ?database:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?query_scope:string prop ->
   ?timeouts:google_firestore_index__timeouts ->
-  collection:string ->
+  collection:string prop ->
   fields:google_firestore_index__fields list ->
   string ->
   unit

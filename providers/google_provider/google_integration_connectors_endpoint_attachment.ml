@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type google_integration_connectors_endpoint_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_integration_connectors_endpoint_attachment__timeouts *)
 
 type google_integration_connectors_endpoint_attachment = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of the resource. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;
+  location : string prop;
       (** Location in which Endpoint Attachment needs to be created. *)
-  name : string;
+  name : string prop;
       (** Name of Endpoint Attachment needs to be created. *)
-  project : string option; [@option]  (** project *)
-  service_attachment : string;
+  project : string prop option; [@option]  (** project *)
+  service_attachment : string prop;
       (** The path of the service attachment. *)
   timeouts :
     google_integration_connectors_endpoint_attachment__timeouts

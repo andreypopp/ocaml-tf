@@ -10,16 +10,16 @@ type azurerm_dev_test_schedule__weekly_recurrence
 type azurerm_dev_test_schedule
 
 val azurerm_dev_test_schedule :
-  ?id:string ->
-  ?status:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_dev_test_schedule__timeouts ->
-  lab_name:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  task_type:string ->
-  time_zone_id:string ->
+  lab_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  task_type:string prop ->
+  time_zone_id:string prop ->
   daily_recurrence:azurerm_dev_test_schedule__daily_recurrence list ->
   hourly_recurrence:azurerm_dev_test_schedule__hourly_recurrence list ->
   notification_settings:

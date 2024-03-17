@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_log_analytics_datasource_windows_performance_counter__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_datasource_windows_performance_counter__timeouts *)
 
 type azurerm_log_analytics_datasource_windows_performance_counter = {
-  counter_name : string;  (** counter_name *)
-  id : string option; [@option]  (** id *)
-  instance_name : string;  (** instance_name *)
-  interval_seconds : float;  (** interval_seconds *)
-  name : string;  (** name *)
-  object_name : string;  (** object_name *)
-  resource_group_name : string;  (** resource_group_name *)
-  workspace_name : string;  (** workspace_name *)
+  counter_name : string prop;  (** counter_name *)
+  id : string prop option; [@option]  (** id *)
+  instance_name : string prop;  (** instance_name *)
+  interval_seconds : float prop;  (** interval_seconds *)
+  name : string prop;  (** name *)
+  object_name : string prop;  (** object_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  workspace_name : string prop;  (** workspace_name *)
   timeouts :
     azurerm_log_analytics_datasource_windows_performance_counter__timeouts
     option;

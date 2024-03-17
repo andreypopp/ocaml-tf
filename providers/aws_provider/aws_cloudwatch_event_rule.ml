@@ -5,19 +5,21 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_event_rule = {
-  description : string option; [@option]  (** description *)
-  event_bus_name : string option; [@option]  (** event_bus_name *)
-  event_pattern : string option; [@option]  (** event_pattern *)
-  id : string option; [@option]  (** id *)
-  is_enabled : bool option; [@option]  (** is_enabled *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  role_arn : string option; [@option]  (** role_arn *)
-  schedule_expression : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  event_bus_name : string prop option; [@option]
+      (** event_bus_name *)
+  event_pattern : string prop option; [@option]  (** event_pattern *)
+  id : string prop option; [@option]  (** id *)
+  is_enabled : bool prop option; [@option]  (** is_enabled *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  role_arn : string prop option; [@option]  (** role_arn *)
+  schedule_expression : string prop option; [@option]
       (** schedule_expression *)
-  state : string option; [@option]  (** state *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  state : string prop option; [@option]  (** state *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_rule *)

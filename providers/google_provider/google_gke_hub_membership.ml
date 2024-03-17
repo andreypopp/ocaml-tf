@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_gke_hub_membership__authority = {
-  issuer : string;
+  issuer : string prop;
       (** A JSON Web Token (JWT) issuer URI. 'issuer' must start with 'https://' and // be a valid
 with length <2000 characters. For example: 'https://container.googleapis.com/v1/projects/my-project/locations/us-west1/clusters/my-cluster' (must be 'locations' rather than 'zones'). If the cluster is provisioned with Terraform, this is 'https://container.googleapis.com/v1/${google_container_cluster.my-cluster.id}'. *)
 }
@@ -15,7 +15,7 @@ See the workload identity documentation for more details:
 https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity *)
 
 type google_gke_hub_membership__endpoint__gke_cluster = {
-  resource_link : string;
+  resource_link : string prop;
       (** Self-link of the GCP resource for the GKE cluster.
 For example: '//container.googleapis.com/projects/my-project/zones/us-west1-a/clusters/my-cluster'.
 It can be at the most 1000 characters in length. If the cluster is provisioned with Terraform,
@@ -32,27 +32,27 @@ type google_gke_hub_membership__endpoint = {
 (** If this Membership is a Kubernetes API server hosted on GKE, this is a self link to its GCP resource. *)
 
 type google_gke_hub_membership__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_gke_hub_membership__timeouts *)
 
 type google_gke_hub_membership = {
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Labels to apply to this membership.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string option; [@option]
+  location : string prop option; [@option]
       (** Location of the membership.
 The default value is 'global'. *)
-  membership_id : string;
+  membership_id : string prop;
       (** The client-provided identifier of the membership. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   authority : google_gke_hub_membership__authority list;
   endpoint : google_gke_hub_membership__endpoint list;
   timeouts : google_gke_hub_membership__timeouts option;

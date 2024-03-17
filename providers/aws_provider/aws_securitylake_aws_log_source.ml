@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_securitylake_aws_log_source__source = {
-  accounts : string list option; [@option]  (** accounts *)
-  regions : string list;  (** regions *)
-  source_name : string;  (** source_name *)
-  source_version : string option; [@option]  (** source_version *)
+  accounts : string prop list option; [@option]  (** accounts *)
+  regions : string prop list;  (** regions *)
+  source_name : string prop;  (** source_name *)
+  source_version : string prop option; [@option]
+      (** source_version *)
 }
 [@@deriving yojson_of]
 (** aws_securitylake_aws_log_source__source *)

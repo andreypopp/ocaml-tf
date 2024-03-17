@@ -5,50 +5,52 @@
 open! Tf.Prelude
 
 type azurerm_sql_server__identity = {
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_sql_server__identity *)
 
 type azurerm_sql_server__threat_detection_policy = {
-  disabled_alerts : string list option; [@option]
+  disabled_alerts : string prop list option; [@option]
       (** disabled_alerts *)
-  email_account_admins : bool option; [@option]
+  email_account_admins : bool prop option; [@option]
       (** email_account_admins *)
-  email_addresses : string list option; [@option]
+  email_addresses : string prop list option; [@option]
       (** email_addresses *)
-  retention_days : float option; [@option]  (** retention_days *)
-  state : string option; [@option]  (** state *)
-  storage_account_access_key : string option; [@option]
+  retention_days : float prop option; [@option]
+      (** retention_days *)
+  state : string prop option; [@option]  (** state *)
+  storage_account_access_key : string prop option; [@option]
       (** storage_account_access_key *)
-  storage_endpoint : string option; [@option]  (** storage_endpoint *)
+  storage_endpoint : string prop option; [@option]
+      (** storage_endpoint *)
 }
 [@@deriving yojson_of]
 (** azurerm_sql_server__threat_detection_policy *)
 
 type azurerm_sql_server__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sql_server__timeouts *)
 
 type azurerm_sql_server = {
-  administrator_login : string;  (** administrator_login *)
-  administrator_login_password : string;
+  administrator_login : string prop;  (** administrator_login *)
+  administrator_login_password : string prop;
       (** administrator_login_password *)
-  connection_policy : string option; [@option]
+  connection_policy : string prop option; [@option]
       (** connection_policy *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  version : string;  (** version *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  version : string prop;  (** version *)
   identity : azurerm_sql_server__identity list;
   threat_detection_policy :
     azurerm_sql_server__threat_detection_policy list;

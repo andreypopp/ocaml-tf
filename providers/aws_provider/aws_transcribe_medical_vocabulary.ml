@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_transcribe_medical_vocabulary__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_transcribe_medical_vocabulary__timeouts *)
 
 type aws_transcribe_medical_vocabulary = {
-  id : string option; [@option]  (** id *)
-  language_code : string;  (** language_code *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  language_code : string prop;  (** language_code *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vocabulary_file_uri : string;  (** vocabulary_file_uri *)
-  vocabulary_name : string;  (** vocabulary_name *)
+  vocabulary_file_uri : string prop;  (** vocabulary_file_uri *)
+  vocabulary_name : string prop;  (** vocabulary_name *)
   timeouts : aws_transcribe_medical_vocabulary__timeouts option;
 }
 [@@deriving yojson_of]

@@ -6,10 +6,10 @@ type kubernetes_config_map_v1__metadata
 type kubernetes_config_map_v1
 
 val kubernetes_config_map_v1 :
-  ?binary_data:(string * string) list ->
-  ?data:(string * string) list ->
-  ?id:string ->
-  ?immutable:bool ->
+  ?binary_data:(string * string prop) list ->
+  ?data:(string * string prop) list ->
+  ?id:string prop ->
+  ?immutable:bool prop ->
   metadata:kubernetes_config_map_v1__metadata list ->
   string ->
   unit

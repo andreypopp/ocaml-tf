@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_log_analytics_data_export_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_data_export_rule__timeouts *)
 
 type azurerm_log_analytics_data_export_rule = {
-  destination_resource_id : string;  (** destination_resource_id *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  table_names : string list;  (** table_names *)
-  workspace_resource_id : string;  (** workspace_resource_id *)
+  destination_resource_id : string prop;
+      (** destination_resource_id *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  table_names : string prop list;  (** table_names *)
+  workspace_resource_id : string prop;  (** workspace_resource_id *)
   timeouts : azurerm_log_analytics_data_export_rule__timeouts option;
 }
 [@@deriving yojson_of]

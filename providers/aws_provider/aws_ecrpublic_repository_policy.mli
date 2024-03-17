@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_ecrpublic_repository_policy
 
 val aws_ecrpublic_repository_policy :
-  ?id:string ->
-  policy:string ->
-  repository_name:string ->
+  ?id:string prop ->
+  policy:string prop ->
+  repository_name:string prop ->
   string ->
   unit

@@ -7,11 +7,11 @@ type aws_rolesanywhere_trust_anchor__source
 type aws_rolesanywhere_trust_anchor
 
 val aws_rolesanywhere_trust_anchor :
-  ?enabled:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   source:aws_rolesanywhere_trust_anchor__source list ->
   string ->
   unit

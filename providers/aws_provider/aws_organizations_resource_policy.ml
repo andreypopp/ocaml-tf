@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_organizations_resource_policy = {
-  content : string;  (** content *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  content : string prop;  (** content *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_organizations_resource_policy *)

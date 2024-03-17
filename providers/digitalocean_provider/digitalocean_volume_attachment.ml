@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type digitalocean_volume_attachment = {
-  droplet_id : float;  (** droplet_id *)
-  id : string option; [@option]  (** id *)
-  volume_id : string;  (** volume_id *)
+  droplet_id : float prop;  (** droplet_id *)
+  id : string prop option; [@option]  (** id *)
+  volume_id : string prop;  (** volume_id *)
 }
 [@@deriving yojson_of]
 (** digitalocean_volume_attachment *)

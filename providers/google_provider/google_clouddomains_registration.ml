@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type google_clouddomains_registration__contact_settings__admin_contact__postal_address = {
-  address_lines : string list option; [@option]
+  address_lines : string prop list option; [@option]
       (** Unstructured address lines describing the lower levels of an address.
 Because values in addressLines do not have type information and may sometimes contain multiple values in a single
 field (e.g. Austin, TX), it is important that the line order is clear. The order of address lines should be
 envelope order for the country/region of the address. In places where this can vary (e.g. Japan), address_language
 is used to make it explicit (e.g. ja for large-to-small ordering and ja-Latn or en for small-to-large). This way,
 the most specific line of an address can be selected based on the language. *)
-  administrative_area : string option; [@option]
+  administrative_area : string prop option; [@option]
       (** Highest administrative subdivision which is used for postal addresses of a country or region. For example, this can be a state,
 a province, an oblast, or a prefecture. Specifically, for Spain this is the province and not the autonomous community
 (e.g. Barcelona and not Catalonia). Many countries don't use an administrative area in postal addresses. E.g. in Switzerland
 this should be left unpopulated. *)
-  locality : string option; [@option]
+  locality : string prop option; [@option]
       (** Generally refers to the city/town portion of the address. Examples: US city, IT comune, UK post town. In regions of the world
 where localities are not well defined or do not fit into this structure well, leave locality empty and use addressLines. *)
-  organization : string option; [@option]
+  organization : string prop option; [@option]
       (** The name of the organization at the address. *)
-  postal_code : string option; [@option]
+  postal_code : string prop option; [@option]
       (** Postal code of the address. Not all countries use or require postal codes to be present, but where they are used,
 they may trigger additional validation with other parts of the address (e.g. state/zip validation in the U.S.A.). *)
-  recipients : string list option; [@option]
+  recipients : string prop list option; [@option]
       (** The recipient at the address. This field may, under certain circumstances, contain multiline information. For example,
 it might contain care of information. *)
-  region_code : string;
+  region_code : string prop;
       (** Required. CLDR region code of the country/region of the address. This is never inferred and it is up to the user to
 ensure the value is correct. See https://cldr.unicode.org/ and
 https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html for details. Example: CH for Switzerland. *)
@@ -37,10 +37,11 @@ https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html f
 (** Required. Postal address of the contact. *)
 
 type google_clouddomains_registration__contact_settings__admin_contact = {
-  email : string;  (** Required. Email address of the contact. *)
-  fax_number : string option; [@option]
+  email : string prop;
+      (** Required. Email address of the contact. *)
+  fax_number : string prop option; [@option]
       (** Fax number of the contact in international format. For example, +1-800-555-0123. *)
-  phone_number : string;
+  phone_number : string prop;
       (** Required. Phone number of the contact in international format. For example, +1-800-555-0123. *)
   postal_address :
     google_clouddomains_registration__contact_settings__admin_contact__postal_address
@@ -53,30 +54,30 @@ Warning: For new Registrations, the registrant receives an email confirmation th
 avoid domain suspension. *)
 
 type google_clouddomains_registration__contact_settings__registrant_contact__postal_address = {
-  address_lines : string list option; [@option]
+  address_lines : string prop list option; [@option]
       (** Unstructured address lines describing the lower levels of an address.
 Because values in addressLines do not have type information and may sometimes contain multiple values in a single
 field (e.g. Austin, TX), it is important that the line order is clear. The order of address lines should be
 envelope order for the country/region of the address. In places where this can vary (e.g. Japan), address_language
 is used to make it explicit (e.g. ja for large-to-small ordering and ja-Latn or en for small-to-large). This way,
 the most specific line of an address can be selected based on the language. *)
-  administrative_area : string option; [@option]
+  administrative_area : string prop option; [@option]
       (** Highest administrative subdivision which is used for postal addresses of a country or region. For example, this can be a state,
 a province, an oblast, or a prefecture. Specifically, for Spain this is the province and not the autonomous community
 (e.g. Barcelona and not Catalonia). Many countries don't use an administrative area in postal addresses. E.g. in Switzerland
 this should be left unpopulated. *)
-  locality : string option; [@option]
+  locality : string prop option; [@option]
       (** Generally refers to the city/town portion of the address. Examples: US city, IT comune, UK post town. In regions of the world
 where localities are not well defined or do not fit into this structure well, leave locality empty and use addressLines. *)
-  organization : string option; [@option]
+  organization : string prop option; [@option]
       (** The name of the organization at the address. *)
-  postal_code : string option; [@option]
+  postal_code : string prop option; [@option]
       (** Postal code of the address. Not all countries use or require postal codes to be present, but where they are used,
 they may trigger additional validation with other parts of the address (e.g. state/zip validation in the U.S.A.). *)
-  recipients : string list option; [@option]
+  recipients : string prop list option; [@option]
       (** The recipient at the address. This field may, under certain circumstances, contain multiline information. For example,
 it might contain care of information. *)
-  region_code : string;
+  region_code : string prop;
       (** Required. CLDR region code of the country/region of the address. This is never inferred and it is up to the user to
 ensure the value is correct. See https://cldr.unicode.org/ and
 https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html for details. Example: CH for Switzerland. *)
@@ -85,10 +86,11 @@ https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html f
 (** Required. Postal address of the contact. *)
 
 type google_clouddomains_registration__contact_settings__registrant_contact = {
-  email : string;  (** Required. Email address of the contact. *)
-  fax_number : string option; [@option]
+  email : string prop;
+      (** Required. Email address of the contact. *)
+  fax_number : string prop option; [@option]
       (** Fax number of the contact in international format. For example, +1-800-555-0123. *)
-  phone_number : string;
+  phone_number : string prop;
       (** Required. Phone number of the contact in international format. For example, +1-800-555-0123. *)
   postal_address :
     google_clouddomains_registration__contact_settings__registrant_contact__postal_address
@@ -101,30 +103,30 @@ Warning: For new Registrations, the registrant receives an email confirmation th
 avoid domain suspension. *)
 
 type google_clouddomains_registration__contact_settings__technical_contact__postal_address = {
-  address_lines : string list option; [@option]
+  address_lines : string prop list option; [@option]
       (** Unstructured address lines describing the lower levels of an address.
 Because values in addressLines do not have type information and may sometimes contain multiple values in a single
 field (e.g. Austin, TX), it is important that the line order is clear. The order of address lines should be
 envelope order for the country/region of the address. In places where this can vary (e.g. Japan), address_language
 is used to make it explicit (e.g. ja for large-to-small ordering and ja-Latn or en for small-to-large). This way,
 the most specific line of an address can be selected based on the language. *)
-  administrative_area : string option; [@option]
+  administrative_area : string prop option; [@option]
       (** Highest administrative subdivision which is used for postal addresses of a country or region. For example, this can be a state,
 a province, an oblast, or a prefecture. Specifically, for Spain this is the province and not the autonomous community
 (e.g. Barcelona and not Catalonia). Many countries don't use an administrative area in postal addresses. E.g. in Switzerland
 this should be left unpopulated. *)
-  locality : string option; [@option]
+  locality : string prop option; [@option]
       (** Generally refers to the city/town portion of the address. Examples: US city, IT comune, UK post town. In regions of the world
 where localities are not well defined or do not fit into this structure well, leave locality empty and use addressLines. *)
-  organization : string option; [@option]
+  organization : string prop option; [@option]
       (** The name of the organization at the address. *)
-  postal_code : string option; [@option]
+  postal_code : string prop option; [@option]
       (** Postal code of the address. Not all countries use or require postal codes to be present, but where they are used,
 they may trigger additional validation with other parts of the address (e.g. state/zip validation in the U.S.A.). *)
-  recipients : string list option; [@option]
+  recipients : string prop list option; [@option]
       (** The recipient at the address. This field may, under certain circumstances, contain multiline information. For example,
 it might contain care of information. *)
-  region_code : string;
+  region_code : string prop;
       (** Required. CLDR region code of the country/region of the address. This is never inferred and it is up to the user to
 ensure the value is correct. See https://cldr.unicode.org/ and
 https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html for details. Example: CH for Switzerland. *)
@@ -133,10 +135,11 @@ https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html f
 (** Required. Postal address of the contact. *)
 
 type google_clouddomains_registration__contact_settings__technical_contact = {
-  email : string;  (** Required. Email address of the contact. *)
-  fax_number : string option; [@option]
+  email : string prop;
+      (** Required. Email address of the contact. *)
+  fax_number : string prop option; [@option]
       (** Fax number of the contact in international format. For example, +1-800-555-0123. *)
-  phone_number : string;
+  phone_number : string prop;
       (** Required. Phone number of the contact in international format. For example, +1-800-555-0123. *)
   postal_address :
     google_clouddomains_registration__contact_settings__technical_contact__postal_address
@@ -149,7 +152,7 @@ Warning: For new Registrations, the registrant receives an email confirmation th
 avoid domain suspension. *)
 
 type google_clouddomains_registration__contact_settings = {
-  privacy : string;
+  privacy : string prop;
       (** Required. Privacy setting for the contacts associated with the Registration.
 Values are PUBLIC_CONTACT_DATA, PRIVATE_CONTACT_DATA, and REDACTED_CONTACT_DATA *)
   admin_contact :
@@ -166,13 +169,13 @@ Values are PUBLIC_CONTACT_DATA, PRIVATE_CONTACT_DATA, and REDACTED_CONTACT_DATA 
 (** Required. Settings for contact information linked to the Registration. *)
 
 type google_clouddomains_registration__dns_settings__custom_dns__ds_records = {
-  algorithm : string option; [@option]
+  algorithm : string prop option; [@option]
       (** The algorithm used to generate the referenced DNSKEY. *)
-  digest : string option; [@option]
+  digest : string prop option; [@option]
       (** The digest generated from the referenced DNSKEY. *)
-  digest_type : string option; [@option]
+  digest_type : string prop option; [@option]
       (** The hash function used to generate the digest of the referenced DNSKEY. *)
-  key_tag : float option; [@option]
+  key_tag : float prop option; [@option]
       (** The key tag of the record. Must be set in range 0 -- 65535. *)
 }
 [@@deriving yojson_of]
@@ -180,7 +183,7 @@ type google_clouddomains_registration__dns_settings__custom_dns__ds_records = {
 the values to set here. If this field is empty, DNSSEC is disabled. *)
 
 type google_clouddomains_registration__dns_settings__custom_dns = {
-  name_servers : string list;
+  name_servers : string prop list;
       (** Required. A list of name servers that store the DNS zone for this domain. Each name server is a domain
 name, with Unicode domain names expressed in Punycode format. *)
   ds_records :
@@ -191,12 +194,12 @@ name, with Unicode domain names expressed in Punycode format. *)
 (** Configuration for an arbitrary DNS provider. *)
 
 type google_clouddomains_registration__dns_settings__glue_records = {
-  host_name : string;
+  host_name : string prop;
       (** Required. Domain name of the host in Punycode format. *)
-  ipv4_addresses : string list option; [@option]
+  ipv4_addresses : string prop list option; [@option]
       (** List of IPv4 addresses corresponding to this host in the standard decimal format (e.g. 198.51.100.1).
 At least one of ipv4_address and ipv6_address must be set. *)
-  ipv6_addresses : string list option; [@option]
+  ipv6_addresses : string prop list option; [@option]
       (** List of IPv4 addresses corresponding to this host in the standard decimal format (e.g. 198.51.100.1).
 At least one of ipv4_address and ipv6_address must be set. *)
 }
@@ -213,7 +216,7 @@ type google_clouddomains_registration__dns_settings = {
 (** Settings controlling the DNS configuration of the Registration. *)
 
 type google_clouddomains_registration__management_settings = {
-  preferred_renewal_method : string option; [@option]
+  preferred_renewal_method : string prop option; [@option]
       (** The desired renewal method for this Registration. The actual renewalMethod is automatically updated to reflect this choice.
 If unset or equal to RENEWAL_METHOD_UNSPECIFIED, the actual renewalMethod is treated as if it were set to AUTOMATIC_RENEWAL.
 You cannot use RENEWAL_DISABLED during resource creation, and you can update the renewal status only when the Registration
@@ -222,29 +225,29 @@ resource has state ACTIVE or SUSPENDED.
 When preferredRenewalMethod is set to AUTOMATIC_RENEWAL, the actual renewalMethod can be set to RENEWAL_DISABLED in case of
 problems with the billing account or reported domain abuse. In such cases, check the issues field on the Registration. After
 the problem is resolved, the renewalMethod is automatically updated to preferredRenewalMethod in a few hours. *)
-  renewal_method : string;
+  renewal_method : string prop;
       (** Output only. The actual renewal method for this Registration. When preferredRenewalMethod is set to AUTOMATIC_RENEWAL,
 the actual renewalMethod can be equal to RENEWAL_DISABLED—for example, when there are problems with the billing account
 or reported domain abuse. In such cases, check the issues field on the Registration. After the problem is resolved, the
 renewalMethod is automatically updated to preferredRenewalMethod in a few hours. *)
-  transfer_lock_state : string option; [@option]
+  transfer_lock_state : string prop option; [@option]
       (** Controls whether the domain can be transferred to another registrar. Values are UNLOCKED or LOCKED. *)
 }
 [@@deriving yojson_of]
 (** Settings for management of the Registration, including renewal, billing, and transfer *)
 
 type google_clouddomains_registration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_clouddomains_registration__timeouts *)
 
 type google_clouddomains_registration__yearly_price = {
-  currency_code : string option; [@option]
+  currency_code : string prop option; [@option]
       (** The three-letter currency code defined in ISO 4217. *)
-  units : string option; [@option]
+  units : string prop option; [@option]
       (** The whole units of the amount. For example if currencyCode is USD, then 1 unit is one US dollar. *)
 }
 [@@deriving yojson_of]
@@ -252,20 +255,20 @@ type google_clouddomains_registration__yearly_price = {
 registrations.retrieveRegisterParameters or registrations.searchDomains calls. *)
 
 type google_clouddomains_registration = {
-  contact_notices : string list option; [@option]
+  contact_notices : string prop list option; [@option]
       (** The list of contact notices that the caller acknowledges. Possible value is PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT *)
-  domain_name : string;
+  domain_name : string prop;
       (** Required. The domain name. Unicode domain names must be expressed in Punycode format. *)
-  domain_notices : string list option; [@option]
+  domain_notices : string prop list option; [@option]
       (** The list of domain notices that you acknowledge. Possible value is HSTS_PRELOADED *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Set of labels associated with the Registration.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;  (** The location for the resource *)
-  project : string option; [@option]  (** project *)
+  location : string prop;  (** The location for the resource *)
+  project : string prop option; [@option]  (** project *)
   contact_settings :
     google_clouddomains_registration__contact_settings list;
   dns_settings : google_clouddomains_registration__dns_settings list;

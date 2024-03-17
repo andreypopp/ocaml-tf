@@ -8,14 +8,14 @@ type azurerm_virtual_network_gateway_nat_rule__timeouts
 type azurerm_virtual_network_gateway_nat_rule
 
 val azurerm_virtual_network_gateway_nat_rule :
-  ?id:string ->
-  ?ip_configuration_id:string ->
-  ?mode:string ->
-  ?type_:string ->
+  ?id:string prop ->
+  ?ip_configuration_id:string prop ->
+  ?mode:string prop ->
+  ?type_:string prop ->
   ?timeouts:azurerm_virtual_network_gateway_nat_rule__timeouts ->
-  name:string ->
-  resource_group_name:string ->
-  virtual_network_gateway_id:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  virtual_network_gateway_id:string prop ->
   external_mapping:
     azurerm_virtual_network_gateway_nat_rule__external_mapping list ->
   internal_mapping:

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_elb_attachment = {
-  elb : string;  (** elb *)
-  id : string option; [@option]  (** id *)
-  instance : string;  (** instance *)
+  elb : string prop;  (** elb *)
+  id : string prop option; [@option]  (** id *)
+  instance : string prop;  (** instance *)
 }
 [@@deriving yojson_of]
 (** aws_elb_attachment *)

@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type google_edgecontainer_node_pool__local_disk_encryption = {
-  kms_key : string option; [@option]
+  kms_key : string prop option; [@option]
       (** The Cloud KMS CryptoKey e.g. projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey} to use for protecting node local disks.
 If not specified, a Google-managed key will be used instead. *)
-  kms_key_active_version : string;
+  kms_key_active_version : string prop;
       (** The Cloud KMS CryptoKeyVersion currently in use for protecting node local disks. Only applicable if kmsKey is set. *)
-  kms_key_state : string;
+  kms_key_state : string prop;
       (** Availability of the Cloud KMS CryptoKey. If not KEY_AVAILABLE, then nodes may go offline as they cannot access their local data.
 This can be caused by a lack of permissions to use the key, or if the key is disabled or deleted. *)
 }
@@ -18,39 +18,39 @@ This can be caused by a lack of permissions to use the key, or if the key is dis
 (** Local disk encryption options. This field is only used when enabling CMEK support. *)
 
 type google_edgecontainer_node_pool__node_config = {
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** The Kubernetes node labels *)
 }
 [@@deriving yojson_of]
 (** Configuration for each node in the NodePool *)
 
 type google_edgecontainer_node_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_edgecontainer_node_pool__timeouts *)
 
 type google_edgecontainer_node_pool = {
-  cluster : string;
+  cluster : string prop;
       (** The name of the target Distributed Cloud Edge Cluster. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Labels associated with this resource.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;  (** The location of the resource. *)
-  machine_filter : string option; [@option]
+  location : string prop;  (** The location of the resource. *)
+  machine_filter : string prop option; [@option]
       (** Only machines matching this filter will be allowed to join the node pool.
 The filtering language accepts strings like name=<name>, and is
 documented in more detail in [AIP-160](https://google.aip.dev/160). *)
-  name : string;  (** The resource name of the node pool. *)
-  node_count : float;  (** The number of nodes in the pool. *)
-  node_location : string;
+  name : string prop;  (** The resource name of the node pool. *)
+  node_count : float prop;  (** The number of nodes in the pool. *)
+  node_location : string prop;
       (** Name of the Google Distributed Cloud Edge zone where this node pool will be created. For example: 'us-central1-edge-customer-a'. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   local_disk_encryption :
     google_edgecontainer_node_pool__local_disk_encryption list;
   node_config : google_edgecontainer_node_pool__node_config list;

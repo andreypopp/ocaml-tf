@@ -8,16 +8,16 @@ type aws_globalaccelerator_endpoint_group__timeouts
 type aws_globalaccelerator_endpoint_group
 
 val aws_globalaccelerator_endpoint_group :
-  ?endpoint_group_region:string ->
-  ?health_check_interval_seconds:float ->
-  ?health_check_path:string ->
-  ?health_check_port:float ->
-  ?health_check_protocol:string ->
-  ?id:string ->
-  ?threshold_count:float ->
-  ?traffic_dial_percentage:float ->
+  ?endpoint_group_region:string prop ->
+  ?health_check_interval_seconds:float prop ->
+  ?health_check_path:string prop ->
+  ?health_check_port:float prop ->
+  ?health_check_protocol:string prop ->
+  ?id:string prop ->
+  ?threshold_count:float prop ->
+  ?traffic_dial_percentage:float prop ->
   ?timeouts:aws_globalaccelerator_endpoint_group__timeouts ->
-  listener_arn:string ->
+  listener_arn:string prop ->
   endpoint_configuration:
     aws_globalaccelerator_endpoint_group__endpoint_configuration list ->
   port_override:

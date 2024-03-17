@@ -6,12 +6,12 @@ type azurerm_iothub_enrichment__timeouts
 type azurerm_iothub_enrichment
 
 val azurerm_iothub_enrichment :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_iothub_enrichment__timeouts ->
-  endpoint_names:string list ->
-  iothub_name:string ->
-  key:string ->
-  resource_group_name:string ->
-  value:string ->
+  endpoint_names:string prop list ->
+  iothub_name:string prop ->
+  key:string prop ->
+  resource_group_name:string prop ->
+  value:string prop ->
   string ->
   unit

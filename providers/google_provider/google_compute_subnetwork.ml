@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type google_compute_subnetwork__log_config = {
-  aggregation_interval : string option; [@option]
+  aggregation_interval : string prop option; [@option]
       (** Can only be specified if VPC flow logging for this subnetwork is enabled.
 Toggles the aggregation interval for collecting flow logs. Increasing the
 interval time will reduce the amount of generated flow logs for long
 lasting connections. Default is an interval of 5 seconds per connection. Default value: INTERVAL_5_SEC Possible values: [INTERVAL_5_SEC, INTERVAL_30_SEC, INTERVAL_1_MIN, INTERVAL_5_MIN, INTERVAL_10_MIN, INTERVAL_15_MIN] *)
-  filter_expr : string option; [@option]
+  filter_expr : string prop option; [@option]
       (** Export filter used to define which VPC flow logs should be logged, as as CEL expression. See
 https://cloud.google.com/vpc/docs/flow-logs#filtering for details on how to format this field.
 The default value is 'true', which evaluates to include everything. *)
-  flow_sampling : float option; [@option]
+  flow_sampling : float prop option; [@option]
       (** Can only be specified if VPC flow logging for this subnetwork is enabled.
 The value of the field must be in [0, 1]. Set the sampling rate of VPC
 flow logs within the subnetwork where 1.0 means all collected logs are
 reported and 0.0 means no logs are reported. Default is 0.5 which means
 half of all collected logs are reported. *)
-  metadata : string option; [@option]
+  metadata : string prop option; [@option]
       (** Can only be specified if VPC flow logging for this subnetwork is enabled.
 Configures whether metadata fields should be added to the reported VPC
 flow logs. Default value: INCLUDE_ALL_METADATA Possible values: [EXCLUDE_ALL_METADATA, INCLUDE_ALL_METADATA, CUSTOM_METADATA] *)
-  metadata_fields : string list option; [@option]
+  metadata_fields : string prop list option; [@option]
       (** List of metadata fields that should be added to reported logs.
 Can only be specified if VPC flow logs for this subnetwork is enabled and metadata is set to CUSTOM_METADATA. *)
 }
@@ -35,37 +35,37 @@ isn't supported if the subnet 'purpose' field is set to subnetwork is
 'REGIONAL_MANAGED_PROXY' or 'GLOBAL_MANAGED_PROXY'. *)
 
 type google_compute_subnetwork__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_subnetwork__timeouts *)
 
 type google_compute_subnetwork__secondary_ip_range = {
-  ip_cidr_range : string;  (** ip_cidr_range *)
-  range_name : string;  (** range_name *)
+  ip_cidr_range : string prop;  (** ip_cidr_range *)
+  range_name : string prop;  (** range_name *)
 }
 [@@deriving yojson_of]
 
 type google_compute_subnetwork = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. This field can be set only at resource
 creation time. *)
-  external_ipv6_prefix : string option; [@option]
+  external_ipv6_prefix : string prop option; [@option]
       (** The range of external IPv6 addresses that are owned by this subnetwork. *)
-  id : string option; [@option]  (** id *)
-  ip_cidr_range : string;
+  id : string prop option; [@option]  (** id *)
+  ip_cidr_range : string prop;
       (** The range of internal addresses that are owned by this subnetwork.
 Provide this property when you create the subnetwork. For example,
 10.0.0.0/8 or 192.168.0.0/16. Ranges must be unique and
 non-overlapping within a network. Only IPv4 is supported. *)
-  ipv6_access_type : string option; [@option]
+  ipv6_access_type : string prop option; [@option]
       (** The access type of IPv6 address this subnet holds. It's immutable and can only be specified during creation
 or the first time the subnet is updated into IPV4_IPV6 dual stack. If the ipv6_type is EXTERNAL then this subnet
 cannot enable direct path. Possible values: [EXTERNAL, INTERNAL] *)
-  name : string;
+  name : string prop;
       (** The name of the resource, provided by the client when initially
 creating the resource. The name must be 1-63 characters long, and
 comply with RFC1035. Specifically, the name must be 1-63 characters
@@ -73,16 +73,16 @@ long and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which
 means the first character must be a lowercase letter, and all
 following characters must be a dash, lowercase letter, or digit,
 except the last character, which cannot be a dash. *)
-  network : string;
+  network : string prop;
       (** The network this subnet belongs to.
 Only networks that are in the distributed mode can have subnetworks. *)
-  private_ip_google_access : bool option; [@option]
+  private_ip_google_access : bool prop option; [@option]
       (** When enabled, VMs in this subnetwork without external IP addresses can
 access Google APIs and services by using Private Google Access. *)
-  private_ipv6_google_access : string option; [@option]
+  private_ipv6_google_access : string prop option; [@option]
       (** The private IPv6 google access type for the VMs in this subnet. *)
-  project : string option; [@option]  (** project *)
-  purpose : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  purpose : string prop option; [@option]
       (** The purpose of the resource. This field can be either 'PRIVATE_RFC_1918', 'REGIONAL_MANAGED_PROXY', 'GLOBAL_MANAGED_PROXY', 'PRIVATE_SERVICE_CONNECT' or 'PRIVATE_NAT'([Beta](https://terraform.io/docs/providers/google/guides/provider_versions.html)).
 A subnet with purpose set to 'REGIONAL_MANAGED_PROXY' is a user-created subnetwork that is reserved for regional Envoy-based load balancers.
 A subnetwork in a given region with purpose set to 'GLOBAL_MANAGED_PROXY' is a proxy-only subnet and is shared between all the cross-regional Envoy-based load balancers.
@@ -90,9 +90,9 @@ A subnetwork with purpose set to 'PRIVATE_SERVICE_CONNECT' reserves the subnet f
 A subnetwork with purpose set to 'PRIVATE_NAT' is used as source range for Private NAT gateways.
 Note that 'REGIONAL_MANAGED_PROXY' is the preferred setting for all regional Envoy load balancers.
 If unspecified, the purpose defaults to 'PRIVATE_RFC_1918'. *)
-  region : string option; [@option]
+  region : string prop option; [@option]
       (** The GCP region for this subnetwork. *)
-  role : string option; [@option]
+  role : string prop option; [@option]
       (** The role of subnetwork.
 Currently, this field is only used when 'purpose' is 'REGIONAL_MANAGED_PROXY'.
 The value can be set to 'ACTIVE' or 'BACKUP'.
@@ -111,7 +111,7 @@ breaking users during the 0.12 upgrade. To explicitly send a list
 of zero objects you must use the following syntax:
 'example=[]'
 For more details about this behavior, see [this section](https://www.terraform.io/docs/configuration/attr-as-blocks.html#defining-a-fixed-object-collection-value). *)
-  stack_type : string option; [@option]
+  stack_type : string prop option; [@option]
       (** The stack type for this subnet to identify whether the IPv6 feature is enabled or not.
 If not specified IPV4_ONLY will be used. Possible values: [IPV4_ONLY, IPV4_IPV6] *)
   log_config : google_compute_subnetwork__log_config list;

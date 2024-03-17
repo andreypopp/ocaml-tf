@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_s3control_access_grants_location = {
-  account_id : string option; [@option]  (** account_id *)
-  iam_role_arn : string;  (** iam_role_arn *)
-  location_scope : string;  (** location_scope *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  account_id : string prop option; [@option]  (** account_id *)
+  iam_role_arn : string prop;  (** iam_role_arn *)
+  location_scope : string prop;  (** location_scope *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_access_grants_location *)

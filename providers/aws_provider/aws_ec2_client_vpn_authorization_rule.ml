@@ -5,20 +5,22 @@
 open! Tf.Prelude
 
 type aws_ec2_client_vpn_authorization_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_client_vpn_authorization_rule__timeouts *)
 
 type aws_ec2_client_vpn_authorization_rule = {
-  access_group_id : string option; [@option]  (** access_group_id *)
-  authorize_all_groups : bool option; [@option]
+  access_group_id : string prop option; [@option]
+      (** access_group_id *)
+  authorize_all_groups : bool prop option; [@option]
       (** authorize_all_groups *)
-  client_vpn_endpoint_id : string;  (** client_vpn_endpoint_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  target_network_cidr : string;  (** target_network_cidr *)
+  client_vpn_endpoint_id : string prop;
+      (** client_vpn_endpoint_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  target_network_cidr : string prop;  (** target_network_cidr *)
   timeouts : aws_ec2_client_vpn_authorization_rule__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,4 +5,8 @@ open! Tf.Prelude
 type digitalocean_ssh_key
 
 val digitalocean_ssh_key :
-  ?id:string -> name:string -> public_key:string -> string -> unit
+  ?id:string prop ->
+  name:string prop ->
+  public_key:string prop ->
+  string ->
+  unit

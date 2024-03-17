@@ -5,36 +5,37 @@
 open! Tf.Prelude
 
 type aws_appsync_resolver__caching_config = {
-  caching_keys : string list option; [@option]  (** caching_keys *)
-  ttl : float option; [@option]  (** ttl *)
+  caching_keys : string prop list option; [@option]
+      (** caching_keys *)
+  ttl : float prop option; [@option]  (** ttl *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_resolver__caching_config *)
 
 type aws_appsync_resolver__pipeline_config = {
-  functions : string list option; [@option]  (** functions *)
+  functions : string prop list option; [@option]  (** functions *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_resolver__pipeline_config *)
 
 type aws_appsync_resolver__runtime = {
-  name : string;  (** name *)
-  runtime_version : string;  (** runtime_version *)
+  name : string prop;  (** name *)
+  runtime_version : string prop;  (** runtime_version *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_resolver__runtime *)
 
 type aws_appsync_resolver__sync_config__lambda_conflict_handler_config = {
-  lambda_conflict_handler_arn : string option; [@option]
+  lambda_conflict_handler_arn : string prop option; [@option]
       (** lambda_conflict_handler_arn *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_resolver__sync_config__lambda_conflict_handler_config *)
 
 type aws_appsync_resolver__sync_config = {
-  conflict_detection : string option; [@option]
+  conflict_detection : string prop option; [@option]
       (** conflict_detection *)
-  conflict_handler : string option; [@option]
+  conflict_handler : string prop option; [@option]
       (** conflict_handler *)
   lambda_conflict_handler_config :
     aws_appsync_resolver__sync_config__lambda_conflict_handler_config
@@ -44,18 +45,19 @@ type aws_appsync_resolver__sync_config = {
 (** aws_appsync_resolver__sync_config *)
 
 type aws_appsync_resolver = {
-  api_id : string;  (** api_id *)
-  code : string option; [@option]  (** code *)
-  data_source : string option; [@option]  (** data_source *)
-  field : string;  (** field *)
-  id : string option; [@option]  (** id *)
-  kind : string option; [@option]  (** kind *)
-  max_batch_size : float option; [@option]  (** max_batch_size *)
-  request_template : string option; [@option]
+  api_id : string prop;  (** api_id *)
+  code : string prop option; [@option]  (** code *)
+  data_source : string prop option; [@option]  (** data_source *)
+  field : string prop;  (** field *)
+  id : string prop option; [@option]  (** id *)
+  kind : string prop option; [@option]  (** kind *)
+  max_batch_size : float prop option; [@option]
+      (** max_batch_size *)
+  request_template : string prop option; [@option]
       (** request_template *)
-  response_template : string option; [@option]
+  response_template : string prop option; [@option]
       (** response_template *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   caching_config : aws_appsync_resolver__caching_config list;
   pipeline_config : aws_appsync_resolver__pipeline_config list;
   runtime : aws_appsync_resolver__runtime list;

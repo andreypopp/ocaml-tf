@@ -7,27 +7,27 @@ type cloudflare_healthcheck__timeouts
 type cloudflare_healthcheck
 
 val cloudflare_healthcheck :
-  ?allow_insecure:bool ->
-  ?check_regions:string list ->
-  ?consecutive_fails:float ->
-  ?consecutive_successes:float ->
-  ?description:string ->
-  ?expected_body:string ->
-  ?expected_codes:string list ->
-  ?follow_redirects:bool ->
-  ?id:string ->
-  ?interval:float ->
-  ?method_:string ->
-  ?path:string ->
-  ?port:float ->
-  ?retries:float ->
-  ?suspended:bool ->
-  ?timeout:float ->
+  ?allow_insecure:bool prop ->
+  ?check_regions:string prop list ->
+  ?consecutive_fails:float prop ->
+  ?consecutive_successes:float prop ->
+  ?description:string prop ->
+  ?expected_body:string prop ->
+  ?expected_codes:string prop list ->
+  ?follow_redirects:bool prop ->
+  ?id:string prop ->
+  ?interval:float prop ->
+  ?method_:string prop ->
+  ?path:string prop ->
+  ?port:float prop ->
+  ?retries:float prop ->
+  ?suspended:bool prop ->
+  ?timeout:float prop ->
   ?timeouts:cloudflare_healthcheck__timeouts ->
-  address:string ->
-  name:string ->
-  type_:string ->
-  zone_id:string ->
+  address:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  zone_id:string prop ->
   header:cloudflare_healthcheck__header list ->
   string ->
   unit

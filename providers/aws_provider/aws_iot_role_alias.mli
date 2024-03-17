@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_iot_role_alias
 
 val aws_iot_role_alias :
-  ?credential_duration:float ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  alias:string ->
-  role_arn:string ->
+  ?credential_duration:float prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  alias:string prop ->
+  role_arn:string prop ->
   string ->
   unit

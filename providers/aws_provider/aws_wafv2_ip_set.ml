@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_wafv2_ip_set = {
-  addresses: string list option; [@option] (** addresses *)
-  description: string option; [@option] (** description *)
-  id: string option; [@option] (** id *)
-  ip_address_version: string;  (** ip_address_version *)
-  name: string;  (** name *)
-  scope: string;  (** scope *)
-  tags: (string * string) list option; [@option] (** tags *)
-  tags_all: (string * string) list option; [@option] (** tags_all *)
+  addresses: string prop list option; [@option] (** addresses *)
+  description: string prop option; [@option] (** description *)
+  id: string prop option; [@option] (** id *)
+  ip_address_version: string prop;  (** ip_address_version *)
+  name: string prop;  (** name *)
+  scope: string prop;  (** scope *)
+  tags: (string * string prop) list option; [@option] (** tags *)
+  tags_all: (string * string prop) list option; [@option] (** tags_all *)
 } [@@deriving yojson_of]
 (** aws_wafv2_ip_set *)
 

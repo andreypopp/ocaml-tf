@@ -42,8 +42,8 @@ type google_dataproc_cluster__cluster_config__preemptible_worker_config__disk_co
 type google_dataproc_cluster__cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
 
 type google_dataproc_cluster__cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_results = {
-  machine_type : string;  (** machine_type *)
-  vm_count : float;  (** vm_count *)
+  machine_type : string prop;  (** machine_type *)
+  vm_count : float prop;  (** vm_count *)
 }
 
 type google_dataproc_cluster__cluster_config__preemptible_worker_config__instance_flexibility_policy
@@ -87,13 +87,13 @@ type google_dataproc_cluster__virtual_cluster_config
 type google_dataproc_cluster
 
 val google_dataproc_cluster :
-  ?graceful_decommission_timeout:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?region:string ->
+  ?graceful_decommission_timeout:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_dataproc_cluster__timeouts ->
-  name:string ->
+  name:string prop ->
   cluster_config:google_dataproc_cluster__cluster_config list ->
   virtual_cluster_config:
     google_dataproc_cluster__virtual_cluster_config list ->

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_cloudfront_key_group = {
-  comment : string option; [@option]  (** comment *)
-  id : string option; [@option]  (** id *)
-  items : string list;  (** items *)
-  name : string;  (** name *)
+  comment : string prop option; [@option]  (** comment *)
+  id : string prop option; [@option]  (** id *)
+  items : string prop list;  (** items *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_key_group *)

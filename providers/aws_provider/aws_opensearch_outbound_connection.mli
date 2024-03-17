@@ -11,11 +11,11 @@ type aws_opensearch_outbound_connection__timeouts
 type aws_opensearch_outbound_connection
 
 val aws_opensearch_outbound_connection :
-  ?accept_connection:bool ->
-  ?connection_mode:string ->
-  ?id:string ->
+  ?accept_connection:bool prop ->
+  ?connection_mode:string prop ->
+  ?id:string prop ->
   ?timeouts:aws_opensearch_outbound_connection__timeouts ->
-  connection_alias:string ->
+  connection_alias:string prop ->
   connection_properties:
     aws_opensearch_outbound_connection__connection_properties list ->
   local_domain_info:

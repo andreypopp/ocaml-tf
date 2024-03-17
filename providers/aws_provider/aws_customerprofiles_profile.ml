@@ -5,93 +5,94 @@
 open! Tf.Prelude
 
 type aws_customerprofiles_profile__address = {
-  address_1 : string option; [@option]  (** address_1 *)
-  address_2 : string option; [@option]  (** address_2 *)
-  address_3 : string option; [@option]  (** address_3 *)
-  address_4 : string option; [@option]  (** address_4 *)
-  city : string option; [@option]  (** city *)
-  country : string option; [@option]  (** country *)
-  county : string option; [@option]  (** county *)
-  postal_code : string option; [@option]  (** postal_code *)
-  province : string option; [@option]  (** province *)
-  state : string option; [@option]  (** state *)
+  address_1 : string prop option; [@option]  (** address_1 *)
+  address_2 : string prop option; [@option]  (** address_2 *)
+  address_3 : string prop option; [@option]  (** address_3 *)
+  address_4 : string prop option; [@option]  (** address_4 *)
+  city : string prop option; [@option]  (** city *)
+  country : string prop option; [@option]  (** country *)
+  county : string prop option; [@option]  (** county *)
+  postal_code : string prop option; [@option]  (** postal_code *)
+  province : string prop option; [@option]  (** province *)
+  state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
 (** aws_customerprofiles_profile__address *)
 
 type aws_customerprofiles_profile__billing_address = {
-  address_1 : string option; [@option]  (** address_1 *)
-  address_2 : string option; [@option]  (** address_2 *)
-  address_3 : string option; [@option]  (** address_3 *)
-  address_4 : string option; [@option]  (** address_4 *)
-  city : string option; [@option]  (** city *)
-  country : string option; [@option]  (** country *)
-  county : string option; [@option]  (** county *)
-  postal_code : string option; [@option]  (** postal_code *)
-  province : string option; [@option]  (** province *)
-  state : string option; [@option]  (** state *)
+  address_1 : string prop option; [@option]  (** address_1 *)
+  address_2 : string prop option; [@option]  (** address_2 *)
+  address_3 : string prop option; [@option]  (** address_3 *)
+  address_4 : string prop option; [@option]  (** address_4 *)
+  city : string prop option; [@option]  (** city *)
+  country : string prop option; [@option]  (** country *)
+  county : string prop option; [@option]  (** county *)
+  postal_code : string prop option; [@option]  (** postal_code *)
+  province : string prop option; [@option]  (** province *)
+  state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
 (** aws_customerprofiles_profile__billing_address *)
 
 type aws_customerprofiles_profile__mailing_address = {
-  address_1 : string option; [@option]  (** address_1 *)
-  address_2 : string option; [@option]  (** address_2 *)
-  address_3 : string option; [@option]  (** address_3 *)
-  address_4 : string option; [@option]  (** address_4 *)
-  city : string option; [@option]  (** city *)
-  country : string option; [@option]  (** country *)
-  county : string option; [@option]  (** county *)
-  postal_code : string option; [@option]  (** postal_code *)
-  province : string option; [@option]  (** province *)
-  state : string option; [@option]  (** state *)
+  address_1 : string prop option; [@option]  (** address_1 *)
+  address_2 : string prop option; [@option]  (** address_2 *)
+  address_3 : string prop option; [@option]  (** address_3 *)
+  address_4 : string prop option; [@option]  (** address_4 *)
+  city : string prop option; [@option]  (** city *)
+  country : string prop option; [@option]  (** country *)
+  county : string prop option; [@option]  (** county *)
+  postal_code : string prop option; [@option]  (** postal_code *)
+  province : string prop option; [@option]  (** province *)
+  state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
 (** aws_customerprofiles_profile__mailing_address *)
 
 type aws_customerprofiles_profile__shipping_address = {
-  address_1 : string option; [@option]  (** address_1 *)
-  address_2 : string option; [@option]  (** address_2 *)
-  address_3 : string option; [@option]  (** address_3 *)
-  address_4 : string option; [@option]  (** address_4 *)
-  city : string option; [@option]  (** city *)
-  country : string option; [@option]  (** country *)
-  county : string option; [@option]  (** county *)
-  postal_code : string option; [@option]  (** postal_code *)
-  province : string option; [@option]  (** province *)
-  state : string option; [@option]  (** state *)
+  address_1 : string prop option; [@option]  (** address_1 *)
+  address_2 : string prop option; [@option]  (** address_2 *)
+  address_3 : string prop option; [@option]  (** address_3 *)
+  address_4 : string prop option; [@option]  (** address_4 *)
+  city : string prop option; [@option]  (** city *)
+  country : string prop option; [@option]  (** country *)
+  county : string prop option; [@option]  (** county *)
+  postal_code : string prop option; [@option]  (** postal_code *)
+  province : string prop option; [@option]  (** province *)
+  state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
 (** aws_customerprofiles_profile__shipping_address *)
 
 type aws_customerprofiles_profile = {
-  account_number : string option; [@option]  (** account_number *)
-  additional_information : string option; [@option]
+  account_number : string prop option; [@option]
+      (** account_number *)
+  additional_information : string prop option; [@option]
       (** additional_information *)
-  attributes : (string * string) list option; [@option]
+  attributes : (string * string prop) list option; [@option]
       (** attributes *)
-  birth_date : string option; [@option]  (** birth_date *)
-  business_email_address : string option; [@option]
+  birth_date : string prop option; [@option]  (** birth_date *)
+  business_email_address : string prop option; [@option]
       (** business_email_address *)
-  business_name : string option; [@option]  (** business_name *)
-  business_phone_number : string option; [@option]
+  business_name : string prop option; [@option]  (** business_name *)
+  business_phone_number : string prop option; [@option]
       (** business_phone_number *)
-  domain_name : string;  (** domain_name *)
-  email_address : string option; [@option]  (** email_address *)
-  first_name : string option; [@option]  (** first_name *)
-  gender_string : string option; [@option]  (** gender_string *)
-  home_phone_number : string option; [@option]
+  domain_name : string prop;  (** domain_name *)
+  email_address : string prop option; [@option]  (** email_address *)
+  first_name : string prop option; [@option]  (** first_name *)
+  gender_string : string prop option; [@option]  (** gender_string *)
+  home_phone_number : string prop option; [@option]
       (** home_phone_number *)
-  id : string option; [@option]  (** id *)
-  last_name : string option; [@option]  (** last_name *)
-  middle_name : string option; [@option]  (** middle_name *)
-  mobile_phone_number : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  last_name : string prop option; [@option]  (** last_name *)
+  middle_name : string prop option; [@option]  (** middle_name *)
+  mobile_phone_number : string prop option; [@option]
       (** mobile_phone_number *)
-  party_type_string : string option; [@option]
+  party_type_string : string prop option; [@option]
       (** party_type_string *)
-  personal_email_address : string option; [@option]
+  personal_email_address : string prop option; [@option]
       (** personal_email_address *)
-  phone_number : string option; [@option]  (** phone_number *)
+  phone_number : string prop option; [@option]  (** phone_number *)
   address : aws_customerprofiles_profile__address list;
   billing_address :
     aws_customerprofiles_profile__billing_address list;

@@ -7,14 +7,14 @@ type azurerm_log_analytics_solution__timeouts
 type azurerm_log_analytics_solution
 
 val azurerm_log_analytics_solution :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_log_analytics_solution__timeouts ->
-  location:string ->
-  resource_group_name:string ->
-  solution_name:string ->
-  workspace_name:string ->
-  workspace_resource_id:string ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  solution_name:string prop ->
+  workspace_name:string prop ->
+  workspace_resource_id:string prop ->
   plan:azurerm_log_analytics_solution__plan list ->
   string ->
   unit

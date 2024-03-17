@@ -5,72 +5,75 @@
 open! Tf.Prelude
 
 type aws_fsx_windows_file_system__audit_log_configuration = {
-  audit_log_destination : string option; [@option]
+  audit_log_destination : string prop option; [@option]
       (** audit_log_destination *)
-  file_access_audit_log_level : string option; [@option]
+  file_access_audit_log_level : string prop option; [@option]
       (** file_access_audit_log_level *)
-  file_share_access_audit_log_level : string option; [@option]
+  file_share_access_audit_log_level : string prop option; [@option]
       (** file_share_access_audit_log_level *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_windows_file_system__audit_log_configuration *)
 
 type aws_fsx_windows_file_system__disk_iops_configuration = {
-  iops : float option; [@option]  (** iops *)
-  mode : string option; [@option]  (** mode *)
+  iops : float prop option; [@option]  (** iops *)
+  mode : string prop option; [@option]  (** mode *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_windows_file_system__disk_iops_configuration *)
 
 type aws_fsx_windows_file_system__self_managed_active_directory = {
-  dns_ips : string list;  (** dns_ips *)
-  domain_name : string;  (** domain_name *)
-  file_system_administrators_group : string option; [@option]
+  dns_ips : string prop list;  (** dns_ips *)
+  domain_name : string prop;  (** domain_name *)
+  file_system_administrators_group : string prop option; [@option]
       (** file_system_administrators_group *)
-  organizational_unit_distinguished_name : string option; [@option]
+  organizational_unit_distinguished_name : string prop option;
+      [@option]
       (** organizational_unit_distinguished_name *)
-  password : string;  (** password *)
-  username : string;  (** username *)
+  password : string prop;  (** password *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_windows_file_system__self_managed_active_directory *)
 
 type aws_fsx_windows_file_system__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_windows_file_system__timeouts *)
 
 type aws_fsx_windows_file_system = {
-  active_directory_id : string option; [@option]
+  active_directory_id : string prop option; [@option]
       (** active_directory_id *)
-  aliases : string list option; [@option]  (** aliases *)
-  automatic_backup_retention_days : float option; [@option]
+  aliases : string prop list option; [@option]  (** aliases *)
+  automatic_backup_retention_days : float prop option; [@option]
       (** automatic_backup_retention_days *)
-  backup_id : string option; [@option]  (** backup_id *)
-  copy_tags_to_backups : bool option; [@option]
+  backup_id : string prop option; [@option]  (** backup_id *)
+  copy_tags_to_backups : bool prop option; [@option]
       (** copy_tags_to_backups *)
-  daily_automatic_backup_start_time : string option; [@option]
+  daily_automatic_backup_start_time : string prop option; [@option]
       (** daily_automatic_backup_start_time *)
-  deployment_type : string option; [@option]  (** deployment_type *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  preferred_subnet_id : string option; [@option]
+  deployment_type : string prop option; [@option]
+      (** deployment_type *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  preferred_subnet_id : string prop option; [@option]
       (** preferred_subnet_id *)
-  security_group_ids : string list option; [@option]
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  skip_final_backup : bool option; [@option]
+  skip_final_backup : bool prop option; [@option]
       (** skip_final_backup *)
-  storage_capacity : float option; [@option]  (** storage_capacity *)
-  storage_type : string option; [@option]  (** storage_type *)
-  subnet_ids : string list;  (** subnet_ids *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  storage_capacity : float prop option; [@option]
+      (** storage_capacity *)
+  storage_type : string prop option; [@option]  (** storage_type *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  throughput_capacity : float;  (** throughput_capacity *)
-  weekly_maintenance_start_time : string option; [@option]
+  throughput_capacity : float prop;  (** throughput_capacity *)
+  weekly_maintenance_start_time : string prop option; [@option]
       (** weekly_maintenance_start_time *)
   audit_log_configuration :
     aws_fsx_windows_file_system__audit_log_configuration list;

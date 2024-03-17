@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type google_access_context_manager_service_perimeter_resource__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_service_perimeter_resource__timeouts *)
 
 type google_access_context_manager_service_perimeter_resource = {
-  id : string option; [@option]  (** id *)
-  perimeter_name : string;
+  id : string prop option; [@option]  (** id *)
+  perimeter_name : string prop;
       (** The name of the Service Perimeter to add this resource to. *)
-  resource : string;
+  resource : string prop;
       (** A GCP resource that is inside of the service perimeter.
 Currently only projects are allowed.
 Format: projects/{project_number} *)

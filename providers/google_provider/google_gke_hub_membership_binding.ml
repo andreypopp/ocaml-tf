@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type google_gke_hub_membership_binding__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_gke_hub_membership_binding__timeouts *)
 
 type google_gke_hub_membership_binding__state = {
-  code : string;  (** code *)
+  code : string prop;  (** code *)
 }
 [@@deriving yojson_of]
 
 type google_gke_hub_membership_binding = {
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Labels for this Membership binding.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;  (** Location of the membership *)
-  membership_binding_id : string;
+  location : string prop;  (** Location of the membership *)
+  membership_binding_id : string prop;
       (** The client-provided identifier of the membership binding. *)
-  membership_id : string;  (** Id of the membership *)
-  project : string option; [@option]  (** project *)
-  scope : string;
+  membership_id : string prop;  (** Id of the membership *)
+  project : string prop option; [@option]  (** project *)
+  scope : string prop;
       (** A Workspace resource name in the format
 'projects/*/locations/*/scopes/*'. *)
   timeouts : google_gke_hub_membership_binding__timeouts option;

@@ -6,15 +6,15 @@ type azurerm_automation_connection_service_principal__timeouts
 type azurerm_automation_connection_service_principal
 
 val azurerm_automation_connection_service_principal :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_automation_connection_service_principal__timeouts ->
-  application_id:string ->
-  automation_account_name:string ->
-  certificate_thumbprint:string ->
-  name:string ->
-  resource_group_name:string ->
-  subscription_id:string ->
-  tenant_id:string ->
+  application_id:string prop ->
+  automation_account_name:string prop ->
+  certificate_thumbprint:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  subscription_id:string prop ->
+  tenant_id:string prop ->
   string ->
   unit

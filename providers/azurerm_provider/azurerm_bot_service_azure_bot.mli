@@ -6,27 +6,27 @@ type azurerm_bot_service_azure_bot__timeouts
 type azurerm_bot_service_azure_bot
 
 val azurerm_bot_service_azure_bot :
-  ?developer_app_insights_api_key:string ->
-  ?developer_app_insights_application_id:string ->
-  ?developer_app_insights_key:string ->
-  ?display_name:string ->
-  ?endpoint:string ->
-  ?icon_url:string ->
-  ?id:string ->
-  ?local_authentication_enabled:bool ->
-  ?luis_app_ids:string list ->
-  ?luis_key:string ->
-  ?microsoft_app_msi_id:string ->
-  ?microsoft_app_tenant_id:string ->
-  ?microsoft_app_type:string ->
-  ?public_network_access_enabled:bool ->
-  ?streaming_endpoint_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?developer_app_insights_api_key:string prop ->
+  ?developer_app_insights_application_id:string prop ->
+  ?developer_app_insights_key:string prop ->
+  ?display_name:string prop ->
+  ?endpoint:string prop ->
+  ?icon_url:string prop ->
+  ?id:string prop ->
+  ?local_authentication_enabled:bool prop ->
+  ?luis_app_ids:string prop list ->
+  ?luis_key:string prop ->
+  ?microsoft_app_msi_id:string prop ->
+  ?microsoft_app_tenant_id:string prop ->
+  ?microsoft_app_type:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?streaming_endpoint_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_bot_service_azure_bot__timeouts ->
-  location:string ->
-  microsoft_app_id:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku:string ->
+  location:string prop ->
+  microsoft_app_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
   string ->
   unit

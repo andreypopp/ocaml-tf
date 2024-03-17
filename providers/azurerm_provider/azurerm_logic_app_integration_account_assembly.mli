@@ -6,15 +6,15 @@ type azurerm_logic_app_integration_account_assembly__timeouts
 type azurerm_logic_app_integration_account_assembly
 
 val azurerm_logic_app_integration_account_assembly :
-  ?assembly_version:string ->
-  ?content:string ->
-  ?content_link_uri:string ->
-  ?id:string ->
-  ?metadata:(string * string) list ->
+  ?assembly_version:string prop ->
+  ?content:string prop ->
+  ?content_link_uri:string prop ->
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
   ?timeouts:azurerm_logic_app_integration_account_assembly__timeouts ->
-  assembly_name:string ->
-  integration_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  assembly_name:string prop ->
+  integration_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

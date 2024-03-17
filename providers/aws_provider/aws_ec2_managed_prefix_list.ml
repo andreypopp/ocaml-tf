@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_ec2_managed_prefix_list__entry = {
-  cidr : string;  (** cidr *)
-  description : string option; [@option]  (** description *)
+  cidr : string prop;  (** cidr *)
+  description : string prop option; [@option]  (** description *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_managed_prefix_list__entry *)
 
 type aws_ec2_managed_prefix_list = {
-  address_family : string;  (** address_family *)
-  id : string option; [@option]  (** id *)
-  max_entries : float;  (** max_entries *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  address_family : string prop;  (** address_family *)
+  id : string prop option; [@option]  (** id *)
+  max_entries : float prop;  (** max_entries *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   entry : aws_ec2_managed_prefix_list__entry list;
 }

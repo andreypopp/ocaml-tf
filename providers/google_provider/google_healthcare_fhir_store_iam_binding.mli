@@ -6,10 +6,10 @@ type google_healthcare_fhir_store_iam_binding__condition
 type google_healthcare_fhir_store_iam_binding
 
 val google_healthcare_fhir_store_iam_binding :
-  ?id:string ->
-  fhir_store_id:string ->
-  members:string list ->
-  role:string ->
+  ?id:string prop ->
+  fhir_store_id:string prop ->
+  members:string prop list ->
+  role:string prop ->
   condition:google_healthcare_fhir_store_iam_binding__condition list ->
   string ->
   unit

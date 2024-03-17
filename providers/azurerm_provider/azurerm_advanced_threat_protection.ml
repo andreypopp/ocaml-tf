@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_advanced_threat_protection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_advanced_threat_protection__timeouts *)
 
 type azurerm_advanced_threat_protection = {
-  enabled : bool;  (** enabled *)
-  id : string option; [@option]  (** id *)
-  target_resource_id : string;  (** target_resource_id *)
+  enabled : bool prop;  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  target_resource_id : string prop;  (** target_resource_id *)
   timeouts : azurerm_advanced_threat_protection__timeouts option;
 }
 [@@deriving yojson_of]

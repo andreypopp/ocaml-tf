@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type digitalocean_database_connection_pool = {
-  cluster_id : string;  (** cluster_id *)
-  db_name : string;  (** db_name *)
-  id : string option; [@option]  (** id *)
-  mode : string;  (** mode *)
-  name : string;  (** name *)
-  size : float;  (** size *)
-  user : string option; [@option]  (** user *)
+  cluster_id : string prop;  (** cluster_id *)
+  db_name : string prop;  (** db_name *)
+  id : string prop option; [@option]  (** id *)
+  mode : string prop;  (** mode *)
+  name : string prop;  (** name *)
+  size : float prop;  (** size *)
+  user : string prop option; [@option]  (** user *)
 }
 [@@deriving yojson_of]
 (** digitalocean_database_connection_pool *)

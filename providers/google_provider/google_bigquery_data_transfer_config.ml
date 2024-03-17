@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_bigquery_data_transfer_config__email_preferences = {
-  enable_failure_email : bool;
+  enable_failure_email : bool prop;
       (** If true, email notifications will be sent on transfer run failures. *)
 }
 [@@deriving yojson_of]
@@ -13,18 +13,18 @@ type google_bigquery_data_transfer_config__email_preferences = {
 email address of the user who owns this transfer config. *)
 
 type google_bigquery_data_transfer_config__schedule_options = {
-  disable_auto_scheduling : bool option; [@option]
+  disable_auto_scheduling : bool prop option; [@option]
       (** If true, automatic scheduling of data transfer runs for this
 configuration will be disabled. The runs can be started on ad-hoc
 basis using transferConfigs.startManualRuns API. When automatic
 scheduling is disabled, the TransferConfig.schedule field will
 be ignored. *)
-  end_time : string option; [@option]
+  end_time : string prop option; [@option]
       (** Defines time to stop scheduling transfer runs. A transfer run cannot be
 scheduled at or after the end time. The end time can be changed at any
 moment. The time when a data transfer can be triggered manually is not
 limited by this option. *)
-  start_time : string option; [@option]
+  start_time : string prop option; [@option]
       (** Specifies time to start scheduling transfer runs. The first run will be
 scheduled at or after the start time according to a recurrence pattern
 defined in the schedule string. The start time can be changed at any
@@ -35,7 +35,7 @@ limited by this option. *)
 (** Options customizing the data transfer schedule. *)
 
 type google_bigquery_data_transfer_config__sensitive_params = {
-  secret_access_key : string;
+  secret_access_key : string prop;
       (** The Secret Access Key of the AWS account transferring data from. *)
 }
 [@@deriving yojson_of]
@@ -48,43 +48,43 @@ Credentials may not be specified in both locations and will cause an error. Chan
 to a different credential configuration in the config will require an apply to update state. *)
 
 type google_bigquery_data_transfer_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_bigquery_data_transfer_config__timeouts *)
 
 type google_bigquery_data_transfer_config = {
-  data_refresh_window_days : float option; [@option]
+  data_refresh_window_days : float prop option; [@option]
       (** The number of days to look back to automatically refresh the data.
 For example, if dataRefreshWindowDays = 10, then every day BigQuery
 reingests data for [today-10, today-1], rather than ingesting data for
 just [today-1]. Only valid if the data source supports the feature.
 Set the value to 0 to use the default value. *)
-  data_source_id : string;
+  data_source_id : string prop;
       (** The data source id. Cannot be changed once the transfer config is created. *)
-  destination_dataset_id : string option; [@option]
+  destination_dataset_id : string prop option; [@option]
       (** The BigQuery target dataset id. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** When set to true, no runs are scheduled for a given transfer. *)
-  display_name : string;
+  display_name : string prop;
       (** The user specified display name for the transfer config. *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]
       (** The geographic location where the transfer config should reside.
 Examples: US, EU, asia-northeast1. The default value is US. *)
-  notification_pubsub_topic : string option; [@option]
+  notification_pubsub_topic : string prop option; [@option]
       (** Pub/Sub topic where notifications will be sent after transfer runs
 associated with this transfer config finish. *)
-  params : (string * string) list;
+  params : (string * string prop) list;
       (** Parameters specific to each data source. For more information see the bq tab in the 'Setting up a data transfer'
 section for each data source. For example the parameters for Cloud Storage transfers are listed here:
 https://cloud.google.com/bigquery-transfer/docs/cloud-storage-transfer#bq
 
 **NOTE** : If you are attempting to update a parameter that cannot be updated (due to api limitations) [please force recreation of the resource](https://www.terraform.io/cli/state/taint#forcing-re-creation-of-resources). *)
-  project : string option; [@option]  (** project *)
-  schedule : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  schedule : string prop option; [@option]
       (** Data transfer schedule. If the data source does not support a custom
 schedule, this should be empty. If it is empty, the default value for
 the data source will be used. The specified times are in UTC. Examples
@@ -93,7 +93,7 @@ jun 13:15, and first sunday of quarter 00:00. See more explanation
 about the format here:
 https://cloud.google.com/appengine/docs/flexible/python/scheduling-jobs-with-cron-yaml#the_schedule_format
 NOTE: the granularity should be at least 8 hours, or less frequent. *)
-  service_account_name : string option; [@option]
+  service_account_name : string prop option; [@option]
       (** Service account email. If this field is set, transfer config will
 be created with this service account credentials. It requires that
 requesting user calling this API has permissions to act as this service account. *)

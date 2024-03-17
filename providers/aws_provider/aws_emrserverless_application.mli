@@ -16,13 +16,13 @@ type aws_emrserverless_application__network_configuration
 type aws_emrserverless_application
 
 val aws_emrserverless_application :
-  ?architecture:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
-  release_label:string ->
-  type_:string ->
+  ?architecture:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  release_label:string prop ->
+  type_:string prop ->
   auto_start_configuration:
     aws_emrserverless_application__auto_start_configuration list ->
   auto_stop_configuration:

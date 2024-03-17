@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_route53_traffic_policy = {
-  comment : string option; [@option]  (** comment *)
-  document : string;  (** document *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  comment : string prop option; [@option]  (** comment *)
+  document : string prop;  (** document *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_route53_traffic_policy *)

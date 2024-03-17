@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_dax_parameter_group__parameters = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_dax_parameter_group__parameters *)
 
 type aws_dax_parameter_group = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   parameters : aws_dax_parameter_group__parameters list;
 }
 [@@deriving yojson_of]

@@ -6,20 +6,20 @@ type azurerm_lb_rule__timeouts
 type azurerm_lb_rule
 
 val azurerm_lb_rule :
-  ?backend_address_pool_ids:string list ->
-  ?disable_outbound_snat:bool ->
-  ?enable_floating_ip:bool ->
-  ?enable_tcp_reset:bool ->
-  ?id:string ->
-  ?idle_timeout_in_minutes:float ->
-  ?load_distribution:string ->
-  ?probe_id:string ->
+  ?backend_address_pool_ids:string prop list ->
+  ?disable_outbound_snat:bool prop ->
+  ?enable_floating_ip:bool prop ->
+  ?enable_tcp_reset:bool prop ->
+  ?id:string prop ->
+  ?idle_timeout_in_minutes:float prop ->
+  ?load_distribution:string prop ->
+  ?probe_id:string prop ->
   ?timeouts:azurerm_lb_rule__timeouts ->
-  backend_port:float ->
-  frontend_ip_configuration_name:string ->
-  frontend_port:float ->
-  loadbalancer_id:string ->
-  name:string ->
-  protocol:string ->
+  backend_port:float prop ->
+  frontend_ip_configuration_name:string prop ->
+  frontend_port:float prop ->
+  loadbalancer_id:string prop ->
+  name:string prop ->
+  protocol:string prop ->
   string ->
   unit

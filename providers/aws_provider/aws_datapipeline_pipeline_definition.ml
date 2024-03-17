@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_datapipeline_pipeline_definition__parameter_object__attribute = {
-  key : string;  (** key *)
-  string_value : string;  (** string_value *)
+  key : string prop;  (** key *)
+  string_value : string prop;  (** string_value *)
 }
 [@@deriving yojson_of]
 (** aws_datapipeline_pipeline_definition__parameter_object__attribute *)
 
 type aws_datapipeline_pipeline_definition__parameter_object = {
-  id : string;  (** id *)
+  id : string prop;  (** id *)
   attribute :
     aws_datapipeline_pipeline_definition__parameter_object__attribute
     list;
@@ -21,23 +21,23 @@ type aws_datapipeline_pipeline_definition__parameter_object = {
 (** aws_datapipeline_pipeline_definition__parameter_object *)
 
 type aws_datapipeline_pipeline_definition__parameter_value = {
-  id : string;  (** id *)
-  string_value : string;  (** string_value *)
+  id : string prop;  (** id *)
+  string_value : string prop;  (** string_value *)
 }
 [@@deriving yojson_of]
 (** aws_datapipeline_pipeline_definition__parameter_value *)
 
 type aws_datapipeline_pipeline_definition__pipeline_object__field = {
-  key : string;  (** key *)
-  ref_value : string option; [@option]  (** ref_value *)
-  string_value : string option; [@option]  (** string_value *)
+  key : string prop;  (** key *)
+  ref_value : string prop option; [@option]  (** ref_value *)
+  string_value : string prop option; [@option]  (** string_value *)
 }
 [@@deriving yojson_of]
 (** aws_datapipeline_pipeline_definition__pipeline_object__field *)
 
 type aws_datapipeline_pipeline_definition__pipeline_object = {
-  id : string;  (** id *)
-  name : string;  (** name *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
   field :
     aws_datapipeline_pipeline_definition__pipeline_object__field list;
 }
@@ -45,8 +45,8 @@ type aws_datapipeline_pipeline_definition__pipeline_object = {
 (** aws_datapipeline_pipeline_definition__pipeline_object *)
 
 type aws_datapipeline_pipeline_definition = {
-  id : string option; [@option]  (** id *)
-  pipeline_id : string;  (** pipeline_id *)
+  id : string prop option; [@option]  (** id *)
+  pipeline_id : string prop;  (** pipeline_id *)
   parameter_object :
     aws_datapipeline_pipeline_definition__parameter_object list;
   parameter_value :

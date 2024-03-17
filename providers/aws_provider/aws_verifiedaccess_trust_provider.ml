@@ -5,44 +5,45 @@
 open! Tf.Prelude
 
 type aws_verifiedaccess_trust_provider__device_options = {
-  tenant_id : string option; [@option]  (** tenant_id *)
+  tenant_id : string prop option; [@option]  (** tenant_id *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedaccess_trust_provider__device_options *)
 
 type aws_verifiedaccess_trust_provider__oidc_options = {
-  authorization_endpoint : string option; [@option]
+  authorization_endpoint : string prop option; [@option]
       (** authorization_endpoint *)
-  client_id : string option; [@option]  (** client_id *)
-  client_secret : string;  (** client_secret *)
-  issuer : string option; [@option]  (** issuer *)
-  scope : string option; [@option]  (** scope *)
-  token_endpoint : string option; [@option]  (** token_endpoint *)
-  user_info_endpoint : string option; [@option]
+  client_id : string prop option; [@option]  (** client_id *)
+  client_secret : string prop;  (** client_secret *)
+  issuer : string prop option; [@option]  (** issuer *)
+  scope : string prop option; [@option]  (** scope *)
+  token_endpoint : string prop option; [@option]
+      (** token_endpoint *)
+  user_info_endpoint : string prop option; [@option]
       (** user_info_endpoint *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedaccess_trust_provider__oidc_options *)
 
 type aws_verifiedaccess_trust_provider__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedaccess_trust_provider__timeouts *)
 
 type aws_verifiedaccess_trust_provider = {
-  description : string option; [@option]  (** description *)
-  device_trust_provider_type : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  device_trust_provider_type : string prop option; [@option]
       (** device_trust_provider_type *)
-  id : string option; [@option]  (** id *)
-  policy_reference_name : string;  (** policy_reference_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  policy_reference_name : string prop;  (** policy_reference_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  trust_provider_type : string;  (** trust_provider_type *)
-  user_trust_provider_type : string option; [@option]
+  trust_provider_type : string prop;  (** trust_provider_type *)
+  user_trust_provider_type : string prop option; [@option]
       (** user_trust_provider_type *)
   device_options :
     aws_verifiedaccess_trust_provider__device_options list;

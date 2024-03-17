@@ -6,12 +6,12 @@ type azurerm_kubernetes_cluster_trusted_access_role_binding__timeouts
 type azurerm_kubernetes_cluster_trusted_access_role_binding
 
 val azurerm_kubernetes_cluster_trusted_access_role_binding :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_kubernetes_cluster_trusted_access_role_binding__timeouts ->
-  kubernetes_cluster_id:string ->
-  name:string ->
-  roles:string list ->
-  source_resource_id:string ->
+  kubernetes_cluster_id:string prop ->
+  name:string prop ->
+  roles:string prop list ->
+  source_resource_id:string prop ->
   string ->
   unit

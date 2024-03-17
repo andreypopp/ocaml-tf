@@ -5,75 +5,77 @@
 open! Tf.Prelude
 
 type digitalocean_loadbalancer__firewall = {
-  allow : string list option; [@option]
+  allow : string prop list option; [@option]
       (** the rules for ALLOWING traffic to the LB (strings in the form: 'ip:1.2.3.4' or 'cidr:1.2.0.0/16') *)
-  deny : string list option; [@option]
+  deny : string prop list option; [@option]
       (** the rules for DENYING traffic to the LB (strings in the form: 'ip:1.2.3.4' or 'cidr:1.2.0.0/16') *)
 }
 [@@deriving yojson_of]
 (** digitalocean_loadbalancer__firewall *)
 
 type digitalocean_loadbalancer__forwarding_rule = {
-  certificate_id : string option; [@option]  (** certificate_id *)
-  certificate_name : string option; [@option]
+  certificate_id : string prop option; [@option]
+      (** certificate_id *)
+  certificate_name : string prop option; [@option]
       (** certificate_name *)
-  entry_port : float;  (** entry_port *)
-  entry_protocol : string;  (** entry_protocol *)
-  target_port : float;  (** target_port *)
-  target_protocol : string;  (** target_protocol *)
-  tls_passthrough : bool option; [@option]  (** tls_passthrough *)
+  entry_port : float prop;  (** entry_port *)
+  entry_protocol : string prop;  (** entry_protocol *)
+  target_port : float prop;  (** target_port *)
+  target_protocol : string prop;  (** target_protocol *)
+  tls_passthrough : bool prop option; [@option]
+      (** tls_passthrough *)
 }
 [@@deriving yojson_of]
 (** digitalocean_loadbalancer__forwarding_rule *)
 
 type digitalocean_loadbalancer__healthcheck = {
-  check_interval_seconds : float option; [@option]
+  check_interval_seconds : float prop option; [@option]
       (** check_interval_seconds *)
-  healthy_threshold : float option; [@option]
+  healthy_threshold : float prop option; [@option]
       (** healthy_threshold *)
-  path : string option; [@option]  (** path *)
-  port : float;  (** port *)
-  protocol : string;  (** protocol *)
-  response_timeout_seconds : float option; [@option]
+  path : string prop option; [@option]  (** path *)
+  port : float prop;  (** port *)
+  protocol : string prop;  (** protocol *)
+  response_timeout_seconds : float prop option; [@option]
       (** response_timeout_seconds *)
-  unhealthy_threshold : float option; [@option]
+  unhealthy_threshold : float prop option; [@option]
       (** unhealthy_threshold *)
 }
 [@@deriving yojson_of]
 (** digitalocean_loadbalancer__healthcheck *)
 
 type digitalocean_loadbalancer__sticky_sessions = {
-  cookie_name : string option; [@option]  (** cookie_name *)
-  cookie_ttl_seconds : float option; [@option]
+  cookie_name : string prop option; [@option]  (** cookie_name *)
+  cookie_ttl_seconds : float prop option; [@option]
       (** cookie_ttl_seconds *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** digitalocean_loadbalancer__sticky_sessions *)
 
 type digitalocean_loadbalancer = {
-  algorithm : string option; [@option]  (** algorithm *)
-  disable_lets_encrypt_dns_records : bool option; [@option]
+  algorithm : string prop option; [@option]  (** algorithm *)
+  disable_lets_encrypt_dns_records : bool prop option; [@option]
       (** disable_lets_encrypt_dns_records *)
-  droplet_ids : float list option; [@option]  (** droplet_ids *)
-  droplet_tag : string option; [@option]  (** droplet_tag *)
-  enable_backend_keepalive : bool option; [@option]
+  droplet_ids : float prop list option; [@option]  (** droplet_ids *)
+  droplet_tag : string prop option; [@option]  (** droplet_tag *)
+  enable_backend_keepalive : bool prop option; [@option]
       (** enable_backend_keepalive *)
-  enable_proxy_protocol : bool option; [@option]
+  enable_proxy_protocol : bool prop option; [@option]
       (** enable_proxy_protocol *)
-  http_idle_timeout_seconds : float option; [@option]
+  http_idle_timeout_seconds : float prop option; [@option]
       (** http_idle_timeout_seconds *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  project_id : string option; [@option]  (** project_id *)
-  redirect_http_to_https : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  project_id : string prop option; [@option]  (** project_id *)
+  redirect_http_to_https : bool prop option; [@option]
       (** redirect_http_to_https *)
-  region : string option; [@option]  (** region *)
-  size : string option; [@option]  (** size *)
-  size_unit : float option; [@option]  (** size_unit *)
-  type_ : string option; [@option] [@key "type"]
+  region : string prop option; [@option]  (** region *)
+  size : string prop option; [@option]  (** size *)
+  size_unit : float prop option; [@option]  (** size_unit *)
+  type_ : string prop option; [@option] [@key "type"]
       (** the type of the load balancer (GLOBAL or REGIONAL) *)
-  vpc_uuid : string option; [@option]  (** vpc_uuid *)
+  vpc_uuid : string prop option; [@option]  (** vpc_uuid *)
   firewall : digitalocean_loadbalancer__firewall list;
   forwarding_rule : digitalocean_loadbalancer__forwarding_rule list;
   healthcheck : digitalocean_loadbalancer__healthcheck list;

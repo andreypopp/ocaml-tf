@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_auditmanager_assessment_report = {
-  assessment_id : string;  (** assessment_id *)
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
+  assessment_id : string prop;  (** assessment_id *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_auditmanager_assessment_report *)

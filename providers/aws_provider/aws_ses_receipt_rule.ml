@@ -5,77 +5,78 @@
 open! Tf.Prelude
 
 type aws_ses_receipt_rule__add_header_action = {
-  header_name : string;  (** header_name *)
-  header_value : string;  (** header_value *)
-  position : float;  (** position *)
+  header_name : string prop;  (** header_name *)
+  header_value : string prop;  (** header_value *)
+  position : float prop;  (** position *)
 }
 [@@deriving yojson_of]
 (** aws_ses_receipt_rule__add_header_action *)
 
 type aws_ses_receipt_rule__bounce_action = {
-  message : string;  (** message *)
-  position : float;  (** position *)
-  sender : string;  (** sender *)
-  smtp_reply_code : string;  (** smtp_reply_code *)
-  status_code : string option; [@option]  (** status_code *)
-  topic_arn : string option; [@option]  (** topic_arn *)
+  message : string prop;  (** message *)
+  position : float prop;  (** position *)
+  sender : string prop;  (** sender *)
+  smtp_reply_code : string prop;  (** smtp_reply_code *)
+  status_code : string prop option; [@option]  (** status_code *)
+  topic_arn : string prop option; [@option]  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ses_receipt_rule__bounce_action *)
 
 type aws_ses_receipt_rule__lambda_action = {
-  function_arn : string;  (** function_arn *)
-  invocation_type : string option; [@option]  (** invocation_type *)
-  position : float;  (** position *)
-  topic_arn : string option; [@option]  (** topic_arn *)
+  function_arn : string prop;  (** function_arn *)
+  invocation_type : string prop option; [@option]
+      (** invocation_type *)
+  position : float prop;  (** position *)
+  topic_arn : string prop option; [@option]  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ses_receipt_rule__lambda_action *)
 
 type aws_ses_receipt_rule__s3_action = {
-  bucket_name : string;  (** bucket_name *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
-  object_key_prefix : string option; [@option]
+  bucket_name : string prop;  (** bucket_name *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  object_key_prefix : string prop option; [@option]
       (** object_key_prefix *)
-  position : float;  (** position *)
-  topic_arn : string option; [@option]  (** topic_arn *)
+  position : float prop;  (** position *)
+  topic_arn : string prop option; [@option]  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ses_receipt_rule__s3_action *)
 
 type aws_ses_receipt_rule__sns_action = {
-  encoding : string option; [@option]  (** encoding *)
-  position : float;  (** position *)
-  topic_arn : string;  (** topic_arn *)
+  encoding : string prop option; [@option]  (** encoding *)
+  position : float prop;  (** position *)
+  topic_arn : string prop;  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ses_receipt_rule__sns_action *)
 
 type aws_ses_receipt_rule__stop_action = {
-  position : float;  (** position *)
-  scope : string;  (** scope *)
-  topic_arn : string option; [@option]  (** topic_arn *)
+  position : float prop;  (** position *)
+  scope : string prop;  (** scope *)
+  topic_arn : string prop option; [@option]  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ses_receipt_rule__stop_action *)
 
 type aws_ses_receipt_rule__workmail_action = {
-  organization_arn : string;  (** organization_arn *)
-  position : float;  (** position *)
-  topic_arn : string option; [@option]  (** topic_arn *)
+  organization_arn : string prop;  (** organization_arn *)
+  position : float prop;  (** position *)
+  topic_arn : string prop option; [@option]  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ses_receipt_rule__workmail_action *)
 
 type aws_ses_receipt_rule = {
-  after : string option; [@option]  (** after *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  recipients : string list option; [@option]  (** recipients *)
-  rule_set_name : string;  (** rule_set_name *)
-  scan_enabled : bool option; [@option]  (** scan_enabled *)
-  tls_policy : string option; [@option]  (** tls_policy *)
+  after : string prop option; [@option]  (** after *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  recipients : string prop list option; [@option]  (** recipients *)
+  rule_set_name : string prop;  (** rule_set_name *)
+  scan_enabled : bool prop option; [@option]  (** scan_enabled *)
+  tls_policy : string prop option; [@option]  (** tls_policy *)
   add_header_action : aws_ses_receipt_rule__add_header_action list;
   bounce_action : aws_ses_receipt_rule__bounce_action list;
   lambda_action : aws_ses_receipt_rule__lambda_action list;

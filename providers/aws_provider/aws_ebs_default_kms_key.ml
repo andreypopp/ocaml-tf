@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_ebs_default_kms_key = {
-  id : string option; [@option]  (** id *)
-  key_arn : string;  (** key_arn *)
+  id : string prop option; [@option]  (** id *)
+  key_arn : string prop;  (** key_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ebs_default_kms_key *)

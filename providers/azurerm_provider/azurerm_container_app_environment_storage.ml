@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_container_app_environment_storage__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_container_app_environment_storage__timeouts *)
 
 type azurerm_container_app_environment_storage = {
-  access_key : string;  (** The Storage Account Access Key. *)
-  access_mode : string;
+  access_key : string prop;  (** The Storage Account Access Key. *)
+  access_mode : string prop;
       (** The access mode to connect this storage to the Container App. Possible values include `ReadOnly` and `ReadWrite`. *)
-  account_name : string;
+  account_name : string prop;
       (** The Azure Storage Account in which the Share to be used is located. *)
-  container_app_environment_id : string;
+  container_app_environment_id : string prop;
       (** The ID of the Container App Environment to which this storage belongs. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The name for this Storage. *)
-  share_name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The name for this Storage. *)
+  share_name : string prop;
       (** The name of the Azure Storage Share to use. *)
   timeouts :
     azurerm_container_app_environment_storage__timeouts option;

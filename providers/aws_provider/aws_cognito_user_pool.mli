@@ -28,19 +28,19 @@ type aws_cognito_user_pool__verification_message_template
 type aws_cognito_user_pool
 
 val aws_cognito_user_pool :
-  ?alias_attributes:string list ->
-  ?auto_verified_attributes:string list ->
-  ?deletion_protection:string ->
-  ?email_verification_message:string ->
-  ?email_verification_subject:string ->
-  ?id:string ->
-  ?mfa_configuration:string ->
-  ?sms_authentication_message:string ->
-  ?sms_verification_message:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?username_attributes:string list ->
-  name:string ->
+  ?alias_attributes:string prop list ->
+  ?auto_verified_attributes:string prop list ->
+  ?deletion_protection:string prop ->
+  ?email_verification_message:string prop ->
+  ?email_verification_subject:string prop ->
+  ?id:string prop ->
+  ?mfa_configuration:string prop ->
+  ?sms_authentication_message:string prop ->
+  ?sms_verification_message:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?username_attributes:string prop list ->
+  name:string prop ->
   account_recovery_setting:
     aws_cognito_user_pool__account_recovery_setting list ->
   admin_create_user_config:

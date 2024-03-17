@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_sql_role_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_role_assignment__timeouts *)
 
 type azurerm_cosmosdb_sql_role_assignment = {
-  account_name : string;  (** account_name *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  principal_id : string;  (** principal_id *)
-  resource_group_name : string;  (** resource_group_name *)
-  role_definition_id : string;  (** role_definition_id *)
-  scope : string;  (** scope *)
+  account_name : string prop;  (** account_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  principal_id : string prop;  (** principal_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  role_definition_id : string prop;  (** role_definition_id *)
+  scope : string prop;  (** scope *)
   timeouts : azurerm_cosmosdb_sql_role_assignment__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_security_center_assessment__status = {
-  cause : string option; [@option]  (** cause *)
-  code : string;  (** code *)
-  description : string option; [@option]  (** description *)
+  cause : string prop option; [@option]  (** cause *)
+  code : string prop;  (** code *)
+  description : string prop option; [@option]  (** description *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_assessment__status *)
 
 type azurerm_security_center_assessment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_assessment__timeouts *)
 
 type azurerm_security_center_assessment = {
-  additional_data : (string * string) list option; [@option]
+  additional_data : (string * string prop) list option; [@option]
       (** additional_data *)
-  assessment_policy_id : string;  (** assessment_policy_id *)
-  id : string option; [@option]  (** id *)
-  target_resource_id : string;  (** target_resource_id *)
+  assessment_policy_id : string prop;  (** assessment_policy_id *)
+  id : string prop option; [@option]  (** id *)
+  target_resource_id : string prop;  (** target_resource_id *)
   status : azurerm_security_center_assessment__status list;
   timeouts : azurerm_security_center_assessment__timeouts option;
 }

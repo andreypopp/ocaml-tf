@@ -5,40 +5,43 @@
 open! Tf.Prelude
 
 type aws_api_gateway_domain_name__endpoint_configuration = {
-  types : string list;  (** types *)
+  types : string prop list;  (** types *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_domain_name__endpoint_configuration *)
 
 type aws_api_gateway_domain_name__mutual_tls_authentication = {
-  truststore_uri : string;  (** truststore_uri *)
-  truststore_version : string option; [@option]
+  truststore_uri : string prop;  (** truststore_uri *)
+  truststore_version : string prop option; [@option]
       (** truststore_version *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_domain_name__mutual_tls_authentication *)
 
 type aws_api_gateway_domain_name = {
-  certificate_arn : string option; [@option]  (** certificate_arn *)
-  certificate_body : string option; [@option]
+  certificate_arn : string prop option; [@option]
+      (** certificate_arn *)
+  certificate_body : string prop option; [@option]
       (** certificate_body *)
-  certificate_chain : string option; [@option]
+  certificate_chain : string prop option; [@option]
       (** certificate_chain *)
-  certificate_name : string option; [@option]
+  certificate_name : string prop option; [@option]
       (** certificate_name *)
-  certificate_private_key : string option; [@option]
+  certificate_private_key : string prop option; [@option]
       (** certificate_private_key *)
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  ownership_verification_certificate_arn : string option; [@option]
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  ownership_verification_certificate_arn : string prop option;
+      [@option]
       (** ownership_verification_certificate_arn *)
-  regional_certificate_arn : string option; [@option]
+  regional_certificate_arn : string prop option; [@option]
       (** regional_certificate_arn *)
-  regional_certificate_name : string option; [@option]
+  regional_certificate_name : string prop option; [@option]
       (** regional_certificate_name *)
-  security_policy : string option; [@option]  (** security_policy *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  security_policy : string prop option; [@option]
+      (** security_policy *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   endpoint_configuration :
     aws_api_gateway_domain_name__endpoint_configuration list;

@@ -6,9 +6,9 @@ type aws_dynamodb_contributor_insights__timeouts
 type aws_dynamodb_contributor_insights
 
 val aws_dynamodb_contributor_insights :
-  ?id:string ->
-  ?index_name:string ->
+  ?id:string prop ->
+  ?index_name:string prop ->
   ?timeouts:aws_dynamodb_contributor_insights__timeouts ->
-  table_name:string ->
+  table_name:string prop ->
   string ->
   unit

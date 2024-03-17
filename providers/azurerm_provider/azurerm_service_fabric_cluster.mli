@@ -30,20 +30,20 @@ type azurerm_service_fabric_cluster__upgrade_policy
 type azurerm_service_fabric_cluster
 
 val azurerm_service_fabric_cluster :
-  ?add_on_features:string list ->
-  ?cluster_code_version:string ->
-  ?id:string ->
-  ?service_fabric_zonal_upgrade_mode:string ->
-  ?tags:(string * string) list ->
-  ?vmss_zonal_upgrade_mode:string ->
+  ?add_on_features:string prop list ->
+  ?cluster_code_version:string prop ->
+  ?id:string prop ->
+  ?service_fabric_zonal_upgrade_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?vmss_zonal_upgrade_mode:string prop ->
   ?timeouts:azurerm_service_fabric_cluster__timeouts ->
-  location:string ->
-  management_endpoint:string ->
-  name:string ->
-  reliability_level:string ->
-  resource_group_name:string ->
-  upgrade_mode:string ->
-  vm_image:string ->
+  location:string prop ->
+  management_endpoint:string prop ->
+  name:string prop ->
+  reliability_level:string prop ->
+  resource_group_name:string prop ->
+  upgrade_mode:string prop ->
+  vm_image:string prop ->
   azure_active_directory:
     azurerm_service_fabric_cluster__azure_active_directory list ->
   certificate:azurerm_service_fabric_cluster__certificate list ->

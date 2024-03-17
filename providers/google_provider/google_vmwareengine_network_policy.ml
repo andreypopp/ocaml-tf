@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_vmwareengine_network_policy__external_ip = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** True if the service is enabled; false otherwise. *)
-  state : string;
+  state : string prop;
       (** State of the service. New values may be added to this enum when appropriate. *)
 }
 [@@deriving yojson_of]
@@ -15,37 +15,37 @@ type google_vmwareengine_network_policy__external_ip = {
 This service can only be enabled when internetAccess is also enabled. *)
 
 type google_vmwareengine_network_policy__internet_access = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** True if the service is enabled; false otherwise. *)
-  state : string;
+  state : string prop;
       (** State of the service. New values may be added to this enum when appropriate. *)
 }
 [@@deriving yojson_of]
 (** Network service that allows VMware workloads to access the internet. *)
 
 type google_vmwareengine_network_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_network_policy__timeouts *)
 
 type google_vmwareengine_network_policy = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** User-provided description for this network policy. *)
-  edge_services_cidr : string;
+  edge_services_cidr : string prop;
       (** IP address range in CIDR notation used to create internet access and external IP access.
 An RFC 1918 CIDR block, with a /26 prefix, is required. The range cannot overlap with any
 prefixes either in the consumer VPC network or in use by the private clouds attached to that VPC network. *)
-  id : string option; [@option]  (** id *)
-  location : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;
       (** The resource name of the location (region) to create the new network policy in.
 Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
 For example: projects/my-project/locations/us-central1 *)
-  name : string;  (** The ID of the Network Policy. *)
-  project : string option; [@option]  (** project *)
-  vmware_engine_network : string;
+  name : string prop;  (** The ID of the Network Policy. *)
+  project : string prop option; [@option]  (** project *)
+  vmware_engine_network : string prop;
       (** The relative resource name of the VMware Engine network. Specify the name in the following form:
 projects/{project}/locations/{location}/vmwareEngineNetworks/{vmwareEngineNetworkId} where {project}
 can either be a project number or a project ID. *)

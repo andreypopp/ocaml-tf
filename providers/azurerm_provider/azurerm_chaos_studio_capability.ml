@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_chaos_studio_capability__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_capability__timeouts *)
 
 type azurerm_chaos_studio_capability = {
-  capability_type : string;  (** capability_type *)
-  chaos_studio_target_id : string;  (** chaos_studio_target_id *)
-  id : string option; [@option]  (** id *)
+  capability_type : string prop;  (** capability_type *)
+  chaos_studio_target_id : string prop;
+      (** chaos_studio_target_id *)
+  id : string prop option; [@option]  (** id *)
   timeouts : azurerm_chaos_studio_capability__timeouts option;
 }
 [@@deriving yojson_of]

@@ -8,10 +8,10 @@ type azurerm_storage_table__timeouts
 type azurerm_storage_table
 
 val azurerm_storage_table :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_storage_table__timeouts ->
-  name:string ->
-  storage_account_name:string ->
+  name:string prop ->
+  storage_account_name:string prop ->
   acl:azurerm_storage_table__acl list ->
   string ->
   unit

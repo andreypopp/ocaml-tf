@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_ses_template
 
 val aws_ses_template :
-  ?html:string ->
-  ?id:string ->
-  ?subject:string ->
-  ?text:string ->
-  name:string ->
+  ?html:string prop ->
+  ?id:string prop ->
+  ?subject:string prop ->
+  ?text:string prop ->
+  name:string prop ->
   string ->
   unit

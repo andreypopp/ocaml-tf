@@ -7,13 +7,13 @@ type aws_transcribe_language_model__timeouts
 type aws_transcribe_language_model
 
 val aws_transcribe_language_model :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_transcribe_language_model__timeouts ->
-  base_model_name:string ->
-  language_code:string ->
-  model_name:string ->
+  base_model_name:string prop ->
+  language_code:string prop ->
+  model_name:string prop ->
   input_data_config:
     aws_transcribe_language_model__input_data_config list ->
   string ->

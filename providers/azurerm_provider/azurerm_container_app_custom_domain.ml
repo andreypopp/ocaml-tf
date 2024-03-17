@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_container_app_custom_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_container_app_custom_domain__timeouts *)
 
 type azurerm_container_app_custom_domain = {
-  certificate_binding_type : string;
+  certificate_binding_type : string prop;
       (** The Binding type. Possible values include `Disabled` and `SniEnabled`. *)
-  container_app_environment_certificate_id : string;
+  container_app_environment_certificate_id : string prop;
       (** container_app_environment_certificate_id *)
-  container_app_id : string;  (** container_app_id *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  container_app_id : string prop;  (** container_app_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The hostname of the Certificate. Must be the CN or a named SAN in the certificate. *)
   timeouts : azurerm_container_app_custom_domain__timeouts option;
 }

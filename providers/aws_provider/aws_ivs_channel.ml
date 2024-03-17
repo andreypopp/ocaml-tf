@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_ivs_channel__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_ivs_channel__timeouts *)
 
 type aws_ivs_channel = {
-  authorized : bool option; [@option]  (** authorized *)
-  id : string option; [@option]  (** id *)
-  latency_mode : string option; [@option]  (** latency_mode *)
-  name : string option; [@option]  (** name *)
-  recording_configuration_arn : string option; [@option]
+  authorized : bool prop option; [@option]  (** authorized *)
+  id : string prop option; [@option]  (** id *)
+  latency_mode : string prop option; [@option]  (** latency_mode *)
+  name : string prop option; [@option]  (** name *)
+  recording_configuration_arn : string prop option; [@option]
       (** recording_configuration_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   timeouts : aws_ivs_channel__timeouts option;
 }
 [@@deriving yojson_of]

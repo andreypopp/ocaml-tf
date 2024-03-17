@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_cloud_identity_group_membership__preferred_member_key = {
-  id : string;
+  id : string prop;
       (** The ID of the entity.
 
 For Google-managed entities, the id must be the email address of an existing
@@ -15,7 +15,7 @@ For external-identity-mapped entities, the id must be a string conforming
 to the Identity Source's requirements.
 
 Must be unique within a namespace. *)
-  namespace : string option; [@option]
+  namespace : string prop option; [@option]
       (** The namespace in which the entity exists.
 
 If not specified, the EntityKey represents a Google-managed entity
@@ -29,7 +29,7 @@ and must be in the form of 'identitysources/{identity_source_id}'. *)
 (** EntityKey of the member. *)
 
 type google_cloud_identity_group_membership__roles__expiry_detail = {
-  expire_time : string;
+  expire_time : string prop;
       (** The time at which the MembershipRole will expire.
 
 A timestamp in RFC3339 UTC Zulu format, with nanosecond
@@ -42,7 +42,7 @@ Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
 Other roles cannot be accompanied with MEMBER role having expiry. *)
 
 type google_cloud_identity_group_membership__roles = {
-  name : string;
+  name : string prop;
       (** The name of the MembershipRole. Must be one of OWNER, MANAGER, MEMBER. Possible values: [OWNER, MANAGER, MEMBER] *)
   expiry_detail :
     google_cloud_identity_group_membership__roles__expiry_detail list;
@@ -52,17 +52,17 @@ type google_cloud_identity_group_membership__roles = {
 Must not contain duplicate MembershipRoles with the same name. *)
 
 type google_cloud_identity_group_membership__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_cloud_identity_group_membership__timeouts *)
 
 type google_cloud_identity_group_membership = {
-  group : string;
+  group : string prop;
       (** The name of the Group to create this membership in. *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   preferred_member_key :
     google_cloud_identity_group_membership__preferred_member_key list;
   roles : google_cloud_identity_group_membership__roles list;

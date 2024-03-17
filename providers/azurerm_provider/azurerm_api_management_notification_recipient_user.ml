@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_api_management_notification_recipient_user__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_notification_recipient_user__timeouts *)
 
 type azurerm_api_management_notification_recipient_user = {
-  api_management_id : string;  (** api_management_id *)
-  id : string option; [@option]  (** id *)
-  notification_type : string;  (** notification_type *)
-  user_id : string;  (** user_id *)
+  api_management_id : string prop;  (** api_management_id *)
+  id : string prop option; [@option]  (** id *)
+  notification_type : string prop;  (** notification_type *)
+  user_id : string prop;  (** user_id *)
   timeouts :
     azurerm_api_management_notification_recipient_user__timeouts
     option;

@@ -5,54 +5,55 @@
 open! Tf.Prelude
 
 type azurerm_machine_learning_compute_instance__assign_to_user = {
-  object_id : string option; [@option]  (** object_id *)
-  tenant_id : string option; [@option]  (** tenant_id *)
+  object_id : string prop option; [@option]  (** object_id *)
+  tenant_id : string prop option; [@option]  (** tenant_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_compute_instance__assign_to_user *)
 
 type azurerm_machine_learning_compute_instance__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_compute_instance__identity *)
 
 type azurerm_machine_learning_compute_instance__ssh = {
-  port : float;  (** port *)
-  public_key : string;  (** public_key *)
-  username : string;  (** username *)
+  port : float prop;  (** port *)
+  public_key : string prop;  (** public_key *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_compute_instance__ssh *)
 
 type azurerm_machine_learning_compute_instance__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_compute_instance__timeouts *)
 
 type azurerm_machine_learning_compute_instance = {
-  authorization_type : string option; [@option]
+  authorization_type : string prop option; [@option]
       (** authorization_type *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  local_auth_enabled : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  local_auth_enabled : bool prop option; [@option]
       (** local_auth_enabled *)
-  location : string;  (** location *)
-  machine_learning_workspace_id : string;
+  location : string prop;  (** location *)
+  machine_learning_workspace_id : string prop;
       (** machine_learning_workspace_id *)
-  name : string;  (** name *)
-  node_public_ip_enabled : bool option; [@option]
+  name : string prop;  (** name *)
+  node_public_ip_enabled : bool prop option; [@option]
       (** node_public_ip_enabled *)
-  subnet_resource_id : string option; [@option]
+  subnet_resource_id : string prop option; [@option]
       (** subnet_resource_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  virtual_machine_size : string;  (** virtual_machine_size *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  virtual_machine_size : string prop;  (** virtual_machine_size *)
   assign_to_user :
     azurerm_machine_learning_compute_instance__assign_to_user list;
   identity :

@@ -7,19 +7,19 @@ type azurerm_spring_cloud_container_deployment__timeouts
 type azurerm_spring_cloud_container_deployment
 
 val azurerm_spring_cloud_container_deployment :
-  ?addon_json:string ->
-  ?application_performance_monitoring_ids:string list ->
-  ?arguments:string list ->
-  ?commands:string list ->
-  ?environment_variables:(string * string) list ->
-  ?id:string ->
-  ?instance_count:float ->
-  ?language_framework:string ->
+  ?addon_json:string prop ->
+  ?application_performance_monitoring_ids:string prop list ->
+  ?arguments:string prop list ->
+  ?commands:string prop list ->
+  ?environment_variables:(string * string prop) list ->
+  ?id:string prop ->
+  ?instance_count:float prop ->
+  ?language_framework:string prop ->
   ?timeouts:azurerm_spring_cloud_container_deployment__timeouts ->
-  image:string ->
-  name:string ->
-  server:string ->
-  spring_cloud_app_id:string ->
+  image:string prop ->
+  name:string prop ->
+  server:string prop ->
+  spring_cloud_app_id:string prop ->
   quota:azurerm_spring_cloud_container_deployment__quota list ->
   string ->
   unit

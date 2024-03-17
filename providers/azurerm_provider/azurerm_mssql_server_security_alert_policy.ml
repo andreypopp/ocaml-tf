@@ -5,29 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_mssql_server_security_alert_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_server_security_alert_policy__timeouts *)
 
 type azurerm_mssql_server_security_alert_policy = {
-  disabled_alerts : string list option; [@option]
+  disabled_alerts : string prop list option; [@option]
       (** disabled_alerts *)
-  email_account_admins : bool option; [@option]
+  email_account_admins : bool prop option; [@option]
       (** email_account_admins *)
-  email_addresses : string list option; [@option]
+  email_addresses : string prop list option; [@option]
       (** email_addresses *)
-  id : string option; [@option]  (** id *)
-  resource_group_name : string;  (** resource_group_name *)
-  retention_days : float option; [@option]  (** retention_days *)
-  server_name : string;  (** server_name *)
-  state : string;  (** state *)
-  storage_account_access_key : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  retention_days : float prop option; [@option]
+      (** retention_days *)
+  server_name : string prop;  (** server_name *)
+  state : string prop;  (** state *)
+  storage_account_access_key : string prop option; [@option]
       (** storage_account_access_key *)
-  storage_endpoint : string option; [@option]
+  storage_endpoint : string prop option; [@option]
       (** storage_endpoint *)
   timeouts :
     azurerm_mssql_server_security_alert_policy__timeouts option;

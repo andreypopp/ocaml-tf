@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_sesv2_email_identity_policy = {
-  email_identity : string;  (** email_identity *)
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  policy_name : string;  (** policy_name *)
+  email_identity : string prop;  (** email_identity *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  policy_name : string prop;  (** policy_name *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_email_identity_policy *)

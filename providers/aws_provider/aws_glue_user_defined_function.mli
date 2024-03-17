@@ -6,13 +6,13 @@ type aws_glue_user_defined_function__resource_uris
 type aws_glue_user_defined_function
 
 val aws_glue_user_defined_function :
-  ?catalog_id:string ->
-  ?id:string ->
-  class_name:string ->
-  database_name:string ->
-  name:string ->
-  owner_name:string ->
-  owner_type:string ->
+  ?catalog_id:string prop ->
+  ?id:string prop ->
+  class_name:string prop ->
+  database_name:string prop ->
+  name:string prop ->
+  owner_name:string prop ->
+  owner_type:string prop ->
   resource_uris:aws_glue_user_defined_function__resource_uris list ->
   string ->
   unit

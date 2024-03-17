@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_privateca_ca_pool_iam_policy = {
-  ca_pool : string;  (** ca_pool *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  ca_pool : string prop;  (** ca_pool *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_privateca_ca_pool_iam_policy *)

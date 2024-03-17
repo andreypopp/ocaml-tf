@@ -5,41 +5,41 @@
 open! Tf.Prelude
 
 type azurerm_kusto_attached_database_configuration__sharing = {
-  external_tables_to_exclude : string list option; [@option]
+  external_tables_to_exclude : string prop list option; [@option]
       (** external_tables_to_exclude *)
-  external_tables_to_include : string list option; [@option]
+  external_tables_to_include : string prop list option; [@option]
       (** external_tables_to_include *)
-  materialized_views_to_exclude : string list option; [@option]
+  materialized_views_to_exclude : string prop list option; [@option]
       (** materialized_views_to_exclude *)
-  materialized_views_to_include : string list option; [@option]
+  materialized_views_to_include : string prop list option; [@option]
       (** materialized_views_to_include *)
-  tables_to_exclude : string list option; [@option]
+  tables_to_exclude : string prop list option; [@option]
       (** tables_to_exclude *)
-  tables_to_include : string list option; [@option]
+  tables_to_include : string prop list option; [@option]
       (** tables_to_include *)
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_attached_database_configuration__sharing *)
 
 type azurerm_kusto_attached_database_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_attached_database_configuration__timeouts *)
 
 type azurerm_kusto_attached_database_configuration = {
-  cluster_name : string;  (** cluster_name *)
-  cluster_resource_id : string;  (** cluster_resource_id *)
-  database_name : string;  (** database_name *)
-  default_principal_modification_kind : string option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  cluster_resource_id : string prop;  (** cluster_resource_id *)
+  database_name : string prop;  (** database_name *)
+  default_principal_modification_kind : string prop option; [@option]
       (** default_principal_modification_kind *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   sharing :
     azurerm_kusto_attached_database_configuration__sharing list;
   timeouts :

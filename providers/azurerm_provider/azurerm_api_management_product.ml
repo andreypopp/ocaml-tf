@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_api_management_product__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_product__timeouts *)
 
 type azurerm_api_management_product = {
-  api_management_name : string;  (** api_management_name *)
-  approval_required : bool option; [@option]
+  api_management_name : string prop;  (** api_management_name *)
+  approval_required : bool prop option; [@option]
       (** approval_required *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  product_id : string;  (** product_id *)
-  published : bool;  (** published *)
-  resource_group_name : string;  (** resource_group_name *)
-  subscription_required : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  product_id : string prop;  (** product_id *)
+  published : bool prop;  (** published *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  subscription_required : bool prop option; [@option]
       (** subscription_required *)
-  subscriptions_limit : float option; [@option]
+  subscriptions_limit : float prop option; [@option]
       (** subscriptions_limit *)
-  terms : string option; [@option]  (** terms *)
+  terms : string prop option; [@option]  (** terms *)
   timeouts : azurerm_api_management_product__timeouts option;
 }
 [@@deriving yojson_of]

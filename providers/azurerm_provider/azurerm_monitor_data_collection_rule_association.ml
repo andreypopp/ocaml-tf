@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_monitor_data_collection_rule_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_data_collection_rule_association__timeouts *)
 
 type azurerm_monitor_data_collection_rule_association = {
-  data_collection_endpoint_id : string option; [@option]
+  data_collection_endpoint_id : string prop option; [@option]
       (** data_collection_endpoint_id *)
-  data_collection_rule_id : string option; [@option]
+  data_collection_rule_id : string prop option; [@option]
       (** data_collection_rule_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  target_resource_id : string;  (** target_resource_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  target_resource_id : string prop;  (** target_resource_id *)
   timeouts :
     azurerm_monitor_data_collection_rule_association__timeouts option;
 }

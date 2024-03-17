@@ -8,11 +8,11 @@ type aws_chimesdkvoice_voice_profile_domain__timeouts
 type aws_chimesdkvoice_voice_profile_domain
 
 val aws_chimesdkvoice_voice_profile_domain :
-  ?description:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_chimesdkvoice_voice_profile_domain__timeouts ->
-  name:string ->
+  name:string prop ->
   server_side_encryption_configuration:
     aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuration
     list ->

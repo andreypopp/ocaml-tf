@@ -10,14 +10,14 @@ type aws_glue_catalog_database__target_database
 type aws_glue_catalog_database
 
 val aws_glue_catalog_database :
-  ?catalog_id:string ->
-  ?description:string ->
-  ?id:string ->
-  ?location_uri:string ->
-  ?parameters:(string * string) list ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?catalog_id:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?location_uri:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   create_table_default_permission:
     aws_glue_catalog_database__create_table_default_permission list ->
   federated_database:

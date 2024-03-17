@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_iam_user_policy_attachment
 
 val aws_iam_user_policy_attachment :
-  ?id:string -> policy_arn:string -> user:string -> string -> unit
+  ?id:string prop ->
+  policy_arn:string prop ->
+  user:string prop ->
+  string ->
+  unit

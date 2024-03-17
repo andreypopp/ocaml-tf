@@ -7,11 +7,11 @@ type google_bigquery_bi_reservation__timeouts
 type google_bigquery_bi_reservation
 
 val google_bigquery_bi_reservation :
-  ?id:string ->
-  ?project:string ->
-  ?size:float ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?size:float prop ->
   ?timeouts:google_bigquery_bi_reservation__timeouts ->
-  location:string ->
+  location:string prop ->
   preferred_tables:
     google_bigquery_bi_reservation__preferred_tables list ->
   string ->

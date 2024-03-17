@@ -122,10 +122,10 @@ let rec find_object_types acc path = function
   | String | Number | Bool | Dynamic -> acc
 
 let rec gen_attribute_type_name path ppf = function
-  | String -> Format.fprintf ppf "string"
-  | Number -> Format.fprintf ppf "float"
-  | Bool -> Format.fprintf ppf "bool"
-  | Dynamic -> Format.fprintf ppf "string"
+  | String -> Format.fprintf ppf "string prop"
+  | Number -> Format.fprintf ppf "float prop"
+  | Bool -> Format.fprintf ppf "bool prop"
+  | Dynamic -> Format.fprintf ppf "json prop"
   | Opt ty ->
       Format.fprintf ppf "%a option"
         (gen_attribute_type_name path)

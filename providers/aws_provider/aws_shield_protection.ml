@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_shield_protection = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_arn : string;  (** resource_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_arn : string prop;  (** resource_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_shield_protection *)

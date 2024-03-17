@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type aws_organizations_organization__accounts = {
-  arn : string;  (** arn *)
-  email : string;  (** email *)
-  id : string;  (** id *)
-  name : string;  (** name *)
-  status : string;  (** status *)
+  arn : string prop;  (** arn *)
+  email : string prop;  (** email *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
+  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
 
 type aws_organizations_organization__non_master_accounts = {
-  arn : string;  (** arn *)
-  email : string;  (** email *)
-  id : string;  (** id *)
-  name : string;  (** name *)
-  status : string;  (** status *)
+  arn : string prop;  (** arn *)
+  email : string prop;  (** email *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
+  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
 
 type aws_organizations_organization__roots__policy_types = {
-  status : string;  (** status *)
-  type_ : string; [@key "type"]  (** type *)
+  status : string prop;  (** status *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
 type aws_organizations_organization__roots = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
   policy_types :
     aws_organizations_organization__roots__policy_types list;
       (** policy_types *)
@@ -39,12 +39,12 @@ type aws_organizations_organization__roots = {
 [@@deriving yojson_of]
 
 type aws_organizations_organization = {
-  aws_service_access_principals : string list option; [@option]
+  aws_service_access_principals : string prop list option; [@option]
       (** aws_service_access_principals *)
-  enabled_policy_types : string list option; [@option]
+  enabled_policy_types : string prop list option; [@option]
       (** enabled_policy_types *)
-  feature_set : string option; [@option]  (** feature_set *)
-  id : string option; [@option]  (** id *)
+  feature_set : string prop option; [@option]  (** feature_set *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_organizations_organization *)

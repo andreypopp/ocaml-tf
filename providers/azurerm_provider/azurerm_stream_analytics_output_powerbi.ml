@@ -5,25 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_stream_analytics_output_powerbi__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_powerbi__timeouts *)
 
 type azurerm_stream_analytics_output_powerbi = {
-  dataset : string;  (** dataset *)
-  group_id : string;  (** group_id *)
-  group_name : string;  (** group_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  stream_analytics_job_id : string;  (** stream_analytics_job_id *)
-  table : string;  (** table *)
-  token_user_display_name : string option; [@option]
+  dataset : string prop;  (** dataset *)
+  group_id : string prop;  (** group_id *)
+  group_name : string prop;  (** group_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  stream_analytics_job_id : string prop;
+      (** stream_analytics_job_id *)
+  table : string prop;  (** table *)
+  token_user_display_name : string prop option; [@option]
       (** token_user_display_name *)
-  token_user_principal_name : string option; [@option]
+  token_user_principal_name : string prop option; [@option]
       (** token_user_principal_name *)
   timeouts : azurerm_stream_analytics_output_powerbi__timeouts option;
 }

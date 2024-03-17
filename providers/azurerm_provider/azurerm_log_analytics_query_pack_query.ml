@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_log_analytics_query_pack_query__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_query_pack_query__timeouts *)
 
 type azurerm_log_analytics_query_pack_query = {
-  additional_settings_json : string option; [@option]
+  additional_settings_json : string prop option; [@option]
       (** additional_settings_json *)
-  body : string;  (** body *)
-  categories : string list option; [@option]  (** categories *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  query_pack_id : string;  (** query_pack_id *)
-  resource_types : string list option; [@option]
+  body : string prop;  (** body *)
+  categories : string prop list option; [@option]  (** categories *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  query_pack_id : string prop;  (** query_pack_id *)
+  resource_types : string prop list option; [@option]
       (** resource_types *)
-  solutions : string list option; [@option]  (** solutions *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  solutions : string prop list option; [@option]  (** solutions *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_log_analytics_query_pack_query__timeouts option;
 }
 [@@deriving yojson_of]

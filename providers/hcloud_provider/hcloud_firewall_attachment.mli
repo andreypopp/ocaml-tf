@@ -5,9 +5,9 @@ open! Tf.Prelude
 type hcloud_firewall_attachment
 
 val hcloud_firewall_attachment :
-  ?id:string ->
-  ?label_selectors:string list ->
-  ?server_ids:float list ->
-  firewall_id:float ->
+  ?id:string prop ->
+  ?label_selectors:string prop list ->
+  ?server_ids:float prop list ->
+  firewall_id:float prop ->
   string ->
   unit

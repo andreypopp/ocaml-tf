@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_rule_set__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_rule_set__timeouts *)
 
 type azurerm_cdn_frontdoor_rule_set = {
-  cdn_frontdoor_profile_id : string;  (** cdn_frontdoor_profile_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  cdn_frontdoor_profile_id : string prop;
+      (** cdn_frontdoor_profile_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   timeouts : azurerm_cdn_frontdoor_rule_set__timeouts option;
 }
 [@@deriving yojson_of]

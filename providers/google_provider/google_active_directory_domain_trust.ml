@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type google_active_directory_domain_trust__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_active_directory_domain_trust__timeouts *)
 
 type google_active_directory_domain_trust = {
-  domain : string;
+  domain : string prop;
       (** The fully qualified domain name. e.g. mydomain.myorganization.com, with the restrictions,
 https://cloud.google.com/managed-microsoft-ad/reference/rest/v1/projects.locations.global.domains. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  selective_authentication : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  selective_authentication : bool prop option; [@option]
       (** Whether the trusted side has forest/domain wide access or selective access to an approved set of resources. *)
-  target_dns_ip_addresses : string list;
+  target_dns_ip_addresses : string prop list;
       (** The target DNS server IP addresses which can resolve the remote domain involved in the trust. *)
-  target_domain_name : string;
+  target_domain_name : string prop;
       (** The fully qualified target domain name which will be in trust with the current domain. *)
-  trust_direction : string;
+  trust_direction : string prop;
       (** The trust direction, which decides if the current domain is trusted, trusting, or both. Possible values: [INBOUND, OUTBOUND, BIDIRECTIONAL] *)
-  trust_handshake_secret : string;
+  trust_handshake_secret : string prop;
       (** The trust secret used for the handshake with the target domain. This will not be stored. *)
-  trust_type : string;
+  trust_type : string prop;
       (** The type of trust represented by the trust resource. Possible values: [FOREST, EXTERNAL] *)
   timeouts : google_active_directory_domain_trust__timeouts option;
 }

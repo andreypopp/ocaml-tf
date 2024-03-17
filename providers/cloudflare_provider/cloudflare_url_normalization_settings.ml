@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type cloudflare_url_normalization_settings = {
-  id : string option; [@option]  (** id *)
-  scope : string;  (** The scope of the URL normalization. *)
-  type_ : string; [@key "type"]
+  id : string prop option; [@option]  (** id *)
+  scope : string prop;  (** The scope of the URL normalization. *)
+  type_ : string prop; [@key "type"]
       (** The type of URL normalization performed by Cloudflare. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

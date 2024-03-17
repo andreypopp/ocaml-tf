@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_lakeformation_data_cells_filter__table_data__column_wildcard = {
-  excluded_column_names : string list option; [@option]
+  excluded_column_names : string prop list option; [@option]
       (** excluded_column_names *)
 }
 [@@deriving yojson_of]
@@ -16,7 +16,7 @@ type aws_lakeformation_data_cells_filter__table_data__row_filter__all_rows_wildc
 [@@deriving yojson_of]
 
 type aws_lakeformation_data_cells_filter__table_data__row_filter = {
-  filter_expression : string option; [@option]
+  filter_expression : string prop option; [@option]
       (** filter_expression *)
   all_rows_wildcard :
     aws_lakeformation_data_cells_filter__table_data__row_filter__all_rows_wildcard
@@ -26,12 +26,13 @@ type aws_lakeformation_data_cells_filter__table_data__row_filter = {
 (** aws_lakeformation_data_cells_filter__table_data__row_filter *)
 
 type aws_lakeformation_data_cells_filter__table_data = {
-  column_names : string list option; [@option]  (** column_names *)
-  database_name : string;  (** database_name *)
-  name : string;  (** name *)
-  table_catalog_id : string;  (** table_catalog_id *)
-  table_name : string;  (** table_name *)
-  version_id : string option; [@option]  (** version_id *)
+  column_names : string prop list option; [@option]
+      (** column_names *)
+  database_name : string prop;  (** database_name *)
+  name : string prop;  (** name *)
+  table_catalog_id : string prop;  (** table_catalog_id *)
+  table_name : string prop;  (** table_name *)
+  version_id : string prop option; [@option]  (** version_id *)
   column_wildcard :
     aws_lakeformation_data_cells_filter__table_data__column_wildcard
     list;
@@ -42,7 +43,7 @@ type aws_lakeformation_data_cells_filter__table_data = {
 (** aws_lakeformation_data_cells_filter__table_data *)
 
 type aws_lakeformation_data_cells_filter__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]

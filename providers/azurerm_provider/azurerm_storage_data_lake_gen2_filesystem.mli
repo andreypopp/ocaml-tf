@@ -7,13 +7,13 @@ type azurerm_storage_data_lake_gen2_filesystem__timeouts
 type azurerm_storage_data_lake_gen2_filesystem
 
 val azurerm_storage_data_lake_gen2_filesystem :
-  ?group:string ->
-  ?id:string ->
-  ?owner:string ->
-  ?properties:(string * string) list ->
+  ?group:string prop ->
+  ?id:string prop ->
+  ?owner:string prop ->
+  ?properties:(string * string prop) list ->
   ?timeouts:azurerm_storage_data_lake_gen2_filesystem__timeouts ->
-  name:string ->
-  storage_account_id:string ->
+  name:string prop ->
+  storage_account_id:string prop ->
   ace:azurerm_storage_data_lake_gen2_filesystem__ace list ->
   string ->
   unit

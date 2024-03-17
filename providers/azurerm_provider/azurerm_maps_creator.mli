@@ -6,12 +6,12 @@ type azurerm_maps_creator__timeouts
 type azurerm_maps_creator
 
 val azurerm_maps_creator :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_maps_creator__timeouts ->
-  location:string ->
-  maps_account_id:string ->
-  name:string ->
-  storage_units:float ->
+  location:string prop ->
+  maps_account_id:string prop ->
+  name:string prop ->
+  storage_units:float prop ->
   string ->
   unit

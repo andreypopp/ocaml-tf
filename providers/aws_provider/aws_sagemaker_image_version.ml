@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_sagemaker_image_version = {
-  base_image : string;  (** base_image *)
-  id : string option; [@option]  (** id *)
-  image_name : string;  (** image_name *)
+  base_image : string prop;  (** base_image *)
+  id : string prop option; [@option]  (** id *)
+  image_name : string prop;  (** image_name *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_image_version *)

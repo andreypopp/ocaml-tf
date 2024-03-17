@@ -7,16 +7,16 @@ type azurerm_spring_cloud_application_insights_application_performance_monitorin
 type azurerm_spring_cloud_application_insights_application_performance_monitoring
 
 val azurerm_spring_cloud_application_insights_application_performance_monitoring :
-  ?connection_string:string ->
-  ?globally_enabled:bool ->
-  ?id:string ->
-  ?role_instance:string ->
-  ?role_name:string ->
-  ?sampling_percentage:float ->
-  ?sampling_requests_per_second:float ->
+  ?connection_string:string prop ->
+  ?globally_enabled:bool prop ->
+  ?id:string prop ->
+  ?role_instance:string prop ->
+  ?role_name:string prop ->
+  ?sampling_percentage:float prop ->
+  ?sampling_requests_per_second:float prop ->
   ?timeouts:
     azurerm_spring_cloud_application_insights_application_performance_monitoring__timeouts ->
-  name:string ->
-  spring_cloud_service_id:string ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
   string ->
   unit

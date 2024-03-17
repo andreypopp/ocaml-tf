@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_lakeformation_resource = {
-  arn : string;  (** arn *)
-  hybrid_access_enabled : bool option; [@option]
+  arn : string prop;  (** arn *)
+  hybrid_access_enabled : bool prop option; [@option]
       (** hybrid_access_enabled *)
-  id : string option; [@option]  (** id *)
-  role_arn : string option; [@option]  (** role_arn *)
-  use_service_linked_role : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  role_arn : string prop option; [@option]  (** role_arn *)
+  use_service_linked_role : bool prop option; [@option]
       (** use_service_linked_role *)
-  with_federation : bool option; [@option]  (** with_federation *)
+  with_federation : bool prop option; [@option]
+      (** with_federation *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_resource *)

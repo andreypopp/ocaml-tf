@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_regional_tiered_cache = {
-  id : string option; [@option]  (** id *)
-  value : string;
+  id : string prop option; [@option]  (** id *)
+  value : string prop;
       (** Value of the Regional Tiered Cache zone setting. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
 }
 [@@deriving yojson_of]

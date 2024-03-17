@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_network_manager_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_deployment__timeouts *)
 
 type azurerm_network_manager_deployment = {
-  configuration_ids : string list;  (** configuration_ids *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  network_manager_id : string;  (** network_manager_id *)
-  scope_access : string;  (** scope_access *)
-  triggers : (string * string) list option; [@option]
+  configuration_ids : string prop list;  (** configuration_ids *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  network_manager_id : string prop;  (** network_manager_id *)
+  scope_access : string prop;  (** scope_access *)
+  triggers : (string * string prop) list option; [@option]
       (** triggers *)
   timeouts : azurerm_network_manager_deployment__timeouts option;
 }

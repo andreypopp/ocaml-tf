@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_relay_namespace_authorization_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_relay_namespace_authorization_rule__timeouts *)
 
 type azurerm_relay_namespace_authorization_rule = {
-  id : string option; [@option]  (** id *)
-  listen : bool option; [@option]  (** listen *)
-  manage : bool option; [@option]  (** manage *)
-  name : string;  (** name *)
-  namespace_name : string;  (** namespace_name *)
-  resource_group_name : string;  (** resource_group_name *)
-  send : bool option; [@option]  (** send *)
+  id : string prop option; [@option]  (** id *)
+  listen : bool prop option; [@option]  (** listen *)
+  manage : bool prop option; [@option]  (** manage *)
+  name : string prop;  (** name *)
+  namespace_name : string prop;  (** namespace_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  send : bool prop option; [@option]  (** send *)
   timeouts :
     azurerm_relay_namespace_authorization_rule__timeouts option;
 }

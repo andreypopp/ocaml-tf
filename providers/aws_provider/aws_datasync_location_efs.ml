@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_datasync_location_efs__ec2_config = {
-  security_group_arns : string list;  (** security_group_arns *)
-  subnet_arn : string;  (** subnet_arn *)
+  security_group_arns : string prop list;  (** security_group_arns *)
+  subnet_arn : string prop;  (** subnet_arn *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_efs__ec2_config *)
 
 type aws_datasync_location_efs = {
-  access_point_arn : string option; [@option]
+  access_point_arn : string prop option; [@option]
       (** access_point_arn *)
-  efs_file_system_arn : string;  (** efs_file_system_arn *)
-  file_system_access_role_arn : string option; [@option]
+  efs_file_system_arn : string prop;  (** efs_file_system_arn *)
+  file_system_access_role_arn : string prop option; [@option]
       (** file_system_access_role_arn *)
-  id : string option; [@option]  (** id *)
-  in_transit_encryption : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  in_transit_encryption : string prop option; [@option]
       (** in_transit_encryption *)
-  subdirectory : string option; [@option]  (** subdirectory *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  subdirectory : string prop option; [@option]  (** subdirectory *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   ec2_config : aws_datasync_location_efs__ec2_config list;
 }

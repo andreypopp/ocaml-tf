@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_route53recoverycontrolconfig_cluster__cluster_endpoints = {
-  endpoint : string;  (** endpoint *)
-  region : string;  (** region *)
+  endpoint : string prop;  (** endpoint *)
+  region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
 
 type aws_route53recoverycontrolconfig_cluster = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoverycontrolconfig_cluster *)

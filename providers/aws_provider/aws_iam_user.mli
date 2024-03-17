@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_iam_user
 
 val aws_iam_user :
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?path:string ->
-  ?permissions_boundary:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?path:string prop ->
+  ?permissions_boundary:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   string ->
   unit

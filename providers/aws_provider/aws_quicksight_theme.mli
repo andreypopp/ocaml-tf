@@ -31,15 +31,15 @@ type aws_quicksight_theme__timeouts
 type aws_quicksight_theme
 
 val aws_quicksight_theme :
-    ?aws_account_id:string ->
-    ?id:string ->
-    ?tags:(string * string) list ->
-    ?tags_all:(string * string) list ->
-    ?version_description:string ->
+    ?aws_account_id:string prop ->
+    ?id:string prop ->
+    ?tags:(string * string prop) list ->
+    ?tags_all:(string * string prop) list ->
+    ?version_description:string prop ->
     ?timeouts:aws_quicksight_theme__timeouts ->
-    base_theme_id:string ->
-    name:string ->
-    theme_id:string ->
+    base_theme_id:string prop ->
+    name:string prop ->
+    theme_id:string prop ->
     configuration:aws_quicksight_theme__configuration list ->
     permissions:aws_quicksight_theme__permissions list ->
     string ->

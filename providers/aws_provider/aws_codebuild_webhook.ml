@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_codebuild_webhook__filter_group__filter = {
-  exclude_matched_pattern : bool option; [@option]
+  exclude_matched_pattern : bool prop option; [@option]
       (** exclude_matched_pattern *)
-  pattern : string;  (** pattern *)
-  type_ : string; [@key "type"]  (** type *)
+  pattern : string prop;  (** pattern *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_codebuild_webhook__filter_group__filter *)
@@ -20,10 +20,10 @@ type aws_codebuild_webhook__filter_group = {
 (** aws_codebuild_webhook__filter_group *)
 
 type aws_codebuild_webhook = {
-  branch_filter : string option; [@option]  (** branch_filter *)
-  build_type : string option; [@option]  (** build_type *)
-  id : string option; [@option]  (** id *)
-  project_name : string;  (** project_name *)
+  branch_filter : string prop option; [@option]  (** branch_filter *)
+  build_type : string prop option; [@option]  (** build_type *)
+  id : string prop option; [@option]  (** id *)
+  project_name : string prop;  (** project_name *)
   filter_group : aws_codebuild_webhook__filter_group list;
 }
 [@@deriving yojson_of]

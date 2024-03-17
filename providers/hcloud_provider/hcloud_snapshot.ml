@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type hcloud_snapshot__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** hcloud_snapshot__timeouts *)
 
 type hcloud_snapshot = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  server_id : float;  (** server_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  server_id : float prop;  (** server_id *)
   timeouts : hcloud_snapshot__timeouts option;
 }
 [@@deriving yojson_of]

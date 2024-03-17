@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_accessanalyzer_analyzer__configuration__unused_access = {
-  unused_access_age : float option; [@option]
+  unused_access_age : float prop option; [@option]
       (** unused_access_age *)
 }
 [@@deriving yojson_of]
@@ -19,12 +19,12 @@ type aws_accessanalyzer_analyzer__configuration = {
 (** aws_accessanalyzer_analyzer__configuration *)
 
 type aws_accessanalyzer_analyzer = {
-  analyzer_name : string;  (** analyzer_name *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  analyzer_name : string prop;  (** analyzer_name *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   configuration : aws_accessanalyzer_analyzer__configuration list;
 }
 [@@deriving yojson_of]

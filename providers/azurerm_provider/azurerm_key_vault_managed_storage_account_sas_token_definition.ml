@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_key_vault_managed_storage_account_sas_token_definition__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_storage_account_sas_token_definition__timeouts *)
 
 type azurerm_key_vault_managed_storage_account_sas_token_definition = {
-  id : string option; [@option]  (** id *)
-  managed_storage_account_id : string;
+  id : string prop option; [@option]  (** id *)
+  managed_storage_account_id : string prop;
       (** managed_storage_account_id *)
-  name : string;  (** name *)
-  sas_template_uri : string;  (** sas_template_uri *)
-  sas_type : string;  (** sas_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  validity_period : string;  (** validity_period *)
+  name : string prop;  (** name *)
+  sas_template_uri : string prop;  (** sas_template_uri *)
+  sas_type : string prop;  (** sas_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  validity_period : string prop;  (** validity_period *)
   timeouts :
     azurerm_key_vault_managed_storage_account_sas_token_definition__timeouts
     option;

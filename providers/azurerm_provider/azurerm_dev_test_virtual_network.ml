@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_dev_test_virtual_network__subnet = {
-  name : string;  (** name *)
-  use_in_virtual_machine_creation : string option; [@option]
+  name : string prop;  (** name *)
+  use_in_virtual_machine_creation : string prop option; [@option]
       (** use_in_virtual_machine_creation *)
-  use_public_ip_address : string option; [@option]
+  use_public_ip_address : string prop option; [@option]
       (** use_public_ip_address *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_virtual_network__subnet *)
 
 type azurerm_dev_test_virtual_network__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_virtual_network__timeouts *)
 
 type azurerm_dev_test_virtual_network = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  lab_name : string;  (** lab_name *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  lab_name : string prop;  (** lab_name *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   subnet : azurerm_dev_test_virtual_network__subnet list;
   timeouts : azurerm_dev_test_virtual_network__timeouts option;
 }

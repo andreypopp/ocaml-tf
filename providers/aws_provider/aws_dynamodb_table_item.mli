@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_dynamodb_table_item
 
 val aws_dynamodb_table_item :
-  ?id:string ->
-  ?range_key:string ->
-  hash_key:string ->
-  item:string ->
-  table_name:string ->
+  ?id:string prop ->
+  ?range_key:string prop ->
+  hash_key:string prop ->
+  item:string prop ->
+  table_name:string prop ->
   string ->
   unit

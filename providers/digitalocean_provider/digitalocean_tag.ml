@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type digitalocean_tag = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** digitalocean_tag *)

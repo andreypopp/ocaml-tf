@@ -8,14 +8,14 @@ type azurerm_storage_share__timeouts
 type azurerm_storage_share
 
 val azurerm_storage_share :
-  ?access_tier:string ->
-  ?enabled_protocol:string ->
-  ?id:string ->
-  ?metadata:(string * string) list ->
+  ?access_tier:string prop ->
+  ?enabled_protocol:string prop ->
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
   ?timeouts:azurerm_storage_share__timeouts ->
-  name:string ->
-  quota:float ->
-  storage_account_name:string ->
+  name:string prop ->
+  quota:float prop ->
+  storage_account_name:string prop ->
   acl:azurerm_storage_share__acl list ->
   string ->
   unit

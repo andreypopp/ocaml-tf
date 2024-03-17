@@ -5,63 +5,65 @@
 open! Tf.Prelude
 
 type aws_s3_bucket__cors_rule = {
-  allowed_headers : string list option; [@option]
+  allowed_headers : string prop list option; [@option]
       (** allowed_headers *)
-  allowed_methods : string list;  (** allowed_methods *)
-  allowed_origins : string list;  (** allowed_origins *)
-  expose_headers : string list option; [@option]
+  allowed_methods : string prop list;  (** allowed_methods *)
+  allowed_origins : string prop list;  (** allowed_origins *)
+  expose_headers : string prop list option; [@option]
       (** expose_headers *)
-  max_age_seconds : float option; [@option]  (** max_age_seconds *)
+  max_age_seconds : float prop option; [@option]
+      (** max_age_seconds *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__cors_rule *)
 
 type aws_s3_bucket__grant = {
-  id : string option; [@option]  (** id *)
-  permissions : string list;  (** permissions *)
-  type_ : string; [@key "type"]  (** type *)
-  uri : string option; [@option]  (** uri *)
+  id : string prop option; [@option]  (** id *)
+  permissions : string prop list;  (** permissions *)
+  type_ : string prop; [@key "type"]  (** type *)
+  uri : string prop option; [@option]  (** uri *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__grant *)
 
 type aws_s3_bucket__lifecycle_rule__expiration = {
-  date : string option; [@option]  (** date *)
-  days : float option; [@option]  (** days *)
-  expired_object_delete_marker : bool option; [@option]
+  date : string prop option; [@option]  (** date *)
+  days : float prop option; [@option]  (** days *)
+  expired_object_delete_marker : bool prop option; [@option]
       (** expired_object_delete_marker *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__lifecycle_rule__expiration *)
 
 type aws_s3_bucket__lifecycle_rule__noncurrent_version_expiration = {
-  days : float option; [@option]  (** days *)
+  days : float prop option; [@option]  (** days *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__lifecycle_rule__noncurrent_version_expiration *)
 
 type aws_s3_bucket__lifecycle_rule__noncurrent_version_transition = {
-  days : float option; [@option]  (** days *)
-  storage_class : string;  (** storage_class *)
+  days : float prop option; [@option]  (** days *)
+  storage_class : string prop;  (** storage_class *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__lifecycle_rule__noncurrent_version_transition *)
 
 type aws_s3_bucket__lifecycle_rule__transition = {
-  date : string option; [@option]  (** date *)
-  days : float option; [@option]  (** days *)
-  storage_class : string;  (** storage_class *)
+  date : string prop option; [@option]  (** date *)
+  days : float prop option; [@option]  (** days *)
+  storage_class : string prop;  (** storage_class *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__lifecycle_rule__transition *)
 
 type aws_s3_bucket__lifecycle_rule = {
-  abort_incomplete_multipart_upload_days : float option; [@option]
+  abort_incomplete_multipart_upload_days : float prop option;
+      [@option]
       (** abort_incomplete_multipart_upload_days *)
-  enabled : bool;  (** enabled *)
-  id : string option; [@option]  (** id *)
-  prefix : string option; [@option]  (** prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  enabled : bool prop;  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  prefix : string prop option; [@option]  (** prefix *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   expiration : aws_s3_bucket__lifecycle_rule__expiration list;
   noncurrent_version_expiration :
     aws_s3_bucket__lifecycle_rule__noncurrent_version_expiration list;
@@ -73,16 +75,16 @@ type aws_s3_bucket__lifecycle_rule = {
 (** aws_s3_bucket__lifecycle_rule *)
 
 type aws_s3_bucket__logging = {
-  target_bucket : string;  (** target_bucket *)
-  target_prefix : string option; [@option]  (** target_prefix *)
+  target_bucket : string prop;  (** target_bucket *)
+  target_prefix : string prop option; [@option]  (** target_prefix *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__logging *)
 
 type aws_s3_bucket__object_lock_configuration__rule__default_retention = {
-  days : float option; [@option]  (** days *)
-  mode : string;  (** mode *)
-  years : float option; [@option]  (** years *)
+  days : float prop option; [@option]  (** days *)
+  mode : string prop;  (** mode *)
+  years : float prop option; [@option]  (** years *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__object_lock_configuration__rule__default_retention *)
@@ -96,7 +98,7 @@ type aws_s3_bucket__object_lock_configuration__rule = {
 (** aws_s3_bucket__object_lock_configuration__rule *)
 
 type aws_s3_bucket__object_lock_configuration = {
-  object_lock_enabled : string option; [@option]
+  object_lock_enabled : string prop option; [@option]
       (** object_lock_enabled *)
   rule : aws_s3_bucket__object_lock_configuration__rule list;
 }
@@ -104,31 +106,31 @@ type aws_s3_bucket__object_lock_configuration = {
 (** aws_s3_bucket__object_lock_configuration *)
 
 type aws_s3_bucket__replication_configuration__rules__destination__access_control_translation = {
-  owner : string;  (** owner *)
+  owner : string prop;  (** owner *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__replication_configuration__rules__destination__access_control_translation *)
 
 type aws_s3_bucket__replication_configuration__rules__destination__metrics = {
-  minutes : float option; [@option]  (** minutes *)
-  status : string option; [@option]  (** status *)
+  minutes : float prop option; [@option]  (** minutes *)
+  status : string prop option; [@option]  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__replication_configuration__rules__destination__metrics *)
 
 type aws_s3_bucket__replication_configuration__rules__destination__replication_time = {
-  minutes : float option; [@option]  (** minutes *)
-  status : string option; [@option]  (** status *)
+  minutes : float prop option; [@option]  (** minutes *)
+  status : string prop option; [@option]  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__replication_configuration__rules__destination__replication_time *)
 
 type aws_s3_bucket__replication_configuration__rules__destination = {
-  account_id : string option; [@option]  (** account_id *)
-  bucket : string;  (** bucket *)
-  replica_kms_key_id : string option; [@option]
+  account_id : string prop option; [@option]  (** account_id *)
+  bucket : string prop;  (** bucket *)
+  replica_kms_key_id : string prop option; [@option]
       (** replica_kms_key_id *)
-  storage_class : string option; [@option]  (** storage_class *)
+  storage_class : string prop option; [@option]  (** storage_class *)
   access_control_translation :
     aws_s3_bucket__replication_configuration__rules__destination__access_control_translation
     list;
@@ -143,14 +145,14 @@ type aws_s3_bucket__replication_configuration__rules__destination = {
 (** aws_s3_bucket__replication_configuration__rules__destination *)
 
 type aws_s3_bucket__replication_configuration__rules__filter = {
-  prefix : string option; [@option]  (** prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  prefix : string prop option; [@option]  (** prefix *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__replication_configuration__rules__filter *)
 
 type aws_s3_bucket__replication_configuration__rules__source_selection_criteria__sse_kms_encrypted_objects = {
-  enabled : bool;  (** enabled *)
+  enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__replication_configuration__rules__source_selection_criteria__sse_kms_encrypted_objects *)
@@ -164,12 +166,12 @@ type aws_s3_bucket__replication_configuration__rules__source_selection_criteria 
 (** aws_s3_bucket__replication_configuration__rules__source_selection_criteria *)
 
 type aws_s3_bucket__replication_configuration__rules = {
-  delete_marker_replication_status : string option; [@option]
+  delete_marker_replication_status : string prop option; [@option]
       (** delete_marker_replication_status *)
-  id : string option; [@option]  (** id *)
-  prefix : string option; [@option]  (** prefix *)
-  priority : float option; [@option]  (** priority *)
-  status : string;  (** status *)
+  id : string prop option; [@option]  (** id *)
+  prefix : string prop option; [@option]  (** prefix *)
+  priority : float prop option; [@option]  (** priority *)
+  status : string prop;  (** status *)
   destination :
     aws_s3_bucket__replication_configuration__rules__destination list;
   filter :
@@ -182,22 +184,22 @@ type aws_s3_bucket__replication_configuration__rules = {
 (** aws_s3_bucket__replication_configuration__rules *)
 
 type aws_s3_bucket__replication_configuration = {
-  role : string;  (** role *)
+  role : string prop;  (** role *)
   rules : aws_s3_bucket__replication_configuration__rules list;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__replication_configuration *)
 
 type aws_s3_bucket__server_side_encryption_configuration__rule__apply_server_side_encryption_by_default = {
-  kms_master_key_id : string option; [@option]
+  kms_master_key_id : string prop option; [@option]
       (** kms_master_key_id *)
-  sse_algorithm : string;  (** sse_algorithm *)
+  sse_algorithm : string prop;  (** sse_algorithm *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__server_side_encryption_configuration__rule__apply_server_side_encryption_by_default *)
 
 type aws_s3_bucket__server_side_encryption_configuration__rule = {
-  bucket_key_enabled : bool option; [@option]
+  bucket_key_enabled : bool prop option; [@option]
       (** bucket_key_enabled *)
   apply_server_side_encryption_by_default :
     aws_s3_bucket__server_side_encryption_configuration__rule__apply_server_side_encryption_by_default
@@ -214,45 +216,47 @@ type aws_s3_bucket__server_side_encryption_configuration = {
 (** aws_s3_bucket__server_side_encryption_configuration *)
 
 type aws_s3_bucket__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__timeouts *)
 
 type aws_s3_bucket__versioning = {
-  enabled : bool option; [@option]  (** enabled *)
-  mfa_delete : bool option; [@option]  (** mfa_delete *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  mfa_delete : bool prop option; [@option]  (** mfa_delete *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__versioning *)
 
 type aws_s3_bucket__website = {
-  error_document : string option; [@option]  (** error_document *)
-  index_document : string option; [@option]  (** index_document *)
-  redirect_all_requests_to : string option; [@option]
+  error_document : string prop option; [@option]
+      (** error_document *)
+  index_document : string prop option; [@option]
+      (** index_document *)
+  redirect_all_requests_to : string prop option; [@option]
       (** redirect_all_requests_to *)
-  routing_rules : string option; [@option]  (** routing_rules *)
+  routing_rules : string prop option; [@option]  (** routing_rules *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket__website *)
 
 type aws_s3_bucket = {
-  acceleration_status : string option; [@option]
+  acceleration_status : string prop option; [@option]
       (** acceleration_status *)
-  acl : string option; [@option]  (** acl *)
-  bucket : string option; [@option]  (** bucket *)
-  bucket_prefix : string option; [@option]  (** bucket_prefix *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  id : string option; [@option]  (** id *)
-  object_lock_enabled : bool option; [@option]
+  acl : string prop option; [@option]  (** acl *)
+  bucket : string prop option; [@option]  (** bucket *)
+  bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  id : string prop option; [@option]  (** id *)
+  object_lock_enabled : bool prop option; [@option]
       (** object_lock_enabled *)
-  policy : string option; [@option]  (** policy *)
-  request_payer : string option; [@option]  (** request_payer *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  policy : string prop option; [@option]  (** policy *)
+  request_payer : string prop option; [@option]  (** request_payer *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   cors_rule : aws_s3_bucket__cors_rule list;
   grant : aws_s3_bucket__grant list;

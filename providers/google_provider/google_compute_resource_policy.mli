@@ -30,12 +30,12 @@ type google_compute_resource_policy__timeouts
 type google_compute_resource_policy
 
 val google_compute_resource_policy :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_compute_resource_policy__timeouts ->
-  name:string ->
+  name:string prop ->
   disk_consistency_group_policy:
     google_compute_resource_policy__disk_consistency_group_policy
     list ->

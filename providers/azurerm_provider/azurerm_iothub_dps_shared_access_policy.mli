@@ -6,15 +6,15 @@ type azurerm_iothub_dps_shared_access_policy__timeouts
 type azurerm_iothub_dps_shared_access_policy
 
 val azurerm_iothub_dps_shared_access_policy :
-  ?enrollment_read:bool ->
-  ?enrollment_write:bool ->
-  ?id:string ->
-  ?registration_read:bool ->
-  ?registration_write:bool ->
-  ?service_config:bool ->
+  ?enrollment_read:bool prop ->
+  ?enrollment_write:bool prop ->
+  ?id:string prop ->
+  ?registration_read:bool prop ->
+  ?registration_write:bool prop ->
+  ?service_config:bool prop ->
   ?timeouts:azurerm_iothub_dps_shared_access_policy__timeouts ->
-  iothub_dps_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  iothub_dps_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

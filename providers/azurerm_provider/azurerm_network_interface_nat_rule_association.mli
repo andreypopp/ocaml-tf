@@ -6,10 +6,10 @@ type azurerm_network_interface_nat_rule_association__timeouts
 type azurerm_network_interface_nat_rule_association
 
 val azurerm_network_interface_nat_rule_association :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_network_interface_nat_rule_association__timeouts ->
-  ip_configuration_name:string ->
-  nat_rule_id:string ->
-  network_interface_id:string ->
+  ip_configuration_name:string prop ->
+  nat_rule_id:string prop ->
+  network_interface_id:string prop ->
   string ->
   unit

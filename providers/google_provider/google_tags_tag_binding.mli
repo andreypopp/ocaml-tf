@@ -6,9 +6,9 @@ type google_tags_tag_binding__timeouts
 type google_tags_tag_binding
 
 val google_tags_tag_binding :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_tags_tag_binding__timeouts ->
-  parent:string ->
-  tag_value:string ->
+  parent:string prop ->
+  tag_value:string prop ->
   string ->
   unit

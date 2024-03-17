@@ -5,29 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_iothub_device_update_instance__diagnostic_storage_account = {
-  connection_string : string;  (** connection_string *)
-  id : string;  (** id *)
+  connection_string : string prop;  (** connection_string *)
+  id : string prop;  (** id *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_device_update_instance__diagnostic_storage_account *)
 
 type azurerm_iothub_device_update_instance__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_device_update_instance__timeouts *)
 
 type azurerm_iothub_device_update_instance = {
-  device_update_account_id : string;  (** device_update_account_id *)
-  diagnostic_enabled : bool option; [@option]
+  device_update_account_id : string prop;
+      (** device_update_account_id *)
+  diagnostic_enabled : bool prop option; [@option]
       (** diagnostic_enabled *)
-  id : string option; [@option]  (** id *)
-  iothub_id : string;  (** iothub_id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  iothub_id : string prop;  (** iothub_id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   diagnostic_storage_account :
     azurerm_iothub_device_update_instance__diagnostic_storage_account
     list;

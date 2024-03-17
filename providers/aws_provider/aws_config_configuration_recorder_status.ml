@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_config_configuration_recorder_status = {
-  id : string option; [@option]  (** id *)
-  is_enabled : bool;  (** is_enabled *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  is_enabled : bool prop;  (** is_enabled *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_config_configuration_recorder_status *)

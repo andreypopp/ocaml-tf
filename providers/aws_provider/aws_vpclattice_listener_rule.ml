@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_vpclattice_listener_rule__action__fixed_response = {
-  status_code : float;  (** status_code *)
+  status_code : float prop;  (** status_code *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_listener_rule__action__fixed_response *)
 
 type aws_vpclattice_listener_rule__action__forward__target_groups = {
-  target_group_identifier : string;  (** target_group_identifier *)
-  weight : float option; [@option]  (** weight *)
+  target_group_identifier : string prop;
+      (** target_group_identifier *)
+  weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_listener_rule__action__forward__target_groups *)
@@ -33,16 +34,16 @@ type aws_vpclattice_listener_rule__action = {
 (** aws_vpclattice_listener_rule__action *)
 
 type aws_vpclattice_listener_rule__match__http_match__header_matches__match = {
-  contains : string option; [@option]  (** contains *)
-  exact : string option; [@option]  (** exact *)
-  prefix : string option; [@option]  (** prefix *)
+  contains : string prop option; [@option]  (** contains *)
+  exact : string prop option; [@option]  (** exact *)
+  prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_listener_rule__match__http_match__header_matches__match *)
 
 type aws_vpclattice_listener_rule__match__http_match__header_matches = {
-  case_sensitive : bool option; [@option]  (** case_sensitive *)
-  name : string;  (** name *)
+  case_sensitive : bool prop option; [@option]  (** case_sensitive *)
+  name : string prop;  (** name *)
   match_ :
     aws_vpclattice_listener_rule__match__http_match__header_matches__match
     list;
@@ -51,14 +52,14 @@ type aws_vpclattice_listener_rule__match__http_match__header_matches = {
 (** aws_vpclattice_listener_rule__match__http_match__header_matches *)
 
 type aws_vpclattice_listener_rule__match__http_match__path_match__match = {
-  exact : string option; [@option]  (** exact *)
-  prefix : string option; [@option]  (** prefix *)
+  exact : string prop option; [@option]  (** exact *)
+  prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_listener_rule__match__http_match__path_match__match *)
 
 type aws_vpclattice_listener_rule__match__http_match__path_match = {
-  case_sensitive : bool option; [@option]  (** case_sensitive *)
+  case_sensitive : bool prop option; [@option]  (** case_sensitive *)
   match_ :
     aws_vpclattice_listener_rule__match__http_match__path_match__match
     list;
@@ -67,7 +68,8 @@ type aws_vpclattice_listener_rule__match__http_match__path_match = {
 (** aws_vpclattice_listener_rule__match__http_match__path_match *)
 
 type aws_vpclattice_listener_rule__match__http_match = {
-  method_ : string option; [@option] [@key "method"]  (** method *)
+  method_ : string prop option; [@option] [@key "method"]
+      (** method *)
   header_matches :
     aws_vpclattice_listener_rule__match__http_match__header_matches
     list;
@@ -84,21 +86,21 @@ type aws_vpclattice_listener_rule__match = {
 (** aws_vpclattice_listener_rule__match *)
 
 type aws_vpclattice_listener_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_listener_rule__timeouts *)
 
 type aws_vpclattice_listener_rule = {
-  id : string option; [@option]  (** id *)
-  listener_identifier : string;  (** listener_identifier *)
-  name : string;  (** name *)
-  priority : float;  (** priority *)
-  service_identifier : string;  (** service_identifier *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  listener_identifier : string prop;  (** listener_identifier *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  service_identifier : string prop;  (** service_identifier *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   action : aws_vpclattice_listener_rule__action list;
   match_ : aws_vpclattice_listener_rule__match list;

@@ -7,10 +7,10 @@ type aws_s3_bucket_intelligent_tiering_configuration__tiering
 type aws_s3_bucket_intelligent_tiering_configuration
 
 val aws_s3_bucket_intelligent_tiering_configuration :
-  ?id:string ->
-  ?status:string ->
-  bucket:string ->
-  name:string ->
+  ?id:string prop ->
+  ?status:string prop ->
+  bucket:string prop ->
+  name:string prop ->
   filter:aws_s3_bucket_intelligent_tiering_configuration__filter list ->
   tiering:
     aws_s3_bucket_intelligent_tiering_configuration__tiering list ->

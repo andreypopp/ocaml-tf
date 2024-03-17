@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_cloudfront_monitoring_subscription__monitoring_subscription__realtime_metrics_subscription_config = {
-  realtime_metrics_subscription_status : string;
+  realtime_metrics_subscription_status : string prop;
       (** realtime_metrics_subscription_status *)
 }
 [@@deriving yojson_of]
@@ -20,8 +20,8 @@ type aws_cloudfront_monitoring_subscription__monitoring_subscription = {
 (** aws_cloudfront_monitoring_subscription__monitoring_subscription *)
 
 type aws_cloudfront_monitoring_subscription = {
-  distribution_id : string;  (** distribution_id *)
-  id : string option; [@option]  (** id *)
+  distribution_id : string prop;  (** distribution_id *)
+  id : string prop option; [@option]  (** id *)
   monitoring_subscription :
     aws_cloudfront_monitoring_subscription__monitoring_subscription
     list;

@@ -6,16 +6,16 @@ type google_netapp_backup_policy__timeouts
 type google_netapp_backup_policy
 
 val google_netapp_backup_policy :
-  ?description:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_netapp_backup_policy__timeouts ->
-  daily_backup_limit:float ->
-  location:string ->
-  monthly_backup_limit:float ->
-  name:string ->
-  weekly_backup_limit:float ->
+  daily_backup_limit:float prop ->
+  location:string prop ->
+  monthly_backup_limit:float prop ->
+  name:string prop ->
+  weekly_backup_limit:float prop ->
   string ->
   unit

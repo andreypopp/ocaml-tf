@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type aws_sagemaker_space__ownership_settings = {
-  owner_user_profile_name : string;  (** owner_user_profile_name *)
+  owner_user_profile_name : string prop;
+      (** owner_user_profile_name *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_space__ownership_settings *)
 
 type aws_sagemaker_space__space_settings__code_editor_app_settings__default_resource_spec = {
-  instance_type : string option; [@option]  (** instance_type *)
-  lifecycle_config_arn : string option; [@option]
+  instance_type : string prop option; [@option]  (** instance_type *)
+  lifecycle_config_arn : string prop option; [@option]
       (** lifecycle_config_arn *)
-  sagemaker_image_arn : string option; [@option]
+  sagemaker_image_arn : string prop option; [@option]
       (** sagemaker_image_arn *)
-  sagemaker_image_version_alias : string option; [@option]
+  sagemaker_image_version_alias : string prop option; [@option]
       (** sagemaker_image_version_alias *)
-  sagemaker_image_version_arn : string option; [@option]
+  sagemaker_image_version_arn : string prop option; [@option]
       (** sagemaker_image_version_arn *)
 }
 [@@deriving yojson_of]
@@ -33,7 +34,7 @@ type aws_sagemaker_space__space_settings__code_editor_app_settings = {
 (** aws_sagemaker_space__space_settings__code_editor_app_settings *)
 
 type aws_sagemaker_space__space_settings__custom_file_system__efs_file_system = {
-  file_system_id : string;  (** file_system_id *)
+  file_system_id : string prop;  (** file_system_id *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_space__space_settings__custom_file_system__efs_file_system *)
@@ -47,20 +48,20 @@ type aws_sagemaker_space__space_settings__custom_file_system = {
 (** aws_sagemaker_space__space_settings__custom_file_system *)
 
 type aws_sagemaker_space__space_settings__jupyter_lab_app_settings__code_repository = {
-  repository_url : string;  (** repository_url *)
+  repository_url : string prop;  (** repository_url *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_space__space_settings__jupyter_lab_app_settings__code_repository *)
 
 type aws_sagemaker_space__space_settings__jupyter_lab_app_settings__default_resource_spec = {
-  instance_type : string option; [@option]  (** instance_type *)
-  lifecycle_config_arn : string option; [@option]
+  instance_type : string prop option; [@option]  (** instance_type *)
+  lifecycle_config_arn : string prop option; [@option]
       (** lifecycle_config_arn *)
-  sagemaker_image_arn : string option; [@option]
+  sagemaker_image_arn : string prop option; [@option]
       (** sagemaker_image_arn *)
-  sagemaker_image_version_alias : string option; [@option]
+  sagemaker_image_version_alias : string prop option; [@option]
       (** sagemaker_image_version_alias *)
-  sagemaker_image_version_arn : string option; [@option]
+  sagemaker_image_version_arn : string prop option; [@option]
       (** sagemaker_image_version_arn *)
 }
 [@@deriving yojson_of]
@@ -78,27 +79,27 @@ type aws_sagemaker_space__space_settings__jupyter_lab_app_settings = {
 (** aws_sagemaker_space__space_settings__jupyter_lab_app_settings *)
 
 type aws_sagemaker_space__space_settings__jupyter_server_app_settings__code_repository = {
-  repository_url : string;  (** repository_url *)
+  repository_url : string prop;  (** repository_url *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_space__space_settings__jupyter_server_app_settings__code_repository *)
 
 type aws_sagemaker_space__space_settings__jupyter_server_app_settings__default_resource_spec = {
-  instance_type : string option; [@option]  (** instance_type *)
-  lifecycle_config_arn : string option; [@option]
+  instance_type : string prop option; [@option]  (** instance_type *)
+  lifecycle_config_arn : string prop option; [@option]
       (** lifecycle_config_arn *)
-  sagemaker_image_arn : string option; [@option]
+  sagemaker_image_arn : string prop option; [@option]
       (** sagemaker_image_arn *)
-  sagemaker_image_version_alias : string option; [@option]
+  sagemaker_image_version_alias : string prop option; [@option]
       (** sagemaker_image_version_alias *)
-  sagemaker_image_version_arn : string option; [@option]
+  sagemaker_image_version_arn : string prop option; [@option]
       (** sagemaker_image_version_arn *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_space__space_settings__jupyter_server_app_settings__default_resource_spec *)
 
 type aws_sagemaker_space__space_settings__jupyter_server_app_settings = {
-  lifecycle_config_arns : string list option; [@option]
+  lifecycle_config_arns : string prop list option; [@option]
       (** lifecycle_config_arns *)
   code_repository :
     aws_sagemaker_space__space_settings__jupyter_server_app_settings__code_repository
@@ -111,30 +112,30 @@ type aws_sagemaker_space__space_settings__jupyter_server_app_settings = {
 (** aws_sagemaker_space__space_settings__jupyter_server_app_settings *)
 
 type aws_sagemaker_space__space_settings__kernel_gateway_app_settings__custom_image = {
-  app_image_config_name : string;  (** app_image_config_name *)
-  image_name : string;  (** image_name *)
-  image_version_number : float option; [@option]
+  app_image_config_name : string prop;  (** app_image_config_name *)
+  image_name : string prop;  (** image_name *)
+  image_version_number : float prop option; [@option]
       (** image_version_number *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_space__space_settings__kernel_gateway_app_settings__custom_image *)
 
 type aws_sagemaker_space__space_settings__kernel_gateway_app_settings__default_resource_spec = {
-  instance_type : string option; [@option]  (** instance_type *)
-  lifecycle_config_arn : string option; [@option]
+  instance_type : string prop option; [@option]  (** instance_type *)
+  lifecycle_config_arn : string prop option; [@option]
       (** lifecycle_config_arn *)
-  sagemaker_image_arn : string option; [@option]
+  sagemaker_image_arn : string prop option; [@option]
       (** sagemaker_image_arn *)
-  sagemaker_image_version_alias : string option; [@option]
+  sagemaker_image_version_alias : string prop option; [@option]
       (** sagemaker_image_version_alias *)
-  sagemaker_image_version_arn : string option; [@option]
+  sagemaker_image_version_arn : string prop option; [@option]
       (** sagemaker_image_version_arn *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_space__space_settings__kernel_gateway_app_settings__default_resource_spec *)
 
 type aws_sagemaker_space__space_settings__kernel_gateway_app_settings = {
-  lifecycle_config_arns : string list option; [@option]
+  lifecycle_config_arns : string prop list option; [@option]
       (** lifecycle_config_arns *)
   custom_image :
     aws_sagemaker_space__space_settings__kernel_gateway_app_settings__custom_image
@@ -147,7 +148,7 @@ type aws_sagemaker_space__space_settings__kernel_gateway_app_settings = {
 (** aws_sagemaker_space__space_settings__kernel_gateway_app_settings *)
 
 type aws_sagemaker_space__space_settings__space_storage_settings__ebs_storage_settings = {
-  ebs_volume_size_in_gb : float;  (** ebs_volume_size_in_gb *)
+  ebs_volume_size_in_gb : float prop;  (** ebs_volume_size_in_gb *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_space__space_settings__space_storage_settings__ebs_storage_settings *)
@@ -161,7 +162,7 @@ type aws_sagemaker_space__space_settings__space_storage_settings = {
 (** aws_sagemaker_space__space_settings__space_storage_settings *)
 
 type aws_sagemaker_space__space_settings = {
-  app_type : string option; [@option]  (** app_type *)
+  app_type : string prop option; [@option]  (** app_type *)
   code_editor_app_settings :
     aws_sagemaker_space__space_settings__code_editor_app_settings
     list;
@@ -183,19 +184,19 @@ type aws_sagemaker_space__space_settings = {
 (** aws_sagemaker_space__space_settings *)
 
 type aws_sagemaker_space__space_sharing_settings = {
-  sharing_type : string;  (** sharing_type *)
+  sharing_type : string prop;  (** sharing_type *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_space__space_sharing_settings *)
 
 type aws_sagemaker_space = {
-  domain_id : string;  (** domain_id *)
-  id : string option; [@option]  (** id *)
-  space_display_name : string option; [@option]
+  domain_id : string prop;  (** domain_id *)
+  id : string prop option; [@option]  (** id *)
+  space_display_name : string prop option; [@option]
       (** space_display_name *)
-  space_name : string;  (** space_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  space_name : string prop;  (** space_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   ownership_settings : aws_sagemaker_space__ownership_settings list;
   space_settings : aws_sagemaker_space__space_settings list;

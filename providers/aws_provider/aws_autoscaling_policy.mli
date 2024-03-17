@@ -61,17 +61,17 @@ type aws_autoscaling_policy__target_tracking_configuration
 type aws_autoscaling_policy
 
 val aws_autoscaling_policy :
-  ?adjustment_type:string ->
-  ?cooldown:float ->
-  ?enabled:bool ->
-  ?estimated_instance_warmup:float ->
-  ?id:string ->
-  ?metric_aggregation_type:string ->
-  ?min_adjustment_magnitude:float ->
-  ?policy_type:string ->
-  ?scaling_adjustment:float ->
-  autoscaling_group_name:string ->
-  name:string ->
+  ?adjustment_type:string prop ->
+  ?cooldown:float prop ->
+  ?enabled:bool prop ->
+  ?estimated_instance_warmup:float prop ->
+  ?id:string prop ->
+  ?metric_aggregation_type:string prop ->
+  ?min_adjustment_magnitude:float prop ->
+  ?policy_type:string prop ->
+  ?scaling_adjustment:float prop ->
+  autoscaling_group_name:string prop ->
+  name:string prop ->
   predictive_scaling_configuration:
     aws_autoscaling_policy__predictive_scaling_configuration list ->
   step_adjustment:aws_autoscaling_policy__step_adjustment list ->

@@ -5,15 +5,15 @@ open! Tf.Prelude
 type aws_dx_connection
 
 val aws_dx_connection :
-  ?encryption_mode:string ->
-  ?id:string ->
-  ?provider_name:string ->
-  ?request_macsec:bool ->
-  ?skip_destroy:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  bandwidth:string ->
-  location:string ->
-  name:string ->
+  ?encryption_mode:string prop ->
+  ?id:string prop ->
+  ?provider_name:string prop ->
+  ?request_macsec:bool prop ->
+  ?skip_destroy:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  bandwidth:string prop ->
+  location:string prop ->
+  name:string prop ->
   string ->
   unit

@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_orbital_spacecraft__links = {
-  bandwidth_mhz : float;  (** bandwidth_mhz *)
-  center_frequency_mhz : float;  (** center_frequency_mhz *)
-  direction : string;  (** direction *)
-  name : string;  (** name *)
-  polarization : string;  (** polarization *)
+  bandwidth_mhz : float prop;  (** bandwidth_mhz *)
+  center_frequency_mhz : float prop;  (** center_frequency_mhz *)
+  direction : string prop;  (** direction *)
+  name : string prop;  (** name *)
+  polarization : string prop;  (** polarization *)
 }
 [@@deriving yojson_of]
 (** azurerm_orbital_spacecraft__links *)
 
 type azurerm_orbital_spacecraft__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_orbital_spacecraft__timeouts *)
 
 type azurerm_orbital_spacecraft = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  norad_id : string;  (** norad_id *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  title_line : string;  (** title_line *)
-  two_line_elements : string list;  (** two_line_elements *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  norad_id : string prop;  (** norad_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  title_line : string prop;  (** title_line *)
+  two_line_elements : string prop list;  (** two_line_elements *)
   links : azurerm_orbital_spacecraft__links list;
   timeouts : azurerm_orbital_spacecraft__timeouts option;
 }

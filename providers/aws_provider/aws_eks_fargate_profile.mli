@@ -7,14 +7,14 @@ type aws_eks_fargate_profile__timeouts
 type aws_eks_fargate_profile
 
 val aws_eks_fargate_profile :
-  ?id:string ->
-  ?subnet_ids:string list ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_eks_fargate_profile__timeouts ->
-  cluster_name:string ->
-  fargate_profile_name:string ->
-  pod_execution_role_arn:string ->
+  cluster_name:string prop ->
+  fargate_profile_name:string prop ->
+  pod_execution_role_arn:string prop ->
   selector:aws_eks_fargate_profile__selector list ->
   string ->
   unit

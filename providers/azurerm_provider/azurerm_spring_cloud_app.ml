@@ -5,67 +5,69 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_app__custom_persistent_disk = {
-  mount_options : string list option; [@option]  (** mount_options *)
-  mount_path : string;  (** mount_path *)
-  read_only_enabled : bool option; [@option]
+  mount_options : string prop list option; [@option]
+      (** mount_options *)
+  mount_path : string prop;  (** mount_path *)
+  read_only_enabled : bool prop option; [@option]
       (** read_only_enabled *)
-  share_name : string;  (** share_name *)
-  storage_name : string;  (** storage_name *)
+  share_name : string prop;  (** share_name *)
+  storage_name : string prop;  (** storage_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app__custom_persistent_disk *)
 
 type azurerm_spring_cloud_app__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app__identity *)
 
 type azurerm_spring_cloud_app__ingress_settings = {
-  backend_protocol : string option; [@option]
+  backend_protocol : string prop option; [@option]
       (** backend_protocol *)
-  read_timeout_in_seconds : float option; [@option]
+  read_timeout_in_seconds : float prop option; [@option]
       (** read_timeout_in_seconds *)
-  send_timeout_in_seconds : float option; [@option]
+  send_timeout_in_seconds : float prop option; [@option]
       (** send_timeout_in_seconds *)
-  session_affinity : string option; [@option]
+  session_affinity : string prop option; [@option]
       (** session_affinity *)
-  session_cookie_max_age : float option; [@option]
+  session_cookie_max_age : float prop option; [@option]
       (** session_cookie_max_age *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app__ingress_settings *)
 
 type azurerm_spring_cloud_app__persistent_disk = {
-  mount_path : string option; [@option]  (** mount_path *)
-  size_in_gb : float;  (** size_in_gb *)
+  mount_path : string prop option; [@option]  (** mount_path *)
+  size_in_gb : float prop;  (** size_in_gb *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app__persistent_disk *)
 
 type azurerm_spring_cloud_app__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app__timeouts *)
 
 type azurerm_spring_cloud_app = {
-  addon_json : string option; [@option]  (** addon_json *)
-  https_only : bool option; [@option]  (** https_only *)
-  id : string option; [@option]  (** id *)
-  is_public : bool option; [@option]  (** is_public *)
-  name : string;  (** name *)
-  public_endpoint_enabled : bool option; [@option]
+  addon_json : string prop option; [@option]  (** addon_json *)
+  https_only : bool prop option; [@option]  (** https_only *)
+  id : string prop option; [@option]  (** id *)
+  is_public : bool prop option; [@option]  (** is_public *)
+  name : string prop;  (** name *)
+  public_endpoint_enabled : bool prop option; [@option]
       (** public_endpoint_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  service_name : string;  (** service_name *)
-  tls_enabled : bool option; [@option]  (** tls_enabled *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  service_name : string prop;  (** service_name *)
+  tls_enabled : bool prop option; [@option]  (** tls_enabled *)
   custom_persistent_disk :
     azurerm_spring_cloud_app__custom_persistent_disk list;
   identity : azurerm_spring_cloud_app__identity list;

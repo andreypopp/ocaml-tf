@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_site_recovery_hyperv_replication_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_hyperv_replication_policy__timeouts *)
 
 type azurerm_site_recovery_hyperv_replication_policy = {
-  application_consistent_snapshot_frequency_in_hours : float;
+  application_consistent_snapshot_frequency_in_hours : float prop;
       (** application_consistent_snapshot_frequency_in_hours *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  recovery_point_retention_in_hours : float;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  recovery_point_retention_in_hours : float prop;
       (** recovery_point_retention_in_hours *)
-  recovery_vault_id : string;  (** recovery_vault_id *)
-  replication_interval_in_seconds : float;
+  recovery_vault_id : string prop;  (** recovery_vault_id *)
+  replication_interval_in_seconds : float prop;
       (** replication_interval_in_seconds *)
   timeouts :
     azurerm_site_recovery_hyperv_replication_policy__timeouts option;

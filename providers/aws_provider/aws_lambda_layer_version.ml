@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type aws_lambda_layer_version = {
-  compatible_architectures : string list option; [@option]
+  compatible_architectures : string prop list option; [@option]
       (** compatible_architectures *)
-  compatible_runtimes : string list option; [@option]
+  compatible_runtimes : string prop list option; [@option]
       (** compatible_runtimes *)
-  description : string option; [@option]  (** description *)
-  filename : string option; [@option]  (** filename *)
-  id : string option; [@option]  (** id *)
-  layer_name : string;  (** layer_name *)
-  license_info : string option; [@option]  (** license_info *)
-  s3_bucket : string option; [@option]  (** s3_bucket *)
-  s3_key : string option; [@option]  (** s3_key *)
-  s3_object_version : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  filename : string prop option; [@option]  (** filename *)
+  id : string prop option; [@option]  (** id *)
+  layer_name : string prop;  (** layer_name *)
+  license_info : string prop option; [@option]  (** license_info *)
+  s3_bucket : string prop option; [@option]  (** s3_bucket *)
+  s3_key : string prop option; [@option]  (** s3_key *)
+  s3_object_version : string prop option; [@option]
       (** s3_object_version *)
-  skip_destroy : bool option; [@option]  (** skip_destroy *)
-  source_code_hash : string option; [@option]  (** source_code_hash *)
+  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  source_code_hash : string prop option; [@option]
+      (** source_code_hash *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_layer_version *)

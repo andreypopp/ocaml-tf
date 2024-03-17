@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_licensemanager_association = {
-  id : string option; [@option]  (** id *)
-  license_configuration_arn : string;
+  id : string prop option; [@option]  (** id *)
+  license_configuration_arn : string prop;
       (** license_configuration_arn *)
-  resource_arn : string;  (** resource_arn *)
+  resource_arn : string prop;  (** resource_arn *)
 }
 [@@deriving yojson_of]
 (** aws_licensemanager_association *)

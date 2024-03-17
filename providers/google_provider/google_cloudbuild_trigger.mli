@@ -12,8 +12,8 @@ type google_cloudbuild_trigger__build__artifacts__maven_artifacts
 type google_cloudbuild_trigger__build__artifacts__npm_packages
 
 type google_cloudbuild_trigger__build__artifacts__objects__timing = {
-  end_time : string;  (** end_time *)
-  start_time : string;  (** start_time *)
+  end_time : string prop;  (** end_time *)
+  start_time : string prop;  (** start_time *)
 }
 
 type google_cloudbuild_trigger__build__artifacts__objects
@@ -47,20 +47,20 @@ type google_cloudbuild_trigger__webhook_config
 type google_cloudbuild_trigger
 
 val google_cloudbuild_trigger :
-  ?description:string ->
-  ?disabled:bool ->
-  ?filename:string ->
-  ?filter:string ->
-  ?id:string ->
-  ?ignored_files:string list ->
-  ?include_build_logs:string ->
-  ?included_files:string list ->
-  ?location:string ->
-  ?name:string ->
-  ?project:string ->
-  ?service_account:string ->
-  ?substitutions:(string * string) list ->
-  ?tags:string list ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?filename:string prop ->
+  ?filter:string prop ->
+  ?id:string prop ->
+  ?ignored_files:string prop list ->
+  ?include_build_logs:string prop ->
+  ?included_files:string prop list ->
+  ?location:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?service_account:string prop ->
+  ?substitutions:(string * string prop) list ->
+  ?tags:string prop list ->
   ?timeouts:google_cloudbuild_trigger__timeouts ->
   approval_config:google_cloudbuild_trigger__approval_config list ->
   bitbucket_server_trigger_config:

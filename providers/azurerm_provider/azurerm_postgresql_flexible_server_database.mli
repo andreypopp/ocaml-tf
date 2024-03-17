@@ -6,11 +6,11 @@ type azurerm_postgresql_flexible_server_database__timeouts
 type azurerm_postgresql_flexible_server_database
 
 val azurerm_postgresql_flexible_server_database :
-  ?charset:string ->
-  ?collation:string ->
-  ?id:string ->
+  ?charset:string prop ->
+  ?collation:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_postgresql_flexible_server_database__timeouts ->
-  name:string ->
-  server_id:string ->
+  name:string prop ->
+  server_id:string prop ->
   string ->
   unit

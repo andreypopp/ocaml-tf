@@ -6,15 +6,15 @@ type azurerm_api_management_openid_connect_provider__timeouts
 type azurerm_api_management_openid_connect_provider
 
 val azurerm_api_management_openid_connect_provider :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_api_management_openid_connect_provider__timeouts ->
-  api_management_name:string ->
-  client_id:string ->
-  client_secret:string ->
-  display_name:string ->
-  metadata_endpoint:string ->
-  name:string ->
-  resource_group_name:string ->
+  api_management_name:string prop ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  display_name:string prop ->
+  metadata_endpoint:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

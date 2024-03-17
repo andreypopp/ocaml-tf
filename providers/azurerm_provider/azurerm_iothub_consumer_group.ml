@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_iothub_consumer_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_consumer_group__timeouts *)
 
 type azurerm_iothub_consumer_group = {
-  eventhub_endpoint_name : string;  (** eventhub_endpoint_name *)
-  id : string option; [@option]  (** id *)
-  iothub_name : string;  (** iothub_name *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  eventhub_endpoint_name : string prop;
+      (** eventhub_endpoint_name *)
+  id : string prop option; [@option]  (** id *)
+  iothub_name : string prop;  (** iothub_name *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_iothub_consumer_group__timeouts option;
 }
 [@@deriving yojson_of]

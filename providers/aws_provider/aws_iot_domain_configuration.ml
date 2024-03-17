@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type aws_iot_domain_configuration__authorizer_config = {
-  allow_authorizer_override : bool option; [@option]
+  allow_authorizer_override : bool prop option; [@option]
       (** allow_authorizer_override *)
-  default_authorizer_name : string option; [@option]
+  default_authorizer_name : string prop option; [@option]
       (** default_authorizer_name *)
 }
 [@@deriving yojson_of]
 (** aws_iot_domain_configuration__authorizer_config *)
 
 type aws_iot_domain_configuration__tls_config = {
-  security_policy : string option; [@option]  (** security_policy *)
+  security_policy : string prop option; [@option]
+      (** security_policy *)
 }
 [@@deriving yojson_of]
 (** aws_iot_domain_configuration__tls_config *)
 
 type aws_iot_domain_configuration = {
-  domain_name : string option; [@option]  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  server_certificate_arns : string list option; [@option]
+  domain_name : string prop option; [@option]  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  server_certificate_arns : string prop list option; [@option]
       (** server_certificate_arns *)
-  service_type : string option; [@option]  (** service_type *)
-  status : string option; [@option]  (** status *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  service_type : string prop option; [@option]  (** service_type *)
+  status : string prop option; [@option]  (** status *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  validation_certificate_arn : string option; [@option]
+  validation_certificate_arn : string prop option; [@option]
       (** validation_certificate_arn *)
   authorizer_config :
     aws_iot_domain_configuration__authorizer_config list;

@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_customized_accelerator__git_repository__basic_auth = {
-  password : string;  (** password *)
-  username : string;  (** username *)
+  password : string prop;  (** password *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_customized_accelerator__git_repository__basic_auth *)
 
 type azurerm_spring_cloud_customized_accelerator__git_repository__ssh_auth = {
-  host_key : string option; [@option]  (** host_key *)
-  host_key_algorithm : string option; [@option]
+  host_key : string prop option; [@option]  (** host_key *)
+  host_key_algorithm : string prop option; [@option]
       (** host_key_algorithm *)
-  private_key : string;  (** private_key *)
+  private_key : string prop;  (** private_key *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_customized_accelerator__git_repository__ssh_auth *)
 
 type azurerm_spring_cloud_customized_accelerator__git_repository = {
-  branch : string option; [@option]  (** branch *)
-  ca_certificate_id : string option; [@option]
+  branch : string prop option; [@option]  (** branch *)
+  ca_certificate_id : string prop option; [@option]
       (** ca_certificate_id *)
-  commit : string option; [@option]  (** commit *)
-  git_tag : string option; [@option]  (** git_tag *)
-  interval_in_seconds : float option; [@option]
+  commit : string prop option; [@option]  (** commit *)
+  git_tag : string prop option; [@option]  (** git_tag *)
+  interval_in_seconds : float prop option; [@option]
       (** interval_in_seconds *)
-  path : string option; [@option]  (** path *)
-  url : string;  (** url *)
+  path : string prop option; [@option]  (** path *)
+  url : string prop;  (** url *)
   basic_auth :
     azurerm_spring_cloud_customized_accelerator__git_repository__basic_auth
     list;
@@ -41,25 +41,25 @@ type azurerm_spring_cloud_customized_accelerator__git_repository = {
 (** azurerm_spring_cloud_customized_accelerator__git_repository *)
 
 type azurerm_spring_cloud_customized_accelerator__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_customized_accelerator__timeouts *)
 
 type azurerm_spring_cloud_customized_accelerator = {
-  accelerator_tags : string list option; [@option]
+  accelerator_tags : string prop list option; [@option]
       (** accelerator_tags *)
-  accelerator_type : string option; [@option]
+  accelerator_type : string prop option; [@option]
       (** accelerator_type *)
-  description : string option; [@option]  (** description *)
-  display_name : string option; [@option]  (** display_name *)
-  icon_url : string option; [@option]  (** icon_url *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  spring_cloud_accelerator_id : string;
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop option; [@option]  (** display_name *)
+  icon_url : string prop option; [@option]  (** icon_url *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  spring_cloud_accelerator_id : string prop;
       (** spring_cloud_accelerator_id *)
   git_repository :
     azurerm_spring_cloud_customized_accelerator__git_repository list;

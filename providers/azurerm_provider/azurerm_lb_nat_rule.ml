@@ -5,35 +5,36 @@
 open! Tf.Prelude
 
 type azurerm_lb_nat_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_lb_nat_rule__timeouts *)
 
 type azurerm_lb_nat_rule = {
-  backend_address_pool_id : string option; [@option]
+  backend_address_pool_id : string prop option; [@option]
       (** backend_address_pool_id *)
-  backend_port : float;  (** backend_port *)
-  enable_floating_ip : bool option; [@option]
+  backend_port : float prop;  (** backend_port *)
+  enable_floating_ip : bool prop option; [@option]
       (** enable_floating_ip *)
-  enable_tcp_reset : bool option; [@option]  (** enable_tcp_reset *)
-  frontend_ip_configuration_name : string;
+  enable_tcp_reset : bool prop option; [@option]
+      (** enable_tcp_reset *)
+  frontend_ip_configuration_name : string prop;
       (** frontend_ip_configuration_name *)
-  frontend_port : float option; [@option]  (** frontend_port *)
-  frontend_port_end : float option; [@option]
+  frontend_port : float prop option; [@option]  (** frontend_port *)
+  frontend_port_end : float prop option; [@option]
       (** frontend_port_end *)
-  frontend_port_start : float option; [@option]
+  frontend_port_start : float prop option; [@option]
       (** frontend_port_start *)
-  id : string option; [@option]  (** id *)
-  idle_timeout_in_minutes : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  idle_timeout_in_minutes : float prop option; [@option]
       (** idle_timeout_in_minutes *)
-  loadbalancer_id : string;  (** loadbalancer_id *)
-  name : string;  (** name *)
-  protocol : string;  (** protocol *)
-  resource_group_name : string;  (** resource_group_name *)
+  loadbalancer_id : string prop;  (** loadbalancer_id *)
+  name : string prop;  (** name *)
+  protocol : string prop;  (** protocol *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_lb_nat_rule__timeouts option;
 }
 [@@deriving yojson_of]

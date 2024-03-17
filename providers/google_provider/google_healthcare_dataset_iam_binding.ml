@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_healthcare_dataset_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_healthcare_dataset_iam_binding__condition *)
 
 type google_healthcare_dataset_iam_binding = {
-  dataset_id : string;  (** dataset_id *)
-  id : string option; [@option]  (** id *)
-  members : string list;  (** members *)
-  role : string;  (** role *)
+  dataset_id : string prop;  (** dataset_id *)
+  id : string prop option; [@option]  (** id *)
+  members : string prop list;  (** members *)
+  role : string prop;  (** role *)
   condition : google_healthcare_dataset_iam_binding__condition list;
 }
 [@@deriving yojson_of]

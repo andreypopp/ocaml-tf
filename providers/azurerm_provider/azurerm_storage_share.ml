@@ -5,39 +5,39 @@
 open! Tf.Prelude
 
 type azurerm_storage_share__acl__access_policy = {
-  expiry : string option; [@option]  (** expiry *)
-  permissions : string;  (** permissions *)
-  start : string option; [@option]  (** start *)
+  expiry : string prop option; [@option]  (** expiry *)
+  permissions : string prop;  (** permissions *)
+  start : string prop option; [@option]  (** start *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_share__acl__access_policy *)
 
 type azurerm_storage_share__acl = {
-  id : string;  (** id *)
+  id : string prop;  (** id *)
   access_policy : azurerm_storage_share__acl__access_policy list;
 }
 [@@deriving yojson_of]
 (** azurerm_storage_share__acl *)
 
 type azurerm_storage_share__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_share__timeouts *)
 
 type azurerm_storage_share = {
-  access_tier : string option; [@option]  (** access_tier *)
-  enabled_protocol : string option; [@option]
+  access_tier : string prop option; [@option]  (** access_tier *)
+  enabled_protocol : string prop option; [@option]
       (** enabled_protocol *)
-  id : string option; [@option]  (** id *)
-  metadata : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  name : string;  (** name *)
-  quota : float;  (** quota *)
-  storage_account_name : string;  (** storage_account_name *)
+  name : string prop;  (** name *)
+  quota : float prop;  (** quota *)
+  storage_account_name : string prop;  (** storage_account_name *)
   acl : azurerm_storage_share__acl list;
   timeouts : azurerm_storage_share__timeouts option;
 }

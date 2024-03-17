@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_rds_cluster_activity_stream = {
-  engine_native_audit_fields_included : bool option; [@option]
+  engine_native_audit_fields_included : bool prop option; [@option]
       (** engine_native_audit_fields_included *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string;  (** kms_key_id *)
-  mode : string;  (** mode *)
-  resource_arn : string;  (** resource_arn *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop;  (** kms_key_id *)
+  mode : string prop;  (** mode *)
+  resource_arn : string prop;  (** resource_arn *)
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster_activity_stream *)

@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_db_instance_role_association = {
-  db_instance_identifier : string;  (** db_instance_identifier *)
-  feature_name : string;  (** feature_name *)
-  id : string option; [@option]  (** id *)
-  role_arn : string;  (** role_arn *)
+  db_instance_identifier : string prop;
+      (** db_instance_identifier *)
+  feature_name : string prop;  (** feature_name *)
+  id : string prop option; [@option]  (** id *)
+  role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_db_instance_role_association *)

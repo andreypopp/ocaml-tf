@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_api_management_email_template__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_email_template__timeouts *)
 
 type azurerm_api_management_email_template = {
-  api_management_name : string;  (** api_management_name *)
-  body : string;  (** body *)
-  id : string option; [@option]  (** id *)
-  resource_group_name : string;  (** resource_group_name *)
-  subject : string;  (** subject *)
-  template_name : string;  (** template_name *)
+  api_management_name : string prop;  (** api_management_name *)
+  body : string prop;  (** body *)
+  id : string prop option; [@option]  (** id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  subject : string prop;  (** subject *)
+  template_name : string prop;  (** template_name *)
   timeouts : azurerm_api_management_email_template__timeouts option;
 }
 [@@deriving yojson_of]

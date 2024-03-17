@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_api_gateway_request_validator
 
 val aws_api_gateway_request_validator :
-  ?id:string ->
-  ?validate_request_body:bool ->
-  ?validate_request_parameters:bool ->
-  name:string ->
-  rest_api_id:string ->
+  ?id:string prop ->
+  ?validate_request_body:bool prop ->
+  ?validate_request_parameters:bool prop ->
+  name:string prop ->
+  rest_api_id:string prop ->
   string ->
   unit

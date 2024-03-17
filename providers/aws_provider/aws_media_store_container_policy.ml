@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_media_store_container_policy = {
-  container_name : string;  (** container_name *)
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
+  container_name : string prop;  (** container_name *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_media_store_container_policy *)

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_access_context_manager_gcp_user_access_binding__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_gcp_user_access_binding__timeouts *)
 
 type google_access_context_manager_gcp_user_access_binding = {
-  access_levels : string list;
+  access_levels : string prop list;
       (** Required. Access level that a user must have to be granted access. Only one access level is supported, not multiple. This repeated field must have exactly one element. Example: accessPolicies/9522/accessLevels/device_trusted *)
-  group_key : string;
+  group_key : string prop;
       (** Required. Immutable. Google Group id whose members are subject to this binding's restrictions. See id in the G Suite Directory API's Groups resource. If a group's email address/alias is changed, this resource will continue to point at the changed group. This field does not accept group email addresses or aliases. Example: 01d520gv4vjcrht *)
-  id : string option; [@option]  (** id *)
-  organization_id : string;
+  id : string prop option; [@option]  (** id *)
+  organization_id : string prop;
       (** Required. ID of the parent organization. *)
   timeouts :
     google_access_context_manager_gcp_user_access_binding__timeouts

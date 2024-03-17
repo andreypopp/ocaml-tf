@@ -7,9 +7,9 @@ type aws_efs_replication_configuration__timeouts
 type aws_efs_replication_configuration
 
 val aws_efs_replication_configuration :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_efs_replication_configuration__timeouts ->
-  source_file_system_id:string ->
+  source_file_system_id:string prop ->
   destination:aws_efs_replication_configuration__destination list ->
   string ->
   unit

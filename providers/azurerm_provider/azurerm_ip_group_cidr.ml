@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_ip_group_cidr__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_ip_group_cidr__timeouts *)
 
 type azurerm_ip_group_cidr = {
-  cidr : string;  (** cidr *)
-  id : string option; [@option]  (** id *)
-  ip_group_id : string;  (** ip_group_id *)
+  cidr : string prop;  (** cidr *)
+  id : string prop option; [@option]  (** id *)
+  ip_group_id : string prop;  (** ip_group_id *)
   timeouts : azurerm_ip_group_cidr__timeouts option;
 }
 [@@deriving yojson_of]

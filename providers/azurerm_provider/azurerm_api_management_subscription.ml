@@ -5,27 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_api_management_subscription__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_subscription__timeouts *)
 
 type azurerm_api_management_subscription = {
-  allow_tracing : bool option; [@option]  (** allow_tracing *)
-  api_id : string option; [@option]  (** api_id *)
-  api_management_name : string;  (** api_management_name *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  primary_key : string option; [@option]  (** primary_key *)
-  product_id : string option; [@option]  (** product_id *)
-  resource_group_name : string;  (** resource_group_name *)
-  secondary_key : string option; [@option]  (** secondary_key *)
-  state : string option; [@option]  (** state *)
-  subscription_id : string option; [@option]  (** subscription_id *)
-  user_id : string option; [@option]  (** user_id *)
+  allow_tracing : bool prop option; [@option]  (** allow_tracing *)
+  api_id : string prop option; [@option]  (** api_id *)
+  api_management_name : string prop;  (** api_management_name *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  primary_key : string prop option; [@option]  (** primary_key *)
+  product_id : string prop option; [@option]  (** product_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  secondary_key : string prop option; [@option]  (** secondary_key *)
+  state : string prop option; [@option]  (** state *)
+  subscription_id : string prop option; [@option]
+      (** subscription_id *)
+  user_id : string prop option; [@option]  (** user_id *)
   timeouts : azurerm_api_management_subscription__timeouts option;
 }
 [@@deriving yojson_of]

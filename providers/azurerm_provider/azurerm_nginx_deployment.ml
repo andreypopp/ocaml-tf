@@ -5,65 +5,67 @@
 open! Tf.Prelude
 
 type azurerm_nginx_deployment__frontend_private = {
-  allocation_method : string;  (** allocation_method *)
-  ip_address : string;  (** ip_address *)
-  subnet_id : string;  (** subnet_id *)
+  allocation_method : string prop;  (** allocation_method *)
+  ip_address : string prop;  (** ip_address *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_nginx_deployment__frontend_private *)
 
 type azurerm_nginx_deployment__frontend_public = {
-  ip_address : string list option; [@option]  (** ip_address *)
+  ip_address : string prop list option; [@option]  (** ip_address *)
 }
 [@@deriving yojson_of]
 (** azurerm_nginx_deployment__frontend_public *)
 
 type azurerm_nginx_deployment__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_nginx_deployment__identity *)
 
 type azurerm_nginx_deployment__logging_storage_account = {
-  container_name : string option; [@option]  (** container_name *)
-  name : string option; [@option]  (** name *)
+  container_name : string prop option; [@option]
+      (** container_name *)
+  name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_nginx_deployment__logging_storage_account *)
 
 type azurerm_nginx_deployment__network_interface = {
-  subnet_id : string;  (** subnet_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_nginx_deployment__network_interface *)
 
 type azurerm_nginx_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_nginx_deployment__timeouts *)
 
 type azurerm_nginx_deployment = {
-  automatic_upgrade_channel : string option; [@option]
+  automatic_upgrade_channel : string prop option; [@option]
       (** automatic_upgrade_channel *)
-  capacity : float option; [@option]  (** capacity *)
-  diagnose_support_enabled : bool option; [@option]
+  capacity : float prop option; [@option]  (** capacity *)
+  diagnose_support_enabled : bool prop option; [@option]
       (** diagnose_support_enabled *)
-  email : string option; [@option]  (** email *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  managed_resource_group : string option; [@option]
+  email : string prop option; [@option]  (** email *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  managed_resource_group : string prop option; [@option]
       (** managed_resource_group *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku : string;  (** sku *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku : string prop;  (** sku *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   frontend_private : azurerm_nginx_deployment__frontend_private list;
   frontend_public : azurerm_nginx_deployment__frontend_public list;
   identity : azurerm_nginx_deployment__identity list;

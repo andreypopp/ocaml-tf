@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_application_insights_standard_web_test__request__header = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_standard_web_test__request__header *)
 
 type azurerm_application_insights_standard_web_test__request = {
-  body : string option; [@option]  (** body *)
-  follow_redirects_enabled : bool option; [@option]
+  body : string prop option; [@option]  (** body *)
+  follow_redirects_enabled : bool prop option; [@option]
       (** follow_redirects_enabled *)
-  http_verb : string option; [@option]  (** http_verb *)
-  parse_dependent_requests_enabled : bool option; [@option]
+  http_verb : string prop option; [@option]  (** http_verb *)
+  parse_dependent_requests_enabled : bool prop option; [@option]
       (** parse_dependent_requests_enabled *)
-  url : string;  (** url *)
+  url : string prop;  (** url *)
   header :
     azurerm_application_insights_standard_web_test__request__header
     list;
@@ -27,29 +27,29 @@ type azurerm_application_insights_standard_web_test__request = {
 (** azurerm_application_insights_standard_web_test__request *)
 
 type azurerm_application_insights_standard_web_test__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_standard_web_test__timeouts *)
 
 type azurerm_application_insights_standard_web_test__validation_rules__content = {
-  content_match : string;  (** content_match *)
-  ignore_case : bool option; [@option]  (** ignore_case *)
-  pass_if_text_found : bool option; [@option]
+  content_match : string prop;  (** content_match *)
+  ignore_case : bool prop option; [@option]  (** ignore_case *)
+  pass_if_text_found : bool prop option; [@option]
       (** pass_if_text_found *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_standard_web_test__validation_rules__content *)
 
 type azurerm_application_insights_standard_web_test__validation_rules = {
-  expected_status_code : float option; [@option]
+  expected_status_code : float prop option; [@option]
       (** expected_status_code *)
-  ssl_cert_remaining_lifetime : float option; [@option]
+  ssl_cert_remaining_lifetime : float prop option; [@option]
       (** ssl_cert_remaining_lifetime *)
-  ssl_check_enabled : bool option; [@option]
+  ssl_check_enabled : bool prop option; [@option]
       (** ssl_check_enabled *)
   content :
     azurerm_application_insights_standard_web_test__validation_rules__content
@@ -59,18 +59,19 @@ type azurerm_application_insights_standard_web_test__validation_rules = {
 (** azurerm_application_insights_standard_web_test__validation_rules *)
 
 type azurerm_application_insights_standard_web_test = {
-  application_insights_id : string;  (** application_insights_id *)
-  description : string option; [@option]  (** description *)
-  enabled : bool option; [@option]  (** enabled *)
-  frequency : float option; [@option]  (** frequency *)
-  geo_locations : string list;  (** geo_locations *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  retry_enabled : bool option; [@option]  (** retry_enabled *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  timeout : float option; [@option]  (** timeout *)
+  application_insights_id : string prop;
+      (** application_insights_id *)
+  description : string prop option; [@option]  (** description *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  frequency : float prop option; [@option]  (** frequency *)
+  geo_locations : string prop list;  (** geo_locations *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  retry_enabled : bool prop option; [@option]  (** retry_enabled *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  timeout : float prop option; [@option]  (** timeout *)
   request :
     azurerm_application_insights_standard_web_test__request list;
   timeouts :

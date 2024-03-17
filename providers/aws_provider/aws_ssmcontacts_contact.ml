@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_ssmcontacts_contact = {
-  alias : string;  (** alias *)
-  display_name : string option; [@option]  (** display_name *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  alias : string prop;  (** alias *)
+  display_name : string prop option; [@option]  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_ssmcontacts_contact *)

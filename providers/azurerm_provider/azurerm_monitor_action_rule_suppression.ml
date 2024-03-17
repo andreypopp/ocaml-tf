@@ -5,50 +5,50 @@
 open! Tf.Prelude
 
 type azurerm_monitor_action_rule_suppression__condition__alert_context = {
-  operator : string;  (** operator *)
-  values : string list;  (** values *)
+  operator : string prop;  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression__condition__alert_context *)
 
 type azurerm_monitor_action_rule_suppression__condition__alert_rule_id = {
-  operator : string;  (** operator *)
-  values : string list;  (** values *)
+  operator : string prop;  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression__condition__alert_rule_id *)
 
 type azurerm_monitor_action_rule_suppression__condition__description = {
-  operator : string;  (** operator *)
-  values : string list;  (** values *)
+  operator : string prop;  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression__condition__description *)
 
 type azurerm_monitor_action_rule_suppression__condition__monitor = {
-  operator : string;  (** operator *)
-  values : string list;  (** values *)
+  operator : string prop;  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression__condition__monitor *)
 
 type azurerm_monitor_action_rule_suppression__condition__monitor_service = {
-  operator : string;  (** operator *)
-  values : string list;  (** values *)
+  operator : string prop;  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression__condition__monitor_service *)
 
 type azurerm_monitor_action_rule_suppression__condition__severity = {
-  operator : string;  (** operator *)
-  values : string list;  (** values *)
+  operator : string prop;  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression__condition__severity *)
 
 type azurerm_monitor_action_rule_suppression__condition__target_resource_type = {
-  operator : string;  (** operator *)
-  values : string list;  (** values *)
+  operator : string prop;  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression__condition__target_resource_type *)
@@ -78,25 +78,25 @@ type azurerm_monitor_action_rule_suppression__condition = {
 (** azurerm_monitor_action_rule_suppression__condition *)
 
 type azurerm_monitor_action_rule_suppression__scope = {
-  resource_ids : string list;  (** resource_ids *)
-  type_ : string; [@key "type"]  (** type *)
+  resource_ids : string prop list;  (** resource_ids *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression__scope *)
 
 type azurerm_monitor_action_rule_suppression__suppression__schedule = {
-  end_date_utc : string;  (** end_date_utc *)
-  recurrence_monthly : float list option; [@option]
+  end_date_utc : string prop;  (** end_date_utc *)
+  recurrence_monthly : float prop list option; [@option]
       (** recurrence_monthly *)
-  recurrence_weekly : string list option; [@option]
+  recurrence_weekly : string prop list option; [@option]
       (** recurrence_weekly *)
-  start_date_utc : string;  (** start_date_utc *)
+  start_date_utc : string prop;  (** start_date_utc *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression__suppression__schedule *)
 
 type azurerm_monitor_action_rule_suppression__suppression = {
-  recurrence_type : string;  (** recurrence_type *)
+  recurrence_type : string prop;  (** recurrence_type *)
   schedule :
     azurerm_monitor_action_rule_suppression__suppression__schedule
     list;
@@ -105,21 +105,21 @@ type azurerm_monitor_action_rule_suppression__suppression = {
 (** azurerm_monitor_action_rule_suppression__suppression *)
 
 type azurerm_monitor_action_rule_suppression__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_action_rule_suppression__timeouts *)
 
 type azurerm_monitor_action_rule_suppression = {
-  description : string option; [@option]  (** description *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  description : string prop option; [@option]  (** description *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   condition :
     azurerm_monitor_action_rule_suppression__condition list;
   scope : azurerm_monitor_action_rule_suppression__scope list;

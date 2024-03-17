@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_vpn_gateway_route_propagation__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_vpn_gateway_route_propagation__timeouts *)
 
 type aws_vpn_gateway_route_propagation = {
-  id : string option; [@option]  (** id *)
-  route_table_id : string;  (** route_table_id *)
-  vpn_gateway_id : string;  (** vpn_gateway_id *)
+  id : string prop option; [@option]  (** id *)
+  route_table_id : string prop;  (** route_table_id *)
+  vpn_gateway_id : string prop;  (** vpn_gateway_id *)
   timeouts : aws_vpn_gateway_route_propagation__timeouts option;
 }
 [@@deriving yojson_of]

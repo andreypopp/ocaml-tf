@@ -5,39 +5,41 @@
 open! Tf.Prelude
 
 type aws_datasync_location_hdfs__name_node = {
-  hostname : string;  (** hostname *)
-  port : float;  (** port *)
+  hostname : string prop;  (** hostname *)
+  port : float prop;  (** port *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_hdfs__name_node *)
 
 type aws_datasync_location_hdfs__qop_configuration = {
-  data_transfer_protection : string option; [@option]
+  data_transfer_protection : string prop option; [@option]
       (** data_transfer_protection *)
-  rpc_protection : string option; [@option]  (** rpc_protection *)
+  rpc_protection : string prop option; [@option]
+      (** rpc_protection *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_hdfs__qop_configuration *)
 
 type aws_datasync_location_hdfs = {
-  agent_arns : string list;  (** agent_arns *)
-  authentication_type : string option; [@option]
+  agent_arns : string prop list;  (** agent_arns *)
+  authentication_type : string prop option; [@option]
       (** authentication_type *)
-  block_size : float option; [@option]  (** block_size *)
-  id : string option; [@option]  (** id *)
-  kerberos_keytab : string option; [@option]  (** kerberos_keytab *)
-  kerberos_krb5_conf : string option; [@option]
+  block_size : float prop option; [@option]  (** block_size *)
+  id : string prop option; [@option]  (** id *)
+  kerberos_keytab : string prop option; [@option]
+      (** kerberos_keytab *)
+  kerberos_krb5_conf : string prop option; [@option]
       (** kerberos_krb5_conf *)
-  kerberos_principal : string option; [@option]
+  kerberos_principal : string prop option; [@option]
       (** kerberos_principal *)
-  kms_key_provider_uri : string option; [@option]
+  kms_key_provider_uri : string prop option; [@option]
       (** kms_key_provider_uri *)
-  replication_factor : float option; [@option]
+  replication_factor : float prop option; [@option]
       (** replication_factor *)
-  simple_user : string option; [@option]  (** simple_user *)
-  subdirectory : string option; [@option]  (** subdirectory *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  simple_user : string prop option; [@option]  (** simple_user *)
+  subdirectory : string prop option; [@option]  (** subdirectory *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   name_node : aws_datasync_location_hdfs__name_node list;
   qop_configuration :

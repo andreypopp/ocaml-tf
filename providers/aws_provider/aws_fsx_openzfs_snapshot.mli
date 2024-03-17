@@ -6,11 +6,11 @@ type aws_fsx_openzfs_snapshot__timeouts
 type aws_fsx_openzfs_snapshot
 
 val aws_fsx_openzfs_snapshot :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_fsx_openzfs_snapshot__timeouts ->
-  name:string ->
-  volume_id:string ->
+  name:string prop ->
+  volume_id:string prop ->
   string ->
   unit

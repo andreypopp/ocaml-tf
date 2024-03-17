@@ -6,9 +6,9 @@ type google_monitoring_dashboard__timeouts
 type google_monitoring_dashboard
 
 val google_monitoring_dashboard :
-  ?id:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_monitoring_dashboard__timeouts ->
-  dashboard_json:string ->
+  dashboard_json:string prop ->
   string ->
   unit

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_iap_tunnel_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_iap_tunnel_iam_policy *)

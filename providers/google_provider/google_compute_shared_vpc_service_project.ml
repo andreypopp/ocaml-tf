@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_compute_shared_vpc_service_project__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_shared_vpc_service_project__timeouts *)
 
 type google_compute_shared_vpc_service_project = {
-  deletion_policy : string option; [@option]
+  deletion_policy : string prop option; [@option]
       (** The deletion policy for the shared VPC service. Setting ABANDON allows the resource
 				to be abandoned rather than deleted. Possible values are: ABANDON. *)
-  host_project : string;
+  host_project : string prop;
       (** The ID of a host project to associate. *)
-  id : string option; [@option]  (** id *)
-  service_project : string;
+  id : string prop option; [@option]  (** id *)
+  service_project : string prop;
       (** The ID of the project that will serve as a Shared VPC service project. *)
   timeouts :
     google_compute_shared_vpc_service_project__timeouts option;

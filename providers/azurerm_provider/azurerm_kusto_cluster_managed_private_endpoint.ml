@@ -5,24 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_kusto_cluster_managed_private_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_cluster_managed_private_endpoint__timeouts *)
 
 type azurerm_kusto_cluster_managed_private_endpoint = {
-  cluster_name : string;  (** cluster_name *)
-  group_id : string;  (** group_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  private_link_resource_id : string;  (** private_link_resource_id *)
-  private_link_resource_region : string option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  group_id : string prop;  (** group_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  private_link_resource_id : string prop;
+      (** private_link_resource_id *)
+  private_link_resource_region : string prop option; [@option]
       (** private_link_resource_region *)
-  request_message : string option; [@option]  (** request_message *)
-  resource_group_name : string;  (** resource_group_name *)
+  request_message : string prop option; [@option]
+      (** request_message *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts :
     azurerm_kusto_cluster_managed_private_endpoint__timeouts option;
 }

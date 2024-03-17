@@ -9,12 +9,12 @@ type google_firestore_field__ttl_config
 type google_firestore_field
 
 val google_firestore_field :
-  ?database:string ->
-  ?id:string ->
-  ?project:string ->
+  ?database:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_firestore_field__timeouts ->
-  collection:string ->
-  field:string ->
+  collection:string prop ->
+  field:string prop ->
   index_config:google_firestore_field__index_config list ->
   ttl_config:google_firestore_field__ttl_config list ->
   string ->

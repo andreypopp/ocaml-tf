@@ -7,12 +7,12 @@ type azurerm_logic_app_integration_account_partner__timeouts
 type azurerm_logic_app_integration_account_partner
 
 val azurerm_logic_app_integration_account_partner :
-  ?id:string ->
-  ?metadata:string ->
+  ?id:string prop ->
+  ?metadata:string prop ->
   ?timeouts:azurerm_logic_app_integration_account_partner__timeouts ->
-  integration_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  integration_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   business_identity:
     azurerm_logic_app_integration_account_partner__business_identity
     list ->

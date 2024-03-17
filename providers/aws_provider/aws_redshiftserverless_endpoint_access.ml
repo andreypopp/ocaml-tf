@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_redshiftserverless_endpoint_access__vpc_endpoint__network_interface = {
-  availability_zone : string;  (** availability_zone *)
-  network_interface_id : string;  (** network_interface_id *)
-  private_ip_address : string;  (** private_ip_address *)
-  subnet_id : string;  (** subnet_id *)
+  availability_zone : string prop;  (** availability_zone *)
+  network_interface_id : string prop;  (** network_interface_id *)
+  private_ip_address : string prop;  (** private_ip_address *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 
@@ -17,19 +17,19 @@ type aws_redshiftserverless_endpoint_access__vpc_endpoint = {
     aws_redshiftserverless_endpoint_access__vpc_endpoint__network_interface
     list;
       (** network_interface *)
-  vpc_endpoint_id : string;  (** vpc_endpoint_id *)
-  vpc_id : string;  (** vpc_id *)
+  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 
 type aws_redshiftserverless_endpoint_access = {
-  endpoint_name : string;  (** endpoint_name *)
-  id : string option; [@option]  (** id *)
-  owner_account : string option; [@option]  (** owner_account *)
-  subnet_ids : string list;  (** subnet_ids *)
-  vpc_security_group_ids : string list option; [@option]
+  endpoint_name : string prop;  (** endpoint_name *)
+  id : string prop option; [@option]  (** id *)
+  owner_account : string prop option; [@option]  (** owner_account *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
-  workgroup_name : string;  (** workgroup_name *)
+  workgroup_name : string prop;  (** workgroup_name *)
 }
 [@@deriving yojson_of]
 (** aws_redshiftserverless_endpoint_access *)

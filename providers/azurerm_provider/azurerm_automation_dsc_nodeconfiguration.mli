@@ -6,11 +6,11 @@ type azurerm_automation_dsc_nodeconfiguration__timeouts
 type azurerm_automation_dsc_nodeconfiguration
 
 val azurerm_automation_dsc_nodeconfiguration :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_automation_dsc_nodeconfiguration__timeouts ->
-  automation_account_name:string ->
-  content_embedded:string ->
-  name:string ->
-  resource_group_name:string ->
+  automation_account_name:string prop ->
+  content_embedded:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

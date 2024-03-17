@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_secretsmanager_secret_version
 
 val aws_secretsmanager_secret_version :
-  ?id:string ->
-  ?secret_binary:string ->
-  ?secret_string:string ->
-  ?version_stages:string list ->
-  secret_id:string ->
+  ?id:string prop ->
+  ?secret_binary:string prop ->
+  ?secret_string:string prop ->
+  ?version_stages:string prop list ->
+  secret_id:string prop ->
   string ->
   unit

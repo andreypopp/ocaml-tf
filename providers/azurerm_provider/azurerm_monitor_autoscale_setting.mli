@@ -20,14 +20,14 @@ type azurerm_monitor_autoscale_setting__timeouts
 type azurerm_monitor_autoscale_setting
 
 val azurerm_monitor_autoscale_setting :
-  ?enabled:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_monitor_autoscale_setting__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  target_resource_id:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  target_resource_id:string prop ->
   notification:azurerm_monitor_autoscale_setting__notification list ->
   predictive:azurerm_monitor_autoscale_setting__predictive list ->
   profile:azurerm_monitor_autoscale_setting__profile list ->

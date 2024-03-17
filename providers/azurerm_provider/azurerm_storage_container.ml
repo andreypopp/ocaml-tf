@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_storage_container__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_container__timeouts *)
 
 type azurerm_storage_container = {
-  container_access_type : string option; [@option]
+  container_access_type : string prop option; [@option]
       (** container_access_type *)
-  id : string option; [@option]  (** id *)
-  metadata : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  name : string;  (** name *)
-  storage_account_name : string;  (** storage_account_name *)
+  name : string prop;  (** name *)
+  storage_account_name : string prop;  (** storage_account_name *)
   timeouts : azurerm_storage_container__timeouts option;
 }
 [@@deriving yojson_of]

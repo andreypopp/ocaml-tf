@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_ce_anomaly_monitor
 
 val aws_ce_anomaly_monitor :
-  ?id:string ->
-  ?monitor_dimension:string ->
-  ?monitor_specification:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  monitor_type:string ->
-  name:string ->
+  ?id:string prop ->
+  ?monitor_dimension:string prop ->
+  ?monitor_specification:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  monitor_type:string prop ->
+  name:string prop ->
   string ->
   unit

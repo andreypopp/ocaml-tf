@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type aws_vpc_endpoint_service_allowed_principal = {
-  id : string option; [@option]  (** id *)
-  principal_arn : string;  (** principal_arn *)
-  vpc_endpoint_service_id : string;  (** vpc_endpoint_service_id *)
+  id : string prop option; [@option]  (** id *)
+  principal_arn : string prop;  (** principal_arn *)
+  vpc_endpoint_service_id : string prop;
+      (** vpc_endpoint_service_id *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_service_allowed_principal *)

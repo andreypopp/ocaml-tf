@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_securityhub_invite_accepter = {
-  id : string option; [@option]  (** id *)
-  master_id : string;  (** master_id *)
+  id : string prop option; [@option]  (** id *)
+  master_id : string prop;  (** master_id *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_invite_accepter *)

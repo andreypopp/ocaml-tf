@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_vmware_express_route_authorization__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_vmware_express_route_authorization__timeouts *)
 
 type azurerm_vmware_express_route_authorization = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  private_cloud_id : string;  (** private_cloud_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  private_cloud_id : string prop;  (** private_cloud_id *)
   timeouts :
     azurerm_vmware_express_route_authorization__timeouts option;
 }

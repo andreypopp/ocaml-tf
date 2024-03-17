@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_vpclattice_auth_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_auth_policy__timeouts *)
 
 type aws_vpclattice_auth_policy = {
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  resource_identifier : string;  (** resource_identifier *)
-  state : string option; [@option]  (** state *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  resource_identifier : string prop;  (** resource_identifier *)
+  state : string prop option; [@option]  (** state *)
   timeouts : aws_vpclattice_auth_policy__timeouts option;
 }
 [@@deriving yojson_of]

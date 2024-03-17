@@ -7,19 +7,19 @@ type azurerm_data_factory_trigger_blob_event__timeouts
 type azurerm_data_factory_trigger_blob_event
 
 val azurerm_data_factory_trigger_blob_event :
-  ?activated:bool ->
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?blob_path_begins_with:string ->
-  ?blob_path_ends_with:string ->
-  ?description:string ->
-  ?id:string ->
-  ?ignore_empty_blobs:bool ->
+  ?activated:bool prop ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?blob_path_begins_with:string prop ->
+  ?blob_path_ends_with:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ignore_empty_blobs:bool prop ->
   ?timeouts:azurerm_data_factory_trigger_blob_event__timeouts ->
-  data_factory_id:string ->
-  events:string list ->
-  name:string ->
-  storage_account_id:string ->
+  data_factory_id:string prop ->
+  events:string prop list ->
+  name:string prop ->
+  storage_account_id:string prop ->
   pipeline:azurerm_data_factory_trigger_blob_event__pipeline list ->
   string ->
   unit

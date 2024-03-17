@@ -36,33 +36,33 @@ type google_container_node_pool__node_config__taint
 type google_container_node_pool__node_config__workload_metadata_config
 
 type google_container_node_pool__node_config__effective_taints = {
-  effect : string;  (** effect *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  effect : string prop;  (** effect *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 
 type google_container_node_pool__node_config__guest_accelerator__gpu_sharing_config = {
-  gpu_sharing_strategy : string;  (** gpu_sharing_strategy *)
-  max_shared_clients_per_gpu : float;
+  gpu_sharing_strategy : string prop;  (** gpu_sharing_strategy *)
+  max_shared_clients_per_gpu : float prop;
       (** max_shared_clients_per_gpu *)
 }
 
 type google_container_node_pool__node_config__guest_accelerator__gpu_driver_installation_config = {
-  gpu_driver_version : string;  (** gpu_driver_version *)
+  gpu_driver_version : string prop;  (** gpu_driver_version *)
 }
 
 type google_container_node_pool__node_config__guest_accelerator = {
-  count : float;  (** count *)
+  count : float prop;  (** count *)
   gpu_driver_installation_config :
     google_container_node_pool__node_config__guest_accelerator__gpu_driver_installation_config
     list;
       (** gpu_driver_installation_config *)
-  gpu_partition_size : string;  (** gpu_partition_size *)
+  gpu_partition_size : string prop;  (** gpu_partition_size *)
   gpu_sharing_config :
     google_container_node_pool__node_config__guest_accelerator__gpu_sharing_config
     list;
       (** gpu_sharing_config *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_container_node_pool__node_config
@@ -76,18 +76,18 @@ type google_container_node_pool__upgrade_settings
 type google_container_node_pool
 
 val google_container_node_pool :
-  ?id:string ->
-  ?initial_node_count:float ->
-  ?location:string ->
-  ?max_pods_per_node:float ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?node_count:float ->
-  ?node_locations:string list ->
-  ?project:string ->
-  ?version:string ->
+  ?id:string prop ->
+  ?initial_node_count:float prop ->
+  ?location:string prop ->
+  ?max_pods_per_node:float prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?node_count:float prop ->
+  ?node_locations:string prop list ->
+  ?project:string prop ->
+  ?version:string prop ->
   ?timeouts:google_container_node_pool__timeouts ->
-  cluster:string ->
+  cluster:string prop ->
   autoscaling:google_container_node_pool__autoscaling list ->
   management:google_container_node_pool__management list ->
   network_config:google_container_node_pool__network_config list ->

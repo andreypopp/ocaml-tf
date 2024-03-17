@@ -6,12 +6,12 @@ type aws_elasticache_parameter_group__parameter
 type aws_elasticache_parameter_group
 
 val aws_elasticache_parameter_group :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  family:string ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  family:string prop ->
+  name:string prop ->
   parameter:aws_elasticache_parameter_group__parameter list ->
   string ->
   unit

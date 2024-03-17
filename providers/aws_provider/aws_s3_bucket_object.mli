@@ -5,31 +5,31 @@ open! Tf.Prelude
 type aws_s3_bucket_object
 
 val aws_s3_bucket_object :
-  ?acl:string ->
-  ?bucket_key_enabled:bool ->
-  ?cache_control:string ->
-  ?content:string ->
-  ?content_base64:string ->
-  ?content_disposition:string ->
-  ?content_encoding:string ->
-  ?content_language:string ->
-  ?content_type:string ->
-  ?etag:string ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?metadata:(string * string) list ->
-  ?object_lock_legal_hold_status:string ->
-  ?object_lock_mode:string ->
-  ?object_lock_retain_until_date:string ->
-  ?server_side_encryption:string ->
-  ?source:string ->
-  ?source_hash:string ->
-  ?storage_class:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?website_redirect:string ->
-  bucket:string ->
-  key:string ->
+  ?acl:string prop ->
+  ?bucket_key_enabled:bool prop ->
+  ?cache_control:string prop ->
+  ?content:string prop ->
+  ?content_base64:string prop ->
+  ?content_disposition:string prop ->
+  ?content_encoding:string prop ->
+  ?content_language:string prop ->
+  ?content_type:string prop ->
+  ?etag:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?object_lock_legal_hold_status:string prop ->
+  ?object_lock_mode:string prop ->
+  ?object_lock_retain_until_date:string prop ->
+  ?server_side_encryption:string prop ->
+  ?source:string prop ->
+  ?source_hash:string prop ->
+  ?storage_class:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?website_redirect:string prop ->
+  bucket:string prop ->
+  key:string prop ->
   string ->
   unit

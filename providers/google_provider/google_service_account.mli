@@ -6,13 +6,13 @@ type google_service_account__timeouts
 type google_service_account
 
 val google_service_account :
-  ?create_ignore_already_exists:bool ->
-  ?description:string ->
-  ?disabled:bool ->
-  ?display_name:string ->
-  ?id:string ->
-  ?project:string ->
+  ?create_ignore_already_exists:bool prop ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_service_account__timeouts ->
-  account_id:string ->
+  account_id:string prop ->
   string ->
   unit

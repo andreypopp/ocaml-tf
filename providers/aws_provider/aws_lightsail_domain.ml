@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_lightsail_domain = {
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_domain *)

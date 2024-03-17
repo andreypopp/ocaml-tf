@@ -6,18 +6,18 @@ type azurerm_machine_learning_datastore_datalake_gen2__timeouts
 type azurerm_machine_learning_datastore_datalake_gen2
 
 val azurerm_machine_learning_datastore_datalake_gen2 :
-  ?authority_url:string ->
-  ?client_id:string ->
-  ?client_secret:string ->
-  ?description:string ->
-  ?id:string ->
-  ?service_data_identity:string ->
-  ?tags:(string * string) list ->
-  ?tenant_id:string ->
+  ?authority_url:string prop ->
+  ?client_id:string prop ->
+  ?client_secret:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?service_data_identity:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tenant_id:string prop ->
   ?timeouts:
     azurerm_machine_learning_datastore_datalake_gen2__timeouts ->
-  name:string ->
-  storage_container_id:string ->
-  workspace_id:string ->
+  name:string prop ->
+  storage_container_id:string prop ->
+  workspace_id:string prop ->
   string ->
   unit

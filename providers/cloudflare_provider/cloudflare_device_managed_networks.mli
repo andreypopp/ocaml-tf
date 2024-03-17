@@ -6,10 +6,10 @@ type cloudflare_device_managed_networks__config
 type cloudflare_device_managed_networks
 
 val cloudflare_device_managed_networks :
-  ?id:string ->
-  account_id:string ->
-  name:string ->
-  type_:string ->
+  ?id:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
   config:cloudflare_device_managed_networks__config list ->
   string ->
   unit

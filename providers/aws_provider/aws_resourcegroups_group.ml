@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_resourcegroups_group__configuration__parameters = {
-  name : string;  (** name *)
-  values : string list;  (** values *)
+  name : string prop;  (** name *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_resourcegroups_group__configuration__parameters *)
 
 type aws_resourcegroups_group__configuration = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   parameters :
     aws_resourcegroups_group__configuration__parameters list;
 }
@@ -20,25 +20,25 @@ type aws_resourcegroups_group__configuration = {
 (** aws_resourcegroups_group__configuration *)
 
 type aws_resourcegroups_group__resource_query = {
-  query : string;  (** query *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  query : string prop;  (** query *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_resourcegroups_group__resource_query *)
 
 type aws_resourcegroups_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_resourcegroups_group__timeouts *)
 
 type aws_resourcegroups_group = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   configuration : aws_resourcegroups_group__configuration list;
   resource_query : aws_resourcegroups_group__resource_query list;

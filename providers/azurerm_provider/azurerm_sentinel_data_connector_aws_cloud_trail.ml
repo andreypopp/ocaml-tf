@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_data_connector_aws_cloud_trail__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_aws_cloud_trail__timeouts *)
 
 type azurerm_sentinel_data_connector_aws_cloud_trail = {
-  aws_role_arn : string;  (** aws_role_arn *)
-  id : string option; [@option]  (** id *)
-  log_analytics_workspace_id : string;
+  aws_role_arn : string prop;  (** aws_role_arn *)
+  id : string prop option; [@option]  (** id *)
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   timeouts :
     azurerm_sentinel_data_connector_aws_cloud_trail__timeouts option;
 }

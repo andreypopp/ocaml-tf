@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type hcloud_server_network = {
-  alias_ips : string list option; [@option]  (** alias_ips *)
-  id : string option; [@option]  (** id *)
-  ip : string option; [@option]  (** ip *)
-  network_id : float option; [@option]  (** network_id *)
-  server_id : float;  (** server_id *)
-  subnet_id : string option; [@option]  (** subnet_id *)
+  alias_ips : string prop list option; [@option]  (** alias_ips *)
+  id : string prop option; [@option]  (** id *)
+  ip : string prop option; [@option]  (** ip *)
+  network_id : float prop option; [@option]  (** network_id *)
+  server_id : float prop;  (** server_id *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** hcloud_server_network *)

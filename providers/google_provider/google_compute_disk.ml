@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type google_compute_disk__async_primary_disk = {
-  disk : string;
+  disk : string prop;
       (** Primary disk for asynchronous disk replication. *)
 }
 [@@deriving yojson_of]
 (** A nested object resource *)
 
 type google_compute_disk__disk_encryption_key = {
-  kms_key_self_link : string option; [@option]
+  kms_key_self_link : string prop option; [@option]
       (** The self link of the encryption key used to encrypt the disk. Also called KmsKeyName
 in the cloud console. Your project's Compute Engine System service account
 ('service-{{PROJECT_NUMBER}}@compute-system.iam.gserviceaccount.com') must have
 'roles/cloudkms.cryptoKeyEncrypterDecrypter' to use this feature.
 See https://cloud.google.com/compute/docs/disks/customer-managed-encryption#encrypt_a_new_persistent_disk_with_your_own_keys *)
-  kms_key_service_account : string option; [@option]
+  kms_key_service_account : string prop option; [@option]
       (** The service account used for the encryption request for the given KMS key.
 If absent, the Compute Engine Service Agent service account is used. *)
-  raw_key : string option; [@option]
+  raw_key : string prop option; [@option]
       (** Specifies a 256-bit customer-supplied encryption key, encoded in
 RFC 4648 base64 to either encrypt or decrypt this resource. *)
-  rsa_encrypted_key : string option; [@option]
+  rsa_encrypted_key : string prop option; [@option]
       (** Specifies an RFC 4648 base64 encoded, RSA-wrapped 2048-bit
 customer-supplied encryption key to either encrypt or decrypt
 this resource. You can provide either the rawKey or the rsaEncryptedKey. *)
-  sha256 : string;
+  sha256 : string prop;
       (** The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
 encryption key that protects this resource. *)
 }
@@ -47,7 +47,7 @@ the disk will be encrypted using an automatically generated key and
 you do not need to provide a key to use the disk later. *)
 
 type google_compute_disk__guest_os_features = {
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** The type of supported feature. Read [Enabling guest operating system features](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images#guest-os-features) to see a list of available options. Possible values: [MULTI_IP_SUBNET, SECURE_BOOT, SEV_CAPABLE, UEFI_COMPATIBLE, VIRTIO_SCSI_MULTIQUEUE, WINDOWS, GVNIC, SEV_LIVE_MIGRATABLE, SEV_SNP_CAPABLE, SUSPEND_RESUME_COMPATIBLE, TDX_CAPABLE] *)
 }
 [@@deriving yojson_of]
@@ -55,19 +55,19 @@ type google_compute_disk__guest_os_features = {
 Applicable only for bootable disks. *)
 
 type google_compute_disk__source_image_encryption_key = {
-  kms_key_self_link : string option; [@option]
+  kms_key_self_link : string prop option; [@option]
       (** The self link of the encryption key used to encrypt the disk. Also called KmsKeyName
 in the cloud console. Your project's Compute Engine System service account
 ('service-{{PROJECT_NUMBER}}@compute-system.iam.gserviceaccount.com') must have
 'roles/cloudkms.cryptoKeyEncrypterDecrypter' to use this feature.
 See https://cloud.google.com/compute/docs/disks/customer-managed-encryption#encrypt_a_new_persistent_disk_with_your_own_keys *)
-  kms_key_service_account : string option; [@option]
+  kms_key_service_account : string prop option; [@option]
       (** The service account used for the encryption request for the given KMS key.
 If absent, the Compute Engine Service Agent service account is used. *)
-  raw_key : string option; [@option]
+  raw_key : string prop option; [@option]
       (** Specifies a 256-bit customer-supplied encryption key, encoded in
 RFC 4648 base64 to either encrypt or decrypt this resource. *)
-  sha256 : string;
+  sha256 : string prop;
       (** The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
 encryption key that protects this resource. *)
 }
@@ -76,19 +76,19 @@ encryption key that protects this resource. *)
 the source image is protected by a customer-supplied encryption key. *)
 
 type google_compute_disk__source_snapshot_encryption_key = {
-  kms_key_self_link : string option; [@option]
+  kms_key_self_link : string prop option; [@option]
       (** The self link of the encryption key used to encrypt the disk. Also called KmsKeyName
 in the cloud console. Your project's Compute Engine System service account
 ('service-{{PROJECT_NUMBER}}@compute-system.iam.gserviceaccount.com') must have
 'roles/cloudkms.cryptoKeyEncrypterDecrypter' to use this feature.
 See https://cloud.google.com/compute/docs/disks/customer-managed-encryption#encrypt_a_new_persistent_disk_with_your_own_keys *)
-  kms_key_service_account : string option; [@option]
+  kms_key_service_account : string prop option; [@option]
       (** The service account used for the encryption request for the given KMS key.
 If absent, the Compute Engine Service Agent service account is used. *)
-  raw_key : string option; [@option]
+  raw_key : string prop option; [@option]
       (** Specifies a 256-bit customer-supplied encryption key, encoded in
 RFC 4648 base64 to either encrypt or decrypt this resource. *)
-  sha256 : string;
+  sha256 : string prop;
       (** The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
 encryption key that protects this resource. *)
 }
@@ -98,22 +98,22 @@ if the source snapshot is protected by a customer-supplied encryption
 key. *)
 
 type google_compute_disk__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_disk__timeouts *)
 
 type google_compute_disk = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. *)
-  enable_confidential_compute : bool option; [@option]
+  enable_confidential_compute : bool prop option; [@option]
       (** Whether this disk is using confidential compute mode.
 Note: Only supported on hyperdisk skus, disk_encryption_key is required when setting to true *)
-  id : string option; [@option]  (** id *)
-  image : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  image : string prop option; [@option]
       (** The image from which to initialize this disk. This can be
 one of: the image's 'self_link', 'projects/{project}/global/images/{image}',
 'projects/{project}/global/images/family/{family}', 'global/images/{image}',
@@ -123,15 +123,15 @@ images names must include the family name. If they don't, use the
 [google_compute_image data source](/docs/providers/google/d/compute_image.html).
 For instance, the image 'centos-6-v20180104' includes its family name 'centos-6'.
 These images can be referred by family name here. *)
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** Labels to apply to this disk.  A list of key->value pairs.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  licenses : string list option; [@option]
+  licenses : string prop list option; [@option]
       (** Any applicable license URI. *)
-  name : string;
+  name : string prop;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
 RFC1035. Specifically, the name must be 1-63 characters long and match
@@ -139,22 +139,22 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
-  physical_block_size_bytes : float option; [@option]
+  physical_block_size_bytes : float prop option; [@option]
       (** Physical block size of the persistent disk, in bytes. If not present
 in a request, a default value is used. Currently supported sizes
 are 4096 and 16384, other sizes may be added in the future.
 If an unsupported value is requested, the error message will list
 the supported values for the caller's project. *)
-  project : string option; [@option]  (** project *)
-  provisioned_iops : float option; [@option]
+  project : string prop option; [@option]  (** project *)
+  provisioned_iops : float prop option; [@option]
       (** Indicates how many IOPS must be provisioned for the disk.
 Note: Updating currently is only supported by hyperdisk skus without the need to delete and recreate the disk, hyperdisk
 allows for an update of IOPS every 4 hours. To update your hyperdisk more frequently, you'll need to manually delete and recreate it *)
-  provisioned_throughput : float option; [@option]
+  provisioned_throughput : float prop option; [@option]
       (** Indicates how much Throughput must be provisioned for the disk.
 Note: Updating currently is only supported by hyperdisk skus without the need to delete and recreate the disk, hyperdisk
 allows for an update of Throughput every 4 hours. To update your hyperdisk more frequently, you'll need to manually delete and recreate it *)
-  size : float option; [@option]
+  size : float prop option; [@option]
       (** Size of the persistent disk, specified in GB. You can specify this
 field when creating a persistent disk using the 'image' or
 'snapshot' parameter, or specify it alone to create an empty
@@ -168,7 +168,7 @@ or the size of the snapshot.
 if upsizing is detected but recreates the disk if downsizing is requested.
 You can add 'lifecycle.prevent_destroy' in the config to prevent destroying
 and recreating. *)
-  snapshot : string option; [@option]
+  snapshot : string prop option; [@option]
       (** The source snapshot used to create this disk. You can provide this as
 a partial or full URL to the resource. If the snapshot is in another
 project than this disk, you must supply a full URL. For example, the
@@ -178,7 +178,7 @@ following are valid values:
 * 'projects/project/global/snapshots/snapshot'
 * 'global/snapshots/snapshot'
 * 'snapshot' *)
-  source_disk : string option; [@option]
+  source_disk : string prop option; [@option]
       (** The source disk used to create this disk. You can provide this as a partial or full URL to the resource.
 For example, the following are valid values:
 
@@ -188,10 +188,10 @@ For example, the following are valid values:
 * projects/{project}/regions/{region}/disks/{disk}
 * zones/{zone}/disks/{disk}
 * regions/{region}/disks/{disk} *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** URL of the disk type resource describing which disk type to use to
 create the disk. Provide this when creating the disk. *)
-  zone : string option; [@option]
+  zone : string prop option; [@option]
       (** A reference to the zone where the disk resides. *)
   async_primary_disk : google_compute_disk__async_primary_disk list;
   disk_encryption_key :

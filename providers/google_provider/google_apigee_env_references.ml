@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type google_apigee_env_references__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_apigee_env_references__timeouts *)
 
 type google_apigee_env_references = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Optional. A human-readable description of this reference. *)
-  env_id : string;
+  env_id : string prop;
       (** The Apigee environment group associated with the Apigee environment,
 in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** Required. The resource id of this reference. Values must match the regular expression [\w\s-.]+. *)
-  refers : string;
+  refers : string prop;
       (** Required. The id of the resource to which this reference refers. Must be the id of a resource that exists in the parent environment and is of the given resourceType. *)
-  resource_type : string;
+  resource_type : string prop;
       (** The type of resource referred to by this reference. Valid values are 'KeyStore' or 'TrustStore'. *)
   timeouts : google_apigee_env_references__timeouts option;
 }

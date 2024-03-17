@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_alb_target_group_attachment = {
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  id : string option; [@option]  (** id *)
-  port : float option; [@option]  (** port *)
-  target_group_arn : string;  (** target_group_arn *)
-  target_id : string;  (** target_id *)
+  id : string prop option; [@option]  (** id *)
+  port : float prop option; [@option]  (** port *)
+  target_group_arn : string prop;  (** target_group_arn *)
+  target_id : string prop;  (** target_id *)
 }
 [@@deriving yojson_of]
 (** aws_alb_target_group_attachment *)

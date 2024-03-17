@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_vpc_ipam_resource_discovery_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_ipam_resource_discovery_association__timeouts *)
 
 type aws_vpc_ipam_resource_discovery_association = {
-  id : string option; [@option]  (** id *)
-  ipam_id : string;  (** ipam_id *)
-  ipam_resource_discovery_id : string;
+  id : string prop option; [@option]  (** id *)
+  ipam_id : string prop;  (** ipam_id *)
+  ipam_resource_discovery_id : string prop;
       (** ipam_resource_discovery_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts :
     aws_vpc_ipam_resource_discovery_association__timeouts option;

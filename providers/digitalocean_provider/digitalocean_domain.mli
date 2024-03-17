@@ -5,4 +5,8 @@ open! Tf.Prelude
 type digitalocean_domain
 
 val digitalocean_domain :
-  ?id:string -> ?ip_address:string -> name:string -> string -> unit
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  name:string prop ->
+  string ->
+  unit

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_connect_lambda_function_association = {
-  function_arn : string;  (** function_arn *)
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
+  function_arn : string prop;  (** function_arn *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
 }
 [@@deriving yojson_of]
 (** aws_connect_lambda_function_association *)

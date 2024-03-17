@@ -1832,13 +1832,13 @@ type aws_lexv2models_intent__timeouts
 type aws_lexv2models_intent
 
 val aws_lexv2models_intent :
-  ?description:string ->
-  ?parent_intent_signature:string ->
+  ?description:string prop ->
+  ?parent_intent_signature:string prop ->
   ?timeouts:aws_lexv2models_intent__timeouts ->
-  bot_id:string ->
-  bot_version:string ->
-  locale_id:string ->
-  name:string ->
+  bot_id:string prop ->
+  bot_version:string prop ->
+  locale_id:string prop ->
+  name:string prop ->
   closing_setting:aws_lexv2models_intent__closing_setting list ->
   confirmation_setting:
     aws_lexv2models_intent__confirmation_setting list ->

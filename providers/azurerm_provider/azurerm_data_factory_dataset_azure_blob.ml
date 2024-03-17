@@ -5,40 +5,42 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_dataset_azure_blob__schema_column = {
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_dataset_azure_blob__schema_column *)
 
 type azurerm_data_factory_dataset_azure_blob__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_dataset_azure_blob__timeouts *)
 
 type azurerm_data_factory_dataset_azure_blob = {
-  additional_properties : (string * string) list option; [@option]
+  additional_properties : (string * string prop) list option;
+      [@option]
       (** additional_properties *)
-  annotations : string list option; [@option]  (** annotations *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  dynamic_filename_enabled : bool option; [@option]
+  annotations : string prop list option; [@option]
+      (** annotations *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  dynamic_filename_enabled : bool prop option; [@option]
       (** dynamic_filename_enabled *)
-  dynamic_path_enabled : bool option; [@option]
+  dynamic_path_enabled : bool prop option; [@option]
       (** dynamic_path_enabled *)
-  filename : string option; [@option]  (** filename *)
-  folder : string option; [@option]  (** folder *)
-  id : string option; [@option]  (** id *)
-  linked_service_name : string;  (** linked_service_name *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  filename : string prop option; [@option]  (** filename *)
+  folder : string prop option; [@option]  (** folder *)
+  id : string prop option; [@option]  (** id *)
+  linked_service_name : string prop;  (** linked_service_name *)
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  path : string option; [@option]  (** path *)
+  path : string prop option; [@option]  (** path *)
   schema_column :
     azurerm_data_factory_dataset_azure_blob__schema_column list;
   timeouts : azurerm_data_factory_dataset_azure_blob__timeouts option;

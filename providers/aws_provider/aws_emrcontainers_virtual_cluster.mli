@@ -10,11 +10,11 @@ type aws_emrcontainers_virtual_cluster__timeouts
 type aws_emrcontainers_virtual_cluster
 
 val aws_emrcontainers_virtual_cluster :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_emrcontainers_virtual_cluster__timeouts ->
-  name:string ->
+  name:string prop ->
   container_provider:
     aws_emrcontainers_virtual_cluster__container_provider list ->
   string ->

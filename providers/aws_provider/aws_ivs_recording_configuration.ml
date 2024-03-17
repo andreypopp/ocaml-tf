@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_ivs_recording_configuration__destination_configuration__s3 = {
-  bucket_name : string;  (** bucket_name *)
+  bucket_name : string prop;  (** bucket_name *)
 }
 [@@deriving yojson_of]
 (** aws_ivs_recording_configuration__destination_configuration__s3 *)
@@ -19,27 +19,28 @@ type aws_ivs_recording_configuration__destination_configuration = {
 (** aws_ivs_recording_configuration__destination_configuration *)
 
 type aws_ivs_recording_configuration__thumbnail_configuration = {
-  recording_mode : string option; [@option]  (** recording_mode *)
-  target_interval_seconds : float option; [@option]
+  recording_mode : string prop option; [@option]
+      (** recording_mode *)
+  target_interval_seconds : float prop option; [@option]
       (** target_interval_seconds *)
 }
 [@@deriving yojson_of]
 (** aws_ivs_recording_configuration__thumbnail_configuration *)
 
 type aws_ivs_recording_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ivs_recording_configuration__timeouts *)
 
 type aws_ivs_recording_configuration = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  recording_reconnect_window_seconds : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  recording_reconnect_window_seconds : float prop option; [@option]
       (** recording_reconnect_window_seconds *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   destination_configuration :
     aws_ivs_recording_configuration__destination_configuration list;

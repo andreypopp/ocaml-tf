@@ -17,13 +17,13 @@ type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__tim
 type azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
 
 val azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:
     azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__timeouts ->
-  name:string ->
-  resource_group_name:string ->
-  rulestack_id:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  rulestack_id:string prop ->
   destination_nat:
     azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack__destination_nat
     list ->

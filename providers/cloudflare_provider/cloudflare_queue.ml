@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_queue = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The name of the queue. *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The name of the queue. *)
 }
 [@@deriving yojson_of]
 (** Provides the ability to manage Cloudflare Workers Queue features. *)

@@ -6,18 +6,18 @@ type aws_dx_public_virtual_interface__timeouts
 type aws_dx_public_virtual_interface
 
 val aws_dx_public_virtual_interface :
-  ?amazon_address:string ->
-  ?bgp_auth_key:string ->
-  ?customer_address:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?amazon_address:string prop ->
+  ?bgp_auth_key:string prop ->
+  ?customer_address:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_dx_public_virtual_interface__timeouts ->
-  address_family:string ->
-  bgp_asn:float ->
-  connection_id:string ->
-  name:string ->
-  route_filter_prefixes:string list ->
-  vlan:float ->
+  address_family:string prop ->
+  bgp_asn:float prop ->
+  connection_id:string prop ->
+  name:string prop ->
+  route_filter_prefixes:string prop list ->
+  vlan:float prop ->
   string ->
   unit

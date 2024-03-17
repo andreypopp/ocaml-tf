@@ -5,46 +5,46 @@
 open! Tf.Prelude
 
 type aws_lakeformation_permissions__data_cells_filter = {
-  database_name : string;  (** database_name *)
-  name : string;  (** name *)
-  table_catalog_id : string;  (** table_catalog_id *)
-  table_name : string;  (** table_name *)
+  database_name : string prop;  (** database_name *)
+  name : string prop;  (** name *)
+  table_catalog_id : string prop;  (** table_catalog_id *)
+  table_name : string prop;  (** table_name *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_permissions__data_cells_filter *)
 
 type aws_lakeformation_permissions__data_location = {
-  arn : string;  (** arn *)
-  catalog_id : string option; [@option]  (** catalog_id *)
+  arn : string prop;  (** arn *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_permissions__data_location *)
 
 type aws_lakeformation_permissions__database = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  name : string;  (** name *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_permissions__database *)
 
 type aws_lakeformation_permissions__lf_tag = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_permissions__lf_tag *)
 
 type aws_lakeformation_permissions__lf_tag_policy__expression = {
-  key : string;  (** key *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_permissions__lf_tag_policy__expression *)
 
 type aws_lakeformation_permissions__lf_tag_policy = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  resource_type : string;  (** resource_type *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  resource_type : string prop;  (** resource_type *)
   expression :
     aws_lakeformation_permissions__lf_tag_policy__expression list;
 }
@@ -52,34 +52,36 @@ type aws_lakeformation_permissions__lf_tag_policy = {
 (** aws_lakeformation_permissions__lf_tag_policy *)
 
 type aws_lakeformation_permissions__table = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  database_name : string;  (** database_name *)
-  name : string option; [@option]  (** name *)
-  wildcard : bool option; [@option]  (** wildcard *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  database_name : string prop;  (** database_name *)
+  name : string prop option; [@option]  (** name *)
+  wildcard : bool prop option; [@option]  (** wildcard *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_permissions__table *)
 
 type aws_lakeformation_permissions__table_with_columns = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  column_names : string list option; [@option]  (** column_names *)
-  database_name : string;  (** database_name *)
-  excluded_column_names : string list option; [@option]
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  column_names : string prop list option; [@option]
+      (** column_names *)
+  database_name : string prop;  (** database_name *)
+  excluded_column_names : string prop list option; [@option]
       (** excluded_column_names *)
-  name : string;  (** name *)
-  wildcard : bool option; [@option]  (** wildcard *)
+  name : string prop;  (** name *)
+  wildcard : bool prop option; [@option]  (** wildcard *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_permissions__table_with_columns *)
 
 type aws_lakeformation_permissions = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  catalog_resource : bool option; [@option]  (** catalog_resource *)
-  id : string option; [@option]  (** id *)
-  permissions : string list;  (** permissions *)
-  permissions_with_grant_option : string list option; [@option]
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  catalog_resource : bool prop option; [@option]
+      (** catalog_resource *)
+  id : string prop option; [@option]  (** id *)
+  permissions : string prop list;  (** permissions *)
+  permissions_with_grant_option : string prop list option; [@option]
       (** permissions_with_grant_option *)
-  principal : string;  (** principal *)
+  principal : string prop;  (** principal *)
   data_cells_filter :
     aws_lakeformation_permissions__data_cells_filter list;
   data_location : aws_lakeformation_permissions__data_location list;

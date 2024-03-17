@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_active_directory_domain_service_replica_set__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_active_directory_domain_service_replica_set__timeouts *)
 
 type azurerm_active_directory_domain_service_replica_set = {
-  domain_service_id : string;  (** domain_service_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  subnet_id : string;  (** subnet_id *)
+  domain_service_id : string prop;  (** domain_service_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  subnet_id : string prop;  (** subnet_id *)
   timeouts :
     azurerm_active_directory_domain_service_replica_set__timeouts
     option;

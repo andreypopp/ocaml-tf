@@ -7,13 +7,13 @@ type google_compute_region_network_firewall_policy_association__timeouts
 type google_compute_region_network_firewall_policy_association
 
 val google_compute_region_network_firewall_policy_association :
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:
     google_compute_region_network_firewall_policy_association__timeouts ->
-  attachment_target:string ->
-  firewall_policy:string ->
-  name:string ->
+  attachment_target:string prop ->
+  firewall_policy:string prop ->
+  name:string prop ->
   string ->
   unit

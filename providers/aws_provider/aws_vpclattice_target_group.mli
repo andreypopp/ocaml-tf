@@ -9,12 +9,12 @@ type aws_vpclattice_target_group__timeouts
 type aws_vpclattice_target_group
 
 val aws_vpclattice_target_group :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_vpclattice_target_group__timeouts ->
-  name:string ->
-  type_:string ->
+  name:string prop ->
+  type_:string prop ->
   config:aws_vpclattice_target_group__config list ->
   string ->
   unit

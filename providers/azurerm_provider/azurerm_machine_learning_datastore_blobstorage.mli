@@ -6,16 +6,16 @@ type azurerm_machine_learning_datastore_blobstorage__timeouts
 type azurerm_machine_learning_datastore_blobstorage
 
 val azurerm_machine_learning_datastore_blobstorage :
-  ?account_key:string ->
-  ?description:string ->
-  ?id:string ->
-  ?is_default:bool ->
-  ?service_data_auth_identity:string ->
-  ?shared_access_signature:string ->
-  ?tags:(string * string) list ->
+  ?account_key:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?is_default:bool prop ->
+  ?service_data_auth_identity:string prop ->
+  ?shared_access_signature:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_machine_learning_datastore_blobstorage__timeouts ->
-  name:string ->
-  storage_container_id:string ->
-  workspace_id:string ->
+  name:string prop ->
+  storage_container_id:string prop ->
+  workspace_id:string prop ->
   string ->
   unit

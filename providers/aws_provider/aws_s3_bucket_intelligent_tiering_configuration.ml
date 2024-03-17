@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_intelligent_tiering_configuration__filter = {
-  prefix : string option; [@option]  (** prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  prefix : string prop option; [@option]  (** prefix *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_intelligent_tiering_configuration__filter *)
 
 type aws_s3_bucket_intelligent_tiering_configuration__tiering = {
-  access_tier : string;  (** access_tier *)
-  days : float;  (** days *)
+  access_tier : string prop;  (** access_tier *)
+  days : float prop;  (** days *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_intelligent_tiering_configuration__tiering *)
 
 type aws_s3_bucket_intelligent_tiering_configuration = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  status : string option; [@option]  (** status *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  status : string prop option; [@option]  (** status *)
   filter :
     aws_s3_bucket_intelligent_tiering_configuration__filter list;
   tiering :

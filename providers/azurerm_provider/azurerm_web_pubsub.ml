@@ -5,49 +5,51 @@
 open! Tf.Prelude
 
 type azurerm_web_pubsub__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub__identity *)
 
 type azurerm_web_pubsub__live_trace = {
-  connectivity_logs_enabled : bool option; [@option]
+  connectivity_logs_enabled : bool prop option; [@option]
       (** connectivity_logs_enabled *)
-  enabled : bool option; [@option]  (** enabled *)
-  http_request_logs_enabled : bool option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  http_request_logs_enabled : bool prop option; [@option]
       (** http_request_logs_enabled *)
-  messaging_logs_enabled : bool option; [@option]
+  messaging_logs_enabled : bool prop option; [@option]
       (** messaging_logs_enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub__live_trace *)
 
 type azurerm_web_pubsub__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub__timeouts *)
 
 type azurerm_web_pubsub = {
-  aad_auth_enabled : bool option; [@option]  (** aad_auth_enabled *)
-  capacity : float option; [@option]  (** capacity *)
-  id : string option; [@option]  (** id *)
-  local_auth_enabled : bool option; [@option]
+  aad_auth_enabled : bool prop option; [@option]
+      (** aad_auth_enabled *)
+  capacity : float prop option; [@option]  (** capacity *)
+  id : string prop option; [@option]  (** id *)
+  local_auth_enabled : bool prop option; [@option]
       (** local_auth_enabled *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku : string;  (** sku *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tls_client_cert_enabled : bool option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku : string prop;  (** sku *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tls_client_cert_enabled : bool prop option; [@option]
       (** tls_client_cert_enabled *)
   identity : azurerm_web_pubsub__identity list;
   live_trace : azurerm_web_pubsub__live_trace list;

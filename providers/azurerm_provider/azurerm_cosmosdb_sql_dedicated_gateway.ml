@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_sql_dedicated_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_dedicated_gateway__timeouts *)
 
 type azurerm_cosmosdb_sql_dedicated_gateway = {
-  cosmosdb_account_id : string;  (** cosmosdb_account_id *)
-  id : string option; [@option]  (** id *)
-  instance_count : float;  (** instance_count *)
-  instance_size : string;  (** instance_size *)
+  cosmosdb_account_id : string prop;  (** cosmosdb_account_id *)
+  id : string prop option; [@option]  (** id *)
+  instance_count : float prop;  (** instance_count *)
+  instance_size : string prop;  (** instance_size *)
   timeouts : azurerm_cosmosdb_sql_dedicated_gateway__timeouts option;
 }
 [@@deriving yojson_of]

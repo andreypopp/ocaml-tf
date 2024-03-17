@@ -6,20 +6,20 @@ type aws_rds_custom_db_engine_version__timeouts
 type aws_rds_custom_db_engine_version
 
 val aws_rds_custom_db_engine_version :
-  ?database_installation_files_s3_bucket_name:string ->
-  ?database_installation_files_s3_prefix:string ->
-  ?description:string ->
-  ?filename:string ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?manifest:string ->
-  ?manifest_hash:string ->
-  ?source_image_id:string ->
-  ?status:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?database_installation_files_s3_bucket_name:string prop ->
+  ?database_installation_files_s3_prefix:string prop ->
+  ?description:string prop ->
+  ?filename:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?manifest:string prop ->
+  ?manifest_hash:string prop ->
+  ?source_image_id:string prop ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_rds_custom_db_engine_version__timeouts ->
-  engine:string ->
-  engine_version:string ->
+  engine:string prop ->
+  engine_version:string prop ->
   string ->
   unit

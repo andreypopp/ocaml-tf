@@ -5,26 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_subscription_policy_exemption__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_subscription_policy_exemption__timeouts *)
 
 type azurerm_subscription_policy_exemption = {
-  description : string option; [@option]  (** description *)
-  display_name : string option; [@option]  (** display_name *)
-  exemption_category : string;  (** exemption_category *)
-  expires_on : string option; [@option]  (** expires_on *)
-  id : string option; [@option]  (** id *)
-  metadata : string option; [@option]  (** metadata *)
-  name : string;  (** name *)
-  policy_assignment_id : string;  (** policy_assignment_id *)
-  policy_definition_reference_ids : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop option; [@option]  (** display_name *)
+  exemption_category : string prop;  (** exemption_category *)
+  expires_on : string prop option; [@option]  (** expires_on *)
+  id : string prop option; [@option]  (** id *)
+  metadata : string prop option; [@option]  (** metadata *)
+  name : string prop;  (** name *)
+  policy_assignment_id : string prop;  (** policy_assignment_id *)
+  policy_definition_reference_ids : string prop list option;
+      [@option]
       (** policy_definition_reference_ids *)
-  subscription_id : string;  (** subscription_id *)
+  subscription_id : string prop;  (** subscription_id *)
   timeouts : azurerm_subscription_policy_exemption__timeouts option;
 }
 [@@deriving yojson_of]

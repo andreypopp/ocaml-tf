@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_ec2_managed_prefix_list_entry
 
 val aws_ec2_managed_prefix_list_entry :
-  ?description:string ->
-  ?id:string ->
-  cidr:string ->
-  prefix_list_id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  cidr:string prop ->
+  prefix_list_id:string prop ->
   string ->
   unit

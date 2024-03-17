@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_connect_peer__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_connect_peer__timeouts *)
 
 type aws_ec2_transit_gateway_connect_peer = {
-  bgp_asn : string option; [@option]  (** bgp_asn *)
-  id : string option; [@option]  (** id *)
-  inside_cidr_blocks : string list;  (** inside_cidr_blocks *)
-  peer_address : string;  (** peer_address *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  bgp_asn : string prop option; [@option]  (** bgp_asn *)
+  id : string prop option; [@option]  (** id *)
+  inside_cidr_blocks : string prop list;  (** inside_cidr_blocks *)
+  peer_address : string prop;  (** peer_address *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  transit_gateway_address : string option; [@option]
+  transit_gateway_address : string prop option; [@option]
       (** transit_gateway_address *)
-  transit_gateway_attachment_id : string;
+  transit_gateway_attachment_id : string prop;
       (** transit_gateway_attachment_id *)
   timeouts : aws_ec2_transit_gateway_connect_peer__timeouts option;
 }

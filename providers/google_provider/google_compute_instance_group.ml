@@ -5,33 +5,34 @@
 open! Tf.Prelude
 
 type google_compute_instance_group__named_port = {
-  name : string;  (** The name which the port will be mapped to. *)
-  port : float;  (** The port number to map the name to. *)
+  name : string prop;
+      (** The name which the port will be mapped to. *)
+  port : float prop;  (** The port number to map the name to. *)
 }
 [@@deriving yojson_of]
 (** The named port configuration. *)
 
 type google_compute_instance_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_instance_group__timeouts *)
 
 type google_compute_instance_group = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional textual description of the instance group. *)
-  id : string option; [@option]  (** id *)
-  instances : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instances : string prop list option; [@option]
       (** The list of instances in the group, in self_link format. When adding instances they must all be in the same network and zone as the instance group. *)
-  name : string;
+  name : string prop;
       (** The name of the instance group. Must be 1-63 characters long and comply with RFC1035. Supported characters include lowercase letters, numbers, and hyphens. *)
-  network : string option; [@option]
+  network : string prop option; [@option]
       (** The URL of the network the instance group is in. If this is different from the network where the instances are in, the creation fails. Defaults to the network where the instances are in (if neither network nor instances is specified, this field will be blank). *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
-  zone : string option; [@option]
+  zone : string prop option; [@option]
       (** The zone that this instance group should be created in. *)
   named_port : google_compute_instance_group__named_port list;
   timeouts : google_compute_instance_group__timeouts option;

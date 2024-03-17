@@ -3,17 +3,21 @@
 open! Tf.Prelude
 
 type google_gke_hub_namespace__timeouts
-type google_gke_hub_namespace__state = { code : string  (** code *) }
+
+type google_gke_hub_namespace__state = {
+  code : string prop;  (** code *)
+}
+
 type google_gke_hub_namespace
 
 val google_gke_hub_namespace :
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?namespace_labels:(string * string) list ->
-  ?project:string ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?namespace_labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_gke_hub_namespace__timeouts ->
-  scope:string ->
-  scope_id:string ->
-  scope_namespace_id:string ->
+  scope:string prop ->
+  scope_id:string prop ->
+  scope_namespace_id:string prop ->
   string ->
   unit

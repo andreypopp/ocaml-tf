@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_data_share_dataset_blob_storage__storage_account = {
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  subscription_id : string;  (** subscription_id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  subscription_id : string prop;  (** subscription_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_share_dataset_blob_storage__storage_account *)
 
 type azurerm_data_share_dataset_blob_storage__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_share_dataset_blob_storage__timeouts *)
 
 type azurerm_data_share_dataset_blob_storage = {
-  container_name : string;  (** container_name *)
-  data_share_id : string;  (** data_share_id *)
-  file_path : string option; [@option]  (** file_path *)
-  folder_path : string option; [@option]  (** folder_path *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  container_name : string prop;  (** container_name *)
+  data_share_id : string prop;  (** data_share_id *)
+  file_path : string prop option; [@option]  (** file_path *)
+  folder_path : string prop option; [@option]  (** folder_path *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   storage_account :
     azurerm_data_share_dataset_blob_storage__storage_account list;
   timeouts : azurerm_data_share_dataset_blob_storage__timeouts option;

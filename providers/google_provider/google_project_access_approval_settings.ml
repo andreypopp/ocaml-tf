@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_project_access_approval_settings__enrolled_services = {
-  cloud_product : string;
+  cloud_product : string prop;
       (** The product for which Access Approval will be enrolled. Allowed values are listed (case-sensitive):
   all
   appengine.googleapis.com
@@ -17,7 +17,7 @@ type google_project_access_approval_settings__enrolled_services = {
   iam.googleapis.com
   pubsub.googleapis.com
   storage.googleapis.com *)
-  enrollment_level : string option; [@option]
+  enrollment_level : string prop option; [@option]
       (** The enrollment level of the service. Default value: BLOCK_ALL Possible values: [BLOCK_ALL] *)
 }
 [@@deriving yojson_of]
@@ -28,25 +28,25 @@ to have explicit approval. Enrollment can only be done on an all or nothing basi
 A maximum of 10 enrolled services will be enforced, to be expanded as the set of supported services is expanded. *)
 
 type google_project_access_approval_settings__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_project_access_approval_settings__timeouts *)
 
 type google_project_access_approval_settings = {
-  active_key_version : string option; [@option]
+  active_key_version : string prop option; [@option]
       (** The asymmetric crypto key version to use for signing approval requests.
 Empty active_key_version indicates that a Google-managed key should be used for signing.
 This property will be ignored if set by an ancestor of the resource, and new non-empty values may not be set. *)
-  id : string option; [@option]  (** id *)
-  notification_emails : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  notification_emails : string prop list option; [@option]
       (** A list of email addresses to which notifications relating to approval requests should be sent.
 Notifications relating to a resource will be sent to all emails in the settings of ancestor
 resources of that resource. A maximum of 50 email addresses are allowed. *)
-  project : string option; [@option]  (** Project id. *)
-  project_id : string;
+  project : string prop option; [@option]  (** Project id. *)
+  project_id : string prop;
       (** ID of the project of the access approval settings. *)
   enrolled_services :
     google_project_access_approval_settings__enrolled_services list;

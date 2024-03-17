@@ -6,9 +6,9 @@ type google_iap_client__timeouts
 type google_iap_client
 
 val google_iap_client :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_iap_client__timeouts ->
-  brand:string ->
-  display_name:string ->
+  brand:string prop ->
+  display_name:string prop ->
   string ->
   unit

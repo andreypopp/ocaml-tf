@@ -19,26 +19,26 @@ type azurerm_sentinel_alert_rule_scheduled__timeouts
 type azurerm_sentinel_alert_rule_scheduled
 
 val azurerm_sentinel_alert_rule_scheduled :
-  ?alert_rule_template_guid:string ->
-  ?alert_rule_template_version:string ->
-  ?custom_details:(string * string) list ->
-  ?description:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?query_frequency:string ->
-  ?query_period:string ->
-  ?suppression_duration:string ->
-  ?suppression_enabled:bool ->
-  ?tactics:string list ->
-  ?techniques:string list ->
-  ?trigger_operator:string ->
-  ?trigger_threshold:float ->
+  ?alert_rule_template_guid:string prop ->
+  ?alert_rule_template_version:string prop ->
+  ?custom_details:(string * string prop) list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?query_frequency:string prop ->
+  ?query_period:string prop ->
+  ?suppression_duration:string prop ->
+  ?suppression_enabled:bool prop ->
+  ?tactics:string prop list ->
+  ?techniques:string prop list ->
+  ?trigger_operator:string prop ->
+  ?trigger_threshold:float prop ->
   ?timeouts:azurerm_sentinel_alert_rule_scheduled__timeouts ->
-  display_name:string ->
-  log_analytics_workspace_id:string ->
-  name:string ->
-  query:string ->
-  severity:string ->
+  display_name:string prop ->
+  log_analytics_workspace_id:string prop ->
+  name:string prop ->
+  query:string prop ->
+  severity:string prop ->
   alert_details_override:
     azurerm_sentinel_alert_rule_scheduled__alert_details_override
     list ->

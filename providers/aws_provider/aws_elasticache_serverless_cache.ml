@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_elasticache_serverless_cache__cache_usage_limits__data_storage = {
-  maximum : float;  (** maximum *)
-  unit : string;  (** unit *)
+  maximum : float prop;  (** maximum *)
+  unit : string prop;  (** unit *)
 }
 [@@deriving yojson_of]
 (** aws_elasticache_serverless_cache__cache_usage_limits__data_storage *)
 
 type aws_elasticache_serverless_cache__cache_usage_limits__ecpu_per_second = {
-  maximum : float;  (** maximum *)
+  maximum : float prop;  (** maximum *)
 }
 [@@deriving yojson_of]
 (** aws_elasticache_serverless_cache__cache_usage_limits__ecpu_per_second *)
@@ -29,46 +29,46 @@ type aws_elasticache_serverless_cache__cache_usage_limits = {
 (** aws_elasticache_serverless_cache__cache_usage_limits *)
 
 type aws_elasticache_serverless_cache__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-  delete : string option; [@option]
+  delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
-  update : string option; [@option]
+  update : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
 (** aws_elasticache_serverless_cache__timeouts *)
 
 type aws_elasticache_serverless_cache__endpoint = {
-  address : string;  (** address *)
-  port : float;  (** port *)
+  address : string prop;  (** address *)
+  port : float prop;  (** port *)
 }
 [@@deriving yojson_of]
 
 type aws_elasticache_serverless_cache__reader_endpoint = {
-  address : string;  (** address *)
-  port : float;  (** port *)
+  address : string prop;  (** address *)
+  port : float prop;  (** port *)
 }
 [@@deriving yojson_of]
 
 type aws_elasticache_serverless_cache = {
-  daily_snapshot_time : string option; [@option]
+  daily_snapshot_time : string prop option; [@option]
       (** daily_snapshot_time *)
-  description : string option; [@option]  (** description *)
-  engine : string;  (** engine *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  major_engine_version : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  engine : string prop;  (** engine *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  major_engine_version : string prop option; [@option]
       (** major_engine_version *)
-  name : string;  (** name *)
-  security_group_ids : string list option; [@option]
+  name : string prop;  (** name *)
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  snapshot_arns_to_restore : string list option; [@option]
+  snapshot_arns_to_restore : string prop list option; [@option]
       (** snapshot_arns_to_restore *)
-  snapshot_retention_limit : float option; [@option]
+  snapshot_retention_limit : float prop option; [@option]
       (** snapshot_retention_limit *)
-  subnet_ids : string list option; [@option]  (** subnet_ids *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  user_group_id : string option; [@option]  (** user_group_id *)
+  subnet_ids : string prop list option; [@option]  (** subnet_ids *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  user_group_id : string prop option; [@option]  (** user_group_id *)
   cache_usage_limits :
     aws_elasticache_serverless_cache__cache_usage_limits list;
   timeouts : aws_elasticache_serverless_cache__timeouts option;

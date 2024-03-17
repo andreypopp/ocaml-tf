@@ -16,17 +16,17 @@ type aws_appsync_graphql_api__user_pool_config
 type aws_appsync_graphql_api
 
 val aws_appsync_graphql_api :
-  ?id:string ->
-  ?introspection_config:string ->
-  ?query_depth_limit:float ->
-  ?resolver_count_limit:float ->
-  ?schema:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?visibility:string ->
-  ?xray_enabled:bool ->
-  authentication_type:string ->
-  name:string ->
+  ?id:string prop ->
+  ?introspection_config:string prop ->
+  ?query_depth_limit:float prop ->
+  ?resolver_count_limit:float prop ->
+  ?schema:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?visibility:string prop ->
+  ?xray_enabled:bool prop ->
+  authentication_type:string prop ->
+  name:string prop ->
   additional_authentication_provider:
     aws_appsync_graphql_api__additional_authentication_provider list ->
   lambda_authorizer_config:

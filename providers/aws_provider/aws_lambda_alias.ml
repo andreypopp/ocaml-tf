@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type aws_lambda_alias__routing_config = {
-  additional_version_weights : (string * float) list option; [@option]
+  additional_version_weights : (string * float prop) list option;
+      [@option]
       (** additional_version_weights *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_alias__routing_config *)
 
 type aws_lambda_alias = {
-  description : string option; [@option]  (** description *)
-  function_name : string;  (** function_name *)
-  function_version : string;  (** function_version *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  description : string prop option; [@option]  (** description *)
+  function_name : string prop;  (** function_name *)
+  function_version : string prop;  (** function_version *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   routing_config : aws_lambda_alias__routing_config list;
 }
 [@@deriving yojson_of]

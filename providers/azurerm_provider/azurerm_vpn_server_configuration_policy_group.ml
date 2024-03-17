@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_vpn_server_configuration_policy_group__policy = {
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_server_configuration_policy_group__policy *)
 
 type azurerm_vpn_server_configuration_policy_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_server_configuration_policy_group__timeouts *)
 
 type azurerm_vpn_server_configuration_policy_group = {
-  id : string option; [@option]  (** id *)
-  is_default : bool option; [@option]  (** is_default *)
-  name : string;  (** name *)
-  priority : float option; [@option]  (** priority *)
-  vpn_server_configuration_id : string;
+  id : string prop option; [@option]  (** id *)
+  is_default : bool prop option; [@option]  (** is_default *)
+  name : string prop;  (** name *)
+  priority : float prop option; [@option]  (** priority *)
+  vpn_server_configuration_id : string prop;
       (** vpn_server_configuration_id *)
   policy :
     azurerm_vpn_server_configuration_policy_group__policy list;

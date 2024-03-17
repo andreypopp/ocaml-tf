@@ -6,25 +6,25 @@ type azurerm_servicebus_queue__timeouts
 type azurerm_servicebus_queue
 
 val azurerm_servicebus_queue :
-  ?auto_delete_on_idle:string ->
-  ?dead_lettering_on_message_expiration:bool ->
-  ?default_message_ttl:string ->
-  ?duplicate_detection_history_time_window:string ->
-  ?enable_batched_operations:bool ->
-  ?enable_express:bool ->
-  ?enable_partitioning:bool ->
-  ?forward_dead_lettered_messages_to:string ->
-  ?forward_to:string ->
-  ?id:string ->
-  ?lock_duration:string ->
-  ?max_delivery_count:float ->
-  ?max_message_size_in_kilobytes:float ->
-  ?max_size_in_megabytes:float ->
-  ?requires_duplicate_detection:bool ->
-  ?requires_session:bool ->
-  ?status:string ->
+  ?auto_delete_on_idle:string prop ->
+  ?dead_lettering_on_message_expiration:bool prop ->
+  ?default_message_ttl:string prop ->
+  ?duplicate_detection_history_time_window:string prop ->
+  ?enable_batched_operations:bool prop ->
+  ?enable_express:bool prop ->
+  ?enable_partitioning:bool prop ->
+  ?forward_dead_lettered_messages_to:string prop ->
+  ?forward_to:string prop ->
+  ?id:string prop ->
+  ?lock_duration:string prop ->
+  ?max_delivery_count:float prop ->
+  ?max_message_size_in_kilobytes:float prop ->
+  ?max_size_in_megabytes:float prop ->
+  ?requires_duplicate_detection:bool prop ->
+  ?requires_session:bool prop ->
+  ?status:string prop ->
   ?timeouts:azurerm_servicebus_queue__timeouts ->
-  name:string ->
-  namespace_id:string ->
+  name:string prop ->
+  namespace_id:string prop ->
   string ->
   unit

@@ -5,27 +5,29 @@
 open! Tf.Prelude
 
 type aws_glue_connection__physical_connection_requirements = {
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  security_group_id_list : string list option; [@option]
+  security_group_id_list : string prop list option; [@option]
       (** security_group_id_list *)
-  subnet_id : string option; [@option]  (** subnet_id *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** aws_glue_connection__physical_connection_requirements *)
 
 type aws_glue_connection = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  connection_properties : (string * string) list option; [@option]
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  connection_properties : (string * string prop) list option;
+      [@option]
       (** connection_properties *)
-  connection_type : string option; [@option]  (** connection_type *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  match_criteria : string list option; [@option]
+  connection_type : string prop option; [@option]
+      (** connection_type *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  match_criteria : string prop list option; [@option]
       (** match_criteria *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   physical_connection_requirements :
     aws_glue_connection__physical_connection_requirements list;

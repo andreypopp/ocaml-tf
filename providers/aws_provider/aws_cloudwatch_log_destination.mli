@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_cloudwatch_log_destination
 
 val aws_cloudwatch_log_destination :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
-  role_arn:string ->
-  target_arn:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  role_arn:string prop ->
+  target_arn:string prop ->
   string ->
   unit

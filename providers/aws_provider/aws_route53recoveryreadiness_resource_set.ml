@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource__nlb_resource = {
-  arn : string option; [@option]  (** arn *)
+  arn : string prop option; [@option]  (** arn *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource__nlb_resource *)
 
 type aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource__r53_resource = {
-  domain_name : string option; [@option]  (** domain_name *)
-  record_set_id : string option; [@option]  (** record_set_id *)
+  domain_name : string prop option; [@option]  (** domain_name *)
+  record_set_id : string prop option; [@option]  (** record_set_id *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource__r53_resource *)
@@ -29,10 +29,11 @@ type aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__
 (** aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource *)
 
 type aws_route53recoveryreadiness_resource_set__resources__dns_target_resource = {
-  domain_name : string;  (** domain_name *)
-  hosted_zone_arn : string option; [@option]  (** hosted_zone_arn *)
-  record_set_id : string option; [@option]  (** record_set_id *)
-  record_type : string option; [@option]  (** record_type *)
+  domain_name : string prop;  (** domain_name *)
+  hosted_zone_arn : string prop option; [@option]
+      (** hosted_zone_arn *)
+  record_set_id : string prop option; [@option]  (** record_set_id *)
+  record_type : string prop option; [@option]  (** record_type *)
   target_resource :
     aws_route53recoveryreadiness_resource_set__resources__dns_target_resource__target_resource
     list;
@@ -41,10 +42,10 @@ type aws_route53recoveryreadiness_resource_set__resources__dns_target_resource =
 (** aws_route53recoveryreadiness_resource_set__resources__dns_target_resource *)
 
 type aws_route53recoveryreadiness_resource_set__resources = {
-  component_id : string;  (** component_id *)
-  readiness_scopes : string list option; [@option]
+  component_id : string prop;  (** component_id *)
+  readiness_scopes : string prop list option; [@option]
       (** readiness_scopes *)
-  resource_arn : string option; [@option]  (** resource_arn *)
+  resource_arn : string prop option; [@option]  (** resource_arn *)
   dns_target_resource :
     aws_route53recoveryreadiness_resource_set__resources__dns_target_resource
     list;
@@ -53,17 +54,17 @@ type aws_route53recoveryreadiness_resource_set__resources = {
 (** aws_route53recoveryreadiness_resource_set__resources *)
 
 type aws_route53recoveryreadiness_resource_set__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoveryreadiness_resource_set__timeouts *)
 
 type aws_route53recoveryreadiness_resource_set = {
-  id : string option; [@option]  (** id *)
-  resource_set_name : string;  (** resource_set_name *)
-  resource_set_type : string;  (** resource_set_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  resource_set_name : string prop;  (** resource_set_name *)
+  resource_set_type : string prop;  (** resource_set_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   resources :
     aws_route53recoveryreadiness_resource_set__resources list;

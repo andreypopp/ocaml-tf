@@ -6,19 +6,19 @@ type azurerm_iot_time_series_insights_event_source_eventhub__timeouts
 type azurerm_iot_time_series_insights_event_source_eventhub
 
 val azurerm_iot_time_series_insights_event_source_eventhub :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?timestamp_property_name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timestamp_property_name:string prop ->
   ?timeouts:
     azurerm_iot_time_series_insights_event_source_eventhub__timeouts ->
-  consumer_group_name:string ->
-  environment_id:string ->
-  event_source_resource_id:string ->
-  eventhub_name:string ->
-  location:string ->
-  name:string ->
-  namespace_name:string ->
-  shared_access_key:string ->
-  shared_access_key_name:string ->
+  consumer_group_name:string prop ->
+  environment_id:string prop ->
+  event_source_resource_id:string prop ->
+  eventhub_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  namespace_name:string prop ->
+  shared_access_key:string prop ->
+  shared_access_key_name:string prop ->
   string ->
   unit

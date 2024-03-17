@@ -5,18 +5,21 @@
 open! Tf.Prelude
 
 type aws_opensearchserverless_security_config__saml_options = {
-  group_attribute : string option; [@option]  (** group_attribute *)
-  metadata : string;  (** metadata *)
-  session_timeout : float option; [@option]  (** session_timeout *)
-  user_attribute : string option; [@option]  (** user_attribute *)
+  group_attribute : string prop option; [@option]
+      (** group_attribute *)
+  metadata : string prop;  (** metadata *)
+  session_timeout : float prop option; [@option]
+      (** session_timeout *)
+  user_attribute : string prop option; [@option]
+      (** user_attribute *)
 }
 [@@deriving yojson_of]
 (** aws_opensearchserverless_security_config__saml_options *)
 
 type aws_opensearchserverless_security_config = {
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
   saml_options :
     aws_opensearchserverless_security_config__saml_options;
 }

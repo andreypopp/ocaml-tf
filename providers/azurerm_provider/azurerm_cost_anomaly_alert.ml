@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_cost_anomaly_alert__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cost_anomaly_alert__timeouts *)
 
 type azurerm_cost_anomaly_alert = {
-  display_name : string;  (** display_name *)
-  email_addresses : string list;  (** email_addresses *)
-  email_subject : string;  (** email_subject *)
-  id : string option; [@option]  (** id *)
-  message : string option; [@option]  (** message *)
-  name : string;  (** name *)
-  subscription_id : string option; [@option]  (** subscription_id *)
+  display_name : string prop;  (** display_name *)
+  email_addresses : string prop list;  (** email_addresses *)
+  email_subject : string prop;  (** email_subject *)
+  id : string prop option; [@option]  (** id *)
+  message : string prop option; [@option]  (** message *)
+  name : string prop;  (** name *)
+  subscription_id : string prop option; [@option]
+      (** subscription_id *)
   timeouts : azurerm_cost_anomaly_alert__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_object_lock_configuration__rule__default_retention = {
-  days : float option; [@option]  (** days *)
-  mode : string option; [@option]  (** mode *)
-  years : float option; [@option]  (** years *)
+  days : float prop option; [@option]  (** days *)
+  mode : string prop option; [@option]  (** mode *)
+  years : float prop option; [@option]  (** years *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_object_lock_configuration__rule__default_retention *)
@@ -21,13 +21,13 @@ type aws_s3_bucket_object_lock_configuration__rule = {
 (** aws_s3_bucket_object_lock_configuration__rule *)
 
 type aws_s3_bucket_object_lock_configuration = {
-  bucket : string;  (** bucket *)
-  expected_bucket_owner : string option; [@option]
+  bucket : string prop;  (** bucket *)
+  expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
-  id : string option; [@option]  (** id *)
-  object_lock_enabled : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  object_lock_enabled : string prop option; [@option]
       (** object_lock_enabled *)
-  token : string option; [@option]  (** token *)
+  token : string prop option; [@option]  (** token *)
   rule : aws_s3_bucket_object_lock_configuration__rule list;
 }
 [@@deriving yojson_of]

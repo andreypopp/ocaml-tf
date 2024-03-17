@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_iap_web_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_iap_web_iam_binding__condition *)
 
 type google_iap_web_iam_binding = {
-  id : string option; [@option]  (** id *)
-  members : string list;  (** members *)
-  project : string option; [@option]  (** project *)
-  role : string;  (** role *)
+  id : string prop option; [@option]  (** id *)
+  members : string prop list;  (** members *)
+  project : string prop option; [@option]  (** project *)
+  role : string prop;  (** role *)
   condition : google_iap_web_iam_binding__condition list;
 }
 [@@deriving yojson_of]

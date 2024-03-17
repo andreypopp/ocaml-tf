@@ -5,17 +5,17 @@ open! Tf.Prelude
 type aws_lambda_permission
 
 val aws_lambda_permission :
-  ?event_source_token:string ->
-  ?function_url_auth_type:string ->
-  ?id:string ->
-  ?principal_org_id:string ->
-  ?qualifier:string ->
-  ?source_account:string ->
-  ?source_arn:string ->
-  ?statement_id:string ->
-  ?statement_id_prefix:string ->
-  action:string ->
-  function_name:string ->
-  principal:string ->
+  ?event_source_token:string prop ->
+  ?function_url_auth_type:string prop ->
+  ?id:string prop ->
+  ?principal_org_id:string prop ->
+  ?qualifier:string prop ->
+  ?source_account:string prop ->
+  ?source_arn:string prop ->
+  ?statement_id:string prop ->
+  ?statement_id_prefix:string prop ->
+  action:string prop ->
+  function_name:string prop ->
+  principal:string prop ->
   string ->
   unit

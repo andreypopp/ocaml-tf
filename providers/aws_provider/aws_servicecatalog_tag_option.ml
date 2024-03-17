@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_servicecatalog_tag_option__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_tag_option__timeouts *)
 
 type aws_servicecatalog_tag_option = {
-  active : bool option; [@option]  (** active *)
-  id : string option; [@option]  (** id *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  active : bool prop option; [@option]  (** active *)
+  id : string prop option; [@option]  (** id *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
   timeouts : aws_servicecatalog_tag_option__timeouts option;
 }
 [@@deriving yojson_of]

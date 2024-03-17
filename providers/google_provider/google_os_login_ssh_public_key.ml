@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type google_os_login_ssh_public_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_os_login_ssh_public_key__timeouts *)
 
 type google_os_login_ssh_public_key = {
-  expiration_time_usec : string option; [@option]
+  expiration_time_usec : string prop option; [@option]
       (** An expiration time in microseconds since epoch. *)
-  id : string option; [@option]  (** id *)
-  key : string;
+  id : string prop option; [@option]  (** id *)
+  key : string prop;
       (** Public key text in SSH format, defined by RFC4253 section 6.6. *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The project ID of the Google Cloud Platform project. *)
-  user : string;  (** The user email. *)
+  user : string prop;  (** The user email. *)
   timeouts : google_os_login_ssh_public_key__timeouts option;
 }
 [@@deriving yojson_of]

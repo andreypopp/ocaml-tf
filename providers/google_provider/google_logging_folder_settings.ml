@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type google_logging_folder_settings__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_logging_folder_settings__timeouts *)
 
 type google_logging_folder_settings = {
-  disable_default_sink : bool option; [@option]
+  disable_default_sink : bool prop option; [@option]
       (** If set to true, the _Default sink in newly created projects and folders will created in a disabled state. This can be used to automatically disable log storage if there is already an aggregated sink configured in the hierarchy. The _Default sink can be re-enabled manually if needed. *)
-  folder : string;  (** The folder for which to retrieve settings. *)
-  id : string option; [@option]  (** id *)
-  kms_key_name : string option; [@option]
+  folder : string prop;
+      (** The folder for which to retrieve settings. *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_name : string prop option; [@option]
       (** The resource name for the configured Cloud KMS key. *)
-  storage_location : string option; [@option]
+  storage_location : string prop option; [@option]
       (** The storage location that Cloud Logging will use to create new resources when a location is needed but not explicitly provided. *)
   timeouts : google_logging_folder_settings__timeouts option;
 }

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_cognitive_account_customer_managed_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cognitive_account_customer_managed_key__timeouts *)
 
 type azurerm_cognitive_account_customer_managed_key = {
-  cognitive_account_id : string;  (** cognitive_account_id *)
-  id : string option; [@option]  (** id *)
-  identity_client_id : string option; [@option]
+  cognitive_account_id : string prop;  (** cognitive_account_id *)
+  id : string prop option; [@option]  (** id *)
+  identity_client_id : string prop option; [@option]
       (** identity_client_id *)
-  key_vault_key_id : string;  (** key_vault_key_id *)
+  key_vault_key_id : string prop;  (** key_vault_key_id *)
   timeouts :
     azurerm_cognitive_account_customer_managed_key__timeouts option;
 }

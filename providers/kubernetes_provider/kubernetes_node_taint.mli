@@ -7,9 +7,9 @@ type kubernetes_node_taint__taint
 type kubernetes_node_taint
 
 val kubernetes_node_taint :
-  ?field_manager:string ->
-  ?force:bool ->
-  ?id:string ->
+  ?field_manager:string prop ->
+  ?force:bool prop ->
+  ?id:string prop ->
   metadata:kubernetes_node_taint__metadata list ->
   taint:kubernetes_node_taint__taint list ->
   string ->

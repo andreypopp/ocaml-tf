@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_cloudfront_key_value_store__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_key_value_store__timeouts *)
 
 type aws_cloudfront_key_value_store = {
-  comment : string option; [@option]  (** comment *)
-  name : string;  (** name *)
+  comment : string prop option; [@option]  (** comment *)
+  name : string prop;  (** name *)
   timeouts : aws_cloudfront_key_value_store__timeouts option;
 }
 [@@deriving yojson_of]

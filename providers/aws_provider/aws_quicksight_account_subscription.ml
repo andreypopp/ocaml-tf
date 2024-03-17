@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type aws_quicksight_account_subscription__timeouts = {
-  create: string option; [@option] (** create *)
-  delete: string option; [@option] (** delete *)
-  read: string option; [@option] (** read *)
+  create: string prop option; [@option] (** create *)
+  delete: string prop option; [@option] (** delete *)
+  read: string prop option; [@option] (** read *)
 } [@@deriving yojson_of]
 (** aws_quicksight_account_subscription__timeouts *)
 
 type aws_quicksight_account_subscription = {
-  account_name: string;  (** account_name *)
-  active_directory_name: string option; [@option] (** active_directory_name *)
-  admin_group: string list option; [@option] (** admin_group *)
-  authentication_method: string;  (** authentication_method *)
-  author_group: string list option; [@option] (** author_group *)
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  contact_number: string option; [@option] (** contact_number *)
-  directory_id: string option; [@option] (** directory_id *)
-  edition: string;  (** edition *)
-  email_address: string option; [@option] (** email_address *)
-  first_name: string option; [@option] (** first_name *)
-  id: string option; [@option] (** id *)
-  last_name: string option; [@option] (** last_name *)
-  notification_email: string;  (** notification_email *)
-  reader_group: string list option; [@option] (** reader_group *)
-  realm: string option; [@option] (** realm *)
+  account_name: string prop;  (** account_name *)
+  active_directory_name: string prop option; [@option] (** active_directory_name *)
+  admin_group: string prop list option; [@option] (** admin_group *)
+  authentication_method: string prop;  (** authentication_method *)
+  author_group: string prop list option; [@option] (** author_group *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  contact_number: string prop option; [@option] (** contact_number *)
+  directory_id: string prop option; [@option] (** directory_id *)
+  edition: string prop;  (** edition *)
+  email_address: string prop option; [@option] (** email_address *)
+  first_name: string prop option; [@option] (** first_name *)
+  id: string prop option; [@option] (** id *)
+  last_name: string prop option; [@option] (** last_name *)
+  notification_email: string prop;  (** notification_email *)
+  reader_group: string prop list option; [@option] (** reader_group *)
+  realm: string prop option; [@option] (** realm *)
   timeouts: aws_quicksight_account_subscription__timeouts option;
 } [@@deriving yojson_of]
 (** aws_quicksight_account_subscription *)

@@ -5,18 +5,18 @@ open! Tf.Prelude
 type azurerm_healthcare_workspace__timeouts
 
 type azurerm_healthcare_workspace__private_endpoint_connection = {
-  id : string;  (** id *)
-  name : string;  (** name *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 
 type azurerm_healthcare_workspace
 
 val azurerm_healthcare_workspace :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_healthcare_workspace__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

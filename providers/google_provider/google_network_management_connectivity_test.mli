@@ -8,14 +8,14 @@ type google_network_management_connectivity_test__timeouts
 type google_network_management_connectivity_test
 
 val google_network_management_connectivity_test :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?protocol:string ->
-  ?related_projects:string list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?protocol:string prop ->
+  ?related_projects:string prop list ->
   ?timeouts:google_network_management_connectivity_test__timeouts ->
-  name:string ->
+  name:string prop ->
   destination:
     google_network_management_connectivity_test__destination list ->
   source:google_network_management_connectivity_test__source list ->

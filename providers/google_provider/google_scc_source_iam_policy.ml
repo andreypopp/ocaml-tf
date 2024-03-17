@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_scc_source_iam_policy = {
-  id : string option; [@option]  (** id *)
-  organization : string;  (** organization *)
-  policy_data : string;  (** policy_data *)
-  source : string;  (** source *)
+  id : string prop option; [@option]  (** id *)
+  organization : string prop;  (** organization *)
+  policy_data : string prop;  (** policy_data *)
+  source : string prop;  (** source *)
 }
 [@@deriving yojson_of]
 (** google_scc_source_iam_policy *)

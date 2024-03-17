@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_vpc_ipam_pool_cidr_allocation = {
-  cidr : string option; [@option]  (** cidr *)
-  description : string option; [@option]  (** description *)
-  disallowed_cidrs : string list option; [@option]
+  cidr : string prop option; [@option]  (** cidr *)
+  description : string prop option; [@option]  (** description *)
+  disallowed_cidrs : string prop list option; [@option]
       (** disallowed_cidrs *)
-  id : string option; [@option]  (** id *)
-  ipam_pool_id : string;  (** ipam_pool_id *)
-  netmask_length : float option; [@option]  (** netmask_length *)
+  id : string prop option; [@option]  (** id *)
+  ipam_pool_id : string prop;  (** ipam_pool_id *)
+  netmask_length : float prop option; [@option]  (** netmask_length *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_ipam_pool_cidr_allocation *)

@@ -6,11 +6,11 @@ type aws_grafana_role_association__timeouts
 type aws_grafana_role_association
 
 val aws_grafana_role_association :
-  ?group_ids:string list ->
-  ?id:string ->
-  ?user_ids:string list ->
+  ?group_ids:string prop list ->
+  ?id:string prop ->
+  ?user_ids:string prop list ->
   ?timeouts:aws_grafana_role_association__timeouts ->
-  role:string ->
-  workspace_id:string ->
+  role:string prop ->
+  workspace_id:string prop ->
   string ->
   unit

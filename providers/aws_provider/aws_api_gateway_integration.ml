@@ -5,37 +5,39 @@
 open! Tf.Prelude
 
 type aws_api_gateway_integration__tls_config = {
-  insecure_skip_verification : bool option; [@option]
+  insecure_skip_verification : bool prop option; [@option]
       (** insecure_skip_verification *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_integration__tls_config *)
 
 type aws_api_gateway_integration = {
-  cache_key_parameters : string list option; [@option]
+  cache_key_parameters : string prop list option; [@option]
       (** cache_key_parameters *)
-  cache_namespace : string option; [@option]  (** cache_namespace *)
-  connection_id : string option; [@option]  (** connection_id *)
-  connection_type : string option; [@option]  (** connection_type *)
-  content_handling : string option; [@option]
+  cache_namespace : string prop option; [@option]
+      (** cache_namespace *)
+  connection_id : string prop option; [@option]  (** connection_id *)
+  connection_type : string prop option; [@option]
+      (** connection_type *)
+  content_handling : string prop option; [@option]
       (** content_handling *)
-  credentials : string option; [@option]  (** credentials *)
-  http_method : string;  (** http_method *)
-  id : string option; [@option]  (** id *)
-  integration_http_method : string option; [@option]
+  credentials : string prop option; [@option]  (** credentials *)
+  http_method : string prop;  (** http_method *)
+  id : string prop option; [@option]  (** id *)
+  integration_http_method : string prop option; [@option]
       (** integration_http_method *)
-  passthrough_behavior : string option; [@option]
+  passthrough_behavior : string prop option; [@option]
       (** passthrough_behavior *)
-  request_parameters : (string * string) list option; [@option]
+  request_parameters : (string * string prop) list option; [@option]
       (** request_parameters *)
-  request_templates : (string * string) list option; [@option]
+  request_templates : (string * string prop) list option; [@option]
       (** request_templates *)
-  resource_id : string;  (** resource_id *)
-  rest_api_id : string;  (** rest_api_id *)
-  timeout_milliseconds : float option; [@option]
+  resource_id : string prop;  (** resource_id *)
+  rest_api_id : string prop;  (** rest_api_id *)
+  timeout_milliseconds : float prop option; [@option]
       (** timeout_milliseconds *)
-  type_ : string; [@key "type"]  (** type *)
-  uri : string option; [@option]  (** uri *)
+  type_ : string prop; [@key "type"]  (** type *)
+  uri : string prop option; [@option]  (** uri *)
   tls_config : aws_api_gateway_integration__tls_config list;
 }
 [@@deriving yojson_of]

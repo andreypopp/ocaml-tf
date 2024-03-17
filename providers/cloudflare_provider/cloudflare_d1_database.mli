@@ -5,4 +5,4 @@ open! Tf.Prelude
 type cloudflare_d1_database
 
 val cloudflare_d1_database :
-  account_id:string -> name:string -> string -> unit
+  account_id:string prop -> name:string prop -> string -> unit

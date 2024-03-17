@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_folder_iam_policy = {
-  folder : string;  (** folder *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
+  folder : string prop;  (** folder *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_folder_iam_policy *)

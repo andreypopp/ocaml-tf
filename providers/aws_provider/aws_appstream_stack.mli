@@ -10,15 +10,15 @@ type aws_appstream_stack__user_settings
 type aws_appstream_stack
 
 val aws_appstream_stack :
-  ?description:string ->
-  ?display_name:string ->
-  ?embed_host_domains:string list ->
-  ?feedback_url:string ->
-  ?id:string ->
-  ?redirect_url:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?embed_host_domains:string prop list ->
+  ?feedback_url:string prop ->
+  ?id:string prop ->
+  ?redirect_url:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   access_endpoints:aws_appstream_stack__access_endpoints list ->
   application_settings:aws_appstream_stack__application_settings list ->
   storage_connectors:aws_appstream_stack__storage_connectors list ->

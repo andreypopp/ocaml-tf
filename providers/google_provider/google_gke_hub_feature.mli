@@ -56,14 +56,14 @@ type google_gke_hub_feature__spec
 type google_gke_hub_feature__timeouts
 
 type google_gke_hub_feature__resource_state = {
-  has_resources : bool;  (** has_resources *)
-  state : string;  (** state *)
+  has_resources : bool prop;  (** has_resources *)
+  state : string prop;  (** state *)
 }
 
 type google_gke_hub_feature__state__state = {
-  code : string;  (** code *)
-  description : string;  (** description *)
-  update_time : string;  (** update_time *)
+  code : string prop;  (** code *)
+  description : string prop;  (** description *)
+  update_time : string prop;  (** update_time *)
 }
 
 type google_gke_hub_feature__state = {
@@ -73,12 +73,12 @@ type google_gke_hub_feature__state = {
 type google_gke_hub_feature
 
 val google_gke_hub_feature :
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?name:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?project:string prop ->
   ?timeouts:google_gke_hub_feature__timeouts ->
-  location:string ->
+  location:string prop ->
   fleet_default_member_config:
     google_gke_hub_feature__fleet_default_member_config list ->
   spec:google_gke_hub_feature__spec list ->

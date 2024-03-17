@@ -6,35 +6,35 @@ type aws_docdb_cluster__timeouts
 type aws_docdb_cluster
 
 val aws_docdb_cluster :
-  ?allow_major_version_upgrade:bool ->
-  ?apply_immediately:bool ->
-  ?availability_zones:string list ->
-  ?backup_retention_period:float ->
-  ?cluster_identifier:string ->
-  ?cluster_identifier_prefix:string ->
-  ?cluster_members:string list ->
-  ?db_cluster_parameter_group_name:string ->
-  ?db_subnet_group_name:string ->
-  ?deletion_protection:bool ->
-  ?enabled_cloudwatch_logs_exports:string list ->
-  ?engine:string ->
-  ?engine_version:string ->
-  ?final_snapshot_identifier:string ->
-  ?global_cluster_identifier:string ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?master_password:string ->
-  ?master_username:string ->
-  ?port:float ->
-  ?preferred_backup_window:string ->
-  ?preferred_maintenance_window:string ->
-  ?skip_final_snapshot:bool ->
-  ?snapshot_identifier:string ->
-  ?storage_encrypted:bool ->
-  ?storage_type:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?vpc_security_group_ids:string list ->
+  ?allow_major_version_upgrade:bool prop ->
+  ?apply_immediately:bool prop ->
+  ?availability_zones:string prop list ->
+  ?backup_retention_period:float prop ->
+  ?cluster_identifier:string prop ->
+  ?cluster_identifier_prefix:string prop ->
+  ?cluster_members:string prop list ->
+  ?db_cluster_parameter_group_name:string prop ->
+  ?db_subnet_group_name:string prop ->
+  ?deletion_protection:bool prop ->
+  ?enabled_cloudwatch_logs_exports:string prop list ->
+  ?engine:string prop ->
+  ?engine_version:string prop ->
+  ?final_snapshot_identifier:string prop ->
+  ?global_cluster_identifier:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?master_password:string prop ->
+  ?master_username:string prop ->
+  ?port:float prop ->
+  ?preferred_backup_window:string prop ->
+  ?preferred_maintenance_window:string prop ->
+  ?skip_final_snapshot:bool prop ->
+  ?snapshot_identifier:string prop ->
+  ?storage_encrypted:bool prop ->
+  ?storage_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_security_group_ids:string prop list ->
   ?timeouts:aws_docdb_cluster__timeouts ->
   string ->
   unit

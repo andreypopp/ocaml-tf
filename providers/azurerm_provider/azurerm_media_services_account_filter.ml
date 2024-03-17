@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_media_services_account_filter__presentation_time_range = {
-  end_in_units : float option; [@option]  (** end_in_units *)
-  force_end : bool option; [@option]  (** force_end *)
-  live_backoff_in_units : float option; [@option]
+  end_in_units : float prop option; [@option]  (** end_in_units *)
+  force_end : bool prop option; [@option]  (** force_end *)
+  live_backoff_in_units : float prop option; [@option]
       (** live_backoff_in_units *)
-  presentation_window_in_units : float option; [@option]
+  presentation_window_in_units : float prop option; [@option]
       (** presentation_window_in_units *)
-  start_in_units : float option; [@option]  (** start_in_units *)
-  unit_timescale_in_milliseconds : float;
+  start_in_units : float prop option; [@option]
+      (** start_in_units *)
+  unit_timescale_in_milliseconds : float prop;
       (** unit_timescale_in_milliseconds *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_services_account_filter__presentation_time_range *)
 
 type azurerm_media_services_account_filter__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_services_account_filter__timeouts *)
 
 type azurerm_media_services_account_filter__track_selection__condition = {
-  operation : string;  (** operation *)
-  property : string;  (** property *)
-  value : string;  (** value *)
+  operation : string prop;  (** operation *)
+  property : string prop;  (** property *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_services_account_filter__track_selection__condition *)
@@ -44,13 +45,13 @@ type azurerm_media_services_account_filter__track_selection = {
 (** azurerm_media_services_account_filter__track_selection *)
 
 type azurerm_media_services_account_filter = {
-  first_quality_bitrate : float option; [@option]
+  first_quality_bitrate : float prop option; [@option]
       (** first_quality_bitrate *)
-  id : string option; [@option]  (** id *)
-  media_services_account_name : string;
+  id : string prop option; [@option]  (** id *)
+  media_services_account_name : string prop;
       (** media_services_account_name *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   presentation_time_range :
     azurerm_media_services_account_filter__presentation_time_range
     list;

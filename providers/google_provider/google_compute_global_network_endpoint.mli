@@ -6,12 +6,12 @@ type google_compute_global_network_endpoint__timeouts
 type google_compute_global_network_endpoint
 
 val google_compute_global_network_endpoint :
-  ?fqdn:string ->
-  ?id:string ->
-  ?ip_address:string ->
-  ?project:string ->
+  ?fqdn:string prop ->
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?project:string prop ->
   ?timeouts:google_compute_global_network_endpoint__timeouts ->
-  global_network_endpoint_group:string ->
-  port:float ->
+  global_network_endpoint_group:string prop ->
+  port:float prop ->
   string ->
   unit

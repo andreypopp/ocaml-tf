@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_synapse_role_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_role_assignment__timeouts *)
 
 type azurerm_synapse_role_assignment = {
-  id : string option; [@option]  (** id *)
-  principal_id : string;  (** principal_id *)
-  principal_type : string option; [@option]  (** principal_type *)
-  role_name : string;  (** role_name *)
-  synapse_spark_pool_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  principal_id : string prop;  (** principal_id *)
+  principal_type : string prop option; [@option]
+      (** principal_type *)
+  role_name : string prop;  (** role_name *)
+  synapse_spark_pool_id : string prop option; [@option]
       (** synapse_spark_pool_id *)
-  synapse_workspace_id : string option; [@option]
+  synapse_workspace_id : string prop option; [@option]
       (** synapse_workspace_id *)
   timeouts : azurerm_synapse_role_assignment__timeouts option;
 }

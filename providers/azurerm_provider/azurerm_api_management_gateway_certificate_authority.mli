@@ -6,12 +6,12 @@ type azurerm_api_management_gateway_certificate_authority__timeouts
 type azurerm_api_management_gateway_certificate_authority
 
 val azurerm_api_management_gateway_certificate_authority :
-  ?id:string ->
-  ?is_trusted:bool ->
+  ?id:string prop ->
+  ?is_trusted:bool prop ->
   ?timeouts:
     azurerm_api_management_gateway_certificate_authority__timeouts ->
-  api_management_id:string ->
-  certificate_name:string ->
-  gateway_name:string ->
+  api_management_id:string prop ->
+  certificate_name:string prop ->
+  gateway_name:string prop ->
   string ->
   unit

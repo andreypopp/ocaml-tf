@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_mssql_server_transparent_data_encryption__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_server_transparent_data_encryption__timeouts *)
 
 type azurerm_mssql_server_transparent_data_encryption = {
-  auto_rotation_enabled : bool option; [@option]
+  auto_rotation_enabled : bool prop option; [@option]
       (** auto_rotation_enabled *)
-  id : string option; [@option]  (** id *)
-  key_vault_key_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  key_vault_key_id : string prop option; [@option]
       (** key_vault_key_id *)
-  server_id : string;  (** server_id *)
+  server_id : string prop;  (** server_id *)
   timeouts :
     azurerm_mssql_server_transparent_data_encryption__timeouts option;
 }

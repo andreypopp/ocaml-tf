@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_efs_file_system_policy
 
 val aws_efs_file_system_policy :
-  ?bypass_policy_lockout_safety_check:bool ->
-  ?id:string ->
-  file_system_id:string ->
-  policy:string ->
+  ?bypass_policy_lockout_safety_check:bool prop ->
+  ?id:string prop ->
+  file_system_id:string prop ->
+  policy:string prop ->
   string ->
   unit

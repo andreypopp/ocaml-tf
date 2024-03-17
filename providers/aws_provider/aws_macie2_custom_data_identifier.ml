@@ -5,17 +5,19 @@
 open! Tf.Prelude
 
 type aws_macie2_custom_data_identifier = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  ignore_words : string list option; [@option]  (** ignore_words *)
-  keywords : string list option; [@option]  (** keywords *)
-  maximum_match_distance : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  ignore_words : string prop list option; [@option]
+      (** ignore_words *)
+  keywords : string prop list option; [@option]  (** keywords *)
+  maximum_match_distance : float prop option; [@option]
       (** maximum_match_distance *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  regex : string option; [@option]  (** regex *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  regex : string prop option; [@option]  (** regex *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_custom_data_identifier *)

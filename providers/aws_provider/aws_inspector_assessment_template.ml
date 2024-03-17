@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_inspector_assessment_template__event_subscription = {
-  event : string;  (** event *)
-  topic_arn : string;  (** topic_arn *)
+  event : string prop;  (** event *)
+  topic_arn : string prop;  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_inspector_assessment_template__event_subscription *)
 
 type aws_inspector_assessment_template = {
-  duration : float;  (** duration *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  rules_package_arns : string list;  (** rules_package_arns *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  duration : float prop;  (** duration *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  rules_package_arns : string prop list;  (** rules_package_arns *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  target_arn : string;  (** target_arn *)
+  target_arn : string prop;  (** target_arn *)
   event_subscription :
     aws_inspector_assessment_template__event_subscription list;
 }

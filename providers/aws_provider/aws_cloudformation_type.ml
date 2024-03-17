@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type aws_cloudformation_type__logging_config = {
-  log_group_name : string;  (** log_group_name *)
-  log_role_arn : string;  (** log_role_arn *)
+  log_group_name : string prop;  (** log_group_name *)
+  log_role_arn : string prop;  (** log_role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_cloudformation_type__logging_config *)
 
 type aws_cloudformation_type = {
-  execution_role_arn : string option; [@option]
+  execution_role_arn : string prop option; [@option]
       (** execution_role_arn *)
-  id : string option; [@option]  (** id *)
-  schema_handler_package : string;  (** schema_handler_package *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  type_name : string;  (** type_name *)
+  id : string prop option; [@option]  (** id *)
+  schema_handler_package : string prop;
+      (** schema_handler_package *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  type_name : string prop;  (** type_name *)
   logging_config : aws_cloudformation_type__logging_config list;
 }
 [@@deriving yojson_of]

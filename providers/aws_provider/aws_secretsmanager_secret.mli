@@ -6,16 +6,16 @@ type aws_secretsmanager_secret__replica
 type aws_secretsmanager_secret
 
 val aws_secretsmanager_secret :
-  ?description:string ->
-  ?force_overwrite_replica_secret:bool ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?policy:string ->
-  ?recovery_window_in_days:float ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?force_overwrite_replica_secret:bool prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?policy:string prop ->
+  ?recovery_window_in_days:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   replica:aws_secretsmanager_secret__replica list ->
   string ->
   unit

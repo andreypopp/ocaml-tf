@@ -6,14 +6,14 @@ type aws_ivs_channel__timeouts
 type aws_ivs_channel
 
 val aws_ivs_channel :
-  ?authorized:bool ->
-  ?id:string ->
-  ?latency_mode:string ->
-  ?name:string ->
-  ?recording_configuration_arn:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?type_:string ->
+  ?authorized:bool prop ->
+  ?id:string prop ->
+  ?latency_mode:string prop ->
+  ?name:string prop ->
+  ?recording_configuration_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
   ?timeouts:aws_ivs_channel__timeouts ->
   string ->
   unit

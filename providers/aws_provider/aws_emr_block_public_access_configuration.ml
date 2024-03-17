@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_emr_block_public_access_configuration__permitted_public_security_group_rule_range = {
-  max_range : float;  (** max_range *)
-  min_range : float;  (** min_range *)
+  max_range : float prop;  (** max_range *)
+  min_range : float prop;  (** min_range *)
 }
 [@@deriving yojson_of]
 (** aws_emr_block_public_access_configuration__permitted_public_security_group_rule_range *)
 
 type aws_emr_block_public_access_configuration = {
-  block_public_security_group_rules : bool;
+  block_public_security_group_rules : bool prop;
       (** block_public_security_group_rules *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   permitted_public_security_group_rule_range :
     aws_emr_block_public_access_configuration__permitted_public_security_group_rule_range
     list;

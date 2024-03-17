@@ -6,23 +6,23 @@ type aws_api_gateway_integration__tls_config
 type aws_api_gateway_integration
 
 val aws_api_gateway_integration :
-  ?cache_key_parameters:string list ->
-  ?cache_namespace:string ->
-  ?connection_id:string ->
-  ?connection_type:string ->
-  ?content_handling:string ->
-  ?credentials:string ->
-  ?id:string ->
-  ?integration_http_method:string ->
-  ?passthrough_behavior:string ->
-  ?request_parameters:(string * string) list ->
-  ?request_templates:(string * string) list ->
-  ?timeout_milliseconds:float ->
-  ?uri:string ->
-  http_method:string ->
-  resource_id:string ->
-  rest_api_id:string ->
-  type_:string ->
+  ?cache_key_parameters:string prop list ->
+  ?cache_namespace:string prop ->
+  ?connection_id:string prop ->
+  ?connection_type:string prop ->
+  ?content_handling:string prop ->
+  ?credentials:string prop ->
+  ?id:string prop ->
+  ?integration_http_method:string prop ->
+  ?passthrough_behavior:string prop ->
+  ?request_parameters:(string * string prop) list ->
+  ?request_templates:(string * string prop) list ->
+  ?timeout_milliseconds:float prop ->
+  ?uri:string prop ->
+  http_method:string prop ->
+  resource_id:string prop ->
+  rest_api_id:string prop ->
+  type_:string prop ->
   tls_config:aws_api_gateway_integration__tls_config list ->
   string ->
   unit

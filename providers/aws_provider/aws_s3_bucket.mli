@@ -40,17 +40,17 @@ type aws_s3_bucket__website
 type aws_s3_bucket
 
 val aws_s3_bucket :
-  ?acceleration_status:string ->
-  ?acl:string ->
-  ?bucket:string ->
-  ?bucket_prefix:string ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?object_lock_enabled:bool ->
-  ?policy:string ->
-  ?request_payer:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?acceleration_status:string prop ->
+  ?acl:string prop ->
+  ?bucket:string prop ->
+  ?bucket_prefix:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?object_lock_enabled:bool prop ->
+  ?policy:string prop ->
+  ?request_payer:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_s3_bucket__timeouts ->
   cors_rule:aws_s3_bucket__cors_rule list ->
   grant:aws_s3_bucket__grant list ->

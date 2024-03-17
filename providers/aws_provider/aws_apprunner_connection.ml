@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_apprunner_connection = {
-  connection_name : string;  (** connection_name *)
-  id : string option; [@option]  (** id *)
-  provider_type : string;  (** provider_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  connection_name : string prop;  (** connection_name *)
+  id : string prop option; [@option]  (** id *)
+  provider_type : string prop;  (** provider_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_connection *)

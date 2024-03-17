@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type google_compute_network_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_network_endpoint__timeouts *)
 
 type google_compute_network_endpoint = {
-  id : string option; [@option]  (** id *)
-  instance : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instance : string prop option; [@option]
       (** The name for a specific VM instance that the IP address belongs to.
 This is required for network endpoints of type GCE_VM_IP_PORT.
 The instance must be in the same zone of network endpoint group. *)
-  ip_address : string;
+  ip_address : string prop;
       (** IPv4 address of network endpoint. The IP address must belong
 to a VM in GCE (either the primary IP or as part of an aliased IP
 range). *)
-  network_endpoint_group : string;
+  network_endpoint_group : string prop;
       (** The network endpoint group this endpoint is part of. *)
-  port : float option; [@option]
+  port : float prop option; [@option]
       (** Port number of network endpoint.
 **Note** 'port' is required unless the Network Endpoint Group is created
 with the type of 'GCE_VM_IP' *)
-  project : string option; [@option]  (** project *)
-  zone : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  zone : string prop option; [@option]
       (** Zone where the containing network endpoint group is located. *)
   timeouts : google_compute_network_endpoint__timeouts option;
 }

@@ -13,14 +13,14 @@ type google_clouddeploy_custom_target_type__timeouts
 type google_clouddeploy_custom_target_type
 
 val google_clouddeploy_custom_target_type :
-  ?annotations:(string * string) list ->
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?annotations:(string * string prop) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_clouddeploy_custom_target_type__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   custom_actions:
     google_clouddeploy_custom_target_type__custom_actions list ->
   string ->

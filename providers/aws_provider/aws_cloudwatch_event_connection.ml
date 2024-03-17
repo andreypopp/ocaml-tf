@@ -5,39 +5,42 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_event_connection__auth_parameters__api_key = {
-  key : string;  (** key *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection__auth_parameters__api_key *)
 
 type aws_cloudwatch_event_connection__auth_parameters__basic = {
-  password : string;  (** password *)
-  username : string;  (** username *)
+  password : string prop;  (** password *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection__auth_parameters__basic *)
 
 type aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters__body = {
-  is_value_secret : bool option; [@option]  (** is_value_secret *)
-  key : string option; [@option]  (** key *)
-  value : string option; [@option]  (** value *)
+  is_value_secret : bool prop option; [@option]
+      (** is_value_secret *)
+  key : string prop option; [@option]  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters__body *)
 
 type aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters__header = {
-  is_value_secret : bool option; [@option]  (** is_value_secret *)
-  key : string option; [@option]  (** key *)
-  value : string option; [@option]  (** value *)
+  is_value_secret : bool prop option; [@option]
+      (** is_value_secret *)
+  key : string prop option; [@option]  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters__header *)
 
 type aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters__query_string = {
-  is_value_secret : bool option; [@option]  (** is_value_secret *)
-  key : string option; [@option]  (** key *)
-  value : string option; [@option]  (** value *)
+  is_value_secret : bool prop option; [@option]
+      (** is_value_secret *)
+  key : string prop option; [@option]  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters__query_string *)
@@ -57,32 +60,35 @@ type aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameter
 (** aws_cloudwatch_event_connection__auth_parameters__invocation_http_parameters *)
 
 type aws_cloudwatch_event_connection__auth_parameters__oauth__client_parameters = {
-  client_id : string;  (** client_id *)
-  client_secret : string;  (** client_secret *)
+  client_id : string prop;  (** client_id *)
+  client_secret : string prop;  (** client_secret *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection__auth_parameters__oauth__client_parameters *)
 
 type aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters__body = {
-  is_value_secret : bool option; [@option]  (** is_value_secret *)
-  key : string option; [@option]  (** key *)
-  value : string option; [@option]  (** value *)
+  is_value_secret : bool prop option; [@option]
+      (** is_value_secret *)
+  key : string prop option; [@option]  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters__body *)
 
 type aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters__header = {
-  is_value_secret : bool option; [@option]  (** is_value_secret *)
-  key : string option; [@option]  (** key *)
-  value : string option; [@option]  (** value *)
+  is_value_secret : bool prop option; [@option]
+      (** is_value_secret *)
+  key : string prop option; [@option]  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters__header *)
 
 type aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters__query_string = {
-  is_value_secret : bool option; [@option]  (** is_value_secret *)
-  key : string option; [@option]  (** key *)
-  value : string option; [@option]  (** value *)
+  is_value_secret : bool prop option; [@option]
+      (** is_value_secret *)
+  key : string prop option; [@option]  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters__query_string *)
@@ -102,8 +108,9 @@ type aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_paramet
 (** aws_cloudwatch_event_connection__auth_parameters__oauth__oauth_http_parameters *)
 
 type aws_cloudwatch_event_connection__auth_parameters__oauth = {
-  authorization_endpoint : string;  (** authorization_endpoint *)
-  http_method : string;  (** http_method *)
+  authorization_endpoint : string prop;
+      (** authorization_endpoint *)
+  http_method : string prop;  (** http_method *)
   client_parameters :
     aws_cloudwatch_event_connection__auth_parameters__oauth__client_parameters
     list;
@@ -129,10 +136,10 @@ type aws_cloudwatch_event_connection__auth_parameters = {
 (** aws_cloudwatch_event_connection__auth_parameters *)
 
 type aws_cloudwatch_event_connection = {
-  authorization_type : string;  (** authorization_type *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  authorization_type : string prop;  (** authorization_type *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   auth_parameters :
     aws_cloudwatch_event_connection__auth_parameters list;
 }

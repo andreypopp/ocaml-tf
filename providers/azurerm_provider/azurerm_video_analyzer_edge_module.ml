@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_video_analyzer_edge_module__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_video_analyzer_edge_module__timeouts *)
 
 type azurerm_video_analyzer_edge_module = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  video_analyzer_name : string;  (** video_analyzer_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  video_analyzer_name : string prop;  (** video_analyzer_name *)
   timeouts : azurerm_video_analyzer_edge_module__timeouts option;
 }
 [@@deriving yojson_of]

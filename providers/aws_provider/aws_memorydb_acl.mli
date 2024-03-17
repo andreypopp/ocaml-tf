@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_memorydb_acl
 
 val aws_memorydb_acl :
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?user_names:string list ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_names:string prop list ->
   string ->
   unit

@@ -23,21 +23,21 @@ type azurerm_virtual_machine__timeouts
 type azurerm_virtual_machine
 
 val azurerm_virtual_machine :
-  ?availability_set_id:string ->
-  ?delete_data_disks_on_termination:bool ->
-  ?delete_os_disk_on_termination:bool ->
-  ?id:string ->
-  ?license_type:string ->
-  ?primary_network_interface_id:string ->
-  ?proximity_placement_group_id:string ->
-  ?tags:(string * string) list ->
-  ?zones:string list ->
+  ?availability_set_id:string prop ->
+  ?delete_data_disks_on_termination:bool prop ->
+  ?delete_os_disk_on_termination:bool prop ->
+  ?id:string prop ->
+  ?license_type:string prop ->
+  ?primary_network_interface_id:string prop ->
+  ?proximity_placement_group_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_virtual_machine__timeouts ->
-  location:string ->
-  name:string ->
-  network_interface_ids:string list ->
-  resource_group_name:string ->
-  vm_size:string ->
+  location:string prop ->
+  name:string prop ->
+  network_interface_ids:string prop list ->
+  resource_group_name:string prop ->
+  vm_size:string prop ->
   additional_capabilities:
     azurerm_virtual_machine__additional_capabilities list ->
   boot_diagnostics:azurerm_virtual_machine__boot_diagnostics list ->

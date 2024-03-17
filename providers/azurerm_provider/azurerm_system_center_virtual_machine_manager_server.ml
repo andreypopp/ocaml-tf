@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_system_center_virtual_machine_manager_server__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_system_center_virtual_machine_manager_server__timeouts *)
 
 type azurerm_system_center_virtual_machine_manager_server = {
-  custom_location_id : string;  (** custom_location_id *)
-  fqdn : string;  (** fqdn *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  password : string;  (** password *)
-  port : float option; [@option]  (** port *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  username : string;  (** username *)
+  custom_location_id : string prop;  (** custom_location_id *)
+  fqdn : string prop;  (** fqdn *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  password : string prop;  (** password *)
+  port : float prop option; [@option]  (** port *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  username : string prop;  (** username *)
   timeouts :
     azurerm_system_center_virtual_machine_manager_server__timeouts
     option;

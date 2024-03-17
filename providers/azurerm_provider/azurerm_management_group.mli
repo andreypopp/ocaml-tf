@@ -6,11 +6,11 @@ type azurerm_management_group__timeouts
 type azurerm_management_group
 
 val azurerm_management_group :
-  ?display_name:string ->
-  ?id:string ->
-  ?name:string ->
-  ?parent_management_group_id:string ->
-  ?subscription_ids:string list ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?parent_management_group_id:string prop ->
+  ?subscription_ids:string prop list ->
   ?timeouts:azurerm_management_group__timeouts ->
   string ->
   unit

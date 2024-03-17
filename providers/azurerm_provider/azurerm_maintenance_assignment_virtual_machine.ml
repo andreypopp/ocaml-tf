@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_maintenance_assignment_virtual_machine__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_maintenance_assignment_virtual_machine__timeouts *)
 
 type azurerm_maintenance_assignment_virtual_machine = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  maintenance_configuration_id : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  maintenance_configuration_id : string prop;
       (** maintenance_configuration_id *)
-  virtual_machine_id : string;  (** virtual_machine_id *)
+  virtual_machine_id : string prop;  (** virtual_machine_id *)
   timeouts :
     azurerm_maintenance_assignment_virtual_machine__timeouts option;
 }

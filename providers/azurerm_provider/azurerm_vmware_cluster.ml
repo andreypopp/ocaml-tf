@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_vmware_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_vmware_cluster__timeouts *)
 
 type azurerm_vmware_cluster = {
-  cluster_node_count : float;  (** cluster_node_count *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  sku_name : string;  (** sku_name *)
-  vmware_cloud_id : string;  (** vmware_cloud_id *)
+  cluster_node_count : float prop;  (** cluster_node_count *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  sku_name : string prop;  (** sku_name *)
+  vmware_cloud_id : string prop;  (** vmware_cloud_id *)
   timeouts : azurerm_vmware_cluster__timeouts option;
 }
 [@@deriving yojson_of]

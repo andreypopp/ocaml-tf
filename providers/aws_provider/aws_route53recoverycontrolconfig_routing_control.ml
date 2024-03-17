@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_route53recoverycontrolconfig_routing_control = {
-  cluster_arn : string;  (** cluster_arn *)
-  control_panel_arn : string option; [@option]
+  cluster_arn : string prop;  (** cluster_arn *)
+  control_panel_arn : string prop option; [@option]
       (** control_panel_arn *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoverycontrolconfig_routing_control *)

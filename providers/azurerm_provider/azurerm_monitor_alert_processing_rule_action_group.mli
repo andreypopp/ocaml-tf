@@ -39,16 +39,16 @@ type azurerm_monitor_alert_processing_rule_action_group__timeouts
 type azurerm_monitor_alert_processing_rule_action_group
 
 val azurerm_monitor_alert_processing_rule_action_group :
-  ?description:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:
     azurerm_monitor_alert_processing_rule_action_group__timeouts ->
-  add_action_group_ids:string list ->
-  name:string ->
-  resource_group_name:string ->
-  scopes:string list ->
+  add_action_group_ids:string prop list ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scopes:string prop list ->
   condition:
     azurerm_monitor_alert_processing_rule_action_group__condition
     list ->

@@ -6,16 +6,16 @@ type google_compute_global_address__timeouts
 type google_compute_global_address
 
 val google_compute_global_address :
-  ?address:string ->
-  ?address_type:string ->
-  ?description:string ->
-  ?id:string ->
-  ?ip_version:string ->
-  ?network:string ->
-  ?prefix_length:float ->
-  ?project:string ->
-  ?purpose:string ->
+  ?address:string prop ->
+  ?address_type:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ip_version:string prop ->
+  ?network:string prop ->
+  ?prefix_length:float prop ->
+  ?project:string prop ->
+  ?purpose:string prop ->
   ?timeouts:google_compute_global_address__timeouts ->
-  name:string ->
+  name:string prop ->
   string ->
   unit

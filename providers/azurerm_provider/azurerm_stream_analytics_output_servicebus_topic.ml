@@ -5,41 +5,43 @@
 open! Tf.Prelude
 
 type azurerm_stream_analytics_output_servicebus_topic__serialization = {
-  encoding : string option; [@option]  (** encoding *)
-  field_delimiter : string option; [@option]  (** field_delimiter *)
-  format : string option; [@option]  (** format *)
-  type_ : string; [@key "type"]  (** type *)
+  encoding : string prop option; [@option]  (** encoding *)
+  field_delimiter : string prop option; [@option]
+      (** field_delimiter *)
+  format : string prop option; [@option]  (** format *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_servicebus_topic__serialization *)
 
 type azurerm_stream_analytics_output_servicebus_topic__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_servicebus_topic__timeouts *)
 
 type azurerm_stream_analytics_output_servicebus_topic = {
-  authentication_mode : string option; [@option]
+  authentication_mode : string prop option; [@option]
       (** authentication_mode *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  property_columns : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  property_columns : string prop list option; [@option]
       (** property_columns *)
-  resource_group_name : string;  (** resource_group_name *)
-  servicebus_namespace : string;  (** servicebus_namespace *)
-  shared_access_policy_key : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  servicebus_namespace : string prop;  (** servicebus_namespace *)
+  shared_access_policy_key : string prop option; [@option]
       (** shared_access_policy_key *)
-  shared_access_policy_name : string option; [@option]
+  shared_access_policy_name : string prop option; [@option]
       (** shared_access_policy_name *)
-  stream_analytics_job_name : string;
+  stream_analytics_job_name : string prop;
       (** stream_analytics_job_name *)
-  system_property_columns : (string * string) list option; [@option]
+  system_property_columns : (string * string prop) list option;
+      [@option]
       (** system_property_columns *)
-  topic_name : string;  (** topic_name *)
+  topic_name : string prop;  (** topic_name *)
   serialization :
     azurerm_stream_analytics_output_servicebus_topic__serialization
     list;

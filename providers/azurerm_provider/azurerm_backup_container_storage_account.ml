@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_backup_container_storage_account__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_backup_container_storage_account__timeouts *)
 
 type azurerm_backup_container_storage_account = {
-  id : string option; [@option]  (** id *)
-  recovery_vault_name : string;  (** recovery_vault_name *)
-  resource_group_name : string;  (** resource_group_name *)
-  storage_account_id : string;  (** storage_account_id *)
+  id : string prop option; [@option]  (** id *)
+  recovery_vault_name : string prop;  (** recovery_vault_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  storage_account_id : string prop;  (** storage_account_id *)
   timeouts :
     azurerm_backup_container_storage_account__timeouts option;
 }

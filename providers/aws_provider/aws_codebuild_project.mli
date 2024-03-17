@@ -25,20 +25,20 @@ type aws_codebuild_project__vpc_config
 type aws_codebuild_project
 
 val aws_codebuild_project :
-  ?badge_enabled:bool ->
-  ?build_timeout:float ->
-  ?concurrent_build_limit:float ->
-  ?description:string ->
-  ?encryption_key:string ->
-  ?id:string ->
-  ?project_visibility:string ->
-  ?queued_timeout:float ->
-  ?resource_access_role:string ->
-  ?source_version:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
-  service_role:string ->
+  ?badge_enabled:bool prop ->
+  ?build_timeout:float prop ->
+  ?concurrent_build_limit:float prop ->
+  ?description:string prop ->
+  ?encryption_key:string prop ->
+  ?id:string prop ->
+  ?project_visibility:string prop ->
+  ?queued_timeout:float prop ->
+  ?resource_access_role:string prop ->
+  ?source_version:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  service_role:string prop ->
   artifacts:aws_codebuild_project__artifacts list ->
   build_batch_config:aws_codebuild_project__build_batch_config list ->
   cache:aws_codebuild_project__cache list ->

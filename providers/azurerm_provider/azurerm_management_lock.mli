@@ -6,11 +6,11 @@ type azurerm_management_lock__timeouts
 type azurerm_management_lock
 
 val azurerm_management_lock :
-  ?id:string ->
-  ?notes:string ->
+  ?id:string prop ->
+  ?notes:string prop ->
   ?timeouts:azurerm_management_lock__timeouts ->
-  lock_level:string ->
-  name:string ->
-  scope:string ->
+  lock_level:string prop ->
+  name:string prop ->
+  scope:string prop ->
   string ->
   unit

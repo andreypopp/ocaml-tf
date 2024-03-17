@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_vpclattice_access_log_subscription = {
-  destination_arn : string;  (** destination_arn *)
-  id : string option; [@option]  (** id *)
-  resource_identifier : string;  (** resource_identifier *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  destination_arn : string prop;  (** destination_arn *)
+  id : string prop option; [@option]  (** id *)
+  resource_identifier : string prop;  (** resource_identifier *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_access_log_subscription *)

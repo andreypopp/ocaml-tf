@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type aws_redshiftserverless_workgroup__config_parameter = {
-  parameter_key : string;  (** parameter_key *)
-  parameter_value : string;  (** parameter_value *)
+  parameter_key : string prop;  (** parameter_key *)
+  parameter_value : string prop;  (** parameter_value *)
 }
 [@@deriving yojson_of]
 (** aws_redshiftserverless_workgroup__config_parameter *)
 
 type aws_redshiftserverless_workgroup__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_redshiftserverless_workgroup__timeouts *)
 
 type aws_redshiftserverless_workgroup__endpoint__vpc_endpoint__network_interface = {
-  availability_zone : string;  (** availability_zone *)
-  network_interface_id : string;  (** network_interface_id *)
-  private_ip_address : string;  (** private_ip_address *)
-  subnet_id : string;  (** subnet_id *)
+  availability_zone : string prop;  (** availability_zone *)
+  network_interface_id : string prop;  (** network_interface_id *)
+  private_ip_address : string prop;  (** private_ip_address *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 
@@ -32,14 +32,14 @@ type aws_redshiftserverless_workgroup__endpoint__vpc_endpoint = {
     aws_redshiftserverless_workgroup__endpoint__vpc_endpoint__network_interface
     list;
       (** network_interface *)
-  vpc_endpoint_id : string;  (** vpc_endpoint_id *)
-  vpc_id : string;  (** vpc_id *)
+  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 
 type aws_redshiftserverless_workgroup__endpoint = {
-  address : string;  (** address *)
-  port : float;  (** port *)
+  address : string prop;  (** address *)
+  port : float prop;  (** port *)
   vpc_endpoint :
     aws_redshiftserverless_workgroup__endpoint__vpc_endpoint list;
       (** vpc_endpoint *)
@@ -47,22 +47,22 @@ type aws_redshiftserverless_workgroup__endpoint = {
 [@@deriving yojson_of]
 
 type aws_redshiftserverless_workgroup = {
-  base_capacity : float option; [@option]  (** base_capacity *)
-  enhanced_vpc_routing : bool option; [@option]
+  base_capacity : float prop option; [@option]  (** base_capacity *)
+  enhanced_vpc_routing : bool prop option; [@option]
       (** enhanced_vpc_routing *)
-  id : string option; [@option]  (** id *)
-  max_capacity : float option; [@option]  (** max_capacity *)
-  namespace_name : string;  (** namespace_name *)
-  port : float option; [@option]  (** port *)
-  publicly_accessible : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  max_capacity : float prop option; [@option]  (** max_capacity *)
+  namespace_name : string prop;  (** namespace_name *)
+  port : float prop option; [@option]  (** port *)
+  publicly_accessible : bool prop option; [@option]
       (** publicly_accessible *)
-  security_group_ids : string list option; [@option]
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  subnet_ids : string list option; [@option]  (** subnet_ids *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  subnet_ids : string prop list option; [@option]  (** subnet_ids *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  workgroup_name : string;  (** workgroup_name *)
+  workgroup_name : string prop;  (** workgroup_name *)
   config_parameter :
     aws_redshiftserverless_workgroup__config_parameter list;
   timeouts : aws_redshiftserverless_workgroup__timeouts option;

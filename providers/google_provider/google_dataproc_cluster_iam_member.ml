@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_dataproc_cluster_iam_member__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_dataproc_cluster_iam_member__condition *)
 
 type google_dataproc_cluster_iam_member = {
-  cluster : string;  (** cluster *)
-  id : string option; [@option]  (** id *)
-  member : string;  (** member *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** region *)
-  role : string;  (** role *)
+  cluster : string prop;  (** cluster *)
+  id : string prop option; [@option]  (** id *)
+  member : string prop;  (** member *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]  (** region *)
+  role : string prop;  (** role *)
   condition : google_dataproc_cluster_iam_member__condition list;
 }
 [@@deriving yojson_of]

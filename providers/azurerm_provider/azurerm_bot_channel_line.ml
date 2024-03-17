@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_bot_channel_line__line_channel = {
-  access_token : string;  (** access_token *)
-  secret : string;  (** secret *)
+  access_token : string prop;  (** access_token *)
+  secret : string prop;  (** secret *)
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_line__line_channel *)
 
 type azurerm_bot_channel_line__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_line__timeouts *)
 
 type azurerm_bot_channel_line = {
-  bot_name : string;  (** bot_name *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  resource_group_name : string;  (** resource_group_name *)
+  bot_name : string prop;  (** bot_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  resource_group_name : string prop;  (** resource_group_name *)
   line_channel : azurerm_bot_channel_line__line_channel list;
   timeouts : azurerm_bot_channel_line__timeouts option;
 }

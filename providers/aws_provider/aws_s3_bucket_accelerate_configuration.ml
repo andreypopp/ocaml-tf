@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_accelerate_configuration = {
-  bucket : string;  (** bucket *)
-  expected_bucket_owner : string option; [@option]
+  bucket : string prop;  (** bucket *)
+  expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
-  id : string option; [@option]  (** id *)
-  status : string;  (** status *)
+  id : string prop option; [@option]  (** id *)
+  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_accelerate_configuration *)

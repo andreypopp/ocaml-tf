@@ -6,11 +6,11 @@ type aws_codecatalyst_source_repository__timeouts
 type aws_codecatalyst_source_repository
 
 val aws_codecatalyst_source_repository :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:aws_codecatalyst_source_repository__timeouts ->
-  name:string ->
-  project_name:string ->
-  space_name:string ->
+  name:string prop ->
+  project_name:string prop ->
+  space_name:string prop ->
   string ->
   unit

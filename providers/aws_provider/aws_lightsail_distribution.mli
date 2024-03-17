@@ -16,22 +16,22 @@ type aws_lightsail_distribution__origin
 type aws_lightsail_distribution__timeouts
 
 type aws_lightsail_distribution__location = {
-  availability_zone : string;  (** availability_zone *)
-  region_name : string;  (** region_name *)
+  availability_zone : string prop;  (** availability_zone *)
+  region_name : string prop;  (** region_name *)
 }
 
 type aws_lightsail_distribution
 
 val aws_lightsail_distribution :
-  ?certificate_name:string ->
-  ?id:string ->
-  ?ip_address_type:string ->
-  ?is_enabled:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?certificate_name:string prop ->
+  ?id:string prop ->
+  ?ip_address_type:string prop ->
+  ?is_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_lightsail_distribution__timeouts ->
-  bundle_id:string ->
-  name:string ->
+  bundle_id:string prop ->
+  name:string prop ->
   cache_behavior:aws_lightsail_distribution__cache_behavior list ->
   cache_behavior_settings:
     aws_lightsail_distribution__cache_behavior_settings list ->

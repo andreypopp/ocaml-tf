@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type google_securityposture_posture_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_securityposture_posture_deployment__timeouts *)
 
 type google_securityposture_posture_deployment = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of the posture deployment. *)
-  id : string option; [@option]  (** id *)
-  location : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;
       (** The location of the resource, eg. global'. *)
-  parent : string;
+  parent : string prop;
       (** The parent of the resource, an organization. Format should be 'organizations/{organization_id}'. *)
-  posture_deployment_id : string;
+  posture_deployment_id : string prop;
       (** ID of the posture deployment. *)
-  posture_id : string;
+  posture_id : string prop;
       (** Relative name of the posture which needs to be deployed. It should be in the format:
   organizations/{organization_id}/locations/{location}/postures/{posture_id} *)
-  posture_revision_id : string;
+  posture_revision_id : string prop;
       (** Revision_id the posture which needs to be deployed. *)
-  target_resource : string;
+  target_resource : string prop;
       (** The resource on which the posture should be deployed. This can be in one of the following formats:
 projects/{project_number},
 folders/{folder_number},

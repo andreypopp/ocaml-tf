@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_lab_service_schedule__recurrence = {
-  expiration_date : string;  (** expiration_date *)
-  frequency : string;  (** frequency *)
-  interval : float option; [@option]  (** interval *)
-  week_days : string list option; [@option]  (** week_days *)
+  expiration_date : string prop;  (** expiration_date *)
+  frequency : string prop;  (** frequency *)
+  interval : float prop option; [@option]  (** interval *)
+  week_days : string prop list option; [@option]  (** week_days *)
 }
 [@@deriving yojson_of]
 (** azurerm_lab_service_schedule__recurrence *)
 
 type azurerm_lab_service_schedule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_lab_service_schedule__timeouts *)
 
 type azurerm_lab_service_schedule = {
-  id : string option; [@option]  (** id *)
-  lab_id : string;  (** lab_id *)
-  name : string;  (** name *)
-  notes : string option; [@option]  (** notes *)
-  start_time : string option; [@option]  (** start_time *)
-  stop_time : string;  (** stop_time *)
-  time_zone : string;  (** time_zone *)
+  id : string prop option; [@option]  (** id *)
+  lab_id : string prop;  (** lab_id *)
+  name : string prop;  (** name *)
+  notes : string prop option; [@option]  (** notes *)
+  start_time : string prop option; [@option]  (** start_time *)
+  stop_time : string prop;  (** stop_time *)
+  time_zone : string prop;  (** time_zone *)
   recurrence : azurerm_lab_service_schedule__recurrence list;
   timeouts : azurerm_lab_service_schedule__timeouts option;
 }

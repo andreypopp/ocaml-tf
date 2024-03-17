@@ -11,15 +11,15 @@ type azurerm_app_service_source_control__timeouts
 type azurerm_app_service_source_control
 
 val azurerm_app_service_source_control :
-  ?branch:string ->
-  ?id:string ->
-  ?repo_url:string ->
-  ?rollback_enabled:bool ->
-  ?use_local_git:bool ->
-  ?use_manual_integration:bool ->
-  ?use_mercurial:bool ->
+  ?branch:string prop ->
+  ?id:string prop ->
+  ?repo_url:string prop ->
+  ?rollback_enabled:bool prop ->
+  ?use_local_git:bool prop ->
+  ?use_manual_integration:bool prop ->
+  ?use_mercurial:bool prop ->
   ?timeouts:azurerm_app_service_source_control__timeouts ->
-  app_id:string ->
+  app_id:string prop ->
   github_action_configuration:
     azurerm_app_service_source_control__github_action_configuration
     list ->

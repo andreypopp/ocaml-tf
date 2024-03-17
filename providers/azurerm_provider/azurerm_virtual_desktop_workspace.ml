@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_virtual_desktop_workspace__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_workspace__timeouts *)
 
 type azurerm_virtual_desktop_workspace = {
-  description : string option; [@option]  (** description *)
-  friendly_name : string option; [@option]  (** friendly_name *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  friendly_name : string prop option; [@option]  (** friendly_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_virtual_desktop_workspace__timeouts option;
 }
 [@@deriving yojson_of]

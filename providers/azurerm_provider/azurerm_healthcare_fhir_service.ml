@@ -5,67 +5,69 @@
 open! Tf.Prelude
 
 type azurerm_healthcare_fhir_service__authentication = {
-  audience : string;  (** audience *)
-  authority : string;  (** authority *)
-  smart_proxy_enabled : bool option; [@option]
+  audience : string prop;  (** audience *)
+  authority : string prop;  (** authority *)
+  smart_proxy_enabled : bool prop option; [@option]
       (** smart_proxy_enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_fhir_service__authentication *)
 
 type azurerm_healthcare_fhir_service__cors = {
-  allowed_headers : string list;  (** allowed_headers *)
-  allowed_methods : string list;  (** allowed_methods *)
-  allowed_origins : string list;  (** allowed_origins *)
-  credentials_allowed : bool option; [@option]
+  allowed_headers : string prop list;  (** allowed_headers *)
+  allowed_methods : string prop list;  (** allowed_methods *)
+  allowed_origins : string prop list;  (** allowed_origins *)
+  credentials_allowed : bool prop option; [@option]
       (** credentials_allowed *)
-  max_age_in_seconds : float option; [@option]
+  max_age_in_seconds : float prop option; [@option]
       (** max_age_in_seconds *)
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_fhir_service__cors *)
 
 type azurerm_healthcare_fhir_service__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_fhir_service__identity *)
 
 type azurerm_healthcare_fhir_service__oci_artifact = {
-  digest : string option; [@option]  (** digest *)
-  image_name : string option; [@option]  (** image_name *)
-  login_server : string;  (** login_server *)
+  digest : string prop option; [@option]  (** digest *)
+  image_name : string prop option; [@option]  (** image_name *)
+  login_server : string prop;  (** login_server *)
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_fhir_service__oci_artifact *)
 
 type azurerm_healthcare_fhir_service__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_fhir_service__timeouts *)
 
 type azurerm_healthcare_fhir_service = {
-  access_policy_object_ids : string list option; [@option]
+  access_policy_object_ids : string prop list option; [@option]
       (** access_policy_object_ids *)
-  configuration_export_storage_account_name : string option;
+  configuration_export_storage_account_name : string prop option;
       [@option]
       (** configuration_export_storage_account_name *)
-  container_registry_login_server_url : string list option; [@option]
+  container_registry_login_server_url : string prop list option;
+      [@option]
       (** container_registry_login_server_url *)
-  id : string option; [@option]  (** id *)
-  kind : string option; [@option]  (** kind *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  workspace_id : string;  (** workspace_id *)
+  id : string prop option; [@option]  (** id *)
+  kind : string prop option; [@option]  (** kind *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  workspace_id : string prop;  (** workspace_id *)
   authentication :
     azurerm_healthcare_fhir_service__authentication list;
   cors : azurerm_healthcare_fhir_service__cors list;

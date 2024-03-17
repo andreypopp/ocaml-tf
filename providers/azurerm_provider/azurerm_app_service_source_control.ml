@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_app_service_source_control__github_action_configuration__code_configuration = {
-  runtime_stack : string;
+  runtime_stack : string prop;
       (** The value to use for the Runtime Stack in the workflow file content for code base apps. *)
-  runtime_version : string;
+  runtime_version : string prop;
       (** The value to use for the Runtime Version in the workflow file content for code base apps. *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_source_control__github_action_configuration__code_configuration *)
 
 type azurerm_app_service_source_control__github_action_configuration__container_configuration = {
-  image_name : string;  (** The image name for the build. *)
-  registry_password : string option; [@option]
+  image_name : string prop;  (** The image name for the build. *)
+  registry_password : string prop option; [@option]
       (** The password used to upload the image to the container registry. *)
-  registry_url : string;
+  registry_url : string prop;
       (** The server URL for the container registry where the build will be hosted. *)
-  registry_username : string option; [@option]
+  registry_username : string prop option; [@option]
       (** The username used to upload the image to the container registry. *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_source_control__github_action_configuration__container_configuration *)
 
 type azurerm_app_service_source_control__github_action_configuration = {
-  generate_workflow_file : bool option; [@option]
+  generate_workflow_file : bool prop option; [@option]
       (** Should the service generate the GitHub Action Workflow file. Defaults to `true` *)
-  linux_action : bool;
+  linux_action : bool prop;
       (** Denotes this action uses a Linux base image. *)
   code_configuration :
     azurerm_app_service_source_control__github_action_configuration__code_configuration
@@ -41,27 +41,28 @@ type azurerm_app_service_source_control__github_action_configuration = {
 (** azurerm_app_service_source_control__github_action_configuration *)
 
 type azurerm_app_service_source_control__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_source_control__timeouts *)
 
 type azurerm_app_service_source_control = {
-  app_id : string;  (** The ID of the Windows or Linux Web App. *)
-  branch : string option; [@option]
+  app_id : string prop;
+      (** The ID of the Windows or Linux Web App. *)
+  branch : string prop option; [@option]
       (** The branch name to use for deployments. *)
-  id : string option; [@option]  (** id *)
-  repo_url : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  repo_url : string prop option; [@option]
       (** The URL for the repository. *)
-  rollback_enabled : bool option; [@option]
+  rollback_enabled : bool prop option; [@option]
       (** Should the Deployment Rollback be enabled? Defaults to `false`. *)
-  use_local_git : bool option; [@option]
+  use_local_git : bool prop option; [@option]
       (** Should the App use local Git configuration. *)
-  use_manual_integration : bool option; [@option]
+  use_manual_integration : bool prop option; [@option]
       (** Should code be deployed manually. Set to `false` to enable continuous integration, such as webhooks into online repos such as GitHub. Defaults to `false`. *)
-  use_mercurial : bool option; [@option]
+  use_mercurial : bool prop option; [@option]
       (** The repository specified is Mercurial. Defaults to `false`. *)
   github_action_configuration :
     azurerm_app_service_source_control__github_action_configuration

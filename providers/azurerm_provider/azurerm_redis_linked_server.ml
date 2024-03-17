@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_redis_linked_server__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_redis_linked_server__timeouts *)
 
 type azurerm_redis_linked_server = {
-  id : string option; [@option]  (** id *)
-  linked_redis_cache_id : string;  (** linked_redis_cache_id *)
-  linked_redis_cache_location : string;
+  id : string prop option; [@option]  (** id *)
+  linked_redis_cache_id : string prop;  (** linked_redis_cache_id *)
+  linked_redis_cache_location : string prop;
       (** linked_redis_cache_location *)
-  resource_group_name : string;  (** resource_group_name *)
-  server_role : string;  (** server_role *)
-  target_redis_cache_name : string;  (** target_redis_cache_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  server_role : string prop;  (** server_role *)
+  target_redis_cache_name : string prop;
+      (** target_redis_cache_name *)
   timeouts : azurerm_redis_linked_server__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_ownership_controls__rule = {
-  object_ownership : string;  (** object_ownership *)
+  object_ownership : string prop;  (** object_ownership *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_ownership_controls__rule *)
 
 type aws_s3_bucket_ownership_controls = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
   rule : aws_s3_bucket_ownership_controls__rule list;
 }
 [@@deriving yojson_of]

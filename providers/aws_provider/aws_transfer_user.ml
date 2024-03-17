@@ -5,39 +5,40 @@
 open! Tf.Prelude
 
 type aws_transfer_user__home_directory_mappings = {
-  entry : string;  (** entry *)
-  target : string;  (** target *)
+  entry : string prop;  (** entry *)
+  target : string prop;  (** target *)
 }
 [@@deriving yojson_of]
 (** aws_transfer_user__home_directory_mappings *)
 
 type aws_transfer_user__posix_profile = {
-  gid : float;  (** gid *)
-  secondary_gids : float list option; [@option]
+  gid : float prop;  (** gid *)
+  secondary_gids : float prop list option; [@option]
       (** secondary_gids *)
-  uid : float;  (** uid *)
+  uid : float prop;  (** uid *)
 }
 [@@deriving yojson_of]
 (** aws_transfer_user__posix_profile *)
 
 type aws_transfer_user__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_transfer_user__timeouts *)
 
 type aws_transfer_user = {
-  home_directory : string option; [@option]  (** home_directory *)
-  home_directory_type : string option; [@option]
+  home_directory : string prop option; [@option]
+      (** home_directory *)
+  home_directory_type : string prop option; [@option]
       (** home_directory_type *)
-  id : string option; [@option]  (** id *)
-  policy : string option; [@option]  (** policy *)
-  role : string;  (** role *)
-  server_id : string;  (** server_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  policy : string prop option; [@option]  (** policy *)
+  role : string prop;  (** role *)
+  server_id : string prop;  (** server_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user_name : string;  (** user_name *)
+  user_name : string prop;  (** user_name *)
   home_directory_mappings :
     aws_transfer_user__home_directory_mappings list;
   posix_profile : aws_transfer_user__posix_profile list;

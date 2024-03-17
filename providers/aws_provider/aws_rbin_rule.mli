@@ -10,11 +10,11 @@ type aws_rbin_rule__timeouts
 type aws_rbin_rule
 
 val aws_rbin_rule :
-  ?description:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_rbin_rule__timeouts ->
-  resource_type:string ->
+  resource_type:string prop ->
   lock_configuration:aws_rbin_rule__lock_configuration list ->
   resource_tags:aws_rbin_rule__resource_tags list ->
   retention_period:aws_rbin_rule__retention_period list ->

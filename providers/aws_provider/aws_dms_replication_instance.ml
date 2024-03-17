@@ -5,42 +5,44 @@
 open! Tf.Prelude
 
 type aws_dms_replication_instance__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_dms_replication_instance__timeouts *)
 
 type aws_dms_replication_instance = {
-  allocated_storage : float option; [@option]
+  allocated_storage : float prop option; [@option]
       (** allocated_storage *)
-  allow_major_version_upgrade : bool option; [@option]
+  allow_major_version_upgrade : bool prop option; [@option]
       (** allow_major_version_upgrade *)
-  apply_immediately : bool option; [@option]
+  apply_immediately : bool prop option; [@option]
       (** apply_immediately *)
-  auto_minor_version_upgrade : bool option; [@option]
+  auto_minor_version_upgrade : bool prop option; [@option]
       (** auto_minor_version_upgrade *)
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  engine_version : string option; [@option]  (** engine_version *)
-  id : string option; [@option]  (** id *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
-  multi_az : bool option; [@option]  (** multi_az *)
-  network_type : string option; [@option]  (** network_type *)
-  preferred_maintenance_window : string option; [@option]
+  engine_version : string prop option; [@option]
+      (** engine_version *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  multi_az : bool prop option; [@option]  (** multi_az *)
+  network_type : string prop option; [@option]  (** network_type *)
+  preferred_maintenance_window : string prop option; [@option]
       (** preferred_maintenance_window *)
-  publicly_accessible : bool option; [@option]
+  publicly_accessible : bool prop option; [@option]
       (** publicly_accessible *)
-  replication_instance_class : string;
+  replication_instance_class : string prop;
       (** replication_instance_class *)
-  replication_instance_id : string;  (** replication_instance_id *)
-  replication_subnet_group_id : string option; [@option]
+  replication_instance_id : string prop;
+      (** replication_instance_id *)
+  replication_subnet_group_id : string prop option; [@option]
       (** replication_subnet_group_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_security_group_ids : string list option; [@option]
+  vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
   timeouts : aws_dms_replication_instance__timeouts option;
 }

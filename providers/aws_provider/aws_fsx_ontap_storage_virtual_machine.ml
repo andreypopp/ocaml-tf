@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type aws_fsx_ontap_storage_virtual_machine__active_directory_configuration__self_managed_active_directory_configuration = {
-  dns_ips : string list;  (** dns_ips *)
-  domain_name : string;  (** domain_name *)
-  file_system_administrators_group : string option; [@option]
+  dns_ips : string prop list;  (** dns_ips *)
+  domain_name : string prop;  (** domain_name *)
+  file_system_administrators_group : string prop option; [@option]
       (** file_system_administrators_group *)
-  organizational_unit_distinguished_name : string option; [@option]
+  organizational_unit_distinguished_name : string prop option;
+      [@option]
       (** organizational_unit_distinguished_name *)
-  password : string;  (** password *)
-  username : string;  (** username *)
+  password : string prop;  (** password *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_ontap_storage_virtual_machine__active_directory_configuration__self_managed_active_directory_configuration *)
 
 type aws_fsx_ontap_storage_virtual_machine__active_directory_configuration = {
-  netbios_name : string option; [@option]  (** netbios_name *)
+  netbios_name : string prop option; [@option]  (** netbios_name *)
   self_managed_active_directory_configuration :
     aws_fsx_ontap_storage_virtual_machine__active_directory_configuration__self_managed_active_directory_configuration
     list;
@@ -27,34 +28,34 @@ type aws_fsx_ontap_storage_virtual_machine__active_directory_configuration = {
 (** aws_fsx_ontap_storage_virtual_machine__active_directory_configuration *)
 
 type aws_fsx_ontap_storage_virtual_machine__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_ontap_storage_virtual_machine__timeouts *)
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__smb = {
-  dns_name : string;  (** dns_name *)
-  ip_addresses : string list;  (** ip_addresses *)
+  dns_name : string prop;  (** dns_name *)
+  ip_addresses : string prop list;  (** ip_addresses *)
 }
 [@@deriving yojson_of]
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__nfs = {
-  dns_name : string;  (** dns_name *)
-  ip_addresses : string list;  (** ip_addresses *)
+  dns_name : string prop;  (** dns_name *)
+  ip_addresses : string prop list;  (** ip_addresses *)
 }
 [@@deriving yojson_of]
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__management = {
-  dns_name : string;  (** dns_name *)
-  ip_addresses : string list;  (** ip_addresses *)
+  dns_name : string prop;  (** dns_name *)
+  ip_addresses : string prop list;  (** ip_addresses *)
 }
 [@@deriving yojson_of]
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__iscsi = {
-  dns_name : string;  (** dns_name *)
-  ip_addresses : string list;  (** ip_addresses *)
+  dns_name : string prop;  (** dns_name *)
+  ip_addresses : string prop list;  (** ip_addresses *)
 }
 [@@deriving yojson_of]
 
@@ -73,15 +74,15 @@ type aws_fsx_ontap_storage_virtual_machine__endpoints = {
 [@@deriving yojson_of]
 
 type aws_fsx_ontap_storage_virtual_machine = {
-  file_system_id : string;  (** file_system_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  root_volume_security_style : string option; [@option]
+  file_system_id : string prop;  (** file_system_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  root_volume_security_style : string prop option; [@option]
       (** root_volume_security_style *)
-  svm_admin_password : string option; [@option]
+  svm_admin_password : string prop option; [@option]
       (** svm_admin_password *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   active_directory_configuration :
     aws_fsx_ontap_storage_virtual_machine__active_directory_configuration

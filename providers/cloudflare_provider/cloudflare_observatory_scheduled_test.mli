@@ -6,11 +6,11 @@ type cloudflare_observatory_scheduled_test__timeouts
 type cloudflare_observatory_scheduled_test
 
 val cloudflare_observatory_scheduled_test :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:cloudflare_observatory_scheduled_test__timeouts ->
-  frequency:string ->
-  region:string ->
-  url:string ->
-  zone_id:string ->
+  frequency:string prop ->
+  region:string prop ->
+  url:string prop ->
+  zone_id:string prop ->
   string ->
   unit

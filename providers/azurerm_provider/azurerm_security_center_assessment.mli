@@ -7,11 +7,11 @@ type azurerm_security_center_assessment__timeouts
 type azurerm_security_center_assessment
 
 val azurerm_security_center_assessment :
-  ?additional_data:(string * string) list ->
-  ?id:string ->
+  ?additional_data:(string * string prop) list ->
+  ?id:string prop ->
   ?timeouts:azurerm_security_center_assessment__timeouts ->
-  assessment_policy_id:string ->
-  target_resource_id:string ->
+  assessment_policy_id:string prop ->
+  target_resource_id:string prop ->
   status:azurerm_security_center_assessment__status list ->
   string ->
   unit

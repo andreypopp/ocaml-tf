@@ -6,29 +6,29 @@ type azurerm_search_service__identity
 type azurerm_search_service__timeouts
 
 type azurerm_search_service__query_keys = {
-  key : string;  (** key *)
-  name : string;  (** name *)
+  key : string prop;  (** key *)
+  name : string prop;  (** name *)
 }
 
 type azurerm_search_service
 
 val azurerm_search_service :
-  ?allowed_ips:string list ->
-  ?authentication_failure_mode:string ->
-  ?customer_managed_key_enforcement_enabled:bool ->
-  ?hosting_mode:string ->
-  ?id:string ->
-  ?local_authentication_enabled:bool ->
-  ?partition_count:float ->
-  ?public_network_access_enabled:bool ->
-  ?replica_count:float ->
-  ?semantic_search_sku:string ->
-  ?tags:(string * string) list ->
+  ?allowed_ips:string prop list ->
+  ?authentication_failure_mode:string prop ->
+  ?customer_managed_key_enforcement_enabled:bool prop ->
+  ?hosting_mode:string prop ->
+  ?id:string prop ->
+  ?local_authentication_enabled:bool prop ->
+  ?partition_count:float prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?replica_count:float prop ->
+  ?semantic_search_sku:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_search_service__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
   identity:azurerm_search_service__identity list ->
   string ->
   unit

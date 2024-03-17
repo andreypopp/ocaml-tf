@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_msk_cluster_policy
 
 val aws_msk_cluster_policy :
-  ?id:string -> cluster_arn:string -> policy:string -> string -> unit
+  ?id:string prop ->
+  cluster_arn:string prop ->
+  policy:string prop ->
+  string ->
+  unit

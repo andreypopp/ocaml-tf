@@ -11,22 +11,22 @@ type azurerm_signalr_service__upstream_endpoint
 type azurerm_signalr_service
 
 val azurerm_signalr_service :
-  ?aad_auth_enabled:bool ->
-  ?connectivity_logs_enabled:bool ->
-  ?http_request_logs_enabled:bool ->
-  ?id:string ->
-  ?live_trace_enabled:bool ->
-  ?local_auth_enabled:bool ->
-  ?messaging_logs_enabled:bool ->
-  ?public_network_access_enabled:bool ->
-  ?serverless_connection_timeout_in_seconds:float ->
-  ?service_mode:string ->
-  ?tags:(string * string) list ->
-  ?tls_client_cert_enabled:bool ->
+  ?aad_auth_enabled:bool prop ->
+  ?connectivity_logs_enabled:bool prop ->
+  ?http_request_logs_enabled:bool prop ->
+  ?id:string prop ->
+  ?live_trace_enabled:bool prop ->
+  ?local_auth_enabled:bool prop ->
+  ?messaging_logs_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?serverless_connection_timeout_in_seconds:float prop ->
+  ?service_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tls_client_cert_enabled:bool prop ->
   ?timeouts:azurerm_signalr_service__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   cors:azurerm_signalr_service__cors list ->
   identity:azurerm_signalr_service__identity list ->
   live_trace:azurerm_signalr_service__live_trace list ->

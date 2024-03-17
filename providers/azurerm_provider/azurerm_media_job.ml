@@ -5,37 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_media_job__input_asset = {
-  label : string option; [@option]  (** label *)
-  name : string;  (** name *)
+  label : string prop option; [@option]  (** label *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_job__input_asset *)
 
 type azurerm_media_job__output_asset = {
-  label : string option; [@option]  (** label *)
-  name : string;  (** name *)
+  label : string prop option; [@option]  (** label *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_job__output_asset *)
 
 type azurerm_media_job__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_job__timeouts *)
 
 type azurerm_media_job = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  media_services_account_name : string;
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  media_services_account_name : string prop;
       (** media_services_account_name *)
-  name : string;  (** name *)
-  priority : string option; [@option]  (** priority *)
-  resource_group_name : string;  (** resource_group_name *)
-  transform_name : string;  (** transform_name *)
+  name : string prop;  (** name *)
+  priority : string prop option; [@option]  (** priority *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  transform_name : string prop;  (** transform_name *)
   input_asset : azurerm_media_job__input_asset list;
   output_asset : azurerm_media_job__output_asset list;
   timeouts : azurerm_media_job__timeouts option;

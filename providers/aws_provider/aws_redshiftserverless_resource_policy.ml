@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_redshiftserverless_resource_policy = {
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  resource_arn : string;  (** resource_arn *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  resource_arn : string prop;  (** resource_arn *)
 }
 [@@deriving yojson_of]
 (** aws_redshiftserverless_resource_policy *)

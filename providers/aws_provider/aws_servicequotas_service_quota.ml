@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_servicequotas_service_quota__usage_metric__metric_dimensions = {
-  class_ : string; [@key "class"]  (** class *)
-  resource : string;  (** resource *)
-  service : string;  (** service *)
-  type_ : string; [@key "type"]  (** type *)
+  class_ : string prop; [@key "class"]  (** class *)
+  resource : string prop;  (** resource *)
+  service : string prop;  (** service *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
@@ -17,18 +17,18 @@ type aws_servicequotas_service_quota__usage_metric = {
     aws_servicequotas_service_quota__usage_metric__metric_dimensions
     list;
       (** metric_dimensions *)
-  metric_name : string;  (** metric_name *)
-  metric_namespace : string;  (** metric_namespace *)
-  metric_statistic_recommendation : string;
+  metric_name : string prop;  (** metric_name *)
+  metric_namespace : string prop;  (** metric_namespace *)
+  metric_statistic_recommendation : string prop;
       (** metric_statistic_recommendation *)
 }
 [@@deriving yojson_of]
 
 type aws_servicequotas_service_quota = {
-  id : string option; [@option]  (** id *)
-  quota_code : string;  (** quota_code *)
-  service_code : string;  (** service_code *)
-  value : float;  (** value *)
+  id : string prop option; [@option]  (** id *)
+  quota_code : string prop;  (** quota_code *)
+  service_code : string prop;  (** service_code *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_servicequotas_service_quota *)

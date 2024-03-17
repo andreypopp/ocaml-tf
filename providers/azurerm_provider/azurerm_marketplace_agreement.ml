@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_marketplace_agreement__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_marketplace_agreement__timeouts *)
 
 type azurerm_marketplace_agreement = {
-  id : string option; [@option]  (** id *)
-  offer : string;  (** offer *)
-  plan : string;  (** plan *)
-  publisher : string;  (** publisher *)
+  id : string prop option; [@option]  (** id *)
+  offer : string prop;  (** offer *)
+  plan : string prop;  (** plan *)
+  publisher : string prop;  (** publisher *)
   timeouts : azurerm_marketplace_agreement__timeouts option;
 }
 [@@deriving yojson_of]

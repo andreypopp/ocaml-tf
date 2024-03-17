@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_logz_sub_account_tag_rule__tag_filter = {
-  action : string;  (** action *)
-  name : string;  (** name *)
-  value : string option; [@option]  (** value *)
+  action : string prop;  (** action *)
+  name : string prop;  (** name *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_logz_sub_account_tag_rule__tag_filter *)
 
 type azurerm_logz_sub_account_tag_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_logz_sub_account_tag_rule__timeouts *)
 
 type azurerm_logz_sub_account_tag_rule = {
-  id : string option; [@option]  (** id *)
-  logz_sub_account_id : string;  (** logz_sub_account_id *)
-  send_aad_logs : bool option; [@option]  (** send_aad_logs *)
-  send_activity_logs : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  logz_sub_account_id : string prop;  (** logz_sub_account_id *)
+  send_aad_logs : bool prop option; [@option]  (** send_aad_logs *)
+  send_activity_logs : bool prop option; [@option]
       (** send_activity_logs *)
-  send_subscription_logs : bool option; [@option]
+  send_subscription_logs : bool prop option; [@option]
       (** send_subscription_logs *)
   tag_filter : azurerm_logz_sub_account_tag_rule__tag_filter list;
   timeouts : azurerm_logz_sub_account_tag_rule__timeouts option;

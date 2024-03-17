@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type aws_backup_report_plan__report_delivery_channel = {
-  formats : string list option; [@option]  (** formats *)
-  s3_bucket_name : string;  (** s3_bucket_name *)
-  s3_key_prefix : string option; [@option]  (** s3_key_prefix *)
+  formats : string prop list option; [@option]  (** formats *)
+  s3_bucket_name : string prop;  (** s3_bucket_name *)
+  s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
 }
 [@@deriving yojson_of]
 (** aws_backup_report_plan__report_delivery_channel *)
 
 type aws_backup_report_plan__report_setting = {
-  accounts : string list option; [@option]  (** accounts *)
-  framework_arns : string list option; [@option]
+  accounts : string prop list option; [@option]  (** accounts *)
+  framework_arns : string prop list option; [@option]
       (** framework_arns *)
-  number_of_frameworks : float option; [@option]
+  number_of_frameworks : float prop option; [@option]
       (** number_of_frameworks *)
-  organization_units : string list option; [@option]
+  organization_units : string prop list option; [@option]
       (** organization_units *)
-  regions : string list option; [@option]  (** regions *)
-  report_template : string;  (** report_template *)
+  regions : string prop list option; [@option]  (** regions *)
+  report_template : string prop;  (** report_template *)
 }
 [@@deriving yojson_of]
 (** aws_backup_report_plan__report_setting *)
 
 type aws_backup_report_plan = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   report_delivery_channel :
     aws_backup_report_plan__report_delivery_channel list;

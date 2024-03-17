@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_guardduty_organization_configuration_feature__additional_configuration = {
-  auto_enable : string;  (** auto_enable *)
-  name : string;  (** name *)
+  auto_enable : string prop;  (** auto_enable *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_organization_configuration_feature__additional_configuration *)
 
 type aws_guardduty_organization_configuration_feature = {
-  auto_enable : string;  (** auto_enable *)
-  detector_id : string;  (** detector_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  auto_enable : string prop;  (** auto_enable *)
+  detector_id : string prop;  (** detector_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   additional_configuration :
     aws_guardduty_organization_configuration_feature__additional_configuration
     list;

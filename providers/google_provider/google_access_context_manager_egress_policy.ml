@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type google_access_context_manager_egress_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_egress_policy__timeouts *)
 
 type google_access_context_manager_egress_policy = {
-  egress_policy_name : string;
+  egress_policy_name : string prop;
       (** The name of the Service Perimeter to add this resource to. *)
-  id : string option; [@option]  (** id *)
-  resource : string;
+  id : string prop option; [@option]  (** id *)
+  resource : string prop;
       (** A GCP resource that is inside of the service perimeter. *)
   timeouts :
     google_access_context_manager_egress_policy__timeouts option;

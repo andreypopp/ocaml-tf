@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type aws_s3_access_point__public_access_block_configuration = {
-  block_public_acls : bool option; [@option]
+  block_public_acls : bool prop option; [@option]
       (** block_public_acls *)
-  block_public_policy : bool option; [@option]
+  block_public_policy : bool prop option; [@option]
       (** block_public_policy *)
-  ignore_public_acls : bool option; [@option]
+  ignore_public_acls : bool prop option; [@option]
       (** ignore_public_acls *)
-  restrict_public_buckets : bool option; [@option]
+  restrict_public_buckets : bool prop option; [@option]
       (** restrict_public_buckets *)
 }
 [@@deriving yojson_of]
 (** aws_s3_access_point__public_access_block_configuration *)
 
 type aws_s3_access_point__vpc_configuration = {
-  vpc_id : string;  (** vpc_id *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_s3_access_point__vpc_configuration *)
 
 type aws_s3_access_point = {
-  account_id : string option; [@option]  (** account_id *)
-  bucket : string;  (** bucket *)
-  bucket_account_id : string option; [@option]
+  account_id : string prop option; [@option]  (** account_id *)
+  bucket : string prop;  (** bucket *)
+  bucket_account_id : string prop option; [@option]
       (** bucket_account_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  policy : string option; [@option]  (** policy *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  policy : string prop option; [@option]  (** policy *)
   public_access_block_configuration :
     aws_s3_access_point__public_access_block_configuration list;
   vpc_configuration : aws_s3_access_point__vpc_configuration list;

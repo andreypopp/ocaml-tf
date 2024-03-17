@@ -10,16 +10,16 @@ type azurerm_managed_lustre_file_system__timeouts
 type azurerm_managed_lustre_file_system
 
 val azurerm_managed_lustre_file_system :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_managed_lustre_file_system__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
-  storage_capacity_in_tb:float ->
-  subnet_id:string ->
-  zones:string list ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  storage_capacity_in_tb:float prop ->
+  subnet_id:string prop ->
+  zones:string prop list ->
   encryption_key:
     azurerm_managed_lustre_file_system__encryption_key list ->
   hsm_setting:azurerm_managed_lustre_file_system__hsm_setting list ->

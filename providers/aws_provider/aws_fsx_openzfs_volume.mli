@@ -10,20 +10,20 @@ type aws_fsx_openzfs_volume__user_and_group_quotas
 type aws_fsx_openzfs_volume
 
 val aws_fsx_openzfs_volume :
-  ?copy_tags_to_snapshots:bool ->
-  ?data_compression_type:string ->
-  ?delete_volume_options:string list ->
-  ?id:string ->
-  ?read_only:bool ->
-  ?record_size_kib:float ->
-  ?storage_capacity_quota_gib:float ->
-  ?storage_capacity_reservation_gib:float ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?volume_type:string ->
+  ?copy_tags_to_snapshots:bool prop ->
+  ?data_compression_type:string prop ->
+  ?delete_volume_options:string prop list ->
+  ?id:string prop ->
+  ?read_only:bool prop ->
+  ?record_size_kib:float prop ->
+  ?storage_capacity_quota_gib:float prop ->
+  ?storage_capacity_reservation_gib:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?volume_type:string prop ->
   ?timeouts:aws_fsx_openzfs_volume__timeouts ->
-  name:string ->
-  parent_volume_id:string ->
+  name:string prop ->
+  parent_volume_id:string prop ->
   nfs_exports:aws_fsx_openzfs_volume__nfs_exports list ->
   origin_snapshot:aws_fsx_openzfs_volume__origin_snapshot list ->
   user_and_group_quotas:

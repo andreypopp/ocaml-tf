@@ -5,46 +5,47 @@
 open! Tf.Prelude
 
 type azurerm_network_security_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_security_rule__timeouts *)
 
 type azurerm_network_security_rule = {
-  access : string;  (** access *)
-  description : string option; [@option]  (** description *)
-  destination_address_prefix : string option; [@option]
+  access : string prop;  (** access *)
+  description : string prop option; [@option]  (** description *)
+  destination_address_prefix : string prop option; [@option]
       (** destination_address_prefix *)
-  destination_address_prefixes : string list option; [@option]
+  destination_address_prefixes : string prop list option; [@option]
       (** destination_address_prefixes *)
-  destination_application_security_group_ids : string list option;
+  destination_application_security_group_ids :
+    string prop list option;
       [@option]
       (** destination_application_security_group_ids *)
-  destination_port_range : string option; [@option]
+  destination_port_range : string prop option; [@option]
       (** destination_port_range *)
-  destination_port_ranges : string list option; [@option]
+  destination_port_ranges : string prop list option; [@option]
       (** destination_port_ranges *)
-  direction : string;  (** direction *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  network_security_group_name : string;
+  direction : string prop;  (** direction *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  network_security_group_name : string prop;
       (** network_security_group_name *)
-  priority : float;  (** priority *)
-  protocol : string;  (** protocol *)
-  resource_group_name : string;  (** resource_group_name *)
-  source_address_prefix : string option; [@option]
+  priority : float prop;  (** priority *)
+  protocol : string prop;  (** protocol *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  source_address_prefix : string prop option; [@option]
       (** source_address_prefix *)
-  source_address_prefixes : string list option; [@option]
+  source_address_prefixes : string prop list option; [@option]
       (** source_address_prefixes *)
-  source_application_security_group_ids : string list option;
+  source_application_security_group_ids : string prop list option;
       [@option]
       (** source_application_security_group_ids *)
-  source_port_range : string option; [@option]
+  source_port_range : string prop option; [@option]
       (** source_port_range *)
-  source_port_ranges : string list option; [@option]
+  source_port_ranges : string prop list option; [@option]
       (** source_port_ranges *)
   timeouts : azurerm_network_security_rule__timeouts option;
 }

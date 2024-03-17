@@ -5,39 +5,39 @@
 open! Tf.Prelude
 
 type aws_codedeploy_deployment_group__alarm_configuration = {
-  alarms : string list option; [@option]  (** alarms *)
-  enabled : bool option; [@option]  (** enabled *)
-  ignore_poll_alarm_failure : bool option; [@option]
+  alarms : string prop list option; [@option]  (** alarms *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  ignore_poll_alarm_failure : bool prop option; [@option]
       (** ignore_poll_alarm_failure *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__alarm_configuration *)
 
 type aws_codedeploy_deployment_group__auto_rollback_configuration = {
-  enabled : bool option; [@option]  (** enabled *)
-  events : string list option; [@option]  (** events *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  events : string prop list option; [@option]  (** events *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__auto_rollback_configuration *)
 
 type aws_codedeploy_deployment_group__blue_green_deployment_config__deployment_ready_option = {
-  action_on_timeout : string option; [@option]
+  action_on_timeout : string prop option; [@option]
       (** action_on_timeout *)
-  wait_time_in_minutes : float option; [@option]
+  wait_time_in_minutes : float prop option; [@option]
       (** wait_time_in_minutes *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__blue_green_deployment_config__deployment_ready_option *)
 
 type aws_codedeploy_deployment_group__blue_green_deployment_config__green_fleet_provisioning_option = {
-  action : string option; [@option]  (** action *)
+  action : string prop option; [@option]  (** action *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__blue_green_deployment_config__green_fleet_provisioning_option *)
 
 type aws_codedeploy_deployment_group__blue_green_deployment_config__terminate_blue_instances_on_deployment_success = {
-  action : string option; [@option]  (** action *)
-  termination_wait_time_in_minutes : float option; [@option]
+  action : string prop option; [@option]  (** action *)
+  termination_wait_time_in_minutes : float prop option; [@option]
       (** termination_wait_time_in_minutes *)
 }
 [@@deriving yojson_of]
@@ -58,25 +58,26 @@ type aws_codedeploy_deployment_group__blue_green_deployment_config = {
 (** aws_codedeploy_deployment_group__blue_green_deployment_config *)
 
 type aws_codedeploy_deployment_group__deployment_style = {
-  deployment_option : string option; [@option]
+  deployment_option : string prop option; [@option]
       (** deployment_option *)
-  deployment_type : string option; [@option]  (** deployment_type *)
+  deployment_type : string prop option; [@option]
+      (** deployment_type *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__deployment_style *)
 
 type aws_codedeploy_deployment_group__ec2_tag_filter = {
-  key : string option; [@option]  (** key *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  value : string option; [@option]  (** value *)
+  key : string prop option; [@option]  (** key *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__ec2_tag_filter *)
 
 type aws_codedeploy_deployment_group__ec2_tag_set__ec2_tag_filter = {
-  key : string option; [@option]  (** key *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  value : string option; [@option]  (** value *)
+  key : string prop option; [@option]  (** key *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__ec2_tag_set__ec2_tag_filter *)
@@ -89,38 +90,38 @@ type aws_codedeploy_deployment_group__ec2_tag_set = {
 (** aws_codedeploy_deployment_group__ec2_tag_set *)
 
 type aws_codedeploy_deployment_group__ecs_service = {
-  cluster_name : string;  (** cluster_name *)
-  service_name : string;  (** service_name *)
+  cluster_name : string prop;  (** cluster_name *)
+  service_name : string prop;  (** service_name *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__ecs_service *)
 
 type aws_codedeploy_deployment_group__load_balancer_info__elb_info = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__load_balancer_info__elb_info *)
 
 type aws_codedeploy_deployment_group__load_balancer_info__target_group_info = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__load_balancer_info__target_group_info *)
 
 type aws_codedeploy_deployment_group__load_balancer_info__target_group_pair_info__prod_traffic_route = {
-  listener_arns : string list;  (** listener_arns *)
+  listener_arns : string prop list;  (** listener_arns *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__load_balancer_info__target_group_pair_info__prod_traffic_route *)
 
 type aws_codedeploy_deployment_group__load_balancer_info__target_group_pair_info__target_group = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__load_balancer_info__target_group_pair_info__target_group *)
 
 type aws_codedeploy_deployment_group__load_balancer_info__target_group_pair_info__test_traffic_route = {
-  listener_arns : string list;  (** listener_arns *)
+  listener_arns : string prop list;  (** listener_arns *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__load_balancer_info__target_group_pair_info__test_traffic_route *)
@@ -154,34 +155,34 @@ type aws_codedeploy_deployment_group__load_balancer_info = {
 (** aws_codedeploy_deployment_group__load_balancer_info *)
 
 type aws_codedeploy_deployment_group__on_premises_instance_tag_filter = {
-  key : string option; [@option]  (** key *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  value : string option; [@option]  (** value *)
+  key : string prop option; [@option]  (** key *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__on_premises_instance_tag_filter *)
 
 type aws_codedeploy_deployment_group__trigger_configuration = {
-  trigger_events : string list;  (** trigger_events *)
-  trigger_name : string;  (** trigger_name *)
-  trigger_target_arn : string;  (** trigger_target_arn *)
+  trigger_events : string prop list;  (** trigger_events *)
+  trigger_name : string prop;  (** trigger_name *)
+  trigger_target_arn : string prop;  (** trigger_target_arn *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_deployment_group__trigger_configuration *)
 
 type aws_codedeploy_deployment_group = {
-  app_name : string;  (** app_name *)
-  autoscaling_groups : string list option; [@option]
+  app_name : string prop;  (** app_name *)
+  autoscaling_groups : string prop list option; [@option]
       (** autoscaling_groups *)
-  deployment_config_name : string option; [@option]
+  deployment_config_name : string prop option; [@option]
       (** deployment_config_name *)
-  deployment_group_name : string;  (** deployment_group_name *)
-  id : string option; [@option]  (** id *)
-  outdated_instances_strategy : string option; [@option]
+  deployment_group_name : string prop;  (** deployment_group_name *)
+  id : string prop option; [@option]  (** id *)
+  outdated_instances_strategy : string prop option; [@option]
       (** outdated_instances_strategy *)
-  service_role_arn : string;  (** service_role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  service_role_arn : string prop;  (** service_role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   alarm_configuration :
     aws_codedeploy_deployment_group__alarm_configuration list;

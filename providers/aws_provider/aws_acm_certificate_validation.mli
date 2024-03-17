@@ -6,9 +6,9 @@ type aws_acm_certificate_validation__timeouts
 type aws_acm_certificate_validation
 
 val aws_acm_certificate_validation :
-  ?id:string ->
-  ?validation_record_fqdns:string list ->
+  ?id:string prop ->
+  ?validation_record_fqdns:string prop list ->
   ?timeouts:aws_acm_certificate_validation__timeouts ->
-  certificate_arn:string ->
+  certificate_arn:string prop ->
   string ->
   unit

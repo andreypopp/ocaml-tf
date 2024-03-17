@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_ses_template = {
-  html : string option; [@option]  (** html *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  subject : string option; [@option]  (** subject *)
-  text : string option; [@option]  (** text *)
+  html : string prop option; [@option]  (** html *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  subject : string prop option; [@option]  (** subject *)
+  text : string prop option; [@option]  (** text *)
 }
 [@@deriving yojson_of]
 (** aws_ses_template *)

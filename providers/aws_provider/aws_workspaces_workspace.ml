@@ -5,40 +5,41 @@
 open! Tf.Prelude
 
 type aws_workspaces_workspace__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_workspaces_workspace__timeouts *)
 
 type aws_workspaces_workspace__workspace_properties = {
-  compute_type_name : string option; [@option]
+  compute_type_name : string prop option; [@option]
       (** compute_type_name *)
-  root_volume_size_gib : float option; [@option]
+  root_volume_size_gib : float prop option; [@option]
       (** root_volume_size_gib *)
-  running_mode : string option; [@option]  (** running_mode *)
-  running_mode_auto_stop_timeout_in_minutes : float option; [@option]
+  running_mode : string prop option; [@option]  (** running_mode *)
+  running_mode_auto_stop_timeout_in_minutes : float prop option;
+      [@option]
       (** running_mode_auto_stop_timeout_in_minutes *)
-  user_volume_size_gib : float option; [@option]
+  user_volume_size_gib : float prop option; [@option]
       (** user_volume_size_gib *)
 }
 [@@deriving yojson_of]
 (** aws_workspaces_workspace__workspace_properties *)
 
 type aws_workspaces_workspace = {
-  bundle_id : string;  (** bundle_id *)
-  directory_id : string;  (** directory_id *)
-  id : string option; [@option]  (** id *)
-  root_volume_encryption_enabled : bool option; [@option]
+  bundle_id : string prop;  (** bundle_id *)
+  directory_id : string prop;  (** directory_id *)
+  id : string prop option; [@option]  (** id *)
+  root_volume_encryption_enabled : bool prop option; [@option]
       (** root_volume_encryption_enabled *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user_name : string;  (** user_name *)
-  user_volume_encryption_enabled : bool option; [@option]
+  user_name : string prop;  (** user_name *)
+  user_volume_encryption_enabled : bool prop option; [@option]
       (** user_volume_encryption_enabled *)
-  volume_encryption_key : string option; [@option]
+  volume_encryption_key : string prop option; [@option]
       (** volume_encryption_key *)
   timeouts : aws_workspaces_workspace__timeouts option;
   workspace_properties :

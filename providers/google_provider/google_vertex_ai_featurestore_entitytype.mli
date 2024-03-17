@@ -15,12 +15,12 @@ type google_vertex_ai_featurestore_entitytype__timeouts
 type google_vertex_ai_featurestore_entitytype
 
 val google_vertex_ai_featurestore_entitytype :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
   ?timeouts:google_vertex_ai_featurestore_entitytype__timeouts ->
-  featurestore:string ->
+  featurestore:string prop ->
   monitoring_config:
     google_vertex_ai_featurestore_entitytype__monitoring_config list ->
   string ->

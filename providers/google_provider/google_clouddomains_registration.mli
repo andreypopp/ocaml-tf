@@ -27,14 +27,14 @@ type google_clouddomains_registration__yearly_price
 type google_clouddomains_registration
 
 val google_clouddomains_registration :
-  ?contact_notices:string list ->
-  ?domain_notices:string list ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?contact_notices:string prop list ->
+  ?domain_notices:string prop list ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_clouddomains_registration__timeouts ->
-  domain_name:string ->
-  location:string ->
+  domain_name:string prop ->
+  location:string prop ->
   contact_settings:
     google_clouddomains_registration__contact_settings list ->
   dns_settings:google_clouddomains_registration__dns_settings list ->

@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_ec2_instance_state__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_instance_state__timeouts *)
 
 type aws_ec2_instance_state = {
-  force : bool option; [@option]  (** force *)
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
-  state : string;  (** state *)
+  force : bool prop option; [@option]  (** force *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
+  state : string prop;  (** state *)
   timeouts : aws_ec2_instance_state__timeouts option;
 }
 [@@deriving yojson_of]

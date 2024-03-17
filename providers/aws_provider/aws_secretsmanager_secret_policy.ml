@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_secretsmanager_secret_policy = {
-  block_public_policy : bool option; [@option]
+  block_public_policy : bool prop option; [@option]
       (** block_public_policy *)
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  secret_arn : string;  (** secret_arn *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  secret_arn : string prop;  (** secret_arn *)
 }
 [@@deriving yojson_of]
 (** aws_secretsmanager_secret_policy *)

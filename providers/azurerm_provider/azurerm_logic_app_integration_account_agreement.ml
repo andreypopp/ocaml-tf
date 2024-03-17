@@ -5,39 +5,40 @@
 open! Tf.Prelude
 
 type azurerm_logic_app_integration_account_agreement__guest_identity = {
-  qualifier : string;  (** qualifier *)
-  value : string;  (** value *)
+  qualifier : string prop;  (** qualifier *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_agreement__guest_identity *)
 
 type azurerm_logic_app_integration_account_agreement__host_identity = {
-  qualifier : string;  (** qualifier *)
-  value : string;  (** value *)
+  qualifier : string prop;  (** qualifier *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_agreement__host_identity *)
 
 type azurerm_logic_app_integration_account_agreement__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_agreement__timeouts *)
 
 type azurerm_logic_app_integration_account_agreement = {
-  agreement_type : string;  (** agreement_type *)
-  content : string;  (** content *)
-  guest_partner_name : string;  (** guest_partner_name *)
-  host_partner_name : string;  (** host_partner_name *)
-  id : string option; [@option]  (** id *)
-  integration_account_name : string;  (** integration_account_name *)
-  metadata : (string * string) list option; [@option]
+  agreement_type : string prop;  (** agreement_type *)
+  content : string prop;  (** content *)
+  guest_partner_name : string prop;  (** guest_partner_name *)
+  host_partner_name : string prop;  (** host_partner_name *)
+  id : string prop option; [@option]  (** id *)
+  integration_account_name : string prop;
+      (** integration_account_name *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   guest_identity :
     azurerm_logic_app_integration_account_agreement__guest_identity
     list;

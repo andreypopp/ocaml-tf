@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_iam_access_key = {
-  id : string option; [@option]  (** id *)
-  pgp_key : string option; [@option]  (** pgp_key *)
-  status : string option; [@option]  (** status *)
-  user : string;  (** user *)
+  id : string prop option; [@option]  (** id *)
+  pgp_key : string prop option; [@option]  (** pgp_key *)
+  status : string prop option; [@option]  (** status *)
+  user : string prop;  (** user *)
 }
 [@@deriving yojson_of]
 (** aws_iam_access_key *)

@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_instance_access_control_attributes__attribute__value = {
-  source : string list;  (** source *)
+  source : string prop list;  (** source *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_instance_access_control_attributes__attribute__value *)
 
 type aws_ssoadmin_instance_access_control_attributes__attribute = {
-  key : string;  (** key *)
+  key : string prop;  (** key *)
   value :
     aws_ssoadmin_instance_access_control_attributes__attribute__value
     list;
@@ -20,8 +20,8 @@ type aws_ssoadmin_instance_access_control_attributes__attribute = {
 (** aws_ssoadmin_instance_access_control_attributes__attribute *)
 
 type aws_ssoadmin_instance_access_control_attributes = {
-  id : string option; [@option]  (** id *)
-  instance_arn : string;  (** instance_arn *)
+  id : string prop option; [@option]  (** id *)
+  instance_arn : string prop;  (** instance_arn *)
   attribute :
     aws_ssoadmin_instance_access_control_attributes__attribute list;
 }

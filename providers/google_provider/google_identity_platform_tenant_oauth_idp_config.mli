@@ -6,16 +6,16 @@ type google_identity_platform_tenant_oauth_idp_config__timeouts
 type google_identity_platform_tenant_oauth_idp_config
 
 val google_identity_platform_tenant_oauth_idp_config :
-  ?client_secret:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?project:string ->
+  ?client_secret:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:
     google_identity_platform_tenant_oauth_idp_config__timeouts ->
-  client_id:string ->
-  display_name:string ->
-  issuer:string ->
-  name:string ->
-  tenant:string ->
+  client_id:string prop ->
+  display_name:string prop ->
+  issuer:string prop ->
+  name:string prop ->
+  tenant:string prop ->
   string ->
   unit

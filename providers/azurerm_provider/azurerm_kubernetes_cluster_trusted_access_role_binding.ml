@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_kubernetes_cluster_trusted_access_role_binding__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_trusted_access_role_binding__timeouts *)
 
 type azurerm_kubernetes_cluster_trusted_access_role_binding = {
-  id : string option; [@option]  (** id *)
-  kubernetes_cluster_id : string;  (** kubernetes_cluster_id *)
-  name : string;  (** name *)
-  roles : string list;  (** roles *)
-  source_resource_id : string;  (** source_resource_id *)
+  id : string prop option; [@option]  (** id *)
+  kubernetes_cluster_id : string prop;  (** kubernetes_cluster_id *)
+  name : string prop;  (** name *)
+  roles : string prop list;  (** roles *)
+  source_resource_id : string prop;  (** source_resource_id *)
   timeouts :
     azurerm_kubernetes_cluster_trusted_access_role_binding__timeouts
     option;

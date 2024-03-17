@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_auditmanager_framework_share = {
-  comment : string option; [@option]  (** comment *)
-  destination_account : string;  (** destination_account *)
-  destination_region : string;  (** destination_region *)
-  framework_id : string;  (** framework_id *)
+  comment : string prop option; [@option]  (** comment *)
+  destination_account : string prop;  (** destination_account *)
+  destination_region : string prop;  (** destination_region *)
+  framework_id : string prop;  (** framework_id *)
 }
 [@@deriving yojson_of]
 (** aws_auditmanager_framework_share *)

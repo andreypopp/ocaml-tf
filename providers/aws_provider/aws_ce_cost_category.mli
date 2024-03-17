@@ -25,13 +25,13 @@ type aws_ce_cost_category__split_charge_rule
 type aws_ce_cost_category
 
 val aws_ce_cost_category :
-  ?default_value:string ->
-  ?effective_start:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
-  rule_version:string ->
+  ?default_value:string prop ->
+  ?effective_start:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  rule_version:string prop ->
   rule:aws_ce_cost_category__rule list ->
   split_charge_rule:aws_ce_cost_category__split_charge_rule list ->
   string ->

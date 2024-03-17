@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_ram_resource_share_accepter__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ram_resource_share_accepter__timeouts *)
 
 type aws_ram_resource_share_accepter = {
-  id : string option; [@option]  (** id *)
-  share_arn : string;  (** share_arn *)
+  id : string prop option; [@option]  (** id *)
+  share_arn : string prop;  (** share_arn *)
   timeouts : aws_ram_resource_share_accepter__timeouts option;
 }
 [@@deriving yojson_of]

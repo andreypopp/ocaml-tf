@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_sagemaker_studio_lifecycle_config = {
-  id : string option; [@option]  (** id *)
-  studio_lifecycle_config_app_type : string;
+  id : string prop option; [@option]  (** id *)
+  studio_lifecycle_config_app_type : string prop;
       (** studio_lifecycle_config_app_type *)
-  studio_lifecycle_config_content : string;
+  studio_lifecycle_config_content : string prop;
       (** studio_lifecycle_config_content *)
-  studio_lifecycle_config_name : string;
+  studio_lifecycle_config_name : string prop;
       (** studio_lifecycle_config_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_studio_lifecycle_config *)

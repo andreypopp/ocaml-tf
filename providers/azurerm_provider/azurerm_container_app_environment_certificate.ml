@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_container_app_environment_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_container_app_environment_certificate__timeouts *)
 
 type azurerm_container_app_environment_certificate = {
-  certificate_blob_base64 : string;
+  certificate_blob_base64 : string prop;
       (** The Certificate Private Key as a base64 encoded PFX or PEM. *)
-  certificate_password : string;
+  certificate_password : string prop;
       (** The password for the Certificate. *)
-  container_app_environment_id : string;
+  container_app_environment_id : string prop;
       (** The Container App Managed Environment ID to configure this Certificate on. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The name of the Container Apps Environment Certificate. *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts :
     azurerm_container_app_environment_certificate__timeouts option;
 }

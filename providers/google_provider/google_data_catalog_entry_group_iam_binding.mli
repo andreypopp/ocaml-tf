@@ -6,12 +6,12 @@ type google_data_catalog_entry_group_iam_binding__condition
 type google_data_catalog_entry_group_iam_binding
 
 val google_data_catalog_entry_group_iam_binding :
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
-  entry_group:string ->
-  members:string list ->
-  role:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  entry_group:string prop ->
+  members:string prop list ->
+  role:string prop ->
   condition:
     google_data_catalog_entry_group_iam_binding__condition list ->
   string ->

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_securityhub_member = {
-  account_id : string;  (** account_id *)
-  email : string option; [@option]  (** email *)
-  id : string option; [@option]  (** id *)
-  invite : bool option; [@option]  (** invite *)
+  account_id : string prop;  (** account_id *)
+  email : string prop option; [@option]  (** email *)
+  id : string prop option; [@option]  (** id *)
+  invite : bool prop option; [@option]  (** invite *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_member *)

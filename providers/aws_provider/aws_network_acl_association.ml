@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_network_acl_association = {
-  id : string option; [@option]  (** id *)
-  network_acl_id : string;  (** network_acl_id *)
-  subnet_id : string;  (** subnet_id *)
+  id : string prop option; [@option]  (** id *)
+  network_acl_id : string prop;  (** network_acl_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** aws_network_acl_association *)

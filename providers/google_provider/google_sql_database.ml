@@ -5,39 +5,39 @@
 open! Tf.Prelude
 
 type google_sql_database__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_sql_database__timeouts *)
 
 type google_sql_database = {
-  charset : string option; [@option]
+  charset : string prop option; [@option]
       (** The charset value. See MySQL's
 [Supported Character Sets and Collations](https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html)
 and Postgres' [Character Set Support](https://www.postgresql.org/docs/9.6/static/multibyte.html)
 for more details and supported values. Postgres databases only support
 a value of 'UTF8' at creation time. *)
-  collation : string option; [@option]
+  collation : string prop option; [@option]
       (** The collation value. See MySQL's
 [Supported Character Sets and Collations](https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html)
 and Postgres' [Collation Support](https://www.postgresql.org/docs/9.6/static/collation.html)
 for more details and supported values. Postgres databases only support
 a value of 'en_US.UTF8' at creation time. *)
-  deletion_policy : string option; [@option]
+  deletion_policy : string prop option; [@option]
       (** The deletion policy for the database. Setting ABANDON allows the resource
 to be abandoned rather than deleted. This is useful for Postgres, where databases cannot be
 deleted from the API if there are users other than cloudsqlsuperuser with access. Possible
 values are: ABANDON, DELETE. Defaults to DELETE. *)
-  id : string option; [@option]  (** id *)
-  instance : string;
+  id : string prop option; [@option]  (** id *)
+  instance : string prop;
       (** The name of the Cloud SQL instance. This does not include the project
 ID. *)
-  name : string;
+  name : string prop;
       (** The name of the database in the Cloud SQL instance.
 This does not include the project ID or instance name. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_sql_database__timeouts option;
 }
 [@@deriving yojson_of]

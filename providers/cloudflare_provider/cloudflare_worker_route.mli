@@ -5,9 +5,9 @@ open! Tf.Prelude
 type cloudflare_worker_route
 
 val cloudflare_worker_route :
-  ?id:string ->
-  ?script_name:string ->
-  pattern:string ->
-  zone_id:string ->
+  ?id:string prop ->
+  ?script_name:string prop ->
+  pattern:string prop ->
+  zone_id:string prop ->
   string ->
   unit

@@ -6,11 +6,11 @@ type aws_db_instance_automated_backups_replication__timeouts
 type aws_db_instance_automated_backups_replication
 
 val aws_db_instance_automated_backups_replication :
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?pre_signed_url:string ->
-  ?retention_period:float ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?pre_signed_url:string prop ->
+  ?retention_period:float prop ->
   ?timeouts:aws_db_instance_automated_backups_replication__timeouts ->
-  source_db_instance_arn:string ->
+  source_db_instance_arn:string prop ->
   string ->
   unit

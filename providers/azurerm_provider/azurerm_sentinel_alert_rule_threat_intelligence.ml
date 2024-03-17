@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_alert_rule_threat_intelligence__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_threat_intelligence__timeouts *)
 
 type azurerm_sentinel_alert_rule_threat_intelligence = {
-  alert_rule_template_guid : string;  (** alert_rule_template_guid *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  log_analytics_workspace_id : string;
+  alert_rule_template_guid : string prop;
+      (** alert_rule_template_guid *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   timeouts :
     azurerm_sentinel_alert_rule_threat_intelligence__timeouts option;
 }

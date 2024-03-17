@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type aws_signer_signing_profile__signature_validity_period = {
-  type_ : string; [@key "type"]  (** type *)
-  value : float;  (** value *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_signer_signing_profile__signature_validity_period *)
 
 type aws_signer_signing_profile__signing_material = {
-  certificate_arn : string;  (** certificate_arn *)
+  certificate_arn : string prop;  (** certificate_arn *)
 }
 [@@deriving yojson_of]
 (** aws_signer_signing_profile__signing_material *)
 
 type aws_signer_signing_profile__revocation_record = {
-  revocation_effective_from : string;
+  revocation_effective_from : string prop;
       (** revocation_effective_from *)
-  revoked_at : string;  (** revoked_at *)
-  revoked_by : string;  (** revoked_by *)
+  revoked_at : string prop;  (** revoked_at *)
+  revoked_by : string prop;  (** revoked_by *)
 }
 [@@deriving yojson_of]
 
 type aws_signer_signing_profile = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  platform_id : string;  (** platform_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  platform_id : string prop;  (** platform_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   signature_validity_period :
     aws_signer_signing_profile__signature_validity_period list;

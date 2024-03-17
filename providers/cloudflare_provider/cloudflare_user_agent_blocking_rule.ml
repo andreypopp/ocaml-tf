@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type cloudflare_user_agent_blocking_rule__configuration = {
-  target : string;
+  target : string prop;
       (** The configuration target for this rule. You must set the target to ua for User Agent Blocking rules. *)
-  value : string;
+  value : string prop;
       (** The exact user agent string to match. This value will be compared to the received User-Agent HTTP header value. *)
 }
 [@@deriving yojson_of]
 (** The configuration object for the current rule. *)
 
 type cloudflare_user_agent_blocking_rule = {
-  description : string;  (** An informative summary of the rule. *)
-  id : string option; [@option]  (** id *)
-  mode : string;
+  description : string prop;
+      (** An informative summary of the rule. *)
+  id : string prop option; [@option]  (** id *)
+  mode : string prop;
       (** The action to apply to a matched request. Available values: `block`, `challenge`, `js_challenge`, `managed_challenge`. *)
-  paused : bool;
+  paused : bool prop;
       (** When true, indicates that the rule is currently paused. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   configuration :
     cloudflare_user_agent_blocking_rule__configuration list;

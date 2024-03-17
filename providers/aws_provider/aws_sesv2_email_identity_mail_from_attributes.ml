@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_sesv2_email_identity_mail_from_attributes = {
-  behavior_on_mx_failure : string option; [@option]
+  behavior_on_mx_failure : string prop option; [@option]
       (** behavior_on_mx_failure *)
-  email_identity : string;  (** email_identity *)
-  id : string option; [@option]  (** id *)
-  mail_from_domain : string option; [@option]  (** mail_from_domain *)
+  email_identity : string prop;  (** email_identity *)
+  id : string prop option; [@option]  (** id *)
+  mail_from_domain : string prop option; [@option]
+      (** mail_from_domain *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_email_identity_mail_from_attributes *)

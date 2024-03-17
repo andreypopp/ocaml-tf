@@ -402,12 +402,12 @@ type google_data_loss_prevention_deidentify_template__timeouts
 type google_data_loss_prevention_deidentify_template
 
 val google_data_loss_prevention_deidentify_template :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?template_id:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?template_id:string prop ->
   ?timeouts:google_data_loss_prevention_deidentify_template__timeouts ->
-  parent:string ->
+  parent:string prop ->
   deidentify_config:
     google_data_loss_prevention_deidentify_template__deidentify_config
     list ->

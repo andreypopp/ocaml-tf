@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type aws_kms_key__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_kms_key__timeouts *)
 
 type aws_kms_key = {
-  bypass_policy_lockout_safety_check : bool option; [@option]
+  bypass_policy_lockout_safety_check : bool prop option; [@option]
       (** bypass_policy_lockout_safety_check *)
-  custom_key_store_id : string option; [@option]
+  custom_key_store_id : string prop option; [@option]
       (** custom_key_store_id *)
-  customer_master_key_spec : string option; [@option]
+  customer_master_key_spec : string prop option; [@option]
       (** customer_master_key_spec *)
-  deletion_window_in_days : float option; [@option]
+  deletion_window_in_days : float prop option; [@option]
       (** deletion_window_in_days *)
-  description : string option; [@option]  (** description *)
-  enable_key_rotation : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  enable_key_rotation : bool prop option; [@option]
       (** enable_key_rotation *)
-  id : string option; [@option]  (** id *)
-  is_enabled : bool option; [@option]  (** is_enabled *)
-  key_usage : string option; [@option]  (** key_usage *)
-  multi_region : bool option; [@option]  (** multi_region *)
-  policy : string option; [@option]  (** policy *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  is_enabled : bool prop option; [@option]  (** is_enabled *)
+  key_usage : string prop option; [@option]  (** key_usage *)
+  multi_region : bool prop option; [@option]  (** multi_region *)
+  policy : string prop option; [@option]  (** policy *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  xks_key_id : string option; [@option]  (** xks_key_id *)
+  xks_key_id : string prop option; [@option]  (** xks_key_id *)
   timeouts : aws_kms_key__timeouts option;
 }
 [@@deriving yojson_of]

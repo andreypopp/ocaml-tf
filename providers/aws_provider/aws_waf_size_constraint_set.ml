@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_waf_size_constraint_set__size_constraints__field_to_match = {
-  data : string option; [@option]  (** data *)
-  type_ : string; [@key "type"]  (** type *)
+  data : string prop option; [@option]  (** data *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_waf_size_constraint_set__size_constraints__field_to_match *)
 
 type aws_waf_size_constraint_set__size_constraints = {
-  comparison_operator : string;  (** comparison_operator *)
-  size : float;  (** size *)
-  text_transformation : string;  (** text_transformation *)
+  comparison_operator : string prop;  (** comparison_operator *)
+  size : float prop;  (** size *)
+  text_transformation : string prop;  (** text_transformation *)
   field_to_match :
     aws_waf_size_constraint_set__size_constraints__field_to_match
     list;
@@ -23,8 +23,8 @@ type aws_waf_size_constraint_set__size_constraints = {
 (** aws_waf_size_constraint_set__size_constraints *)
 
 type aws_waf_size_constraint_set = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   size_constraints :
     aws_waf_size_constraint_set__size_constraints list;
 }

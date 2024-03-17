@@ -6,9 +6,9 @@ type azurerm_virtual_network_dns_servers__timeouts
 type azurerm_virtual_network_dns_servers
 
 val azurerm_virtual_network_dns_servers :
-  ?dns_servers:string list ->
-  ?id:string ->
+  ?dns_servers:string prop list ->
+  ?id:string prop ->
   ?timeouts:azurerm_virtual_network_dns_servers__timeouts ->
-  virtual_network_id:string ->
+  virtual_network_id:string prop ->
   string ->
   unit

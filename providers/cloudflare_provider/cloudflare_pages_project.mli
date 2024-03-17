@@ -20,10 +20,10 @@ type cloudflare_pages_project__source
 type cloudflare_pages_project
 
 val cloudflare_pages_project :
-  ?id:string ->
-  account_id:string ->
-  name:string ->
-  production_branch:string ->
+  ?id:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  production_branch:string prop ->
   build_config:cloudflare_pages_project__build_config list ->
   deployment_configs:
     cloudflare_pages_project__deployment_configs list ->

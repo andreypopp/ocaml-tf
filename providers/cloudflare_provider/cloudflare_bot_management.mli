@@ -5,16 +5,16 @@ open! Tf.Prelude
 type cloudflare_bot_management
 
 val cloudflare_bot_management :
-  ?auto_update_model:bool ->
-  ?enable_js:bool ->
-  ?fight_mode:bool ->
-  ?id:string ->
-  ?optimize_wordpress:bool ->
-  ?sbfm_definitely_automated:string ->
-  ?sbfm_likely_automated:string ->
-  ?sbfm_static_resource_protection:bool ->
-  ?sbfm_verified_bots:string ->
-  ?suppress_session_score:bool ->
-  zone_id:string ->
+  ?auto_update_model:bool prop ->
+  ?enable_js:bool prop ->
+  ?fight_mode:bool prop ->
+  ?id:string prop ->
+  ?optimize_wordpress:bool prop ->
+  ?sbfm_definitely_automated:string prop ->
+  ?sbfm_likely_automated:string prop ->
+  ?sbfm_static_resource_protection:bool prop ->
+  ?sbfm_verified_bots:string prop ->
+  ?suppress_session_score:bool prop ->
+  zone_id:string prop ->
   string ->
   unit

@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_api_gateway_account__throttle_settings = {
-  burst_limit : float;  (** burst_limit *)
-  rate_limit : float;  (** rate_limit *)
+  burst_limit : float prop;  (** burst_limit *)
+  rate_limit : float prop;  (** rate_limit *)
 }
 [@@deriving yojson_of]
 
 type aws_api_gateway_account = {
-  cloudwatch_role_arn : string option; [@option]
+  cloudwatch_role_arn : string prop option; [@option]
       (** cloudwatch_role_arn *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_account *)

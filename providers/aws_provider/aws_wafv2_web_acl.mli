@@ -17787,13 +17787,13 @@ type aws_wafv2_web_acl__visibility_config
 type aws_wafv2_web_acl
 
 val aws_wafv2_web_acl :
-    ?description:string ->
-    ?id:string ->
-    ?tags:(string * string) list ->
-    ?tags_all:(string * string) list ->
-    ?token_domains:string list ->
-    name:string ->
-    scope:string ->
+    ?description:string prop ->
+    ?id:string prop ->
+    ?tags:(string * string prop) list ->
+    ?tags_all:(string * string prop) list ->
+    ?token_domains:string prop list ->
+    name:string prop ->
+    scope:string prop ->
     association_config:aws_wafv2_web_acl__association_config list ->
     captcha_config:aws_wafv2_web_acl__captcha_config list ->
     challenge_config:aws_wafv2_web_acl__challenge_config list ->

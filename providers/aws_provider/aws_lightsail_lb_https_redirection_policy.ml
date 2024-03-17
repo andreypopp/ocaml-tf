@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_lightsail_lb_https_redirection_policy = {
-  enabled : bool;  (** enabled *)
-  id : string option; [@option]  (** id *)
-  lb_name : string;  (** lb_name *)
+  enabled : bool prop;  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  lb_name : string prop;  (** lb_name *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_lb_https_redirection_policy *)

@@ -5,39 +5,40 @@
 open! Tf.Prelude
 
 type aws_sfn_state_machine__logging_configuration = {
-  include_execution_data : bool option; [@option]
+  include_execution_data : bool prop option; [@option]
       (** include_execution_data *)
-  level : string option; [@option]  (** level *)
-  log_destination : string option; [@option]  (** log_destination *)
+  level : string prop option; [@option]  (** level *)
+  log_destination : string prop option; [@option]
+      (** log_destination *)
 }
 [@@deriving yojson_of]
 (** aws_sfn_state_machine__logging_configuration *)
 
 type aws_sfn_state_machine__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_sfn_state_machine__timeouts *)
 
 type aws_sfn_state_machine__tracing_configuration = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_sfn_state_machine__tracing_configuration *)
 
 type aws_sfn_state_machine = {
-  definition : string;  (** definition *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  publish : bool option; [@option]  (** publish *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  definition : string prop;  (** definition *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  publish : bool prop option; [@option]  (** publish *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   logging_configuration :
     aws_sfn_state_machine__logging_configuration list;
   timeouts : aws_sfn_state_machine__timeouts option;

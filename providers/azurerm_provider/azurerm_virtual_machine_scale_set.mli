@@ -39,22 +39,22 @@ type azurerm_virtual_machine_scale_set__timeouts
 type azurerm_virtual_machine_scale_set
 
 val azurerm_virtual_machine_scale_set :
-  ?automatic_os_upgrade:bool ->
-  ?eviction_policy:string ->
-  ?health_probe_id:string ->
-  ?id:string ->
-  ?license_type:string ->
-  ?overprovision:bool ->
-  ?priority:string ->
-  ?proximity_placement_group_id:string ->
-  ?single_placement_group:bool ->
-  ?tags:(string * string) list ->
-  ?zones:string list ->
+  ?automatic_os_upgrade:bool prop ->
+  ?eviction_policy:string prop ->
+  ?health_probe_id:string prop ->
+  ?id:string prop ->
+  ?license_type:string prop ->
+  ?overprovision:bool prop ->
+  ?priority:string prop ->
+  ?proximity_placement_group_id:string prop ->
+  ?single_placement_group:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_virtual_machine_scale_set__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  upgrade_policy_mode:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  upgrade_policy_mode:string prop ->
   boot_diagnostics:
     azurerm_virtual_machine_scale_set__boot_diagnostics list ->
   extension:azurerm_virtual_machine_scale_set__extension list ->

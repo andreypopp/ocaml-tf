@@ -35,22 +35,22 @@ type google_monitoring_alert_policy__documentation
 type google_monitoring_alert_policy__timeouts
 
 type google_monitoring_alert_policy__creation_record = {
-  mutate_time : string;  (** mutate_time *)
-  mutated_by : string;  (** mutated_by *)
+  mutate_time : string prop;  (** mutate_time *)
+  mutated_by : string prop;  (** mutated_by *)
 }
 
 type google_monitoring_alert_policy
 
 val google_monitoring_alert_policy :
-  ?enabled:bool ->
-  ?id:string ->
-  ?notification_channels:string list ->
-  ?project:string ->
-  ?severity:string ->
-  ?user_labels:(string * string) list ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?notification_channels:string prop list ->
+  ?project:string prop ->
+  ?severity:string prop ->
+  ?user_labels:(string * string prop) list ->
   ?timeouts:google_monitoring_alert_policy__timeouts ->
-  combiner:string ->
-  display_name:string ->
+  combiner:string prop ->
+  display_name:string prop ->
   alert_strategy:google_monitoring_alert_policy__alert_strategy list ->
   conditions:google_monitoring_alert_policy__conditions list ->
   documentation:google_monitoring_alert_policy__documentation list ->

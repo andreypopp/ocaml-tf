@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type azurerm_monitor_scheduled_query_rules_log__criteria__dimension = {
-  name : string;  (** name *)
-  operator : string option; [@option]  (** operator *)
-  values : string list;  (** values *)
+  name : string prop;  (** name *)
+  operator : string prop option; [@option]  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_scheduled_query_rules_log__criteria__dimension *)
 
 type azurerm_monitor_scheduled_query_rules_log__criteria = {
-  metric_name : string;  (** metric_name *)
+  metric_name : string prop;  (** metric_name *)
   dimension :
     azurerm_monitor_scheduled_query_rules_log__criteria__dimension
     list;
@@ -22,25 +22,25 @@ type azurerm_monitor_scheduled_query_rules_log__criteria = {
 (** azurerm_monitor_scheduled_query_rules_log__criteria *)
 
 type azurerm_monitor_scheduled_query_rules_log__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_scheduled_query_rules_log__timeouts *)
 
 type azurerm_monitor_scheduled_query_rules_log = {
-  authorized_resource_ids : string list option; [@option]
+  authorized_resource_ids : string prop list option; [@option]
       (** authorized_resource_ids *)
-  data_source_id : string;  (** data_source_id *)
-  description : string option; [@option]  (** description *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  data_source_id : string prop;  (** data_source_id *)
+  description : string prop option; [@option]  (** description *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   criteria :
     azurerm_monitor_scheduled_query_rules_log__criteria list;
   timeouts :

@@ -6,11 +6,11 @@ type aws_athena_prepared_statement__timeouts
 type aws_athena_prepared_statement
 
 val aws_athena_prepared_statement :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:aws_athena_prepared_statement__timeouts ->
-  name:string ->
-  query_statement:string ->
-  workgroup:string ->
+  name:string prop ->
+  query_statement:string prop ->
+  workgroup:string prop ->
   string ->
   unit

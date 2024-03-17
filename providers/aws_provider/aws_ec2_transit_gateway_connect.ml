@@ -5,27 +5,28 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_connect__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway_connect__timeouts *)
 
 type aws_ec2_transit_gateway_connect = {
-  id : string option; [@option]  (** id *)
-  protocol : string option; [@option]  (** protocol *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  protocol : string prop option; [@option]  (** protocol *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  transit_gateway_default_route_table_association : bool option;
+  transit_gateway_default_route_table_association : bool prop option;
       [@option]
       (** transit_gateway_default_route_table_association *)
-  transit_gateway_default_route_table_propagation : bool option;
+  transit_gateway_default_route_table_propagation : bool prop option;
       [@option]
       (** transit_gateway_default_route_table_propagation *)
-  transit_gateway_id : string;  (** transit_gateway_id *)
-  transport_attachment_id : string;  (** transport_attachment_id *)
+  transit_gateway_id : string prop;  (** transit_gateway_id *)
+  transport_attachment_id : string prop;
+      (** transport_attachment_id *)
   timeouts : aws_ec2_transit_gateway_connect__timeouts option;
 }
 [@@deriving yojson_of]

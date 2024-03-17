@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type google_vmwareengine_network__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_network__timeouts *)
 
 type google_vmwareengine_network__vpc_networks = {
-  network : string;  (** network *)
-  type_ : string; [@key "type"]  (** type *)
+  network : string prop;  (** network *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
 type google_vmwareengine_network = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** User-provided description for this VMware Engine network. *)
-  id : string option; [@option]  (** id *)
-  location : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;
       (** The location where the VMwareEngineNetwork should reside. *)
-  name : string;  (** The ID of the VMwareEngineNetwork. *)
-  project : string option; [@option]  (** project *)
-  type_ : string; [@key "type"]
+  name : string prop;  (** The ID of the VMwareEngineNetwork. *)
+  project : string prop option; [@option]  (** project *)
+  type_ : string prop; [@key "type"]
       (** VMware Engine network type. Possible values: [LEGACY, STANDARD] *)
   timeouts : google_vmwareengine_network__timeouts option;
 }

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_ecr_repository_policy = {
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  repository : string;  (** repository *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  repository : string prop;  (** repository *)
 }
 [@@deriving yojson_of]
 (** aws_ecr_repository_policy *)

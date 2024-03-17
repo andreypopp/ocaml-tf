@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_databricks_virtual_network_peering__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_databricks_virtual_network_peering__timeouts *)
 
 type azurerm_databricks_virtual_network_peering = {
-  allow_forwarded_traffic : bool option; [@option]
+  allow_forwarded_traffic : bool prop option; [@option]
       (** allow_forwarded_traffic *)
-  allow_gateway_transit : bool option; [@option]
+  allow_gateway_transit : bool prop option; [@option]
       (** allow_gateway_transit *)
-  allow_virtual_network_access : bool option; [@option]
+  allow_virtual_network_access : bool prop option; [@option]
       (** allow_virtual_network_access *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  remote_address_space_prefixes : string list;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  remote_address_space_prefixes : string prop list;
       (** remote_address_space_prefixes *)
-  remote_virtual_network_id : string;
+  remote_virtual_network_id : string prop;
       (** remote_virtual_network_id *)
-  resource_group_name : string;  (** resource_group_name *)
-  use_remote_gateways : bool option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  use_remote_gateways : bool prop option; [@option]
       (** use_remote_gateways *)
-  workspace_id : string;  (** workspace_id *)
+  workspace_id : string prop;  (** workspace_id *)
   timeouts :
     azurerm_databricks_virtual_network_peering__timeouts option;
 }

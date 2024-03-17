@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_compute_packet_mirroring__collector_ilb = {
-  url : string;  (** The URL of the forwarding rule. *)
+  url : string prop;  (** The URL of the forwarding rule. *)
 }
 [@@deriving yojson_of]
 (** The Forwarding Rule resource (of type load_balancing_scheme=INTERNAL)
@@ -14,33 +14,33 @@ specified forwarding rule must have is_mirroring_collector
 set to true. *)
 
 type google_compute_packet_mirroring__filter = {
-  cidr_ranges : string list option; [@option]
+  cidr_ranges : string prop list option; [@option]
       (** IP CIDR ranges that apply as a filter on the source (ingress) or
 destination (egress) IP in the IP header. Only IPv4 is supported. *)
-  direction : string option; [@option]
+  direction : string prop option; [@option]
       (** Direction of traffic to mirror. Default value: BOTH Possible values: [INGRESS, EGRESS, BOTH] *)
-  ip_protocols : string list option; [@option]
+  ip_protocols : string prop list option; [@option]
       (** Possible IP protocols including tcp, udp, icmp and esp *)
 }
 [@@deriving yojson_of]
 (** A filter for mirrored traffic.  If unset, all traffic is mirrored. *)
 
 type google_compute_packet_mirroring__mirrored_resources__instances = {
-  url : string;
+  url : string prop;
       (** The URL of the instances where this rule should be active. *)
 }
 [@@deriving yojson_of]
 (** All the listed instances will be mirrored.  Specify at most 50. *)
 
 type google_compute_packet_mirroring__mirrored_resources__subnetworks = {
-  url : string;
+  url : string prop;
       (** The URL of the subnetwork where this rule should be active. *)
 }
 [@@deriving yojson_of]
 (** All instances in one of these subnetworks will be mirrored. *)
 
 type google_compute_packet_mirroring__mirrored_resources = {
-  tags : string list option; [@option]
+  tags : string prop list option; [@option]
       (** All instances with these tags will be mirrored. *)
   instances :
     google_compute_packet_mirroring__mirrored_resources__instances
@@ -53,7 +53,7 @@ type google_compute_packet_mirroring__mirrored_resources = {
 (** A means of specifying which resources to mirror. *)
 
 type google_compute_packet_mirroring__network = {
-  url : string;
+  url : string prop;
       (** The full self_link URL of the network where this rule is active. *)
 }
 [@@deriving yojson_of]
@@ -62,24 +62,24 @@ will be mirrored. All mirrored VMs should have a NIC in the given
 network. All mirrored subnetworks should belong to the given network. *)
 
 type google_compute_packet_mirroring__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_packet_mirroring__timeouts *)
 
 type google_compute_packet_mirroring = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A human-readable description of the rule. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The name of the packet mirroring rule *)
-  priority : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The name of the packet mirroring rule *)
+  priority : float prop option; [@option]
       (** Since only one rule can be active at a time, priority is
 used to break ties in the case of two rules that apply to
 the same instances. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** The Region in which the created address should reside.
 If it is not provided, the provider region is used. *)
   collector_ilb :

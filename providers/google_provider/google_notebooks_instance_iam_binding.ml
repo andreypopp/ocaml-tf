@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_notebooks_instance_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_notebooks_instance_iam_binding__condition *)
 
 type google_notebooks_instance_iam_binding = {
-  id : string option; [@option]  (** id *)
-  instance_name : string;  (** instance_name *)
-  location : string option; [@option]  (** location *)
-  members : string list;  (** members *)
-  project : string option; [@option]  (** project *)
-  role : string;  (** role *)
+  id : string prop option; [@option]  (** id *)
+  instance_name : string prop;  (** instance_name *)
+  location : string prop option; [@option]  (** location *)
+  members : string prop list;  (** members *)
+  project : string prop option; [@option]  (** project *)
+  role : string prop;  (** role *)
   condition : google_notebooks_instance_iam_binding__condition list;
 }
 [@@deriving yojson_of]

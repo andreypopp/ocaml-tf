@@ -38,22 +38,22 @@ type google_database_migration_service_connection_profile__postgresql
 type google_database_migration_service_connection_profile__timeouts
 
 type google_database_migration_service_connection_profile__error = {
-  code : float;  (** code *)
-  details : (string * string) list list;  (** details *)
-  message : string;  (** message *)
+  code : float prop;  (** code *)
+  details : (string * string prop) list list;  (** details *)
+  message : string prop;  (** message *)
 }
 
 type google_database_migration_service_connection_profile
 
 val google_database_migration_service_connection_profile :
-  ?display_name:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?location:string ->
-  ?project:string ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?project:string prop ->
   ?timeouts:
     google_database_migration_service_connection_profile__timeouts ->
-  connection_profile_id:string ->
+  connection_profile_id:string prop ->
   alloydb:
     google_database_migration_service_connection_profile__alloydb
     list ->

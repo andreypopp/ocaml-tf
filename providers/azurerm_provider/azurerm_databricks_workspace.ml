@@ -5,85 +5,90 @@
 open! Tf.Prelude
 
 type azurerm_databricks_workspace__custom_parameters = {
-  machine_learning_workspace_id : string option; [@option]
+  machine_learning_workspace_id : string prop option; [@option]
       (** machine_learning_workspace_id *)
-  nat_gateway_name : string option; [@option]
+  nat_gateway_name : string prop option; [@option]
       (** nat_gateway_name *)
-  no_public_ip : bool option; [@option]  (** no_public_ip *)
-  private_subnet_name : string option; [@option]
+  no_public_ip : bool prop option; [@option]  (** no_public_ip *)
+  private_subnet_name : string prop option; [@option]
       (** private_subnet_name *)
   private_subnet_network_security_group_association_id :
-    string option;
+    string prop option;
       [@option]
       (** private_subnet_network_security_group_association_id *)
-  public_ip_name : string option; [@option]  (** public_ip_name *)
-  public_subnet_name : string option; [@option]
+  public_ip_name : string prop option; [@option]
+      (** public_ip_name *)
+  public_subnet_name : string prop option; [@option]
       (** public_subnet_name *)
   public_subnet_network_security_group_association_id :
-    string option;
+    string prop option;
       [@option]
       (** public_subnet_network_security_group_association_id *)
-  storage_account_name : string option; [@option]
+  storage_account_name : string prop option; [@option]
       (** storage_account_name *)
-  storage_account_sku_name : string option; [@option]
+  storage_account_sku_name : string prop option; [@option]
       (** storage_account_sku_name *)
-  virtual_network_id : string option; [@option]
+  virtual_network_id : string prop option; [@option]
       (** virtual_network_id *)
-  vnet_address_prefix : string option; [@option]
+  vnet_address_prefix : string prop option; [@option]
       (** vnet_address_prefix *)
 }
 [@@deriving yojson_of]
 (** azurerm_databricks_workspace__custom_parameters *)
 
 type azurerm_databricks_workspace__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_databricks_workspace__timeouts *)
 
 type azurerm_databricks_workspace__managed_disk_identity = {
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
 type azurerm_databricks_workspace__storage_account_identity = {
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
 type azurerm_databricks_workspace = {
-  customer_managed_key_enabled : bool option; [@option]
+  customer_managed_key_enabled : bool prop option; [@option]
       (** customer_managed_key_enabled *)
-  id : string option; [@option]  (** id *)
-  infrastructure_encryption_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  infrastructure_encryption_enabled : bool prop option; [@option]
       (** infrastructure_encryption_enabled *)
-  load_balancer_backend_address_pool_id : string option; [@option]
+  load_balancer_backend_address_pool_id : string prop option;
+      [@option]
       (** load_balancer_backend_address_pool_id *)
-  location : string;  (** location *)
-  managed_disk_cmk_key_vault_key_id : string option; [@option]
+  location : string prop;  (** location *)
+  managed_disk_cmk_key_vault_key_id : string prop option; [@option]
       (** managed_disk_cmk_key_vault_key_id *)
-  managed_disk_cmk_rotation_to_latest_version_enabled : bool option;
+  managed_disk_cmk_rotation_to_latest_version_enabled :
+    bool prop option;
       [@option]
       (** managed_disk_cmk_rotation_to_latest_version_enabled *)
-  managed_resource_group_name : string option; [@option]
+  managed_resource_group_name : string prop option; [@option]
       (** managed_resource_group_name *)
-  managed_services_cmk_key_vault_key_id : string option; [@option]
+  managed_services_cmk_key_vault_key_id : string prop option;
+      [@option]
       (** managed_services_cmk_key_vault_key_id *)
-  name : string;  (** name *)
-  network_security_group_rules_required : string option; [@option]
+  name : string prop;  (** name *)
+  network_security_group_rules_required : string prop option;
+      [@option]
       (** network_security_group_rules_required *)
-  public_network_access_enabled : bool option; [@option]
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku : string;  (** sku *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku : string prop;  (** sku *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   custom_parameters :
     azurerm_databricks_workspace__custom_parameters list;
   timeouts : azurerm_databricks_workspace__timeouts option;

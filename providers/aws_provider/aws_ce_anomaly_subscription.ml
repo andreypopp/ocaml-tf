@@ -5,32 +5,35 @@
 open! Tf.Prelude
 
 type aws_ce_anomaly_subscription__subscriber = {
-  address : string;  (** address *)
-  type_ : string; [@key "type"]  (** type *)
+  address : string prop;  (** address *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__subscriber *)
 
 type aws_ce_anomaly_subscription__threshold_expression__and__cost_category = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__and__cost_category *)
 
 type aws_ce_anomaly_subscription__threshold_expression__and__dimension = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__and__dimension *)
 
 type aws_ce_anomaly_subscription__threshold_expression__and__tags = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__and__tags *)
@@ -49,41 +52,46 @@ type aws_ce_anomaly_subscription__threshold_expression__and = {
 (** aws_ce_anomaly_subscription__threshold_expression__and *)
 
 type aws_ce_anomaly_subscription__threshold_expression__cost_category = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__cost_category *)
 
 type aws_ce_anomaly_subscription__threshold_expression__dimension = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__dimension *)
 
 type aws_ce_anomaly_subscription__threshold_expression__not__cost_category = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__not__cost_category *)
 
 type aws_ce_anomaly_subscription__threshold_expression__not__dimension = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__not__dimension *)
 
 type aws_ce_anomaly_subscription__threshold_expression__not__tags = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__not__tags *)
@@ -102,25 +110,28 @@ type aws_ce_anomaly_subscription__threshold_expression__not = {
 (** aws_ce_anomaly_subscription__threshold_expression__not *)
 
 type aws_ce_anomaly_subscription__threshold_expression__or__cost_category = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__or__cost_category *)
 
 type aws_ce_anomaly_subscription__threshold_expression__or__dimension = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__or__dimension *)
 
 type aws_ce_anomaly_subscription__threshold_expression__or__tags = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__or__tags *)
@@ -139,9 +150,10 @@ type aws_ce_anomaly_subscription__threshold_expression__or = {
 (** aws_ce_anomaly_subscription__threshold_expression__or *)
 
 type aws_ce_anomaly_subscription__threshold_expression__tags = {
-  key : string option; [@option]  (** key *)
-  match_options : string list option; [@option]  (** match_options *)
-  values : string list option; [@option]  (** values *)
+  key : string prop option; [@option]  (** key *)
+  match_options : string prop list option; [@option]
+      (** match_options *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ce_anomaly_subscription__threshold_expression__tags *)
@@ -161,13 +173,13 @@ type aws_ce_anomaly_subscription__threshold_expression = {
 (** aws_ce_anomaly_subscription__threshold_expression *)
 
 type aws_ce_anomaly_subscription = {
-  account_id : string option; [@option]  (** account_id *)
-  frequency : string;  (** frequency *)
-  id : string option; [@option]  (** id *)
-  monitor_arn_list : string list;  (** monitor_arn_list *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  account_id : string prop option; [@option]  (** account_id *)
+  frequency : string prop;  (** frequency *)
+  id : string prop option; [@option]  (** id *)
+  monitor_arn_list : string prop list;  (** monitor_arn_list *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   subscriber : aws_ce_anomaly_subscription__subscriber list;
   threshold_expression :

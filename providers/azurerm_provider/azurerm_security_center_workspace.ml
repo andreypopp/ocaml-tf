@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_security_center_workspace__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_workspace__timeouts *)
 
 type azurerm_security_center_workspace = {
-  id : string option; [@option]  (** id *)
-  scope : string;  (** scope *)
-  workspace_id : string;  (** workspace_id *)
+  id : string prop option; [@option]  (** id *)
+  scope : string prop;  (** scope *)
+  workspace_id : string prop;  (** workspace_id *)
   timeouts : azurerm_security_center_workspace__timeouts option;
 }
 [@@deriving yojson_of]

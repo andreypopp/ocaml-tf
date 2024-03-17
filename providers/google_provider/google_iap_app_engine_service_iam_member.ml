@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_iap_app_engine_service_iam_member__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_iap_app_engine_service_iam_member__condition *)
 
 type google_iap_app_engine_service_iam_member = {
-  app_id : string;  (** app_id *)
-  id : string option; [@option]  (** id *)
-  member : string;  (** member *)
-  project : string option; [@option]  (** project *)
-  role : string;  (** role *)
-  service : string;  (** service *)
+  app_id : string prop;  (** app_id *)
+  id : string prop option; [@option]  (** id *)
+  member : string prop;  (** member *)
+  project : string prop option; [@option]  (** project *)
+  role : string prop;  (** role *)
+  service : string prop;  (** service *)
   condition :
     google_iap_app_engine_service_iam_member__condition list;
 }

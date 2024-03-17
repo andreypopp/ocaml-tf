@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_gke_hub_fleet__default_cluster_config__binary_authorization_config__policy_bindings = {
-  name : string option; [@option]
+  name : string prop option; [@option]
       (** The relative resource name of the binauthz platform policy to audit. GKE
 platform policies have the following format:
 'projects/{project_number}/platforms/gke/policies/{policy_id}'. *)
@@ -14,7 +14,7 @@ platform policies have the following format:
 (** Binauthz policies that apply to this cluster. *)
 
 type google_gke_hub_fleet__default_cluster_config__binary_authorization_config = {
-  evaluation_mode : string option; [@option]
+  evaluation_mode : string prop option; [@option]
       (** Mode of operation for binauthz policy evaluation. Possible values: [DISABLED, POLICY_BINDINGS] *)
   policy_bindings :
     google_gke_hub_fleet__default_cluster_config__binary_authorization_config__policy_bindings
@@ -24,9 +24,9 @@ type google_gke_hub_fleet__default_cluster_config__binary_authorization_config =
 (** Enable/Disable binary authorization features for the cluster. *)
 
 type google_gke_hub_fleet__default_cluster_config__security_posture_config = {
-  mode : string option; [@option]
+  mode : string prop option; [@option]
       (** Sets which mode to use for Security Posture features. Possible values: [DISABLED, BASIC] *)
-  vulnerability_mode : string option; [@option]
+  vulnerability_mode : string prop option; [@option]
       (** Sets which mode to use for vulnerability scanning. Possible values: [VULNERABILITY_DISABLED, VULNERABILITY_BASIC, VULNERABILITY_ENTERPRISE] *)
 }
 [@@deriving yojson_of]
@@ -44,22 +44,24 @@ type google_gke_hub_fleet__default_cluster_config = {
 (** The default cluster configurations to apply across the fleet. *)
 
 type google_gke_hub_fleet__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_gke_hub_fleet__timeouts *)
 
-type google_gke_hub_fleet__state = { code : string  (** code *) }
+type google_gke_hub_fleet__state = {
+  code : string prop;  (** code *)
+}
 [@@deriving yojson_of]
 
 type google_gke_hub_fleet = {
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** A user-assigned display name of the Fleet. When present, it must be between 4 to 30 characters.
 Allowed characters are: lowercase and uppercase letters, numbers, hyphen, single-quote, double-quote, space, and exclamation point. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
   default_cluster_config :
     google_gke_hub_fleet__default_cluster_config list;
   timeouts : google_gke_hub_fleet__timeouts option;

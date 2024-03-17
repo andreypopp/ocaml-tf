@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type azurerm_virtual_desktop_host_pool__scheduled_agent_updates__schedule = {
-  day_of_week : string;  (** day_of_week *)
-  hour_of_day : float;  (** hour_of_day *)
+  day_of_week : string prop;  (** day_of_week *)
+  hour_of_day : float prop;  (** hour_of_day *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_host_pool__scheduled_agent_updates__schedule *)
 
 type azurerm_virtual_desktop_host_pool__scheduled_agent_updates = {
-  enabled : bool option; [@option]  (** enabled *)
-  timezone : string option; [@option]  (** timezone *)
-  use_session_host_timezone : bool option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  timezone : string prop option; [@option]  (** timezone *)
+  use_session_host_timezone : bool prop option; [@option]
       (** use_session_host_timezone *)
   schedule :
     azurerm_virtual_desktop_host_pool__scheduled_agent_updates__schedule
@@ -24,37 +24,37 @@ type azurerm_virtual_desktop_host_pool__scheduled_agent_updates = {
 (** azurerm_virtual_desktop_host_pool__scheduled_agent_updates *)
 
 type azurerm_virtual_desktop_host_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_host_pool__timeouts *)
 
 type azurerm_virtual_desktop_host_pool = {
-  custom_rdp_properties : string option; [@option]
+  custom_rdp_properties : string prop option; [@option]
       (** custom_rdp_properties *)
-  description : string option; [@option]  (** description *)
-  friendly_name : string option; [@option]  (** friendly_name *)
-  id : string option; [@option]  (** id *)
-  load_balancer_type : string;  (** load_balancer_type *)
-  location : string;  (** location *)
-  maximum_sessions_allowed : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  friendly_name : string prop option; [@option]  (** friendly_name *)
+  id : string prop option; [@option]  (** id *)
+  load_balancer_type : string prop;  (** load_balancer_type *)
+  location : string prop;  (** location *)
+  maximum_sessions_allowed : float prop option; [@option]
       (** maximum_sessions_allowed *)
-  name : string;  (** name *)
-  personal_desktop_assignment_type : string option; [@option]
+  name : string prop;  (** name *)
+  personal_desktop_assignment_type : string prop option; [@option]
       (** personal_desktop_assignment_type *)
-  preferred_app_group_type : string option; [@option]
+  preferred_app_group_type : string prop option; [@option]
       (** Preferred App Group type to display *)
-  resource_group_name : string;  (** resource_group_name *)
-  start_vm_on_connect : bool option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  start_vm_on_connect : bool prop option; [@option]
       (** start_vm_on_connect *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  type_ : string; [@key "type"]  (** type *)
-  validate_environment : bool option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  type_ : string prop; [@key "type"]  (** type *)
+  validate_environment : bool prop option; [@option]
       (** validate_environment *)
-  vm_template : string option; [@option]  (** vm_template *)
+  vm_template : string prop option; [@option]  (** vm_template *)
   scheduled_agent_updates :
     azurerm_virtual_desktop_host_pool__scheduled_agent_updates list;
   timeouts : azurerm_virtual_desktop_host_pool__timeouts option;

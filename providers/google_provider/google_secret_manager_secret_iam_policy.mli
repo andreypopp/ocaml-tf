@@ -5,9 +5,9 @@ open! Tf.Prelude
 type google_secret_manager_secret_iam_policy
 
 val google_secret_manager_secret_iam_policy :
-  ?id:string ->
-  ?project:string ->
-  policy_data:string ->
-  secret_id:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  policy_data:string prop ->
+  secret_id:string prop ->
   string ->
   unit

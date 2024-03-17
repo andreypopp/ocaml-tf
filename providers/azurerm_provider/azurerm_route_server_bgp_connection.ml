@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_route_server_bgp_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_route_server_bgp_connection__timeouts *)
 
 type azurerm_route_server_bgp_connection = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  peer_asn : float;  (** peer_asn *)
-  peer_ip : string;  (** peer_ip *)
-  route_server_id : string;  (** route_server_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  peer_asn : float prop;  (** peer_asn *)
+  peer_ip : string prop;  (** peer_ip *)
+  route_server_id : string prop;  (** route_server_id *)
   timeouts : azurerm_route_server_bgp_connection__timeouts option;
 }
 [@@deriving yojson_of]

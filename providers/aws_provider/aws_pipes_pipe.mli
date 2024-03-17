@@ -95,18 +95,18 @@ type aws_pipes_pipe__timeouts
 type aws_pipes_pipe
 
 val aws_pipes_pipe :
-  ?description:string ->
-  ?desired_state:string ->
-  ?enrichment:string ->
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?desired_state:string prop ->
+  ?enrichment:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_pipes_pipe__timeouts ->
-  role_arn:string ->
-  source:string ->
-  target:string ->
+  role_arn:string prop ->
+  source:string prop ->
+  target:string prop ->
   enrichment_parameters:aws_pipes_pipe__enrichment_parameters list ->
   source_parameters:aws_pipes_pipe__source_parameters list ->
   target_parameters:aws_pipes_pipe__target_parameters list ->

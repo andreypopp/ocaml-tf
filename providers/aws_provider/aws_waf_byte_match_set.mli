@@ -7,8 +7,8 @@ type aws_waf_byte_match_set__byte_match_tuples
 type aws_waf_byte_match_set
 
 val aws_waf_byte_match_set :
-  ?id:string ->
-  name:string ->
+  ?id:string prop ->
+  name:string prop ->
   byte_match_tuples:aws_waf_byte_match_set__byte_match_tuples list ->
   string ->
   unit

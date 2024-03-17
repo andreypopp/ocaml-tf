@@ -5,18 +5,20 @@
 open! Tf.Prelude
 
 type aws_autoscaling_lifecycle_hook = {
-  autoscaling_group_name : string;  (** autoscaling_group_name *)
-  default_result : string option; [@option]  (** default_result *)
-  heartbeat_timeout : float option; [@option]
+  autoscaling_group_name : string prop;
+      (** autoscaling_group_name *)
+  default_result : string prop option; [@option]
+      (** default_result *)
+  heartbeat_timeout : float prop option; [@option]
       (** heartbeat_timeout *)
-  id : string option; [@option]  (** id *)
-  lifecycle_transition : string;  (** lifecycle_transition *)
-  name : string;  (** name *)
-  notification_metadata : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  lifecycle_transition : string prop;  (** lifecycle_transition *)
+  name : string prop;  (** name *)
+  notification_metadata : string prop option; [@option]
       (** notification_metadata *)
-  notification_target_arn : string option; [@option]
+  notification_target_arn : string prop option; [@option]
       (** notification_target_arn *)
-  role_arn : string option; [@option]  (** role_arn *)
+  role_arn : string prop option; [@option]  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_lifecycle_hook *)

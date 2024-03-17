@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_iam_service_specific_credential = {
-  id : string option; [@option]  (** id *)
-  service_name : string;  (** service_name *)
-  status : string option; [@option]  (** status *)
-  user_name : string;  (** user_name *)
+  id : string prop option; [@option]  (** id *)
+  service_name : string prop;  (** service_name *)
+  status : string prop option; [@option]  (** status *)
+  user_name : string prop;  (** user_name *)
 }
 [@@deriving yojson_of]
 (** aws_iam_service_specific_credential *)

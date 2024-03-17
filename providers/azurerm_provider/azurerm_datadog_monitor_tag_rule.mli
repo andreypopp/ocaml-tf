@@ -10,10 +10,10 @@ type azurerm_datadog_monitor_tag_rule__timeouts
 type azurerm_datadog_monitor_tag_rule
 
 val azurerm_datadog_monitor_tag_rule :
-  ?id:string ->
-  ?name:string ->
+  ?id:string prop ->
+  ?name:string prop ->
   ?timeouts:azurerm_datadog_monitor_tag_rule__timeouts ->
-  datadog_monitor_id:string ->
+  datadog_monitor_id:string prop ->
   log:azurerm_datadog_monitor_tag_rule__log list ->
   metric:azurerm_datadog_monitor_tag_rule__metric list ->
   string ->

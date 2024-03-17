@@ -54,19 +54,19 @@ type azurerm_windows_web_app_slot__site_config__auto_heal_setting
 type azurerm_windows_web_app_slot__site_config__cors
 
 type azurerm_windows_web_app_slot__site_config__ip_restriction__headers = {
-  x_azure_fdid : string list;  (** x_azure_fdid *)
-  x_fd_health_probe : string list;  (** x_fd_health_probe *)
-  x_forwarded_for : string list;  (** x_forwarded_for *)
-  x_forwarded_host : string list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;  (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;  (** x_forwarded_for *)
+  x_forwarded_host : string prop list;  (** x_forwarded_host *)
 }
 
 type azurerm_windows_web_app_slot__site_config__ip_restriction
 
 type azurerm_windows_web_app_slot__site_config__scm_ip_restriction__headers = {
-  x_azure_fdid : string list;  (** x_azure_fdid *)
-  x_fd_health_probe : string list;  (** x_fd_health_probe *)
-  x_forwarded_for : string list;  (** x_forwarded_for *)
-  x_forwarded_host : string list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;  (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;  (** x_forwarded_for *)
+  x_forwarded_host : string prop list;  (** x_forwarded_host *)
 }
 
 type azurerm_windows_web_app_slot__site_config__scm_ip_restriction
@@ -79,32 +79,32 @@ type azurerm_windows_web_app_slot__storage_account
 type azurerm_windows_web_app_slot__timeouts
 
 type azurerm_windows_web_app_slot__site_credential = {
-  name : string;  (** name *)
-  password : string;  (** password *)
+  name : string prop;  (** name *)
+  password : string prop;  (** password *)
 }
 
 type azurerm_windows_web_app_slot
 
 val azurerm_windows_web_app_slot :
-  ?app_settings:(string * string) list ->
-  ?client_affinity_enabled:bool ->
-  ?client_certificate_enabled:bool ->
-  ?client_certificate_exclusion_paths:string ->
-  ?client_certificate_mode:string ->
-  ?enabled:bool ->
-  ?ftp_publish_basic_authentication_enabled:bool ->
-  ?https_only:bool ->
-  ?id:string ->
-  ?key_vault_reference_identity_id:string ->
-  ?public_network_access_enabled:bool ->
-  ?service_plan_id:string ->
-  ?tags:(string * string) list ->
-  ?virtual_network_subnet_id:string ->
-  ?webdeploy_publish_basic_authentication_enabled:bool ->
-  ?zip_deploy_file:string ->
+  ?app_settings:(string * string prop) list ->
+  ?client_affinity_enabled:bool prop ->
+  ?client_certificate_enabled:bool prop ->
+  ?client_certificate_exclusion_paths:string prop ->
+  ?client_certificate_mode:string prop ->
+  ?enabled:bool prop ->
+  ?ftp_publish_basic_authentication_enabled:bool prop ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?key_vault_reference_identity_id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?service_plan_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?virtual_network_subnet_id:string prop ->
+  ?webdeploy_publish_basic_authentication_enabled:bool prop ->
+  ?zip_deploy_file:string prop ->
   ?timeouts:azurerm_windows_web_app_slot__timeouts ->
-  app_service_id:string ->
-  name:string ->
+  app_service_id:string prop ->
+  name:string prop ->
   auth_settings:azurerm_windows_web_app_slot__auth_settings list ->
   auth_settings_v2:
     azurerm_windows_web_app_slot__auth_settings_v2 list ->

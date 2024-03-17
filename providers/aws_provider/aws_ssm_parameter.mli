@@ -5,19 +5,19 @@ open! Tf.Prelude
 type aws_ssm_parameter
 
 val aws_ssm_parameter :
-  ?allowed_pattern:string ->
-  ?arn:string ->
-  ?data_type:string ->
-  ?description:string ->
-  ?id:string ->
-  ?insecure_value:string ->
-  ?key_id:string ->
-  ?overwrite:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?tier:string ->
-  ?value:string ->
-  name:string ->
-  type_:string ->
+  ?allowed_pattern:string prop ->
+  ?arn:string prop ->
+  ?data_type:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?insecure_value:string prop ->
+  ?key_id:string prop ->
+  ?overwrite:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tier:string prop ->
+  ?value:string prop ->
+  name:string prop ->
+  type_:string prop ->
   string ->
   unit

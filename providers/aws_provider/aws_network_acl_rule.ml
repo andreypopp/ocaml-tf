@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type aws_network_acl_rule = {
-  cidr_block : string option; [@option]  (** cidr_block *)
-  egress : bool option; [@option]  (** egress *)
-  from_port : float option; [@option]  (** from_port *)
-  icmp_code : float option; [@option]  (** icmp_code *)
-  icmp_type : float option; [@option]  (** icmp_type *)
-  id : string option; [@option]  (** id *)
-  ipv6_cidr_block : string option; [@option]  (** ipv6_cidr_block *)
-  network_acl_id : string;  (** network_acl_id *)
-  protocol : string;  (** protocol *)
-  rule_action : string;  (** rule_action *)
-  rule_number : float;  (** rule_number *)
-  to_port : float option; [@option]  (** to_port *)
+  cidr_block : string prop option; [@option]  (** cidr_block *)
+  egress : bool prop option; [@option]  (** egress *)
+  from_port : float prop option; [@option]  (** from_port *)
+  icmp_code : float prop option; [@option]  (** icmp_code *)
+  icmp_type : float prop option; [@option]  (** icmp_type *)
+  id : string prop option; [@option]  (** id *)
+  ipv6_cidr_block : string prop option; [@option]
+      (** ipv6_cidr_block *)
+  network_acl_id : string prop;  (** network_acl_id *)
+  protocol : string prop;  (** protocol *)
+  rule_action : string prop;  (** rule_action *)
+  rule_number : float prop;  (** rule_number *)
+  to_port : float prop option; [@option]  (** to_port *)
 }
 [@@deriving yojson_of]
 (** aws_network_acl_rule *)

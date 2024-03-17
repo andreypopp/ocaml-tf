@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_recovery_services_vault_resource_guard_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_recovery_services_vault_resource_guard_association__timeouts *)
 
 type azurerm_recovery_services_vault_resource_guard_association = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  resource_guard_id : string;  (** resource_guard_id *)
-  vault_id : string;  (** vault_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  resource_guard_id : string prop;  (** resource_guard_id *)
+  vault_id : string prop;  (** vault_id *)
   timeouts :
     azurerm_recovery_services_vault_resource_guard_association__timeouts
     option;

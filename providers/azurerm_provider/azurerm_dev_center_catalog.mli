@@ -8,11 +8,11 @@ type azurerm_dev_center_catalog__timeouts
 type azurerm_dev_center_catalog
 
 val azurerm_dev_center_catalog :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_dev_center_catalog__timeouts ->
-  dev_center_id:string ->
-  name:string ->
-  resource_group_name:string ->
+  dev_center_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   catalog_adogit:azurerm_dev_center_catalog__catalog_adogit list ->
   catalog_github:azurerm_dev_center_catalog__catalog_github list ->
   string ->

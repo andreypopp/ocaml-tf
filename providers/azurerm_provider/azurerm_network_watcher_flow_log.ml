@@ -5,44 +5,44 @@
 open! Tf.Prelude
 
 type azurerm_network_watcher_flow_log__retention_policy = {
-  days : float;  (** days *)
-  enabled : bool;  (** enabled *)
+  days : float prop;  (** days *)
+  enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_watcher_flow_log__retention_policy *)
 
 type azurerm_network_watcher_flow_log__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_watcher_flow_log__timeouts *)
 
 type azurerm_network_watcher_flow_log__traffic_analytics = {
-  enabled : bool;  (** enabled *)
-  interval_in_minutes : float option; [@option]
+  enabled : bool prop;  (** enabled *)
+  interval_in_minutes : float prop option; [@option]
       (** interval_in_minutes *)
-  workspace_id : string;  (** workspace_id *)
-  workspace_region : string;  (** workspace_region *)
-  workspace_resource_id : string;  (** workspace_resource_id *)
+  workspace_id : string prop;  (** workspace_id *)
+  workspace_region : string prop;  (** workspace_region *)
+  workspace_resource_id : string prop;  (** workspace_resource_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_watcher_flow_log__traffic_analytics *)
 
 type azurerm_network_watcher_flow_log = {
-  enabled : bool;  (** enabled *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  name : string;  (** name *)
-  network_security_group_id : string;
+  enabled : bool prop;  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  name : string prop;  (** name *)
+  network_security_group_id : string prop;
       (** network_security_group_id *)
-  network_watcher_name : string;  (** network_watcher_name *)
-  resource_group_name : string;  (** resource_group_name *)
-  storage_account_id : string;  (** storage_account_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  version : float option; [@option]  (** version *)
+  network_watcher_name : string prop;  (** network_watcher_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  storage_account_id : string prop;  (** storage_account_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  version : float prop option; [@option]  (** version *)
   retention_policy :
     azurerm_network_watcher_flow_log__retention_policy list;
   timeouts : azurerm_network_watcher_flow_log__timeouts option;

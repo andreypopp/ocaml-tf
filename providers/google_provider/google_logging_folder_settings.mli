@@ -6,11 +6,11 @@ type google_logging_folder_settings__timeouts
 type google_logging_folder_settings
 
 val google_logging_folder_settings :
-  ?disable_default_sink:bool ->
-  ?id:string ->
-  ?kms_key_name:string ->
-  ?storage_location:string ->
+  ?disable_default_sink:bool prop ->
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?storage_location:string prop ->
   ?timeouts:google_logging_folder_settings__timeouts ->
-  folder:string ->
+  folder:string prop ->
   string ->
   unit

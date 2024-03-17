@@ -5,9 +5,9 @@ open! Tf.Prelude
 type cloudflare_argo
 
 val cloudflare_argo :
-  ?id:string ->
-  ?smart_routing:string ->
-  ?tiered_caching:string ->
-  zone_id:string ->
+  ?id:string prop ->
+  ?smart_routing:string prop ->
+  ?tiered_caching:string prop ->
+  zone_id:string prop ->
   string ->
   unit

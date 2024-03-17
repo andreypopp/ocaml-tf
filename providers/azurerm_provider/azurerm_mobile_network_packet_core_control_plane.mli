@@ -11,23 +11,23 @@ type azurerm_mobile_network_packet_core_control_plane__timeouts
 type azurerm_mobile_network_packet_core_control_plane
 
 val azurerm_mobile_network_packet_core_control_plane :
-  ?control_plane_access_ipv4_address:string ->
-  ?control_plane_access_ipv4_gateway:string ->
-  ?control_plane_access_ipv4_subnet:string ->
-  ?control_plane_access_name:string ->
-  ?core_network_technology:string ->
-  ?id:string ->
-  ?interoperability_settings_json:string ->
-  ?software_version:string ->
-  ?tags:(string * string) list ->
-  ?user_equipment_mtu_in_bytes:float ->
+  ?control_plane_access_ipv4_address:string prop ->
+  ?control_plane_access_ipv4_gateway:string prop ->
+  ?control_plane_access_ipv4_subnet:string prop ->
+  ?control_plane_access_name:string prop ->
+  ?core_network_technology:string prop ->
+  ?id:string prop ->
+  ?interoperability_settings_json:string prop ->
+  ?software_version:string prop ->
+  ?tags:(string * string prop) list ->
+  ?user_equipment_mtu_in_bytes:float prop ->
   ?timeouts:
     azurerm_mobile_network_packet_core_control_plane__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  site_ids:string list ->
-  sku:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  site_ids:string prop list ->
+  sku:string prop ->
   identity:
     azurerm_mobile_network_packet_core_control_plane__identity list ->
   local_diagnostics_access:

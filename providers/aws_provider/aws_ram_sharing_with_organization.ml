@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_ram_sharing_with_organization = {
-  id: string option; [@option] (** id *)
+  id: string prop option; [@option] (** id *)
 } [@@deriving yojson_of]
 (** aws_ram_sharing_with_organization *)
 

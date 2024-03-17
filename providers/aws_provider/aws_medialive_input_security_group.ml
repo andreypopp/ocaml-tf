@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_medialive_input_security_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_medialive_input_security_group__timeouts *)
 
 type aws_medialive_input_security_group__whitelist_rules = {
-  cidr : string;  (** cidr *)
+  cidr : string prop;  (** cidr *)
 }
 [@@deriving yojson_of]
 (** aws_medialive_input_security_group__whitelist_rules *)
 
 type aws_medialive_input_security_group = {
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_medialive_input_security_group__timeouts option;
   whitelist_rules :

@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_cloudfront_origin_access_identity = {
-  comment : string option; [@option]  (** comment *)
-  id : string option; [@option]  (** id *)
+  comment : string prop option; [@option]  (** comment *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_access_identity *)

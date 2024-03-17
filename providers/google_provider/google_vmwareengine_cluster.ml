@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type google_vmwareengine_cluster__node_type_configs = {
-  custom_core_count : float option; [@option]
+  custom_core_count : float prop option; [@option]
       (** Customized number of cores available to each node of the type.
 This number must always be one of 'nodeType.availableCustomCoreCounts'.
 If zero is provided max value from 'nodeType.availableCustomCoreCounts' will be used.
 Once the customer is created then corecount cannot be changed. *)
-  node_count : float;
+  node_count : float prop;
       (** The number of nodes of this type in the cluster. *)
-  node_type_id : string;  (** node_type_id *)
+  node_type_id : string prop;  (** node_type_id *)
 }
 [@@deriving yojson_of]
 (** The map of cluster node types in this cluster,
 where the key is canonical identifier of the node type (corresponds to the NodeType). *)
 
 type google_vmwareengine_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_cluster__timeouts *)
 
 type google_vmwareengine_cluster = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** The ID of the Cluster. *)
-  parent : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The ID of the Cluster. *)
+  parent : string prop;
       (** The resource name of the private cloud to create a new cluster in.
 Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
 For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)

@@ -8,12 +8,12 @@ type azurerm_stream_analytics_function_javascript_uda__timeouts
 type azurerm_stream_analytics_function_javascript_uda
 
 val azurerm_stream_analytics_function_javascript_uda :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_stream_analytics_function_javascript_uda__timeouts ->
-  name:string ->
-  script:string ->
-  stream_analytics_job_id:string ->
+  name:string prop ->
+  script:string prop ->
+  stream_analytics_job_id:string prop ->
   input:azurerm_stream_analytics_function_javascript_uda__input list ->
   output:
     azurerm_stream_analytics_function_javascript_uda__output list ->

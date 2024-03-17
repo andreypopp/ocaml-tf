@@ -5,29 +5,30 @@
 open! Tf.Prelude
 
 type aws_glue_ml_transform__input_record_tables = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  connection_name : string option; [@option]  (** connection_name *)
-  database_name : string;  (** database_name *)
-  table_name : string;  (** table_name *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  connection_name : string prop option; [@option]
+      (** connection_name *)
+  database_name : string prop;  (** database_name *)
+  table_name : string prop;  (** table_name *)
 }
 [@@deriving yojson_of]
 (** aws_glue_ml_transform__input_record_tables *)
 
 type aws_glue_ml_transform__parameters__find_matches_parameters = {
-  accuracy_cost_trade_off : float option; [@option]
+  accuracy_cost_trade_off : float prop option; [@option]
       (** accuracy_cost_trade_off *)
-  enforce_provided_labels : bool option; [@option]
+  enforce_provided_labels : bool prop option; [@option]
       (** enforce_provided_labels *)
-  precision_recall_trade_off : float option; [@option]
+  precision_recall_trade_off : float prop option; [@option]
       (** precision_recall_trade_off *)
-  primary_key_column_name : string option; [@option]
+  primary_key_column_name : string prop option; [@option]
       (** primary_key_column_name *)
 }
 [@@deriving yojson_of]
 (** aws_glue_ml_transform__parameters__find_matches_parameters *)
 
 type aws_glue_ml_transform__parameters = {
-  transform_type : string;  (** transform_type *)
+  transform_type : string prop;  (** transform_type *)
   find_matches_parameters :
     aws_glue_ml_transform__parameters__find_matches_parameters list;
 }
@@ -35,26 +36,26 @@ type aws_glue_ml_transform__parameters = {
 (** aws_glue_ml_transform__parameters *)
 
 type aws_glue_ml_transform__schema = {
-  data_type : string;  (** data_type *)
-  name : string;  (** name *)
+  data_type : string prop;  (** data_type *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
 type aws_glue_ml_transform = {
-  description : string option; [@option]  (** description *)
-  glue_version : string option; [@option]  (** glue_version *)
-  id : string option; [@option]  (** id *)
-  max_capacity : float option; [@option]  (** max_capacity *)
-  max_retries : float option; [@option]  (** max_retries *)
-  name : string;  (** name *)
-  number_of_workers : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  glue_version : string prop option; [@option]  (** glue_version *)
+  id : string prop option; [@option]  (** id *)
+  max_capacity : float prop option; [@option]  (** max_capacity *)
+  max_retries : float prop option; [@option]  (** max_retries *)
+  name : string prop;  (** name *)
+  number_of_workers : float prop option; [@option]
       (** number_of_workers *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  timeout : float option; [@option]  (** timeout *)
-  worker_type : string option; [@option]  (** worker_type *)
+  timeout : float prop option; [@option]  (** timeout *)
+  worker_type : string prop option; [@option]  (** worker_type *)
   input_record_tables :
     aws_glue_ml_transform__input_record_tables list;
   parameters : aws_glue_ml_transform__parameters list;

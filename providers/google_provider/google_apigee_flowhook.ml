@@ -5,24 +5,25 @@
 open! Tf.Prelude
 
 type google_apigee_flowhook__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_apigee_flowhook__timeouts *)
 
 type google_apigee_flowhook = {
-  continue_on_error : bool option; [@option]
+  continue_on_error : bool prop option; [@option]
       (** Flag that specifies whether execution should continue if the flow hook throws an exception. Set to true to continue execution. Set to false to stop execution if the flow hook throws an exception. Defaults to true. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of the flow hook. *)
-  environment : string;  (** The resource ID of the environment. *)
-  flow_hook_point : string;
+  environment : string prop;
+      (** The resource ID of the environment. *)
+  flow_hook_point : string prop;
       (** Where in the API call flow the flow hook is invoked. Must be one of PreProxyFlowHook, PostProxyFlowHook, PreTargetFlowHook, or PostTargetFlowHook. *)
-  id : string option; [@option]  (** id *)
-  org_id : string;
+  id : string prop option; [@option]  (** id *)
+  org_id : string prop;
       (** The Apigee Organization associated with the environment *)
-  sharedflow : string;
+  sharedflow : string prop;
       (** Id of the Sharedflow attaching to a flowhook point. *)
   timeouts : google_apigee_flowhook__timeouts option;
 }

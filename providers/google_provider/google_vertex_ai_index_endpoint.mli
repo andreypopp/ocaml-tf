@@ -7,15 +7,15 @@ type google_vertex_ai_index_endpoint__timeouts
 type google_vertex_ai_index_endpoint
 
 val google_vertex_ai_index_endpoint :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?network:string ->
-  ?project:string ->
-  ?public_endpoint_enabled:bool ->
-  ?region:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?network:string prop ->
+  ?project:string prop ->
+  ?public_endpoint_enabled:bool prop ->
+  ?region:string prop ->
   ?timeouts:google_vertex_ai_index_endpoint__timeouts ->
-  display_name:string ->
+  display_name:string prop ->
   private_service_connect_config:
     google_vertex_ai_index_endpoint__private_service_connect_config
     list ->

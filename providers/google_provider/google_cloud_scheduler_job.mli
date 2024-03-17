@@ -14,16 +14,16 @@ type google_cloud_scheduler_job__timeouts
 type google_cloud_scheduler_job
 
 val google_cloud_scheduler_job :
-  ?attempt_deadline:string ->
-  ?description:string ->
-  ?id:string ->
-  ?paused:bool ->
-  ?project:string ->
-  ?region:string ->
-  ?schedule:string ->
-  ?time_zone:string ->
+  ?attempt_deadline:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?paused:bool prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?schedule:string prop ->
+  ?time_zone:string prop ->
   ?timeouts:google_cloud_scheduler_job__timeouts ->
-  name:string ->
+  name:string prop ->
   app_engine_http_target:
     google_cloud_scheduler_job__app_engine_http_target list ->
   http_target:google_cloud_scheduler_job__http_target list ->

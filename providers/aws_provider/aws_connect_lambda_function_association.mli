@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_connect_lambda_function_association
 
 val aws_connect_lambda_function_association :
-  ?id:string ->
-  function_arn:string ->
-  instance_id:string ->
+  ?id:string prop ->
+  function_arn:string prop ->
+  instance_id:string prop ->
   string ->
   unit

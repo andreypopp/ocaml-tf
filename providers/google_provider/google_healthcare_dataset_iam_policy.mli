@@ -5,8 +5,8 @@ open! Tf.Prelude
 type google_healthcare_dataset_iam_policy
 
 val google_healthcare_dataset_iam_policy :
-  ?id:string ->
-  dataset_id:string ->
-  policy_data:string ->
+  ?id:string prop ->
+  dataset_id:string prop ->
+  policy_data:string prop ->
   string ->
   unit

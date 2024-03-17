@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type google_compute_region_disk__async_primary_disk = {
-  disk : string;
+  disk : string prop;
       (** Primary disk for asynchronous disk replication. *)
 }
 [@@deriving yojson_of]
 (** A nested object resource *)
 
 type google_compute_region_disk__disk_encryption_key = {
-  kms_key_name : string option; [@option]
+  kms_key_name : string prop option; [@option]
       (** The name of the encryption key that is stored in Google Cloud KMS. *)
-  raw_key : string option; [@option]
+  raw_key : string prop option; [@option]
       (** Specifies a 256-bit customer-supplied encryption key, encoded in
 RFC 4648 base64 to either encrypt or decrypt this resource. *)
-  sha256 : string;
+  sha256 : string prop;
       (** The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
 encryption key that protects this resource. *)
 }
@@ -36,7 +36,7 @@ the disk will be encrypted using an automatically generated key and
 you do not need to provide a key to use the disk later. *)
 
 type google_compute_region_disk__guest_os_features = {
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** The type of supported feature. Read [Enabling guest operating system features](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images#guest-os-features) to see a list of available options. Possible values: [MULTI_IP_SUBNET, SECURE_BOOT, SEV_CAPABLE, UEFI_COMPATIBLE, VIRTIO_SCSI_MULTIQUEUE, WINDOWS, GVNIC, SEV_LIVE_MIGRATABLE, SEV_SNP_CAPABLE, SUSPEND_RESUME_COMPATIBLE, TDX_CAPABLE] *)
 }
 [@@deriving yojson_of]
@@ -44,10 +44,10 @@ type google_compute_region_disk__guest_os_features = {
 Applicable only for bootable disks. *)
 
 type google_compute_region_disk__source_snapshot_encryption_key = {
-  raw_key : string option; [@option]
+  raw_key : string prop option; [@option]
       (** Specifies a 256-bit customer-supplied encryption key, encoded in
 RFC 4648 base64 to either encrypt or decrypt this resource. *)
-  sha256 : string;
+  sha256 : string prop;
       (** The RFC 4648 base64 encoded SHA-256 hash of the customer-supplied
 encryption key that protects this resource. *)
 }
@@ -57,27 +57,27 @@ if the source snapshot is protected by a customer-supplied encryption
 key. *)
 
 type google_compute_region_disk__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_region_disk__timeouts *)
 
 type google_compute_region_disk = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Labels to apply to this disk.  A list of key->value pairs.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  licenses : string list option; [@option]
+  licenses : string prop list option; [@option]
       (** Any applicable license URI. *)
-  name : string;
+  name : string prop;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
 RFC1035. Specifically, the name must be 1-63 characters long and match
@@ -85,18 +85,18 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
-  physical_block_size_bytes : float option; [@option]
+  physical_block_size_bytes : float prop option; [@option]
       (** Physical block size of the persistent disk, in bytes. If not present
 in a request, a default value is used. Currently supported sizes
 are 4096 and 16384, other sizes may be added in the future.
 If an unsupported value is requested, the error message will list
 the supported values for the caller's project. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** A reference to the region where the disk resides. *)
-  replica_zones : string list;
+  replica_zones : string prop list;
       (** URLs of the zones where the disk should be replicated to. *)
-  size : float option; [@option]
+  size : float prop option; [@option]
       (** Size of the persistent disk, specified in GB. You can specify this
 field when creating a persistent disk using the sourceImage or
 sourceSnapshot parameter, or specify it alone to create an empty
@@ -105,7 +105,7 @@ persistent disk.
 If you specify this field along with sourceImage or sourceSnapshot,
 the value of sizeGb must not be less than the size of the sourceImage
 or the size of the snapshot. *)
-  snapshot : string option; [@option]
+  snapshot : string prop option; [@option]
       (** The source snapshot used to create this disk. You can provide this as
 a partial or full URL to the resource. For example, the following are
 valid values:
@@ -114,7 +114,7 @@ valid values:
 * 'projects/project/global/snapshots/snapshot'
 * 'global/snapshots/snapshot'
 * 'snapshot' *)
-  source_disk : string option; [@option]
+  source_disk : string prop option; [@option]
       (** The source disk used to create this disk. You can provide this as a partial or full URL to the resource.
 For example, the following are valid values:
 
@@ -124,7 +124,7 @@ For example, the following are valid values:
 * projects/{project}/regions/{region}/disks/{disk}
 * zones/{zone}/disks/{disk}
 * regions/{region}/disks/{disk} *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** URL of the disk type resource describing which disk type to use to
 create the disk. Provide this when creating the disk. *)
   async_primary_disk :

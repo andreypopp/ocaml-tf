@@ -5,11 +5,11 @@ open! Tf.Prelude
 type hcloud_load_balancer_network
 
 val hcloud_load_balancer_network :
-  ?enable_public_interface:bool ->
-  ?id:string ->
-  ?ip:string ->
-  ?network_id:float ->
-  ?subnet_id:string ->
-  load_balancer_id:float ->
+  ?enable_public_interface:bool prop ->
+  ?id:string prop ->
+  ?ip:string prop ->
+  ?network_id:float prop ->
+  ?subnet_id:string prop ->
+  load_balancer_id:float prop ->
   string ->
   unit

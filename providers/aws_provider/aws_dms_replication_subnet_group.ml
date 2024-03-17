@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_dms_replication_subnet_group = {
-  id : string option; [@option]  (** id *)
-  replication_subnet_group_description : string;
+  id : string prop option; [@option]  (** id *)
+  replication_subnet_group_description : string prop;
       (** replication_subnet_group_description *)
-  replication_subnet_group_id : string;
+  replication_subnet_group_id : string prop;
       (** replication_subnet_group_id *)
-  subnet_ids : string list;  (** subnet_ids *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_dms_replication_subnet_group *)

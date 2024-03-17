@@ -6,15 +6,15 @@ type azurerm_bot_channel_slack__timeouts
 type azurerm_bot_channel_slack
 
 val azurerm_bot_channel_slack :
-  ?id:string ->
-  ?landing_page_url:string ->
-  ?signing_secret:string ->
+  ?id:string prop ->
+  ?landing_page_url:string prop ->
+  ?signing_secret:string prop ->
   ?timeouts:azurerm_bot_channel_slack__timeouts ->
-  bot_name:string ->
-  client_id:string ->
-  client_secret:string ->
-  location:string ->
-  resource_group_name:string ->
-  verification_token:string ->
+  bot_name:string prop ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  verification_token:string prop ->
   string ->
   unit

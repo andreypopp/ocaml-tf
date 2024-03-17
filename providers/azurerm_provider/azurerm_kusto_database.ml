@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_kusto_database__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_database__timeouts *)
 
 type azurerm_kusto_database = {
-  cluster_name : string;  (** cluster_name *)
-  hot_cache_period : string option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  hot_cache_period : string prop option; [@option]
       (** hot_cache_period *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  soft_delete_period : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  soft_delete_period : string prop option; [@option]
       (** soft_delete_period *)
   timeouts : azurerm_kusto_database__timeouts option;
 }

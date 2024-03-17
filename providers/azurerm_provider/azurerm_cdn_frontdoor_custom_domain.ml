@@ -5,31 +5,32 @@
 open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_custom_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_custom_domain__timeouts *)
 
 type azurerm_cdn_frontdoor_custom_domain__tls = {
-  cdn_frontdoor_secret_id : string option; [@option]
+  cdn_frontdoor_secret_id : string prop option; [@option]
       (** cdn_frontdoor_secret_id *)
-  certificate_type : string option; [@option]
+  certificate_type : string prop option; [@option]
       (** certificate_type *)
-  minimum_tls_version : string option; [@option]
+  minimum_tls_version : string prop option; [@option]
       (** minimum_tls_version *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_custom_domain__tls *)
 
 type azurerm_cdn_frontdoor_custom_domain = {
-  cdn_frontdoor_profile_id : string;  (** cdn_frontdoor_profile_id *)
-  dns_zone_id : string option; [@option]  (** dns_zone_id *)
-  host_name : string;  (** host_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  cdn_frontdoor_profile_id : string prop;
+      (** cdn_frontdoor_profile_id *)
+  dns_zone_id : string prop option; [@option]  (** dns_zone_id *)
+  host_name : string prop;  (** host_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   timeouts : azurerm_cdn_frontdoor_custom_domain__timeouts option;
   tls : azurerm_cdn_frontdoor_custom_domain__tls list;
 }

@@ -3,9 +3,9 @@
 open! Tf.Prelude
 
 type azurerm_kubernetes_cluster__aci_connector_linux__connector_identity = {
-  client_id : string;  (** client_id *)
-  object_id : string;  (** object_id *)
-  user_assigned_identity_id : string;
+  client_id : string prop;  (** client_id *)
+  object_id : string prop;  (** object_id *)
+  user_assigned_identity_id : string prop;
       (** user_assigned_identity_id *)
 }
 
@@ -32,9 +32,9 @@ type azurerm_kubernetes_cluster__http_proxy_config
 type azurerm_kubernetes_cluster__identity
 
 type azurerm_kubernetes_cluster__ingress_application_gateway__ingress_application_gateway_identity = {
-  client_id : string;  (** client_id *)
-  object_id : string;  (** object_id *)
-  user_assigned_identity_id : string;
+  client_id : string prop;  (** client_id *)
+  object_id : string prop;  (** object_id *)
+  user_assigned_identity_id : string prop;
       (** user_assigned_identity_id *)
 }
 
@@ -42,9 +42,9 @@ type azurerm_kubernetes_cluster__ingress_application_gateway
 type azurerm_kubernetes_cluster__key_management_service
 
 type azurerm_kubernetes_cluster__key_vault_secrets_provider__secret_identity = {
-  client_id : string;  (** client_id *)
-  object_id : string;  (** object_id *)
-  user_assigned_identity_id : string;
+  client_id : string prop;  (** client_id *)
+  object_id : string prop;  (** object_id *)
+  user_assigned_identity_id : string prop;
       (** user_assigned_identity_id *)
 }
 
@@ -72,9 +72,9 @@ type azurerm_kubernetes_cluster__network_profile__nat_gateway_profile
 type azurerm_kubernetes_cluster__network_profile
 
 type azurerm_kubernetes_cluster__oms_agent__oms_agent_identity = {
-  client_id : string;  (** client_id *)
-  object_id : string;  (** object_id *)
-  user_assigned_identity_id : string;
+  client_id : string prop;  (** client_id *)
+  object_id : string prop;  (** object_id *)
+  user_assigned_identity_id : string prop;
       (** user_assigned_identity_id *)
 }
 
@@ -85,9 +85,9 @@ type azurerm_kubernetes_cluster__storage_profile
 type azurerm_kubernetes_cluster__timeouts
 
 type azurerm_kubernetes_cluster__web_app_routing__web_app_routing_identity = {
-  client_id : string;  (** client_id *)
-  object_id : string;  (** object_id *)
-  user_assigned_identity_id : string;
+  client_id : string prop;  (** client_id *)
+  object_id : string prop;  (** object_id *)
+  user_assigned_identity_id : string prop;
       (** user_assigned_identity_id *)
 }
 
@@ -97,59 +97,61 @@ type azurerm_kubernetes_cluster__windows_profile
 type azurerm_kubernetes_cluster__workload_autoscaler_profile
 
 type azurerm_kubernetes_cluster__kube_admin_config = {
-  client_certificate : string;  (** client_certificate *)
-  client_key : string;  (** client_key *)
-  cluster_ca_certificate : string;  (** cluster_ca_certificate *)
-  host : string;  (** host *)
-  password : string;  (** password *)
-  username : string;  (** username *)
+  client_certificate : string prop;  (** client_certificate *)
+  client_key : string prop;  (** client_key *)
+  cluster_ca_certificate : string prop;
+      (** cluster_ca_certificate *)
+  host : string prop;  (** host *)
+  password : string prop;  (** password *)
+  username : string prop;  (** username *)
 }
 
 type azurerm_kubernetes_cluster__kube_config = {
-  client_certificate : string;  (** client_certificate *)
-  client_key : string;  (** client_key *)
-  cluster_ca_certificate : string;  (** cluster_ca_certificate *)
-  host : string;  (** host *)
-  password : string;  (** password *)
-  username : string;  (** username *)
+  client_certificate : string prop;  (** client_certificate *)
+  client_key : string prop;  (** client_key *)
+  cluster_ca_certificate : string prop;
+      (** cluster_ca_certificate *)
+  host : string prop;  (** host *)
+  password : string prop;  (** password *)
+  username : string prop;  (** username *)
 }
 
 type azurerm_kubernetes_cluster
 
 val azurerm_kubernetes_cluster :
-  ?api_server_authorized_ip_ranges:string list ->
-  ?automatic_channel_upgrade:string ->
-  ?azure_policy_enabled:bool ->
-  ?custom_ca_trust_certificates_base64:string list ->
-  ?disk_encryption_set_id:string ->
-  ?dns_prefix:string ->
-  ?dns_prefix_private_cluster:string ->
-  ?edge_zone:string ->
-  ?enable_pod_security_policy:bool ->
-  ?http_application_routing_enabled:bool ->
-  ?id:string ->
-  ?image_cleaner_enabled:bool ->
-  ?image_cleaner_interval_hours:float ->
-  ?kubernetes_version:string ->
-  ?local_account_disabled:bool ->
-  ?node_os_channel_upgrade:string ->
-  ?node_resource_group:string ->
-  ?oidc_issuer_enabled:bool ->
-  ?open_service_mesh_enabled:bool ->
-  ?private_cluster_enabled:bool ->
-  ?private_cluster_public_fqdn_enabled:bool ->
-  ?private_dns_zone_id:string ->
-  ?public_network_access_enabled:bool ->
-  ?role_based_access_control_enabled:bool ->
-  ?run_command_enabled:bool ->
-  ?sku_tier:string ->
-  ?support_plan:string ->
-  ?tags:(string * string) list ->
-  ?workload_identity_enabled:bool ->
+  ?api_server_authorized_ip_ranges:string prop list ->
+  ?automatic_channel_upgrade:string prop ->
+  ?azure_policy_enabled:bool prop ->
+  ?custom_ca_trust_certificates_base64:string prop list ->
+  ?disk_encryption_set_id:string prop ->
+  ?dns_prefix:string prop ->
+  ?dns_prefix_private_cluster:string prop ->
+  ?edge_zone:string prop ->
+  ?enable_pod_security_policy:bool prop ->
+  ?http_application_routing_enabled:bool prop ->
+  ?id:string prop ->
+  ?image_cleaner_enabled:bool prop ->
+  ?image_cleaner_interval_hours:float prop ->
+  ?kubernetes_version:string prop ->
+  ?local_account_disabled:bool prop ->
+  ?node_os_channel_upgrade:string prop ->
+  ?node_resource_group:string prop ->
+  ?oidc_issuer_enabled:bool prop ->
+  ?open_service_mesh_enabled:bool prop ->
+  ?private_cluster_enabled:bool prop ->
+  ?private_cluster_public_fqdn_enabled:bool prop ->
+  ?private_dns_zone_id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?role_based_access_control_enabled:bool prop ->
+  ?run_command_enabled:bool prop ->
+  ?sku_tier:string prop ->
+  ?support_plan:string prop ->
+  ?tags:(string * string prop) list ->
+  ?workload_identity_enabled:bool prop ->
   ?timeouts:azurerm_kubernetes_cluster__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   aci_connector_linux:
     azurerm_kubernetes_cluster__aci_connector_linux list ->
   api_server_access_profile:

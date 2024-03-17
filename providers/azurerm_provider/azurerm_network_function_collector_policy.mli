@@ -8,12 +8,12 @@ type azurerm_network_function_collector_policy__timeouts
 type azurerm_network_function_collector_policy
 
 val azurerm_network_function_collector_policy :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_network_function_collector_policy__timeouts ->
-  location:string ->
-  name:string ->
-  traffic_collector_id:string ->
+  location:string prop ->
+  name:string prop ->
+  traffic_collector_id:string prop ->
   ipfx_emission:
     azurerm_network_function_collector_policy__ipfx_emission list ->
   ipfx_ingestion:

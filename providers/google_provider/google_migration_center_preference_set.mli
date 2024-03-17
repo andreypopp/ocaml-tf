@@ -23,13 +23,13 @@ type google_migration_center_preference_set__virtual_machine_preferences
 type google_migration_center_preference_set
 
 val google_migration_center_preference_set :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?project:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_migration_center_preference_set__timeouts ->
-  location:string ->
-  preference_set_id:string ->
+  location:string prop ->
+  preference_set_id:string prop ->
   virtual_machine_preferences:
     google_migration_center_preference_set__virtual_machine_preferences
     list ->

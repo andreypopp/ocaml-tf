@@ -5,32 +5,34 @@
 open! Tf.Prelude
 
 type aws_cloudformation_stack__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_cloudformation_stack__timeouts *)
 
 type aws_cloudformation_stack = {
-  capabilities : string list option; [@option]  (** capabilities *)
-  disable_rollback : bool option; [@option]  (** disable_rollback *)
-  iam_role_arn : string option; [@option]  (** iam_role_arn *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  notification_arns : string list option; [@option]
+  capabilities : string prop list option; [@option]
+      (** capabilities *)
+  disable_rollback : bool prop option; [@option]
+      (** disable_rollback *)
+  iam_role_arn : string prop option; [@option]  (** iam_role_arn *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  notification_arns : string prop list option; [@option]
       (** notification_arns *)
-  on_failure : string option; [@option]  (** on_failure *)
-  parameters : (string * string) list option; [@option]
+  on_failure : string prop option; [@option]  (** on_failure *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  policy_body : string option; [@option]  (** policy_body *)
-  policy_url : string option; [@option]  (** policy_url *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  policy_body : string prop option; [@option]  (** policy_body *)
+  policy_url : string prop option; [@option]  (** policy_url *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  template_body : string option; [@option]  (** template_body *)
-  template_url : string option; [@option]  (** template_url *)
-  timeout_in_minutes : float option; [@option]
+  template_body : string prop option; [@option]  (** template_body *)
+  template_url : string prop option; [@option]  (** template_url *)
+  timeout_in_minutes : float prop option; [@option]
       (** timeout_in_minutes *)
   timeouts : aws_cloudformation_stack__timeouts option;
 }

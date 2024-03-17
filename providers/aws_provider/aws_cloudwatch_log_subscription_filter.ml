@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_log_subscription_filter = {
-  destination_arn : string;  (** destination_arn *)
-  distribution : string option; [@option]  (** distribution *)
-  filter_pattern : string;  (** filter_pattern *)
-  id : string option; [@option]  (** id *)
-  log_group_name : string;  (** log_group_name *)
-  name : string;  (** name *)
-  role_arn : string option; [@option]  (** role_arn *)
+  destination_arn : string prop;  (** destination_arn *)
+  distribution : string prop option; [@option]  (** distribution *)
+  filter_pattern : string prop;  (** filter_pattern *)
+  id : string prop option; [@option]  (** id *)
+  log_group_name : string prop;  (** log_group_name *)
+  name : string prop;  (** name *)
+  role_arn : string prop option; [@option]  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_subscription_filter *)

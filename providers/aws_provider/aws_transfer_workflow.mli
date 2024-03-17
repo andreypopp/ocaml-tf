@@ -46,10 +46,10 @@ type aws_transfer_workflow__steps
 type aws_transfer_workflow
 
 val aws_transfer_workflow :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   on_exception_steps:aws_transfer_workflow__on_exception_steps list ->
   steps:aws_transfer_workflow__steps list ->
   string ->

@@ -13,8 +13,8 @@ type kubernetes_persistent_volume_claim__timeouts
 type kubernetes_persistent_volume_claim
 
 val kubernetes_persistent_volume_claim :
-  ?id:string ->
-  ?wait_until_bound:bool ->
+  ?id:string prop ->
+  ?wait_until_bound:bool prop ->
   ?timeouts:kubernetes_persistent_volume_claim__timeouts ->
   metadata:kubernetes_persistent_volume_claim__metadata list ->
   spec:kubernetes_persistent_volume_claim__spec list ->

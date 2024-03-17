@@ -13,16 +13,16 @@ type google_compute_backend_bucket__timeouts
 type google_compute_backend_bucket
 
 val google_compute_backend_bucket :
-  ?compression_mode:string ->
-  ?custom_response_headers:string list ->
-  ?description:string ->
-  ?edge_security_policy:string ->
-  ?enable_cdn:bool ->
-  ?id:string ->
-  ?project:string ->
+  ?compression_mode:string prop ->
+  ?custom_response_headers:string prop list ->
+  ?description:string prop ->
+  ?edge_security_policy:string prop ->
+  ?enable_cdn:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_compute_backend_bucket__timeouts ->
-  bucket_name:string ->
-  name:string ->
+  bucket_name:string prop ->
+  name:string prop ->
   cdn_policy:google_compute_backend_bucket__cdn_policy list ->
   string ->
   unit

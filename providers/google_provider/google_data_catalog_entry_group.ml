@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type google_data_catalog_entry_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_data_catalog_entry_group__timeouts *)
 
 type google_data_catalog_entry_group = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Entry group description, which can consist of several sentences or paragraphs that describe entry group contents. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** A short name to identify the entry group, for example, analytics data - jan 2011. *)
-  entry_group_id : string;
+  entry_group_id : string prop;
       (** The id of the entry group to create. The id must begin with a letter or underscore,
 contain only English letters, numbers and underscores, and be at most 64 characters. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** EntryGroup location region. *)
   timeouts : google_data_catalog_entry_group__timeouts option;
 }

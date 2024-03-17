@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_endpoints_service_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  service_name : string;  (** service_name *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  service_name : string prop;  (** service_name *)
 }
 [@@deriving yojson_of]
 (** google_endpoints_service_iam_policy *)

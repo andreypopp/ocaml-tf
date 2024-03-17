@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_rum_metrics_destination = {
-  app_monitor_name : string;  (** app_monitor_name *)
-  destination : string;  (** destination *)
-  destination_arn : string option; [@option]  (** destination_arn *)
-  iam_role_arn : string option; [@option]  (** iam_role_arn *)
-  id : string option; [@option]  (** id *)
+  app_monitor_name : string prop;  (** app_monitor_name *)
+  destination : string prop;  (** destination *)
+  destination_arn : string prop option; [@option]
+      (** destination_arn *)
+  iam_role_arn : string prop option; [@option]  (** iam_role_arn *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_rum_metrics_destination *)

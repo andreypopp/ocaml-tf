@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_vpn_gateway = {
-  amazon_side_asn : string option; [@option]  (** amazon_side_asn *)
-  availability_zone : string option; [@option]
+  amazon_side_asn : string prop option; [@option]
+      (** amazon_side_asn *)
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_id : string option; [@option]  (** vpc_id *)
+  vpc_id : string prop option; [@option]  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_vpn_gateway *)

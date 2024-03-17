@@ -5,37 +5,38 @@
 open! Tf.Prelude
 
 type kubernetes_manifest__field_manager = {
-  force_conflicts : bool option; [@option]
+  force_conflicts : bool prop option; [@option]
       (** Force changes against conflicts. *)
-  name : string option; [@option]
+  name : string prop option; [@option]
       (** The name to use for the field manager when creating and updating the resource. *)
 }
 [@@deriving yojson_of]
 (** Configure field manager options. *)
 
 type kubernetes_manifest__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** Timeout for the create operation. *)
-  delete : string option; [@option]
+  delete : string prop option; [@option]
       (** Timeout for the delete operation. *)
-  update : string option; [@option]
+  update : string prop option; [@option]
       (** Timeout for the update operation. *)
 }
 [@@deriving yojson_of]
 (** kubernetes_manifest__timeouts *)
 
 type kubernetes_manifest__wait__condition = {
-  status : string option; [@option]  (** The condition status. *)
-  type_ : string option; [@option] [@key "type"]
+  status : string prop option; [@option]
+      (** The condition status. *)
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of condition. *)
 }
 [@@deriving yojson_of]
 (** kubernetes_manifest__wait__condition *)
 
 type kubernetes_manifest__wait = {
-  fields : (string * string) list option; [@option]
+  fields : (string * string prop) list option; [@option]
       (** A map of paths to fields to wait for a specific field value. *)
-  rollout : bool option; [@option]
+  rollout : bool prop option; [@option]
       (** Wait for rollout to complete on resources that support `kubectl rollout status`. *)
   condition : kubernetes_manifest__wait__condition list;
 }
@@ -43,16 +44,16 @@ type kubernetes_manifest__wait = {
 (** Configure waiter options. *)
 
 type kubernetes_manifest__wait_for = {
-  fields : (string * string) list;  (** fields *)
+  fields : (string * string prop) list;  (** fields *)
 }
 [@@deriving yojson_of]
 
 type kubernetes_manifest = {
-  computed_fields : string list option; [@option]
+  computed_fields : string prop list option; [@option]
       (** List of manifest fields whose values can be altered by the API server during 'apply'. Defaults to: [metadata.annotations, metadata.labels] *)
-  manifest : string;
+  manifest : json prop;
       (** A Kubernetes manifest describing the desired state of the resource in HCL format. *)
-  object_ : string option; [@option] [@key "object"]
+  object_ : json prop option; [@option] [@key "object"]
       (** The resulting resource state, as returned by the API server after applying the desired state from `manifest`. *)
   wait_for : kubernetes_manifest__wait_for option; [@option]
       (** A map of attribute paths and desired patterns to be matched. After each apply the provider will wait for all attributes listed here to reach a value that matches the desired pattern. *)

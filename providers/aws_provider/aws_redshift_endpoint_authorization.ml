@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_redshift_endpoint_authorization = {
-  account : string;  (** account *)
-  cluster_identifier : string;  (** cluster_identifier *)
-  force_delete : bool option; [@option]  (** force_delete *)
-  id : string option; [@option]  (** id *)
-  vpc_ids : string list option; [@option]  (** vpc_ids *)
+  account : string prop;  (** account *)
+  cluster_identifier : string prop;  (** cluster_identifier *)
+  force_delete : bool prop option; [@option]  (** force_delete *)
+  id : string prop option; [@option]  (** id *)
+  vpc_ids : string prop list option; [@option]  (** vpc_ids *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_endpoint_authorization *)

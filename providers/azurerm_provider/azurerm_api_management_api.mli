@@ -13,26 +13,26 @@ type azurerm_api_management_api__timeouts
 type azurerm_api_management_api
 
 val azurerm_api_management_api :
-  ?api_type:string ->
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?path:string ->
-  ?protocols:string list ->
-  ?revision_description:string ->
-  ?service_url:string ->
-  ?soap_pass_through:bool ->
-  ?source_api_id:string ->
-  ?subscription_required:bool ->
-  ?terms_of_service_url:string ->
-  ?version:string ->
-  ?version_description:string ->
-  ?version_set_id:string ->
+  ?api_type:string prop ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?path:string prop ->
+  ?protocols:string prop list ->
+  ?revision_description:string prop ->
+  ?service_url:string prop ->
+  ?soap_pass_through:bool prop ->
+  ?source_api_id:string prop ->
+  ?subscription_required:bool prop ->
+  ?terms_of_service_url:string prop ->
+  ?version:string prop ->
+  ?version_description:string prop ->
+  ?version_set_id:string prop ->
   ?timeouts:azurerm_api_management_api__timeouts ->
-  api_management_name:string ->
-  name:string ->
-  resource_group_name:string ->
-  revision:string ->
+  api_management_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  revision:string prop ->
   contact:azurerm_api_management_api__contact list ->
   import:azurerm_api_management_api__import list ->
   license:azurerm_api_management_api__license list ->

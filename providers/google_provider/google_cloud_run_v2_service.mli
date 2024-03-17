@@ -51,51 +51,51 @@ type google_cloud_run_v2_service__timeouts
 type google_cloud_run_v2_service__traffic
 
 type google_cloud_run_v2_service__conditions = {
-  execution_reason : string;  (** execution_reason *)
-  last_transition_time : string;  (** last_transition_time *)
-  message : string;  (** message *)
-  reason : string;  (** reason *)
-  revision_reason : string;  (** revision_reason *)
-  severity : string;  (** severity *)
-  state : string;  (** state *)
-  type_ : string; [@key "type"]  (** type *)
+  execution_reason : string prop;  (** execution_reason *)
+  last_transition_time : string prop;  (** last_transition_time *)
+  message : string prop;  (** message *)
+  reason : string prop;  (** reason *)
+  revision_reason : string prop;  (** revision_reason *)
+  severity : string prop;  (** severity *)
+  state : string prop;  (** state *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_cloud_run_v2_service__terminal_condition = {
-  execution_reason : string;  (** execution_reason *)
-  last_transition_time : string;  (** last_transition_time *)
-  message : string;  (** message *)
-  reason : string;  (** reason *)
-  revision_reason : string;  (** revision_reason *)
-  severity : string;  (** severity *)
-  state : string;  (** state *)
-  type_ : string; [@key "type"]  (** type *)
+  execution_reason : string prop;  (** execution_reason *)
+  last_transition_time : string prop;  (** last_transition_time *)
+  message : string prop;  (** message *)
+  reason : string prop;  (** reason *)
+  revision_reason : string prop;  (** revision_reason *)
+  severity : string prop;  (** severity *)
+  state : string prop;  (** state *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_cloud_run_v2_service__traffic_statuses = {
-  percent : float;  (** percent *)
-  revision : string;  (** revision *)
-  tag : string;  (** tag *)
-  type_ : string; [@key "type"]  (** type *)
-  uri : string;  (** uri *)
+  percent : float prop;  (** percent *)
+  revision : string prop;  (** revision *)
+  tag : string prop;  (** tag *)
+  type_ : string prop; [@key "type"]  (** type *)
+  uri : string prop;  (** uri *)
 }
 
 type google_cloud_run_v2_service
 
 val google_cloud_run_v2_service :
-  ?annotations:(string * string) list ->
-  ?client:string ->
-  ?client_version:string ->
-  ?custom_audiences:string list ->
-  ?description:string ->
-  ?id:string ->
-  ?ingress:string ->
-  ?labels:(string * string) list ->
-  ?launch_stage:string ->
-  ?project:string ->
+  ?annotations:(string * string prop) list ->
+  ?client:string prop ->
+  ?client_version:string prop ->
+  ?custom_audiences:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ingress:string prop ->
+  ?labels:(string * string prop) list ->
+  ?launch_stage:string prop ->
+  ?project:string prop ->
   ?timeouts:google_cloud_run_v2_service__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   binary_authorization:
     google_cloud_run_v2_service__binary_authorization list ->
   template:google_cloud_run_v2_service__template list ->

@@ -23,11 +23,11 @@ type google_identity_platform_config__sign_in__email
 type google_identity_platform_config__sign_in__phone_number
 
 type google_identity_platform_config__sign_in__hash_config = {
-  algorithm : string;  (** algorithm *)
-  memory_cost : float;  (** memory_cost *)
-  rounds : float;  (** rounds *)
-  salt_separator : string;  (** salt_separator *)
-  signer_key : string;  (** signer_key *)
+  algorithm : string prop;  (** algorithm *)
+  memory_cost : float prop;  (** memory_cost *)
+  rounds : float prop;  (** rounds *)
+  salt_separator : string prop;  (** salt_separator *)
+  signer_key : string prop;  (** signer_key *)
 }
 
 type google_identity_platform_config__sign_in
@@ -41,10 +41,10 @@ type google_identity_platform_config__timeouts
 type google_identity_platform_config
 
 val google_identity_platform_config :
-  ?authorized_domains:string list ->
-  ?autodelete_anonymous_users:bool ->
-  ?id:string ->
-  ?project:string ->
+  ?authorized_domains:string prop list ->
+  ?autodelete_anonymous_users:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_identity_platform_config__timeouts ->
   blocking_functions:
     google_identity_platform_config__blocking_functions list ->

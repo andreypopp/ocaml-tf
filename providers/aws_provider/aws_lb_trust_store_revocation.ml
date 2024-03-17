@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_lb_trust_store_revocation__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_lb_trust_store_revocation__timeouts *)
 
 type aws_lb_trust_store_revocation = {
-  id : string option; [@option]  (** id *)
-  revocations_s3_bucket : string;  (** revocations_s3_bucket *)
-  revocations_s3_key : string;  (** revocations_s3_key *)
-  revocations_s3_object_version : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  revocations_s3_bucket : string prop;  (** revocations_s3_bucket *)
+  revocations_s3_key : string prop;  (** revocations_s3_key *)
+  revocations_s3_object_version : string prop option; [@option]
       (** revocations_s3_object_version *)
-  trust_store_arn : string;  (** trust_store_arn *)
+  trust_store_arn : string prop;  (** trust_store_arn *)
   timeouts : aws_lb_trust_store_revocation__timeouts option;
 }
 [@@deriving yojson_of]

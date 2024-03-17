@@ -5,10 +5,10 @@ open! Tf.Prelude
 type google_spanner_database_iam_policy
 
 val google_spanner_database_iam_policy :
-  ?id:string ->
-  ?project:string ->
-  database:string ->
-  instance:string ->
-  policy_data:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  database:string prop ->
+  instance:string prop ->
+  policy_data:string prop ->
   string ->
   unit

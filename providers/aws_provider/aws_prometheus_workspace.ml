@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_prometheus_workspace__logging_configuration = {
-  log_group_arn : string;  (** log_group_arn *)
+  log_group_arn : string prop;  (** log_group_arn *)
 }
 [@@deriving yojson_of]
 (** aws_prometheus_workspace__logging_configuration *)
 
 type aws_prometheus_workspace = {
-  alias : string option; [@option]  (** alias *)
-  id : string option; [@option]  (** id *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  alias : string prop option; [@option]  (** alias *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   logging_configuration :
     aws_prometheus_workspace__logging_configuration list;

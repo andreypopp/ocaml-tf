@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_athena_named_query
 
 val aws_athena_named_query :
-  ?description:string ->
-  ?id:string ->
-  ?workgroup:string ->
-  database:string ->
-  name:string ->
-  query:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?workgroup:string prop ->
+  database:string prop ->
+  name:string prop ->
+  query:string prop ->
   string ->
   unit

@@ -29,15 +29,15 @@ type google_gke_backup_restore_plan__timeouts
 type google_gke_backup_restore_plan
 
 val google_gke_backup_restore_plan :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_gke_backup_restore_plan__timeouts ->
-  backup_plan:string ->
-  cluster:string ->
-  location:string ->
-  name:string ->
+  backup_plan:string prop ->
+  cluster:string prop ->
+  location:string prop ->
+  name:string prop ->
   restore_config:google_gke_backup_restore_plan__restore_config list ->
   string ->
   unit

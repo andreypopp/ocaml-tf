@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_data_fusion_instance_iam_member__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_data_fusion_instance_iam_member__condition *)
 
 type google_data_fusion_instance_iam_member = {
-  id : string option; [@option]  (** id *)
-  member : string;  (** member *)
-  name : string;  (** name *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** region *)
-  role : string;  (** role *)
+  id : string prop option; [@option]  (** id *)
+  member : string prop;  (** member *)
+  name : string prop;  (** name *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]  (** region *)
+  role : string prop;  (** role *)
   condition : google_data_fusion_instance_iam_member__condition list;
 }
 [@@deriving yojson_of]

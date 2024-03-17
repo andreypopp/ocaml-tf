@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_sql_role_definition__permissions = {
-  data_actions : string list;  (** data_actions *)
+  data_actions : string prop list;  (** data_actions *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_role_definition__permissions *)
 
 type azurerm_cosmosdb_sql_role_definition__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_sql_role_definition__timeouts *)
 
 type azurerm_cosmosdb_sql_role_definition = {
-  account_name : string;  (** account_name *)
-  assignable_scopes : string list;  (** assignable_scopes *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  role_definition_id : string option; [@option]
+  account_name : string prop;  (** account_name *)
+  assignable_scopes : string prop list;  (** assignable_scopes *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  role_definition_id : string prop option; [@option]
       (** role_definition_id *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   permissions :
     azurerm_cosmosdb_sql_role_definition__permissions list;
   timeouts : azurerm_cosmosdb_sql_role_definition__timeouts option;

@@ -5,44 +5,45 @@
 open! Tf.Prelude
 
 type aws_globalaccelerator_endpoint_group__endpoint_configuration = {
-  client_ip_preservation_enabled : bool option; [@option]
+  client_ip_preservation_enabled : bool prop option; [@option]
       (** client_ip_preservation_enabled *)
-  endpoint_id : string option; [@option]  (** endpoint_id *)
-  weight : float option; [@option]  (** weight *)
+  endpoint_id : string prop option; [@option]  (** endpoint_id *)
+  weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_endpoint_group__endpoint_configuration *)
 
 type aws_globalaccelerator_endpoint_group__port_override = {
-  endpoint_port : float;  (** endpoint_port *)
-  listener_port : float;  (** listener_port *)
+  endpoint_port : float prop;  (** endpoint_port *)
+  listener_port : float prop;  (** listener_port *)
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_endpoint_group__port_override *)
 
 type aws_globalaccelerator_endpoint_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_endpoint_group__timeouts *)
 
 type aws_globalaccelerator_endpoint_group = {
-  endpoint_group_region : string option; [@option]
+  endpoint_group_region : string prop option; [@option]
       (** endpoint_group_region *)
-  health_check_interval_seconds : float option; [@option]
+  health_check_interval_seconds : float prop option; [@option]
       (** health_check_interval_seconds *)
-  health_check_path : string option; [@option]
+  health_check_path : string prop option; [@option]
       (** health_check_path *)
-  health_check_port : float option; [@option]
+  health_check_port : float prop option; [@option]
       (** health_check_port *)
-  health_check_protocol : string option; [@option]
+  health_check_protocol : string prop option; [@option]
       (** health_check_protocol *)
-  id : string option; [@option]  (** id *)
-  listener_arn : string;  (** listener_arn *)
-  threshold_count : float option; [@option]  (** threshold_count *)
-  traffic_dial_percentage : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  listener_arn : string prop;  (** listener_arn *)
+  threshold_count : float prop option; [@option]
+      (** threshold_count *)
+  traffic_dial_percentage : float prop option; [@option]
       (** traffic_dial_percentage *)
   endpoint_configuration :
     aws_globalaccelerator_endpoint_group__endpoint_configuration list;

@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type aws_quicksight_refresh_schedule__schedule__schedule_frequency__refresh_on_day = {
-  day_of_month: string option; [@option] (** day_of_month *)
-  day_of_week: string option; [@option] (** day_of_week *)
+  day_of_month: string prop option; [@option] (** day_of_month *)
+  day_of_week: string prop option; [@option] (** day_of_week *)
 } [@@deriving yojson_of]
 (** aws_quicksight_refresh_schedule__schedule__schedule_frequency__refresh_on_day *)
 
 type aws_quicksight_refresh_schedule__schedule__schedule_frequency = {
-  interval: string;  (** interval *)
-  time_of_the_day: string option; [@option] (** time_of_the_day *)
-  timezone: string option; [@option] (** timezone *)
+  interval: string prop;  (** interval *)
+  time_of_the_day: string prop option; [@option] (** time_of_the_day *)
+  timezone: string prop option; [@option] (** timezone *)
   refresh_on_day: aws_quicksight_refresh_schedule__schedule__schedule_frequency__refresh_on_day list;
 } [@@deriving yojson_of]
 (** aws_quicksight_refresh_schedule__schedule__schedule_frequency *)
 
 type aws_quicksight_refresh_schedule__schedule = {
-  refresh_type: string;  (** refresh_type *)
-  start_after_date_time: string option; [@option] (** start_after_date_time *)
+  refresh_type: string prop;  (** refresh_type *)
+  start_after_date_time: string prop option; [@option] (** start_after_date_time *)
   schedule_frequency: aws_quicksight_refresh_schedule__schedule__schedule_frequency list;
 } [@@deriving yojson_of]
 (** aws_quicksight_refresh_schedule__schedule *)
 
 type aws_quicksight_refresh_schedule = {
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  data_set_id: string;  (** data_set_id *)
-  schedule_id: string;  (** schedule_id *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  data_set_id: string prop;  (** data_set_id *)
+  schedule_id: string prop;  (** schedule_id *)
   schedule: aws_quicksight_refresh_schedule__schedule list;
 } [@@deriving yojson_of]
 (** aws_quicksight_refresh_schedule *)

@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_synapse_workspace_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_workspace_key__timeouts *)
 
 type azurerm_synapse_workspace_key = {
-  active : bool;  (** active *)
-  customer_managed_key_name : string;
+  active : bool prop;  (** active *)
+  customer_managed_key_name : string prop;
       (** customer_managed_key_name *)
-  customer_managed_key_versionless_id : string option; [@option]
+  customer_managed_key_versionless_id : string prop option; [@option]
       (** customer_managed_key_versionless_id *)
-  id : string option; [@option]  (** id *)
-  synapse_workspace_id : string;  (** synapse_workspace_id *)
+  id : string prop option; [@option]  (** id *)
+  synapse_workspace_id : string prop;  (** synapse_workspace_id *)
   timeouts : azurerm_synapse_workspace_key__timeouts option;
 }
 [@@deriving yojson_of]

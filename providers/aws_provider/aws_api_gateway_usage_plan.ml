@@ -5,43 +5,43 @@
 open! Tf.Prelude
 
 type aws_api_gateway_usage_plan__api_stages__throttle = {
-  burst_limit : float option; [@option]  (** burst_limit *)
-  path : string;  (** path *)
-  rate_limit : float option; [@option]  (** rate_limit *)
+  burst_limit : float prop option; [@option]  (** burst_limit *)
+  path : string prop;  (** path *)
+  rate_limit : float prop option; [@option]  (** rate_limit *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_usage_plan__api_stages__throttle *)
 
 type aws_api_gateway_usage_plan__api_stages = {
-  api_id : string;  (** api_id *)
-  stage : string;  (** stage *)
+  api_id : string prop;  (** api_id *)
+  stage : string prop;  (** stage *)
   throttle : aws_api_gateway_usage_plan__api_stages__throttle list;
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_usage_plan__api_stages *)
 
 type aws_api_gateway_usage_plan__quota_settings = {
-  limit : float;  (** limit *)
-  offset : float option; [@option]  (** offset *)
-  period : string;  (** period *)
+  limit : float prop;  (** limit *)
+  offset : float prop option; [@option]  (** offset *)
+  period : string prop;  (** period *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_usage_plan__quota_settings *)
 
 type aws_api_gateway_usage_plan__throttle_settings = {
-  burst_limit : float option; [@option]  (** burst_limit *)
-  rate_limit : float option; [@option]  (** rate_limit *)
+  burst_limit : float prop option; [@option]  (** burst_limit *)
+  rate_limit : float prop option; [@option]  (** rate_limit *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_usage_plan__throttle_settings *)
 
 type aws_api_gateway_usage_plan = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  product_code : string option; [@option]  (** product_code *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  product_code : string prop option; [@option]  (** product_code *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   api_stages : aws_api_gateway_usage_plan__api_stages list;
   quota_settings : aws_api_gateway_usage_plan__quota_settings list;

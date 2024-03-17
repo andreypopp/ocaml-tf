@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type cloudflare_zone_lockdown__configurations = {
-  target : string;
+  target : string prop;
       (** The request property to target. Available values: `ip`, `ip_range`. *)
-  value : string;
+  value : string prop;
       (** The value to target. Depends on target's type. IP addresses should just be standard IPv4/IPv6 notation i.e. `192.0.2.1` or `2001:db8::/32` and IP ranges in CIDR format i.e. `192.0.2.0/24`. *)
 }
 [@@deriving yojson_of]
 (** A list of IP addresses or IP ranges to match the request against specified in target, value pairs. *)
 
 type cloudflare_zone_lockdown = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A description about the lockdown entry. Typically used as a reminder or explanation for the lockdown. *)
-  id : string option; [@option]  (** id *)
-  paused : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  paused : bool prop option; [@option]
       (** Boolean of whether this zone lockdown is currently paused. Defaults to `false`. *)
-  priority : float option; [@option]  (** priority *)
-  urls : string list;
+  priority : float prop option; [@option]  (** priority *)
+  urls : string prop list;
       (** A list of simple wildcard patterns to match requests against. The order of the urls is unimportant. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   configurations : cloudflare_zone_lockdown__configurations list;
 }

@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_verifiedpermissions_schema__definition = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedpermissions_schema__definition *)
 
 type aws_verifiedpermissions_schema = {
-  policy_store_id : string;  (** policy_store_id *)
+  policy_store_id : string prop;  (** policy_store_id *)
   definition : aws_verifiedpermissions_schema__definition;
 }
 [@@deriving yojson_of]

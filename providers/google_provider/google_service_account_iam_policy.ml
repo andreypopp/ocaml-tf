@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_service_account_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  service_account_id : string;  (** service_account_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  service_account_id : string prop;  (** service_account_id *)
 }
 [@@deriving yojson_of]
 (** google_service_account_iam_policy *)

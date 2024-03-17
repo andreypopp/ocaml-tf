@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_inspector2_organization_configuration__auto_enable = {
-  ec2 : bool;  (** ec2 *)
-  ecr : bool;  (** ecr *)
-  lambda : bool option; [@option]  (** lambda *)
-  lambda_code : bool option; [@option]  (** lambda_code *)
+  ec2 : bool prop;  (** ec2 *)
+  ecr : bool prop;  (** ecr *)
+  lambda : bool prop option; [@option]  (** lambda *)
+  lambda_code : bool prop option; [@option]  (** lambda_code *)
 }
 [@@deriving yojson_of]
 (** aws_inspector2_organization_configuration__auto_enable *)
 
 type aws_inspector2_organization_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_inspector2_organization_configuration__timeouts *)
 
 type aws_inspector2_organization_configuration = {
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   auto_enable :
     aws_inspector2_organization_configuration__auto_enable list;
   timeouts :

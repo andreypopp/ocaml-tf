@@ -6,12 +6,12 @@ type azurerm_site_recovery_hyperv_replication_policy__timeouts
 type azurerm_site_recovery_hyperv_replication_policy
 
 val azurerm_site_recovery_hyperv_replication_policy :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_site_recovery_hyperv_replication_policy__timeouts ->
-  application_consistent_snapshot_frequency_in_hours:float ->
-  name:string ->
-  recovery_point_retention_in_hours:float ->
-  recovery_vault_id:string ->
-  replication_interval_in_seconds:float ->
+  application_consistent_snapshot_frequency_in_hours:float prop ->
+  name:string prop ->
+  recovery_point_retention_in_hours:float prop ->
+  recovery_vault_id:string prop ->
+  replication_interval_in_seconds:float prop ->
   string ->
   unit

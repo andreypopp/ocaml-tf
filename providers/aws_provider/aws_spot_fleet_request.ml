@@ -5,64 +5,65 @@
 open! Tf.Prelude
 
 type aws_spot_fleet_request__launch_specification__ebs_block_device = {
-  delete_on_termination : bool option; [@option]
+  delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
-  device_name : string;  (** device_name *)
-  encrypted : bool option; [@option]  (** encrypted *)
-  iops : float option; [@option]  (** iops *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  snapshot_id : string option; [@option]  (** snapshot_id *)
-  throughput : float option; [@option]  (** throughput *)
-  volume_size : float option; [@option]  (** volume_size *)
-  volume_type : string option; [@option]  (** volume_type *)
+  device_name : string prop;  (** device_name *)
+  encrypted : bool prop option; [@option]  (** encrypted *)
+  iops : float prop option; [@option]  (** iops *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  snapshot_id : string prop option; [@option]  (** snapshot_id *)
+  throughput : float prop option; [@option]  (** throughput *)
+  volume_size : float prop option; [@option]  (** volume_size *)
+  volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_specification__ebs_block_device *)
 
 type aws_spot_fleet_request__launch_specification__ephemeral_block_device = {
-  device_name : string;  (** device_name *)
-  virtual_name : string;  (** virtual_name *)
+  device_name : string prop;  (** device_name *)
+  virtual_name : string prop;  (** virtual_name *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_specification__ephemeral_block_device *)
 
 type aws_spot_fleet_request__launch_specification__root_block_device = {
-  delete_on_termination : bool option; [@option]
+  delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
-  encrypted : bool option; [@option]  (** encrypted *)
-  iops : float option; [@option]  (** iops *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  throughput : float option; [@option]  (** throughput *)
-  volume_size : float option; [@option]  (** volume_size *)
-  volume_type : string option; [@option]  (** volume_type *)
+  encrypted : bool prop option; [@option]  (** encrypted *)
+  iops : float prop option; [@option]  (** iops *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  throughput : float prop option; [@option]  (** throughput *)
+  volume_size : float prop option; [@option]  (** volume_size *)
+  volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_specification__root_block_device *)
 
 type aws_spot_fleet_request__launch_specification = {
-  ami : string;  (** ami *)
-  associate_public_ip_address : bool option; [@option]
+  ami : string prop;  (** ami *)
+  associate_public_ip_address : bool prop option; [@option]
       (** associate_public_ip_address *)
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  ebs_optimized : bool option; [@option]  (** ebs_optimized *)
-  iam_instance_profile : string option; [@option]
+  ebs_optimized : bool prop option; [@option]  (** ebs_optimized *)
+  iam_instance_profile : string prop option; [@option]
       (** iam_instance_profile *)
-  iam_instance_profile_arn : string option; [@option]
+  iam_instance_profile_arn : string prop option; [@option]
       (** iam_instance_profile_arn *)
-  instance_type : string;  (** instance_type *)
-  key_name : string option; [@option]  (** key_name *)
-  monitoring : bool option; [@option]  (** monitoring *)
-  placement_group : string option; [@option]  (** placement_group *)
-  placement_tenancy : string option; [@option]
+  instance_type : string prop;  (** instance_type *)
+  key_name : string prop option; [@option]  (** key_name *)
+  monitoring : bool prop option; [@option]  (** monitoring *)
+  placement_group : string prop option; [@option]
+      (** placement_group *)
+  placement_tenancy : string prop option; [@option]
       (** placement_tenancy *)
-  spot_price : string option; [@option]  (** spot_price *)
-  subnet_id : string option; [@option]  (** subnet_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  user_data : string option; [@option]  (** user_data *)
-  vpc_security_group_ids : string list option; [@option]
+  spot_price : string prop option; [@option]  (** spot_price *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  user_data : string prop option; [@option]  (** user_data *)
+  vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
-  weighted_capacity : string option; [@option]
+  weighted_capacity : string prop option; [@option]
       (** weighted_capacity *)
   ebs_block_device :
     aws_spot_fleet_request__launch_specification__ebs_block_device
@@ -78,103 +79,104 @@ type aws_spot_fleet_request__launch_specification = {
 (** aws_spot_fleet_request__launch_specification *)
 
 type aws_spot_fleet_request__launch_template_config__launch_template_specification = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  version : string option; [@option]  (** version *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_template_config__launch_template_specification *)
 
 type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__accelerator_count = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__accelerator_count *)
 
 type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib *)
 
 type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps *)
 
 type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu *)
 
 type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__memory_mib = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__memory_mib *)
 
 type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__network_bandwidth_gbps = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__network_bandwidth_gbps *)
 
 type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__network_interface_count = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__network_interface_count *)
 
 type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__total_local_storage_gb = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__total_local_storage_gb *)
 
 type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__vcpu_count = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements__vcpu_count *)
 
 type aws_spot_fleet_request__launch_template_config__overrides__instance_requirements = {
-  accelerator_manufacturers : string list option; [@option]
+  accelerator_manufacturers : string prop list option; [@option]
       (** accelerator_manufacturers *)
-  accelerator_names : string list option; [@option]
+  accelerator_names : string prop list option; [@option]
       (** accelerator_names *)
-  accelerator_types : string list option; [@option]
+  accelerator_types : string prop list option; [@option]
       (** accelerator_types *)
-  allowed_instance_types : string list option; [@option]
+  allowed_instance_types : string prop list option; [@option]
       (** allowed_instance_types *)
-  bare_metal : string option; [@option]  (** bare_metal *)
-  burstable_performance : string option; [@option]
+  bare_metal : string prop option; [@option]  (** bare_metal *)
+  burstable_performance : string prop option; [@option]
       (** burstable_performance *)
-  cpu_manufacturers : string list option; [@option]
+  cpu_manufacturers : string prop list option; [@option]
       (** cpu_manufacturers *)
-  excluded_instance_types : string list option; [@option]
+  excluded_instance_types : string prop list option; [@option]
       (** excluded_instance_types *)
-  instance_generations : string list option; [@option]
+  instance_generations : string prop list option; [@option]
       (** instance_generations *)
-  local_storage : string option; [@option]  (** local_storage *)
-  local_storage_types : string list option; [@option]
+  local_storage : string prop option; [@option]  (** local_storage *)
+  local_storage_types : string prop list option; [@option]
       (** local_storage_types *)
-  on_demand_max_price_percentage_over_lowest_price : float option;
+  on_demand_max_price_percentage_over_lowest_price :
+    float prop option;
       [@option]
       (** on_demand_max_price_percentage_over_lowest_price *)
-  require_hibernate_support : bool option; [@option]
+  require_hibernate_support : bool prop option; [@option]
       (** require_hibernate_support *)
-  spot_max_price_percentage_over_lowest_price : float option;
+  spot_max_price_percentage_over_lowest_price : float prop option;
       [@option]
       (** spot_max_price_percentage_over_lowest_price *)
   accelerator_count :
@@ -209,13 +211,13 @@ type aws_spot_fleet_request__launch_template_config__overrides__instance_require
 (** aws_spot_fleet_request__launch_template_config__overrides__instance_requirements *)
 
 type aws_spot_fleet_request__launch_template_config__overrides = {
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  instance_type : string option; [@option]  (** instance_type *)
-  priority : float option; [@option]  (** priority *)
-  spot_price : string option; [@option]  (** spot_price *)
-  subnet_id : string option; [@option]  (** subnet_id *)
-  weighted_capacity : float option; [@option]
+  instance_type : string prop option; [@option]  (** instance_type *)
+  priority : float prop option; [@option]  (** priority *)
+  spot_price : string prop option; [@option]  (** spot_price *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
+  weighted_capacity : float prop option; [@option]
       (** weighted_capacity *)
   instance_requirements :
     aws_spot_fleet_request__launch_template_config__overrides__instance_requirements
@@ -235,7 +237,7 @@ type aws_spot_fleet_request__launch_template_config = {
 (** aws_spot_fleet_request__launch_template_config *)
 
 type aws_spot_fleet_request__spot_maintenance_strategies__capacity_rebalance = {
-  replacement_strategy : string option; [@option]
+  replacement_strategy : string prop option; [@option]
       (** replacement_strategy *)
 }
 [@@deriving yojson_of]
@@ -250,52 +252,52 @@ type aws_spot_fleet_request__spot_maintenance_strategies = {
 (** aws_spot_fleet_request__spot_maintenance_strategies *)
 
 type aws_spot_fleet_request__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_spot_fleet_request__timeouts *)
 
 type aws_spot_fleet_request = {
-  allocation_strategy : string option; [@option]
+  allocation_strategy : string prop option; [@option]
       (** allocation_strategy *)
-  context : string option; [@option]  (** context *)
-  excess_capacity_termination_policy : string option; [@option]
+  context : string prop option; [@option]  (** context *)
+  excess_capacity_termination_policy : string prop option; [@option]
       (** excess_capacity_termination_policy *)
-  fleet_type : string option; [@option]  (** fleet_type *)
-  iam_fleet_role : string;  (** iam_fleet_role *)
-  id : string option; [@option]  (** id *)
-  instance_interruption_behaviour : string option; [@option]
+  fleet_type : string prop option; [@option]  (** fleet_type *)
+  iam_fleet_role : string prop;  (** iam_fleet_role *)
+  id : string prop option; [@option]  (** id *)
+  instance_interruption_behaviour : string prop option; [@option]
       (** instance_interruption_behaviour *)
-  instance_pools_to_use_count : float option; [@option]
+  instance_pools_to_use_count : float prop option; [@option]
       (** instance_pools_to_use_count *)
-  load_balancers : string list option; [@option]
+  load_balancers : string prop list option; [@option]
       (** load_balancers *)
-  on_demand_allocation_strategy : string option; [@option]
+  on_demand_allocation_strategy : string prop option; [@option]
       (** on_demand_allocation_strategy *)
-  on_demand_max_total_price : string option; [@option]
+  on_demand_max_total_price : string prop option; [@option]
       (** on_demand_max_total_price *)
-  on_demand_target_capacity : float option; [@option]
+  on_demand_target_capacity : float prop option; [@option]
       (** on_demand_target_capacity *)
-  replace_unhealthy_instances : bool option; [@option]
+  replace_unhealthy_instances : bool prop option; [@option]
       (** replace_unhealthy_instances *)
-  spot_price : string option; [@option]  (** spot_price *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  spot_price : string prop option; [@option]  (** spot_price *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  target_capacity : float;  (** target_capacity *)
-  target_capacity_unit_type : string option; [@option]
+  target_capacity : float prop;  (** target_capacity *)
+  target_capacity_unit_type : string prop option; [@option]
       (** target_capacity_unit_type *)
-  target_group_arns : string list option; [@option]
+  target_group_arns : string prop list option; [@option]
       (** target_group_arns *)
-  terminate_instances_on_delete : string option; [@option]
+  terminate_instances_on_delete : string prop option; [@option]
       (** terminate_instances_on_delete *)
-  terminate_instances_with_expiration : bool option; [@option]
+  terminate_instances_with_expiration : bool prop option; [@option]
       (** terminate_instances_with_expiration *)
-  valid_from : string option; [@option]  (** valid_from *)
-  valid_until : string option; [@option]  (** valid_until *)
-  wait_for_fulfillment : bool option; [@option]
+  valid_from : string prop option; [@option]  (** valid_from *)
+  valid_until : string prop option; [@option]  (** valid_until *)
+  wait_for_fulfillment : bool prop option; [@option]
       (** wait_for_fulfillment *)
   launch_specification :
     aws_spot_fleet_request__launch_specification list;

@@ -5,31 +5,32 @@
 open! Tf.Prelude
 
 type azurerm_dev_test_global_vm_shutdown_schedule__notification_settings = {
-  email : string option; [@option]  (** email *)
-  enabled : bool;  (** enabled *)
-  time_in_minutes : float option; [@option]  (** time_in_minutes *)
-  webhook_url : string option; [@option]  (** webhook_url *)
+  email : string prop option; [@option]  (** email *)
+  enabled : bool prop;  (** enabled *)
+  time_in_minutes : float prop option; [@option]
+      (** time_in_minutes *)
+  webhook_url : string prop option; [@option]  (** webhook_url *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_global_vm_shutdown_schedule__notification_settings *)
 
 type azurerm_dev_test_global_vm_shutdown_schedule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_global_vm_shutdown_schedule__timeouts *)
 
 type azurerm_dev_test_global_vm_shutdown_schedule = {
-  daily_recurrence_time : string;  (** daily_recurrence_time *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  timezone : string;  (** timezone *)
-  virtual_machine_id : string;  (** virtual_machine_id *)
+  daily_recurrence_time : string prop;  (** daily_recurrence_time *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  timezone : string prop;  (** timezone *)
+  virtual_machine_id : string prop;  (** virtual_machine_id *)
   notification_settings :
     azurerm_dev_test_global_vm_shutdown_schedule__notification_settings
     list;

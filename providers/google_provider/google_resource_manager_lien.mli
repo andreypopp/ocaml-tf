@@ -6,11 +6,11 @@ type google_resource_manager_lien__timeouts
 type google_resource_manager_lien
 
 val google_resource_manager_lien :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_resource_manager_lien__timeouts ->
-  origin:string ->
-  parent:string ->
-  reason:string ->
-  restrictions:string list ->
+  origin:string prop ->
+  parent:string prop ->
+  reason:string prop ->
+  restrictions:string prop list ->
   string ->
   unit

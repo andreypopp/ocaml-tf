@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config__large_data_delivery_s3_config = {
-  bucket_name : string option; [@option]  (** bucket_name *)
-  key_prefix : string option; [@option]  (** key_prefix *)
+  bucket_name : string prop option; [@option]  (** bucket_name *)
+  key_prefix : string prop option; [@option]  (** key_prefix *)
 }
 [@@deriving yojson_of]
 (** aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config__large_data_delivery_s3_config *)
 
 type aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config = {
-  log_group_name : string option; [@option]  (** log_group_name *)
-  role_arn : string option; [@option]  (** role_arn *)
+  log_group_name : string prop option; [@option]
+      (** log_group_name *)
+  role_arn : string prop option; [@option]  (** role_arn *)
   large_data_delivery_s3_config :
     aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config__large_data_delivery_s3_config;
 }
@@ -21,18 +22,18 @@ type aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwa
 (** aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config *)
 
 type aws_bedrock_model_invocation_logging_configuration__logging_config__s3_config = {
-  bucket_name : string option; [@option]  (** bucket_name *)
-  key_prefix : string option; [@option]  (** key_prefix *)
+  bucket_name : string prop option; [@option]  (** bucket_name *)
+  key_prefix : string prop option; [@option]  (** key_prefix *)
 }
 [@@deriving yojson_of]
 (** aws_bedrock_model_invocation_logging_configuration__logging_config__s3_config *)
 
 type aws_bedrock_model_invocation_logging_configuration__logging_config = {
-  embedding_data_delivery_enabled : bool;
+  embedding_data_delivery_enabled : bool prop;
       (** embedding_data_delivery_enabled *)
-  image_data_delivery_enabled : bool;
+  image_data_delivery_enabled : bool prop;
       (** image_data_delivery_enabled *)
-  text_data_delivery_enabled : bool;
+  text_data_delivery_enabled : bool prop;
       (** text_data_delivery_enabled *)
   cloudwatch_config :
     aws_bedrock_model_invocation_logging_configuration__logging_config__cloudwatch_config;

@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_qldb_ledger__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_qldb_ledger__timeouts *)
 
 type aws_qldb_ledger = {
-  deletion_protection : bool option; [@option]
+  deletion_protection : bool prop option; [@option]
       (** deletion_protection *)
-  id : string option; [@option]  (** id *)
-  kms_key : string option; [@option]  (** kms_key *)
-  name : string option; [@option]  (** name *)
-  permissions_mode : string;  (** permissions_mode *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kms_key : string prop option; [@option]  (** kms_key *)
+  name : string prop option; [@option]  (** name *)
+  permissions_mode : string prop;  (** permissions_mode *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_qldb_ledger__timeouts option;
 }

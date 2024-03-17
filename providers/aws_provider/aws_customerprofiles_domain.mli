@@ -27,13 +27,13 @@ type aws_customerprofiles_domain__rule_based_matching
 type aws_customerprofiles_domain
 
 val aws_customerprofiles_domain :
-  ?dead_letter_queue_url:string ->
-  ?default_encryption_key:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  default_expiration_days:float ->
-  domain_name:string ->
+  ?dead_letter_queue_url:string prop ->
+  ?default_encryption_key:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  default_expiration_days:float prop ->
+  domain_name:string prop ->
   matching:aws_customerprofiles_domain__matching list ->
   rule_based_matching:
     aws_customerprofiles_domain__rule_based_matching list ->

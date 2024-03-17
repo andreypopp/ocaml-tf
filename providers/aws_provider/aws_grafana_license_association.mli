@@ -6,9 +6,9 @@ type aws_grafana_license_association__timeouts
 type aws_grafana_license_association
 
 val aws_grafana_license_association :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_grafana_license_association__timeouts ->
-  license_type:string ->
-  workspace_id:string ->
+  license_type:string prop ->
+  workspace_id:string prop ->
   string ->
   unit

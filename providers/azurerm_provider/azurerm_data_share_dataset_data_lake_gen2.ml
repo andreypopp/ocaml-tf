@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_data_share_dataset_data_lake_gen2__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_share_dataset_data_lake_gen2__timeouts *)
 
 type azurerm_data_share_dataset_data_lake_gen2 = {
-  file_path : string option; [@option]  (** file_path *)
-  file_system_name : string;  (** file_system_name *)
-  folder_path : string option; [@option]  (** folder_path *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  share_id : string;  (** share_id *)
-  storage_account_id : string;  (** storage_account_id *)
+  file_path : string prop option; [@option]  (** file_path *)
+  file_system_name : string prop;  (** file_system_name *)
+  folder_path : string prop option; [@option]  (** folder_path *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  share_id : string prop;  (** share_id *)
+  storage_account_id : string prop;  (** storage_account_id *)
   timeouts :
     azurerm_data_share_dataset_data_lake_gen2__timeouts option;
 }

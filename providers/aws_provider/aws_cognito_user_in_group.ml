@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_cognito_user_in_group = {
-  group_name : string;  (** group_name *)
-  id : string option; [@option]  (** id *)
-  user_pool_id : string;  (** user_pool_id *)
-  username : string;  (** username *)
+  group_name : string prop;  (** group_name *)
+  id : string prop option; [@option]  (** id *)
+  user_pool_id : string prop;  (** user_pool_id *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** aws_cognito_user_in_group *)

@@ -5,25 +5,26 @@
 open! Tf.Prelude
 
 type aws_lightsail_instance__add_on = {
-  snapshot_time : string;  (** snapshot_time *)
-  status : string;  (** status *)
-  type_ : string; [@key "type"]  (** type *)
+  snapshot_time : string prop;  (** snapshot_time *)
+  status : string prop;  (** status *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_instance__add_on *)
 
 type aws_lightsail_instance = {
-  availability_zone : string;  (** availability_zone *)
-  blueprint_id : string;  (** blueprint_id *)
-  bundle_id : string;  (** bundle_id *)
-  id : string option; [@option]  (** id *)
-  ip_address_type : string option; [@option]  (** ip_address_type *)
-  key_pair_name : string option; [@option]  (** key_pair_name *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  availability_zone : string prop;  (** availability_zone *)
+  blueprint_id : string prop;  (** blueprint_id *)
+  bundle_id : string prop;  (** bundle_id *)
+  id : string prop option; [@option]  (** id *)
+  ip_address_type : string prop option; [@option]
+      (** ip_address_type *)
+  key_pair_name : string prop option; [@option]  (** key_pair_name *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user_data : string option; [@option]  (** user_data *)
+  user_data : string prop option; [@option]  (** user_data *)
   add_on : aws_lightsail_instance__add_on list;
 }
 [@@deriving yojson_of]

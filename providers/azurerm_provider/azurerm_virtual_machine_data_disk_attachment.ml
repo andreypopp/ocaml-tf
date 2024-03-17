@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_virtual_machine_data_disk_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_data_disk_attachment__timeouts *)
 
 type azurerm_virtual_machine_data_disk_attachment = {
-  caching : string;  (** caching *)
-  create_option : string option; [@option]  (** create_option *)
-  id : string option; [@option]  (** id *)
-  lun : float;  (** lun *)
-  managed_disk_id : string;  (** managed_disk_id *)
-  virtual_machine_id : string;  (** virtual_machine_id *)
-  write_accelerator_enabled : bool option; [@option]
+  caching : string prop;  (** caching *)
+  create_option : string prop option; [@option]  (** create_option *)
+  id : string prop option; [@option]  (** id *)
+  lun : float prop;  (** lun *)
+  managed_disk_id : string prop;  (** managed_disk_id *)
+  virtual_machine_id : string prop;  (** virtual_machine_id *)
+  write_accelerator_enabled : bool prop option; [@option]
       (** write_accelerator_enabled *)
   timeouts :
     azurerm_virtual_machine_data_disk_attachment__timeouts option;

@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_maps_creator__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_maps_creator__timeouts *)
 
 type azurerm_maps_creator = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  maps_account_id : string;  (** maps_account_id *)
-  name : string;  (** name *)
-  storage_units : float;  (** storage_units *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  maps_account_id : string prop;  (** maps_account_id *)
+  name : string prop;  (** name *)
+  storage_units : float prop;  (** storage_units *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_maps_creator__timeouts option;
 }
 [@@deriving yojson_of]

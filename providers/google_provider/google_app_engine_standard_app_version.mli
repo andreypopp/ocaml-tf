@@ -20,21 +20,21 @@ type google_app_engine_standard_app_version__vpc_access_connector
 type google_app_engine_standard_app_version
 
 val google_app_engine_standard_app_version :
-  ?app_engine_apis:bool ->
-  ?delete_service_on_destroy:bool ->
-  ?env_variables:(string * string) list ->
-  ?id:string ->
-  ?inbound_services:string list ->
-  ?instance_class:string ->
-  ?noop_on_destroy:bool ->
-  ?project:string ->
-  ?runtime_api_version:string ->
-  ?service_account:string ->
-  ?threadsafe:bool ->
-  ?version_id:string ->
+  ?app_engine_apis:bool prop ->
+  ?delete_service_on_destroy:bool prop ->
+  ?env_variables:(string * string prop) list ->
+  ?id:string prop ->
+  ?inbound_services:string prop list ->
+  ?instance_class:string prop ->
+  ?noop_on_destroy:bool prop ->
+  ?project:string prop ->
+  ?runtime_api_version:string prop ->
+  ?service_account:string prop ->
+  ?threadsafe:bool prop ->
+  ?version_id:string prop ->
   ?timeouts:google_app_engine_standard_app_version__timeouts ->
-  runtime:string ->
-  service:string ->
+  runtime:string prop ->
+  service:string prop ->
   automatic_scaling:
     google_app_engine_standard_app_version__automatic_scaling list ->
   basic_scaling:

@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type aws_networkfirewall_logging_configuration__logging_configuration__log_destination_config = {
-  log_destination : (string * string) list;  (** log_destination *)
-  log_destination_type : string;  (** log_destination_type *)
-  log_type : string;  (** log_type *)
+  log_destination : (string * string prop) list;
+      (** log_destination *)
+  log_destination_type : string prop;  (** log_destination_type *)
+  log_type : string prop;  (** log_type *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_logging_configuration__logging_configuration__log_destination_config *)
@@ -21,8 +22,8 @@ type aws_networkfirewall_logging_configuration__logging_configuration = {
 (** aws_networkfirewall_logging_configuration__logging_configuration *)
 
 type aws_networkfirewall_logging_configuration = {
-  firewall_arn : string;  (** firewall_arn *)
-  id : string option; [@option]  (** id *)
+  firewall_arn : string prop;  (** firewall_arn *)
+  id : string prop option; [@option]  (** id *)
   logging_configuration :
     aws_networkfirewall_logging_configuration__logging_configuration
     list;

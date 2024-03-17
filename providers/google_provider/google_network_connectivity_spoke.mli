@@ -14,14 +14,14 @@ type google_network_connectivity_spoke__timeouts
 type google_network_connectivity_spoke
 
 val google_network_connectivity_spoke :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_network_connectivity_spoke__timeouts ->
-  hub:string ->
-  location:string ->
-  name:string ->
+  hub:string prop ->
+  location:string prop ->
+  name:string prop ->
   linked_interconnect_attachments:
     google_network_connectivity_spoke__linked_interconnect_attachments
     list ->

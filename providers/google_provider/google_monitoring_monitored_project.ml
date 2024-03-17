@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type google_monitoring_monitored_project__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_monitoring_monitored_project__timeouts *)
 
 type google_monitoring_monitored_project = {
-  id : string option; [@option]  (** id *)
-  metrics_scope : string;
+  id : string prop option; [@option]  (** id *)
+  metrics_scope : string prop;
       (** Required. The resource name of the existing Metrics Scope that will monitor this project. Example: locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER} *)
-  name : string;
+  name : string prop;
       (** Immutable. The resource name of the 'MonitoredProject'. On input, the resource name includes the scoping project ID and monitored project ID. On output, it contains the equivalent project numbers. Example: 'locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}/projects/{MONITORED_PROJECT_ID_OR_NUMBER}' *)
   timeouts : google_monitoring_monitored_project__timeouts option;
 }

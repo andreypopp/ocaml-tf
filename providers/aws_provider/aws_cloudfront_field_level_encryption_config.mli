@@ -17,8 +17,8 @@ type aws_cloudfront_field_level_encryption_config__query_arg_profile_config
 type aws_cloudfront_field_level_encryption_config
 
 val aws_cloudfront_field_level_encryption_config :
-  ?comment:string ->
-  ?id:string ->
+  ?comment:string prop ->
+  ?id:string prop ->
   content_type_profile_config:
     aws_cloudfront_field_level_encryption_config__content_type_profile_config
     list ->

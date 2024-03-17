@@ -45,13 +45,13 @@ type google_securityposture_posture__timeouts
 type google_securityposture_posture
 
 val google_securityposture_posture :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:google_securityposture_posture__timeouts ->
-  location:string ->
-  parent:string ->
-  posture_id:string ->
-  state:string ->
+  location:string prop ->
+  parent:string prop ->
+  posture_id:string prop ->
+  state:string prop ->
   policy_sets:google_securityposture_posture__policy_sets list ->
   string ->
   unit

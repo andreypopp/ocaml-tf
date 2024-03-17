@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule__monthly = {
-  week : float;  (** week *)
-  weekday : string;  (** weekday *)
+  week : float prop;  (** week *)
+  weekday : string prop;  (** weekday *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule__monthly *)
 
 type azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule = {
-  hours : float list option; [@option]  (** hours *)
-  minutes : float list option; [@option]  (** minutes *)
-  month_days : float list option; [@option]  (** month_days *)
-  week_days : string list option; [@option]  (** week_days *)
+  hours : float prop list option; [@option]  (** hours *)
+  minutes : float prop list option; [@option]  (** minutes *)
+  month_days : float prop list option; [@option]  (** month_days *)
+  week_days : string prop list option; [@option]  (** week_days *)
   monthly :
     azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule__monthly
     list;
@@ -24,11 +24,11 @@ type azurerm_logic_app_integration_account_batch_configuration__release_criteria
 (** azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule *)
 
 type azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence = {
-  end_time : string option; [@option]  (** end_time *)
-  frequency : string;  (** frequency *)
-  interval : float;  (** interval *)
-  start_time : string option; [@option]  (** start_time *)
-  time_zone : string option; [@option]  (** time_zone *)
+  end_time : string prop option; [@option]  (** end_time *)
+  frequency : string prop;  (** frequency *)
+  interval : float prop;  (** interval *)
+  start_time : string prop option; [@option]  (** start_time *)
+  time_zone : string prop option; [@option]  (** time_zone *)
   schedule :
     azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence__schedule
     list;
@@ -37,8 +37,8 @@ type azurerm_logic_app_integration_account_batch_configuration__release_criteria
 (** azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence *)
 
 type azurerm_logic_app_integration_account_batch_configuration__release_criteria = {
-  batch_size : float option; [@option]  (** batch_size *)
-  message_count : float option; [@option]  (** message_count *)
+  batch_size : float prop option; [@option]  (** batch_size *)
+  message_count : float prop option; [@option]  (** message_count *)
   recurrence :
     azurerm_logic_app_integration_account_batch_configuration__release_criteria__recurrence
     list;
@@ -47,22 +47,23 @@ type azurerm_logic_app_integration_account_batch_configuration__release_criteria
 (** azurerm_logic_app_integration_account_batch_configuration__release_criteria *)
 
 type azurerm_logic_app_integration_account_batch_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_batch_configuration__timeouts *)
 
 type azurerm_logic_app_integration_account_batch_configuration = {
-  batch_group_name : string;  (** batch_group_name *)
-  id : string option; [@option]  (** id *)
-  integration_account_name : string;  (** integration_account_name *)
-  metadata : (string * string) list option; [@option]
+  batch_group_name : string prop;  (** batch_group_name *)
+  id : string prop option; [@option]  (** id *)
+  integration_account_name : string prop;
+      (** integration_account_name *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   release_criteria :
     azurerm_logic_app_integration_account_batch_configuration__release_criteria
     list;

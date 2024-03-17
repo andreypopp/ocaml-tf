@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_appsync_api_cache = {
-  api_caching_behavior : string;  (** api_caching_behavior *)
-  api_id : string;  (** api_id *)
-  at_rest_encryption_enabled : bool option; [@option]
+  api_caching_behavior : string prop;  (** api_caching_behavior *)
+  api_id : string prop;  (** api_id *)
+  at_rest_encryption_enabled : bool prop option; [@option]
       (** at_rest_encryption_enabled *)
-  id : string option; [@option]  (** id *)
-  transit_encryption_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  transit_encryption_enabled : bool prop option; [@option]
       (** transit_encryption_enabled *)
-  ttl : float;  (** ttl *)
-  type_ : string; [@key "type"]  (** type *)
+  ttl : float prop;  (** ttl *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_api_cache *)

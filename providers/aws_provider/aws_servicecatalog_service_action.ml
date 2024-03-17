@@ -5,29 +5,30 @@
 open! Tf.Prelude
 
 type aws_servicecatalog_service_action__definition = {
-  assume_role : string option; [@option]  (** assume_role *)
-  name : string;  (** name *)
-  parameters : string option; [@option]  (** parameters *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  version : string;  (** version *)
+  assume_role : string prop option; [@option]  (** assume_role *)
+  name : string prop;  (** name *)
+  parameters : string prop option; [@option]  (** parameters *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_service_action__definition *)
 
 type aws_servicecatalog_service_action__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_service_action__timeouts *)
 
 type aws_servicecatalog_service_action = {
-  accept_language : string option; [@option]  (** accept_language *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  accept_language : string prop option; [@option]
+      (** accept_language *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   definition : aws_servicecatalog_service_action__definition list;
   timeouts : aws_servicecatalog_service_action__timeouts option;
 }

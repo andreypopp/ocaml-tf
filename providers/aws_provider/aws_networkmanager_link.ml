@@ -5,30 +5,31 @@
 open! Tf.Prelude
 
 type aws_networkmanager_link__bandwidth = {
-  download_speed : float option; [@option]  (** download_speed *)
-  upload_speed : float option; [@option]  (** upload_speed *)
+  download_speed : float prop option; [@option]
+      (** download_speed *)
+  upload_speed : float prop option; [@option]  (** upload_speed *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_link__bandwidth *)
 
 type aws_networkmanager_link__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_link__timeouts *)
 
 type aws_networkmanager_link = {
-  description : string option; [@option]  (** description *)
-  global_network_id : string;  (** global_network_id *)
-  id : string option; [@option]  (** id *)
-  provider_name : string option; [@option]  (** provider_name *)
-  site_id : string;  (** site_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  global_network_id : string prop;  (** global_network_id *)
+  id : string prop option; [@option]  (** id *)
+  provider_name : string prop option; [@option]  (** provider_name *)
+  site_id : string prop;  (** site_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   bandwidth : aws_networkmanager_link__bandwidth list;
   timeouts : aws_networkmanager_link__timeouts option;
 }

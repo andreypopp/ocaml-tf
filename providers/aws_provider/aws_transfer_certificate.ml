@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_transfer_certificate = {
-  certificate : string;  (** certificate *)
-  certificate_chain : string option; [@option]
+  certificate : string prop;  (** certificate *)
+  certificate_chain : string prop option; [@option]
       (** certificate_chain *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  private_key : string option; [@option]  (** private_key *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  private_key : string prop option; [@option]  (** private_key *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  usage : string;  (** usage *)
+  usage : string prop;  (** usage *)
 }
 [@@deriving yojson_of]
 (** aws_transfer_certificate *)

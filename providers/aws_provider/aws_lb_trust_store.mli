@@ -6,14 +6,14 @@ type aws_lb_trust_store__timeouts
 type aws_lb_trust_store
 
 val aws_lb_trust_store :
-  ?ca_certificates_bundle_s3_object_version:string ->
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?ca_certificates_bundle_s3_object_version:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_lb_trust_store__timeouts ->
-  ca_certificates_bundle_s3_bucket:string ->
-  ca_certificates_bundle_s3_key:string ->
+  ca_certificates_bundle_s3_bucket:string prop ->
+  ca_certificates_bundle_s3_key:string prop ->
   string ->
   unit

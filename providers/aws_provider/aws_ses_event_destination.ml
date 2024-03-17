@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type aws_ses_event_destination__cloudwatch_destination = {
-  default_value : string;  (** default_value *)
-  dimension_name : string;  (** dimension_name *)
-  value_source : string;  (** value_source *)
+  default_value : string prop;  (** default_value *)
+  dimension_name : string prop;  (** dimension_name *)
+  value_source : string prop;  (** value_source *)
 }
 [@@deriving yojson_of]
 (** aws_ses_event_destination__cloudwatch_destination *)
 
 type aws_ses_event_destination__kinesis_destination = {
-  role_arn : string;  (** role_arn *)
-  stream_arn : string;  (** stream_arn *)
+  role_arn : string prop;  (** role_arn *)
+  stream_arn : string prop;  (** stream_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ses_event_destination__kinesis_destination *)
 
 type aws_ses_event_destination__sns_destination = {
-  topic_arn : string;  (** topic_arn *)
+  topic_arn : string prop;  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ses_event_destination__sns_destination *)
 
 type aws_ses_event_destination = {
-  configuration_set_name : string;  (** configuration_set_name *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  matching_types : string list;  (** matching_types *)
-  name : string;  (** name *)
+  configuration_set_name : string prop;
+      (** configuration_set_name *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  matching_types : string prop list;  (** matching_types *)
+  name : string prop;  (** name *)
   cloudwatch_destination :
     aws_ses_event_destination__cloudwatch_destination list;
   kinesis_destination :

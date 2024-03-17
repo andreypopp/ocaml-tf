@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_devicefarm_test_grid_project__vpc_config = {
-  security_group_ids : string list;  (** security_group_ids *)
-  subnet_ids : string list;  (** subnet_ids *)
-  vpc_id : string;  (** vpc_id *)
+  security_group_ids : string prop list;  (** security_group_ids *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_devicefarm_test_grid_project__vpc_config *)
 
 type aws_devicefarm_test_grid_project = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   vpc_config : aws_devicefarm_test_grid_project__vpc_config list;
 }

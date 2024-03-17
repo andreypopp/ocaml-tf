@@ -9,12 +9,12 @@ type azurerm_virtual_hub_connection__timeouts
 type azurerm_virtual_hub_connection
 
 val azurerm_virtual_hub_connection :
-  ?id:string ->
-  ?internet_security_enabled:bool ->
+  ?id:string prop ->
+  ?internet_security_enabled:bool prop ->
   ?timeouts:azurerm_virtual_hub_connection__timeouts ->
-  name:string ->
-  remote_virtual_network_id:string ->
-  virtual_hub_id:string ->
+  name:string prop ->
+  remote_virtual_network_id:string prop ->
+  virtual_hub_id:string prop ->
   routing:azurerm_virtual_hub_connection__routing list ->
   string ->
   unit

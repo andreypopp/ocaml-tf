@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_static_site_custom_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_static_site_custom_domain__timeouts *)
 
 type azurerm_static_site_custom_domain = {
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  static_site_id : string;  (** static_site_id *)
-  validation_type : string option; [@option]  (** validation_type *)
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  static_site_id : string prop;  (** static_site_id *)
+  validation_type : string prop option; [@option]
+      (** validation_type *)
   timeouts : azurerm_static_site_custom_domain__timeouts option;
 }
 [@@deriving yojson_of]

@@ -6,10 +6,10 @@ type google_iap_brand__timeouts
 type google_iap_brand
 
 val google_iap_brand :
-  ?id:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_iap_brand__timeouts ->
-  application_title:string ->
-  support_email:string ->
+  application_title:string prop ->
+  support_email:string prop ->
   string ->
   unit

@@ -52,12 +52,12 @@ type cloudflare_ruleset__rules
 type cloudflare_ruleset
 
 val cloudflare_ruleset :
-  ?account_id:string ->
-  ?description:string ->
-  ?zone_id:string ->
-  kind:string ->
-  name:string ->
-  phase:string ->
+  ?account_id:string prop ->
+  ?description:string prop ->
+  ?zone_id:string prop ->
+  kind:string prop ->
+  name:string prop ->
+  phase:string prop ->
   rules:cloudflare_ruleset__rules list ->
   string ->
   unit

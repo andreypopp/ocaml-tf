@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type google_document_ai_processor__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_document_ai_processor__timeouts *)
 
 type google_document_ai_processor = {
-  display_name : string;  (** The display name. Must be unique. *)
-  id : string option; [@option]  (** id *)
-  kms_key_name : string option; [@option]
+  display_name : string prop;
+      (** The display name. Must be unique. *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_name : string prop option; [@option]
       (** The KMS key used for encryption/decryption in CMEK scenarios. See https://cloud.google.com/security-key-management. *)
-  location : string;  (** The location of the resource. *)
-  project : string option; [@option]  (** project *)
-  type_ : string; [@key "type"]
+  location : string prop;  (** The location of the resource. *)
+  project : string prop option; [@option]  (** project *)
+  type_ : string prop; [@key "type"]
       (** The type of processor. For possible types see the [official list](https://cloud.google.com/document-ai/docs/reference/rest/v1/projects.locations/fetchProcessorTypes#google.cloud.documentai.v1.DocumentProcessorService.FetchProcessorTypes) *)
   timeouts : google_document_ai_processor__timeouts option;
 }

@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_apigatewayv2_deployment = {
-  api_id : string;  (** api_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  triggers : (string * string) list option; [@option]  (** triggers *)
+  api_id : string prop;  (** api_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  triggers : (string * string prop) list option; [@option]
+      (** triggers *)
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_deployment *)

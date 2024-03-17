@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type hcloud_floating_ip_assignment = {
-  floating_ip_id : float;  (** floating_ip_id *)
-  id : string option; [@option]  (** id *)
-  server_id : float;  (** server_id *)
+  floating_ip_id : float prop;  (** floating_ip_id *)
+  id : string prop option; [@option]  (** id *)
+  server_id : float prop;  (** server_id *)
 }
 [@@deriving yojson_of]
 (** hcloud_floating_ip_assignment *)

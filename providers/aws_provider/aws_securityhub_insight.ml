@@ -5,44 +5,44 @@
 open! Tf.Prelude
 
 type aws_securityhub_insight__filters__aws_account_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__aws_account_id *)
 
 type aws_securityhub_insight__filters__company_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__company_name *)
 
 type aws_securityhub_insight__filters__compliance_status = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__compliance_status *)
 
 type aws_securityhub_insight__filters__confidence = {
-  eq : string option; [@option]  (** eq *)
-  gte : string option; [@option]  (** gte *)
-  lte : string option; [@option]  (** lte *)
+  eq : string prop option; [@option]  (** eq *)
+  gte : string prop option; [@option]  (** gte *)
+  lte : string prop option; [@option]  (** lte *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__confidence *)
 
 type aws_securityhub_insight__filters__created_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__created_at__date_range *)
 
 type aws_securityhub_insight__filters__created_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__created_at__date_range list;
 }
@@ -50,81 +50,81 @@ type aws_securityhub_insight__filters__created_at = {
 (** aws_securityhub_insight__filters__created_at *)
 
 type aws_securityhub_insight__filters__criticality = {
-  eq : string option; [@option]  (** eq *)
-  gte : string option; [@option]  (** gte *)
-  lte : string option; [@option]  (** lte *)
+  eq : string prop option; [@option]  (** eq *)
+  gte : string prop option; [@option]  (** gte *)
+  lte : string prop option; [@option]  (** lte *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__criticality *)
 
 type aws_securityhub_insight__filters__description = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__description *)
 
 type aws_securityhub_insight__filters__finding_provider_fields_confidence = {
-  eq : string option; [@option]  (** eq *)
-  gte : string option; [@option]  (** gte *)
-  lte : string option; [@option]  (** lte *)
+  eq : string prop option; [@option]  (** eq *)
+  gte : string prop option; [@option]  (** gte *)
+  lte : string prop option; [@option]  (** lte *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__finding_provider_fields_confidence *)
 
 type aws_securityhub_insight__filters__finding_provider_fields_criticality = {
-  eq : string option; [@option]  (** eq *)
-  gte : string option; [@option]  (** gte *)
-  lte : string option; [@option]  (** lte *)
+  eq : string prop option; [@option]  (** eq *)
+  gte : string prop option; [@option]  (** gte *)
+  lte : string prop option; [@option]  (** lte *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__finding_provider_fields_criticality *)
 
 type aws_securityhub_insight__filters__finding_provider_fields_related_findings_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__finding_provider_fields_related_findings_id *)
 
 type aws_securityhub_insight__filters__finding_provider_fields_related_findings_product_arn = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__finding_provider_fields_related_findings_product_arn *)
 
 type aws_securityhub_insight__filters__finding_provider_fields_severity_label = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__finding_provider_fields_severity_label *)
 
 type aws_securityhub_insight__filters__finding_provider_fields_severity_original = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__finding_provider_fields_severity_original *)
 
 type aws_securityhub_insight__filters__finding_provider_fields_types = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__finding_provider_fields_types *)
 
 type aws_securityhub_insight__filters__first_observed_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__first_observed_at__date_range *)
 
 type aws_securityhub_insight__filters__first_observed_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__first_observed_at__date_range
     list;
@@ -133,35 +133,35 @@ type aws_securityhub_insight__filters__first_observed_at = {
 (** aws_securityhub_insight__filters__first_observed_at *)
 
 type aws_securityhub_insight__filters__generator_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__generator_id *)
 
 type aws_securityhub_insight__filters__id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__id *)
 
 type aws_securityhub_insight__filters__keyword = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__keyword *)
 
 type aws_securityhub_insight__filters__last_observed_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__last_observed_at__date_range *)
 
 type aws_securityhub_insight__filters__last_observed_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__last_observed_at__date_range
     list;
@@ -170,125 +170,125 @@ type aws_securityhub_insight__filters__last_observed_at = {
 (** aws_securityhub_insight__filters__last_observed_at *)
 
 type aws_securityhub_insight__filters__malware_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__malware_name *)
 
 type aws_securityhub_insight__filters__malware_path = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__malware_path *)
 
 type aws_securityhub_insight__filters__malware_state = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__malware_state *)
 
 type aws_securityhub_insight__filters__malware_type = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__malware_type *)
 
 type aws_securityhub_insight__filters__network_destination_domain = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_destination_domain *)
 
 type aws_securityhub_insight__filters__network_destination_ipv4 = {
-  cidr : string;  (** cidr *)
+  cidr : string prop;  (** cidr *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_destination_ipv4 *)
 
 type aws_securityhub_insight__filters__network_destination_ipv6 = {
-  cidr : string;  (** cidr *)
+  cidr : string prop;  (** cidr *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_destination_ipv6 *)
 
 type aws_securityhub_insight__filters__network_destination_port = {
-  eq : string option; [@option]  (** eq *)
-  gte : string option; [@option]  (** gte *)
-  lte : string option; [@option]  (** lte *)
+  eq : string prop option; [@option]  (** eq *)
+  gte : string prop option; [@option]  (** gte *)
+  lte : string prop option; [@option]  (** lte *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_destination_port *)
 
 type aws_securityhub_insight__filters__network_direction = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_direction *)
 
 type aws_securityhub_insight__filters__network_protocol = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_protocol *)
 
 type aws_securityhub_insight__filters__network_source_domain = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_source_domain *)
 
 type aws_securityhub_insight__filters__network_source_ipv4 = {
-  cidr : string;  (** cidr *)
+  cidr : string prop;  (** cidr *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_source_ipv4 *)
 
 type aws_securityhub_insight__filters__network_source_ipv6 = {
-  cidr : string;  (** cidr *)
+  cidr : string prop;  (** cidr *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_source_ipv6 *)
 
 type aws_securityhub_insight__filters__network_source_mac = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_source_mac *)
 
 type aws_securityhub_insight__filters__network_source_port = {
-  eq : string option; [@option]  (** eq *)
-  gte : string option; [@option]  (** gte *)
-  lte : string option; [@option]  (** lte *)
+  eq : string prop option; [@option]  (** eq *)
+  gte : string prop option; [@option]  (** gte *)
+  lte : string prop option; [@option]  (** lte *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__network_source_port *)
 
 type aws_securityhub_insight__filters__note_text = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__note_text *)
 
 type aws_securityhub_insight__filters__note_updated_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__note_updated_at__date_range *)
 
 type aws_securityhub_insight__filters__note_updated_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__note_updated_at__date_range
     list;
@@ -297,22 +297,22 @@ type aws_securityhub_insight__filters__note_updated_at = {
 (** aws_securityhub_insight__filters__note_updated_at *)
 
 type aws_securityhub_insight__filters__note_updated_by = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__note_updated_by *)
 
 type aws_securityhub_insight__filters__process_launched_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__process_launched_at__date_range *)
 
 type aws_securityhub_insight__filters__process_launched_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__process_launched_at__date_range
     list;
@@ -321,45 +321,45 @@ type aws_securityhub_insight__filters__process_launched_at = {
 (** aws_securityhub_insight__filters__process_launched_at *)
 
 type aws_securityhub_insight__filters__process_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__process_name *)
 
 type aws_securityhub_insight__filters__process_parent_pid = {
-  eq : string option; [@option]  (** eq *)
-  gte : string option; [@option]  (** gte *)
-  lte : string option; [@option]  (** lte *)
+  eq : string prop option; [@option]  (** eq *)
+  gte : string prop option; [@option]  (** gte *)
+  lte : string prop option; [@option]  (** lte *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__process_parent_pid *)
 
 type aws_securityhub_insight__filters__process_path = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__process_path *)
 
 type aws_securityhub_insight__filters__process_pid = {
-  eq : string option; [@option]  (** eq *)
-  gte : string option; [@option]  (** gte *)
-  lte : string option; [@option]  (** lte *)
+  eq : string prop option; [@option]  (** eq *)
+  gte : string prop option; [@option]  (** gte *)
+  lte : string prop option; [@option]  (** lte *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__process_pid *)
 
 type aws_securityhub_insight__filters__process_terminated_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__process_terminated_at__date_range *)
 
 type aws_securityhub_insight__filters__process_terminated_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__process_terminated_at__date_range
     list;
@@ -368,98 +368,98 @@ type aws_securityhub_insight__filters__process_terminated_at = {
 (** aws_securityhub_insight__filters__process_terminated_at *)
 
 type aws_securityhub_insight__filters__product_arn = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__product_arn *)
 
 type aws_securityhub_insight__filters__product_fields = {
-  comparison : string;  (** comparison *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__product_fields *)
 
 type aws_securityhub_insight__filters__product_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__product_name *)
 
 type aws_securityhub_insight__filters__recommendation_text = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__recommendation_text *)
 
 type aws_securityhub_insight__filters__record_state = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__record_state *)
 
 type aws_securityhub_insight__filters__related_findings_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__related_findings_id *)
 
 type aws_securityhub_insight__filters__related_findings_product_arn = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__related_findings_product_arn *)
 
 type aws_securityhub_insight__filters__resource_aws_ec2_instance_iam_instance_profile_arn = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_ec2_instance_iam_instance_profile_arn *)
 
 type aws_securityhub_insight__filters__resource_aws_ec2_instance_image_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_ec2_instance_image_id *)
 
 type aws_securityhub_insight__filters__resource_aws_ec2_instance_ipv4_addresses = {
-  cidr : string;  (** cidr *)
+  cidr : string prop;  (** cidr *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_ec2_instance_ipv4_addresses *)
 
 type aws_securityhub_insight__filters__resource_aws_ec2_instance_ipv6_addresses = {
-  cidr : string;  (** cidr *)
+  cidr : string prop;  (** cidr *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_ec2_instance_ipv6_addresses *)
 
 type aws_securityhub_insight__filters__resource_aws_ec2_instance_key_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_ec2_instance_key_name *)
 
 type aws_securityhub_insight__filters__resource_aws_ec2_instance_launched_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_ec2_instance_launched_at__date_range *)
 
 type aws_securityhub_insight__filters__resource_aws_ec2_instance_launched_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__resource_aws_ec2_instance_launched_at__date_range
     list;
@@ -468,36 +468,36 @@ type aws_securityhub_insight__filters__resource_aws_ec2_instance_launched_at = {
 (** aws_securityhub_insight__filters__resource_aws_ec2_instance_launched_at *)
 
 type aws_securityhub_insight__filters__resource_aws_ec2_instance_subnet_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_ec2_instance_subnet_id *)
 
 type aws_securityhub_insight__filters__resource_aws_ec2_instance_type = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_ec2_instance_type *)
 
 type aws_securityhub_insight__filters__resource_aws_ec2_instance_vpc_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_ec2_instance_vpc_id *)
 
 type aws_securityhub_insight__filters__resource_aws_iam_access_key_created_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_iam_access_key_created_at__date_range *)
 
 type aws_securityhub_insight__filters__resource_aws_iam_access_key_created_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__resource_aws_iam_access_key_created_at__date_range
     list;
@@ -506,57 +506,57 @@ type aws_securityhub_insight__filters__resource_aws_iam_access_key_created_at = 
 (** aws_securityhub_insight__filters__resource_aws_iam_access_key_created_at *)
 
 type aws_securityhub_insight__filters__resource_aws_iam_access_key_status = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_iam_access_key_status *)
 
 type aws_securityhub_insight__filters__resource_aws_iam_access_key_user_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_iam_access_key_user_name *)
 
 type aws_securityhub_insight__filters__resource_aws_s3_bucket_owner_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_s3_bucket_owner_id *)
 
 type aws_securityhub_insight__filters__resource_aws_s3_bucket_owner_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_aws_s3_bucket_owner_name *)
 
 type aws_securityhub_insight__filters__resource_container_image_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_container_image_id *)
 
 type aws_securityhub_insight__filters__resource_container_image_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_container_image_name *)
 
 type aws_securityhub_insight__filters__resource_container_launched_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_container_launched_at__date_range *)
 
 type aws_securityhub_insight__filters__resource_container_launched_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__resource_container_launched_at__date_range
     list;
@@ -565,87 +565,87 @@ type aws_securityhub_insight__filters__resource_container_launched_at = {
 (** aws_securityhub_insight__filters__resource_container_launched_at *)
 
 type aws_securityhub_insight__filters__resource_container_name = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_container_name *)
 
 type aws_securityhub_insight__filters__resource_details_other = {
-  comparison : string;  (** comparison *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_details_other *)
 
 type aws_securityhub_insight__filters__resource_id = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_id *)
 
 type aws_securityhub_insight__filters__resource_partition = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_partition *)
 
 type aws_securityhub_insight__filters__resource_region = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_region *)
 
 type aws_securityhub_insight__filters__resource_tags = {
-  comparison : string;  (** comparison *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_tags *)
 
 type aws_securityhub_insight__filters__resource_type = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__resource_type *)
 
 type aws_securityhub_insight__filters__severity_label = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__severity_label *)
 
 type aws_securityhub_insight__filters__source_url = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__source_url *)
 
 type aws_securityhub_insight__filters__threat_intel_indicator_category = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__threat_intel_indicator_category *)
 
 type aws_securityhub_insight__filters__threat_intel_indicator_last_observed_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__threat_intel_indicator_last_observed_at__date_range *)
 
 type aws_securityhub_insight__filters__threat_intel_indicator_last_observed_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__threat_intel_indicator_last_observed_at__date_range
     list;
@@ -654,57 +654,57 @@ type aws_securityhub_insight__filters__threat_intel_indicator_last_observed_at =
 (** aws_securityhub_insight__filters__threat_intel_indicator_last_observed_at *)
 
 type aws_securityhub_insight__filters__threat_intel_indicator_source = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__threat_intel_indicator_source *)
 
 type aws_securityhub_insight__filters__threat_intel_indicator_source_url = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__threat_intel_indicator_source_url *)
 
 type aws_securityhub_insight__filters__threat_intel_indicator_type = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__threat_intel_indicator_type *)
 
 type aws_securityhub_insight__filters__threat_intel_indicator_value = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__threat_intel_indicator_value *)
 
 type aws_securityhub_insight__filters__title = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__title *)
 
 type aws_securityhub_insight__filters__type = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__type *)
 
 type aws_securityhub_insight__filters__updated_at__date_range = {
-  unit : string;  (** unit *)
-  value : float;  (** value *)
+  unit : string prop;  (** unit *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__updated_at__date_range *)
 
 type aws_securityhub_insight__filters__updated_at = {
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  start : string option; [@option]  (** start *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  start : string prop option; [@option]  (** start *)
   date_range :
     aws_securityhub_insight__filters__updated_at__date_range list;
 }
@@ -712,23 +712,23 @@ type aws_securityhub_insight__filters__updated_at = {
 (** aws_securityhub_insight__filters__updated_at *)
 
 type aws_securityhub_insight__filters__user_defined_values = {
-  comparison : string;  (** comparison *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__user_defined_values *)
 
 type aws_securityhub_insight__filters__verification_state = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__verification_state *)
 
 type aws_securityhub_insight__filters__workflow_status = {
-  comparison : string;  (** comparison *)
-  value : string;  (** value *)
+  comparison : string prop;  (** comparison *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_insight__filters__workflow_status *)
@@ -923,9 +923,9 @@ type aws_securityhub_insight__filters = {
 (** aws_securityhub_insight__filters *)
 
 type aws_securityhub_insight = {
-  group_by_attribute : string;  (** group_by_attribute *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  group_by_attribute : string prop;  (** group_by_attribute *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   filters : aws_securityhub_insight__filters list;
 }
 [@@deriving yojson_of]

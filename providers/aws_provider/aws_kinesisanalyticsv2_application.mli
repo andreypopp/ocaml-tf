@@ -90,16 +90,16 @@ type aws_kinesisanalyticsv2_application__timeouts
 type aws_kinesisanalyticsv2_application
 
 val aws_kinesisanalyticsv2_application :
-  ?description:string ->
-  ?force_stop:bool ->
-  ?id:string ->
-  ?start_application:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?force_stop:bool prop ->
+  ?id:string prop ->
+  ?start_application:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_kinesisanalyticsv2_application__timeouts ->
-  name:string ->
-  runtime_environment:string ->
-  service_execution_role:string ->
+  name:string prop ->
+  runtime_environment:string prop ->
+  service_execution_role:string prop ->
   application_configuration:
     aws_kinesisanalyticsv2_application__application_configuration
     list ->

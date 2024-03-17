@@ -6,17 +6,17 @@ type google_compute_router_interface__timeouts
 type google_compute_router_interface
 
 val google_compute_router_interface :
-  ?id:string ->
-  ?interconnect_attachment:string ->
-  ?ip_range:string ->
-  ?private_ip_address:string ->
-  ?project:string ->
-  ?redundant_interface:string ->
-  ?region:string ->
-  ?subnetwork:string ->
-  ?vpn_tunnel:string ->
+  ?id:string prop ->
+  ?interconnect_attachment:string prop ->
+  ?ip_range:string prop ->
+  ?private_ip_address:string prop ->
+  ?project:string prop ->
+  ?redundant_interface:string prop ->
+  ?region:string prop ->
+  ?subnetwork:string prop ->
+  ?vpn_tunnel:string prop ->
   ?timeouts:google_compute_router_interface__timeouts ->
-  name:string ->
-  router:string ->
+  name:string prop ->
+  router:string prop ->
   string ->
   unit

@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_api_management_product_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_product_group__timeouts *)
 
 type azurerm_api_management_product_group = {
-  api_management_name : string;  (** api_management_name *)
-  group_name : string;  (** group_name *)
-  id : string option; [@option]  (** id *)
-  product_id : string;  (** product_id *)
-  resource_group_name : string;  (** resource_group_name *)
+  api_management_name : string prop;  (** api_management_name *)
+  group_name : string prop;  (** group_name *)
+  id : string prop option; [@option]  (** id *)
+  product_id : string prop;  (** product_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_api_management_product_group__timeouts option;
 }
 [@@deriving yojson_of]

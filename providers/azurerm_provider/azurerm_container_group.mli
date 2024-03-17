@@ -25,32 +25,32 @@ type azurerm_container_group__init_container
 type azurerm_container_group__timeouts
 
 type azurerm_container_group__exposed_port = {
-  port : float;  (** port *)
-  protocol : string;  (** protocol *)
+  port : float prop;  (** port *)
+  protocol : string prop;  (** protocol *)
 }
 
 type azurerm_container_group
 
 val azurerm_container_group :
-  ?dns_name_label:string ->
-  ?dns_name_label_reuse_policy:string ->
+  ?dns_name_label:string prop ->
+  ?dns_name_label_reuse_policy:string prop ->
   ?exposed_port:azurerm_container_group__exposed_port list ->
-  ?id:string ->
-  ?ip_address_type:string ->
-  ?key_vault_key_id:string ->
-  ?key_vault_user_assigned_identity_id:string ->
-  ?network_profile_id:string ->
-  ?priority:string ->
-  ?restart_policy:string ->
-  ?sku:string ->
-  ?subnet_ids:string list ->
-  ?tags:(string * string) list ->
-  ?zones:string list ->
+  ?id:string prop ->
+  ?ip_address_type:string prop ->
+  ?key_vault_key_id:string prop ->
+  ?key_vault_user_assigned_identity_id:string prop ->
+  ?network_profile_id:string prop ->
+  ?priority:string prop ->
+  ?restart_policy:string prop ->
+  ?sku:string prop ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_container_group__timeouts ->
-  location:string ->
-  name:string ->
-  os_type:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  os_type:string prop ->
+  resource_group_name:string prop ->
   container:azurerm_container_group__container list ->
   diagnostics:azurerm_container_group__diagnostics list ->
   dns_config:azurerm_container_group__dns_config list ->

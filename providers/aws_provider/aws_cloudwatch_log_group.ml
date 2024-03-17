@@ -5,16 +5,18 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_log_group = {
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  log_group_class : string option; [@option]  (** log_group_class *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  retention_in_days : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  log_group_class : string prop option; [@option]
+      (** log_group_class *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  retention_in_days : float prop option; [@option]
       (** retention_in_days *)
-  skip_destroy : bool option; [@option]  (** skip_destroy *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_group *)

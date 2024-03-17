@@ -25,51 +25,52 @@ type google_alloydb_cluster__secondary_config
 type google_alloydb_cluster__timeouts
 
 type google_alloydb_cluster__backup_source = {
-  backup_name : string;  (** backup_name *)
+  backup_name : string prop;  (** backup_name *)
 }
 
 type google_alloydb_cluster__continuous_backup_info__encryption_info = {
-  encryption_type : string;  (** encryption_type *)
-  kms_key_versions : string list;  (** kms_key_versions *)
+  encryption_type : string prop;  (** encryption_type *)
+  kms_key_versions : string prop list;  (** kms_key_versions *)
 }
 
 type google_alloydb_cluster__continuous_backup_info = {
-  earliest_restorable_time : string;  (** earliest_restorable_time *)
-  enabled_time : string;  (** enabled_time *)
+  earliest_restorable_time : string prop;
+      (** earliest_restorable_time *)
+  enabled_time : string prop;  (** enabled_time *)
   encryption_info :
     google_alloydb_cluster__continuous_backup_info__encryption_info
     list;
       (** encryption_info *)
-  schedule : string list;  (** schedule *)
+  schedule : string prop list;  (** schedule *)
 }
 
 type google_alloydb_cluster__encryption_info = {
-  encryption_type : string;  (** encryption_type *)
-  kms_key_versions : string list;  (** kms_key_versions *)
+  encryption_type : string prop;  (** encryption_type *)
+  kms_key_versions : string prop list;  (** kms_key_versions *)
 }
 
 type google_alloydb_cluster__migration_source = {
-  host_port : string;  (** host_port *)
-  reference_id : string;  (** reference_id *)
-  source_type : string;  (** source_type *)
+  host_port : string prop;  (** host_port *)
+  reference_id : string prop;  (** reference_id *)
+  source_type : string prop;  (** source_type *)
 }
 
 type google_alloydb_cluster
 
 val google_alloydb_cluster :
-  ?annotations:(string * string) list ->
-  ?cluster_type:string ->
-  ?database_version:string ->
-  ?deletion_policy:string ->
-  ?display_name:string ->
-  ?etag:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?network:string ->
-  ?project:string ->
+  ?annotations:(string * string prop) list ->
+  ?cluster_type:string prop ->
+  ?database_version:string prop ->
+  ?deletion_policy:string prop ->
+  ?display_name:string prop ->
+  ?etag:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?network:string prop ->
+  ?project:string prop ->
   ?timeouts:google_alloydb_cluster__timeouts ->
-  cluster_id:string ->
-  location:string ->
+  cluster_id:string prop ->
+  location:string prop ->
   automated_backup_policy:
     google_alloydb_cluster__automated_backup_policy list ->
   continuous_backup_config:

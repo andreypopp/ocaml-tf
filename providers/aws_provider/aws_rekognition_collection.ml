@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_rekognition_collection__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
 (** aws_rekognition_collection__timeouts *)
 
 type aws_rekognition_collection = {
-  collection_id : string;
+  collection_id : string prop;
       (** The name of the Rekognition collection *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : aws_rekognition_collection__timeouts option;
 }
 [@@deriving yojson_of]

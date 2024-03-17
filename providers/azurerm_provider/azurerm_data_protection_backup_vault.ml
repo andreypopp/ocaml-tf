@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_data_protection_backup_vault__identity = {
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_vault__identity *)
 
 type azurerm_data_protection_backup_vault__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_vault__timeouts *)
 
 type azurerm_data_protection_backup_vault = {
-  datastore_type : string;  (** datastore_type *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  redundancy : string;  (** redundancy *)
-  resource_group_name : string;  (** resource_group_name *)
-  retention_duration_in_days : float option; [@option]
+  datastore_type : string prop;  (** datastore_type *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  redundancy : string prop;  (** redundancy *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  retention_duration_in_days : float prop option; [@option]
       (** retention_duration_in_days *)
-  soft_delete : string option; [@option]  (** soft_delete *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  soft_delete : string prop option; [@option]  (** soft_delete *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   identity : azurerm_data_protection_backup_vault__identity list;
   timeouts : azurerm_data_protection_backup_vault__timeouts option;
 }

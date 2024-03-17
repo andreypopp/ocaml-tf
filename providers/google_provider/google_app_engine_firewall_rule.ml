@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type google_app_engine_firewall_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_app_engine_firewall_rule__timeouts *)
 
 type google_app_engine_firewall_rule = {
-  action : string;
+  action : string prop;
       (** The action to take if this rule matches. Possible values: [UNSPECIFIED_ACTION, ALLOW, DENY] *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional string description of this rule. *)
-  id : string option; [@option]  (** id *)
-  priority : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  priority : float prop option; [@option]
       (** A positive integer that defines the order of rule evaluation.
 Rules with the lowest priority are evaluated first.
 
 A default rule at priority Int32.MaxValue matches all IPv4 and
 IPv6 traffic when no previous rule matches. Only the action of
 this rule can be modified by the user. *)
-  project : string option; [@option]  (** project *)
-  source_range : string;
+  project : string prop option; [@option]  (** project *)
+  source_range : string prop;
       (** IP address or range, defined using CIDR notation, of requests that this rule applies to. *)
   timeouts : google_app_engine_firewall_rule__timeouts option;
 }

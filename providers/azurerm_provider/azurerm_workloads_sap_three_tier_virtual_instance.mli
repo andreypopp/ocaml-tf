@@ -64,18 +64,18 @@ type azurerm_workloads_sap_three_tier_virtual_instance__timeouts
 type azurerm_workloads_sap_three_tier_virtual_instance
 
 val azurerm_workloads_sap_three_tier_virtual_instance :
-  ?id:string ->
-  ?managed_resource_group_name:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?managed_resource_group_name:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:
     azurerm_workloads_sap_three_tier_virtual_instance__timeouts ->
-  app_location:string ->
-  environment:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sap_fqdn:string ->
-  sap_product:string ->
+  app_location:string prop ->
+  environment:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sap_fqdn:string prop ->
+  sap_product:string prop ->
   identity:
     azurerm_workloads_sap_three_tier_virtual_instance__identity list ->
   three_tier_configuration:

@@ -6,14 +6,14 @@ type azurerm_database_migration_project__timeouts
 type azurerm_database_migration_project
 
 val azurerm_database_migration_project :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_database_migration_project__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  service_name:string ->
-  source_platform:string ->
-  target_platform:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  service_name:string prop ->
+  source_platform:string prop ->
+  target_platform:string prop ->
   string ->
   unit

@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_route_table_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_route_table_association__timeouts *)
 
 type aws_route_table_association = {
-  gateway_id : string option; [@option]  (** gateway_id *)
-  id : string option; [@option]  (** id *)
-  route_table_id : string;  (** route_table_id *)
-  subnet_id : string option; [@option]  (** subnet_id *)
+  gateway_id : string prop option; [@option]  (** gateway_id *)
+  id : string prop option; [@option]  (** id *)
+  route_table_id : string prop;  (** route_table_id *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
   timeouts : aws_route_table_association__timeouts option;
 }
 [@@deriving yojson_of]

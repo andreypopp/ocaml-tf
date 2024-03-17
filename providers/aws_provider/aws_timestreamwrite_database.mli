@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_timestreamwrite_database
 
 val aws_timestreamwrite_database :
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  database_name:string ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  database_name:string prop ->
   string ->
   unit

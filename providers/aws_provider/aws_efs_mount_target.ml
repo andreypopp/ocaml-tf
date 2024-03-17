@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_efs_mount_target__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_efs_mount_target__timeouts *)
 
 type aws_efs_mount_target = {
-  file_system_id : string;  (** file_system_id *)
-  id : string option; [@option]  (** id *)
-  ip_address : string option; [@option]  (** ip_address *)
-  security_groups : string list option; [@option]
+  file_system_id : string prop;  (** file_system_id *)
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop option; [@option]  (** ip_address *)
+  security_groups : string prop list option; [@option]
       (** security_groups *)
-  subnet_id : string;  (** subnet_id *)
+  subnet_id : string prop;  (** subnet_id *)
   timeouts : aws_efs_mount_target__timeouts option;
 }
 [@@deriving yojson_of]

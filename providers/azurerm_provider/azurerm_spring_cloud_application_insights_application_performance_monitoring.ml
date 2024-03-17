@@ -5,27 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_application_insights_application_performance_monitoring__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_application_insights_application_performance_monitoring__timeouts *)
 
 type azurerm_spring_cloud_application_insights_application_performance_monitoring = {
-  connection_string : string option; [@option]
+  connection_string : string prop option; [@option]
       (** connection_string *)
-  globally_enabled : bool option; [@option]  (** globally_enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  role_instance : string option; [@option]  (** role_instance *)
-  role_name : string option; [@option]  (** role_name *)
-  sampling_percentage : float option; [@option]
+  globally_enabled : bool prop option; [@option]
+      (** globally_enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  role_instance : string prop option; [@option]  (** role_instance *)
+  role_name : string prop option; [@option]  (** role_name *)
+  sampling_percentage : float prop option; [@option]
       (** sampling_percentage *)
-  sampling_requests_per_second : float option; [@option]
+  sampling_requests_per_second : float prop option; [@option]
       (** sampling_requests_per_second *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
   timeouts :
     azurerm_spring_cloud_application_insights_application_performance_monitoring__timeouts
     option;

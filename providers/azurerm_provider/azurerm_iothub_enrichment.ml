@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_iothub_enrichment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_enrichment__timeouts *)
 
 type azurerm_iothub_enrichment = {
-  endpoint_names : string list;  (** endpoint_names *)
-  id : string option; [@option]  (** id *)
-  iothub_name : string;  (** iothub_name *)
-  key : string;  (** key *)
-  resource_group_name : string;  (** resource_group_name *)
-  value : string;  (** value *)
+  endpoint_names : string prop list;  (** endpoint_names *)
+  id : string prop option; [@option]  (** id *)
+  iothub_name : string prop;  (** iothub_name *)
+  key : string prop;  (** key *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  value : string prop;  (** value *)
   timeouts : azurerm_iothub_enrichment__timeouts option;
 }
 [@@deriving yojson_of]

@@ -6,9 +6,9 @@ type google_project_iam_audit_config__audit_log_config
 type google_project_iam_audit_config
 
 val google_project_iam_audit_config :
-  ?id:string ->
-  project:string ->
-  service:string ->
+  ?id:string prop ->
+  project:string prop ->
+  service:string prop ->
   audit_log_config:
     google_project_iam_audit_config__audit_log_config list ->
   string ->

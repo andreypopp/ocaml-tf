@@ -6,13 +6,13 @@ type azurerm_automation_certificate__timeouts
 type azurerm_automation_certificate
 
 val azurerm_automation_certificate :
-  ?description:string ->
-  ?exportable:bool ->
-  ?id:string ->
+  ?description:string prop ->
+  ?exportable:bool prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_automation_certificate__timeouts ->
-  automation_account_name:string ->
-  base64:string ->
-  name:string ->
-  resource_group_name:string ->
+  automation_account_name:string prop ->
+  base64:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_appsync_api_key = {
-  api_id : string;  (** api_id *)
-  description : string option; [@option]  (** description *)
-  expires : string option; [@option]  (** expires *)
-  id : string option; [@option]  (** id *)
+  api_id : string prop;  (** api_id *)
+  description : string prop option; [@option]  (** description *)
+  expires : string prop option; [@option]  (** expires *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_appsync_api_key *)

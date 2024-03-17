@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_eventhub_namespace_schema_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace_schema_group__timeouts *)
 
 type azurerm_eventhub_namespace_schema_group = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  namespace_id : string;  (** namespace_id *)
-  schema_compatibility : string;  (** schema_compatibility *)
-  schema_type : string;  (** schema_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  namespace_id : string prop;  (** namespace_id *)
+  schema_compatibility : string prop;  (** schema_compatibility *)
+  schema_type : string prop;  (** schema_type *)
   timeouts : azurerm_eventhub_namespace_schema_group__timeouts option;
 }
 [@@deriving yojson_of]

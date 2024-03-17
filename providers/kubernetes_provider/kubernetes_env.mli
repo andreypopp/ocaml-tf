@@ -12,13 +12,13 @@ type kubernetes_env__metadata
 type kubernetes_env
 
 val kubernetes_env :
-  ?container:string ->
-  ?field_manager:string ->
-  ?force:bool ->
-  ?id:string ->
-  ?init_container:string ->
-  api_version:string ->
-  kind:string ->
+  ?container:string prop ->
+  ?field_manager:string prop ->
+  ?force:bool prop ->
+  ?id:string prop ->
+  ?init_container:string prop ->
+  api_version:string prop ->
+  kind:string prop ->
   env:kubernetes_env__env list ->
   metadata:kubernetes_env__metadata list ->
   string ->

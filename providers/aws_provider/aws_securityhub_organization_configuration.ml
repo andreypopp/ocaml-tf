@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_securityhub_organization_configuration__organization_configuration = {
-  configuration_type : string;  (** configuration_type *)
+  configuration_type : string prop;  (** configuration_type *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_organization_configuration__organization_configuration *)
 
 type aws_securityhub_organization_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_organization_configuration__timeouts *)
 
 type aws_securityhub_organization_configuration = {
-  auto_enable : bool;  (** auto_enable *)
-  auto_enable_standards : string option; [@option]
+  auto_enable : bool prop;  (** auto_enable *)
+  auto_enable_standards : string prop option; [@option]
       (** auto_enable_standards *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   organization_configuration :
     aws_securityhub_organization_configuration__organization_configuration
     list;

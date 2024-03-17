@@ -77,20 +77,20 @@ type aws_quicksight_data_set__row_level_permission_tag_configuration__tag_rules
 type aws_quicksight_data_set__row_level_permission_tag_configuration
 
 type aws_quicksight_data_set__output_columns = {
-  description: string;  (** description *)
-  name: string;  (** name *)
-  type_: string; [@key "type"] (** type *)
+  description: string prop;  (** description *)
+  name: string prop;  (** name *)
+  type_: string prop; [@key "type"] (** type *)
 }
 type aws_quicksight_data_set
 
 val aws_quicksight_data_set :
-    ?aws_account_id:string ->
-    ?id:string ->
-    ?tags:(string * string) list ->
-    ?tags_all:(string * string) list ->
-    data_set_id:string ->
-    import_mode:string ->
-    name:string ->
+    ?aws_account_id:string prop ->
+    ?id:string prop ->
+    ?tags:(string * string prop) list ->
+    ?tags_all:(string * string prop) list ->
+    data_set_id:string prop ->
+    import_mode:string prop ->
+    name:string prop ->
     column_groups:aws_quicksight_data_set__column_groups list ->
     column_level_permission_rules:aws_quicksight_data_set__column_level_permission_rules list ->
     data_set_usage_configuration:aws_quicksight_data_set__data_set_usage_configuration list ->

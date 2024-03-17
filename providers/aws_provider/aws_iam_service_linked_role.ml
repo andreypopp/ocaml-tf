@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_iam_service_linked_role = {
-  aws_service_name : string;  (** aws_service_name *)
-  custom_suffix : string option; [@option]  (** custom_suffix *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  aws_service_name : string prop;  (** aws_service_name *)
+  custom_suffix : string prop option; [@option]  (** custom_suffix *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_iam_service_linked_role *)

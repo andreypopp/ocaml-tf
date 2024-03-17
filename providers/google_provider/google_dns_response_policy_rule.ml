@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type google_dns_response_policy_rule__local_data__local_datas = {
-  name : string;  (** For example, www.example.com. *)
-  rrdatas : string list option; [@option]
+  name : string prop;  (** For example, www.example.com. *)
+  rrdatas : string prop list option; [@option]
       (** As defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1) *)
-  ttl : float option; [@option]
+  ttl : float prop option; [@option]
       (** Number of seconds that this ResourceRecordSet can be cached by
 resolvers. *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** One of valid DNS resource types. Possible values: [A, AAAA, CAA, CNAME, DNSKEY, DS, HTTPS, IPSECVPNKEY, MX, NAPTR, NS, PTR, SOA, SPF, SRV, SSHFP, SVCB, TLSA, TXT] *)
 }
 [@@deriving yojson_of]
@@ -26,21 +26,21 @@ type google_dns_response_policy_rule__local_data = {
 in particular they override private zones, the public internet, and GCP internal DNS. No SOA nor NS types are allowed. *)
 
 type google_dns_response_policy_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_dns_response_policy_rule__timeouts *)
 
 type google_dns_response_policy_rule = {
-  dns_name : string;
+  dns_name : string prop;
       (** The DNS name (wildcard or exact) to apply this rule to. Must be unique within the Response Policy Rule. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  response_policy : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  response_policy : string prop;
       (** Identifies the response policy addressed by this request. *)
-  rule_name : string;
+  rule_name : string prop;
       (** An identifier for this rule. Must be unique with the ResponsePolicy. *)
   local_data : google_dns_response_policy_rule__local_data list;
   timeouts : google_dns_response_policy_rule__timeouts option;

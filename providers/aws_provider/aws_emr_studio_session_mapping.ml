@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_emr_studio_session_mapping = {
-  id : string option; [@option]  (** id *)
-  identity_id : string option; [@option]  (** identity_id *)
-  identity_name : string option; [@option]  (** identity_name *)
-  identity_type : string;  (** identity_type *)
-  session_policy_arn : string;  (** session_policy_arn *)
-  studio_id : string;  (** studio_id *)
+  id : string prop option; [@option]  (** id *)
+  identity_id : string prop option; [@option]  (** identity_id *)
+  identity_name : string prop option; [@option]  (** identity_name *)
+  identity_type : string prop;  (** identity_type *)
+  session_policy_arn : string prop;  (** session_policy_arn *)
+  studio_id : string prop;  (** studio_id *)
 }
 [@@deriving yojson_of]
 (** aws_emr_studio_session_mapping *)

@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type cloudflare_api_shield_schema = {
-  id : string option; [@option]  (** id *)
-  kind : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kind : string prop option; [@option]
       (** Kind of schema. Defaults to `openapi_v3`. **Modifying this attribute will force creation of a new resource.** *)
-  name : string;
+  name : string prop;
       (** Name of the schema. **Modifying this attribute will force creation of a new resource.** *)
-  source : string;
+  source : string prop;
       (** Schema file bytes. **Modifying this attribute will force creation of a new resource.** *)
-  validation_enabled : bool option; [@option]
+  validation_enabled : bool prop option; [@option]
       (** Flag whether schema is enabled for validation. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

@@ -9,11 +9,11 @@ type aws_ssoadmin_trusted_token_issuer__trusted_token_issuer_configuration
 type aws_ssoadmin_trusted_token_issuer
 
 val aws_ssoadmin_trusted_token_issuer :
-  ?client_token:string ->
-  ?tags:(string * string) list ->
-  instance_arn:string ->
-  name:string ->
-  trusted_token_issuer_type:string ->
+  ?client_token:string prop ->
+  ?tags:(string * string prop) list ->
+  instance_arn:string prop ->
+  name:string prop ->
+  trusted_token_issuer_type:string prop ->
   trusted_token_issuer_configuration:
     aws_ssoadmin_trusted_token_issuer__trusted_token_issuer_configuration
     list ->

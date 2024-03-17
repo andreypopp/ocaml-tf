@@ -7,12 +7,12 @@ type google_compute_managed_ssl_certificate__timeouts
 type google_compute_managed_ssl_certificate
 
 val google_compute_managed_ssl_certificate :
-  ?certificate_id:float ->
-  ?description:string ->
-  ?id:string ->
-  ?name:string ->
-  ?project:string ->
-  ?type_:string ->
+  ?certificate_id:float prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?type_:string prop ->
   ?timeouts:google_compute_managed_ssl_certificate__timeouts ->
   managed:google_compute_managed_ssl_certificate__managed list ->
   string ->

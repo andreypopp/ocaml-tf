@@ -9,15 +9,15 @@ type azurerm_dedicated_hardware_security_module__timeouts
 type azurerm_dedicated_hardware_security_module
 
 val azurerm_dedicated_hardware_security_module :
-  ?id:string ->
-  ?stamp_id:string ->
-  ?tags:(string * string) list ->
-  ?zones:string list ->
+  ?id:string prop ->
+  ?stamp_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_dedicated_hardware_security_module__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
   management_network_profile:
     azurerm_dedicated_hardware_security_module__management_network_profile
     list ->

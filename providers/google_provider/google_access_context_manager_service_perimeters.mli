@@ -64,10 +64,10 @@ type google_access_context_manager_service_perimeters__timeouts
 type google_access_context_manager_service_perimeters
 
 val google_access_context_manager_service_perimeters :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     google_access_context_manager_service_perimeters__timeouts ->
-  parent:string ->
+  parent:string prop ->
   service_perimeters:
     google_access_context_manager_service_perimeters__service_perimeters
     list ->

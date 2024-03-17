@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_iam_user_ssh_key
 
 val aws_iam_user_ssh_key :
-  ?id:string ->
-  ?status:string ->
-  encoding:string ->
-  public_key:string ->
-  username:string ->
+  ?id:string prop ->
+  ?status:string prop ->
+  encoding:string prop ->
+  public_key:string prop ->
+  username:string prop ->
   string ->
   unit

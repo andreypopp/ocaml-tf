@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_securityhub_account = {
-  auto_enable_controls : bool option; [@option]
+  auto_enable_controls : bool prop option; [@option]
       (** auto_enable_controls *)
-  control_finding_generator : string option; [@option]
+  control_finding_generator : string prop option; [@option]
       (** control_finding_generator *)
-  enable_default_standards : bool option; [@option]
+  enable_default_standards : bool prop option; [@option]
       (** enable_default_standards *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_account *)

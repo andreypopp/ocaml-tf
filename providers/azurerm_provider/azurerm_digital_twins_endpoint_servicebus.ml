@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_digital_twins_endpoint_servicebus__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_digital_twins_endpoint_servicebus__timeouts *)
 
 type azurerm_digital_twins_endpoint_servicebus = {
-  dead_letter_storage_secret : string option; [@option]
+  dead_letter_storage_secret : string prop option; [@option]
       (** dead_letter_storage_secret *)
-  digital_twins_id : string;  (** digital_twins_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  servicebus_primary_connection_string : string;
+  digital_twins_id : string prop;  (** digital_twins_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  servicebus_primary_connection_string : string prop;
       (** servicebus_primary_connection_string *)
-  servicebus_secondary_connection_string : string;
+  servicebus_secondary_connection_string : string prop;
       (** servicebus_secondary_connection_string *)
   timeouts :
     azurerm_digital_twins_endpoint_servicebus__timeouts option;

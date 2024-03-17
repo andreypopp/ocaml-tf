@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_dns_zone__soa_record = {
-  email : string;  (** email *)
-  expire_time : float option; [@option]  (** expire_time *)
-  fqdn : string;  (** fqdn *)
-  host_name : string option; [@option]  (** host_name *)
-  minimum_ttl : float option; [@option]  (** minimum_ttl *)
-  refresh_time : float option; [@option]  (** refresh_time *)
-  retry_time : float option; [@option]  (** retry_time *)
-  serial_number : float option; [@option]  (** serial_number *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  ttl : float option; [@option]  (** ttl *)
+  email : string prop;  (** email *)
+  expire_time : float prop option; [@option]  (** expire_time *)
+  fqdn : string prop;  (** fqdn *)
+  host_name : string prop option; [@option]  (** host_name *)
+  minimum_ttl : float prop option; [@option]  (** minimum_ttl *)
+  refresh_time : float prop option; [@option]  (** refresh_time *)
+  retry_time : float prop option; [@option]  (** retry_time *)
+  serial_number : float prop option; [@option]  (** serial_number *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  ttl : float prop option; [@option]  (** ttl *)
 }
 [@@deriving yojson_of]
 (** azurerm_dns_zone__soa_record *)
 
 type azurerm_dns_zone__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_dns_zone__timeouts *)
 
 type azurerm_dns_zone = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   soa_record : azurerm_dns_zone__soa_record list;
   timeouts : azurerm_dns_zone__timeouts option;
 }

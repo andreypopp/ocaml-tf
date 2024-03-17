@@ -6,9 +6,9 @@ type aws_vpc_endpoint_policy__timeouts
 type aws_vpc_endpoint_policy
 
 val aws_vpc_endpoint_policy :
-  ?id:string ->
-  ?policy:string ->
+  ?id:string prop ->
+  ?policy:string prop ->
   ?timeouts:aws_vpc_endpoint_policy__timeouts ->
-  vpc_endpoint_id:string ->
+  vpc_endpoint_id:string prop ->
   string ->
   unit

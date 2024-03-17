@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type aws_verifiedaccess_instance_logging_configuration__access_logs__cloudwatch_logs = {
-  enabled : bool;  (** enabled *)
-  log_group : string option; [@option]  (** log_group *)
+  enabled : bool prop;  (** enabled *)
+  log_group : string prop option; [@option]  (** log_group *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedaccess_instance_logging_configuration__access_logs__cloudwatch_logs *)
 
 type aws_verifiedaccess_instance_logging_configuration__access_logs__kinesis_data_firehose = {
-  delivery_stream : string option; [@option]  (** delivery_stream *)
-  enabled : bool;  (** enabled *)
+  delivery_stream : string prop option; [@option]
+      (** delivery_stream *)
+  enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedaccess_instance_logging_configuration__access_logs__kinesis_data_firehose *)
 
 type aws_verifiedaccess_instance_logging_configuration__access_logs__s3 = {
-  bucket_name : string option; [@option]  (** bucket_name *)
-  bucket_owner : string option; [@option]  (** bucket_owner *)
-  enabled : bool;  (** enabled *)
-  prefix : string option; [@option]  (** prefix *)
+  bucket_name : string prop option; [@option]  (** bucket_name *)
+  bucket_owner : string prop option; [@option]  (** bucket_owner *)
+  enabled : bool prop;  (** enabled *)
+  prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedaccess_instance_logging_configuration__access_logs__s3 *)
 
 type aws_verifiedaccess_instance_logging_configuration__access_logs = {
-  include_trust_context : bool option; [@option]
+  include_trust_context : bool prop option; [@option]
       (** include_trust_context *)
-  log_version : string option; [@option]  (** log_version *)
+  log_version : string prop option; [@option]  (** log_version *)
   cloudwatch_logs :
     aws_verifiedaccess_instance_logging_configuration__access_logs__cloudwatch_logs
     list;
@@ -45,8 +46,8 @@ type aws_verifiedaccess_instance_logging_configuration__access_logs = {
 (** aws_verifiedaccess_instance_logging_configuration__access_logs *)
 
 type aws_verifiedaccess_instance_logging_configuration = {
-  id : string option; [@option]  (** id *)
-  verifiedaccess_instance_id : string;
+  id : string prop option; [@option]  (** id *)
+  verifiedaccess_instance_id : string prop;
       (** verifiedaccess_instance_id *)
   access_logs :
     aws_verifiedaccess_instance_logging_configuration__access_logs

@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_load_balancer_backend_server_policy
 
 val aws_load_balancer_backend_server_policy :
-  ?id:string ->
-  ?policy_names:string list ->
-  instance_port:float ->
-  load_balancer_name:string ->
+  ?id:string prop ->
+  ?policy_names:string prop list ->
+  instance_port:float prop ->
+  load_balancer_name:string prop ->
   string ->
   unit

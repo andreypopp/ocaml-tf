@@ -5,26 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_security_center_storage_defender__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_storage_defender__timeouts *)
 
 type azurerm_security_center_storage_defender = {
-  id : string option; [@option]  (** id *)
-  malware_scanning_on_upload_cap_gb_per_month : float option;
+  id : string prop option; [@option]  (** id *)
+  malware_scanning_on_upload_cap_gb_per_month : float prop option;
       [@option]
       (** malware_scanning_on_upload_cap_gb_per_month *)
-  malware_scanning_on_upload_enabled : bool option; [@option]
+  malware_scanning_on_upload_enabled : bool prop option; [@option]
       (** malware_scanning_on_upload_enabled *)
-  override_subscription_settings_enabled : bool option; [@option]
+  override_subscription_settings_enabled : bool prop option;
+      [@option]
       (** override_subscription_settings_enabled *)
-  sensitive_data_discovery_enabled : bool option; [@option]
+  sensitive_data_discovery_enabled : bool prop option; [@option]
       (** sensitive_data_discovery_enabled *)
-  storage_account_id : string;  (** storage_account_id *)
+  storage_account_id : string prop;  (** storage_account_id *)
   timeouts :
     azurerm_security_center_storage_defender__timeouts option;
 }

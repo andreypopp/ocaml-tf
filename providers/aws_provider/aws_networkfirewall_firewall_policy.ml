@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_networkfirewall_firewall_policy__encryption_configuration = {
-  key_id : string option; [@option]  (** key_id *)
-  type_ : string; [@key "type"]  (** type *)
+  key_id : string prop option; [@option]  (** key_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall_policy__encryption_configuration *)
 
 type aws_networkfirewall_firewall_policy__firewall_policy__policy_variables__rule_variables__ip_set = {
-  definition : string list;  (** definition *)
+  definition : string prop list;  (** definition *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall_policy__firewall_policy__policy_variables__rule_variables__ip_set *)
 
 type aws_networkfirewall_firewall_policy__firewall_policy__policy_variables__rule_variables = {
-  key : string;  (** key *)
+  key : string prop;  (** key *)
   ip_set :
     aws_networkfirewall_firewall_policy__firewall_policy__policy_variables__rule_variables__ip_set
     list;
@@ -35,22 +35,22 @@ type aws_networkfirewall_firewall_policy__firewall_policy__policy_variables = {
 (** aws_networkfirewall_firewall_policy__firewall_policy__policy_variables *)
 
 type aws_networkfirewall_firewall_policy__firewall_policy__stateful_engine_options = {
-  rule_order : string option; [@option]  (** rule_order *)
-  stream_exception_policy : string option; [@option]
+  rule_order : string prop option; [@option]  (** rule_order *)
+  stream_exception_policy : string prop option; [@option]
       (** stream_exception_policy *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall_policy__firewall_policy__stateful_engine_options *)
 
 type aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference__override = {
-  action : string option; [@option]  (** action *)
+  action : string prop option; [@option]  (** action *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference__override *)
 
 type aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference = {
-  priority : float option; [@option]  (** priority *)
-  resource_arn : string;  (** resource_arn *)
+  priority : float prop option; [@option]  (** priority *)
+  resource_arn : string prop;  (** resource_arn *)
   override :
     aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference__override
     list;
@@ -59,7 +59,7 @@ type aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_r
 (** aws_networkfirewall_firewall_policy__firewall_policy__stateful_rule_group_reference *)
 
 type aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension *)
@@ -81,7 +81,7 @@ type aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_acti
 (** aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition *)
 
 type aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action = {
-  action_name : string;  (** action_name *)
+  action_name : string prop;  (** action_name *)
   action_definition :
     aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action__action_definition
     list;
@@ -90,20 +90,20 @@ type aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_acti
 (** aws_networkfirewall_firewall_policy__firewall_policy__stateless_custom_action *)
 
 type aws_networkfirewall_firewall_policy__firewall_policy__stateless_rule_group_reference = {
-  priority : float;  (** priority *)
-  resource_arn : string;  (** resource_arn *)
+  priority : float prop;  (** priority *)
+  resource_arn : string prop;  (** resource_arn *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall_policy__firewall_policy__stateless_rule_group_reference *)
 
 type aws_networkfirewall_firewall_policy__firewall_policy = {
-  stateful_default_actions : string list option; [@option]
+  stateful_default_actions : string prop list option; [@option]
       (** stateful_default_actions *)
-  stateless_default_actions : string list;
+  stateless_default_actions : string prop list;
       (** stateless_default_actions *)
-  stateless_fragment_default_actions : string list;
+  stateless_fragment_default_actions : string prop list;
       (** stateless_fragment_default_actions *)
-  tls_inspection_configuration_arn : string option; [@option]
+  tls_inspection_configuration_arn : string prop option; [@option]
       (** tls_inspection_configuration_arn *)
   policy_variables :
     aws_networkfirewall_firewall_policy__firewall_policy__policy_variables
@@ -125,11 +125,11 @@ type aws_networkfirewall_firewall_policy__firewall_policy = {
 (** aws_networkfirewall_firewall_policy__firewall_policy *)
 
 type aws_networkfirewall_firewall_policy = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   encryption_configuration :
     aws_networkfirewall_firewall_policy__encryption_configuration

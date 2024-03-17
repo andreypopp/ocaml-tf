@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_quicksight_iam_policy_assignment__identities = {
-  group: string list option; [@option] (** group *)
-  user: string list option; [@option] (** user *)
+  group: string prop list option; [@option] (** group *)
+  user: string prop list option; [@option] (** user *)
 } [@@deriving yojson_of]
 (** aws_quicksight_iam_policy_assignment__identities *)
 
 type aws_quicksight_iam_policy_assignment = {
-  assignment_name: string;  (** assignment_name *)
-  assignment_status: string;  (** assignment_status *)
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  namespace: string option; [@option] (** namespace *)
-  policy_arn: string option; [@option] (** policy_arn *)
+  assignment_name: string prop;  (** assignment_name *)
+  assignment_status: string prop;  (** assignment_status *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  namespace: string prop option; [@option] (** namespace *)
+  policy_arn: string prop option; [@option] (** policy_arn *)
   identities: aws_quicksight_iam_policy_assignment__identities list;
 } [@@deriving yojson_of]
 (** aws_quicksight_iam_policy_assignment *)

@@ -6,9 +6,9 @@ type azurerm_postgresql_server_key__timeouts
 type azurerm_postgresql_server_key
 
 val azurerm_postgresql_server_key :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_postgresql_server_key__timeouts ->
-  key_vault_key_id:string ->
-  server_id:string ->
+  key_vault_key_id:string prop ->
+  server_id:string prop ->
   string ->
   unit

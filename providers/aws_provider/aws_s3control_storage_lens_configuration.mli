@@ -51,11 +51,11 @@ type aws_s3control_storage_lens_configuration__storage_lens_configuration
 type aws_s3control_storage_lens_configuration
 
 val aws_s3control_storage_lens_configuration :
-  ?account_id:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  config_id:string ->
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  config_id:string prop ->
   storage_lens_configuration:
     aws_s3control_storage_lens_configuration__storage_lens_configuration
     list ->

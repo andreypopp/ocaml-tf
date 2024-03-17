@@ -6,19 +6,19 @@ type azurerm_cosmosdb_cassandra_datacenter__timeouts
 type azurerm_cosmosdb_cassandra_datacenter
 
 val azurerm_cosmosdb_cassandra_datacenter :
-  ?availability_zones_enabled:bool ->
-  ?backup_storage_customer_key_uri:string ->
-  ?base64_encoded_yaml_fragment:string ->
-  ?disk_count:float ->
-  ?disk_sku:string ->
-  ?id:string ->
-  ?managed_disk_customer_key_uri:string ->
-  ?node_count:float ->
-  ?sku_name:string ->
+  ?availability_zones_enabled:bool prop ->
+  ?backup_storage_customer_key_uri:string prop ->
+  ?base64_encoded_yaml_fragment:string prop ->
+  ?disk_count:float prop ->
+  ?disk_sku:string prop ->
+  ?id:string prop ->
+  ?managed_disk_customer_key_uri:string prop ->
+  ?node_count:float prop ->
+  ?sku_name:string prop ->
   ?timeouts:azurerm_cosmosdb_cassandra_datacenter__timeouts ->
-  cassandra_cluster_id:string ->
-  delegated_management_subnet_id:string ->
-  location:string ->
-  name:string ->
+  cassandra_cluster_id:string prop ->
+  delegated_management_subnet_id:string prop ->
+  location:string prop ->
+  name:string prop ->
   string ->
   unit

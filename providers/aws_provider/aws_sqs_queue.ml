@@ -5,36 +5,38 @@
 open! Tf.Prelude
 
 type aws_sqs_queue = {
-  content_based_deduplication : bool option; [@option]
+  content_based_deduplication : bool prop option; [@option]
       (** content_based_deduplication *)
-  deduplication_scope : string option; [@option]
+  deduplication_scope : string prop option; [@option]
       (** deduplication_scope *)
-  delay_seconds : float option; [@option]  (** delay_seconds *)
-  fifo_queue : bool option; [@option]  (** fifo_queue *)
-  fifo_throughput_limit : string option; [@option]
+  delay_seconds : float prop option; [@option]  (** delay_seconds *)
+  fifo_queue : bool prop option; [@option]  (** fifo_queue *)
+  fifo_throughput_limit : string prop option; [@option]
       (** fifo_throughput_limit *)
-  id : string option; [@option]  (** id *)
-  kms_data_key_reuse_period_seconds : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kms_data_key_reuse_period_seconds : float prop option; [@option]
       (** kms_data_key_reuse_period_seconds *)
-  kms_master_key_id : string option; [@option]
+  kms_master_key_id : string prop option; [@option]
       (** kms_master_key_id *)
-  max_message_size : float option; [@option]  (** max_message_size *)
-  message_retention_seconds : float option; [@option]
+  max_message_size : float prop option; [@option]
+      (** max_message_size *)
+  message_retention_seconds : float prop option; [@option]
       (** message_retention_seconds *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  policy : string option; [@option]  (** policy *)
-  receive_wait_time_seconds : float option; [@option]
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  policy : string prop option; [@option]  (** policy *)
+  receive_wait_time_seconds : float prop option; [@option]
       (** receive_wait_time_seconds *)
-  redrive_allow_policy : string option; [@option]
+  redrive_allow_policy : string prop option; [@option]
       (** redrive_allow_policy *)
-  redrive_policy : string option; [@option]  (** redrive_policy *)
-  sqs_managed_sse_enabled : bool option; [@option]
+  redrive_policy : string prop option; [@option]
+      (** redrive_policy *)
+  sqs_managed_sse_enabled : bool prop option; [@option]
       (** sqs_managed_sse_enabled *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  visibility_timeout_seconds : float option; [@option]
+  visibility_timeout_seconds : float prop option; [@option]
       (** visibility_timeout_seconds *)
 }
 [@@deriving yojson_of]

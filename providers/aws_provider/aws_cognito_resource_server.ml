@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_cognito_resource_server__scope = {
-  scope_description : string;  (** scope_description *)
-  scope_name : string;  (** scope_name *)
+  scope_description : string prop;  (** scope_description *)
+  scope_name : string prop;  (** scope_name *)
 }
 [@@deriving yojson_of]
 (** aws_cognito_resource_server__scope *)
 
 type aws_cognito_resource_server = {
-  id : string option; [@option]  (** id *)
-  identifier : string;  (** identifier *)
-  name : string;  (** name *)
-  user_pool_id : string;  (** user_pool_id *)
+  id : string prop option; [@option]  (** id *)
+  identifier : string prop;  (** identifier *)
+  name : string prop;  (** name *)
+  user_pool_id : string prop;  (** user_pool_id *)
   scope : aws_cognito_resource_server__scope list;
 }
 [@@deriving yojson_of]

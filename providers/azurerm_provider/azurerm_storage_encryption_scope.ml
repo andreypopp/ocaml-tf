@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_storage_encryption_scope__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_encryption_scope__timeouts *)
 
 type azurerm_storage_encryption_scope = {
-  id : string option; [@option]  (** id *)
-  infrastructure_encryption_required : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  infrastructure_encryption_required : bool prop option; [@option]
       (** infrastructure_encryption_required *)
-  key_vault_key_id : string option; [@option]
+  key_vault_key_id : string prop option; [@option]
       (** key_vault_key_id *)
-  name : string;  (** name *)
-  source : string;  (** source *)
-  storage_account_id : string;  (** storage_account_id *)
+  name : string prop;  (** name *)
+  source : string prop;  (** source *)
+  storage_account_id : string prop;  (** storage_account_id *)
   timeouts : azurerm_storage_encryption_scope__timeouts option;
 }
 [@@deriving yojson_of]

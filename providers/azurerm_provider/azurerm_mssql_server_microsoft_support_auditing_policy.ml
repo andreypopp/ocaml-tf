@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_mssql_server_microsoft_support_auditing_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_server_microsoft_support_auditing_policy__timeouts *)
 
 type azurerm_mssql_server_microsoft_support_auditing_policy = {
-  blob_storage_endpoint : string option; [@option]
+  blob_storage_endpoint : string prop option; [@option]
       (** blob_storage_endpoint *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  log_monitoring_enabled : bool option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  log_monitoring_enabled : bool prop option; [@option]
       (** log_monitoring_enabled *)
-  server_id : string;  (** server_id *)
-  storage_account_access_key : string option; [@option]
+  server_id : string prop;  (** server_id *)
+  storage_account_access_key : string prop option; [@option]
       (** storage_account_access_key *)
-  storage_account_subscription_id : string option; [@option]
+  storage_account_subscription_id : string prop option; [@option]
       (** storage_account_subscription_id *)
   timeouts :
     azurerm_mssql_server_microsoft_support_auditing_policy__timeouts

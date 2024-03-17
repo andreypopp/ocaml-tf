@@ -5,26 +5,27 @@
 open! Tf.Prelude
 
 type google_datastore_index__properties = {
-  direction : string;
+  direction : string prop;
       (** The direction the index should optimize for sorting. Possible values: [ASCENDING, DESCENDING] *)
-  name : string;  (** The property name to index. *)
+  name : string prop;  (** The property name to index. *)
 }
 [@@deriving yojson_of]
 (** An ordered list of properties to index on. *)
 
 type google_datastore_index__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_datastore_index__timeouts *)
 
 type google_datastore_index = {
-  ancestor : string option; [@option]
+  ancestor : string prop option; [@option]
       (** Policy for including ancestors in the index. Default value: NONE Possible values: [NONE, ALL_ANCESTORS] *)
-  id : string option; [@option]  (** id *)
-  kind : string;  (** The entity kind which the index applies to. *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  kind : string prop;
+      (** The entity kind which the index applies to. *)
+  project : string prop option; [@option]  (** project *)
   properties : google_datastore_index__properties list;
   timeouts : google_datastore_index__timeouts option;
 }

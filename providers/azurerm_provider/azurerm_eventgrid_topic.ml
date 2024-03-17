@@ -5,63 +5,64 @@
 open! Tf.Prelude
 
 type azurerm_eventgrid_topic__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_topic__identity *)
 
 type azurerm_eventgrid_topic__input_mapping_default_values = {
-  data_version : string option; [@option]  (** data_version *)
-  event_type : string option; [@option]  (** event_type *)
-  subject : string option; [@option]  (** subject *)
+  data_version : string prop option; [@option]  (** data_version *)
+  event_type : string prop option; [@option]  (** event_type *)
+  subject : string prop option; [@option]  (** subject *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_topic__input_mapping_default_values *)
 
 type azurerm_eventgrid_topic__input_mapping_fields = {
-  data_version : string option; [@option]  (** data_version *)
-  event_time : string option; [@option]  (** event_time *)
-  event_type : string option; [@option]  (** event_type *)
-  id : string option; [@option]  (** id *)
-  subject : string option; [@option]  (** subject *)
-  topic : string option; [@option]  (** topic *)
+  data_version : string prop option; [@option]  (** data_version *)
+  event_time : string prop option; [@option]  (** event_time *)
+  event_type : string prop option; [@option]  (** event_type *)
+  id : string prop option; [@option]  (** id *)
+  subject : string prop option; [@option]  (** subject *)
+  topic : string prop option; [@option]  (** topic *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_topic__input_mapping_fields *)
 
 type azurerm_eventgrid_topic__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_topic__timeouts *)
 
 type azurerm_eventgrid_topic__inbound_ip_rule = {
-  action : string;  (** action *)
-  ip_mask : string;  (** ip_mask *)
+  action : string prop;  (** action *)
+  ip_mask : string prop;  (** ip_mask *)
 }
 [@@deriving yojson_of]
 
 type azurerm_eventgrid_topic = {
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   inbound_ip_rule :
     azurerm_eventgrid_topic__inbound_ip_rule list option;
       [@option]
       (** inbound_ip_rule *)
-  input_schema : string option; [@option]  (** input_schema *)
-  local_auth_enabled : bool option; [@option]
+  input_schema : string prop option; [@option]  (** input_schema *)
+  local_auth_enabled : bool prop option; [@option]
       (** local_auth_enabled *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   identity : azurerm_eventgrid_topic__identity list;
   input_mapping_default_values :
     azurerm_eventgrid_topic__input_mapping_default_values list;

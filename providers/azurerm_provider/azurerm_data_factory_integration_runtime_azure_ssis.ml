@@ -5,41 +5,42 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_integration_runtime_azure_ssis__catalog_info = {
-  administrator_login : string option; [@option]
+  administrator_login : string prop option; [@option]
       (** administrator_login *)
-  administrator_password : string option; [@option]
+  administrator_password : string prop option; [@option]
       (** administrator_password *)
-  dual_standby_pair_name : string option; [@option]
+  dual_standby_pair_name : string prop option; [@option]
       (** dual_standby_pair_name *)
-  elastic_pool_name : string option; [@option]
+  elastic_pool_name : string prop option; [@option]
       (** elastic_pool_name *)
-  pricing_tier : string option; [@option]  (** pricing_tier *)
-  server_endpoint : string;  (** server_endpoint *)
+  pricing_tier : string prop option; [@option]  (** pricing_tier *)
+  server_endpoint : string prop;  (** server_endpoint *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_azure_ssis__catalog_info *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__custom_setup_script = {
-  blob_container_uri : string;  (** blob_container_uri *)
-  sas_token : string;  (** sas_token *)
+  blob_container_uri : string prop;  (** blob_container_uri *)
+  sas_token : string prop;  (** sas_token *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_azure_ssis__custom_setup_script *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__command_key__key_vault_password = {
-  linked_service_name : string;  (** linked_service_name *)
-  parameters : (string * string) list option; [@option]
+  linked_service_name : string prop;  (** linked_service_name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  secret_name : string;  (** secret_name *)
-  secret_version : string option; [@option]  (** secret_version *)
+  secret_name : string prop;  (** secret_name *)
+  secret_version : string prop option; [@option]
+      (** secret_version *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__command_key__key_vault_password *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__command_key = {
-  password : string option; [@option]  (** password *)
-  target_name : string;  (** target_name *)
-  user_name : string;  (** user_name *)
+  password : string prop option; [@option]  (** password *)
+  target_name : string prop;  (** target_name *)
+  user_name : string prop;  (** user_name *)
   key_vault_password :
     azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__command_key__key_vault_password
     list;
@@ -48,18 +49,19 @@ type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__
 (** azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__command_key *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__component__key_vault_license = {
-  linked_service_name : string;  (** linked_service_name *)
-  parameters : (string * string) list option; [@option]
+  linked_service_name : string prop;  (** linked_service_name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  secret_name : string;  (** secret_name *)
-  secret_version : string option; [@option]  (** secret_version *)
+  secret_name : string prop;  (** secret_name *)
+  secret_version : string prop option; [@option]
+      (** secret_version *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__component__key_vault_license *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__component = {
-  license : string option; [@option]  (** license *)
-  name : string;  (** name *)
+  license : string prop option; [@option]  (** license *)
+  name : string prop;  (** name *)
   key_vault_license :
     azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__component__key_vault_license
     list;
@@ -68,9 +70,9 @@ type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__
 (** azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__component *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup = {
-  environment : (string * string) list option; [@option]
+  environment : (string * string prop) list option; [@option]
       (** environment *)
-  powershell_version : string option; [@option]
+  powershell_version : string prop option; [@option]
       (** powershell_version *)
   command_key :
     azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup__command_key
@@ -83,59 +85,61 @@ type azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup =
 (** azurerm_data_factory_integration_runtime_azure_ssis__express_custom_setup *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__express_vnet_integration = {
-  subnet_id : string;  (** subnet_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_azure_ssis__express_vnet_integration *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__package_store = {
-  linked_service_name : string;  (** linked_service_name *)
-  name : string;  (** name *)
+  linked_service_name : string prop;  (** linked_service_name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_azure_ssis__package_store *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__proxy = {
-  path : string option; [@option]  (** path *)
-  self_hosted_integration_runtime_name : string;
+  path : string prop option; [@option]  (** path *)
+  self_hosted_integration_runtime_name : string prop;
       (** self_hosted_integration_runtime_name *)
-  staging_storage_linked_service_name : string;
+  staging_storage_linked_service_name : string prop;
       (** staging_storage_linked_service_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_azure_ssis__proxy *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_azure_ssis__timeouts *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis__vnet_integration = {
-  public_ips : string list option; [@option]  (** public_ips *)
-  subnet_id : string option; [@option]  (** subnet_id *)
-  subnet_name : string option; [@option]  (** subnet_name *)
-  vnet_id : string option; [@option]  (** vnet_id *)
+  public_ips : string prop list option; [@option]  (** public_ips *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
+  subnet_name : string prop option; [@option]  (** subnet_name *)
+  vnet_id : string prop option; [@option]  (** vnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_integration_runtime_azure_ssis__vnet_integration *)
 
 type azurerm_data_factory_integration_runtime_azure_ssis = {
-  credential_name : string option; [@option]  (** credential_name *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  edition : string option; [@option]  (** edition *)
-  id : string option; [@option]  (** id *)
-  license_type : string option; [@option]  (** license_type *)
-  location : string;  (** location *)
-  max_parallel_executions_per_node : float option; [@option]
+  credential_name : string prop option; [@option]
+      (** credential_name *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  edition : string prop option; [@option]  (** edition *)
+  id : string prop option; [@option]  (** id *)
+  license_type : string prop option; [@option]  (** license_type *)
+  location : string prop;  (** location *)
+  max_parallel_executions_per_node : float prop option; [@option]
       (** max_parallel_executions_per_node *)
-  name : string;  (** name *)
-  node_size : string;  (** node_size *)
-  number_of_nodes : float option; [@option]  (** number_of_nodes *)
+  name : string prop;  (** name *)
+  node_size : string prop;  (** node_size *)
+  number_of_nodes : float prop option; [@option]
+      (** number_of_nodes *)
   catalog_info :
     azurerm_data_factory_integration_runtime_azure_ssis__catalog_info
     list;

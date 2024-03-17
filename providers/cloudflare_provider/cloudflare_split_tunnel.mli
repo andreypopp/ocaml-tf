@@ -6,10 +6,10 @@ type cloudflare_split_tunnel__tunnels
 type cloudflare_split_tunnel
 
 val cloudflare_split_tunnel :
-  ?id:string ->
-  ?policy_id:string ->
-  account_id:string ->
-  mode:string ->
+  ?id:string prop ->
+  ?policy_id:string prop ->
+  account_id:string prop ->
+  mode:string prop ->
   tunnels:cloudflare_split_tunnel__tunnels list ->
   string ->
   unit

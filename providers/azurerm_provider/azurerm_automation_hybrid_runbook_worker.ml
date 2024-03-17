@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_automation_hybrid_runbook_worker__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_hybrid_runbook_worker__timeouts *)
 
 type azurerm_automation_hybrid_runbook_worker = {
-  automation_account_name : string;  (** automation_account_name *)
-  id : string option; [@option]  (** id *)
-  resource_group_name : string;  (** resource_group_name *)
-  vm_resource_id : string;  (** vm_resource_id *)
-  worker_group_name : string;  (** worker_group_name *)
-  worker_id : string;  (** worker_id *)
+  automation_account_name : string prop;
+      (** automation_account_name *)
+  id : string prop option; [@option]  (** id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  vm_resource_id : string prop;  (** vm_resource_id *)
+  worker_group_name : string prop;  (** worker_group_name *)
+  worker_id : string prop;  (** worker_id *)
   timeouts :
     azurerm_automation_hybrid_runbook_worker__timeouts option;
 }

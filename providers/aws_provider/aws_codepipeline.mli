@@ -22,13 +22,13 @@ type aws_codepipeline__variable
 type aws_codepipeline
 
 val aws_codepipeline :
-  ?execution_mode:string ->
-  ?id:string ->
-  ?pipeline_type:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
-  role_arn:string ->
+  ?execution_mode:string prop ->
+  ?id:string prop ->
+  ?pipeline_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  role_arn:string prop ->
   artifact_store:aws_codepipeline__artifact_store list ->
   stage:aws_codepipeline__stage list ->
   trigger:aws_codepipeline__trigger list ->

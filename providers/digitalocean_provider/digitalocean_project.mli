@@ -6,13 +6,13 @@ type digitalocean_project__timeouts
 type digitalocean_project
 
 val digitalocean_project :
-  ?description:string ->
-  ?environment:string ->
-  ?id:string ->
-  ?is_default:bool ->
-  ?purpose:string ->
-  ?resources:string list ->
+  ?description:string prop ->
+  ?environment:string prop ->
+  ?id:string prop ->
+  ?is_default:bool prop ->
+  ?purpose:string prop ->
+  ?resources:string prop list ->
   ?timeouts:digitalocean_project__timeouts ->
-  name:string ->
+  name:string prop ->
   string ->
   unit

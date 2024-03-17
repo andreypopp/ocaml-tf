@@ -5,42 +5,44 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_object = {
-  acl : string option; [@option]  (** acl *)
-  bucket : string;  (** bucket *)
-  bucket_key_enabled : bool option; [@option]
+  acl : string prop option; [@option]  (** acl *)
+  bucket : string prop;  (** bucket *)
+  bucket_key_enabled : bool prop option; [@option]
       (** bucket_key_enabled *)
-  cache_control : string option; [@option]  (** cache_control *)
-  content : string option; [@option]  (** content *)
-  content_base64 : string option; [@option]  (** content_base64 *)
-  content_disposition : string option; [@option]
+  cache_control : string prop option; [@option]  (** cache_control *)
+  content : string prop option; [@option]  (** content *)
+  content_base64 : string prop option; [@option]
+      (** content_base64 *)
+  content_disposition : string prop option; [@option]
       (** content_disposition *)
-  content_encoding : string option; [@option]
+  content_encoding : string prop option; [@option]
       (** content_encoding *)
-  content_language : string option; [@option]
+  content_language : string prop option; [@option]
       (** content_language *)
-  content_type : string option; [@option]  (** content_type *)
-  etag : string option; [@option]  (** etag *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  id : string option; [@option]  (** id *)
-  key : string;  (** key *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  metadata : (string * string) list option; [@option]
+  content_type : string prop option; [@option]  (** content_type *)
+  etag : string prop option; [@option]  (** etag *)
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  id : string prop option; [@option]  (** id *)
+  key : string prop;  (** key *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  object_lock_legal_hold_status : string option; [@option]
+  object_lock_legal_hold_status : string prop option; [@option]
       (** object_lock_legal_hold_status *)
-  object_lock_mode : string option; [@option]
+  object_lock_mode : string prop option; [@option]
       (** object_lock_mode *)
-  object_lock_retain_until_date : string option; [@option]
+  object_lock_retain_until_date : string prop option; [@option]
       (** object_lock_retain_until_date *)
-  server_side_encryption : string option; [@option]
+  server_side_encryption : string prop option; [@option]
       (** server_side_encryption *)
-  source : string option; [@option]  (** source *)
-  source_hash : string option; [@option]  (** source_hash *)
-  storage_class : string option; [@option]  (** storage_class *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  source : string prop option; [@option]  (** source *)
+  source_hash : string prop option; [@option]  (** source_hash *)
+  storage_class : string prop option; [@option]  (** storage_class *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  website_redirect : string option; [@option]  (** website_redirect *)
+  website_redirect : string prop option; [@option]
+      (** website_redirect *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_object *)

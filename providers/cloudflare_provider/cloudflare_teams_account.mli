@@ -19,13 +19,13 @@ type cloudflare_teams_account__ssh_session_log
 type cloudflare_teams_account
 
 val cloudflare_teams_account :
-  ?activity_log_enabled:bool ->
-  ?id:string ->
-  ?non_identity_browser_isolation_enabled:bool ->
-  ?protocol_detection_enabled:bool ->
-  ?tls_decrypt_enabled:bool ->
-  ?url_browser_isolation_enabled:bool ->
-  account_id:string ->
+  ?activity_log_enabled:bool prop ->
+  ?id:string prop ->
+  ?non_identity_browser_isolation_enabled:bool prop ->
+  ?protocol_detection_enabled:bool prop ->
+  ?tls_decrypt_enabled:bool prop ->
+  ?url_browser_isolation_enabled:bool prop ->
+  account_id:string prop ->
   antivirus:cloudflare_teams_account__antivirus list ->
   block_page:cloudflare_teams_account__block_page list ->
   body_scanning:cloudflare_teams_account__body_scanning list ->

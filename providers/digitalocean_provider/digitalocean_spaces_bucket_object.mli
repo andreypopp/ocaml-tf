@@ -5,22 +5,22 @@ open! Tf.Prelude
 type digitalocean_spaces_bucket_object
 
 val digitalocean_spaces_bucket_object :
-  ?acl:string ->
-  ?cache_control:string ->
-  ?content:string ->
-  ?content_base64:string ->
-  ?content_disposition:string ->
-  ?content_encoding:string ->
-  ?content_language:string ->
-  ?content_type:string ->
-  ?etag:string ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?metadata:(string * string) list ->
-  ?source:string ->
-  ?website_redirect:string ->
-  bucket:string ->
-  key:string ->
-  region:string ->
+  ?acl:string prop ->
+  ?cache_control:string prop ->
+  ?content:string prop ->
+  ?content_base64:string prop ->
+  ?content_disposition:string prop ->
+  ?content_encoding:string prop ->
+  ?content_language:string prop ->
+  ?content_type:string prop ->
+  ?etag:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?source:string prop ->
+  ?website_redirect:string prop ->
+  bucket:string prop ->
+  key:string prop ->
+  region:string prop ->
   string ->
   unit

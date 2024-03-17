@@ -5,11 +5,11 @@ open! Tf.Prelude
 type google_bigquery_analytics_hub_listing_iam_policy
 
 val google_bigquery_analytics_hub_listing_iam_policy :
-  ?id:string ->
-  ?location:string ->
-  ?project:string ->
-  data_exchange_id:string ->
-  listing_id:string ->
-  policy_data:string ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  data_exchange_id:string prop ->
+  listing_id:string prop ->
+  policy_data:string prop ->
   string ->
   unit

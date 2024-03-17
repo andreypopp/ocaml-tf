@@ -6,12 +6,12 @@ type azurerm_virtual_hub_bgp_connection__timeouts
 type azurerm_virtual_hub_bgp_connection
 
 val azurerm_virtual_hub_bgp_connection :
-  ?id:string ->
-  ?virtual_network_connection_id:string ->
+  ?id:string prop ->
+  ?virtual_network_connection_id:string prop ->
   ?timeouts:azurerm_virtual_hub_bgp_connection__timeouts ->
-  name:string ->
-  peer_asn:float ->
-  peer_ip:string ->
-  virtual_hub_id:string ->
+  name:string prop ->
+  peer_asn:float prop ->
+  peer_ip:string prop ->
+  virtual_hub_id:string prop ->
   string ->
   unit

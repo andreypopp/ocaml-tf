@@ -7,7 +7,7 @@ type kubernetes_csi_driver_v1__spec
 type kubernetes_csi_driver_v1
 
 val kubernetes_csi_driver_v1 :
-  ?id:string ->
+  ?id:string prop ->
   metadata:kubernetes_csi_driver_v1__metadata list ->
   spec:kubernetes_csi_driver_v1__spec list ->
   string ->

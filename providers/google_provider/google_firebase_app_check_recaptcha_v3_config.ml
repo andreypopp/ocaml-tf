@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type google_firebase_app_check_recaptcha_v3_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_firebase_app_check_recaptcha_v3_config__timeouts *)
 
 type google_firebase_app_check_recaptcha_v3_config = {
-  app_id : string;
+  app_id : string prop;
       (** The ID of an
 [Web App](https://firebase.google.com/docs/reference/firebase-management/rest/v1beta1/projects.webApps#WebApp.FIELDS.app_id). *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  site_secret : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  site_secret : string prop;
       (** The site secret used to identify your service for reCAPTCHA v3 verification.
 For security reasons, this field will never be populated in any response. *)
-  token_ttl : string option; [@option]
+  token_ttl : string prop option; [@option]
       (** Specifies the duration for which App Check tokens exchanged from reCAPTCHA V3 artifacts will be valid.
 If unset, a default value of 1 hour is assumed. Must be between 30 minutes and 7 days, inclusive.
 

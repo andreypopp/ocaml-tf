@@ -5,13 +5,15 @@
 open! Tf.Prelude
 
 type aws_placement_group = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  partition_count : float option; [@option]  (** partition_count *)
-  spread_level : string option; [@option]  (** spread_level *)
-  strategy : string;  (** strategy *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  partition_count : float prop option; [@option]
+      (** partition_count *)
+  spread_level : string prop option; [@option]  (** spread_level *)
+  strategy : string prop;  (** strategy *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_placement_group *)

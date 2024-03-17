@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_hpc_cache_blob_nfs_target__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_hpc_cache_blob_nfs_target__timeouts *)
 
 type azurerm_hpc_cache_blob_nfs_target = {
-  access_policy_name : string option; [@option]
+  access_policy_name : string prop option; [@option]
       (** access_policy_name *)
-  cache_name : string;  (** cache_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  namespace_path : string;  (** namespace_path *)
-  resource_group_name : string;  (** resource_group_name *)
-  storage_container_id : string;  (** storage_container_id *)
-  usage_model : string;  (** usage_model *)
-  verification_timer_in_seconds : float option; [@option]
+  cache_name : string prop;  (** cache_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  namespace_path : string prop;  (** namespace_path *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  storage_container_id : string prop;  (** storage_container_id *)
+  usage_model : string prop;  (** usage_model *)
+  verification_timer_in_seconds : float prop option; [@option]
       (** verification_timer_in_seconds *)
-  write_back_timer_in_seconds : float option; [@option]
+  write_back_timer_in_seconds : float prop option; [@option]
       (** write_back_timer_in_seconds *)
   timeouts : azurerm_hpc_cache_blob_nfs_target__timeouts option;
 }

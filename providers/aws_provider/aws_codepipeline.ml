@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_codepipeline__artifact_store__encryption_key = {
-  id : string;  (** id *)
-  type_ : string; [@key "type"]  (** type *)
+  id : string prop;  (** id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline__artifact_store__encryption_key *)
 
 type aws_codepipeline__artifact_store = {
-  location : string;  (** location *)
-  region : string option; [@option]  (** region *)
-  type_ : string; [@key "type"]  (** type *)
+  location : string prop;  (** location *)
+  region : string prop option; [@option]  (** region *)
+  type_ : string prop; [@key "type"]  (** type *)
   encryption_key :
     aws_codepipeline__artifact_store__encryption_key list;
 }
@@ -22,48 +22,48 @@ type aws_codepipeline__artifact_store = {
 (** aws_codepipeline__artifact_store *)
 
 type aws_codepipeline__stage__action = {
-  category : string;  (** category *)
-  configuration : (string * string) list option; [@option]
+  category : string prop;  (** category *)
+  configuration : (string * string prop) list option; [@option]
       (** configuration *)
-  input_artifacts : string list option; [@option]
+  input_artifacts : string prop list option; [@option]
       (** input_artifacts *)
-  name : string;  (** name *)
-  namespace : string option; [@option]  (** namespace *)
-  output_artifacts : string list option; [@option]
+  name : string prop;  (** name *)
+  namespace : string prop option; [@option]  (** namespace *)
+  output_artifacts : string prop list option; [@option]
       (** output_artifacts *)
-  owner : string;  (** owner *)
-  provider : string;  (** provider *)
-  region : string option; [@option]  (** region *)
-  role_arn : string option; [@option]  (** role_arn *)
-  run_order : float option; [@option]  (** run_order *)
-  version : string;  (** version *)
+  owner : string prop;  (** owner *)
+  provider : string prop;  (** provider *)
+  region : string prop option; [@option]  (** region *)
+  role_arn : string prop option; [@option]  (** role_arn *)
+  run_order : float prop option; [@option]  (** run_order *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline__stage__action *)
 
 type aws_codepipeline__stage = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   action : aws_codepipeline__stage__action list;
 }
 [@@deriving yojson_of]
 (** aws_codepipeline__stage *)
 
 type aws_codepipeline__trigger__git_configuration__pull_request__branches = {
-  excludes : string list option; [@option]  (** excludes *)
-  includes : string list option; [@option]  (** includes *)
+  excludes : string prop list option; [@option]  (** excludes *)
+  includes : string prop list option; [@option]  (** includes *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline__trigger__git_configuration__pull_request__branches *)
 
 type aws_codepipeline__trigger__git_configuration__pull_request__file_paths = {
-  excludes : string list option; [@option]  (** excludes *)
-  includes : string list option; [@option]  (** includes *)
+  excludes : string prop list option; [@option]  (** excludes *)
+  includes : string prop list option; [@option]  (** includes *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline__trigger__git_configuration__pull_request__file_paths *)
 
 type aws_codepipeline__trigger__git_configuration__pull_request = {
-  events : string list option; [@option]  (** events *)
+  events : string prop list option; [@option]  (** events *)
   branches :
     aws_codepipeline__trigger__git_configuration__pull_request__branches
     list;
@@ -75,22 +75,22 @@ type aws_codepipeline__trigger__git_configuration__pull_request = {
 (** aws_codepipeline__trigger__git_configuration__pull_request *)
 
 type aws_codepipeline__trigger__git_configuration__push__branches = {
-  excludes : string list option; [@option]  (** excludes *)
-  includes : string list option; [@option]  (** includes *)
+  excludes : string prop list option; [@option]  (** excludes *)
+  includes : string prop list option; [@option]  (** includes *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline__trigger__git_configuration__push__branches *)
 
 type aws_codepipeline__trigger__git_configuration__push__file_paths = {
-  excludes : string list option; [@option]  (** excludes *)
-  includes : string list option; [@option]  (** includes *)
+  excludes : string prop list option; [@option]  (** excludes *)
+  includes : string prop list option; [@option]  (** includes *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline__trigger__git_configuration__push__file_paths *)
 
 type aws_codepipeline__trigger__git_configuration__push__tags = {
-  excludes : string list option; [@option]  (** excludes *)
-  includes : string list option; [@option]  (** includes *)
+  excludes : string prop list option; [@option]  (** excludes *)
+  includes : string prop list option; [@option]  (** includes *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline__trigger__git_configuration__push__tags *)
@@ -108,7 +108,7 @@ type aws_codepipeline__trigger__git_configuration__push = {
 (** aws_codepipeline__trigger__git_configuration__push *)
 
 type aws_codepipeline__trigger__git_configuration = {
-  source_action_name : string;  (** source_action_name *)
+  source_action_name : string prop;  (** source_action_name *)
   pull_request :
     aws_codepipeline__trigger__git_configuration__pull_request list;
   push : aws_codepipeline__trigger__git_configuration__push list;
@@ -117,7 +117,7 @@ type aws_codepipeline__trigger__git_configuration = {
 (** aws_codepipeline__trigger__git_configuration *)
 
 type aws_codepipeline__trigger = {
-  provider_type : string;  (** provider_type *)
+  provider_type : string prop;  (** provider_type *)
   git_configuration :
     aws_codepipeline__trigger__git_configuration list;
 }
@@ -125,21 +125,22 @@ type aws_codepipeline__trigger = {
 (** aws_codepipeline__trigger *)
 
 type aws_codepipeline__variable = {
-  default_value : string option; [@option]  (** default_value *)
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
+  default_value : string prop option; [@option]  (** default_value *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline__variable *)
 
 type aws_codepipeline = {
-  execution_mode : string option; [@option]  (** execution_mode *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  pipeline_type : string option; [@option]  (** pipeline_type *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  execution_mode : string prop option; [@option]
+      (** execution_mode *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  pipeline_type : string prop option; [@option]  (** pipeline_type *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   artifact_store : aws_codepipeline__artifact_store list;
   stage : aws_codepipeline__stage list;

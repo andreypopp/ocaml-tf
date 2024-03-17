@@ -10,26 +10,26 @@ type azurerm_machine_learning_workspace__timeouts
 type azurerm_machine_learning_workspace
 
 val azurerm_machine_learning_workspace :
-  ?container_registry_id:string ->
-  ?description:string ->
-  ?friendly_name:string ->
-  ?high_business_impact:bool ->
-  ?id:string ->
-  ?image_build_compute_name:string ->
-  ?kind:string ->
-  ?primary_user_assigned_identity:string ->
-  ?public_access_behind_virtual_network_enabled:bool ->
-  ?public_network_access_enabled:bool ->
-  ?sku_name:string ->
-  ?tags:(string * string) list ->
-  ?v1_legacy_mode_enabled:bool ->
+  ?container_registry_id:string prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?high_business_impact:bool prop ->
+  ?id:string prop ->
+  ?image_build_compute_name:string prop ->
+  ?kind:string prop ->
+  ?primary_user_assigned_identity:string prop ->
+  ?public_access_behind_virtual_network_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?sku_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?v1_legacy_mode_enabled:bool prop ->
   ?timeouts:azurerm_machine_learning_workspace__timeouts ->
-  application_insights_id:string ->
-  key_vault_id:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  storage_account_id:string ->
+  application_insights_id:string prop ->
+  key_vault_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_account_id:string prop ->
   encryption:azurerm_machine_learning_workspace__encryption list ->
   feature_store:
     azurerm_machine_learning_workspace__feature_store list ->

@@ -53,14 +53,14 @@ type google_dialogflow_cx_flow__transition_routes
 type google_dialogflow_cx_flow
 
 val google_dialogflow_cx_flow :
-  ?description:string ->
-  ?id:string ->
-  ?is_default_start_flow:bool ->
-  ?language_code:string ->
-  ?parent:string ->
-  ?transition_route_groups:string list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?is_default_start_flow:bool prop ->
+  ?language_code:string prop ->
+  ?parent:string prop ->
+  ?transition_route_groups:string prop list ->
   ?timeouts:google_dialogflow_cx_flow__timeouts ->
-  display_name:string ->
+  display_name:string prop ->
   advanced_settings:google_dialogflow_cx_flow__advanced_settings list ->
   event_handlers:google_dialogflow_cx_flow__event_handlers list ->
   nlu_settings:google_dialogflow_cx_flow__nlu_settings list ->

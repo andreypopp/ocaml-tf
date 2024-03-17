@@ -12,12 +12,12 @@ type azurerm_backup_policy_file_share__timeouts
 type azurerm_backup_policy_file_share
 
 val azurerm_backup_policy_file_share :
-  ?id:string ->
-  ?timezone:string ->
+  ?id:string prop ->
+  ?timezone:string prop ->
   ?timeouts:azurerm_backup_policy_file_share__timeouts ->
-  name:string ->
-  recovery_vault_name:string ->
-  resource_group_name:string ->
+  name:string prop ->
+  recovery_vault_name:string prop ->
+  resource_group_name:string prop ->
   backup:azurerm_backup_policy_file_share__backup list ->
   retention_daily:
     azurerm_backup_policy_file_share__retention_daily list ->

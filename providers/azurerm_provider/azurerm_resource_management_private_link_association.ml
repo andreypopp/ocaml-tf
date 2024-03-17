@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_resource_management_private_link_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_management_private_link_association__timeouts *)
 
 type azurerm_resource_management_private_link_association = {
-  id : string option; [@option]  (** id *)
-  management_group_id : string;  (** management_group_id *)
-  name : string option; [@option]  (** name *)
-  public_network_access_enabled : bool;
+  id : string prop option; [@option]  (** id *)
+  management_group_id : string prop;  (** management_group_id *)
+  name : string prop option; [@option]  (** name *)
+  public_network_access_enabled : bool prop;
       (** public_network_access_enabled *)
-  resource_management_private_link_id : string;
+  resource_management_private_link_id : string prop;
       (** resource_management_private_link_id *)
   timeouts :
     azurerm_resource_management_private_link_association__timeouts

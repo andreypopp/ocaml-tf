@@ -6,10 +6,10 @@ type azurerm_cosmosdb_sql_dedicated_gateway__timeouts
 type azurerm_cosmosdb_sql_dedicated_gateway
 
 val azurerm_cosmosdb_sql_dedicated_gateway :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_cosmosdb_sql_dedicated_gateway__timeouts ->
-  cosmosdb_account_id:string ->
-  instance_count:float ->
-  instance_size:string ->
+  cosmosdb_account_id:string prop ->
+  instance_count:float prop ->
+  instance_size:string prop ->
   string ->
   unit

@@ -5,41 +5,43 @@
 open! Tf.Prelude
 
 type azurerm_media_streaming_locator__content_key = {
-  content_key_id : string option; [@option]  (** content_key_id *)
-  label_reference_in_streaming_policy : string option; [@option]
+  content_key_id : string prop option; [@option]
+      (** content_key_id *)
+  label_reference_in_streaming_policy : string prop option; [@option]
       (** label_reference_in_streaming_policy *)
-  policy_name : string option; [@option]  (** policy_name *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  value : string option; [@option]  (** value *)
+  policy_name : string prop option; [@option]  (** policy_name *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_streaming_locator__content_key *)
 
 type azurerm_media_streaming_locator__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_streaming_locator__timeouts *)
 
 type azurerm_media_streaming_locator = {
-  alternative_media_id : string option; [@option]
+  alternative_media_id : string prop option; [@option]
       (** alternative_media_id *)
-  asset_name : string;  (** asset_name *)
-  default_content_key_policy_name : string option; [@option]
+  asset_name : string prop;  (** asset_name *)
+  default_content_key_policy_name : string prop option; [@option]
       (** default_content_key_policy_name *)
-  end_time : string option; [@option]  (** end_time *)
-  filter_names : string list option; [@option]  (** filter_names *)
-  id : string option; [@option]  (** id *)
-  media_services_account_name : string;
+  end_time : string prop option; [@option]  (** end_time *)
+  filter_names : string prop list option; [@option]
+      (** filter_names *)
+  id : string prop option; [@option]  (** id *)
+  media_services_account_name : string prop;
       (** media_services_account_name *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  start_time : string option; [@option]  (** start_time *)
-  streaming_locator_id : string option; [@option]
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  start_time : string prop option; [@option]  (** start_time *)
+  streaming_locator_id : string prop option; [@option]
       (** streaming_locator_id *)
-  streaming_policy_name : string;  (** streaming_policy_name *)
+  streaming_policy_name : string prop;  (** streaming_policy_name *)
   content_key : azurerm_media_streaming_locator__content_key list;
   timeouts : azurerm_media_streaming_locator__timeouts option;
 }

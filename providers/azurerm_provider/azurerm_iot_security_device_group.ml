@@ -5,40 +5,41 @@
 open! Tf.Prelude
 
 type azurerm_iot_security_device_group__allow_rule = {
-  connection_from_ips_not_allowed : string list option; [@option]
+  connection_from_ips_not_allowed : string prop list option;
+      [@option]
       (** connection_from_ips_not_allowed *)
-  connection_to_ips_not_allowed : string list option; [@option]
+  connection_to_ips_not_allowed : string prop list option; [@option]
       (** connection_to_ips_not_allowed *)
-  local_users_not_allowed : string list option; [@option]
+  local_users_not_allowed : string prop list option; [@option]
       (** local_users_not_allowed *)
-  processes_not_allowed : string list option; [@option]
+  processes_not_allowed : string prop list option; [@option]
       (** processes_not_allowed *)
 }
 [@@deriving yojson_of]
 (** azurerm_iot_security_device_group__allow_rule *)
 
 type azurerm_iot_security_device_group__range_rule = {
-  duration : string;  (** duration *)
-  max : float;  (** max *)
-  min : float;  (** min *)
-  type_ : string; [@key "type"]  (** type *)
+  duration : string prop;  (** duration *)
+  max : float prop;  (** max *)
+  min : float prop;  (** min *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_iot_security_device_group__range_rule *)
 
 type azurerm_iot_security_device_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iot_security_device_group__timeouts *)
 
 type azurerm_iot_security_device_group = {
-  id : string option; [@option]  (** id *)
-  iothub_id : string;  (** iothub_id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  iothub_id : string prop;  (** iothub_id *)
+  name : string prop;  (** name *)
   allow_rule : azurerm_iot_security_device_group__allow_rule list;
   range_rule : azurerm_iot_security_device_group__range_rule list;
   timeouts : azurerm_iot_security_device_group__timeouts option;

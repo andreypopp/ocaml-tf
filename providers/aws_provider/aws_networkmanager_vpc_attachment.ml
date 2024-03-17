@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type aws_networkmanager_vpc_attachment__options = {
-  appliance_mode_support : bool option; [@option]
+  appliance_mode_support : bool prop option; [@option]
       (** appliance_mode_support *)
-  ipv6_support : bool option; [@option]  (** ipv6_support *)
+  ipv6_support : bool prop option; [@option]  (** ipv6_support *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_vpc_attachment__options *)
 
 type aws_networkmanager_vpc_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_vpc_attachment__timeouts *)
 
 type aws_networkmanager_vpc_attachment = {
-  core_network_id : string;  (** core_network_id *)
-  id : string option; [@option]  (** id *)
-  subnet_arns : string list;  (** subnet_arns *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  core_network_id : string prop;  (** core_network_id *)
+  id : string prop option; [@option]  (** id *)
+  subnet_arns : string prop list;  (** subnet_arns *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_arn : string;  (** vpc_arn *)
+  vpc_arn : string prop;  (** vpc_arn *)
   options : aws_networkmanager_vpc_attachment__options list;
   timeouts : aws_networkmanager_vpc_attachment__timeouts option;
 }

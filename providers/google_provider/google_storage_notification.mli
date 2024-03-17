@@ -5,12 +5,12 @@ open! Tf.Prelude
 type google_storage_notification
 
 val google_storage_notification :
-  ?custom_attributes:(string * string) list ->
-  ?event_types:string list ->
-  ?id:string ->
-  ?object_name_prefix:string ->
-  bucket:string ->
-  payload_format:string ->
-  topic:string ->
+  ?custom_attributes:(string * string prop) list ->
+  ?event_types:string prop list ->
+  ?id:string prop ->
+  ?object_name_prefix:string prop ->
+  bucket:string prop ->
+  payload_format:string prop ->
+  topic:string prop ->
   string ->
   unit

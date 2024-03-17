@@ -37,12 +37,12 @@ type aws_chimesdkmediapipelines_media_insights_pipeline_configuration__timeouts
 type aws_chimesdkmediapipelines_media_insights_pipeline_configuration
 
 val aws_chimesdkmediapipelines_media_insights_pipeline_configuration :
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:
     aws_chimesdkmediapipelines_media_insights_pipeline_configuration__timeouts ->
-  name:string ->
-  resource_access_role_arn:string ->
+  name:string prop ->
+  resource_access_role_arn:string prop ->
   elements:
     aws_chimesdkmediapipelines_media_insights_pipeline_configuration__elements
     list ->

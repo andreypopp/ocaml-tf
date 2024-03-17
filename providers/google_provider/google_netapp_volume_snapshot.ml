@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type google_netapp_volume_snapshot__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_netapp_volume_snapshot__timeouts *)
 
 type google_netapp_volume_snapshot = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description for the snapshot. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;
+  location : string prop;
       (** Name of the snapshot location. Snapshots are child resources of volumes and live in the same location. *)
-  name : string;  (** The name of the snapshot. *)
-  project : string option; [@option]  (** project *)
-  volume_name : string;
+  name : string prop;  (** The name of the snapshot. *)
+  project : string prop option; [@option]  (** project *)
+  volume_name : string prop;
       (** The name of the volume to create the snapshot in. *)
   timeouts : google_netapp_volume_snapshot__timeouts option;
 }

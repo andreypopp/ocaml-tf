@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_private_dns_resolver_virtual_network_link__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_private_dns_resolver_virtual_network_link__timeouts *)
 
 type azurerm_private_dns_resolver_virtual_network_link = {
-  dns_forwarding_ruleset_id : string;
+  dns_forwarding_ruleset_id : string prop;
       (** dns_forwarding_ruleset_id *)
-  id : string option; [@option]  (** id *)
-  metadata : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  name : string;  (** name *)
-  virtual_network_id : string;  (** virtual_network_id *)
+  name : string prop;  (** name *)
+  virtual_network_id : string prop;  (** virtual_network_id *)
   timeouts :
     azurerm_private_dns_resolver_virtual_network_link__timeouts
     option;

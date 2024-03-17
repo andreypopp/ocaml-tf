@@ -5,35 +5,36 @@
 open! Tf.Prelude
 
 type azurerm_chaos_studio_experiment__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_experiment__identity *)
 
 type azurerm_chaos_studio_experiment__selectors = {
-  chaos_studio_target_ids : string list;
+  chaos_studio_target_ids : string prop list;
       (** chaos_studio_target_ids *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_experiment__selectors *)
 
 type azurerm_chaos_studio_experiment__steps__branch__actions = {
-  action_type : string;  (** action_type *)
-  duration : string option; [@option]  (** duration *)
-  parameters : (string * string) list option; [@option]
+  action_type : string prop;  (** action_type *)
+  duration : string prop option; [@option]  (** duration *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  selector_name : string option; [@option]  (** selector_name *)
-  urn : string option; [@option]  (** urn *)
+  selector_name : string prop option; [@option]  (** selector_name *)
+  urn : string prop option; [@option]  (** urn *)
 }
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_experiment__steps__branch__actions *)
 
 type azurerm_chaos_studio_experiment__steps__branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   actions :
     azurerm_chaos_studio_experiment__steps__branch__actions list;
 }
@@ -41,26 +42,26 @@ type azurerm_chaos_studio_experiment__steps__branch = {
 (** azurerm_chaos_studio_experiment__steps__branch *)
 
 type azurerm_chaos_studio_experiment__steps = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   branch : azurerm_chaos_studio_experiment__steps__branch list;
 }
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_experiment__steps *)
 
 type azurerm_chaos_studio_experiment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_chaos_studio_experiment__timeouts *)
 
 type azurerm_chaos_studio_experiment = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   identity : azurerm_chaos_studio_experiment__identity list;
   selectors : azurerm_chaos_studio_experiment__selectors list;
   steps : azurerm_chaos_studio_experiment__steps list;

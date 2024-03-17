@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_iap_tunnel_instance_iam_policy = {
-  id : string option; [@option]  (** id *)
-  instance : string;  (** instance *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  zone : string option; [@option]  (** zone *)
+  id : string prop option; [@option]  (** id *)
+  instance : string prop;  (** instance *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  zone : string prop option; [@option]  (** zone *)
 }
 [@@deriving yojson_of]
 (** google_iap_tunnel_instance_iam_policy *)

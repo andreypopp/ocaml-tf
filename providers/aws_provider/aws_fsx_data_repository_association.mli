@@ -9,16 +9,16 @@ type aws_fsx_data_repository_association__timeouts
 type aws_fsx_data_repository_association
 
 val aws_fsx_data_repository_association :
-  ?batch_import_meta_data_on_create:bool ->
-  ?delete_data_in_filesystem:bool ->
-  ?id:string ->
-  ?imported_file_chunk_size:float ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?batch_import_meta_data_on_create:bool prop ->
+  ?delete_data_in_filesystem:bool prop ->
+  ?id:string prop ->
+  ?imported_file_chunk_size:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_fsx_data_repository_association__timeouts ->
-  data_repository_path:string ->
-  file_system_id:string ->
-  file_system_path:string ->
+  data_repository_path:string prop ->
+  file_system_id:string prop ->
+  file_system_path:string prop ->
   s3:aws_fsx_data_repository_association__s3 list ->
   string ->
   unit

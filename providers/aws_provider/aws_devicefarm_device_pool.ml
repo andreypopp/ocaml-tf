@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_devicefarm_device_pool__rule = {
-  attribute : string option; [@option]  (** attribute *)
-  operator : string option; [@option]  (** operator *)
-  value : string option; [@option]  (** value *)
+  attribute : string prop option; [@option]  (** attribute *)
+  operator : string prop option; [@option]  (** operator *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_devicefarm_device_pool__rule *)
 
 type aws_devicefarm_device_pool = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  max_devices : float option; [@option]  (** max_devices *)
-  name : string;  (** name *)
-  project_arn : string;  (** project_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  max_devices : float prop option; [@option]  (** max_devices *)
+  name : string prop;  (** name *)
+  project_arn : string prop;  (** project_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   rule : aws_devicefarm_device_pool__rule list;
 }

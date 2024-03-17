@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_data_fusion_instance_iam_policy = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** region *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]  (** region *)
 }
 [@@deriving yojson_of]
 (** google_data_fusion_instance_iam_policy *)

@@ -6,10 +6,10 @@ type google_kms_key_ring__timeouts
 type google_kms_key_ring
 
 val google_kms_key_ring :
-  ?id:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_kms_key_ring__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   string ->
   unit

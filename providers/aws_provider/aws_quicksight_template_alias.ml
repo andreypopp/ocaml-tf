@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_quicksight_template_alias = {
-  alias_name: string;  (** alias_name *)
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  template_id: string;  (** template_id *)
-  template_version_number: float;  (** template_version_number *)
+  alias_name: string prop;  (** alias_name *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  template_id: string prop;  (** template_id *)
+  template_version_number: float prop;  (** template_version_number *)
 } [@@deriving yojson_of]
 (** aws_quicksight_template_alias *)
 

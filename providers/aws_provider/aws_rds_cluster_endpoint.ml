@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type aws_rds_cluster_endpoint = {
-  cluster_endpoint_identifier : string;
+  cluster_endpoint_identifier : string prop;
       (** cluster_endpoint_identifier *)
-  cluster_identifier : string;  (** cluster_identifier *)
-  custom_endpoint_type : string;  (** custom_endpoint_type *)
-  excluded_members : string list option; [@option]
+  cluster_identifier : string prop;  (** cluster_identifier *)
+  custom_endpoint_type : string prop;  (** custom_endpoint_type *)
+  excluded_members : string prop list option; [@option]
       (** excluded_members *)
-  id : string option; [@option]  (** id *)
-  static_members : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  static_members : string prop list option; [@option]
       (** static_members *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster_endpoint *)

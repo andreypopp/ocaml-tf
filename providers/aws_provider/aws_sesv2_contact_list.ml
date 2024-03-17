@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_sesv2_contact_list__topic = {
-  default_subscription_status : string;
+  default_subscription_status : string prop;
       (** default_subscription_status *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  topic_name : string;  (** topic_name *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  topic_name : string prop;  (** topic_name *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_contact_list__topic *)
 
 type aws_sesv2_contact_list = {
-  contact_list_name : string;  (** contact_list_name *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  contact_list_name : string prop;  (** contact_list_name *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   topic : aws_sesv2_contact_list__topic list;
 }

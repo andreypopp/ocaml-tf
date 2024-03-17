@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_organizations_delegated_administrator = {
-  account_id : string;  (** account_id *)
-  id : string option; [@option]  (** id *)
-  service_principal : string;  (** service_principal *)
+  account_id : string prop;  (** account_id *)
+  id : string prop option; [@option]  (** id *)
+  service_principal : string prop;  (** service_principal *)
 }
 [@@deriving yojson_of]
 (** aws_organizations_delegated_administrator *)

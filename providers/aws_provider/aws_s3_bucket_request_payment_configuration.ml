@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_request_payment_configuration = {
-  bucket : string;  (** bucket *)
-  expected_bucket_owner : string option; [@option]
+  bucket : string prop;  (** bucket *)
+  expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
-  id : string option; [@option]  (** id *)
-  payer : string;  (** payer *)
+  id : string prop option; [@option]  (** id *)
+  payer : string prop;  (** payer *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_request_payment_configuration *)

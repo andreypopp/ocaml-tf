@@ -7,15 +7,15 @@ type azurerm_orbital_spacecraft__timeouts
 type azurerm_orbital_spacecraft
 
 val azurerm_orbital_spacecraft :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_orbital_spacecraft__timeouts ->
-  location:string ->
-  name:string ->
-  norad_id:string ->
-  resource_group_name:string ->
-  title_line:string ->
-  two_line_elements:string list ->
+  location:string prop ->
+  name:string prop ->
+  norad_id:string prop ->
+  resource_group_name:string prop ->
+  title_line:string prop ->
+  two_line_elements:string prop list ->
   links:azurerm_orbital_spacecraft__links list ->
   string ->
   unit

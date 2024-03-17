@@ -5,11 +5,13 @@
 open! Tf.Prelude
 
 type aws_redshift_snapshot_copy_grant = {
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  snapshot_copy_grant_name : string;  (** snapshot_copy_grant_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  snapshot_copy_grant_name : string prop;
+      (** snapshot_copy_grant_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_snapshot_copy_grant *)

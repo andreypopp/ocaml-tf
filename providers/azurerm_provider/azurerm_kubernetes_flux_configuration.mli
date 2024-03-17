@@ -14,13 +14,13 @@ type azurerm_kubernetes_flux_configuration__timeouts
 type azurerm_kubernetes_flux_configuration
 
 val azurerm_kubernetes_flux_configuration :
-  ?continuous_reconciliation_enabled:bool ->
-  ?id:string ->
-  ?scope:string ->
+  ?continuous_reconciliation_enabled:bool prop ->
+  ?id:string prop ->
+  ?scope:string prop ->
   ?timeouts:azurerm_kubernetes_flux_configuration__timeouts ->
-  cluster_id:string ->
-  name:string ->
-  namespace:string ->
+  cluster_id:string prop ->
+  name:string prop ->
+  namespace:string prop ->
   blob_storage:
     azurerm_kubernetes_flux_configuration__blob_storage list ->
   bucket:azurerm_kubernetes_flux_configuration__bucket list ->

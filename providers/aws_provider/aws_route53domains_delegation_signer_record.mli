@@ -8,7 +8,7 @@ type aws_route53domains_delegation_signer_record
 
 val aws_route53domains_delegation_signer_record :
   ?timeouts:aws_route53domains_delegation_signer_record__timeouts ->
-  domain_name:string ->
+  domain_name:string prop ->
   signing_attributes:
     aws_route53domains_delegation_signer_record__signing_attributes
     list ->

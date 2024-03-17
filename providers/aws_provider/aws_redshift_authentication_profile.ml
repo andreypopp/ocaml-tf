@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_redshift_authentication_profile = {
-  authentication_profile_content : string;
+  authentication_profile_content : string prop;
       (** authentication_profile_content *)
-  authentication_profile_name : string;
+  authentication_profile_name : string prop;
       (** authentication_profile_name *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_authentication_profile *)

@@ -5,14 +5,14 @@ open! Tf.Prelude
 type aws_cloudwatch_log_group
 
 val aws_cloudwatch_log_group :
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?log_group_class:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?retention_in_days:float ->
-  ?skip_destroy:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?log_group_class:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?retention_in_days:float prop ->
+  ?skip_destroy:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   string ->
   unit

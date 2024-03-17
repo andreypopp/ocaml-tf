@@ -6,12 +6,12 @@ type azurerm_digital_twins_endpoint_servicebus__timeouts
 type azurerm_digital_twins_endpoint_servicebus
 
 val azurerm_digital_twins_endpoint_servicebus :
-  ?dead_letter_storage_secret:string ->
-  ?id:string ->
+  ?dead_letter_storage_secret:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_digital_twins_endpoint_servicebus__timeouts ->
-  digital_twins_id:string ->
-  name:string ->
-  servicebus_primary_connection_string:string ->
-  servicebus_secondary_connection_string:string ->
+  digital_twins_id:string prop ->
+  name:string prop ->
+  servicebus_primary_connection_string:string prop ->
+  servicebus_secondary_connection_string:string prop ->
   string ->
   unit

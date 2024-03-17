@@ -6,9 +6,9 @@ type azurerm_advanced_threat_protection__timeouts
 type azurerm_advanced_threat_protection
 
 val azurerm_advanced_threat_protection :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_advanced_threat_protection__timeouts ->
-  enabled:bool ->
-  target_resource_id:string ->
+  enabled:bool prop ->
+  target_resource_id:string prop ->
   string ->
   unit

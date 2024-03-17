@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_iot_indexing_configuration__thing_group_indexing_configuration__custom_field = {
-  name : string option; [@option]  (** name *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  name : string prop option; [@option]  (** name *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_iot_indexing_configuration__thing_group_indexing_configuration__custom_field *)
 
 type aws_iot_indexing_configuration__thing_group_indexing_configuration__managed_field = {
-  name : string option; [@option]  (** name *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  name : string prop option; [@option]  (** name *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_iot_indexing_configuration__thing_group_indexing_configuration__managed_field *)
 
 type aws_iot_indexing_configuration__thing_group_indexing_configuration = {
-  thing_group_indexing_mode : string;
+  thing_group_indexing_mode : string prop;
       (** thing_group_indexing_mode *)
   custom_field :
     aws_iot_indexing_configuration__thing_group_indexing_configuration__custom_field
@@ -32,34 +32,34 @@ type aws_iot_indexing_configuration__thing_group_indexing_configuration = {
 (** aws_iot_indexing_configuration__thing_group_indexing_configuration *)
 
 type aws_iot_indexing_configuration__thing_indexing_configuration__custom_field = {
-  name : string option; [@option]  (** name *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  name : string prop option; [@option]  (** name *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_iot_indexing_configuration__thing_indexing_configuration__custom_field *)
 
 type aws_iot_indexing_configuration__thing_indexing_configuration__filter = {
-  named_shadow_names : string list option; [@option]
+  named_shadow_names : string prop list option; [@option]
       (** named_shadow_names *)
 }
 [@@deriving yojson_of]
 (** aws_iot_indexing_configuration__thing_indexing_configuration__filter *)
 
 type aws_iot_indexing_configuration__thing_indexing_configuration__managed_field = {
-  name : string option; [@option]  (** name *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  name : string prop option; [@option]  (** name *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_iot_indexing_configuration__thing_indexing_configuration__managed_field *)
 
 type aws_iot_indexing_configuration__thing_indexing_configuration = {
-  device_defender_indexing_mode : string option; [@option]
+  device_defender_indexing_mode : string prop option; [@option]
       (** device_defender_indexing_mode *)
-  named_shadow_indexing_mode : string option; [@option]
+  named_shadow_indexing_mode : string prop option; [@option]
       (** named_shadow_indexing_mode *)
-  thing_connectivity_indexing_mode : string option; [@option]
+  thing_connectivity_indexing_mode : string prop option; [@option]
       (** thing_connectivity_indexing_mode *)
-  thing_indexing_mode : string;  (** thing_indexing_mode *)
+  thing_indexing_mode : string prop;  (** thing_indexing_mode *)
   custom_field :
     aws_iot_indexing_configuration__thing_indexing_configuration__custom_field
     list;
@@ -74,7 +74,7 @@ type aws_iot_indexing_configuration__thing_indexing_configuration = {
 (** aws_iot_indexing_configuration__thing_indexing_configuration *)
 
 type aws_iot_indexing_configuration = {
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   thing_group_indexing_configuration :
     aws_iot_indexing_configuration__thing_group_indexing_configuration
     list;

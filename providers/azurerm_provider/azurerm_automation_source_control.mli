@@ -7,17 +7,17 @@ type azurerm_automation_source_control__timeouts
 type azurerm_automation_source_control
 
 val azurerm_automation_source_control :
-  ?automatic_sync:bool ->
-  ?branch:string ->
-  ?description:string ->
-  ?id:string ->
-  ?publish_runbook_enabled:bool ->
+  ?automatic_sync:bool prop ->
+  ?branch:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?publish_runbook_enabled:bool prop ->
   ?timeouts:azurerm_automation_source_control__timeouts ->
-  automation_account_id:string ->
-  folder_path:string ->
-  name:string ->
-  repository_url:string ->
-  source_control_type:string ->
+  automation_account_id:string prop ->
+  folder_path:string prop ->
+  name:string prop ->
+  repository_url:string prop ->
+  source_control_type:string prop ->
   security:azurerm_automation_source_control__security list ->
   string ->
   unit

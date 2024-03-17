@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type google_vertex_ai_featurestore_entitytype_feature__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_featurestore_entitytype_feature__timeouts *)
 
 type google_vertex_ai_featurestore_entitytype_feature = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of the feature. *)
-  entitytype : string;
+  entitytype : string prop;
       (** The name of the Featurestore to use, in the format projects/{project}/locations/{location}/featurestores/{featurestore}/entityTypes/{entitytype}. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** A set of key/value label pairs to assign to the feature.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string option; [@option]
+  name : string prop option; [@option]
       (** The name of the feature. The feature can be up to 64 characters long and can consist only of ASCII Latin letters A-Z and a-z, underscore(_), and ASCII digits 0-9 starting with a letter. The value will be unique given an entity type. *)
-  value_type : string;
+  value_type : string prop;
       (** Type of Feature value. Immutable. https://cloud.google.com/vertex-ai/docs/reference/rest/v1/projects.locations.featurestores.entityTypes.features#ValueType *)
   timeouts :
     google_vertex_ai_featurestore_entitytype_feature__timeouts option;

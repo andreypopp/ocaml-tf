@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_inspector2_enabler__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_inspector2_enabler__timeouts *)
 
 type aws_inspector2_enabler = {
-  account_ids : string list;  (** account_ids *)
-  id : string option; [@option]  (** id *)
-  resource_types : string list;  (** resource_types *)
+  account_ids : string prop list;  (** account_ids *)
+  id : string prop option; [@option]  (** id *)
+  resource_types : string prop list;  (** resource_types *)
   timeouts : aws_inspector2_enabler__timeouts option;
 }
 [@@deriving yojson_of]

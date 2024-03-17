@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type cloudflare_split_tunnel__tunnels = {
-  address : string option; [@option]
+  address : string prop option; [@option]
       (** The address for the tunnel. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A description for the tunnel. *)
-  host : string option; [@option]
+  host : string prop option; [@option]
       (** The domain name for the tunnel. *)
 }
 [@@deriving yojson_of]
 (** The value of the tunnel attributes. *)
 
 type cloudflare_split_tunnel = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  mode : string;
+  id : string prop option; [@option]  (** id *)
+  mode : string prop;
       (** The mode of the split tunnel policy. Available values: `include`, `exclude`. *)
-  policy_id : string option; [@option]
+  policy_id : string prop option; [@option]
       (** The settings policy for which to configure this split tunnel policy. *)
   tunnels : cloudflare_split_tunnel__tunnels list;
 }

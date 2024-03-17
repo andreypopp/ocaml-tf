@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type aws_finspace_kx_dataview__segment_configurations = {
-  db_paths : string list;  (** db_paths *)
-  volume_name : string;  (** volume_name *)
+  db_paths : string prop list;  (** db_paths *)
+  volume_name : string prop;  (** volume_name *)
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_dataview__segment_configurations *)
 
 type aws_finspace_kx_dataview__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_dataview__timeouts *)
 
 type aws_finspace_kx_dataview = {
-  auto_update : bool;  (** auto_update *)
-  availability_zone_id : string option; [@option]
+  auto_update : bool prop;  (** auto_update *)
+  availability_zone_id : string prop option; [@option]
       (** availability_zone_id *)
-  az_mode : string;  (** az_mode *)
-  changeset_id : string option; [@option]  (** changeset_id *)
-  database_name : string;  (** database_name *)
-  description : string option; [@option]  (** description *)
-  environment_id : string;  (** environment_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  az_mode : string prop;  (** az_mode *)
+  changeset_id : string prop option; [@option]  (** changeset_id *)
+  database_name : string prop;  (** database_name *)
+  description : string prop option; [@option]  (** description *)
+  environment_id : string prop;  (** environment_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   segment_configurations :
     aws_finspace_kx_dataview__segment_configurations list;

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_organization_iam_policy = {
-  id : string option; [@option]  (** id *)
-  org_id : string;
+  id : string prop option; [@option]  (** id *)
+  org_id : string prop;
       (** The numeric ID of the organization in which you want to manage the audit logging config. *)
-  policy_data : string;  (** policy_data *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_organization_iam_policy *)

@@ -6,15 +6,15 @@ type azurerm_container_registry_agent_pool__timeouts
 type azurerm_container_registry_agent_pool
 
 val azurerm_container_registry_agent_pool :
-  ?id:string ->
-  ?instance_count:float ->
-  ?tags:(string * string) list ->
-  ?tier:string ->
-  ?virtual_network_subnet_id:string ->
+  ?id:string prop ->
+  ?instance_count:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tier:string prop ->
+  ?virtual_network_subnet_id:string prop ->
   ?timeouts:azurerm_container_registry_agent_pool__timeouts ->
-  container_registry_name:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  container_registry_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

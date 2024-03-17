@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_networkmanager_core_network_policy_attachment__timeouts = {
-  update : string option; [@option]  (** update *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_core_network_policy_attachment__timeouts *)
 
 type aws_networkmanager_core_network_policy_attachment = {
-  core_network_id : string;  (** core_network_id *)
-  id : string option; [@option]  (** id *)
-  policy_document : string;  (** policy_document *)
+  core_network_id : string prop;  (** core_network_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_document : string prop;  (** policy_document *)
   timeouts :
     aws_networkmanager_core_network_policy_attachment__timeouts
     option;

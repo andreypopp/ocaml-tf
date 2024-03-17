@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type aws_rds_global_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_rds_global_cluster__timeouts *)
 
 type aws_rds_global_cluster__global_cluster_members = {
-  db_cluster_arn : string;  (** db_cluster_arn *)
-  is_writer : bool;  (** is_writer *)
+  db_cluster_arn : string prop;  (** db_cluster_arn *)
+  is_writer : bool prop;  (** is_writer *)
 }
 [@@deriving yojson_of]
 
 type aws_rds_global_cluster = {
-  database_name : string option; [@option]  (** database_name *)
-  deletion_protection : bool option; [@option]
+  database_name : string prop option; [@option]  (** database_name *)
+  deletion_protection : bool prop option; [@option]
       (** deletion_protection *)
-  engine : string option; [@option]  (** engine *)
-  engine_version : string option; [@option]  (** engine_version *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  global_cluster_identifier : string;
+  engine : string prop option; [@option]  (** engine *)
+  engine_version : string prop option; [@option]
+      (** engine_version *)
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  global_cluster_identifier : string prop;
       (** global_cluster_identifier *)
-  id : string option; [@option]  (** id *)
-  source_db_cluster_identifier : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  source_db_cluster_identifier : string prop option; [@option]
       (** source_db_cluster_identifier *)
-  storage_encrypted : bool option; [@option]
+  storage_encrypted : bool prop option; [@option]
       (** storage_encrypted *)
   timeouts : aws_rds_global_cluster__timeouts option;
 }

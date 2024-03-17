@@ -10,12 +10,12 @@ type google_pubsub_lite_topic__timeouts
 type google_pubsub_lite_topic
 
 val google_pubsub_lite_topic :
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
-  ?zone:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?zone:string prop ->
   ?timeouts:google_pubsub_lite_topic__timeouts ->
-  name:string ->
+  name:string prop ->
   partition_config:google_pubsub_lite_topic__partition_config list ->
   reservation_config:
     google_pubsub_lite_topic__reservation_config list ->

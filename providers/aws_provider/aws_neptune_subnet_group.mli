@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_neptune_subnet_group
 
 val aws_neptune_subnet_group :
-  ?description:string ->
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  subnet_ids:string list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  subnet_ids:string prop list ->
   string ->
   unit

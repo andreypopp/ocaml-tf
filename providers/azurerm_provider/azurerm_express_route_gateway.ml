@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_express_route_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_gateway__timeouts *)
 
 type azurerm_express_route_gateway = {
-  allow_non_virtual_wan_traffic : bool option; [@option]
+  allow_non_virtual_wan_traffic : bool prop option; [@option]
       (** allow_non_virtual_wan_traffic *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  scale_units : float;  (** scale_units *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  virtual_hub_id : string;  (** virtual_hub_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  scale_units : float prop;  (** scale_units *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  virtual_hub_id : string prop;  (** virtual_hub_id *)
   timeouts : azurerm_express_route_gateway__timeouts option;
 }
 [@@deriving yojson_of]

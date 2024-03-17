@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_route = {
-  blackhole : bool option; [@option]  (** blackhole *)
-  destination_cidr_block : string;  (** destination_cidr_block *)
-  id : string option; [@option]  (** id *)
-  transit_gateway_attachment_id : string option; [@option]
+  blackhole : bool prop option; [@option]  (** blackhole *)
+  destination_cidr_block : string prop;
+      (** destination_cidr_block *)
+  id : string prop option; [@option]  (** id *)
+  transit_gateway_attachment_id : string prop option; [@option]
       (** transit_gateway_attachment_id *)
-  transit_gateway_route_table_id : string;
+  transit_gateway_route_table_id : string prop;
       (** transit_gateway_route_table_id *)
 }
 [@@deriving yojson_of]

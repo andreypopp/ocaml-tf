@@ -6,12 +6,12 @@ type google_notebooks_runtime_iam_binding__condition
 type google_notebooks_runtime_iam_binding
 
 val google_notebooks_runtime_iam_binding :
-  ?id:string ->
-  ?location:string ->
-  ?project:string ->
-  members:string list ->
-  role:string ->
-  runtime_name:string ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  members:string prop list ->
+  role:string prop ->
+  runtime_name:string prop ->
   condition:google_notebooks_runtime_iam_binding__condition list ->
   string ->
   unit

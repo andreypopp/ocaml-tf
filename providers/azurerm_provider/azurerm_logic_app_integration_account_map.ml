@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_logic_app_integration_account_map__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_map__timeouts *)
 
 type azurerm_logic_app_integration_account_map = {
-  content : string;  (** content *)
-  id : string option; [@option]  (** id *)
-  integration_account_name : string;  (** integration_account_name *)
-  map_type : string;  (** map_type *)
-  metadata : (string * string) list option; [@option]
+  content : string prop;  (** content *)
+  id : string prop option; [@option]  (** id *)
+  integration_account_name : string prop;
+      (** integration_account_name *)
+  map_type : string prop;  (** map_type *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts :
     azurerm_logic_app_integration_account_map__timeouts option;
 }

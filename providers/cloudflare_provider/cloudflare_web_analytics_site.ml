@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type cloudflare_web_analytics_site__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** cloudflare_web_analytics_site__timeouts *)
 
 type cloudflare_web_analytics_site = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  auto_install : bool;
+  auto_install : bool prop;
       (** Whether Cloudflare will automatically inject the JavaScript snippet for orange-clouded sites. **Modifying this attribute will force creation of a new resource.** *)
-  host : string option; [@option]
+  host : string prop option; [@option]
       (** The hostname to use for gray-clouded sites. Must provide only one of `zone_tag`. **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  zone_tag : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  zone_tag : string prop option; [@option]
       (** The zone identifier for orange-clouded sites. Must provide only one of `host`. **Modifying this attribute will force creation of a new resource.** *)
   timeouts : cloudflare_web_analytics_site__timeouts option;
 }

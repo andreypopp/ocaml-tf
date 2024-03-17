@@ -5,31 +5,32 @@
 open! Tf.Prelude
 
 type aws_config_organization_conformance_pack__input_parameter = {
-  parameter_name : string;  (** parameter_name *)
-  parameter_value : string;  (** parameter_value *)
+  parameter_name : string prop;  (** parameter_name *)
+  parameter_value : string prop;  (** parameter_value *)
 }
 [@@deriving yojson_of]
 (** aws_config_organization_conformance_pack__input_parameter *)
 
 type aws_config_organization_conformance_pack__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_config_organization_conformance_pack__timeouts *)
 
 type aws_config_organization_conformance_pack = {
-  delivery_s3_bucket : string option; [@option]
+  delivery_s3_bucket : string prop option; [@option]
       (** delivery_s3_bucket *)
-  delivery_s3_key_prefix : string option; [@option]
+  delivery_s3_key_prefix : string prop option; [@option]
       (** delivery_s3_key_prefix *)
-  excluded_accounts : string list option; [@option]
+  excluded_accounts : string prop list option; [@option]
       (** excluded_accounts *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  template_body : string option; [@option]  (** template_body *)
-  template_s3_uri : string option; [@option]  (** template_s3_uri *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  template_body : string prop option; [@option]  (** template_body *)
+  template_s3_uri : string prop option; [@option]
+      (** template_s3_uri *)
   input_parameter :
     aws_config_organization_conformance_pack__input_parameter list;
   timeouts :

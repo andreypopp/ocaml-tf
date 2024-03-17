@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_imagebuilder_workflow = {
-  change_description : string option; [@option]
+  change_description : string prop option; [@option]
       (** change_description *)
-  data : string option; [@option]  (** data *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  data : string prop option; [@option]  (** data *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string; [@key "type"]  (** type *)
-  uri : string option; [@option]  (** uri *)
-  version : string;  (** version *)
+  type_ : string prop; [@key "type"]  (** type *)
+  uri : string prop option; [@option]  (** uri *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_workflow *)

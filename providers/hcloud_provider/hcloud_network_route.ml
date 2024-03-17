@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type hcloud_network_route = {
-  destination : string;  (** destination *)
-  gateway : string;  (** gateway *)
-  id : string option; [@option]  (** id *)
-  network_id : float;  (** network_id *)
+  destination : string prop;  (** destination *)
+  gateway : string prop;  (** gateway *)
+  id : string prop option; [@option]  (** id *)
+  network_id : float prop;  (** network_id *)
 }
 [@@deriving yojson_of]
 (** hcloud_network_route *)

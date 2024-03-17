@@ -15,27 +15,27 @@ type aws_fsx_openzfs_file_system__timeouts
 type aws_fsx_openzfs_file_system
 
 val aws_fsx_openzfs_file_system :
-  ?automatic_backup_retention_days:float ->
-  ?backup_id:string ->
-  ?copy_tags_to_backups:bool ->
-  ?copy_tags_to_volumes:bool ->
-  ?daily_automatic_backup_start_time:string ->
-  ?endpoint_ip_address_range:string ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?preferred_subnet_id:string ->
-  ?route_table_ids:string list ->
-  ?security_group_ids:string list ->
-  ?skip_final_backup:bool ->
-  ?storage_capacity:float ->
-  ?storage_type:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?weekly_maintenance_start_time:string ->
+  ?automatic_backup_retention_days:float prop ->
+  ?backup_id:string prop ->
+  ?copy_tags_to_backups:bool prop ->
+  ?copy_tags_to_volumes:bool prop ->
+  ?daily_automatic_backup_start_time:string prop ->
+  ?endpoint_ip_address_range:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?preferred_subnet_id:string prop ->
+  ?route_table_ids:string prop list ->
+  ?security_group_ids:string prop list ->
+  ?skip_final_backup:bool prop ->
+  ?storage_capacity:float prop ->
+  ?storage_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?weekly_maintenance_start_time:string prop ->
   ?timeouts:aws_fsx_openzfs_file_system__timeouts ->
-  deployment_type:string ->
-  subnet_ids:string list ->
-  throughput_capacity:float ->
+  deployment_type:string prop ->
+  subnet_ids:string prop list ->
+  throughput_capacity:float prop ->
   disk_iops_configuration:
     aws_fsx_openzfs_file_system__disk_iops_configuration list ->
   root_volume_configuration:

@@ -5,19 +5,22 @@
 open! Tf.Prelude
 
 type aws_api_gateway_authorizer = {
-  authorizer_credentials : string option; [@option]
+  authorizer_credentials : string prop option; [@option]
       (** authorizer_credentials *)
-  authorizer_result_ttl_in_seconds : float option; [@option]
+  authorizer_result_ttl_in_seconds : float prop option; [@option]
       (** authorizer_result_ttl_in_seconds *)
-  authorizer_uri : string option; [@option]  (** authorizer_uri *)
-  id : string option; [@option]  (** id *)
-  identity_source : string option; [@option]  (** identity_source *)
-  identity_validation_expression : string option; [@option]
+  authorizer_uri : string prop option; [@option]
+      (** authorizer_uri *)
+  id : string prop option; [@option]  (** id *)
+  identity_source : string prop option; [@option]
+      (** identity_source *)
+  identity_validation_expression : string prop option; [@option]
       (** identity_validation_expression *)
-  name : string;  (** name *)
-  provider_arns : string list option; [@option]  (** provider_arns *)
-  rest_api_id : string;  (** rest_api_id *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  provider_arns : string prop list option; [@option]
+      (** provider_arns *)
+  rest_api_id : string prop;  (** rest_api_id *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_authorizer *)

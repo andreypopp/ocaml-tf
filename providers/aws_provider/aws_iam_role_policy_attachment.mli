@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_iam_role_policy_attachment
 
 val aws_iam_role_policy_attachment :
-  ?id:string -> policy_arn:string -> role:string -> string -> unit
+  ?id:string prop ->
+  policy_arn:string prop ->
+  role:string prop ->
+  string ->
+  unit

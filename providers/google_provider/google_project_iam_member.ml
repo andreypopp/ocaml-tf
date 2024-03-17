@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_project_iam_member__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_project_iam_member__condition *)
 
 type google_project_iam_member = {
-  id : string option; [@option]  (** id *)
-  member : string;  (** member *)
-  project : string;  (** project *)
-  role : string;  (** role *)
+  id : string prop option; [@option]  (** id *)
+  member : string prop;  (** member *)
+  project : string prop;  (** project *)
+  role : string prop;  (** role *)
   condition : google_project_iam_member__condition list;
 }
 [@@deriving yojson_of]

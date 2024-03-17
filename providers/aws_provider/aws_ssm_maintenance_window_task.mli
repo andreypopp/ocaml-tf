@@ -24,17 +24,17 @@ type aws_ssm_maintenance_window_task__task_invocation_parameters
 type aws_ssm_maintenance_window_task
 
 val aws_ssm_maintenance_window_task :
-  ?cutoff_behavior:string ->
-  ?description:string ->
-  ?id:string ->
-  ?max_concurrency:string ->
-  ?max_errors:string ->
-  ?name:string ->
-  ?priority:float ->
-  ?service_role_arn:string ->
-  task_arn:string ->
-  task_type:string ->
-  window_id:string ->
+  ?cutoff_behavior:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?max_concurrency:string prop ->
+  ?max_errors:string prop ->
+  ?name:string prop ->
+  ?priority:float prop ->
+  ?service_role_arn:string prop ->
+  task_arn:string prop ->
+  task_type:string prop ->
+  window_id:string prop ->
   targets:aws_ssm_maintenance_window_task__targets list ->
   task_invocation_parameters:
     aws_ssm_maintenance_window_task__task_invocation_parameters list ->

@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_ivs_playback_key_pair__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ivs_playback_key_pair__timeouts *)
 
 type aws_ivs_playback_key_pair = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  public_key : string;  (** public_key *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  public_key : string prop;  (** public_key *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_ivs_playback_key_pair__timeouts option;
 }

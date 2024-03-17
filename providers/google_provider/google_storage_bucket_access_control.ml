@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type google_storage_bucket_access_control__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_storage_bucket_access_control__timeouts *)
 
 type google_storage_bucket_access_control = {
-  bucket : string;  (** The name of the bucket. *)
-  entity : string;
+  bucket : string prop;  (** The name of the bucket. *)
+  entity : string prop;
       (** The entity holding the permission, in one of the following forms:
   user-userId
   user-email
@@ -30,8 +30,8 @@ Examples:
   group-example@googlegroups.com.
   To refer to all members of the Google Apps for Business domain
   example.com, the entity would be domain-example.com. *)
-  id : string option; [@option]  (** id *)
-  role : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  role : string prop option; [@option]
       (** The access permission for the entity. Possible values: [OWNER, READER, WRITER] *)
   timeouts : google_storage_bucket_access_control__timeouts option;
 }

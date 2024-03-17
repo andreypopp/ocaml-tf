@@ -5,14 +5,16 @@
 open! Tf.Prelude
 
 type aws_lightsail_lb = {
-  health_check_path : string option; [@option]
+  health_check_path : string prop option; [@option]
       (** health_check_path *)
-  id : string option; [@option]  (** id *)
-  instance_port : float;  (** instance_port *)
-  ip_address_type : string option; [@option]  (** ip_address_type *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  instance_port : float prop;  (** instance_port *)
+  ip_address_type : string prop option; [@option]
+      (** ip_address_type *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_lb *)

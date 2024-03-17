@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_elasticache_user_group_association = {
-  id : string option; [@option]  (** id *)
-  user_group_id : string;  (** user_group_id *)
-  user_id : string;  (** user_id *)
+  id : string prop option; [@option]  (** id *)
+  user_group_id : string prop;  (** user_group_id *)
+  user_id : string prop;  (** user_id *)
 }
 [@@deriving yojson_of]
 (** aws_elasticache_user_group_association *)

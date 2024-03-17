@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_api_gateway_deployment = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  rest_api_id : string;  (** rest_api_id *)
-  stage_description : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  rest_api_id : string prop;  (** rest_api_id *)
+  stage_description : string prop option; [@option]
       (** stage_description *)
-  stage_name : string option; [@option]  (** stage_name *)
-  triggers : (string * string) list option; [@option]
+  stage_name : string prop option; [@option]  (** stage_name *)
+  triggers : (string * string prop) list option; [@option]
       (** triggers *)
-  variables : (string * string) list option; [@option]
+  variables : (string * string prop) list option; [@option]
       (** variables *)
 }
 [@@deriving yojson_of]

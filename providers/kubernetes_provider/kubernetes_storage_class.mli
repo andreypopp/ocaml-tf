@@ -9,13 +9,13 @@ type kubernetes_storage_class__metadata
 type kubernetes_storage_class
 
 val kubernetes_storage_class :
-  ?allow_volume_expansion:bool ->
-  ?id:string ->
-  ?mount_options:string list ->
-  ?parameters:(string * string) list ->
-  ?reclaim_policy:string ->
-  ?volume_binding_mode:string ->
-  storage_provisioner:string ->
+  ?allow_volume_expansion:bool prop ->
+  ?id:string prop ->
+  ?mount_options:string prop list ->
+  ?parameters:(string * string prop) list ->
+  ?reclaim_policy:string prop ->
+  ?volume_binding_mode:string prop ->
+  storage_provisioner:string prop ->
   allowed_topologies:
     kubernetes_storage_class__allowed_topologies list ->
   metadata:kubernetes_storage_class__metadata list ->

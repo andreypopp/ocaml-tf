@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_lightsail_disk
 
 val aws_lightsail_disk :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  availability_zone:string ->
-  name:string ->
-  size_in_gb:float ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  availability_zone:string prop ->
+  name:string prop ->
+  size_in_gb:float prop ->
   string ->
   unit

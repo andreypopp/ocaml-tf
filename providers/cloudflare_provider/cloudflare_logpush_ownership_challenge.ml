@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type cloudflare_logpush_ownership_challenge = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. *)
-  destination_conf : string;
+  destination_conf : string prop;
       (** Uniquely identifies a resource (such as an s3 bucket) where data will be pushed. Additional configuration parameters supported by the destination may be included. See [Logpush destination documentation](https://developers.cloudflare.com/logs/logpush/logpush-configuration-api/understanding-logpush-api/#destination). **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  zone_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. *)
 }
 [@@deriving yojson_of]

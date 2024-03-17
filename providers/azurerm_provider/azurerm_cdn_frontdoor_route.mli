@@ -7,21 +7,21 @@ type azurerm_cdn_frontdoor_route__timeouts
 type azurerm_cdn_frontdoor_route
 
 val azurerm_cdn_frontdoor_route :
-  ?cdn_frontdoor_custom_domain_ids:string list ->
-  ?cdn_frontdoor_origin_path:string ->
-  ?cdn_frontdoor_rule_set_ids:string list ->
-  ?enabled:bool ->
-  ?forwarding_protocol:string ->
-  ?https_redirect_enabled:bool ->
-  ?id:string ->
-  ?link_to_default_domain:bool ->
+  ?cdn_frontdoor_custom_domain_ids:string prop list ->
+  ?cdn_frontdoor_origin_path:string prop ->
+  ?cdn_frontdoor_rule_set_ids:string prop list ->
+  ?enabled:bool prop ->
+  ?forwarding_protocol:string prop ->
+  ?https_redirect_enabled:bool prop ->
+  ?id:string prop ->
+  ?link_to_default_domain:bool prop ->
   ?timeouts:azurerm_cdn_frontdoor_route__timeouts ->
-  cdn_frontdoor_endpoint_id:string ->
-  cdn_frontdoor_origin_group_id:string ->
-  cdn_frontdoor_origin_ids:string list ->
-  name:string ->
-  patterns_to_match:string list ->
-  supported_protocols:string list ->
+  cdn_frontdoor_endpoint_id:string prop ->
+  cdn_frontdoor_origin_group_id:string prop ->
+  cdn_frontdoor_origin_ids:string prop list ->
+  name:string prop ->
+  patterns_to_match:string prop list ->
+  supported_protocols:string prop list ->
   cache:azurerm_cdn_frontdoor_route__cache list ->
   string ->
   unit

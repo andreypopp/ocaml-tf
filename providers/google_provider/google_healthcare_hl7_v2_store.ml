@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_healthcare_hl7_v2_store__notification_config = {
-  pubsub_topic : string;
+  pubsub_topic : string prop;
       (** The Cloud Pub/Sub topic that notifications of changes are published on. Supplied by the client.
 PubsubMessage.Data will contain the resource name. PubsubMessage.MessageId is the ID of this message.
 It is guaranteed to be unique within the topic. PubsubMessage.PublishTime is the time at which the message
@@ -17,7 +17,7 @@ Cloud Pub/Sub topic. Not having adequate permissions will cause the calls that s
 (** A nested object resource *)
 
 type google_healthcare_hl7_v2_store__notification_configs = {
-  filter : string option; [@option]
+  filter : string prop option; [@option]
       (** Restricts notifications sent for messages matching a filter. If this is empty, all messages
 are matched. Syntax: https://cloud.google.com/appengine/docs/standard/python/search/query_strings
 
@@ -29,7 +29,7 @@ Fields/functions available for filtering are:
 * sendFacility, the care center that the message came from, from the MSH-4 segment. For example, sendFacility = ABC.
 * PatientId(value, type), which matches if the message lists a patient having an ID of the given value and type in the PID-2, PID-3, or PID-4 segments. For example, PatientId(123456, MRN).
 * labels.x, a string value of the label with key x as set using the Message.labels map. For example, labels.priority=high. The operator :* can be used to assert the existence of a label. For example, labels.priority:*. *)
-  pubsub_topic : string;
+  pubsub_topic : string prop;
       (** The Cloud Pub/Sub topic that notifications of changes are published on. Supplied by the client.
 PubsubMessage.Data will contain the resource name. PubsubMessage.MessageId is the ID of this message.
 It is guaranteed to be unique within the topic. PubsubMessage.PublishTime is the time at which the message
@@ -45,35 +45,35 @@ message (both Ingest & Create) on the corresponding notification destination. On
 is sent as part of the notification. Supplied by the client. *)
 
 type google_healthcare_hl7_v2_store__parser_config = {
-  allow_null_header : bool option; [@option]
+  allow_null_header : bool prop option; [@option]
       (** Determines whether messages with no header are allowed. *)
-  schema : string option; [@option]
+  schema : string prop option; [@option]
       (** JSON encoded string for schemas used to parse messages in this
 store if schematized parsing is desired. *)
-  segment_terminator : string option; [@option]
+  segment_terminator : string prop option; [@option]
       (** Byte(s) to be used as the segment terminator. If this is unset, '\r' will be used as segment terminator.
 
 A base64-encoded string. *)
-  version : string option; [@option]
+  version : string prop option; [@option]
       (** The version of the unschematized parser to be used when a custom 'schema' is not set. Default value: V1 Possible values: [V1, V2, V3] *)
 }
 [@@deriving yojson_of]
 (** A nested object resource *)
 
 type google_healthcare_hl7_v2_store__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_healthcare_hl7_v2_store__timeouts *)
 
 type google_healthcare_hl7_v2_store = {
-  dataset : string;
+  dataset : string prop;
       (** Identifies the dataset addressed by this request. Must be in the format
 'projects/{project}/locations/{location}/datasets/{dataset}' *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** User-supplied key-value pairs used to organize HL7v2 stores.
 
 Label keys must be between 1 and 63 characters long, have a UTF-8 encoding of maximum 128 bytes, and must
@@ -90,11 +90,11 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string;
+  name : string prop;
       (** The resource name for the Hl7V2Store.
 
 ** Changing this property may recreate the Hl7v2 store (removing all data) ** *)
-  reject_duplicate_message : bool option; [@option]
+  reject_duplicate_message : bool prop option; [@option]
       (** Determines whether duplicate messages are allowed. *)
   notification_config :
     google_healthcare_hl7_v2_store__notification_config list;

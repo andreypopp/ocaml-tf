@@ -5,13 +5,14 @@
 open! Tf.Prelude
 
 type aws_redshift_cluster_snapshot = {
-  cluster_identifier : string;  (** cluster_identifier *)
-  id : string option; [@option]  (** id *)
-  manual_snapshot_retention_period : float option; [@option]
+  cluster_identifier : string prop;  (** cluster_identifier *)
+  id : string prop option; [@option]  (** id *)
+  manual_snapshot_retention_period : float prop option; [@option]
       (** manual_snapshot_retention_period *)
-  snapshot_identifier : string;  (** snapshot_identifier *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  snapshot_identifier : string prop;  (** snapshot_identifier *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_cluster_snapshot *)

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_bigtable_instance_iam_policy = {
-  id : string option; [@option]  (** id *)
-  instance : string;  (** instance *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  instance : string prop;  (** instance *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_bigtable_instance_iam_policy *)

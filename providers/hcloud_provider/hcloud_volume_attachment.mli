@@ -5,9 +5,9 @@ open! Tf.Prelude
 type hcloud_volume_attachment
 
 val hcloud_volume_attachment :
-  ?automount:bool ->
-  ?id:string ->
-  server_id:float ->
-  volume_id:float ->
+  ?automount:bool prop ->
+  ?id:string prop ->
+  server_id:float prop ->
+  volume_id:float prop ->
   string ->
   unit

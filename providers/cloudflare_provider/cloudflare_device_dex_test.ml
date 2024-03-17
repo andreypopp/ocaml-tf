@@ -5,25 +5,26 @@
 open! Tf.Prelude
 
 type cloudflare_device_dex_test__data = {
-  host : string;
+  host : string prop;
       (** The host URL for `http` test `kind`. For `traceroute`, it must be a valid hostname or IP address. *)
-  kind : string;
+  kind : string prop;
       (** The type of Device Dex Test. Available values: `http`, `traceroute`. *)
-  method_ : string option; [@option] [@key "method"]
+  method_ : string prop option; [@option] [@key "method"]
       (** The http request method. Available values: `GET`. *)
 }
 [@@deriving yojson_of]
 (** The configuration object which contains the details for the WARP client to conduct the test. *)
 
 type cloudflare_device_dex_test = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  description : string;  (** Additional details about the test. *)
-  enabled : bool;
+  description : string prop;
+      (** Additional details about the test. *)
+  enabled : bool prop;
       (** Determines whether or not the test is active. *)
-  id : string option; [@option]  (** id *)
-  interval : string;  (** How often the test will run. *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  interval : string prop;  (** How often the test will run. *)
+  name : string prop;
       (** The name of the Device Dex Test. Must be unique. *)
   data : cloudflare_device_dex_test__data list;
 }

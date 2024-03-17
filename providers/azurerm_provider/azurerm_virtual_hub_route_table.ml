@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_virtual_hub_route_table__route = {
-  destinations : string list;  (** destinations *)
-  destinations_type : string;  (** destinations_type *)
-  name : string;  (** name *)
-  next_hop : string;  (** next_hop *)
-  next_hop_type : string option; [@option]  (** next_hop_type *)
+  destinations : string prop list;  (** destinations *)
+  destinations_type : string prop;  (** destinations_type *)
+  name : string prop;  (** name *)
+  next_hop : string prop;  (** next_hop *)
+  next_hop_type : string prop option; [@option]  (** next_hop_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_route_table__route *)
 
 type azurerm_virtual_hub_route_table__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_route_table__timeouts *)
 
 type azurerm_virtual_hub_route_table = {
-  id : string option; [@option]  (** id *)
-  labels : string list option; [@option]  (** labels *)
-  name : string;  (** name *)
-  virtual_hub_id : string;  (** virtual_hub_id *)
+  id : string prop option; [@option]  (** id *)
+  labels : string prop list option; [@option]  (** labels *)
+  name : string prop;  (** name *)
+  virtual_hub_id : string prop;  (** virtual_hub_id *)
   route : azurerm_virtual_hub_route_table__route list;
   timeouts : azurerm_virtual_hub_route_table__timeouts option;
 }

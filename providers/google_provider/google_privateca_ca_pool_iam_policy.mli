@@ -5,10 +5,10 @@ open! Tf.Prelude
 type google_privateca_ca_pool_iam_policy
 
 val google_privateca_ca_pool_iam_policy :
-  ?id:string ->
-  ?location:string ->
-  ?project:string ->
-  ca_pool:string ->
-  policy_data:string ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ca_pool:string prop ->
+  policy_data:string prop ->
   string ->
   unit

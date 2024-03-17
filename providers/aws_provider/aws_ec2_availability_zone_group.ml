@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_ec2_availability_zone_group = {
-  group_name : string;  (** group_name *)
-  id : string option; [@option]  (** id *)
-  opt_in_status : string;  (** opt_in_status *)
+  group_name : string prop;  (** group_name *)
+  id : string prop option; [@option]  (** id *)
+  opt_in_status : string prop;  (** opt_in_status *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_availability_zone_group *)

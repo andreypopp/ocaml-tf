@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_proxy_protocol_policy
 
 val aws_proxy_protocol_policy :
-  ?id:string ->
-  instance_ports:string list ->
-  load_balancer:string ->
+  ?id:string prop ->
+  instance_ports:string prop list ->
+  load_balancer:string prop ->
   string ->
   unit

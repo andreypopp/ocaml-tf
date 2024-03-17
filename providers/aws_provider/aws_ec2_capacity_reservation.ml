@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type aws_ec2_capacity_reservation = {
-  availability_zone : string;  (** availability_zone *)
-  ebs_optimized : bool option; [@option]  (** ebs_optimized *)
-  end_date : string option; [@option]  (** end_date *)
-  end_date_type : string option; [@option]  (** end_date_type *)
-  ephemeral_storage : bool option; [@option]
+  availability_zone : string prop;  (** availability_zone *)
+  ebs_optimized : bool prop option; [@option]  (** ebs_optimized *)
+  end_date : string prop option; [@option]  (** end_date *)
+  end_date_type : string prop option; [@option]  (** end_date_type *)
+  ephemeral_storage : bool prop option; [@option]
       (** ephemeral_storage *)
-  id : string option; [@option]  (** id *)
-  instance_count : float;  (** instance_count *)
-  instance_match_criteria : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instance_count : float prop;  (** instance_count *)
+  instance_match_criteria : string prop option; [@option]
       (** instance_match_criteria *)
-  instance_platform : string;  (** instance_platform *)
-  instance_type : string;  (** instance_type *)
-  outpost_arn : string option; [@option]  (** outpost_arn *)
-  placement_group_arn : string option; [@option]
+  instance_platform : string prop;  (** instance_platform *)
+  instance_type : string prop;  (** instance_type *)
+  outpost_arn : string prop option; [@option]  (** outpost_arn *)
+  placement_group_arn : string prop option; [@option]
       (** placement_group_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  tenancy : string option; [@option]  (** tenancy *)
+  tenancy : string prop option; [@option]  (** tenancy *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_capacity_reservation *)

@@ -9,11 +9,11 @@ type aws_ivs_recording_configuration__timeouts
 type aws_ivs_recording_configuration
 
 val aws_ivs_recording_configuration :
-  ?id:string ->
-  ?name:string ->
-  ?recording_reconnect_window_seconds:float ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?recording_reconnect_window_seconds:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_ivs_recording_configuration__timeouts ->
   destination_configuration:
     aws_ivs_recording_configuration__destination_configuration list ->

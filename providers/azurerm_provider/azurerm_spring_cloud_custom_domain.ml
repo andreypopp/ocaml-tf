@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_custom_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_custom_domain__timeouts *)
 
 type azurerm_spring_cloud_custom_domain = {
-  certificate_name : string option; [@option]
+  certificate_name : string prop option; [@option]
       (** certificate_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  spring_cloud_app_id : string;  (** spring_cloud_app_id *)
-  thumbprint : string option; [@option]  (** thumbprint *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  spring_cloud_app_id : string prop;  (** spring_cloud_app_id *)
+  thumbprint : string prop option; [@option]  (** thumbprint *)
   timeouts : azurerm_spring_cloud_custom_domain__timeouts option;
 }
 [@@deriving yojson_of]

@@ -17,13 +17,13 @@ type google_compute_autoscaler__timeouts
 type google_compute_autoscaler
 
 val google_compute_autoscaler :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
-  ?zone:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?zone:string prop ->
   ?timeouts:google_compute_autoscaler__timeouts ->
-  name:string ->
-  target:string ->
+  name:string prop ->
+  target:string prop ->
   autoscaling_policy:
     google_compute_autoscaler__autoscaling_policy list ->
   string ->

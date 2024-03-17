@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_permissions_boundary_attachment__permissions_boundary__customer_managed_policy_reference = {
-  name : string;  (** name *)
-  path : string option; [@option]  (** path *)
+  name : string prop;  (** name *)
+  path : string prop option; [@option]  (** path *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_permissions_boundary_attachment__permissions_boundary__customer_managed_policy_reference *)
 
 type aws_ssoadmin_permissions_boundary_attachment__permissions_boundary = {
-  managed_policy_arn : string option; [@option]
+  managed_policy_arn : string prop option; [@option]
       (** managed_policy_arn *)
   customer_managed_policy_reference :
     aws_ssoadmin_permissions_boundary_attachment__permissions_boundary__customer_managed_policy_reference
@@ -22,16 +22,16 @@ type aws_ssoadmin_permissions_boundary_attachment__permissions_boundary = {
 (** aws_ssoadmin_permissions_boundary_attachment__permissions_boundary *)
 
 type aws_ssoadmin_permissions_boundary_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_permissions_boundary_attachment__timeouts *)
 
 type aws_ssoadmin_permissions_boundary_attachment = {
-  id : string option; [@option]  (** id *)
-  instance_arn : string;  (** instance_arn *)
-  permission_set_arn : string;  (** permission_set_arn *)
+  id : string prop option; [@option]  (** id *)
+  instance_arn : string prop;  (** instance_arn *)
+  permission_set_arn : string prop;  (** permission_set_arn *)
   permissions_boundary :
     aws_ssoadmin_permissions_boundary_attachment__permissions_boundary
     list;

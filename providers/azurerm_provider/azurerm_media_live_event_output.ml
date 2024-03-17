@@ -5,26 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_media_live_event_output__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_live_event_output__timeouts *)
 
 type azurerm_media_live_event_output = {
-  archive_window_duration : string;  (** archive_window_duration *)
-  asset_name : string;  (** asset_name *)
-  description : string option; [@option]  (** description *)
-  hls_fragments_per_ts_segment : float option; [@option]
+  archive_window_duration : string prop;
+      (** archive_window_duration *)
+  asset_name : string prop;  (** asset_name *)
+  description : string prop option; [@option]  (** description *)
+  hls_fragments_per_ts_segment : float prop option; [@option]
       (** hls_fragments_per_ts_segment *)
-  id : string option; [@option]  (** id *)
-  live_event_id : string;  (** live_event_id *)
-  manifest_name : string option; [@option]  (** manifest_name *)
-  name : string;  (** name *)
-  output_snap_time_in_seconds : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  live_event_id : string prop;  (** live_event_id *)
+  manifest_name : string prop option; [@option]  (** manifest_name *)
+  name : string prop;  (** name *)
+  output_snap_time_in_seconds : float prop option; [@option]
       (** output_snap_time_in_seconds *)
-  rewind_window_duration : string option; [@option]
+  rewind_window_duration : string prop option; [@option]
       (** rewind_window_duration *)
   timeouts : azurerm_media_live_event_output__timeouts option;
 }

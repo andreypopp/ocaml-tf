@@ -6,14 +6,14 @@ type azurerm_notification_hub_authorization_rule__timeouts
 type azurerm_notification_hub_authorization_rule
 
 val azurerm_notification_hub_authorization_rule :
-  ?id:string ->
-  ?listen:bool ->
-  ?manage:bool ->
-  ?send:bool ->
+  ?id:string prop ->
+  ?listen:bool prop ->
+  ?manage:bool prop ->
+  ?send:bool prop ->
   ?timeouts:azurerm_notification_hub_authorization_rule__timeouts ->
-  name:string ->
-  namespace_name:string ->
-  notification_hub_name:string ->
-  resource_group_name:string ->
+  name:string prop ->
+  namespace_name:string prop ->
+  notification_hub_name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

@@ -10,14 +10,14 @@ type azurerm_netapp_snapshot_policy__weekly_schedule
 type azurerm_netapp_snapshot_policy
 
 val azurerm_netapp_snapshot_policy :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_netapp_snapshot_policy__timeouts ->
-  account_name:string ->
-  enabled:bool ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  account_name:string prop ->
+  enabled:bool prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   daily_schedule:azurerm_netapp_snapshot_policy__daily_schedule list ->
   hourly_schedule:
     azurerm_netapp_snapshot_policy__hourly_schedule list ->

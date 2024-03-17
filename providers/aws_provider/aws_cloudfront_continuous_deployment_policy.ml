@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type aws_cloudfront_continuous_deployment_policy__staging_distribution_dns_names = {
-  items : string list option; [@option]  (** items *)
-  quantity : float;  (** quantity *)
+  items : string prop list option; [@option]  (** items *)
+  quantity : float prop;  (** quantity *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_continuous_deployment_policy__staging_distribution_dns_names *)
 
 type aws_cloudfront_continuous_deployment_policy__traffic_config__single_header_config = {
-  header : string;  (** header *)
-  value : string;  (** value *)
+  header : string prop;  (** header *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_continuous_deployment_policy__traffic_config__single_header_config *)
 
 type aws_cloudfront_continuous_deployment_policy__traffic_config__single_weight_config__session_stickiness_config = {
-  idle_ttl : float;  (** idle_ttl *)
-  maximum_ttl : float;  (** maximum_ttl *)
+  idle_ttl : float prop;  (** idle_ttl *)
+  maximum_ttl : float prop;  (** maximum_ttl *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_continuous_deployment_policy__traffic_config__single_weight_config__session_stickiness_config *)
 
 type aws_cloudfront_continuous_deployment_policy__traffic_config__single_weight_config = {
-  weight : float;  (** weight *)
+  weight : float prop;  (** weight *)
   session_stickiness_config :
     aws_cloudfront_continuous_deployment_policy__traffic_config__single_weight_config__session_stickiness_config
     list;
@@ -35,7 +35,7 @@ type aws_cloudfront_continuous_deployment_policy__traffic_config__single_weight_
 (** aws_cloudfront_continuous_deployment_policy__traffic_config__single_weight_config *)
 
 type aws_cloudfront_continuous_deployment_policy__traffic_config = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   single_header_config :
     aws_cloudfront_continuous_deployment_policy__traffic_config__single_header_config
     list;
@@ -47,7 +47,7 @@ type aws_cloudfront_continuous_deployment_policy__traffic_config = {
 (** aws_cloudfront_continuous_deployment_policy__traffic_config *)
 
 type aws_cloudfront_continuous_deployment_policy = {
-  enabled : bool;  (** enabled *)
+  enabled : bool prop;  (** enabled *)
   staging_distribution_dns_names :
     aws_cloudfront_continuous_deployment_policy__staging_distribution_dns_names
     list;

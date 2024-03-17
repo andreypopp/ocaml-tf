@@ -19,16 +19,16 @@ type azurerm_container_registry_task__timer_trigger
 type azurerm_container_registry_task
 
 val azurerm_container_registry_task :
-  ?agent_pool_name:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?is_system_task:bool ->
-  ?log_template:string ->
-  ?tags:(string * string) list ->
-  ?timeout_in_seconds:float ->
+  ?agent_pool_name:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?is_system_task:bool prop ->
+  ?log_template:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeout_in_seconds:float prop ->
   ?timeouts:azurerm_container_registry_task__timeouts ->
-  container_registry_id:string ->
-  name:string ->
+  container_registry_id:string prop ->
+  name:string prop ->
   agent_setting:azurerm_container_registry_task__agent_setting list ->
   base_image_trigger:
     azurerm_container_registry_task__base_image_trigger list ->

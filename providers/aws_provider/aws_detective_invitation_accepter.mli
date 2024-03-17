@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_detective_invitation_accepter
 
 val aws_detective_invitation_accepter :
-  ?id:string -> graph_arn:string -> string -> unit
+  ?id:string prop -> graph_arn:string prop -> string -> unit

@@ -43,19 +43,19 @@ type google_clouddeploy_delivery_pipeline__serial_pipeline
 type google_clouddeploy_delivery_pipeline__timeouts
 
 type google_clouddeploy_delivery_pipeline__condition__targets_type_condition = {
-  error_details : string;  (** error_details *)
-  status : bool;  (** status *)
+  error_details : string prop;  (** error_details *)
+  status : bool prop;  (** status *)
 }
 
 type google_clouddeploy_delivery_pipeline__condition__targets_present_condition = {
-  missing_targets : string list;  (** missing_targets *)
-  status : bool;  (** status *)
-  update_time : string;  (** update_time *)
+  missing_targets : string prop list;  (** missing_targets *)
+  status : bool prop;  (** status *)
+  update_time : string prop;  (** update_time *)
 }
 
 type google_clouddeploy_delivery_pipeline__condition__pipeline_ready_condition = {
-  status : bool;  (** status *)
-  update_time : string;  (** update_time *)
+  status : bool prop;  (** status *)
+  update_time : string prop;  (** update_time *)
 }
 
 type google_clouddeploy_delivery_pipeline__condition = {
@@ -76,15 +76,15 @@ type google_clouddeploy_delivery_pipeline__condition = {
 type google_clouddeploy_delivery_pipeline
 
 val google_clouddeploy_delivery_pipeline :
-  ?annotations:(string * string) list ->
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?suspended:bool ->
+  ?annotations:(string * string prop) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?suspended:bool prop ->
   ?timeouts:google_clouddeploy_delivery_pipeline__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   serial_pipeline:
     google_clouddeploy_delivery_pipeline__serial_pipeline list ->
   string ->

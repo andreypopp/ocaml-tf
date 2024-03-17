@@ -10,8 +10,8 @@ type kubernetes_endpoint_slice_v1__port
 type kubernetes_endpoint_slice_v1
 
 val kubernetes_endpoint_slice_v1 :
-  ?id:string ->
-  address_type:string ->
+  ?id:string prop ->
+  address_type:string prop ->
   endpoint:kubernetes_endpoint_slice_v1__endpoint list ->
   metadata:kubernetes_endpoint_slice_v1__metadata list ->
   port:kubernetes_endpoint_slice_v1__port list ->

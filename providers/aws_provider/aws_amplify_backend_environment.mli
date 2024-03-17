@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_amplify_backend_environment
 
 val aws_amplify_backend_environment :
-  ?deployment_artifacts:string ->
-  ?id:string ->
-  ?stack_name:string ->
-  app_id:string ->
-  environment_name:string ->
+  ?deployment_artifacts:string prop ->
+  ?id:string prop ->
+  ?stack_name:string prop ->
+  app_id:string prop ->
+  environment_name:string prop ->
   string ->
   unit

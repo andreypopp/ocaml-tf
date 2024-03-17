@@ -60,14 +60,14 @@ type aws_networkfirewall_rule_group__rule_group
 type aws_networkfirewall_rule_group
 
 val aws_networkfirewall_rule_group :
-  ?description:string ->
-  ?id:string ->
-  ?rules:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  capacity:float ->
-  name:string ->
-  type_:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?rules:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  capacity:float prop ->
+  name:string prop ->
+  type_:string prop ->
   encryption_configuration:
     aws_networkfirewall_rule_group__encryption_configuration list ->
   rule_group:aws_networkfirewall_rule_group__rule_group list ->

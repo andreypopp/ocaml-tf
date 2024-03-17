@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_quicksight_data_set__column_groups__geo_spatial_column_group = {
-  columns: string list;  (** columns *)
-  country_code: string;  (** country_code *)
-  name: string;  (** name *)
+  columns: string prop list;  (** columns *)
+  country_code: string prop;  (** country_code *)
+  name: string prop;  (** name *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__column_groups__geo_spatial_column_group *)
 
@@ -17,35 +17,35 @@ type aws_quicksight_data_set__column_groups = {
 (** aws_quicksight_data_set__column_groups *)
 
 type aws_quicksight_data_set__column_level_permission_rules = {
-  column_names: string list option; [@option] (** column_names *)
-  principals: string list option; [@option] (** principals *)
+  column_names: string prop list option; [@option] (** column_names *)
+  principals: string prop list option; [@option] (** principals *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__column_level_permission_rules *)
 
 type aws_quicksight_data_set__data_set_usage_configuration = {
-  disable_use_as_direct_query_source: bool option; [@option] (** disable_use_as_direct_query_source *)
-  disable_use_as_imported_source: bool option; [@option] (** disable_use_as_imported_source *)
+  disable_use_as_direct_query_source: bool prop option; [@option] (** disable_use_as_direct_query_source *)
+  disable_use_as_imported_source: bool prop option; [@option] (** disable_use_as_imported_source *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__data_set_usage_configuration *)
 
 type aws_quicksight_data_set__field_folders = {
-  columns: string list option; [@option] (** columns *)
-  description: string option; [@option] (** description *)
-  field_folders_id: string;  (** field_folders_id *)
+  columns: string prop list option; [@option] (** columns *)
+  description: string prop option; [@option] (** description *)
+  field_folders_id: string prop;  (** field_folders_id *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__field_folders *)
 
 type aws_quicksight_data_set__logical_table_map__data_transforms__cast_column_type_operation = {
-  column_name: string;  (** column_name *)
-  format: string option; [@option] (** format *)
-  new_column_type: string;  (** new_column_type *)
+  column_name: string prop;  (** column_name *)
+  format: string prop option; [@option] (** format *)
+  new_column_type: string prop;  (** new_column_type *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__data_transforms__cast_column_type_operation *)
 
 type aws_quicksight_data_set__logical_table_map__data_transforms__create_columns_operation__columns = {
-  column_id: string;  (** column_id *)
-  column_name: string;  (** column_name *)
-  expression: string;  (** expression *)
+  column_id: string prop;  (** column_id *)
+  column_name: string prop;  (** column_name *)
+  expression: string prop;  (** expression *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__data_transforms__create_columns_operation__columns *)
 
@@ -55,41 +55,41 @@ type aws_quicksight_data_set__logical_table_map__data_transforms__create_columns
 (** aws_quicksight_data_set__logical_table_map__data_transforms__create_columns_operation *)
 
 type aws_quicksight_data_set__logical_table_map__data_transforms__filter_operation = {
-  condition_expression: string;  (** condition_expression *)
+  condition_expression: string prop;  (** condition_expression *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__data_transforms__filter_operation *)
 
 type aws_quicksight_data_set__logical_table_map__data_transforms__project_operation = {
-  projected_columns: string list;  (** projected_columns *)
+  projected_columns: string prop list;  (** projected_columns *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__data_transforms__project_operation *)
 
 type aws_quicksight_data_set__logical_table_map__data_transforms__rename_column_operation = {
-  column_name: string;  (** column_name *)
-  new_column_name: string;  (** new_column_name *)
+  column_name: string prop;  (** column_name *)
+  new_column_name: string prop;  (** new_column_name *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__data_transforms__rename_column_operation *)
 
 type aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation__tags__column_description = {
-  text: string option; [@option] (** text *)
+  text: string prop option; [@option] (** text *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation__tags__column_description *)
 
 type aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation__tags = {
-  column_geographic_role: string option; [@option] (** column_geographic_role *)
+  column_geographic_role: string prop option; [@option] (** column_geographic_role *)
   column_description: aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation__tags__column_description list;
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation__tags *)
 
 type aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation = {
-  column_name: string;  (** column_name *)
+  column_name: string prop;  (** column_name *)
   tags: aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation__tags list;
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__data_transforms__tag_column_operation *)
 
 type aws_quicksight_data_set__logical_table_map__data_transforms__untag_column_operation = {
-  column_name: string;  (** column_name *)
-  tag_names: string list;  (** tag_names *)
+  column_name: string prop;  (** column_name *)
+  tag_names: string prop list;  (** tag_names *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__data_transforms__untag_column_operation *)
 
@@ -105,99 +105,99 @@ type aws_quicksight_data_set__logical_table_map__data_transforms = {
 (** aws_quicksight_data_set__logical_table_map__data_transforms *)
 
 type aws_quicksight_data_set__logical_table_map__source__join_instruction__left_join_key_properties = {
-  unique_key: bool option; [@option] (** unique_key *)
+  unique_key: bool prop option; [@option] (** unique_key *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__source__join_instruction__left_join_key_properties *)
 
 type aws_quicksight_data_set__logical_table_map__source__join_instruction__right_join_key_properties = {
-  unique_key: bool option; [@option] (** unique_key *)
+  unique_key: bool prop option; [@option] (** unique_key *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__source__join_instruction__right_join_key_properties *)
 
 type aws_quicksight_data_set__logical_table_map__source__join_instruction = {
-  left_operand: string;  (** left_operand *)
-  on_clause: string;  (** on_clause *)
-  right_operand: string;  (** right_operand *)
-  type_: string; [@key "type"] (** type *)
+  left_operand: string prop;  (** left_operand *)
+  on_clause: string prop;  (** on_clause *)
+  right_operand: string prop;  (** right_operand *)
+  type_: string prop; [@key "type"] (** type *)
   left_join_key_properties: aws_quicksight_data_set__logical_table_map__source__join_instruction__left_join_key_properties list;
   right_join_key_properties: aws_quicksight_data_set__logical_table_map__source__join_instruction__right_join_key_properties list;
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__source__join_instruction *)
 
 type aws_quicksight_data_set__logical_table_map__source = {
-  data_set_arn: string option; [@option] (** data_set_arn *)
-  physical_table_id: string option; [@option] (** physical_table_id *)
+  data_set_arn: string prop option; [@option] (** data_set_arn *)
+  physical_table_id: string prop option; [@option] (** physical_table_id *)
   join_instruction: aws_quicksight_data_set__logical_table_map__source__join_instruction list;
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map__source *)
 
 type aws_quicksight_data_set__logical_table_map = {
-  alias: string;  (** alias *)
-  logical_table_map_id: string;  (** logical_table_map_id *)
+  alias: string prop;  (** alias *)
+  logical_table_map_id: string prop;  (** logical_table_map_id *)
   data_transforms: aws_quicksight_data_set__logical_table_map__data_transforms list;
   source: aws_quicksight_data_set__logical_table_map__source list;
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__logical_table_map *)
 
 type aws_quicksight_data_set__permissions = {
-  actions: string list;  (** actions *)
-  principal: string;  (** principal *)
+  actions: string prop list;  (** actions *)
+  principal: string prop;  (** principal *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__permissions *)
 
 type aws_quicksight_data_set__physical_table_map__custom_sql__columns = {
-  name: string;  (** name *)
-  type_: string; [@key "type"] (** type *)
+  name: string prop;  (** name *)
+  type_: string prop; [@key "type"] (** type *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__physical_table_map__custom_sql__columns *)
 
 type aws_quicksight_data_set__physical_table_map__custom_sql = {
-  data_source_arn: string;  (** data_source_arn *)
-  name: string;  (** name *)
-  sql_query: string;  (** sql_query *)
+  data_source_arn: string prop;  (** data_source_arn *)
+  name: string prop;  (** name *)
+  sql_query: string prop;  (** sql_query *)
   columns: aws_quicksight_data_set__physical_table_map__custom_sql__columns list;
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__physical_table_map__custom_sql *)
 
 type aws_quicksight_data_set__physical_table_map__relational_table__input_columns = {
-  name: string;  (** name *)
-  type_: string; [@key "type"] (** type *)
+  name: string prop;  (** name *)
+  type_: string prop; [@key "type"] (** type *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__physical_table_map__relational_table__input_columns *)
 
 type aws_quicksight_data_set__physical_table_map__relational_table = {
-  catalog: string option; [@option] (** catalog *)
-  data_source_arn: string;  (** data_source_arn *)
-  name: string;  (** name *)
-  schema: string option; [@option] (** schema *)
+  catalog: string prop option; [@option] (** catalog *)
+  data_source_arn: string prop;  (** data_source_arn *)
+  name: string prop;  (** name *)
+  schema: string prop option; [@option] (** schema *)
   input_columns: aws_quicksight_data_set__physical_table_map__relational_table__input_columns list;
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__physical_table_map__relational_table *)
 
 type aws_quicksight_data_set__physical_table_map__s3_source__input_columns = {
-  name: string;  (** name *)
-  type_: string; [@key "type"] (** type *)
+  name: string prop;  (** name *)
+  type_: string prop; [@key "type"] (** type *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__physical_table_map__s3_source__input_columns *)
 
 type aws_quicksight_data_set__physical_table_map__s3_source__upload_settings = {
-  contains_header: bool option; [@option] (** contains_header *)
-  delimiter: string option; [@option] (** delimiter *)
-  format: string option; [@option] (** format *)
-  start_from_row: float option; [@option] (** start_from_row *)
-  text_qualifier: string option; [@option] (** text_qualifier *)
+  contains_header: bool prop option; [@option] (** contains_header *)
+  delimiter: string prop option; [@option] (** delimiter *)
+  format: string prop option; [@option] (** format *)
+  start_from_row: float prop option; [@option] (** start_from_row *)
+  text_qualifier: string prop option; [@option] (** text_qualifier *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__physical_table_map__s3_source__upload_settings *)
 
 type aws_quicksight_data_set__physical_table_map__s3_source = {
-  data_source_arn: string;  (** data_source_arn *)
+  data_source_arn: string prop;  (** data_source_arn *)
   input_columns: aws_quicksight_data_set__physical_table_map__s3_source__input_columns list;
   upload_settings: aws_quicksight_data_set__physical_table_map__s3_source__upload_settings list;
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__physical_table_map__s3_source *)
 
 type aws_quicksight_data_set__physical_table_map = {
-  physical_table_map_id: string;  (** physical_table_map_id *)
+  physical_table_map_id: string prop;  (** physical_table_map_id *)
   custom_sql: aws_quicksight_data_set__physical_table_map__custom_sql list;
   relational_table: aws_quicksight_data_set__physical_table_map__relational_table list;
   s3_source: aws_quicksight_data_set__physical_table_map__s3_source list;
@@ -205,9 +205,9 @@ type aws_quicksight_data_set__physical_table_map = {
 (** aws_quicksight_data_set__physical_table_map *)
 
 type aws_quicksight_data_set__refresh_properties__refresh_configuration__incremental_refresh__lookback_window = {
-  column_name: string;  (** column_name *)
-  size: float;  (** size *)
-  size_unit: string;  (** size_unit *)
+  column_name: string prop;  (** column_name *)
+  size: float prop;  (** size *)
+  size_unit: string prop;  (** size_unit *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__refresh_properties__refresh_configuration__incremental_refresh__lookback_window *)
 
@@ -227,41 +227,41 @@ type aws_quicksight_data_set__refresh_properties = {
 (** aws_quicksight_data_set__refresh_properties *)
 
 type aws_quicksight_data_set__row_level_permission_data_set = {
-  arn: string;  (** arn *)
-  format_version: string option; [@option] (** format_version *)
-  namespace: string option; [@option] (** namespace *)
-  permission_policy: string;  (** permission_policy *)
-  status: string option; [@option] (** status *)
+  arn: string prop;  (** arn *)
+  format_version: string prop option; [@option] (** format_version *)
+  namespace: string prop option; [@option] (** namespace *)
+  permission_policy: string prop;  (** permission_policy *)
+  status: string prop option; [@option] (** status *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__row_level_permission_data_set *)
 
 type aws_quicksight_data_set__row_level_permission_tag_configuration__tag_rules = {
-  column_name: string;  (** column_name *)
-  match_all_value: string option; [@option] (** match_all_value *)
-  tag_key: string;  (** tag_key *)
-  tag_multi_value_delimiter: string option; [@option] (** tag_multi_value_delimiter *)
+  column_name: string prop;  (** column_name *)
+  match_all_value: string prop option; [@option] (** match_all_value *)
+  tag_key: string prop;  (** tag_key *)
+  tag_multi_value_delimiter: string prop option; [@option] (** tag_multi_value_delimiter *)
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__row_level_permission_tag_configuration__tag_rules *)
 
 type aws_quicksight_data_set__row_level_permission_tag_configuration = {
-  status: string option; [@option] (** status *)
+  status: string prop option; [@option] (** status *)
   tag_rules: aws_quicksight_data_set__row_level_permission_tag_configuration__tag_rules list;
 } [@@deriving yojson_of]
 (** aws_quicksight_data_set__row_level_permission_tag_configuration *)
 
 type aws_quicksight_data_set__output_columns = {
-  description: string;  (** description *)
-  name: string;  (** name *)
-  type_: string; [@key "type"] (** type *)
+  description: string prop;  (** description *)
+  name: string prop;  (** name *)
+  type_: string prop; [@key "type"] (** type *)
 } [@@deriving yojson_of]
 type aws_quicksight_data_set = {
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  data_set_id: string;  (** data_set_id *)
-  id: string option; [@option] (** id *)
-  import_mode: string;  (** import_mode *)
-  name: string;  (** name *)
-  tags: (string * string) list option; [@option] (** tags *)
-  tags_all: (string * string) list option; [@option] (** tags_all *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  data_set_id: string prop;  (** data_set_id *)
+  id: string prop option; [@option] (** id *)
+  import_mode: string prop;  (** import_mode *)
+  name: string prop;  (** name *)
+  tags: (string * string prop) list option; [@option] (** tags *)
+  tags_all: (string * string prop) list option; [@option] (** tags_all *)
   column_groups: aws_quicksight_data_set__column_groups list;
   column_level_permission_rules: aws_quicksight_data_set__column_level_permission_rules list;
   data_set_usage_configuration: aws_quicksight_data_set__data_set_usage_configuration list;

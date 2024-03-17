@@ -6,11 +6,11 @@ type aws_lb_ssl_negotiation_policy__attribute
 type aws_lb_ssl_negotiation_policy
 
 val aws_lb_ssl_negotiation_policy :
-  ?id:string ->
-  ?triggers:(string * string) list ->
-  lb_port:float ->
-  load_balancer:string ->
-  name:string ->
+  ?id:string prop ->
+  ?triggers:(string * string prop) list ->
+  lb_port:float prop ->
+  load_balancer:string prop ->
+  name:string prop ->
   attribute:aws_lb_ssl_negotiation_policy__attribute list ->
   string ->
   unit

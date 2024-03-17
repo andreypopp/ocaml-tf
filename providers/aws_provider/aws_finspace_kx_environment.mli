@@ -15,12 +15,12 @@ type aws_finspace_kx_environment__transit_gateway_configuration
 type aws_finspace_kx_environment
 
 val aws_finspace_kx_environment :
-  ?description:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_finspace_kx_environment__timeouts ->
-  kms_key_id:string ->
-  name:string ->
+  kms_key_id:string prop ->
+  name:string prop ->
   custom_dns_configuration:
     aws_finspace_kx_environment__custom_dns_configuration list ->
   transit_gateway_configuration:

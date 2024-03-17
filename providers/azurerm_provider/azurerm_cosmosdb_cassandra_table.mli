@@ -11,13 +11,13 @@ type azurerm_cosmosdb_cassandra_table__timeouts
 type azurerm_cosmosdb_cassandra_table
 
 val azurerm_cosmosdb_cassandra_table :
-  ?analytical_storage_ttl:float ->
-  ?default_ttl:float ->
-  ?id:string ->
-  ?throughput:float ->
+  ?analytical_storage_ttl:float prop ->
+  ?default_ttl:float prop ->
+  ?id:string prop ->
+  ?throughput:float prop ->
   ?timeouts:azurerm_cosmosdb_cassandra_table__timeouts ->
-  cassandra_keyspace_id:string ->
-  name:string ->
+  cassandra_keyspace_id:string prop ->
+  name:string prop ->
   autoscale_settings:
     azurerm_cosmosdb_cassandra_table__autoscale_settings list ->
   schema:azurerm_cosmosdb_cassandra_table__schema list ->

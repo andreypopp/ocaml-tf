@@ -5,29 +5,31 @@
 open! Tf.Prelude
 
 type aws_redshiftdata_statement__parameters = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_redshiftdata_statement__parameters *)
 
 type aws_redshiftdata_statement__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_redshiftdata_statement__timeouts *)
 
 type aws_redshiftdata_statement = {
-  cluster_identifier : string option; [@option]
+  cluster_identifier : string prop option; [@option]
       (** cluster_identifier *)
-  database : string;  (** database *)
-  db_user : string option; [@option]  (** db_user *)
-  id : string option; [@option]  (** id *)
-  secret_arn : string option; [@option]  (** secret_arn *)
-  sql : string;  (** sql *)
-  statement_name : string option; [@option]  (** statement_name *)
-  with_event : bool option; [@option]  (** with_event *)
-  workgroup_name : string option; [@option]  (** workgroup_name *)
+  database : string prop;  (** database *)
+  db_user : string prop option; [@option]  (** db_user *)
+  id : string prop option; [@option]  (** id *)
+  secret_arn : string prop option; [@option]  (** secret_arn *)
+  sql : string prop;  (** sql *)
+  statement_name : string prop option; [@option]
+      (** statement_name *)
+  with_event : bool prop option; [@option]  (** with_event *)
+  workgroup_name : string prop option; [@option]
+      (** workgroup_name *)
   parameters : aws_redshiftdata_statement__parameters list;
   timeouts : aws_redshiftdata_statement__timeouts option;
 }

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_account_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_account_assignment__timeouts *)
 
 type aws_ssoadmin_account_assignment = {
-  id : string option; [@option]  (** id *)
-  instance_arn : string;  (** instance_arn *)
-  permission_set_arn : string;  (** permission_set_arn *)
-  principal_id : string;  (** principal_id *)
-  principal_type : string;  (** principal_type *)
-  target_id : string;  (** target_id *)
-  target_type : string option; [@option]  (** target_type *)
+  id : string prop option; [@option]  (** id *)
+  instance_arn : string prop;  (** instance_arn *)
+  permission_set_arn : string prop;  (** permission_set_arn *)
+  principal_id : string prop;  (** principal_id *)
+  principal_type : string prop;  (** principal_type *)
+  target_id : string prop;  (** target_id *)
+  target_type : string prop option; [@option]  (** target_type *)
   timeouts : aws_ssoadmin_account_assignment__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,21 +5,21 @@ open! Tf.Prelude
 type azurerm_route_filter__timeouts
 
 type azurerm_route_filter__rule = {
-  access : string;  (** access *)
-  communities : string list;  (** communities *)
-  name : string;  (** name *)
-  rule_type : string;  (** rule_type *)
+  access : string prop;  (** access *)
+  communities : string prop list;  (** communities *)
+  name : string prop;  (** name *)
+  rule_type : string prop;  (** rule_type *)
 }
 
 type azurerm_route_filter
 
 val azurerm_route_filter :
-  ?id:string ->
+  ?id:string prop ->
   ?rule:azurerm_route_filter__rule list ->
-  ?tags:(string * string) list ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_route_filter__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

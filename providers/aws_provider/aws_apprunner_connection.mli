@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_apprunner_connection
 
 val aws_apprunner_connection :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  connection_name:string ->
-  provider_type:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  connection_name:string prop ->
+  provider_type:string prop ->
   string ->
   unit

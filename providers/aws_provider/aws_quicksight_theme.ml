@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_quicksight_theme__configuration__data_color_palette = {
-  colors: string list option; [@option] (** colors *)
-  empty_fill_color: string option; [@option] (** empty_fill_color *)
-  min_max_gradient: string list option; [@option] (** min_max_gradient *)
+  colors: string prop list option; [@option] (** colors *)
+  empty_fill_color: string prop option; [@option] (** empty_fill_color *)
+  min_max_gradient: string prop list option; [@option] (** min_max_gradient *)
 } [@@deriving yojson_of]
 (** aws_quicksight_theme__configuration__data_color_palette *)
 
 type aws_quicksight_theme__configuration__sheet__tile__border = {
-  show: bool option; [@option] (** show *)
+  show: bool prop option; [@option] (** show *)
 } [@@deriving yojson_of]
 (** aws_quicksight_theme__configuration__sheet__tile__border *)
 
@@ -22,12 +22,12 @@ type aws_quicksight_theme__configuration__sheet__tile = {
 (** aws_quicksight_theme__configuration__sheet__tile *)
 
 type aws_quicksight_theme__configuration__sheet__tile_layout__gutter = {
-  show: bool option; [@option] (** show *)
+  show: bool prop option; [@option] (** show *)
 } [@@deriving yojson_of]
 (** aws_quicksight_theme__configuration__sheet__tile_layout__gutter *)
 
 type aws_quicksight_theme__configuration__sheet__tile_layout__margin = {
-  show: bool option; [@option] (** show *)
+  show: bool prop option; [@option] (** show *)
 } [@@deriving yojson_of]
 (** aws_quicksight_theme__configuration__sheet__tile_layout__margin *)
 
@@ -44,7 +44,7 @@ type aws_quicksight_theme__configuration__sheet = {
 (** aws_quicksight_theme__configuration__sheet *)
 
 type aws_quicksight_theme__configuration__typography__font_families = {
-  font_family: string option; [@option] (** font_family *)
+  font_family: string prop option; [@option] (** font_family *)
 } [@@deriving yojson_of]
 (** aws_quicksight_theme__configuration__typography__font_families *)
 
@@ -54,22 +54,22 @@ type aws_quicksight_theme__configuration__typography = {
 (** aws_quicksight_theme__configuration__typography *)
 
 type aws_quicksight_theme__configuration__ui_color_palette = {
-  accent: string option; [@option] (** accent *)
-  accent_foreground: string option; [@option] (** accent_foreground *)
-  danger: string option; [@option] (** danger *)
-  danger_foreground: string option; [@option] (** danger_foreground *)
-  dimension: string option; [@option] (** dimension *)
-  dimension_foreground: string option; [@option] (** dimension_foreground *)
-  measure: string option; [@option] (** measure *)
-  measure_foreground: string option; [@option] (** measure_foreground *)
-  primary_background: string option; [@option] (** primary_background *)
-  primary_foreground: string option; [@option] (** primary_foreground *)
-  secondary_background: string option; [@option] (** secondary_background *)
-  secondary_foreground: string option; [@option] (** secondary_foreground *)
-  success: string option; [@option] (** success *)
-  success_foreground: string option; [@option] (** success_foreground *)
-  warning: string option; [@option] (** warning *)
-  warning_foreground: string option; [@option] (** warning_foreground *)
+  accent: string prop option; [@option] (** accent *)
+  accent_foreground: string prop option; [@option] (** accent_foreground *)
+  danger: string prop option; [@option] (** danger *)
+  danger_foreground: string prop option; [@option] (** danger_foreground *)
+  dimension: string prop option; [@option] (** dimension *)
+  dimension_foreground: string prop option; [@option] (** dimension_foreground *)
+  measure: string prop option; [@option] (** measure *)
+  measure_foreground: string prop option; [@option] (** measure_foreground *)
+  primary_background: string prop option; [@option] (** primary_background *)
+  primary_foreground: string prop option; [@option] (** primary_foreground *)
+  secondary_background: string prop option; [@option] (** secondary_background *)
+  secondary_foreground: string prop option; [@option] (** secondary_foreground *)
+  success: string prop option; [@option] (** success *)
+  success_foreground: string prop option; [@option] (** success_foreground *)
+  warning: string prop option; [@option] (** warning *)
+  warning_foreground: string prop option; [@option] (** warning_foreground *)
 } [@@deriving yojson_of]
 (** aws_quicksight_theme__configuration__ui_color_palette *)
 
@@ -82,27 +82,27 @@ type aws_quicksight_theme__configuration = {
 (** aws_quicksight_theme__configuration *)
 
 type aws_quicksight_theme__permissions = {
-  actions: string list;  (** actions *)
-  principal: string;  (** principal *)
+  actions: string prop list;  (** actions *)
+  principal: string prop;  (** principal *)
 } [@@deriving yojson_of]
 (** aws_quicksight_theme__permissions *)
 
 type aws_quicksight_theme__timeouts = {
-  create: string option; [@option] (** create *)
-  delete: string option; [@option] (** delete *)
-  update: string option; [@option] (** update *)
+  create: string prop option; [@option] (** create *)
+  delete: string prop option; [@option] (** delete *)
+  update: string prop option; [@option] (** update *)
 } [@@deriving yojson_of]
 (** aws_quicksight_theme__timeouts *)
 
 type aws_quicksight_theme = {
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  base_theme_id: string;  (** base_theme_id *)
-  id: string option; [@option] (** id *)
-  name: string;  (** name *)
-  tags: (string * string) list option; [@option] (** tags *)
-  tags_all: (string * string) list option; [@option] (** tags_all *)
-  theme_id: string;  (** theme_id *)
-  version_description: string option; [@option] (** version_description *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  base_theme_id: string prop;  (** base_theme_id *)
+  id: string prop option; [@option] (** id *)
+  name: string prop;  (** name *)
+  tags: (string * string prop) list option; [@option] (** tags *)
+  tags_all: (string * string prop) list option; [@option] (** tags_all *)
+  theme_id: string prop;  (** theme_id *)
+  version_description: string prop option; [@option] (** version_description *)
   configuration: aws_quicksight_theme__configuration list;
   permissions: aws_quicksight_theme__permissions list;
   timeouts: aws_quicksight_theme__timeouts option;

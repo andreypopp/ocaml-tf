@@ -5,27 +5,28 @@
 open! Tf.Prelude
 
 type aws_codeartifact_repository__external_connections = {
-  external_connection_name : string;  (** external_connection_name *)
-  package_format : string;  (** package_format *)
-  status : string;  (** status *)
+  external_connection_name : string prop;
+      (** external_connection_name *)
+  package_format : string prop;  (** package_format *)
+  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_codeartifact_repository__external_connections *)
 
 type aws_codeartifact_repository__upstream = {
-  repository_name : string;  (** repository_name *)
+  repository_name : string prop;  (** repository_name *)
 }
 [@@deriving yojson_of]
 (** aws_codeartifact_repository__upstream *)
 
 type aws_codeartifact_repository = {
-  description : string option; [@option]  (** description *)
-  domain : string;  (** domain *)
-  domain_owner : string option; [@option]  (** domain_owner *)
-  id : string option; [@option]  (** id *)
-  repository : string;  (** repository *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  domain : string prop;  (** domain *)
+  domain_owner : string prop option; [@option]  (** domain_owner *)
+  id : string prop option; [@option]  (** id *)
+  repository : string prop;  (** repository *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   external_connections :
     aws_codeartifact_repository__external_connections list;

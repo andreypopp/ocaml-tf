@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_grafana_workspace_api_key = {
-  id : string option; [@option]  (** id *)
-  key_name : string;  (** key_name *)
-  key_role : string;  (** key_role *)
-  seconds_to_live : float;  (** seconds_to_live *)
-  workspace_id : string;  (** workspace_id *)
+  id : string prop option; [@option]  (** id *)
+  key_name : string prop;  (** key_name *)
+  key_role : string prop;  (** key_role *)
+  seconds_to_live : float prop;  (** seconds_to_live *)
+  workspace_id : string prop;  (** workspace_id *)
 }
 [@@deriving yojson_of]
 (** aws_grafana_workspace_api_key *)

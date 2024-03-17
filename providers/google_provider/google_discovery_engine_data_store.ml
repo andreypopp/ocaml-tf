@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type google_discovery_engine_data_store__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_discovery_engine_data_store__timeouts *)
 
 type google_discovery_engine_data_store = {
-  content_config : string;
+  content_config : string prop;
       (** The content config of the data store. Possible values: [NO_CONTENT, CONTENT_REQUIRED, PUBLIC_WEBSITE] *)
-  create_advanced_site_search : bool option; [@option]
+  create_advanced_site_search : bool prop option; [@option]
       (** If true, an advanced data store for site search will be created. If the
 data store is not configured as site search (GENERIC vertical and
 PUBLIC_WEBSITE contentConfig), this flag will be ignored. *)
-  data_store_id : string;  (** The unique id of the data store. *)
-  display_name : string;
+  data_store_id : string prop;
+      (** The unique id of the data store. *)
+  display_name : string prop;
       (** The display name of the data store. This field must be a UTF-8 encoded
 string with a length limit of 128 characters. *)
-  id : string option; [@option]  (** id *)
-  industry_vertical : string;
+  id : string prop option; [@option]  (** id *)
+  industry_vertical : string prop;
       (** The industry vertical that the data store registers. Possible values: [GENERIC, MEDIA] *)
-  location : string;
+  location : string prop;
       (** The geographic location where the data store should reside. The value can
 only be one of global, us and eu. *)
-  project : string option; [@option]  (** project *)
-  solution_types : string list option; [@option]
+  project : string prop option; [@option]  (** project *)
+  solution_types : string prop list option; [@option]
       (** The solutions that the data store enrolls. Possible values: [SOLUTION_TYPE_RECOMMENDATION, SOLUTION_TYPE_SEARCH, SOLUTION_TYPE_CHAT] *)
   timeouts : google_discovery_engine_data_store__timeouts option;
 }

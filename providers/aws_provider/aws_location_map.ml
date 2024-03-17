@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_location_map__configuration = {
-  style : string;  (** style *)
+  style : string prop;  (** style *)
 }
 [@@deriving yojson_of]
 (** aws_location_map__configuration *)
 
 type aws_location_map = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  map_name : string;  (** map_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  map_name : string prop;  (** map_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   configuration : aws_location_map__configuration list;
 }

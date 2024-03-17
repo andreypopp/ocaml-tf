@@ -5,47 +5,48 @@
 open! Tf.Prelude
 
 type azurerm_sql_managed_instance__identity = {
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_sql_managed_instance__identity *)
 
 type azurerm_sql_managed_instance__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sql_managed_instance__timeouts *)
 
 type azurerm_sql_managed_instance = {
-  administrator_login : string;  (** administrator_login *)
-  administrator_login_password : string;
+  administrator_login : string prop;  (** administrator_login *)
+  administrator_login_password : string prop;
       (** administrator_login_password *)
-  collation : string option; [@option]  (** collation *)
-  dns_zone_partner_id : string option; [@option]
+  collation : string prop option; [@option]  (** collation *)
+  dns_zone_partner_id : string prop option; [@option]
       (** dns_zone_partner_id *)
-  id : string option; [@option]  (** id *)
-  license_type : string;  (** license_type *)
-  location : string;  (** location *)
-  minimum_tls_version : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  license_type : string prop;  (** license_type *)
+  location : string prop;  (** location *)
+  minimum_tls_version : string prop option; [@option]
       (** minimum_tls_version *)
-  name : string;  (** name *)
-  proxy_override : string option; [@option]  (** proxy_override *)
-  public_data_endpoint_enabled : bool option; [@option]
+  name : string prop;  (** name *)
+  proxy_override : string prop option; [@option]
+      (** proxy_override *)
+  public_data_endpoint_enabled : bool prop option; [@option]
       (** public_data_endpoint_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  storage_account_type : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  storage_account_type : string prop option; [@option]
       (** storage_account_type *)
-  storage_size_in_gb : float;  (** storage_size_in_gb *)
-  subnet_id : string;  (** subnet_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  timezone_id : string option; [@option]  (** timezone_id *)
-  vcores : float;  (** vcores *)
+  storage_size_in_gb : float prop;  (** storage_size_in_gb *)
+  subnet_id : string prop;  (** subnet_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  timezone_id : string prop option; [@option]  (** timezone_id *)
+  vcores : float prop;  (** vcores *)
   identity : azurerm_sql_managed_instance__identity list;
   timeouts : azurerm_sql_managed_instance__timeouts option;
 }

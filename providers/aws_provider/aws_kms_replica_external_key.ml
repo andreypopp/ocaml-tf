@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_kms_replica_external_key = {
-  bypass_policy_lockout_safety_check : bool option; [@option]
+  bypass_policy_lockout_safety_check : bool prop option; [@option]
       (** bypass_policy_lockout_safety_check *)
-  deletion_window_in_days : float option; [@option]
+  deletion_window_in_days : float prop option; [@option]
       (** deletion_window_in_days *)
-  description : string option; [@option]  (** description *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  key_material_base64 : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  key_material_base64 : string prop option; [@option]
       (** key_material_base64 *)
-  policy : string option; [@option]  (** policy *)
-  primary_key_arn : string;  (** primary_key_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  policy : string prop option; [@option]  (** policy *)
+  primary_key_arn : string prop;  (** primary_key_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  valid_to : string option; [@option]  (** valid_to *)
+  valid_to : string prop option; [@option]  (** valid_to *)
 }
 [@@deriving yojson_of]
 (** aws_kms_replica_external_key *)

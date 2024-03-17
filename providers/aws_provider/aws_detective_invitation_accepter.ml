@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_detective_invitation_accepter = {
-  graph_arn : string;  (** graph_arn *)
-  id : string option; [@option]  (** id *)
+  graph_arn : string prop;  (** graph_arn *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_detective_invitation_accepter *)

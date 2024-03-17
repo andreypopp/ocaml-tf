@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type google_network_security_url_lists__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_network_security_url_lists__timeouts *)
 
 type google_network_security_url_lists = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Free-text description of the resource. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location of the url lists. *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location of the url lists. *)
+  name : string prop;
       (** Short name of the UrlList resource to be created.
 This value should be 1-63 characters long, containing only letters, numbers, hyphens, and underscores, and should not start with a number. E.g. 'urlList'. *)
-  project : string option; [@option]  (** project *)
-  values : string list;  (** FQDNs and URLs. *)
+  project : string prop option; [@option]  (** project *)
+  values : string prop list;  (** FQDNs and URLs. *)
   timeouts : google_network_security_url_lists__timeouts option;
 }
 [@@deriving yojson_of]

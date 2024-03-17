@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_securitylake_data_lake__configuration__lifecycle_configuration__expiration = {
-  days : float option; [@option]  (** days *)
+  days : float prop option; [@option]  (** days *)
 }
 [@@deriving yojson_of]
 (** aws_securitylake_data_lake__configuration__lifecycle_configuration__expiration *)
 
 type aws_securitylake_data_lake__configuration__lifecycle_configuration__transition = {
-  days : float option; [@option]  (** days *)
-  storage_class : string option; [@option]  (** storage_class *)
+  days : float prop option; [@option]  (** days *)
+  storage_class : string prop option; [@option]  (** storage_class *)
 }
 [@@deriving yojson_of]
 (** aws_securitylake_data_lake__configuration__lifecycle_configuration__transition *)
@@ -29,14 +29,14 @@ type aws_securitylake_data_lake__configuration__lifecycle_configuration = {
 (** aws_securitylake_data_lake__configuration__lifecycle_configuration *)
 
 type aws_securitylake_data_lake__configuration__replication_configuration = {
-  regions : string list option; [@option]  (** regions *)
-  role_arn : string option; [@option]  (** role_arn *)
+  regions : string prop list option; [@option]  (** regions *)
+  role_arn : string prop option; [@option]  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_securitylake_data_lake__configuration__replication_configuration *)
 
 type aws_securitylake_data_lake__configuration__encryption_configuration = {
-  kms_key_id : string;  (** kms_key_id *)
+  kms_key_id : string prop;  (** kms_key_id *)
 }
 [@@deriving yojson_of]
 
@@ -47,7 +47,7 @@ type aws_securitylake_data_lake__configuration = {
     option;
       [@option]
       (** encryption_configuration *)
-  region : string;  (** region *)
+  region : string prop;  (** region *)
   lifecycle_configuration :
     aws_securitylake_data_lake__configuration__lifecycle_configuration
     list;
@@ -59,20 +59,20 @@ type aws_securitylake_data_lake__configuration = {
 (** aws_securitylake_data_lake__configuration *)
 
 type aws_securitylake_data_lake__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-  delete : string option; [@option]
+  delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
-  update : string option; [@option]
+  update : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
 (** aws_securitylake_data_lake__timeouts *)
 
 type aws_securitylake_data_lake = {
-  meta_store_manager_role_arn : string;
+  meta_store_manager_role_arn : string prop;
       (** meta_store_manager_role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   configuration : aws_securitylake_data_lake__configuration list;
   timeouts : aws_securitylake_data_lake__timeouts option;
 }

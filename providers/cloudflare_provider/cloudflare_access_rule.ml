@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type cloudflare_access_rule__configuration = {
-  target : string;
+  target : string prop;
       (** The request property to target. Available values: `ip`, `ip6`, `ip_range`, `asn`, `country`. **Modifying this attribute will force creation of a new resource.** *)
-  value : string;
+  value : string prop;
       (** The value to target. Depends on target's type. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]
 (** Rule configuration to apply to a matched request. **Modifying this attribute will force creation of a new resource.** *)
 
 type cloudflare_access_rule = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  mode : string;
+  id : string prop option; [@option]  (** id *)
+  mode : string prop;
       (** The action to apply to a matched request. Available values: `block`, `challenge`, `whitelist`, `js_challenge`, `managed_challenge`. *)
-  notes : string option; [@option]
+  notes : string prop option; [@option]
       (** A personal note about the rule. Typically used as a reminder or explanation for the rule. *)
-  zone_id : string option; [@option]
+  zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
   configuration : cloudflare_access_rule__configuration list;
 }

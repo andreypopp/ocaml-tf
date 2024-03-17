@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_storage_mover_source_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_mover_source_endpoint__timeouts *)
 
 type azurerm_storage_mover_source_endpoint = {
-  description : string option; [@option]  (** description *)
-  export : string option; [@option]  (** export *)
-  host : string;  (** host *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  nfs_version : string option; [@option]  (** nfs_version *)
-  storage_mover_id : string;  (** storage_mover_id *)
+  description : string prop option; [@option]  (** description *)
+  export : string prop option; [@option]  (** export *)
+  host : string prop;  (** host *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  nfs_version : string prop option; [@option]  (** nfs_version *)
+  storage_mover_id : string prop;  (** storage_mover_id *)
   timeouts : azurerm_storage_mover_source_endpoint__timeouts option;
 }
 [@@deriving yojson_of]

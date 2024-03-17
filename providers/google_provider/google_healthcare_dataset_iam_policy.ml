@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_healthcare_dataset_iam_policy = {
-  dataset_id : string;  (** dataset_id *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
+  dataset_id : string prop;  (** dataset_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_healthcare_dataset_iam_policy *)

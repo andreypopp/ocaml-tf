@@ -5,13 +5,15 @@
 open! Tf.Prelude
 
 type aws_lambda_invocation = {
-  function_name : string;  (** function_name *)
-  id : string option; [@option]  (** id *)
-  input : string;  (** input *)
-  lifecycle_scope : string option; [@option]  (** lifecycle_scope *)
-  qualifier : string option; [@option]  (** qualifier *)
-  terraform_key : string option; [@option]  (** terraform_key *)
-  triggers : (string * string) list option; [@option]  (** triggers *)
+  function_name : string prop;  (** function_name *)
+  id : string prop option; [@option]  (** id *)
+  input : string prop;  (** input *)
+  lifecycle_scope : string prop option; [@option]
+      (** lifecycle_scope *)
+  qualifier : string prop option; [@option]  (** qualifier *)
+  terraform_key : string prop option; [@option]  (** terraform_key *)
+  triggers : (string * string prop) list option; [@option]
+      (** triggers *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_invocation *)

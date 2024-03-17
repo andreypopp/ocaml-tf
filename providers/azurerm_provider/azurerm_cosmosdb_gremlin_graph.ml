@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_gremlin_graph__autoscale_settings = {
-  max_throughput : float option; [@option]  (** max_throughput *)
+  max_throughput : float prop option; [@option]  (** max_throughput *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_gremlin_graph__autoscale_settings *)
 
 type azurerm_cosmosdb_gremlin_graph__conflict_resolution_policy = {
-  conflict_resolution_path : string option; [@option]
+  conflict_resolution_path : string prop option; [@option]
       (** conflict_resolution_path *)
-  conflict_resolution_procedure : string option; [@option]
+  conflict_resolution_procedure : string prop option; [@option]
       (** conflict_resolution_procedure *)
-  mode : string;  (** mode *)
+  mode : string prop;  (** mode *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_gremlin_graph__conflict_resolution_policy *)
 
 type azurerm_cosmosdb_gremlin_graph__index_policy__composite_index__index = {
-  order : string;  (** order *)
-  path : string;  (** path *)
+  order : string prop;  (** order *)
+  path : string prop;  (** path *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_gremlin_graph__index_policy__composite_index__index *)
@@ -36,19 +36,19 @@ type azurerm_cosmosdb_gremlin_graph__index_policy__composite_index = {
 (** azurerm_cosmosdb_gremlin_graph__index_policy__composite_index *)
 
 type azurerm_cosmosdb_gremlin_graph__index_policy__spatial_index = {
-  path : string;  (** path *)
-  types : string list;  (** types *)
+  path : string prop;  (** path *)
+  types : string prop list;  (** types *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_gremlin_graph__index_policy__spatial_index *)
 
 type azurerm_cosmosdb_gremlin_graph__index_policy = {
-  automatic : bool option; [@option]  (** automatic *)
-  excluded_paths : string list option; [@option]
+  automatic : bool prop option; [@option]  (** automatic *)
+  excluded_paths : string prop list option; [@option]
       (** excluded_paths *)
-  included_paths : string list option; [@option]
+  included_paths : string prop list option; [@option]
       (** included_paths *)
-  indexing_mode : string;  (** indexing_mode *)
+  indexing_mode : string prop;  (** indexing_mode *)
   composite_index :
     azurerm_cosmosdb_gremlin_graph__index_policy__composite_index
     list;
@@ -59,33 +59,33 @@ type azurerm_cosmosdb_gremlin_graph__index_policy = {
 (** azurerm_cosmosdb_gremlin_graph__index_policy *)
 
 type azurerm_cosmosdb_gremlin_graph__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_gremlin_graph__timeouts *)
 
 type azurerm_cosmosdb_gremlin_graph__unique_key = {
-  paths : string list;  (** paths *)
+  paths : string prop list;  (** paths *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_gremlin_graph__unique_key *)
 
 type azurerm_cosmosdb_gremlin_graph = {
-  account_name : string;  (** account_name *)
-  analytical_storage_ttl : float option; [@option]
+  account_name : string prop;  (** account_name *)
+  analytical_storage_ttl : float prop option; [@option]
       (** analytical_storage_ttl *)
-  database_name : string;  (** database_name *)
-  default_ttl : float option; [@option]  (** default_ttl *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  partition_key_path : string;  (** partition_key_path *)
-  partition_key_version : float option; [@option]
+  database_name : string prop;  (** database_name *)
+  default_ttl : float prop option; [@option]  (** default_ttl *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  partition_key_path : string prop;  (** partition_key_path *)
+  partition_key_version : float prop option; [@option]
       (** partition_key_version *)
-  resource_group_name : string;  (** resource_group_name *)
-  throughput : float option; [@option]  (** throughput *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  throughput : float prop option; [@option]  (** throughput *)
   autoscale_settings :
     azurerm_cosmosdb_gremlin_graph__autoscale_settings list;
   conflict_resolution_policy :

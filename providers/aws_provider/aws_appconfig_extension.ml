@@ -5,35 +5,35 @@
 open! Tf.Prelude
 
 type aws_appconfig_extension__action_point__action = {
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  role_arn : string;  (** role_arn *)
-  uri : string;  (** uri *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  role_arn : string prop;  (** role_arn *)
+  uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
 (** aws_appconfig_extension__action_point__action *)
 
 type aws_appconfig_extension__action_point = {
-  point : string;  (** point *)
+  point : string prop;  (** point *)
   action : aws_appconfig_extension__action_point__action list;
 }
 [@@deriving yojson_of]
 (** aws_appconfig_extension__action_point *)
 
 type aws_appconfig_extension__parameter = {
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  required : bool option; [@option]  (** required *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  required : bool prop option; [@option]  (** required *)
 }
 [@@deriving yojson_of]
 (** aws_appconfig_extension__parameter *)
 
 type aws_appconfig_extension = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   action_point : aws_appconfig_extension__action_point list;
   parameter : aws_appconfig_extension__parameter list;

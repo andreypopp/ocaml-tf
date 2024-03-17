@@ -11,7 +11,7 @@ type aws_securitylake_data_lake__configuration__lifecycle_configuration
 type aws_securitylake_data_lake__configuration__replication_configuration
 
 type aws_securitylake_data_lake__configuration__encryption_configuration = {
-  kms_key_id : string;  (** kms_key_id *)
+  kms_key_id : string prop;  (** kms_key_id *)
 }
 
 type aws_securitylake_data_lake__configuration
@@ -19,9 +19,9 @@ type aws_securitylake_data_lake__timeouts
 type aws_securitylake_data_lake
 
 val aws_securitylake_data_lake :
-  ?tags:(string * string) list ->
+  ?tags:(string * string prop) list ->
   ?timeouts:aws_securitylake_data_lake__timeouts ->
-  meta_store_manager_role_arn:string ->
+  meta_store_manager_role_arn:string prop ->
   configuration:aws_securitylake_data_lake__configuration list ->
   string ->
   unit

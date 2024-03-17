@@ -5,10 +5,10 @@ open! Tf.Prelude
 type google_cloudfunctions_function_iam_policy
 
 val google_cloudfunctions_function_iam_policy :
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
-  cloud_function:string ->
-  policy_data:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  cloud_function:string prop ->
+  policy_data:string prop ->
   string ->
   unit

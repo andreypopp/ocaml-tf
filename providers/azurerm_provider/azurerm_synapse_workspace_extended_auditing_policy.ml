@@ -5,27 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_synapse_workspace_extended_auditing_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_workspace_extended_auditing_policy__timeouts *)
 
 type azurerm_synapse_workspace_extended_auditing_policy = {
-  id : string option; [@option]  (** id *)
-  log_monitoring_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  log_monitoring_enabled : bool prop option; [@option]
       (** log_monitoring_enabled *)
-  retention_in_days : float option; [@option]
+  retention_in_days : float prop option; [@option]
       (** retention_in_days *)
-  storage_account_access_key : string option; [@option]
+  storage_account_access_key : string prop option; [@option]
       (** storage_account_access_key *)
-  storage_account_access_key_is_secondary : bool option; [@option]
+  storage_account_access_key_is_secondary : bool prop option;
+      [@option]
       (** storage_account_access_key_is_secondary *)
-  storage_endpoint : string option; [@option]
+  storage_endpoint : string prop option; [@option]
       (** storage_endpoint *)
-  synapse_workspace_id : string;  (** synapse_workspace_id *)
+  synapse_workspace_id : string prop;  (** synapse_workspace_id *)
   timeouts :
     azurerm_synapse_workspace_extended_auditing_policy__timeouts
     option;

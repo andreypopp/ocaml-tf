@@ -6,16 +6,16 @@ type azurerm_databricks_virtual_network_peering__timeouts
 type azurerm_databricks_virtual_network_peering
 
 val azurerm_databricks_virtual_network_peering :
-  ?allow_forwarded_traffic:bool ->
-  ?allow_gateway_transit:bool ->
-  ?allow_virtual_network_access:bool ->
-  ?id:string ->
-  ?use_remote_gateways:bool ->
+  ?allow_forwarded_traffic:bool prop ->
+  ?allow_gateway_transit:bool prop ->
+  ?allow_virtual_network_access:bool prop ->
+  ?id:string prop ->
+  ?use_remote_gateways:bool prop ->
   ?timeouts:azurerm_databricks_virtual_network_peering__timeouts ->
-  name:string ->
-  remote_address_space_prefixes:string list ->
-  remote_virtual_network_id:string ->
-  resource_group_name:string ->
-  workspace_id:string ->
+  name:string prop ->
+  remote_address_space_prefixes:string prop list ->
+  remote_virtual_network_id:string prop ->
+  resource_group_name:string prop ->
+  workspace_id:string prop ->
   string ->
   unit

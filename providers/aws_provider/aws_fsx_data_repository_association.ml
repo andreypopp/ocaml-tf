@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_fsx_data_repository_association__s3__auto_export_policy = {
-  events : string list option; [@option]  (** events *)
+  events : string prop list option; [@option]  (** events *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_data_repository_association__s3__auto_export_policy *)
 
 type aws_fsx_data_repository_association__s3__auto_import_policy = {
-  events : string list option; [@option]  (** events *)
+  events : string prop list option; [@option]  (** events *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_data_repository_association__s3__auto_import_policy *)
@@ -26,26 +26,26 @@ type aws_fsx_data_repository_association__s3 = {
 (** aws_fsx_data_repository_association__s3 *)
 
 type aws_fsx_data_repository_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_data_repository_association__timeouts *)
 
 type aws_fsx_data_repository_association = {
-  batch_import_meta_data_on_create : bool option; [@option]
+  batch_import_meta_data_on_create : bool prop option; [@option]
       (** batch_import_meta_data_on_create *)
-  data_repository_path : string;  (** data_repository_path *)
-  delete_data_in_filesystem : bool option; [@option]
+  data_repository_path : string prop;  (** data_repository_path *)
+  delete_data_in_filesystem : bool prop option; [@option]
       (** delete_data_in_filesystem *)
-  file_system_id : string;  (** file_system_id *)
-  file_system_path : string;  (** file_system_path *)
-  id : string option; [@option]  (** id *)
-  imported_file_chunk_size : float option; [@option]
+  file_system_id : string prop;  (** file_system_id *)
+  file_system_path : string prop;  (** file_system_path *)
+  id : string prop option; [@option]  (** id *)
+  imported_file_chunk_size : float prop option; [@option]
       (** imported_file_chunk_size *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   s3 : aws_fsx_data_repository_association__s3 list;
   timeouts : aws_fsx_data_repository_association__timeouts option;

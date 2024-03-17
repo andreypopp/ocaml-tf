@@ -6,13 +6,13 @@ type digitalocean_custom_image__timeouts
 type digitalocean_custom_image
 
 val digitalocean_custom_image :
-  ?description:string ->
-  ?distribution:string ->
-  ?id:string ->
-  ?tags:string list ->
+  ?description:string prop ->
+  ?distribution:string prop ->
+  ?id:string prop ->
+  ?tags:string prop list ->
   ?timeouts:digitalocean_custom_image__timeouts ->
-  name:string ->
-  regions:string list ->
-  url:string ->
+  name:string prop ->
+  regions:string prop list ->
+  url:string prop ->
   string ->
   unit

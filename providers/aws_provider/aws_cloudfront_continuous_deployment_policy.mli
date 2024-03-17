@@ -14,7 +14,7 @@ type aws_cloudfront_continuous_deployment_policy__traffic_config
 type aws_cloudfront_continuous_deployment_policy
 
 val aws_cloudfront_continuous_deployment_policy :
-  enabled:bool ->
+  enabled:bool prop ->
   staging_distribution_dns_names:
     aws_cloudfront_continuous_deployment_policy__staging_distribution_dns_names
     list ->

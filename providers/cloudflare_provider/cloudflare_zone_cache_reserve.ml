@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_zone_cache_reserve = {
-  enabled : bool;
+  enabled : bool prop;
       (** Whether to enable or disable Cache Reserve support for a given zone. *)
-  id : string option; [@option]  (** id *)
-  zone_id : string;
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

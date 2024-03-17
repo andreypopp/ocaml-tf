@@ -64,9 +64,9 @@ type google_dataproc_workflow_template__placement__managed_cluster__config__mast
 type google_dataproc_workflow_template__placement__managed_cluster__config__master_config__disk_config
 
 type google_dataproc_workflow_template__placement__managed_cluster__config__master_config__managed_group_config = {
-  instance_group_manager_name : string;
+  instance_group_manager_name : string prop;
       (** instance_group_manager_name *)
-  instance_template_name : string;  (** instance_template_name *)
+  instance_template_name : string prop;  (** instance_template_name *)
 }
 
 type google_dataproc_workflow_template__placement__managed_cluster__config__master_config
@@ -76,9 +76,9 @@ type google_dataproc_workflow_template__placement__managed_cluster__config__seco
 type google_dataproc_workflow_template__placement__managed_cluster__config__secondary_worker_config__disk_config
 
 type google_dataproc_workflow_template__placement__managed_cluster__config__secondary_worker_config__managed_group_config = {
-  instance_group_manager_name : string;
+  instance_group_manager_name : string prop;
       (** instance_group_manager_name *)
-  instance_template_name : string;  (** instance_template_name *)
+  instance_template_name : string prop;  (** instance_template_name *)
 }
 
 type google_dataproc_workflow_template__placement__managed_cluster__config__secondary_worker_config
@@ -94,9 +94,9 @@ type google_dataproc_workflow_template__placement__managed_cluster__config__work
 type google_dataproc_workflow_template__placement__managed_cluster__config__worker_config__disk_config
 
 type google_dataproc_workflow_template__placement__managed_cluster__config__worker_config__managed_group_config = {
-  instance_group_manager_name : string;
+  instance_group_manager_name : string prop;
       (** instance_group_manager_name *)
-  instance_template_name : string;  (** instance_template_name *)
+  instance_template_name : string prop;  (** instance_template_name *)
 }
 
 type google_dataproc_workflow_template__placement__managed_cluster__config__worker_config
@@ -109,14 +109,14 @@ type google_dataproc_workflow_template__timeouts
 type google_dataproc_workflow_template
 
 val google_dataproc_workflow_template :
-  ?dag_timeout:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?version:float ->
+  ?dag_timeout:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?version:float prop ->
   ?timeouts:google_dataproc_workflow_template__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   jobs:google_dataproc_workflow_template__jobs list ->
   parameters:google_dataproc_workflow_template__parameters list ->
   placement:google_dataproc_workflow_template__placement list ->

@@ -9,21 +9,21 @@ type aws_launch_configuration__root_block_device
 type aws_launch_configuration
 
 val aws_launch_configuration :
-  ?associate_public_ip_address:bool ->
-  ?ebs_optimized:bool ->
-  ?enable_monitoring:bool ->
-  ?iam_instance_profile:string ->
-  ?id:string ->
-  ?key_name:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?placement_tenancy:string ->
-  ?security_groups:string list ->
-  ?spot_price:string ->
-  ?user_data:string ->
-  ?user_data_base64:string ->
-  image_id:string ->
-  instance_type:string ->
+  ?associate_public_ip_address:bool prop ->
+  ?ebs_optimized:bool prop ->
+  ?enable_monitoring:bool prop ->
+  ?iam_instance_profile:string prop ->
+  ?id:string prop ->
+  ?key_name:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?placement_tenancy:string prop ->
+  ?security_groups:string prop list ->
+  ?spot_price:string prop ->
+  ?user_data:string prop ->
+  ?user_data_base64:string prop ->
+  image_id:string prop ->
+  instance_type:string prop ->
   ebs_block_device:aws_launch_configuration__ebs_block_device list ->
   ephemeral_block_device:
     aws_launch_configuration__ephemeral_block_device list ->

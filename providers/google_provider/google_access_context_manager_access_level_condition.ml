@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_access_context_manager_access_level_condition__device_policy__os_constraints = {
-  minimum_version : string option; [@option]
+  minimum_version : string prop option; [@option]
       (** The minimum allowed OS version. If not set, any version
 of this OS satisfies the constraint.
 Format: major.minor.patch such as 10.5.301, 9.2.1. *)
-  os_type : string;
+  os_type : string prop;
       (** The operating system type of the device. Possible values: [OS_UNSPECIFIED, DESKTOP_MAC, DESKTOP_WINDOWS, DESKTOP_LINUX, DESKTOP_CHROME_OS, ANDROID, IOS] *)
 }
 [@@deriving yojson_of]
@@ -17,17 +17,18 @@ Format: major.minor.patch such as 10.5.301, 9.2.1. *)
 An empty list allows all types and all versions. *)
 
 type google_access_context_manager_access_level_condition__device_policy = {
-  allowed_device_management_levels : string list option; [@option]
+  allowed_device_management_levels : string prop list option;
+      [@option]
       (** A list of allowed device management levels.
 An empty list allows all management levels. Possible values: [MANAGEMENT_UNSPECIFIED, NONE, BASIC, COMPLETE] *)
-  allowed_encryption_statuses : string list option; [@option]
+  allowed_encryption_statuses : string prop list option; [@option]
       (** A list of allowed encryptions statuses.
 An empty list allows all statuses. Possible values: [ENCRYPTION_UNSPECIFIED, ENCRYPTION_UNSUPPORTED, UNENCRYPTED, ENCRYPTED] *)
-  require_admin_approval : bool option; [@option]
+  require_admin_approval : bool prop option; [@option]
       (** Whether the device needs to be approved by the customer admin. *)
-  require_corp_owned : bool option; [@option]
+  require_corp_owned : bool prop option; [@option]
       (** Whether the device needs to be corp owned. *)
-  require_screen_lock : bool option; [@option]
+  require_screen_lock : bool prop option; [@option]
       (** Whether or not screenlock is required for the DevicePolicy
 to be true. Defaults to false. *)
   os_constraints :
@@ -40,16 +41,16 @@ the Condition to be true. If not specified, all devices are
 allowed. *)
 
 type google_access_context_manager_access_level_condition__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_access_context_manager_access_level_condition__timeouts *)
 
 type google_access_context_manager_access_level_condition__vpc_network_sources__vpc_subnetwork = {
-  network : string;
+  network : string prop;
       (** Required. Network name to be allowed by this Access Level. Networks of foreign organizations requires 'compute.network.get' permission to be granted to caller. *)
-  vpc_ip_subnetworks : string list option; [@option]
+  vpc_ip_subnetworks : string prop list option; [@option]
       (** CIDR block IP subnetwork specification. Must be IPv4. *)
 }
 [@@deriving yojson_of]
@@ -64,10 +65,10 @@ type google_access_context_manager_access_level_condition__vpc_network_sources =
 (** The request must originate from one of the provided VPC networks in Google Cloud. Cannot specify this field together with 'ip_subnetworks'. *)
 
 type google_access_context_manager_access_level_condition = {
-  access_level : string;
+  access_level : string prop;
       (** The name of the Access Level to add this condition to. *)
-  id : string option; [@option]  (** id *)
-  ip_subnetworks : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ip_subnetworks : string prop list option; [@option]
       (** A list of CIDR block IP subnetwork specification. May be IPv4
 or IPv6.
 Note that for a CIDR IP address block, the specified IP address
@@ -78,7 +79,7 @@ for IPv6, 2001:db8::/32 is accepted whereas 2001:db8::1/32
 is not. The originating IP of a request must be in one of the
 listed subnets in order for this Condition to be true.
 If empty, all IP addresses are allowed. *)
-  members : string list option; [@option]
+  members : string prop list option; [@option]
       (** An allowed list of members (users, service accounts).
 Using groups is not supported yet.
 
@@ -87,15 +88,15 @@ of the provided members. If not specified, a request may come
 from any user (logged in/not logged in, not present in any
 groups, etc.).
 Formats: 'user:{emailid}', 'serviceAccount:{emailid}' *)
-  negate : bool option; [@option]
+  negate : bool prop option; [@option]
       (** Whether to negate the Condition. If true, the Condition becomes
 a NAND over its non-empty fields, each field must be false for
 the Condition overall to be satisfied. Defaults to false. *)
-  regions : string list option; [@option]
+  regions : string prop list option; [@option]
       (** The request must originate from one of the provided
 countries/regions.
 Format: A valid ISO 3166-1 alpha-2 code. *)
-  required_access_levels : string list option; [@option]
+  required_access_levels : string prop list option; [@option]
       (** A list of other access levels defined in the same Policy,
 referenced by resource name. Referencing an AccessLevel which
 does not exist is an error. All access levels listed must be

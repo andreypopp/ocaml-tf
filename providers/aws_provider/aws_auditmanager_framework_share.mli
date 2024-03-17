@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_auditmanager_framework_share
 
 val aws_auditmanager_framework_share :
-  ?comment:string ->
-  destination_account:string ->
-  destination_region:string ->
-  framework_id:string ->
+  ?comment:string prop ->
+  destination_account:string prop ->
+  destination_region:string prop ->
+  framework_id:string prop ->
   string ->
   unit

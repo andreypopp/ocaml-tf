@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_cognito_identity_provider
 
 val aws_cognito_identity_provider :
-  ?attribute_mapping:(string * string) list ->
-  ?id:string ->
-  ?idp_identifiers:string list ->
-  provider_details:(string * string) list ->
-  provider_name:string ->
-  provider_type:string ->
-  user_pool_id:string ->
+  ?attribute_mapping:(string * string prop) list ->
+  ?id:string prop ->
+  ?idp_identifiers:string prop list ->
+  provider_details:(string * string prop) list ->
+  provider_name:string prop ->
+  provider_type:string prop ->
+  user_pool_id:string prop ->
   string ->
   unit

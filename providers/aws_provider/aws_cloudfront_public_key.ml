@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_cloudfront_public_key = {
-  comment : string option; [@option]  (** comment *)
-  encoded_key : string;  (** encoded_key *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
+  comment : string prop option; [@option]  (** comment *)
+  encoded_key : string prop;  (** encoded_key *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_public_key *)

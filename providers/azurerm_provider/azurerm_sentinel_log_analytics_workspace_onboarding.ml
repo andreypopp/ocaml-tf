@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_log_analytics_workspace_onboarding__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_log_analytics_workspace_onboarding__timeouts *)
 
 type azurerm_sentinel_log_analytics_workspace_onboarding = {
-  customer_managed_key_enabled : bool option; [@option]
+  customer_managed_key_enabled : bool prop option; [@option]
       (** customer_managed_key_enabled *)
-  id : string option; [@option]  (** id *)
-  resource_group_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  resource_group_name : string prop option; [@option]
       (** resource_group_name *)
-  workspace_id : string option; [@option]  (** workspace_id *)
-  workspace_name : string option; [@option]  (** workspace_name *)
+  workspace_id : string prop option; [@option]  (** workspace_id *)
+  workspace_name : string prop option; [@option]
+      (** workspace_name *)
   timeouts :
     azurerm_sentinel_log_analytics_workspace_onboarding__timeouts
     option;

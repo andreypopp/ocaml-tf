@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type aws_config_delivery_channel__snapshot_delivery_properties = {
-  delivery_frequency : string option; [@option]
+  delivery_frequency : string prop option; [@option]
       (** delivery_frequency *)
 }
 [@@deriving yojson_of]
 (** aws_config_delivery_channel__snapshot_delivery_properties *)
 
 type aws_config_delivery_channel = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  s3_bucket_name : string;  (** s3_bucket_name *)
-  s3_key_prefix : string option; [@option]  (** s3_key_prefix *)
-  s3_kms_key_arn : string option; [@option]  (** s3_kms_key_arn *)
-  sns_topic_arn : string option; [@option]  (** sns_topic_arn *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  s3_bucket_name : string prop;  (** s3_bucket_name *)
+  s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
+  s3_kms_key_arn : string prop option; [@option]
+      (** s3_kms_key_arn *)
+  sns_topic_arn : string prop option; [@option]  (** sns_topic_arn *)
   snapshot_delivery_properties :
     aws_config_delivery_channel__snapshot_delivery_properties list;
 }

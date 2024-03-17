@@ -16,19 +16,19 @@ type google_dialogflow_cx_agent__timeouts
 type google_dialogflow_cx_agent
 
 val google_dialogflow_cx_agent :
-  ?avatar_uri:string ->
-  ?description:string ->
-  ?enable_spell_correction:bool ->
-  ?enable_stackdriver_logging:bool ->
-  ?id:string ->
-  ?project:string ->
-  ?security_settings:string ->
-  ?supported_language_codes:string list ->
+  ?avatar_uri:string prop ->
+  ?description:string prop ->
+  ?enable_spell_correction:bool prop ->
+  ?enable_stackdriver_logging:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?security_settings:string prop ->
+  ?supported_language_codes:string prop list ->
   ?timeouts:google_dialogflow_cx_agent__timeouts ->
-  default_language_code:string ->
-  display_name:string ->
-  location:string ->
-  time_zone:string ->
+  default_language_code:string prop ->
+  display_name:string prop ->
+  location:string prop ->
+  time_zone:string prop ->
   advanced_settings:
     google_dialogflow_cx_agent__advanced_settings list ->
   git_integration_settings:

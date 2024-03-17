@@ -6,13 +6,13 @@ type azurerm_netapp_snapshot__timeouts
 type azurerm_netapp_snapshot
 
 val azurerm_netapp_snapshot :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_netapp_snapshot__timeouts ->
-  account_name:string ->
-  location:string ->
-  name:string ->
-  pool_name:string ->
-  resource_group_name:string ->
-  volume_name:string ->
+  account_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  pool_name:string prop ->
+  resource_group_name:string prop ->
+  volume_name:string prop ->
   string ->
   unit

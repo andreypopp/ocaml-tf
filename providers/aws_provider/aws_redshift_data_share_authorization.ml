@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_redshift_data_share_authorization = {
-  allow_writes : bool option; [@option]  (** allow_writes *)
-  consumer_identifier : string;  (** consumer_identifier *)
-  data_share_arn : string;  (** data_share_arn *)
+  allow_writes : bool prop option; [@option]  (** allow_writes *)
+  consumer_identifier : string prop;  (** consumer_identifier *)
+  data_share_arn : string prop;  (** data_share_arn *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_data_share_authorization *)

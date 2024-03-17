@@ -6,14 +6,14 @@ type azurerm_aadb2c_directory__timeouts
 type azurerm_aadb2c_directory
 
 val azurerm_aadb2c_directory :
-  ?country_code:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?country_code:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_aadb2c_directory__timeouts ->
-  data_residency_location:string ->
-  domain_name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
+  data_residency_location:string prop ->
+  domain_name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
   string ->
   unit

@@ -12,25 +12,25 @@ type azurerm_data_factory_dataset_delimited_text__timeouts
 type azurerm_data_factory_dataset_delimited_text
 
 val azurerm_data_factory_dataset_delimited_text :
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?column_delimiter:string ->
-  ?compression_codec:string ->
-  ?compression_level:string ->
-  ?description:string ->
-  ?encoding:string ->
-  ?escape_character:string ->
-  ?first_row_as_header:bool ->
-  ?folder:string ->
-  ?id:string ->
-  ?null_value:string ->
-  ?parameters:(string * string) list ->
-  ?quote_character:string ->
-  ?row_delimiter:string ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?column_delimiter:string prop ->
+  ?compression_codec:string prop ->
+  ?compression_level:string prop ->
+  ?description:string prop ->
+  ?encoding:string prop ->
+  ?escape_character:string prop ->
+  ?first_row_as_header:bool prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?null_value:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?quote_character:string prop ->
+  ?row_delimiter:string prop ->
   ?timeouts:azurerm_data_factory_dataset_delimited_text__timeouts ->
-  data_factory_id:string ->
-  linked_service_name:string ->
-  name:string ->
+  data_factory_id:string prop ->
+  linked_service_name:string prop ->
+  name:string prop ->
   azure_blob_fs_location:
     azurerm_data_factory_dataset_delimited_text__azure_blob_fs_location
     list ->

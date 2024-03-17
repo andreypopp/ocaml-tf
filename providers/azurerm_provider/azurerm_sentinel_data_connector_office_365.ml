@@ -5,24 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_data_connector_office_365__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_office_365__timeouts *)
 
 type azurerm_sentinel_data_connector_office_365 = {
-  exchange_enabled : bool option; [@option]  (** exchange_enabled *)
-  id : string option; [@option]  (** id *)
-  log_analytics_workspace_id : string;
+  exchange_enabled : bool prop option; [@option]
+      (** exchange_enabled *)
+  id : string prop option; [@option]  (** id *)
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  name : string;  (** name *)
-  sharepoint_enabled : bool option; [@option]
+  name : string prop;  (** name *)
+  sharepoint_enabled : bool prop option; [@option]
       (** sharepoint_enabled *)
-  teams_enabled : bool option; [@option]  (** teams_enabled *)
-  tenant_id : string option; [@option]  (** tenant_id *)
+  teams_enabled : bool prop option; [@option]  (** teams_enabled *)
+  tenant_id : string prop option; [@option]  (** tenant_id *)
   timeouts :
     azurerm_sentinel_data_connector_office_365__timeouts option;
 }

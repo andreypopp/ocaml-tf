@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_ec2_tag = {
-  id : string option; [@option]  (** id *)
-  key : string;  (** key *)
-  resource_id : string;  (** resource_id *)
-  value : string;  (** value *)
+  id : string prop option; [@option]  (** id *)
+  key : string prop;  (** key *)
+  resource_id : string prop;  (** resource_id *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_tag *)

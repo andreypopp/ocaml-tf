@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type google_service_account__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** google_service_account__timeouts *)
 
 type google_service_account = {
-  account_id : string;
+  account_id : string prop;
       (** The account id that is used to generate the service account email address and a stable unique id. It is unique within a project, must be 6-30 characters long, and match the regular expression [a-z]([-a-z0-9]*[a-z0-9]) to comply with RFC1035. Changing this forces a new service account to be created. *)
-  create_ignore_already_exists : bool option; [@option]
+  create_ignore_already_exists : bool prop option; [@option]
       (** If set to true, skip service account creation if a service account with the same email already exists. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A text description of the service account. Must be less than or equal to 256 UTF-8 bytes. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** Whether the service account is disabled. Defaults to false *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** The display name for the service account. Can be updated without creating a new resource. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]
       (** The ID of the project that the service account will be created in. Defaults to the provider project configuration. *)
   timeouts : google_service_account__timeouts option;
 }

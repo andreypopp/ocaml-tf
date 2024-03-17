@@ -5,36 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_mobile_network_sim__static_ip_configuration = {
-  attached_data_network_id : string;  (** attached_data_network_id *)
-  slice_id : string;  (** slice_id *)
-  static_ipv4_address : string option; [@option]
+  attached_data_network_id : string prop;
+      (** attached_data_network_id *)
+  slice_id : string prop;  (** slice_id *)
+  static_ipv4_address : string prop option; [@option]
       (** static_ipv4_address *)
 }
 [@@deriving yojson_of]
 (** azurerm_mobile_network_sim__static_ip_configuration *)
 
 type azurerm_mobile_network_sim__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mobile_network_sim__timeouts *)
 
 type azurerm_mobile_network_sim = {
-  authentication_key : string;  (** authentication_key *)
-  device_type : string option; [@option]  (** device_type *)
-  id : string option; [@option]  (** id *)
-  integrated_circuit_card_identifier : string;
+  authentication_key : string prop;  (** authentication_key *)
+  device_type : string prop option; [@option]  (** device_type *)
+  id : string prop option; [@option]  (** id *)
+  integrated_circuit_card_identifier : string prop;
       (** integrated_circuit_card_identifier *)
-  international_mobile_subscriber_identity : string;
+  international_mobile_subscriber_identity : string prop;
       (** international_mobile_subscriber_identity *)
-  mobile_network_sim_group_id : string;
+  mobile_network_sim_group_id : string prop;
       (** mobile_network_sim_group_id *)
-  name : string;  (** name *)
-  operator_key_code : string;  (** operator_key_code *)
-  sim_policy_id : string option; [@option]  (** sim_policy_id *)
+  name : string prop;  (** name *)
+  operator_key_code : string prop;  (** operator_key_code *)
+  sim_policy_id : string prop option; [@option]  (** sim_policy_id *)
   static_ip_configuration :
     azurerm_mobile_network_sim__static_ip_configuration list;
   timeouts : azurerm_mobile_network_sim__timeouts option;

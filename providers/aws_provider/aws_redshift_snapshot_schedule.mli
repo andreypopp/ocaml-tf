@@ -5,13 +5,13 @@ open! Tf.Prelude
 type aws_redshift_snapshot_schedule
 
 val aws_redshift_snapshot_schedule :
-  ?description:string ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?identifier:string ->
-  ?identifier_prefix:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  definitions:string list ->
+  ?description:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?identifier:string prop ->
+  ?identifier_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  definitions:string prop list ->
   string ->
   unit

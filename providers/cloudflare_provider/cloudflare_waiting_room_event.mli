@@ -5,21 +5,21 @@ open! Tf.Prelude
 type cloudflare_waiting_room_event
 
 val cloudflare_waiting_room_event :
-  ?custom_page_html:string ->
-  ?description:string ->
-  ?disable_session_renewal:bool ->
-  ?id:string ->
-  ?new_users_per_minute:float ->
-  ?prequeue_start_time:string ->
-  ?queueing_method:string ->
-  ?session_duration:float ->
-  ?shuffle_at_event_start:bool ->
-  ?suspended:bool ->
-  ?total_active_users:float ->
-  event_end_time:string ->
-  event_start_time:string ->
-  name:string ->
-  waiting_room_id:string ->
-  zone_id:string ->
+  ?custom_page_html:string prop ->
+  ?description:string prop ->
+  ?disable_session_renewal:bool prop ->
+  ?id:string prop ->
+  ?new_users_per_minute:float prop ->
+  ?prequeue_start_time:string prop ->
+  ?queueing_method:string prop ->
+  ?session_duration:float prop ->
+  ?shuffle_at_event_start:bool prop ->
+  ?suspended:bool prop ->
+  ?total_active_users:float prop ->
+  event_end_time:string prop ->
+  event_start_time:string prop ->
+  name:string prop ->
+  waiting_room_id:string prop ->
+  zone_id:string prop ->
   string ->
   unit

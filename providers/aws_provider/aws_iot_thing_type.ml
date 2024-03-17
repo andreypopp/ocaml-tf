@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_iot_thing_type__properties = {
-  description : string option; [@option]  (** description *)
-  searchable_attributes : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  searchable_attributes : string prop list option; [@option]
       (** searchable_attributes *)
 }
 [@@deriving yojson_of]
 (** aws_iot_thing_type__properties *)
 
 type aws_iot_thing_type = {
-  deprecated : bool option; [@option]  (** deprecated *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  deprecated : bool prop option; [@option]  (** deprecated *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   properties : aws_iot_thing_type__properties list;
 }

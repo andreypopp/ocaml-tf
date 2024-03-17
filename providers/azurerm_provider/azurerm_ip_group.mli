@@ -6,12 +6,12 @@ type azurerm_ip_group__timeouts
 type azurerm_ip_group
 
 val azurerm_ip_group :
-  ?cidrs:string list ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?cidrs:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_ip_group__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

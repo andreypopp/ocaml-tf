@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_pubsub_lite_reservation__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_pubsub_lite_reservation__timeouts *)
 
 type google_pubsub_lite_reservation = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** Name of the reservation. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** Name of the reservation. *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** The region of the pubsub lite reservation. *)
-  throughput_capacity : float;
+  throughput_capacity : float prop;
       (** The reserved throughput capacity. Every unit of throughput capacity is
 equivalent to 1 MiB/s of published messages or 2 MiB/s of subscribed
 messages. *)

@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type google_compute_backend_service_signed_url_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_backend_service_signed_url_key__timeouts *)
 
 type google_compute_backend_service_signed_url_key = {
-  backend_service : string;
+  backend_service : string prop;
       (** The backend service this signed URL key belongs. *)
-  id : string option; [@option]  (** id *)
-  key_value : string;
+  id : string prop option; [@option]  (** id *)
+  key_value : string prop;
       (** 128-bit key value used for signing the URL. The key value must be a
 valid RFC 4648 Section 5 base64url encoded string. *)
-  name : string;  (** Name of the signed URL key. *)
-  project : string option; [@option]  (** project *)
+  name : string prop;  (** Name of the signed URL key. *)
+  project : string prop option; [@option]  (** project *)
   timeouts :
     google_compute_backend_service_signed_url_key__timeouts option;
 }

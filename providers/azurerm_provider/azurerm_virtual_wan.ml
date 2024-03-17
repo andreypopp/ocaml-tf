@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_virtual_wan__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_wan__timeouts *)
 
 type azurerm_virtual_wan = {
-  allow_branch_to_branch_traffic : bool option; [@option]
+  allow_branch_to_branch_traffic : bool prop option; [@option]
       (** allow_branch_to_branch_traffic *)
-  disable_vpn_encryption : bool option; [@option]
+  disable_vpn_encryption : bool prop option; [@option]
       (** disable_vpn_encryption *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  office365_local_breakout_category : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  office365_local_breakout_category : string prop option; [@option]
       (** office365_local_breakout_category *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   timeouts : azurerm_virtual_wan__timeouts option;
 }
 [@@deriving yojson_of]

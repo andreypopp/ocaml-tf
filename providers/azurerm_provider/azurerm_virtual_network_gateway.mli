@@ -24,26 +24,26 @@ type azurerm_virtual_network_gateway__vpn_client_configuration
 type azurerm_virtual_network_gateway
 
 val azurerm_virtual_network_gateway :
-  ?active_active:bool ->
-  ?bgp_route_translation_for_nat_enabled:bool ->
-  ?default_local_network_gateway_id:string ->
-  ?dns_forwarding_enabled:bool ->
-  ?edge_zone:string ->
-  ?enable_bgp:bool ->
-  ?generation:string ->
-  ?id:string ->
-  ?ip_sec_replay_protection_enabled:bool ->
-  ?private_ip_address_enabled:bool ->
-  ?remote_vnet_traffic_enabled:bool ->
-  ?tags:(string * string) list ->
-  ?virtual_wan_traffic_enabled:bool ->
-  ?vpn_type:string ->
+  ?active_active:bool prop ->
+  ?bgp_route_translation_for_nat_enabled:bool prop ->
+  ?default_local_network_gateway_id:string prop ->
+  ?dns_forwarding_enabled:bool prop ->
+  ?edge_zone:string prop ->
+  ?enable_bgp:bool prop ->
+  ?generation:string prop ->
+  ?id:string prop ->
+  ?ip_sec_replay_protection_enabled:bool prop ->
+  ?private_ip_address_enabled:bool prop ->
+  ?remote_vnet_traffic_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?virtual_wan_traffic_enabled:bool prop ->
+  ?vpn_type:string prop ->
   ?timeouts:azurerm_virtual_network_gateway__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku:string ->
-  type_:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  type_:string prop ->
   bgp_settings:azurerm_virtual_network_gateway__bgp_settings list ->
   custom_route:azurerm_virtual_network_gateway__custom_route list ->
   ip_configuration:

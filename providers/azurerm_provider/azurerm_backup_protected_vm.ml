@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_backup_protected_vm__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_backup_protected_vm__timeouts *)
 
 type azurerm_backup_protected_vm = {
-  backup_policy_id : string option; [@option]
+  backup_policy_id : string prop option; [@option]
       (** backup_policy_id *)
-  exclude_disk_luns : float list option; [@option]
+  exclude_disk_luns : float prop list option; [@option]
       (** exclude_disk_luns *)
-  id : string option; [@option]  (** id *)
-  include_disk_luns : float list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  include_disk_luns : float prop list option; [@option]
       (** include_disk_luns *)
-  protection_state : string option; [@option]
+  protection_state : string prop option; [@option]
       (** protection_state *)
-  recovery_vault_name : string;  (** recovery_vault_name *)
-  resource_group_name : string;  (** resource_group_name *)
-  source_vm_id : string option; [@option]  (** source_vm_id *)
+  recovery_vault_name : string prop;  (** recovery_vault_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  source_vm_id : string prop option; [@option]  (** source_vm_id *)
   timeouts : azurerm_backup_protected_vm__timeouts option;
 }
 [@@deriving yojson_of]

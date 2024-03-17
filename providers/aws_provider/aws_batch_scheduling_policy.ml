@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_batch_scheduling_policy__fair_share_policy__share_distribution = {
-  share_identifier : string;  (** share_identifier *)
-  weight_factor : float option; [@option]  (** weight_factor *)
+  share_identifier : string prop;  (** share_identifier *)
+  weight_factor : float prop option; [@option]  (** weight_factor *)
 }
 [@@deriving yojson_of]
 (** aws_batch_scheduling_policy__fair_share_policy__share_distribution *)
 
 type aws_batch_scheduling_policy__fair_share_policy = {
-  compute_reservation : float option; [@option]
+  compute_reservation : float prop option; [@option]
       (** compute_reservation *)
-  share_decay_seconds : float option; [@option]
+  share_decay_seconds : float prop option; [@option]
       (** share_decay_seconds *)
   share_distribution :
     aws_batch_scheduling_policy__fair_share_policy__share_distribution
@@ -24,10 +24,10 @@ type aws_batch_scheduling_policy__fair_share_policy = {
 (** aws_batch_scheduling_policy__fair_share_policy *)
 
 type aws_batch_scheduling_policy = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   fair_share_policy :
     aws_batch_scheduling_policy__fair_share_policy list;

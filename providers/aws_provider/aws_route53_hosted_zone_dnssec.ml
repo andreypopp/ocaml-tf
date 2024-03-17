@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type aws_route53_hosted_zone_dnssec = {
-  hosted_zone_id : string;  (** hosted_zone_id *)
-  id : string option; [@option]  (** id *)
-  signing_status : string option; [@option]  (** signing_status *)
+  hosted_zone_id : string prop;  (** hosted_zone_id *)
+  id : string prop option; [@option]  (** id *)
+  signing_status : string prop option; [@option]
+      (** signing_status *)
 }
 [@@deriving yojson_of]
 (** aws_route53_hosted_zone_dnssec *)

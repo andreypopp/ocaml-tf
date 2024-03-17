@@ -21,14 +21,14 @@ type google_cloudfunctions2_function__timeouts
 type google_cloudfunctions2_function
 
 val google_cloudfunctions2_function :
-  ?description:string ->
-  ?id:string ->
-  ?kms_key_name:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_cloudfunctions2_function__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   build_config:google_cloudfunctions2_function__build_config list ->
   event_trigger:google_cloudfunctions2_function__event_trigger list ->
   service_config:google_cloudfunctions2_function__service_config list ->

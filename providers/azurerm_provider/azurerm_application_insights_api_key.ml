@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_application_insights_api_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_api_key__timeouts *)
 
 type azurerm_application_insights_api_key = {
-  application_insights_id : string;  (** application_insights_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  read_permissions : string list option; [@option]
+  application_insights_id : string prop;
+      (** application_insights_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  read_permissions : string prop list option; [@option]
       (** read_permissions *)
-  write_permissions : string list option; [@option]
+  write_permissions : string prop list option; [@option]
       (** write_permissions *)
   timeouts : azurerm_application_insights_api_key__timeouts option;
 }

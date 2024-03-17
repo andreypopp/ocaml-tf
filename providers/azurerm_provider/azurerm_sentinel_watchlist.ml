@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_watchlist__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_watchlist__timeouts *)
 
 type azurerm_sentinel_watchlist = {
-  default_duration : string option; [@option]
+  default_duration : string prop option; [@option]
       (** default_duration *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  item_search_key : string;  (** item_search_key *)
-  labels : string list option; [@option]  (** labels *)
-  log_analytics_workspace_id : string;
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  item_search_key : string prop;  (** item_search_key *)
+  labels : string prop list option; [@option]  (** labels *)
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   timeouts : azurerm_sentinel_watchlist__timeouts option;
 }
 [@@deriving yojson_of]

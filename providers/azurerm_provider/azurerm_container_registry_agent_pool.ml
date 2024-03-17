@@ -5,24 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_container_registry_agent_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_container_registry_agent_pool__timeouts *)
 
 type azurerm_container_registry_agent_pool = {
-  container_registry_name : string;  (** container_registry_name *)
-  id : string option; [@option]  (** id *)
-  instance_count : float option; [@option]  (** instance_count *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tier : string option; [@option]  (** tier *)
-  virtual_network_subnet_id : string option; [@option]
+  container_registry_name : string prop;
+      (** container_registry_name *)
+  id : string prop option; [@option]  (** id *)
+  instance_count : float prop option; [@option]
+      (** instance_count *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tier : string prop option; [@option]  (** tier *)
+  virtual_network_subnet_id : string prop option; [@option]
       (** virtual_network_subnet_id *)
   timeouts : azurerm_container_registry_agent_pool__timeouts option;
 }

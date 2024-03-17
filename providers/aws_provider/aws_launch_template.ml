@@ -5,39 +5,40 @@
 open! Tf.Prelude
 
 type aws_launch_template__block_device_mappings__ebs = {
-  delete_on_termination : string option; [@option]
+  delete_on_termination : string prop option; [@option]
       (** delete_on_termination *)
-  encrypted : string option; [@option]  (** encrypted *)
-  iops : float option; [@option]  (** iops *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  snapshot_id : string option; [@option]  (** snapshot_id *)
-  throughput : float option; [@option]  (** throughput *)
-  volume_size : float option; [@option]  (** volume_size *)
-  volume_type : string option; [@option]  (** volume_type *)
+  encrypted : string prop option; [@option]  (** encrypted *)
+  iops : float prop option; [@option]  (** iops *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  snapshot_id : string prop option; [@option]  (** snapshot_id *)
+  throughput : float prop option; [@option]  (** throughput *)
+  volume_size : float prop option; [@option]  (** volume_size *)
+  volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__block_device_mappings__ebs *)
 
 type aws_launch_template__block_device_mappings = {
-  device_name : string option; [@option]  (** device_name *)
-  no_device : string option; [@option]  (** no_device *)
-  virtual_name : string option; [@option]  (** virtual_name *)
+  device_name : string prop option; [@option]  (** device_name *)
+  no_device : string prop option; [@option]  (** no_device *)
+  virtual_name : string prop option; [@option]  (** virtual_name *)
   ebs : aws_launch_template__block_device_mappings__ebs list;
 }
 [@@deriving yojson_of]
 (** aws_launch_template__block_device_mappings *)
 
 type aws_launch_template__capacity_reservation_specification__capacity_reservation_target = {
-  capacity_reservation_id : string option; [@option]
+  capacity_reservation_id : string prop option; [@option]
       (** capacity_reservation_id *)
-  capacity_reservation_resource_group_arn : string option; [@option]
+  capacity_reservation_resource_group_arn : string prop option;
+      [@option]
       (** capacity_reservation_resource_group_arn *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__capacity_reservation_specification__capacity_reservation_target *)
 
 type aws_launch_template__capacity_reservation_specification = {
-  capacity_reservation_preference : string option; [@option]
+  capacity_reservation_preference : string prop option; [@option]
       (** capacity_reservation_preference *)
   capacity_reservation_target :
     aws_launch_template__capacity_reservation_specification__capacity_reservation_target
@@ -47,65 +48,66 @@ type aws_launch_template__capacity_reservation_specification = {
 (** aws_launch_template__capacity_reservation_specification *)
 
 type aws_launch_template__cpu_options = {
-  amd_sev_snp : string option; [@option]  (** amd_sev_snp *)
-  core_count : float option; [@option]  (** core_count *)
-  threads_per_core : float option; [@option]  (** threads_per_core *)
+  amd_sev_snp : string prop option; [@option]  (** amd_sev_snp *)
+  core_count : float prop option; [@option]  (** core_count *)
+  threads_per_core : float prop option; [@option]
+      (** threads_per_core *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__cpu_options *)
 
 type aws_launch_template__credit_specification = {
-  cpu_credits : string option; [@option]  (** cpu_credits *)
+  cpu_credits : string prop option; [@option]  (** cpu_credits *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__credit_specification *)
 
 type aws_launch_template__elastic_gpu_specifications = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__elastic_gpu_specifications *)
 
 type aws_launch_template__elastic_inference_accelerator = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__elastic_inference_accelerator *)
 
 type aws_launch_template__enclave_options = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__enclave_options *)
 
 type aws_launch_template__hibernation_options = {
-  configured : bool;  (** configured *)
+  configured : bool prop;  (** configured *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__hibernation_options *)
 
 type aws_launch_template__iam_instance_profile = {
-  arn : string option; [@option]  (** arn *)
-  name : string option; [@option]  (** name *)
+  arn : string prop option; [@option]  (** arn *)
+  name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__iam_instance_profile *)
 
 type aws_launch_template__instance_market_options__spot_options = {
-  block_duration_minutes : float option; [@option]
+  block_duration_minutes : float prop option; [@option]
       (** block_duration_minutes *)
-  instance_interruption_behavior : string option; [@option]
+  instance_interruption_behavior : string prop option; [@option]
       (** instance_interruption_behavior *)
-  max_price : string option; [@option]  (** max_price *)
-  spot_instance_type : string option; [@option]
+  max_price : string prop option; [@option]  (** max_price *)
+  spot_instance_type : string prop option; [@option]
       (** spot_instance_type *)
-  valid_until : string option; [@option]  (** valid_until *)
+  valid_until : string prop option; [@option]  (** valid_until *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__instance_market_options__spot_options *)
 
 type aws_launch_template__instance_market_options = {
-  market_type : string option; [@option]  (** market_type *)
+  market_type : string prop option; [@option]  (** market_type *)
   spot_options :
     aws_launch_template__instance_market_options__spot_options list;
 }
@@ -113,95 +115,96 @@ type aws_launch_template__instance_market_options = {
 (** aws_launch_template__instance_market_options *)
 
 type aws_launch_template__instance_requirements__accelerator_count = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__instance_requirements__accelerator_count *)
 
 type aws_launch_template__instance_requirements__accelerator_total_memory_mib = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__instance_requirements__accelerator_total_memory_mib *)
 
 type aws_launch_template__instance_requirements__baseline_ebs_bandwidth_mbps = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__instance_requirements__baseline_ebs_bandwidth_mbps *)
 
 type aws_launch_template__instance_requirements__memory_gib_per_vcpu = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__instance_requirements__memory_gib_per_vcpu *)
 
 type aws_launch_template__instance_requirements__memory_mib = {
-  max : float option; [@option]  (** max *)
-  min : float;  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop;  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__instance_requirements__memory_mib *)
 
 type aws_launch_template__instance_requirements__network_bandwidth_gbps = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__instance_requirements__network_bandwidth_gbps *)
 
 type aws_launch_template__instance_requirements__network_interface_count = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__instance_requirements__network_interface_count *)
 
 type aws_launch_template__instance_requirements__total_local_storage_gb = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__instance_requirements__total_local_storage_gb *)
 
 type aws_launch_template__instance_requirements__vcpu_count = {
-  max : float option; [@option]  (** max *)
-  min : float;  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop;  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__instance_requirements__vcpu_count *)
 
 type aws_launch_template__instance_requirements = {
-  accelerator_manufacturers : string list option; [@option]
+  accelerator_manufacturers : string prop list option; [@option]
       (** accelerator_manufacturers *)
-  accelerator_names : string list option; [@option]
+  accelerator_names : string prop list option; [@option]
       (** accelerator_names *)
-  accelerator_types : string list option; [@option]
+  accelerator_types : string prop list option; [@option]
       (** accelerator_types *)
-  allowed_instance_types : string list option; [@option]
+  allowed_instance_types : string prop list option; [@option]
       (** allowed_instance_types *)
-  bare_metal : string option; [@option]  (** bare_metal *)
-  burstable_performance : string option; [@option]
+  bare_metal : string prop option; [@option]  (** bare_metal *)
+  burstable_performance : string prop option; [@option]
       (** burstable_performance *)
-  cpu_manufacturers : string list option; [@option]
+  cpu_manufacturers : string prop list option; [@option]
       (** cpu_manufacturers *)
-  excluded_instance_types : string list option; [@option]
+  excluded_instance_types : string prop list option; [@option]
       (** excluded_instance_types *)
-  instance_generations : string list option; [@option]
+  instance_generations : string prop list option; [@option]
       (** instance_generations *)
-  local_storage : string option; [@option]  (** local_storage *)
-  local_storage_types : string list option; [@option]
+  local_storage : string prop option; [@option]  (** local_storage *)
+  local_storage_types : string prop list option; [@option]
       (** local_storage_types *)
-  on_demand_max_price_percentage_over_lowest_price : float option;
+  on_demand_max_price_percentage_over_lowest_price :
+    float prop option;
       [@option]
       (** on_demand_max_price_percentage_over_lowest_price *)
-  require_hibernate_support : bool option; [@option]
+  require_hibernate_support : bool prop option; [@option]
       (** require_hibernate_support *)
-  spot_max_price_percentage_over_lowest_price : float option;
+  spot_max_price_percentage_over_lowest_price : float prop option;
       [@option]
       (** spot_max_price_percentage_over_lowest_price *)
   accelerator_count :
@@ -234,132 +237,139 @@ type aws_launch_template__instance_requirements = {
 (** aws_launch_template__instance_requirements *)
 
 type aws_launch_template__license_specification = {
-  license_configuration_arn : string;
+  license_configuration_arn : string prop;
       (** license_configuration_arn *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__license_specification *)
 
 type aws_launch_template__maintenance_options = {
-  auto_recovery : string option; [@option]  (** auto_recovery *)
+  auto_recovery : string prop option; [@option]  (** auto_recovery *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__maintenance_options *)
 
 type aws_launch_template__metadata_options = {
-  http_endpoint : string option; [@option]  (** http_endpoint *)
-  http_protocol_ipv6 : string option; [@option]
+  http_endpoint : string prop option; [@option]  (** http_endpoint *)
+  http_protocol_ipv6 : string prop option; [@option]
       (** http_protocol_ipv6 *)
-  http_put_response_hop_limit : float option; [@option]
+  http_put_response_hop_limit : float prop option; [@option]
       (** http_put_response_hop_limit *)
-  http_tokens : string option; [@option]  (** http_tokens *)
-  instance_metadata_tags : string option; [@option]
+  http_tokens : string prop option; [@option]  (** http_tokens *)
+  instance_metadata_tags : string prop option; [@option]
       (** instance_metadata_tags *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__metadata_options *)
 
 type aws_launch_template__monitoring = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__monitoring *)
 
 type aws_launch_template__network_interfaces = {
-  associate_carrier_ip_address : string option; [@option]
+  associate_carrier_ip_address : string prop option; [@option]
       (** associate_carrier_ip_address *)
-  associate_public_ip_address : string option; [@option]
+  associate_public_ip_address : string prop option; [@option]
       (** associate_public_ip_address *)
-  delete_on_termination : string option; [@option]
+  delete_on_termination : string prop option; [@option]
       (** delete_on_termination *)
-  description : string option; [@option]  (** description *)
-  device_index : float option; [@option]  (** device_index *)
-  interface_type : string option; [@option]  (** interface_type *)
-  ipv4_address_count : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  device_index : float prop option; [@option]  (** device_index *)
+  interface_type : string prop option; [@option]
+      (** interface_type *)
+  ipv4_address_count : float prop option; [@option]
       (** ipv4_address_count *)
-  ipv4_addresses : string list option; [@option]
+  ipv4_addresses : string prop list option; [@option]
       (** ipv4_addresses *)
-  ipv4_prefix_count : float option; [@option]
+  ipv4_prefix_count : float prop option; [@option]
       (** ipv4_prefix_count *)
-  ipv4_prefixes : string list option; [@option]  (** ipv4_prefixes *)
-  ipv6_address_count : float option; [@option]
+  ipv4_prefixes : string prop list option; [@option]
+      (** ipv4_prefixes *)
+  ipv6_address_count : float prop option; [@option]
       (** ipv6_address_count *)
-  ipv6_addresses : string list option; [@option]
+  ipv6_addresses : string prop list option; [@option]
       (** ipv6_addresses *)
-  ipv6_prefix_count : float option; [@option]
+  ipv6_prefix_count : float prop option; [@option]
       (** ipv6_prefix_count *)
-  ipv6_prefixes : string list option; [@option]  (** ipv6_prefixes *)
-  network_card_index : float option; [@option]
+  ipv6_prefixes : string prop list option; [@option]
+      (** ipv6_prefixes *)
+  network_card_index : float prop option; [@option]
       (** network_card_index *)
-  network_interface_id : string option; [@option]
+  network_interface_id : string prop option; [@option]
       (** network_interface_id *)
-  private_ip_address : string option; [@option]
+  private_ip_address : string prop option; [@option]
       (** private_ip_address *)
-  security_groups : string list option; [@option]
+  security_groups : string prop list option; [@option]
       (** security_groups *)
-  subnet_id : string option; [@option]  (** subnet_id *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__network_interfaces *)
 
 type aws_launch_template__placement = {
-  affinity : string option; [@option]  (** affinity *)
-  availability_zone : string option; [@option]
+  affinity : string prop option; [@option]  (** affinity *)
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  group_name : string option; [@option]  (** group_name *)
-  host_id : string option; [@option]  (** host_id *)
-  host_resource_group_arn : string option; [@option]
+  group_name : string prop option; [@option]  (** group_name *)
+  host_id : string prop option; [@option]  (** host_id *)
+  host_resource_group_arn : string prop option; [@option]
       (** host_resource_group_arn *)
-  partition_number : float option; [@option]  (** partition_number *)
-  spread_domain : string option; [@option]  (** spread_domain *)
-  tenancy : string option; [@option]  (** tenancy *)
+  partition_number : float prop option; [@option]
+      (** partition_number *)
+  spread_domain : string prop option; [@option]  (** spread_domain *)
+  tenancy : string prop option; [@option]  (** tenancy *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__placement *)
 
 type aws_launch_template__private_dns_name_options = {
-  enable_resource_name_dns_a_record : bool option; [@option]
+  enable_resource_name_dns_a_record : bool prop option; [@option]
       (** enable_resource_name_dns_a_record *)
-  enable_resource_name_dns_aaaa_record : bool option; [@option]
+  enable_resource_name_dns_aaaa_record : bool prop option; [@option]
       (** enable_resource_name_dns_aaaa_record *)
-  hostname_type : string option; [@option]  (** hostname_type *)
+  hostname_type : string prop option; [@option]  (** hostname_type *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__private_dns_name_options *)
 
 type aws_launch_template__tag_specifications = {
-  resource_type : string option; [@option]  (** resource_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  resource_type : string prop option; [@option]  (** resource_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_launch_template__tag_specifications *)
 
 type aws_launch_template = {
-  default_version : float option; [@option]  (** default_version *)
-  description : string option; [@option]  (** description *)
-  disable_api_stop : bool option; [@option]  (** disable_api_stop *)
-  disable_api_termination : bool option; [@option]
+  default_version : float prop option; [@option]
+      (** default_version *)
+  description : string prop option; [@option]  (** description *)
+  disable_api_stop : bool prop option; [@option]
+      (** disable_api_stop *)
+  disable_api_termination : bool prop option; [@option]
       (** disable_api_termination *)
-  ebs_optimized : string option; [@option]  (** ebs_optimized *)
-  id : string option; [@option]  (** id *)
-  image_id : string option; [@option]  (** image_id *)
-  instance_initiated_shutdown_behavior : string option; [@option]
+  ebs_optimized : string prop option; [@option]  (** ebs_optimized *)
+  id : string prop option; [@option]  (** id *)
+  image_id : string prop option; [@option]  (** image_id *)
+  instance_initiated_shutdown_behavior : string prop option;
+      [@option]
       (** instance_initiated_shutdown_behavior *)
-  instance_type : string option; [@option]  (** instance_type *)
-  kernel_id : string option; [@option]  (** kernel_id *)
-  key_name : string option; [@option]  (** key_name *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  ram_disk_id : string option; [@option]  (** ram_disk_id *)
-  security_group_names : string list option; [@option]
+  instance_type : string prop option; [@option]  (** instance_type *)
+  kernel_id : string prop option; [@option]  (** kernel_id *)
+  key_name : string prop option; [@option]  (** key_name *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  ram_disk_id : string prop option; [@option]  (** ram_disk_id *)
+  security_group_names : string prop list option; [@option]
       (** security_group_names *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  update_default_version : bool option; [@option]
+  update_default_version : bool prop option; [@option]
       (** update_default_version *)
-  user_data : string option; [@option]  (** user_data *)
-  vpc_security_group_ids : string list option; [@option]
+  user_data : string prop option; [@option]  (** user_data *)
+  vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
   block_device_mappings :
     aws_launch_template__block_device_mappings list;

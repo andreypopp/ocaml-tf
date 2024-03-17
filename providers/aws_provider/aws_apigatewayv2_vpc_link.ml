@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_apigatewayv2_vpc_link = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  security_group_ids : string list;  (** security_group_ids *)
-  subnet_ids : string list;  (** subnet_ids *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  security_group_ids : string prop list;  (** security_group_ids *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_vpc_link *)

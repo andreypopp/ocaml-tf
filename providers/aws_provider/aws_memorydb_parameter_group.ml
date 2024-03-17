@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_memorydb_parameter_group__parameter = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_memorydb_parameter_group__parameter *)
 
 type aws_memorydb_parameter_group = {
-  description : string option; [@option]  (** description *)
-  family : string;  (** family *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  family : string prop;  (** family *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   parameter : aws_memorydb_parameter_group__parameter list;
 }

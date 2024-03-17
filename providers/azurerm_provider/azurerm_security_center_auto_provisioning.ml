@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_security_center_auto_provisioning__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_auto_provisioning__timeouts *)
 
 type azurerm_security_center_auto_provisioning = {
-  auto_provision : string;  (** auto_provision *)
-  id : string option; [@option]  (** id *)
+  auto_provision : string prop;  (** auto_provision *)
+  id : string prop option; [@option]  (** id *)
   timeouts :
     azurerm_security_center_auto_provisioning__timeouts option;
 }

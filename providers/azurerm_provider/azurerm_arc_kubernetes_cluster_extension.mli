@@ -7,17 +7,17 @@ type azurerm_arc_kubernetes_cluster_extension__timeouts
 type azurerm_arc_kubernetes_cluster_extension
 
 val azurerm_arc_kubernetes_cluster_extension :
-  ?configuration_protected_settings:(string * string) list ->
-  ?configuration_settings:(string * string) list ->
-  ?id:string ->
-  ?release_namespace:string ->
-  ?release_train:string ->
-  ?target_namespace:string ->
-  ?version:string ->
+  ?configuration_protected_settings:(string * string prop) list ->
+  ?configuration_settings:(string * string prop) list ->
+  ?id:string prop ->
+  ?release_namespace:string prop ->
+  ?release_train:string prop ->
+  ?target_namespace:string prop ->
+  ?version:string prop ->
   ?timeouts:azurerm_arc_kubernetes_cluster_extension__timeouts ->
-  cluster_id:string ->
-  extension_type:string ->
-  name:string ->
+  cluster_id:string prop ->
+  extension_type:string prop ->
+  name:string prop ->
   identity:azurerm_arc_kubernetes_cluster_extension__identity list ->
   string ->
   unit

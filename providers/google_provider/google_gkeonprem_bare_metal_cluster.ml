@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_gkeonprem_bare_metal_cluster__binary_authorization = {
-  evaluation_mode : string option; [@option]
+  evaluation_mode : string prop option; [@option]
       (** Mode of operation for binauthz policy evaluation. If unspecified,
 defaults to DISABLED. Possible values: [DISABLED, PROJECT_SINGLETON_POLICY_ENFORCE] *)
 }
@@ -13,16 +13,16 @@ defaults to DISABLED. Possible values: [DISABLED, PROJECT_SINGLETON_POLICY_ENFOR
 (** Binary Authorization related configurations. *)
 
 type google_gkeonprem_bare_metal_cluster__cluster_operations = {
-  enable_application_logs : bool option; [@option]
+  enable_application_logs : bool prop option; [@option]
       (** Whether collection of application logs/metrics should be enabled (in addition to system logs/metrics). *)
 }
 [@@deriving yojson_of]
 (** Specifies the User Cluster's observability infrastructure. *)
 
 type google_gkeonprem_bare_metal_cluster__control_plane__api_server_args = {
-  argument : string;
+  argument : string prop;
       (** The argument name as it appears on the API Server command line please make sure to remove the leading dashes. *)
-  value : string;
+  value : string prop;
       (** The value of the arg as it will be passed to the API Server command line. *)
 }
 [@@deriving yojson_of]
@@ -32,7 +32,7 @@ documentation below to know the exact format:
 https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/ *)
 
 type google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config__node_pool_config__node_configs = {
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
 that Kubernetes may apply to the node. In case of conflict in
@@ -43,7 +43,7 @@ and the valid values, see:
   http://kubernetes.io/v1.1/docs/user-guide/labels.html
 An object containing a list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
-  node_ip : string option; [@option]
+  node_ip : string prop option; [@option]
       (** The default IPv4 address for SSH access and Kubernetes node.
 Example: 192.168.0.1 *)
 }
@@ -51,18 +51,18 @@ Example: 192.168.0.1 *)
 (** The list of machine addresses in the Bare Metal Node Pool. *)
 
 type google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config__node_pool_config__taints = {
-  effect : string option; [@option]
+  effect : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). Possible values: [EFFECT_UNSPECIFIED, PREFER_NO_SCHEDULE, NO_EXECUTE] *)
-  key : string option; [@option]
+  key : string prop option; [@option]
       (** Key associated with the effect. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** Value associated with the effect. *)
 }
 [@@deriving yojson_of]
 (** The initial taints assigned to nodes of this node pool. *)
 
 type google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config__node_pool_config = {
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
 that Kubernetes may apply to the node. In case of conflict in
@@ -73,7 +73,7 @@ and the valid values, see:
   http://kubernetes.io/v1.1/docs/user-guide/labels.html
 An object containing a list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
-  operating_system : string option; [@option]
+  operating_system : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). *)
   node_configs :
     google_gkeonprem_bare_metal_cluster__control_plane__control_plane_node_pool_config__node_pool_config__node_configs
@@ -105,14 +105,14 @@ type google_gkeonprem_bare_metal_cluster__control_plane = {
 (** Specifies the control plane configuration. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__address_pools = {
-  addresses : string list;
+  addresses : string prop list;
       (** The addresses that are part of this pool. Each address must be either in the CIDR form (1.2.3.0/24) or range form (1.2.3.1-1.2.3.5). *)
-  avoid_buggy_ips : bool option; [@option]
+  avoid_buggy_ips : bool prop option; [@option]
       (** If true, avoid using IPs ending in .0 or .255.
 This avoids buggy consumer devices mistakenly dropping IPv4 traffic for those special IP addresses. *)
-  manual_assign : string option; [@option]
+  manual_assign : string prop option; [@option]
       (** If true, prevent IP addresses from being automatically assigned. *)
-  pool : string;  (** The name of the address pool. *)
+  pool : string prop;  (** The name of the address pool. *)
 }
 [@@deriving yojson_of]
 (** AddressPools is a list of non-overlapping IP pools used by load balancer
@@ -120,16 +120,16 @@ typed services. All addresses must be routable to load balancer nodes.
 IngressVIP must be included in the pools. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__bgp_peer_configs = {
-  asn : float;
+  asn : float prop;
       (** BGP autonomous system number (ASN) for the network that contains the
 external peer device. *)
-  control_plane_nodes : string list option; [@option]
+  control_plane_nodes : string prop list option; [@option]
       (** The IP address of the control plane node that connects to the external
 peer.
 If you don't specify any control plane nodes, all control plane nodes
 can connect to the external peer. If you specify one or more IP addresses,
 only the nodes specified participate in peering sessions. *)
-  ip_address : string;
+  ip_address : string prop;
       (** The IP address of the external peer device. *)
 }
 [@@deriving yojson_of]
@@ -140,20 +140,20 @@ plane VIP. The Services load balancer also uses these peers by default.
 This field can be updated after cluster creation. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config = {
-  registry_burst : float option; [@option]
+  registry_burst : float prop option; [@option]
       (** The maximum size of bursty pulls, temporarily allows pulls to burst to this
 number, while still not exceeding registry_pull_qps.
 The value must not be a negative number.
 Updating this field may impact scalability by changing the amount of
 traffic produced by image pulls.
 Defaults to 10. *)
-  registry_pull_qps : float option; [@option]
+  registry_pull_qps : float prop option; [@option]
       (** The limit of registry pulls per second.
 Setting this value to 0 means no limit.
 Updating this field may impact scalability by changing the amount of
 traffic produced by image pulls.
 Defaults to 5. *)
-  serialize_image_pulls_disabled : bool option; [@option]
+  serialize_image_pulls_disabled : bool prop option; [@option]
       (** Prevents the Kubelet from pulling multiple images at a time.
 We recommend *not* changing the default value on nodes that run docker
 daemon with version  < 1.9 or an Another Union File System (Aufs) storage
@@ -164,7 +164,7 @@ more details. *)
 (** The modifiable kubelet configurations for the baremetal machines. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs = {
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
 that Kubernetes may apply to the node. In case of conflict in
@@ -175,7 +175,7 @@ and the valid values, see:
   http://kubernetes.io/v1.1/docs/user-guide/labels.html
 An object containing a list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
-  node_ip : string option; [@option]
+  node_ip : string prop option; [@option]
       (** The default IPv4 address for SSH access and Kubernetes node.
 Example: 192.168.0.1 *)
 }
@@ -183,18 +183,18 @@ Example: 192.168.0.1 *)
 (** The list of machine addresses in the Bare Metal Node Pool. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__taints = {
-  effect : string option; [@option]
+  effect : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). Possible values: [EFFECT_UNSPECIFIED, PREFER_NO_SCHEDULE, NO_EXECUTE] *)
-  key : string option; [@option]
+  key : string prop option; [@option]
       (** Key associated with the effect. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** Value associated with the effect. *)
 }
 [@@deriving yojson_of]
 (** The initial taints assigned to nodes of this node pool. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config = {
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
 that Kubernetes may apply to the node. In case of conflict in
@@ -205,7 +205,7 @@ and the valid values, see:
   http://kubernetes.io/v1.1/docs/user-guide/labels.html
 An object containing a list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
-  operating_system : string option; [@option]
+  operating_system : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). *)
   kubelet_config :
     google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config
@@ -231,7 +231,7 @@ is required among nodes in this pool. If missing, the control plane node
 pool is used for data plane load balancing. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__bgp_lb_config = {
-  asn : float;
+  asn : float prop;
       (** BGP autonomous system number (ASN) of the cluster.
 This field can be updated after cluster creation. *)
   address_pools :
@@ -248,20 +248,21 @@ This field can be updated after cluster creation. *)
 (** Configuration for BGP typed load balancers. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__manual_lb_config = {
-  enabled : bool;  (** Whether manual load balancing is enabled. *)
+  enabled : bool prop;
+      (** Whether manual load balancing is enabled. *)
 }
 [@@deriving yojson_of]
 (** A nested object resource *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__address_pools = {
-  addresses : string list;
+  addresses : string prop list;
       (** The addresses that are part of this pool. Each address must be either in the CIDR form (1.2.3.0/24) or range form (1.2.3.1-1.2.3.5). *)
-  avoid_buggy_ips : bool option; [@option]
+  avoid_buggy_ips : bool prop option; [@option]
       (** If true, avoid using IPs ending in .0 or .255.
 This avoids buggy consumer devices mistakenly dropping IPv4 traffic for those special IP addresses. *)
-  manual_assign : bool option; [@option]
+  manual_assign : bool prop option; [@option]
       (** If true, prevent IP addresses from being automatically assigned. *)
-  pool : string;  (** The name of the address pool. *)
+  pool : string prop;  (** The name of the address pool. *)
 }
 [@@deriving yojson_of]
 (** AddressPools is a list of non-overlapping IP pools used by load balancer
@@ -269,7 +270,7 @@ typed services. All addresses must be routable to load balancer nodes.
 IngressVIP must be included in the pools. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs = {
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
 that Kubernetes may apply to the node. In case of conflict in
@@ -280,7 +281,7 @@ and the valid values, see:
   http://kubernetes.io/v1.1/docs/user-guide/labels.html
 An object containing a list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
-  node_ip : string option; [@option]
+  node_ip : string prop option; [@option]
       (** The default IPv4 address for SSH access and Kubernetes node.
 Example: 192.168.0.1 *)
 }
@@ -288,18 +289,18 @@ Example: 192.168.0.1 *)
 (** The list of machine addresses in the Bare Metal Node Pool. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__taints = {
-  effect : string option; [@option]
+  effect : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). Possible values: [EFFECT_UNSPECIFIED, PREFER_NO_SCHEDULE, NO_EXECUTE] *)
-  key : string option; [@option]
+  key : string prop option; [@option]
       (** Key associated with the effect. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** Value associated with the effect. *)
 }
 [@@deriving yojson_of]
 (** The initial taints assigned to nodes of this node pool. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config = {
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
 that Kubernetes may apply to the node. In case of conflict in
@@ -310,7 +311,7 @@ and the valid values, see:
   http://kubernetes.io/v1.1/docs/user-guide/labels.html
 An object containing a list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
-  operating_system : string option; [@option]
+  operating_system : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). *)
   node_configs :
     google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
@@ -342,16 +343,16 @@ type google_gkeonprem_bare_metal_cluster__load_balancer__metal_lb_config = {
 (** A nested object resource *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__port_config = {
-  control_plane_load_balancer_port : float;
+  control_plane_load_balancer_port : float prop;
       (** The port that control plane hosted load balancers will listen on. *)
 }
 [@@deriving yojson_of]
 (** Specifies the load balancer ports. *)
 
 type google_gkeonprem_bare_metal_cluster__load_balancer__vip_config = {
-  control_plane_vip : string;
+  control_plane_vip : string prop;
       (** The VIP which you previously set aside for the Kubernetes API of this Bare Metal User Cluster. *)
-  ingress_vip : string;
+  ingress_vip : string prop;
       (** The VIP which you previously set aside for ingress traffic into this Bare Metal User Cluster. *)
 }
 [@@deriving yojson_of]
@@ -378,7 +379,7 @@ type google_gkeonprem_bare_metal_cluster__load_balancer = {
 (** Specifies the load balancer configuration. *)
 
 type google_gkeonprem_bare_metal_cluster__maintenance_config = {
-  maintenance_address_cidr_blocks : string list;
+  maintenance_address_cidr_blocks : string prop list;
       (** All IPv4 address from these ranges will be placed into maintenance mode.
 Nodes in maintenance mode will be cordoned and drained. When both of these
 are true, the baremetal.cluster.gke.io/maintenance annotation will be set
@@ -388,16 +389,16 @@ on the node resource. *)
 (** Specifies the workload node configurations. *)
 
 type google_gkeonprem_bare_metal_cluster__network_config__island_mode_cidr = {
-  pod_address_cidr_blocks : string list;
+  pod_address_cidr_blocks : string prop list;
       (** All pods in the cluster are assigned an RFC1918 IPv4 address from these ranges. This field cannot be changed after creation. *)
-  service_address_cidr_blocks : string list;
+  service_address_cidr_blocks : string prop list;
       (** All services in the cluster are assigned an RFC1918 IPv4 address from these ranges. This field cannot be changed after creation. *)
 }
 [@@deriving yojson_of]
 (** A nested object resource *)
 
 type google_gkeonprem_bare_metal_cluster__network_config__multiple_network_interfaces_config = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether to enable multiple network interfaces for your pods.
 When set network_config.advanced_networking is automatically
 set to true. *)
@@ -406,14 +407,14 @@ set to true. *)
 (** Configuration for multiple network interfaces. *)
 
 type google_gkeonprem_bare_metal_cluster__network_config__sr_iov_config = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether to install the SR-IOV operator. *)
 }
 [@@deriving yojson_of]
 (** Configuration for SR-IOV. *)
 
 type google_gkeonprem_bare_metal_cluster__network_config = {
-  advanced_networking : bool option; [@option]
+  advanced_networking : bool prop option; [@option]
       (** Enables the use of advanced Anthos networking features, such as Bundled
 Load Balancing with BGP or the egress NAT gateway.
 Setting configuration for advanced networking features will automatically
@@ -432,7 +433,7 @@ set this flag. *)
 (** Network configuration. *)
 
 type google_gkeonprem_bare_metal_cluster__node_access_config = {
-  login_user : string option; [@option]
+  login_user : string prop option; [@option]
       (** LoginUser is the user name used to access node machines.
 It defaults to root if not set. *)
 }
@@ -440,9 +441,9 @@ It defaults to root if not set. *)
 (** Specifies the node access related settings for the bare metal user cluster. *)
 
 type google_gkeonprem_bare_metal_cluster__node_config = {
-  container_runtime : string option; [@option]
+  container_runtime : string prop option; [@option]
       (** The available runtimes that can be used to run containers in a Bare Metal User Cluster. Possible values: [CONTAINER_RUNTIME_UNSPECIFIED, DOCKER, CONTAINERD] *)
-  max_pods_per_node : float option; [@option]
+  max_pods_per_node : float prop option; [@option]
       (** The maximum number of pods a node can run. The size of the CIDR range
 assigned to the node will be derived from this parameter. *)
 }
@@ -450,7 +451,7 @@ assigned to the node will be derived from this parameter. *)
 (** Specifies the workload node configurations. *)
 
 type google_gkeonprem_bare_metal_cluster__os_environment_config = {
-  package_repo_excluded : bool;
+  package_repo_excluded : bool prop;
       (** Whether the package repo should not be included when initializing
 bare metal machines. *)
 }
@@ -458,10 +459,10 @@ bare metal machines. *)
 (** OS environment related configurations. *)
 
 type google_gkeonprem_bare_metal_cluster__proxy = {
-  no_proxy : string list option; [@option]
+  no_proxy : string prop list option; [@option]
       (** A list of IPs, hostnames, and domains that should skip the proxy.
 Examples: [127.0.0.1, example.com, .corp, localhost]. *)
-  uri : string;
+  uri : string prop;
       (** Specifies the address of your proxy server.
 Examples: http://domain
 WARNING: Do not provide credentials in the format
@@ -471,7 +472,7 @@ http://(username:password@)domain these will be rejected by the server. *)
 (** Specifies the cluster proxy configuration. *)
 
 type google_gkeonprem_bare_metal_cluster__security_config__authorization__admin_users = {
-  username : string;
+  username : string prop;
       (** The name of the user, e.g. 'my-gcp-id@gmail.com'. *)
 }
 [@@deriving yojson_of]
@@ -494,8 +495,8 @@ type google_gkeonprem_bare_metal_cluster__security_config = {
 (** Specifies the security related settings for the Bare Metal User Cluster. *)
 
 type google_gkeonprem_bare_metal_cluster__storage__lvp_node_mounts_config = {
-  path : string;  (** The host machine path. *)
-  storage_class : string;
+  path : string prop;  (** The host machine path. *)
+  storage_class : string prop;
       (** The StorageClass name that PVs will be created with. *)
 }
 [@@deriving yojson_of]
@@ -504,15 +505,15 @@ by mounted node disks. These disks need to be formatted and mounted by the
 user, which can be done before or after cluster creation. *)
 
 type google_gkeonprem_bare_metal_cluster__storage__lvp_share_config__lvp_config = {
-  path : string;  (** The host machine path. *)
-  storage_class : string;
+  path : string prop;  (** The host machine path. *)
+  storage_class : string prop;
       (** The StorageClass name that PVs will be created with. *)
 }
 [@@deriving yojson_of]
 (** Defines the machine path and storage class for the LVP Share. *)
 
 type google_gkeonprem_bare_metal_cluster__storage__lvp_share_config = {
-  shared_path_pv_count : float option; [@option]
+  shared_path_pv_count : float prop option; [@option]
       (** The number of subdirectories to create under path. *)
   lvp_config :
     google_gkeonprem_bare_metal_cluster__storage__lvp_share_config__lvp_config
@@ -535,31 +536,31 @@ type google_gkeonprem_bare_metal_cluster__storage = {
 (** Specifies the cluster storage configuration. *)
 
 type google_gkeonprem_bare_metal_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_gkeonprem_bare_metal_cluster__timeouts *)
 
 type google_gkeonprem_bare_metal_cluster__upgrade_policy = {
-  policy : string option; [@option]
+  policy : string prop option; [@option]
       (** Specifies which upgrade policy to use. Possible values: [SERIAL, CONCURRENT] *)
 }
 [@@deriving yojson_of]
 (** The cluster upgrade policy. *)
 
 type google_gkeonprem_bare_metal_cluster__fleet = {
-  membership : string;  (** membership *)
+  membership : string prop;  (** membership *)
 }
 [@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_cluster__status__conditions = {
-  last_transition_time : string;  (** last_transition_time *)
-  message : string;  (** message *)
-  reason : string;  (** reason *)
-  state : string;  (** state *)
-  type_ : string; [@key "type"]  (** type *)
+  last_transition_time : string prop;  (** last_transition_time *)
+  message : string prop;  (** message *)
+  reason : string prop;  (** reason *)
+  state : string prop;  (** state *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
@@ -567,16 +568,16 @@ type google_gkeonprem_bare_metal_cluster__status = {
   conditions :
     google_gkeonprem_bare_metal_cluster__status__conditions list;
       (** conditions *)
-  error_message : string;  (** error_message *)
+  error_message : string prop;  (** error_message *)
 }
 [@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_cluster__validation_check__status__result = {
-  category : string;  (** category *)
-  description : string;  (** description *)
-  details : string;  (** details *)
-  options : string;  (** options *)
-  reason : string;  (** reason *)
+  category : string prop;  (** category *)
+  description : string prop;  (** description *)
+  details : string prop;  (** details *)
+  options : string prop;  (** options *)
+  reason : string prop;  (** reason *)
 }
 [@@deriving yojson_of]
 
@@ -589,8 +590,8 @@ type google_gkeonprem_bare_metal_cluster__validation_check__status = {
 [@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_cluster__validation_check = {
-  options : string;  (** options *)
-  scenario : string;  (** scenario *)
+  options : string prop;  (** options *)
+  scenario : string prop;  (** scenario *)
   status :
     google_gkeonprem_bare_metal_cluster__validation_check__status
     list;
@@ -599,10 +600,10 @@ type google_gkeonprem_bare_metal_cluster__validation_check = {
 [@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_cluster = {
-  admin_cluster_membership : string;
+  admin_cluster_membership : string prop;
       (** The Admin Cluster this Bare Metal User Cluster belongs to.
 This is the full resource name of the Admin Cluster's hub membership. *)
-  annotations : (string * string) list option; [@option]
+  annotations : (string * string prop) list option; [@option]
       (** Annotations on the Bare Metal User Cluster.
 This field has the same restrictions as Kubernetes annotations.
 The total size of all keys and values combined is limited to 256k.
@@ -615,14 +616,14 @@ with dashes (-), underscores (_), dots (.), and alphanumerics between.
 
 **Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
 Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
-  bare_metal_version : string;
+  bare_metal_version : string prop;
       (** A human readable description of this Bare Metal User Cluster. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A human readable description of this Bare Metal User Cluster. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location of the resource. *)
-  name : string;  (** The bare metal cluster name. *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location of the resource. *)
+  name : string prop;  (** The bare metal cluster name. *)
+  project : string prop option; [@option]  (** project *)
   binary_authorization :
     google_gkeonprem_bare_metal_cluster__binary_authorization list;
   cluster_operations :

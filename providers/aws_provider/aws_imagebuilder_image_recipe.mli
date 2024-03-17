@@ -10,15 +10,15 @@ type aws_imagebuilder_image_recipe__systems_manager_agent
 type aws_imagebuilder_image_recipe
 
 val aws_imagebuilder_image_recipe :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?user_data_base64:string ->
-  ?working_directory:string ->
-  name:string ->
-  parent_image:string ->
-  version:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_data_base64:string prop ->
+  ?working_directory:string prop ->
+  name:string prop ->
+  parent_image:string prop ->
+  version:string prop ->
   block_device_mapping:
     aws_imagebuilder_image_recipe__block_device_mapping list ->
   component:aws_imagebuilder_image_recipe__component list ->

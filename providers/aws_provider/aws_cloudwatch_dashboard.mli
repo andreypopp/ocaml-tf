@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_cloudwatch_dashboard
 
 val aws_cloudwatch_dashboard :
-  ?id:string ->
-  dashboard_body:string ->
-  dashboard_name:string ->
+  ?id:string prop ->
+  dashboard_body:string prop ->
+  dashboard_name:string prop ->
   string ->
   unit

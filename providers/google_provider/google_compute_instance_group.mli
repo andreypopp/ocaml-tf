@@ -7,14 +7,14 @@ type google_compute_instance_group__timeouts
 type google_compute_instance_group
 
 val google_compute_instance_group :
-  ?description:string ->
-  ?id:string ->
-  ?instances:string list ->
-  ?network:string ->
-  ?project:string ->
-  ?zone:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?instances:string prop list ->
+  ?network:string prop ->
+  ?project:string prop ->
+  ?zone:string prop ->
   ?timeouts:google_compute_instance_group__timeouts ->
-  name:string ->
+  name:string prop ->
   named_port:google_compute_instance_group__named_port list ->
   string ->
   unit

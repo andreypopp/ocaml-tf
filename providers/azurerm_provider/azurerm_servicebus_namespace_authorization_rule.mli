@@ -6,12 +6,12 @@ type azurerm_servicebus_namespace_authorization_rule__timeouts
 type azurerm_servicebus_namespace_authorization_rule
 
 val azurerm_servicebus_namespace_authorization_rule :
-  ?id:string ->
-  ?listen:bool ->
-  ?manage:bool ->
-  ?send:bool ->
+  ?id:string prop ->
+  ?listen:bool prop ->
+  ?manage:bool prop ->
+  ?send:bool prop ->
   ?timeouts:azurerm_servicebus_namespace_authorization_rule__timeouts ->
-  name:string ->
-  namespace_id:string ->
+  name:string prop ->
+  namespace_id:string prop ->
   string ->
   unit

@@ -50,17 +50,17 @@ type aws_kendra_data_source__timeouts
 type aws_kendra_data_source
 
 val aws_kendra_data_source :
-  ?description:string ->
-  ?id:string ->
-  ?language_code:string ->
-  ?role_arn:string ->
-  ?schedule:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?language_code:string prop ->
+  ?role_arn:string prop ->
+  ?schedule:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_kendra_data_source__timeouts ->
-  index_id:string ->
-  name:string ->
-  type_:string ->
+  index_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
   configuration:aws_kendra_data_source__configuration list ->
   custom_document_enrichment_configuration:
     aws_kendra_data_source__custom_document_enrichment_configuration

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_compute_instance_group_membership__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_instance_group_membership__timeouts *)
 
 type google_compute_instance_group_membership = {
-  id : string option; [@option]  (** id *)
-  instance : string;
+  id : string prop option; [@option]  (** id *)
+  instance : string prop;
       (** An instance being added to the InstanceGroup *)
-  instance_group : string;
+  instance_group : string prop;
       (** Represents an Instance Group resource name that the instance belongs to. *)
-  project : string option; [@option]  (** project *)
-  zone : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  zone : string prop option; [@option]
       (** A reference to the zone where the instance group resides. *)
   timeouts :
     google_compute_instance_group_membership__timeouts option;

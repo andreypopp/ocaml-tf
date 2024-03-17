@@ -5,47 +5,50 @@
 open! Tf.Prelude
 
 type aws_grafana_workspace__network_access_control = {
-  prefix_list_ids : string list;  (** prefix_list_ids *)
-  vpce_ids : string list;  (** vpce_ids *)
+  prefix_list_ids : string prop list;  (** prefix_list_ids *)
+  vpce_ids : string prop list;  (** vpce_ids *)
 }
 [@@deriving yojson_of]
 (** aws_grafana_workspace__network_access_control *)
 
 type aws_grafana_workspace__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_grafana_workspace__timeouts *)
 
 type aws_grafana_workspace__vpc_configuration = {
-  security_group_ids : string list;  (** security_group_ids *)
-  subnet_ids : string list;  (** subnet_ids *)
+  security_group_ids : string prop list;  (** security_group_ids *)
+  subnet_ids : string prop list;  (** subnet_ids *)
 }
 [@@deriving yojson_of]
 (** aws_grafana_workspace__vpc_configuration *)
 
 type aws_grafana_workspace = {
-  account_access_type : string;  (** account_access_type *)
-  authentication_providers : string list;
+  account_access_type : string prop;  (** account_access_type *)
+  authentication_providers : string prop list;
       (** authentication_providers *)
-  configuration : string option; [@option]  (** configuration *)
-  data_sources : string list option; [@option]  (** data_sources *)
-  description : string option; [@option]  (** description *)
-  grafana_version : string option; [@option]  (** grafana_version *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  notification_destinations : string list option; [@option]
+  configuration : string prop option; [@option]  (** configuration *)
+  data_sources : string prop list option; [@option]
+      (** data_sources *)
+  description : string prop option; [@option]  (** description *)
+  grafana_version : string prop option; [@option]
+      (** grafana_version *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  notification_destinations : string prop list option; [@option]
       (** notification_destinations *)
-  organization_role_name : string option; [@option]
+  organization_role_name : string prop option; [@option]
       (** organization_role_name *)
-  organizational_units : string list option; [@option]
+  organizational_units : string prop list option; [@option]
       (** organizational_units *)
-  permission_type : string;  (** permission_type *)
-  role_arn : string option; [@option]  (** role_arn *)
-  stack_set_name : string option; [@option]  (** stack_set_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  permission_type : string prop;  (** permission_type *)
+  role_arn : string prop option; [@option]  (** role_arn *)
+  stack_set_name : string prop option; [@option]
+      (** stack_set_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   network_access_control :
     aws_grafana_workspace__network_access_control list;

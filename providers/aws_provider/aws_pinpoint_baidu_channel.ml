@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_pinpoint_baidu_channel = {
-  api_key : string;  (** api_key *)
-  application_id : string;  (** application_id *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  secret_key : string;  (** secret_key *)
+  api_key : string prop;  (** api_key *)
+  application_id : string prop;  (** application_id *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  secret_key : string prop;  (** secret_key *)
 }
 [@@deriving yojson_of]
 (** aws_pinpoint_baidu_channel *)

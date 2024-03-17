@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type google_service_networking_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_service_networking_connection__timeouts *)
 
 type google_service_networking_connection = {
-  deletion_policy : string option; [@option]
+  deletion_policy : string prop option; [@option]
       (** When set to ABANDON, terraform will abandon management of the resource instead of deleting it. Prevents terraform apply failures with CloudSQL. Note: The resource will still exist. *)
-  id : string option; [@option]  (** id *)
-  network : string;
+  id : string prop option; [@option]  (** id *)
+  network : string prop;
       (** Name of VPC network connected with service producers using VPC peering. *)
-  reserved_peering_ranges : string list;
+  reserved_peering_ranges : string prop list;
       (** Named IP address range(s) of PEERING type reserved for this service provider. Note that invoking this method with a different range when connection is already established will not reallocate already provisioned service producer subnetworks. *)
-  service : string;
+  service : string prop;
       (** Provider peering service that is managing peering connectivity for a service provider organization. For Google services that support this functionality it is 'servicenetworking.googleapis.com'. *)
   timeouts : google_service_networking_connection__timeouts option;
 }

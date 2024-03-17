@@ -5,55 +5,55 @@
 open! Tf.Prelude
 
 type azurerm_netapp_snapshot_policy__daily_schedule = {
-  hour : float;  (** hour *)
-  minute : float;  (** minute *)
-  snapshots_to_keep : float;  (** snapshots_to_keep *)
+  hour : float prop;  (** hour *)
+  minute : float prop;  (** minute *)
+  snapshots_to_keep : float prop;  (** snapshots_to_keep *)
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_snapshot_policy__daily_schedule *)
 
 type azurerm_netapp_snapshot_policy__hourly_schedule = {
-  minute : float;  (** minute *)
-  snapshots_to_keep : float;  (** snapshots_to_keep *)
+  minute : float prop;  (** minute *)
+  snapshots_to_keep : float prop;  (** snapshots_to_keep *)
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_snapshot_policy__hourly_schedule *)
 
 type azurerm_netapp_snapshot_policy__monthly_schedule = {
-  days_of_month : float list;  (** days_of_month *)
-  hour : float;  (** hour *)
-  minute : float;  (** minute *)
-  snapshots_to_keep : float;  (** snapshots_to_keep *)
+  days_of_month : float prop list;  (** days_of_month *)
+  hour : float prop;  (** hour *)
+  minute : float prop;  (** minute *)
+  snapshots_to_keep : float prop;  (** snapshots_to_keep *)
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_snapshot_policy__monthly_schedule *)
 
 type azurerm_netapp_snapshot_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_snapshot_policy__timeouts *)
 
 type azurerm_netapp_snapshot_policy__weekly_schedule = {
-  days_of_week : string list;  (** days_of_week *)
-  hour : float;  (** hour *)
-  minute : float;  (** minute *)
-  snapshots_to_keep : float;  (** snapshots_to_keep *)
+  days_of_week : string prop list;  (** days_of_week *)
+  hour : float prop;  (** hour *)
+  minute : float prop;  (** minute *)
+  snapshots_to_keep : float prop;  (** snapshots_to_keep *)
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_snapshot_policy__weekly_schedule *)
 
 type azurerm_netapp_snapshot_policy = {
-  account_name : string;  (** account_name *)
-  enabled : bool;  (** enabled *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  account_name : string prop;  (** account_name *)
+  enabled : bool prop;  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   daily_schedule :
     azurerm_netapp_snapshot_policy__daily_schedule list;
   hourly_schedule :

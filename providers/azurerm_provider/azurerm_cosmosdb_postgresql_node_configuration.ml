@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_postgresql_node_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_postgresql_node_configuration__timeouts *)
 
 type azurerm_cosmosdb_postgresql_node_configuration = {
-  cluster_id : string;  (** cluster_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  value : string;  (** value *)
+  cluster_id : string prop;  (** cluster_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
   timeouts :
     azurerm_cosmosdb_postgresql_node_configuration__timeouts option;
 }

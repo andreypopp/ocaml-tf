@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_kubernetes_fleet_member__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_member__timeouts *)
 
 type azurerm_kubernetes_fleet_member = {
-  group : string option; [@option]  (** group *)
-  id : string option; [@option]  (** id *)
-  kubernetes_cluster_id : string;  (** kubernetes_cluster_id *)
-  kubernetes_fleet_id : string;  (** kubernetes_fleet_id *)
-  name : string;  (** name *)
+  group : string prop option; [@option]  (** group *)
+  id : string prop option; [@option]  (** id *)
+  kubernetes_cluster_id : string prop;  (** kubernetes_cluster_id *)
+  kubernetes_fleet_id : string prop;  (** kubernetes_fleet_id *)
+  name : string prop;  (** name *)
   timeouts : azurerm_kubernetes_fleet_member__timeouts option;
 }
 [@@deriving yojson_of]

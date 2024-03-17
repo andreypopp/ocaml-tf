@@ -7,18 +7,18 @@ type azurerm_application_insights_workbook__timeouts
 type azurerm_application_insights_workbook
 
 val azurerm_application_insights_workbook :
-  ?category:string ->
-  ?description:string ->
-  ?id:string ->
-  ?source_id:string ->
-  ?storage_container_id:string ->
-  ?tags:(string * string) list ->
+  ?category:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?source_id:string prop ->
+  ?storage_container_id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_application_insights_workbook__timeouts ->
-  data_json:string ->
-  display_name:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  data_json:string prop ->
+  display_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   identity:azurerm_application_insights_workbook__identity list ->
   string ->
   unit

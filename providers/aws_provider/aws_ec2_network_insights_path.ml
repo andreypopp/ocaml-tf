@@ -5,15 +5,18 @@
 open! Tf.Prelude
 
 type aws_ec2_network_insights_path = {
-  destination : string;  (** destination *)
-  destination_ip : string option; [@option]  (** destination_ip *)
-  destination_port : float option; [@option]  (** destination_port *)
-  id : string option; [@option]  (** id *)
-  protocol : string;  (** protocol *)
-  source : string;  (** source *)
-  source_ip : string option; [@option]  (** source_ip *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  destination : string prop;  (** destination *)
+  destination_ip : string prop option; [@option]
+      (** destination_ip *)
+  destination_port : float prop option; [@option]
+      (** destination_port *)
+  id : string prop option; [@option]  (** id *)
+  protocol : string prop;  (** protocol *)
+  source : string prop;  (** source *)
+  source_ip : string prop option; [@option]  (** source_ip *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_network_insights_path *)

@@ -13,16 +13,16 @@ type google_container_azure_node_pool__timeouts
 type google_container_azure_node_pool
 
 val google_container_azure_node_pool :
-  ?annotations:(string * string) list ->
-  ?azure_availability_zone:string ->
-  ?id:string ->
-  ?project:string ->
+  ?annotations:(string * string prop) list ->
+  ?azure_availability_zone:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_container_azure_node_pool__timeouts ->
-  cluster:string ->
-  location:string ->
-  name:string ->
-  subnet_id:string ->
-  version:string ->
+  cluster:string prop ->
+  location:string prop ->
+  name:string prop ->
+  subnet_id:string prop ->
+  version:string prop ->
   autoscaling:google_container_azure_node_pool__autoscaling list ->
   config:google_container_azure_node_pool__config list ->
   management:google_container_azure_node_pool__management list ->

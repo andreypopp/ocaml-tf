@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type cloudflare_dlp_profile__entry__pattern = {
-  regex : string;  (** The regex that defines the pattern. *)
-  validation : string option; [@option]
+  regex : string prop;  (** The regex that defines the pattern. *)
+  validation : string prop option; [@option]
       (** The validation algorithm to apply with this pattern. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_dlp_profile__entry__pattern *)
 
 type cloudflare_dlp_profile__entry = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether the entry is active. Defaults to `false`. *)
-  id : string option; [@option]  (** Unique entry identifier. *)
-  name : string;  (** Name of the entry to deploy. *)
+  id : string prop option; [@option]  (** Unique entry identifier. *)
+  name : string prop;  (** Name of the entry to deploy. *)
   pattern : cloudflare_dlp_profile__entry__pattern list;
 }
 [@@deriving yojson_of]
 (** List of entries to apply to the profile. *)
 
 type cloudflare_dlp_profile = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  allowed_match_count : float;
+  allowed_match_count : float prop;
       (** Related DLP policies will trigger when the match count exceeds the number set. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Brief summary of the profile and its intended use. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** Name of the profile. **Modifying this attribute will force creation of a new resource.** *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** The type of the profile. Available values: `custom`, `predefined`. **Modifying this attribute will force creation of a new resource.** *)
   entry : cloudflare_dlp_profile__entry list;
 }

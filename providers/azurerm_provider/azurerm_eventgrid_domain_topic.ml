@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_eventgrid_domain_topic__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_domain_topic__timeouts *)
 
 type azurerm_eventgrid_domain_topic = {
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_eventgrid_domain_topic__timeouts option;
 }
 [@@deriving yojson_of]

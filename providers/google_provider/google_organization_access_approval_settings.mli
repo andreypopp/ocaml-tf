@@ -7,11 +7,11 @@ type google_organization_access_approval_settings__timeouts
 type google_organization_access_approval_settings
 
 val google_organization_access_approval_settings :
-  ?active_key_version:string ->
-  ?id:string ->
-  ?notification_emails:string list ->
+  ?active_key_version:string prop ->
+  ?id:string prop ->
+  ?notification_emails:string prop list ->
   ?timeouts:google_organization_access_approval_settings__timeouts ->
-  organization_id:string ->
+  organization_id:string prop ->
   enrolled_services:
     google_organization_access_approval_settings__enrolled_services
     list ->

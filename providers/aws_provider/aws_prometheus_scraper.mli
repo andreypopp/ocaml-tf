@@ -10,10 +10,10 @@ type aws_prometheus_scraper__timeouts
 type aws_prometheus_scraper
 
 val aws_prometheus_scraper :
-  ?alias:string ->
-  ?tags:(string * string) list ->
+  ?alias:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:aws_prometheus_scraper__timeouts ->
-  scrape_configuration:string ->
+  scrape_configuration:string prop ->
   destination:aws_prometheus_scraper__destination list ->
   source:aws_prometheus_scraper__source list ->
   string ->

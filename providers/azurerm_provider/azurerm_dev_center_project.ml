@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_dev_center_project__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_center_project__timeouts *)
 
 type azurerm_dev_center_project = {
-  description : string option; [@option]  (** description *)
-  dev_center_id : string;  (** dev_center_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  maximum_dev_boxes_per_user : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  dev_center_id : string prop;  (** dev_center_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  maximum_dev_boxes_per_user : float prop option; [@option]
       (** maximum_dev_boxes_per_user *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_dev_center_project__timeouts option;
 }
 [@@deriving yojson_of]

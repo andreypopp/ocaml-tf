@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type google_pubsub_lite_subscription__delivery_config = {
-  delivery_requirement : string;
+  delivery_requirement : string prop;
       (** When this subscription should send messages to subscribers relative to messages persistence in storage. Possible values: [DELIVER_IMMEDIATELY, DELIVER_AFTER_STORED, DELIVERY_REQUIREMENT_UNSPECIFIED] *)
 }
 [@@deriving yojson_of]
 (** The settings for this subscription's message delivery. *)
 
 type google_pubsub_lite_subscription__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_pubsub_lite_subscription__timeouts *)
 
 type google_pubsub_lite_subscription = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** Name of the subscription. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** Name of the subscription. *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** The region of the pubsub lite topic. *)
-  topic : string;  (** A reference to a Topic resource. *)
-  zone : string option; [@option]
+  topic : string prop;  (** A reference to a Topic resource. *)
+  zone : string prop option; [@option]
       (** The zone of the pubsub lite topic. *)
   delivery_config :
     google_pubsub_lite_subscription__delivery_config list;

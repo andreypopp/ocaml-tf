@@ -6,11 +6,11 @@ type azurerm_disk_pool_iscsi_target__timeouts
 type azurerm_disk_pool_iscsi_target
 
 val azurerm_disk_pool_iscsi_target :
-  ?id:string ->
-  ?target_iqn:string ->
+  ?id:string prop ->
+  ?target_iqn:string prop ->
   ?timeouts:azurerm_disk_pool_iscsi_target__timeouts ->
-  acl_mode:string ->
-  disks_pool_id:string ->
-  name:string ->
+  acl_mode:string prop ->
+  disks_pool_id:string prop ->
+  name:string prop ->
   string ->
   unit

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_connect_vocabulary__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_connect_vocabulary__timeouts *)
 
 type aws_connect_vocabulary = {
-  content : string;  (** content *)
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
-  language_code : string;  (** language_code *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  content : string prop;  (** content *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
+  language_code : string prop;  (** language_code *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_connect_vocabulary__timeouts option;
 }

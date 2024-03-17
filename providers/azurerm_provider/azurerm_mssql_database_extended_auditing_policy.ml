@@ -5,27 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_mssql_database_extended_auditing_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_database_extended_auditing_policy__timeouts *)
 
 type azurerm_mssql_database_extended_auditing_policy = {
-  database_id : string;  (** database_id *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  log_monitoring_enabled : bool option; [@option]
+  database_id : string prop;  (** database_id *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  log_monitoring_enabled : bool prop option; [@option]
       (** log_monitoring_enabled *)
-  retention_in_days : float option; [@option]
+  retention_in_days : float prop option; [@option]
       (** retention_in_days *)
-  storage_account_access_key : string option; [@option]
+  storage_account_access_key : string prop option; [@option]
       (** storage_account_access_key *)
-  storage_account_access_key_is_secondary : bool option; [@option]
+  storage_account_access_key_is_secondary : bool prop option;
+      [@option]
       (** storage_account_access_key_is_secondary *)
-  storage_endpoint : string option; [@option]
+  storage_endpoint : string prop option; [@option]
       (** storage_endpoint *)
   timeouts :
     azurerm_mssql_database_extended_auditing_policy__timeouts option;

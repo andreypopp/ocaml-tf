@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type google_kms_key_ring__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_kms_key_ring__timeouts *)
 
 type google_kms_key_ring = {
-  id : string option; [@option]  (** id *)
-  location : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;
       (** The location for the KeyRing.
 A full list of valid locations can be found by running 'gcloud kms locations list'. *)
-  name : string;  (** The resource name for the KeyRing. *)
-  project : string option; [@option]  (** project *)
+  name : string prop;  (** The resource name for the KeyRing. *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_kms_key_ring__timeouts option;
 }
 [@@deriving yojson_of]

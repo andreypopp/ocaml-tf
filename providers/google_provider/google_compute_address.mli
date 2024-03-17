@@ -6,21 +6,21 @@ type google_compute_address__timeouts
 type google_compute_address
 
 val google_compute_address :
-  ?address:string ->
-  ?address_type:string ->
-  ?description:string ->
-  ?id:string ->
-  ?ip_version:string ->
-  ?ipv6_endpoint_type:string ->
-  ?labels:(string * string) list ->
-  ?network:string ->
-  ?network_tier:string ->
-  ?prefix_length:float ->
-  ?project:string ->
-  ?purpose:string ->
-  ?region:string ->
-  ?subnetwork:string ->
+  ?address:string prop ->
+  ?address_type:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ip_version:string prop ->
+  ?ipv6_endpoint_type:string prop ->
+  ?labels:(string * string prop) list ->
+  ?network:string prop ->
+  ?network_tier:string prop ->
+  ?prefix_length:float prop ->
+  ?project:string prop ->
+  ?purpose:string prop ->
+  ?region:string prop ->
+  ?subnetwork:string prop ->
   ?timeouts:google_compute_address__timeouts ->
-  name:string ->
+  name:string prop ->
   string ->
   unit

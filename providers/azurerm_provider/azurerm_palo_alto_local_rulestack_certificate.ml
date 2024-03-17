@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_palo_alto_local_rulestack_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack_certificate__timeouts *)
 
 type azurerm_palo_alto_local_rulestack_certificate = {
-  audit_comment : string option; [@option]  (** audit_comment *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  key_vault_certificate_id : string option; [@option]
+  audit_comment : string prop option; [@option]  (** audit_comment *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  key_vault_certificate_id : string prop option; [@option]
       (** key_vault_certificate_id *)
-  name : string;  (** name *)
-  rulestack_id : string;  (** rulestack_id *)
-  self_signed : bool option; [@option]  (** self_signed *)
+  name : string prop;  (** name *)
+  rulestack_id : string prop;  (** rulestack_id *)
+  self_signed : bool prop option; [@option]  (** self_signed *)
   timeouts :
     azurerm_palo_alto_local_rulestack_certificate__timeouts option;
 }

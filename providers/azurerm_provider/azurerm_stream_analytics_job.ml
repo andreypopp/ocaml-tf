@@ -5,57 +5,61 @@
 open! Tf.Prelude
 
 type azurerm_stream_analytics_job__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_job__identity *)
 
 type azurerm_stream_analytics_job__job_storage_account = {
-  account_key : string;  (** account_key *)
-  account_name : string;  (** account_name *)
-  authentication_mode : string option; [@option]
+  account_key : string prop;  (** account_key *)
+  account_name : string prop;  (** account_name *)
+  authentication_mode : string prop option; [@option]
       (** authentication_mode *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_job__job_storage_account *)
 
 type azurerm_stream_analytics_job__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_job__timeouts *)
 
 type azurerm_stream_analytics_job = {
-  compatibility_level : string option; [@option]
+  compatibility_level : string prop option; [@option]
       (** compatibility_level *)
-  content_storage_policy : string option; [@option]
+  content_storage_policy : string prop option; [@option]
       (** content_storage_policy *)
-  data_locale : string option; [@option]  (** data_locale *)
-  events_late_arrival_max_delay_in_seconds : float option; [@option]
+  data_locale : string prop option; [@option]  (** data_locale *)
+  events_late_arrival_max_delay_in_seconds : float prop option;
+      [@option]
       (** events_late_arrival_max_delay_in_seconds *)
-  events_out_of_order_max_delay_in_seconds : float option; [@option]
+  events_out_of_order_max_delay_in_seconds : float prop option;
+      [@option]
       (** events_out_of_order_max_delay_in_seconds *)
-  events_out_of_order_policy : string option; [@option]
+  events_out_of_order_policy : string prop option; [@option]
       (** events_out_of_order_policy *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  output_error_policy : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  output_error_policy : string prop option; [@option]
       (** output_error_policy *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string option; [@option]  (** sku_name *)
-  stream_analytics_cluster_id : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop option; [@option]  (** sku_name *)
+  stream_analytics_cluster_id : string prop option; [@option]
       (** stream_analytics_cluster_id *)
-  streaming_units : float option; [@option]  (** streaming_units *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  transformation_query : string;  (** transformation_query *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  streaming_units : float prop option; [@option]
+      (** streaming_units *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  transformation_query : string prop;  (** transformation_query *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   identity : azurerm_stream_analytics_job__identity list;
   job_storage_account :
     azurerm_stream_analytics_job__job_storage_account list;

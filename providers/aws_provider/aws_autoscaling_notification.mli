@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_autoscaling_notification
 
 val aws_autoscaling_notification :
-  ?id:string ->
-  group_names:string list ->
-  notifications:string list ->
-  topic_arn:string ->
+  ?id:string prop ->
+  group_names:string prop list ->
+  notifications:string prop list ->
+  topic_arn:string prop ->
   string ->
   unit

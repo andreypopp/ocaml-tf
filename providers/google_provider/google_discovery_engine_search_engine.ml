@@ -5,41 +5,42 @@
 open! Tf.Prelude
 
 type google_discovery_engine_search_engine__common_config = {
-  company_name : string option; [@option]
+  company_name : string prop option; [@option]
       (** The name of the company, business or entity that is associated with the engine. Setting this may help improve LLM related features.cd *)
 }
 [@@deriving yojson_of]
 (** Common config spec that specifies the metadata of the engine. *)
 
 type google_discovery_engine_search_engine__search_engine_config = {
-  search_add_ons : string list option; [@option]
+  search_add_ons : string prop list option; [@option]
       (** The add-on that this search engine enables. Possible values: [SEARCH_ADD_ON_LLM] *)
-  search_tier : string option; [@option]
+  search_tier : string prop option; [@option]
       (** The search feature tier of this engine. Defaults to SearchTier.SEARCH_TIER_STANDARD if not specified. Default value: SEARCH_TIER_STANDARD Possible values: [SEARCH_TIER_STANDARD, SEARCH_TIER_ENTERPRISE] *)
 }
 [@@deriving yojson_of]
 (** Configurations for a Search Engine. *)
 
 type google_discovery_engine_search_engine__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_discovery_engine_search_engine__timeouts *)
 
 type google_discovery_engine_search_engine = {
-  collection_id : string;  (** The collection ID. *)
-  data_store_ids : string list;
+  collection_id : string prop;  (** The collection ID. *)
+  data_store_ids : string prop list;
       (** The data stores associated with this engine. For SOLUTION_TYPE_SEARCH type of engines, they can only associate with at most one data store. *)
-  display_name : string;
+  display_name : string prop;
       (** Required. The display name of the engine. Should be human readable. UTF-8 encoded string with limit of 1024 characters. *)
-  engine_id : string;  (** Unique ID to use for Search Engine App. *)
-  id : string option; [@option]  (** id *)
-  industry_vertical : string option; [@option]
+  engine_id : string prop;
+      (** Unique ID to use for Search Engine App. *)
+  id : string prop option; [@option]  (** id *)
+  industry_vertical : string prop option; [@option]
       (** The industry vertical that the engine registers. The restriction of the Engine industry vertical is based on DataStore: If unspecified, default to GENERIC. Vertical on Engine has to match vertical of the DataStore liniked to the engine. Default value: GENERIC Possible values: [GENERIC, MEDIA] *)
-  location : string;  (** Location. *)
-  project : string option; [@option]  (** project *)
+  location : string prop;  (** Location. *)
+  project : string prop option; [@option]  (** project *)
   common_config :
     google_discovery_engine_search_engine__common_config list;
   search_engine_config :

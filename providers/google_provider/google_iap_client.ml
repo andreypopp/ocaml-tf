@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_iap_client__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_iap_client__timeouts *)
 
 type google_iap_client = {
-  brand : string;
+  brand : string prop;
       (** Identifier of the brand to which this client
 is attached to. The format is
 'projects/{project_number}/brands/{brand_id}/identityAwareProxyClients/{client_id}'. *)
-  display_name : string;
+  display_name : string prop;
       (** Human-friendly name given to the OAuth client. *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   timeouts : google_iap_client__timeouts option;
 }
 [@@deriving yojson_of]

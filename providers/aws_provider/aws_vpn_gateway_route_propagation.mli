@@ -6,9 +6,9 @@ type aws_vpn_gateway_route_propagation__timeouts
 type aws_vpn_gateway_route_propagation
 
 val aws_vpn_gateway_route_propagation :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_vpn_gateway_route_propagation__timeouts ->
-  route_table_id:string ->
-  vpn_gateway_id:string ->
+  route_table_id:string prop ->
+  vpn_gateway_id:string prop ->
   string ->
   unit

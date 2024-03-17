@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_wafregional_web_acl_association = {
-  id : string option; [@option]  (** id *)
-  resource_arn : string;  (** resource_arn *)
-  web_acl_id : string;  (** web_acl_id *)
+  id : string prop option; [@option]  (** id *)
+  resource_arn : string prop;  (** resource_arn *)
+  web_acl_id : string prop;  (** web_acl_id *)
 }
 [@@deriving yojson_of]
 (** aws_wafregional_web_acl_association *)

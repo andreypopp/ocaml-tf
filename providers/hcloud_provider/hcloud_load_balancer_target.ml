@@ -5,13 +5,14 @@
 open! Tf.Prelude
 
 type hcloud_load_balancer_target = {
-  id : string option; [@option]  (** id *)
-  ip : string option; [@option]  (** ip *)
-  label_selector : string option; [@option]  (** label_selector *)
-  load_balancer_id : float;  (** load_balancer_id *)
-  server_id : float option; [@option]  (** server_id *)
-  type_ : string; [@key "type"]  (** type *)
-  use_private_ip : bool option; [@option]  (** use_private_ip *)
+  id : string prop option; [@option]  (** id *)
+  ip : string prop option; [@option]  (** ip *)
+  label_selector : string prop option; [@option]
+      (** label_selector *)
+  load_balancer_id : float prop;  (** load_balancer_id *)
+  server_id : float prop option; [@option]  (** server_id *)
+  type_ : string prop; [@key "type"]  (** type *)
+  use_private_ip : bool prop option; [@option]  (** use_private_ip *)
 }
 [@@deriving yojson_of]
 (** hcloud_load_balancer_target *)

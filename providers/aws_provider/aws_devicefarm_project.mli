@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_devicefarm_project
 
 val aws_devicefarm_project :
-  ?default_job_timeout_minutes:float ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?default_job_timeout_minutes:float prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   string ->
   unit

@@ -20,12 +20,12 @@ type aws_appsync_datasource__relational_database_config
 type aws_appsync_datasource
 
 val aws_appsync_datasource :
-  ?description:string ->
-  ?id:string ->
-  ?service_role_arn:string ->
-  api_id:string ->
-  name:string ->
-  type_:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?service_role_arn:string prop ->
+  api_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
   dynamodb_config:aws_appsync_datasource__dynamodb_config list ->
   elasticsearch_config:
     aws_appsync_datasource__elasticsearch_config list ->

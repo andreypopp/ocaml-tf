@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type digitalocean_droplet__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** digitalocean_droplet__timeouts *)
 
 type digitalocean_droplet = {
-  backups : bool option; [@option]  (** backups *)
-  droplet_agent : bool option; [@option]  (** droplet_agent *)
-  graceful_shutdown : bool option; [@option]
+  backups : bool prop option; [@option]  (** backups *)
+  droplet_agent : bool prop option; [@option]  (** droplet_agent *)
+  graceful_shutdown : bool prop option; [@option]
       (** graceful_shutdown *)
-  id : string option; [@option]  (** id *)
-  image : string;  (** image *)
-  ipv6 : bool option; [@option]  (** ipv6 *)
-  ipv6_address : string option; [@option]  (** ipv6_address *)
-  monitoring : bool option; [@option]  (** monitoring *)
-  name : string;  (** name *)
-  private_networking : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  image : string prop;  (** image *)
+  ipv6 : bool prop option; [@option]  (** ipv6 *)
+  ipv6_address : string prop option; [@option]  (** ipv6_address *)
+  monitoring : bool prop option; [@option]  (** monitoring *)
+  name : string prop;  (** name *)
+  private_networking : bool prop option; [@option]
       (** private_networking *)
-  region : string option; [@option]  (** region *)
-  resize_disk : bool option; [@option]  (** resize_disk *)
-  size : string;  (** size *)
-  ssh_keys : string list option; [@option]  (** ssh_keys *)
-  tags : string list option; [@option]  (** tags *)
-  user_data : string option; [@option]  (** user_data *)
-  volume_ids : string list option; [@option]  (** volume_ids *)
-  vpc_uuid : string option; [@option]  (** vpc_uuid *)
+  region : string prop option; [@option]  (** region *)
+  resize_disk : bool prop option; [@option]  (** resize_disk *)
+  size : string prop;  (** size *)
+  ssh_keys : string prop list option; [@option]  (** ssh_keys *)
+  tags : string prop list option; [@option]  (** tags *)
+  user_data : string prop option; [@option]  (** user_data *)
+  volume_ids : string prop list option; [@option]  (** volume_ids *)
+  vpc_uuid : string prop option; [@option]  (** vpc_uuid *)
   timeouts : digitalocean_droplet__timeouts option;
 }
 [@@deriving yojson_of]

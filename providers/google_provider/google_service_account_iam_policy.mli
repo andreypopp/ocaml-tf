@@ -5,8 +5,8 @@ open! Tf.Prelude
 type google_service_account_iam_policy
 
 val google_service_account_iam_policy :
-  ?id:string ->
-  policy_data:string ->
-  service_account_id:string ->
+  ?id:string prop ->
+  policy_data:string prop ->
+  service_account_id:string prop ->
   string ->
   unit

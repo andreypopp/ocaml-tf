@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_security_center_assessment_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_assessment_policy__timeouts *)
 
 type azurerm_security_center_assessment_policy = {
-  categories : string list option; [@option]  (** categories *)
-  description : string;  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  implementation_effort : string option; [@option]
+  categories : string prop list option; [@option]  (** categories *)
+  description : string prop;  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  implementation_effort : string prop option; [@option]
       (** implementation_effort *)
-  remediation_description : string option; [@option]
+  remediation_description : string prop option; [@option]
       (** remediation_description *)
-  severity : string option; [@option]  (** severity *)
-  threats : string list option; [@option]  (** threats *)
-  user_impact : string option; [@option]  (** user_impact *)
+  severity : string prop option; [@option]  (** severity *)
+  threats : string prop list option; [@option]  (** threats *)
+  user_impact : string prop option; [@option]  (** user_impact *)
   timeouts :
     azurerm_security_center_assessment_policy__timeouts option;
 }

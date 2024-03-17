@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_directory_service_log_subscription = {
-  directory_id : string;  (** directory_id *)
-  id : string option; [@option]  (** id *)
-  log_group_name : string;  (** log_group_name *)
+  directory_id : string prop;  (** directory_id *)
+  id : string prop option; [@option]  (** id *)
+  log_group_name : string prop;  (** log_group_name *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_log_subscription *)

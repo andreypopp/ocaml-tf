@@ -6,12 +6,12 @@ type azurerm_iothub_dps_certificate__timeouts
 type azurerm_iothub_dps_certificate
 
 val azurerm_iothub_dps_certificate :
-  ?id:string ->
-  ?is_verified:bool ->
+  ?id:string prop ->
+  ?is_verified:bool prop ->
   ?timeouts:azurerm_iothub_dps_certificate__timeouts ->
-  certificate_content:string ->
-  iot_dps_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  certificate_content:string prop ->
+  iot_dps_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

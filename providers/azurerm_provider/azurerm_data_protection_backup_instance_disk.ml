@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_data_protection_backup_instance_disk__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_instance_disk__timeouts *)
 
 type azurerm_data_protection_backup_instance_disk = {
-  backup_policy_id : string;  (** backup_policy_id *)
-  disk_id : string;  (** disk_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  snapshot_resource_group_name : string;
+  backup_policy_id : string prop;  (** backup_policy_id *)
+  disk_id : string prop;  (** disk_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  snapshot_resource_group_name : string prop;
       (** snapshot_resource_group_name *)
-  vault_id : string;  (** vault_id *)
+  vault_id : string prop;  (** vault_id *)
   timeouts :
     azurerm_data_protection_backup_instance_disk__timeouts option;
 }

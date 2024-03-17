@@ -23,18 +23,18 @@ type google_notebooks_runtime__virtual_machine__virtual_machine_config
 type google_notebooks_runtime__virtual_machine
 
 type google_notebooks_runtime__metrics = {
-  system_metrics : (string * string) list;  (** system_metrics *)
+  system_metrics : (string * string prop) list;  (** system_metrics *)
 }
 
 type google_notebooks_runtime
 
 val google_notebooks_runtime :
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_notebooks_runtime__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   access_config:google_notebooks_runtime__access_config list ->
   software_config:google_notebooks_runtime__software_config list ->
   virtual_machine:google_notebooks_runtime__virtual_machine list ->

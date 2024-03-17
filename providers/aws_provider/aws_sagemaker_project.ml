@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_sagemaker_project__service_catalog_provisioning_details__provisioning_parameter = {
-  key : string;  (** key *)
-  value : string option; [@option]  (** value *)
+  key : string prop;  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_project__service_catalog_provisioning_details__provisioning_parameter *)
 
 type aws_sagemaker_project__service_catalog_provisioning_details = {
-  path_id : string option; [@option]  (** path_id *)
-  product_id : string;  (** product_id *)
-  provisioning_artifact_id : string option; [@option]
+  path_id : string prop option; [@option]  (** path_id *)
+  product_id : string prop;  (** product_id *)
+  provisioning_artifact_id : string prop option; [@option]
       (** provisioning_artifact_id *)
   provisioning_parameter :
     aws_sagemaker_project__service_catalog_provisioning_details__provisioning_parameter
@@ -24,12 +24,12 @@ type aws_sagemaker_project__service_catalog_provisioning_details = {
 (** aws_sagemaker_project__service_catalog_provisioning_details *)
 
 type aws_sagemaker_project = {
-  id : string option; [@option]  (** id *)
-  project_description : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project_description : string prop option; [@option]
       (** project_description *)
-  project_name : string;  (** project_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  project_name : string prop;  (** project_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   service_catalog_provisioning_details :
     aws_sagemaker_project__service_catalog_provisioning_details list;

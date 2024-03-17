@@ -5,15 +5,19 @@
 open! Tf.Prelude
 
 type aws_devicefarm_instance_profile = {
-  description : string option; [@option]  (** description *)
-  exclude_app_packages_from_cleanup : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  exclude_app_packages_from_cleanup : string prop list option;
+      [@option]
       (** exclude_app_packages_from_cleanup *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  package_cleanup : bool option; [@option]  (** package_cleanup *)
-  reboot_after_use : bool option; [@option]  (** reboot_after_use *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  package_cleanup : bool prop option; [@option]
+      (** package_cleanup *)
+  reboot_after_use : bool prop option; [@option]
+      (** reboot_after_use *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_devicefarm_instance_profile *)

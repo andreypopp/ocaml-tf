@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_codestarconnections_connection = {
-  host_arn : string option; [@option]  (** host_arn *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  provider_type : string option; [@option]  (** provider_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  host_arn : string prop option; [@option]  (** host_arn *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  provider_type : string prop option; [@option]  (** provider_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_codestarconnections_connection *)

@@ -5,42 +5,42 @@
 open! Tf.Prelude
 
 type azurerm_logz_monitor__plan = {
-  billing_cycle : string;  (** billing_cycle *)
-  effective_date : string;  (** effective_date *)
-  plan_id : string option; [@option]  (** plan_id *)
-  usage_type : string;  (** usage_type *)
+  billing_cycle : string prop;  (** billing_cycle *)
+  effective_date : string prop;  (** effective_date *)
+  plan_id : string prop option; [@option]  (** plan_id *)
+  usage_type : string prop;  (** usage_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_logz_monitor__plan *)
 
 type azurerm_logz_monitor__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_logz_monitor__timeouts *)
 
 type azurerm_logz_monitor__user = {
-  email : string;  (** email *)
-  first_name : string;  (** first_name *)
-  last_name : string;  (** last_name *)
-  phone_number : string;  (** phone_number *)
+  email : string prop;  (** email *)
+  first_name : string prop;  (** first_name *)
+  last_name : string prop;  (** last_name *)
+  phone_number : string prop;  (** phone_number *)
 }
 [@@deriving yojson_of]
 (** azurerm_logz_monitor__user *)
 
 type azurerm_logz_monitor = {
-  company_name : string option; [@option]  (** company_name *)
-  enabled : bool option; [@option]  (** enabled *)
-  enterprise_app_id : string option; [@option]
+  company_name : string prop option; [@option]  (** company_name *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  enterprise_app_id : string prop option; [@option]
       (** enterprise_app_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   plan : azurerm_logz_monitor__plan list;
   timeouts : azurerm_logz_monitor__timeouts option;
   user : azurerm_logz_monitor__user list;

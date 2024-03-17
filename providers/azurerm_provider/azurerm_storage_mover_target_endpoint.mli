@@ -6,12 +6,12 @@ type azurerm_storage_mover_target_endpoint__timeouts
 type azurerm_storage_mover_target_endpoint
 
 val azurerm_storage_mover_target_endpoint :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_storage_mover_target_endpoint__timeouts ->
-  name:string ->
-  storage_account_id:string ->
-  storage_container_name:string ->
-  storage_mover_id:string ->
+  name:string prop ->
+  storage_account_id:string prop ->
+  storage_container_name:string prop ->
+  storage_mover_id:string prop ->
   string ->
   unit

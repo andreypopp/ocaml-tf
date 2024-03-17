@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_storage_account_network_rules__private_link_access = {
-  endpoint_resource_id : string;  (** endpoint_resource_id *)
-  endpoint_tenant_id : string option; [@option]
+  endpoint_resource_id : string prop;  (** endpoint_resource_id *)
+  endpoint_tenant_id : string prop option; [@option]
       (** endpoint_tenant_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_account_network_rules__private_link_access *)
 
 type azurerm_storage_account_network_rules__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_account_network_rules__timeouts *)
 
 type azurerm_storage_account_network_rules = {
-  bypass : string list option; [@option]  (** bypass *)
-  default_action : string;  (** default_action *)
-  id : string option; [@option]  (** id *)
-  ip_rules : string list option; [@option]  (** ip_rules *)
-  storage_account_id : string;  (** storage_account_id *)
-  virtual_network_subnet_ids : string list option; [@option]
+  bypass : string prop list option; [@option]  (** bypass *)
+  default_action : string prop;  (** default_action *)
+  id : string prop option; [@option]  (** id *)
+  ip_rules : string prop list option; [@option]  (** ip_rules *)
+  storage_account_id : string prop;  (** storage_account_id *)
+  virtual_network_subnet_ids : string prop list option; [@option]
       (** virtual_network_subnet_ids *)
   private_link_access :
     azurerm_storage_account_network_rules__private_link_access list;

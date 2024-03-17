@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_schemas_discoverer
 
 val aws_schemas_discoverer :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  source_arn:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  source_arn:string prop ->
   string ->
   unit

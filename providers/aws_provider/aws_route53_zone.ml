@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_route53_zone__vpc = {
-  vpc_id : string;  (** vpc_id *)
-  vpc_region : string option; [@option]  (** vpc_region *)
+  vpc_id : string prop;  (** vpc_id *)
+  vpc_region : string prop option; [@option]  (** vpc_region *)
 }
 [@@deriving yojson_of]
 (** aws_route53_zone__vpc *)
 
 type aws_route53_zone = {
-  comment : string option; [@option]  (** comment *)
-  delegation_set_id : string option; [@option]
+  comment : string prop option; [@option]  (** comment *)
+  delegation_set_id : string prop option; [@option]
       (** delegation_set_id *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   vpc : aws_route53_zone__vpc list;
 }

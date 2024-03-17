@@ -5,27 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_build_pack_binding__launch = {
-  properties : (string * string) list option; [@option]
+  properties : (string * string prop) list option; [@option]
       (** properties *)
-  secrets : (string * string) list option; [@option]  (** secrets *)
+  secrets : (string * string prop) list option; [@option]
+      (** secrets *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_build_pack_binding__launch *)
 
 type azurerm_spring_cloud_build_pack_binding__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_build_pack_binding__timeouts *)
 
 type azurerm_spring_cloud_build_pack_binding = {
-  binding_type : string option; [@option]  (** binding_type *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  spring_cloud_builder_id : string;  (** spring_cloud_builder_id *)
+  binding_type : string prop option; [@option]  (** binding_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  spring_cloud_builder_id : string prop;
+      (** spring_cloud_builder_id *)
   launch : azurerm_spring_cloud_build_pack_binding__launch list;
   timeouts : azurerm_spring_cloud_build_pack_binding__timeouts option;
 }

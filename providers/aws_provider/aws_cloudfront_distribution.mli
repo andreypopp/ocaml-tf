@@ -37,23 +37,23 @@ type aws_cloudfront_distribution__restrictions
 type aws_cloudfront_distribution__viewer_certificate
 
 type aws_cloudfront_distribution__trusted_key_groups__items = {
-  key_group_id : string;  (** key_group_id *)
-  key_pair_ids : string list;  (** key_pair_ids *)
+  key_group_id : string prop;  (** key_group_id *)
+  key_pair_ids : string prop list;  (** key_pair_ids *)
 }
 
 type aws_cloudfront_distribution__trusted_key_groups = {
-  enabled : bool;  (** enabled *)
+  enabled : bool prop;  (** enabled *)
   items : aws_cloudfront_distribution__trusted_key_groups__items list;
       (** items *)
 }
 
 type aws_cloudfront_distribution__trusted_signers__items = {
-  aws_account_number : string;  (** aws_account_number *)
-  key_pair_ids : string list;  (** key_pair_ids *)
+  aws_account_number : string prop;  (** aws_account_number *)
+  key_pair_ids : string prop list;  (** key_pair_ids *)
 }
 
 type aws_cloudfront_distribution__trusted_signers = {
-  enabled : bool;  (** enabled *)
+  enabled : bool prop;  (** enabled *)
   items : aws_cloudfront_distribution__trusted_signers__items list;
       (** items *)
 }
@@ -61,21 +61,21 @@ type aws_cloudfront_distribution__trusted_signers = {
 type aws_cloudfront_distribution
 
 val aws_cloudfront_distribution :
-  ?aliases:string list ->
-  ?comment:string ->
-  ?continuous_deployment_policy_id:string ->
-  ?default_root_object:string ->
-  ?http_version:string ->
-  ?id:string ->
-  ?is_ipv6_enabled:bool ->
-  ?price_class:string ->
-  ?retain_on_delete:bool ->
-  ?staging:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?wait_for_deployment:bool ->
-  ?web_acl_id:string ->
-  enabled:bool ->
+  ?aliases:string prop list ->
+  ?comment:string prop ->
+  ?continuous_deployment_policy_id:string prop ->
+  ?default_root_object:string prop ->
+  ?http_version:string prop ->
+  ?id:string prop ->
+  ?is_ipv6_enabled:bool prop ->
+  ?price_class:string prop ->
+  ?retain_on_delete:bool prop ->
+  ?staging:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?wait_for_deployment:bool prop ->
+  ?web_acl_id:string prop ->
+  enabled:bool prop ->
   custom_error_response:
     aws_cloudfront_distribution__custom_error_response list ->
   default_cache_behavior:

@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_iam_virtual_mfa_device = {
-  id : string option; [@option]  (** id *)
-  path : string option; [@option]  (** path *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  path : string prop option; [@option]  (** path *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  virtual_mfa_device_name : string;  (** virtual_mfa_device_name *)
+  virtual_mfa_device_name : string prop;
+      (** virtual_mfa_device_name *)
 }
 [@@deriving yojson_of]
 (** aws_iam_virtual_mfa_device *)

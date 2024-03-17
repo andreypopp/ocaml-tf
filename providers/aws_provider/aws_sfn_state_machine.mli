@@ -8,16 +8,16 @@ type aws_sfn_state_machine__tracing_configuration
 type aws_sfn_state_machine
 
 val aws_sfn_state_machine :
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?publish:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?type_:string ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?publish:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
   ?timeouts:aws_sfn_state_machine__timeouts ->
-  definition:string ->
-  role_arn:string ->
+  definition:string prop ->
+  role_arn:string prop ->
   logging_configuration:
     aws_sfn_state_machine__logging_configuration list ->
   tracing_configuration:

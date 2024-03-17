@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_detective_member = {
-  account_id : string;  (** account_id *)
-  disable_email_notification : bool option; [@option]
+  account_id : string prop;  (** account_id *)
+  disable_email_notification : bool prop option; [@option]
       (** disable_email_notification *)
-  email_address : string;  (** email_address *)
-  graph_arn : string;  (** graph_arn *)
-  id : string option; [@option]  (** id *)
-  message : string option; [@option]  (** message *)
+  email_address : string prop;  (** email_address *)
+  graph_arn : string prop;  (** graph_arn *)
+  id : string prop option; [@option]  (** id *)
+  message : string prop option; [@option]  (** message *)
 }
 [@@deriving yojson_of]
 (** aws_detective_member *)

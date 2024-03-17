@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type google_compute_instance_group_named_port__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_instance_group_named_port__timeouts *)
 
 type google_compute_instance_group_named_port = {
-  group : string;  (** The name of the instance group. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  group : string prop;  (** The name of the instance group. *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The name for this named port. The name must be 1-63 characters
 long, and comply with RFC1035. *)
-  port : float;
+  port : float prop;
       (** The port number, which can be a value between 1 and 65535. *)
-  project : string option; [@option]  (** project *)
-  zone : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  zone : string prop option; [@option]
       (** The zone of the instance group. *)
   timeouts :
     google_compute_instance_group_named_port__timeouts option;

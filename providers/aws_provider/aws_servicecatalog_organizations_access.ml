@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_servicecatalog_organizations_access__timeouts = {
-  read : string option; [@option]  (** read *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_organizations_access__timeouts *)
 
 type aws_servicecatalog_organizations_access = {
-  enabled : bool;  (** enabled *)
-  id : string option; [@option]  (** id *)
+  enabled : bool prop;  (** enabled *)
+  id : string prop option; [@option]  (** id *)
   timeouts : aws_servicecatalog_organizations_access__timeouts option;
 }
 [@@deriving yojson_of]

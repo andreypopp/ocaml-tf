@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_inspector_assessment_target = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_arn : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_arn : string prop option; [@option]
       (** resource_group_arn *)
 }
 [@@deriving yojson_of]

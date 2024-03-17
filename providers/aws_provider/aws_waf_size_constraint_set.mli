@@ -7,8 +7,8 @@ type aws_waf_size_constraint_set__size_constraints
 type aws_waf_size_constraint_set
 
 val aws_waf_size_constraint_set :
-  ?id:string ->
-  name:string ->
+  ?id:string prop ->
+  name:string prop ->
   size_constraints:aws_waf_size_constraint_set__size_constraints list ->
   string ->
   unit

@@ -5,58 +5,59 @@
 open! Tf.Prelude
 
 type cloudflare_spectrum_application__dns = {
-  name : string;
+  name : string prop;
       (** The name of the DNS record associated with the application. *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** The type of DNS record associated with the application. *)
 }
 [@@deriving yojson_of]
 (** The name and type of DNS record for the Spectrum application. *)
 
 type cloudflare_spectrum_application__edge_ips = {
-  connectivity : string option; [@option]
+  connectivity : string prop option; [@option]
       (** The IP versions supported for inbound connections on Spectrum anycast IPs. Required when `type` is not `static`. Available values: `all`, `ipv4`, `ipv6`. *)
-  ips : string list option; [@option]
+  ips : string prop list option; [@option]
       (** The collection of customer owned IPs to broadcast via anycast for this hostname and application. Requires [Bring Your Own IP](https://developers.cloudflare.com/spectrum/getting-started/byoip/) provisioned. *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** The type of edge IP configuration specified. Available values: `dynamic`, `static`. *)
 }
 [@@deriving yojson_of]
 (** The anycast edge IP configuration for the hostname of this application. *)
 
 type cloudflare_spectrum_application__origin_dns = {
-  name : string;  (** Fully qualified domain name of the origin. *)
+  name : string prop;
+      (** Fully qualified domain name of the origin. *)
 }
 [@@deriving yojson_of]
 (** A destination DNS addresses to the origin. *)
 
 type cloudflare_spectrum_application__origin_port_range = {
-  end_ : float; [@key "end"]
+  end_ : float prop; [@key "end"]
       (** Upper bound of the origin port range. *)
-  start : float;  (** Lower bound of the origin port range. *)
+  start : float prop;  (** Lower bound of the origin port range. *)
 }
 [@@deriving yojson_of]
 (** Origin port range to proxy traffice to. When using a range, the protocol field must also specify a range, e.g. `tcp/22-23`. Conflicts with `origin_port`. *)
 
 type cloudflare_spectrum_application = {
-  argo_smart_routing : bool option; [@option]
+  argo_smart_routing : bool prop option; [@option]
       (** Enables Argo Smart Routing. *)
-  id : string option; [@option]  (** id *)
-  ip_firewall : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ip_firewall : bool prop option; [@option]
       (** Enables the IP Firewall for this application. *)
-  origin_direct : string list option; [@option]
+  origin_direct : string prop list option; [@option]
       (** A list of destination addresses to the origin. e.g. `tcp://192.0.2.1:22`. *)
-  origin_port : float option; [@option]
+  origin_port : float prop option; [@option]
       (** Origin port to proxy traffice to. Conflicts with `origin_port_range`. *)
-  protocol : string;
+  protocol : string prop;
       (** The port configuration at Cloudflare's edge. e.g. `tcp/22`. *)
-  proxy_protocol : string option; [@option]
+  proxy_protocol : string prop option; [@option]
       (** Enables a proxy protocol to the origin. Available values: `off`, `v1`, `v2`, `simple`. *)
-  tls : string option; [@option]
+  tls : string prop option; [@option]
       (** TLS configuration option for Cloudflare to connect to your origin. Available values: `off`, `flexible`, `full`, `strict`. *)
-  traffic_type : string option; [@option]
+  traffic_type : string prop option; [@option]
       (** Sets application type. Available values: `direct`, `http`, `https`. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
   dns : cloudflare_spectrum_application__dns list;
   edge_ips : cloudflare_spectrum_application__edge_ips list;

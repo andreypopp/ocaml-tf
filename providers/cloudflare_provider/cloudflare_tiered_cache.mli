@@ -5,4 +5,8 @@ open! Tf.Prelude
 type cloudflare_tiered_cache
 
 val cloudflare_tiered_cache :
-  ?id:string -> cache_type:string -> zone_id:string -> string -> unit
+  ?id:string prop ->
+  cache_type:string prop ->
+  zone_id:string prop ->
+  string ->
+  unit

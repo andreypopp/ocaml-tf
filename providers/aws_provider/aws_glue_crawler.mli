@@ -17,18 +17,18 @@ type aws_glue_crawler__schema_change_policy
 type aws_glue_crawler
 
 val aws_glue_crawler :
-  ?classifiers:string list ->
-  ?configuration:string ->
-  ?description:string ->
-  ?id:string ->
-  ?schedule:string ->
-  ?security_configuration:string ->
-  ?table_prefix:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  database_name:string ->
-  name:string ->
-  role:string ->
+  ?classifiers:string prop list ->
+  ?configuration:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?schedule:string prop ->
+  ?security_configuration:string prop ->
+  ?table_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  database_name:string prop ->
+  name:string prop ->
+  role:string prop ->
   catalog_target:aws_glue_crawler__catalog_target list ->
   delta_target:aws_glue_crawler__delta_target list ->
   dynamodb_target:aws_glue_crawler__dynamodb_target list ->

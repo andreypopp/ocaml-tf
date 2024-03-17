@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_iothub_shared_access_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_shared_access_policy__timeouts *)
 
 type azurerm_iothub_shared_access_policy = {
-  device_connect : bool option; [@option]  (** device_connect *)
-  id : string option; [@option]  (** id *)
-  iothub_name : string;  (** iothub_name *)
-  name : string;  (** name *)
-  registry_read : bool option; [@option]  (** registry_read *)
-  registry_write : bool option; [@option]  (** registry_write *)
-  resource_group_name : string;  (** resource_group_name *)
-  service_connect : bool option; [@option]  (** service_connect *)
+  device_connect : bool prop option; [@option]  (** device_connect *)
+  id : string prop option; [@option]  (** id *)
+  iothub_name : string prop;  (** iothub_name *)
+  name : string prop;  (** name *)
+  registry_read : bool prop option; [@option]  (** registry_read *)
+  registry_write : bool prop option; [@option]  (** registry_write *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  service_connect : bool prop option; [@option]
+      (** service_connect *)
   timeouts : azurerm_iothub_shared_access_policy__timeouts option;
 }
 [@@deriving yojson_of]

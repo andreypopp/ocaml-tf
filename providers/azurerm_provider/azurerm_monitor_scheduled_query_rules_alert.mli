@@ -11,23 +11,23 @@ type azurerm_monitor_scheduled_query_rules_alert__trigger
 type azurerm_monitor_scheduled_query_rules_alert
 
 val azurerm_monitor_scheduled_query_rules_alert :
-  ?authorized_resource_ids:string list ->
-  ?auto_mitigation_enabled:bool ->
-  ?description:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?query_type:string ->
-  ?severity:float ->
-  ?tags:(string * string) list ->
-  ?throttling:float ->
+  ?authorized_resource_ids:string prop list ->
+  ?auto_mitigation_enabled:bool prop ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?query_type:string prop ->
+  ?severity:float prop ->
+  ?tags:(string * string prop) list ->
+  ?throttling:float prop ->
   ?timeouts:azurerm_monitor_scheduled_query_rules_alert__timeouts ->
-  data_source_id:string ->
-  frequency:float ->
-  location:string ->
-  name:string ->
-  query:string ->
-  resource_group_name:string ->
-  time_window:float ->
+  data_source_id:string prop ->
+  frequency:float prop ->
+  location:string prop ->
+  name:string prop ->
+  query:string prop ->
+  resource_group_name:string prop ->
+  time_window:float prop ->
   action:azurerm_monitor_scheduled_query_rules_alert__action list ->
   trigger:azurerm_monitor_scheduled_query_rules_alert__trigger list ->
   string ->

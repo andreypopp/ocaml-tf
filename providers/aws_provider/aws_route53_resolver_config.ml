@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type aws_route53_resolver_config = {
-  autodefined_reverse_flag : string;  (** autodefined_reverse_flag *)
-  id : string option; [@option]  (** id *)
-  resource_id : string;  (** resource_id *)
+  autodefined_reverse_flag : string prop;
+      (** autodefined_reverse_flag *)
+  id : string prop option; [@option]  (** id *)
+  resource_id : string prop;  (** resource_id *)
 }
 [@@deriving yojson_of]
 (** aws_route53_resolver_config *)

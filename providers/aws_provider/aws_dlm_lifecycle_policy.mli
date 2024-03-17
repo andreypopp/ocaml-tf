@@ -33,12 +33,12 @@ type aws_dlm_lifecycle_policy__policy_details
 type aws_dlm_lifecycle_policy
 
 val aws_dlm_lifecycle_policy :
-  ?id:string ->
-  ?state:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  description:string ->
-  execution_role_arn:string ->
+  ?id:string prop ->
+  ?state:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  description:string prop ->
+  execution_role_arn:string prop ->
   policy_details:aws_dlm_lifecycle_policy__policy_details list ->
   string ->
   unit

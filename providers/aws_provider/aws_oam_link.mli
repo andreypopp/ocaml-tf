@@ -6,12 +6,12 @@ type aws_oam_link__timeouts
 type aws_oam_link
 
 val aws_oam_link :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_oam_link__timeouts ->
-  label_template:string ->
-  resource_types:string list ->
-  sink_identifier:string ->
+  label_template:string prop ->
+  resource_types:string prop list ->
+  sink_identifier:string prop ->
   string ->
   unit

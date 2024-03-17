@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_gamelift_alias__routing_strategy = {
-  fleet_id : string option; [@option]  (** fleet_id *)
-  message : string option; [@option]  (** message *)
-  type_ : string; [@key "type"]  (** type *)
+  fleet_id : string prop option; [@option]  (** fleet_id *)
+  message : string prop option; [@option]  (** message *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_gamelift_alias__routing_strategy *)
 
 type aws_gamelift_alias = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   routing_strategy : aws_gamelift_alias__routing_strategy list;
 }

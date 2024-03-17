@@ -5,13 +5,14 @@
 open! Tf.Prelude
 
 type aws_securitylake_subscriber_notification__configuration__https_notification_configuration = {
-  authorization_api_key_name : string option; [@option]
+  authorization_api_key_name : string prop option; [@option]
       (** authorization_api_key_name *)
-  authorization_api_key_value : string option; [@option]
+  authorization_api_key_value : string prop option; [@option]
       (** authorization_api_key_value *)
-  endpoint : string option; [@option]  (** endpoint *)
-  http_method : string option; [@option]  (** http_method *)
-  target_role_arn : string option; [@option]  (** target_role_arn *)
+  endpoint : string prop option; [@option]  (** endpoint *)
+  http_method : string prop option; [@option]  (** http_method *)
+  target_role_arn : string prop option; [@option]
+      (** target_role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_securitylake_subscriber_notification__configuration__https_notification_configuration *)
@@ -32,7 +33,7 @@ type aws_securitylake_subscriber_notification__configuration = {
 (** aws_securitylake_subscriber_notification__configuration *)
 
 type aws_securitylake_subscriber_notification = {
-  subscriber_id : string;  (** subscriber_id *)
+  subscriber_id : string prop;  (** subscriber_id *)
   configuration :
     aws_securitylake_subscriber_notification__configuration list;
 }

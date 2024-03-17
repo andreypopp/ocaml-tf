@@ -12,34 +12,35 @@ type google_memcache_instance__node_config
 type google_memcache_instance__timeouts
 
 type google_memcache_instance__maintenance_schedule = {
-  end_time : string;  (** end_time *)
-  schedule_deadline_time : string;  (** schedule_deadline_time *)
-  start_time : string;  (** start_time *)
+  end_time : string prop;  (** end_time *)
+  schedule_deadline_time : string prop;
+      (** schedule_deadline_time *)
+  start_time : string prop;  (** start_time *)
 }
 
 type google_memcache_instance__memcache_nodes = {
-  host : string;  (** host *)
-  node_id : string;  (** node_id *)
-  port : float;  (** port *)
-  state : string;  (** state *)
-  zone : string;  (** zone *)
+  host : string prop;  (** host *)
+  node_id : string prop;  (** node_id *)
+  port : float prop;  (** port *)
+  state : string prop;  (** state *)
+  zone : string prop;  (** zone *)
 }
 
 type google_memcache_instance
 
 val google_memcache_instance :
-  ?authorized_network:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?memcache_version:string ->
-  ?project:string ->
-  ?region:string ->
-  ?reserved_ip_range_id:string list ->
-  ?zones:string list ->
+  ?authorized_network:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?memcache_version:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?reserved_ip_range_id:string prop list ->
+  ?zones:string prop list ->
   ?timeouts:google_memcache_instance__timeouts ->
-  name:string ->
-  node_count:float ->
+  name:string prop ->
+  node_count:float prop ->
   maintenance_policy:
     google_memcache_instance__maintenance_policy list ->
   memcache_parameters:

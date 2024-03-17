@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_mssql_job_agent__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_job_agent__timeouts *)
 
 type azurerm_mssql_job_agent = {
-  database_id : string;  (** database_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  database_id : string prop;  (** database_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_mssql_job_agent__timeouts option;
 }
 [@@deriving yojson_of]

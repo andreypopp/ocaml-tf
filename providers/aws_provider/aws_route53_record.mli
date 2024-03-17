@@ -13,16 +13,16 @@ type aws_route53_record__weighted_routing_policy
 type aws_route53_record
 
 val aws_route53_record :
-  ?allow_overwrite:bool ->
-  ?health_check_id:string ->
-  ?id:string ->
-  ?multivalue_answer_routing_policy:bool ->
-  ?records:string list ->
-  ?set_identifier:string ->
-  ?ttl:float ->
-  name:string ->
-  type_:string ->
-  zone_id:string ->
+  ?allow_overwrite:bool prop ->
+  ?health_check_id:string prop ->
+  ?id:string prop ->
+  ?multivalue_answer_routing_policy:bool prop ->
+  ?records:string prop list ->
+  ?set_identifier:string prop ->
+  ?ttl:float prop ->
+  name:string prop ->
+  type_:string prop ->
+  zone_id:string prop ->
   alias:aws_route53_record__alias list ->
   cidr_routing_policy:aws_route53_record__cidr_routing_policy list ->
   failover_routing_policy:

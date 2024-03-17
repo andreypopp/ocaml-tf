@@ -9,19 +9,19 @@ type google_bigquery_data_transfer_config__timeouts
 type google_bigquery_data_transfer_config
 
 val google_bigquery_data_transfer_config :
-  ?data_refresh_window_days:float ->
-  ?destination_dataset_id:string ->
-  ?disabled:bool ->
-  ?id:string ->
-  ?location:string ->
-  ?notification_pubsub_topic:string ->
-  ?project:string ->
-  ?schedule:string ->
-  ?service_account_name:string ->
+  ?data_refresh_window_days:float prop ->
+  ?destination_dataset_id:string prop ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?notification_pubsub_topic:string prop ->
+  ?project:string prop ->
+  ?schedule:string prop ->
+  ?service_account_name:string prop ->
   ?timeouts:google_bigquery_data_transfer_config__timeouts ->
-  data_source_id:string ->
-  display_name:string ->
-  params:(string * string) list ->
+  data_source_id:string prop ->
+  display_name:string prop ->
+  params:(string * string prop) list ->
   email_preferences:
     google_bigquery_data_transfer_config__email_preferences list ->
   schedule_options:

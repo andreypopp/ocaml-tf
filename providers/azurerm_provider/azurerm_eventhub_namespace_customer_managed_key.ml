@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_eventhub_namespace_customer_managed_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace_customer_managed_key__timeouts *)
 
 type azurerm_eventhub_namespace_customer_managed_key = {
-  eventhub_namespace_id : string;  (** eventhub_namespace_id *)
-  id : string option; [@option]  (** id *)
-  infrastructure_encryption_enabled : bool option; [@option]
+  eventhub_namespace_id : string prop;  (** eventhub_namespace_id *)
+  id : string prop option; [@option]  (** id *)
+  infrastructure_encryption_enabled : bool prop option; [@option]
       (** infrastructure_encryption_enabled *)
-  key_vault_key_ids : string list;  (** key_vault_key_ids *)
-  user_assigned_identity_id : string option; [@option]
+  key_vault_key_ids : string prop list;  (** key_vault_key_ids *)
+  user_assigned_identity_id : string prop option; [@option]
       (** user_assigned_identity_id *)
   timeouts :
     azurerm_eventhub_namespace_customer_managed_key__timeouts option;

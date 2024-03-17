@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_ec2_image_block_public_access__timeouts = {
-  update : string option; [@option]  (** update *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_image_block_public_access__timeouts *)
 
 type aws_ec2_image_block_public_access = {
-  id : string option; [@option]  (** id *)
-  state : string;  (** state *)
+  id : string prop option; [@option]  (** id *)
+  state : string prop;  (** state *)
   timeouts : aws_ec2_image_block_public_access__timeouts option;
 }
 [@@deriving yojson_of]

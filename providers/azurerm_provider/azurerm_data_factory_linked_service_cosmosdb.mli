@@ -6,18 +6,18 @@ type azurerm_data_factory_linked_service_cosmosdb__timeouts
 type azurerm_data_factory_linked_service_cosmosdb
 
 val azurerm_data_factory_linked_service_cosmosdb :
-  ?account_endpoint:string ->
-  ?account_key:string ->
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?connection_string:string ->
-  ?database:string ->
-  ?description:string ->
-  ?id:string ->
-  ?integration_runtime_name:string ->
-  ?parameters:(string * string) list ->
+  ?account_endpoint:string prop ->
+  ?account_key:string prop ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?connection_string:string prop ->
+  ?database:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?integration_runtime_name:string prop ->
+  ?parameters:(string * string prop) list ->
   ?timeouts:azurerm_data_factory_linked_service_cosmosdb__timeouts ->
-  data_factory_id:string ->
-  name:string ->
+  data_factory_id:string prop ->
+  name:string prop ->
   string ->
   unit

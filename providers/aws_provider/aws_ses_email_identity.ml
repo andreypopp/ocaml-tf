@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_ses_email_identity = {
-  email : string;  (** email *)
-  id : string option; [@option]  (** id *)
+  email : string prop;  (** email *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_ses_email_identity *)

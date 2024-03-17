@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type aws_iot_topic_rule_destination__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_iot_topic_rule_destination__timeouts *)
 
 type aws_iot_topic_rule_destination__vpc_configuration = {
-  role_arn : string;  (** role_arn *)
-  security_groups : string list option; [@option]
+  role_arn : string prop;  (** role_arn *)
+  security_groups : string prop list option; [@option]
       (** security_groups *)
-  subnet_ids : string list;  (** subnet_ids *)
-  vpc_id : string;  (** vpc_id *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_iot_topic_rule_destination__vpc_configuration *)
 
 type aws_iot_topic_rule_destination = {
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
   timeouts : aws_iot_topic_rule_destination__timeouts option;
   vpc_configuration :
     aws_iot_topic_rule_destination__vpc_configuration list;

@@ -5,48 +5,51 @@
 open! Tf.Prelude
 
 type azurerm_voice_services_communications_gateway__service_location = {
-  allowed_media_source_address_prefixes : string list option;
+  allowed_media_source_address_prefixes : string prop list option;
       [@option]
       (** allowed_media_source_address_prefixes *)
-  allowed_signaling_source_address_prefixes : string list option;
+  allowed_signaling_source_address_prefixes :
+    string prop list option;
       [@option]
       (** allowed_signaling_source_address_prefixes *)
-  esrp_addresses : string list option; [@option]
+  esrp_addresses : string prop list option; [@option]
       (** esrp_addresses *)
-  location : string;  (** location *)
-  operator_addresses : string list;  (** operator_addresses *)
+  location : string prop;  (** location *)
+  operator_addresses : string prop list;  (** operator_addresses *)
 }
 [@@deriving yojson_of]
 (** azurerm_voice_services_communications_gateway__service_location *)
 
 type azurerm_voice_services_communications_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_voice_services_communications_gateway__timeouts *)
 
 type azurerm_voice_services_communications_gateway = {
-  api_bridge : string option; [@option]  (** api_bridge *)
-  auto_generated_domain_name_label_scope : string option; [@option]
+  api_bridge : string prop option; [@option]  (** api_bridge *)
+  auto_generated_domain_name_label_scope : string prop option;
+      [@option]
       (** auto_generated_domain_name_label_scope *)
-  codecs : string;  (** codecs *)
-  connectivity : string;  (** connectivity *)
-  e911_type : string;  (** e911_type *)
-  emergency_dial_strings : string list option; [@option]
+  codecs : string prop;  (** codecs *)
+  connectivity : string prop;  (** connectivity *)
+  e911_type : string prop;  (** e911_type *)
+  emergency_dial_strings : string prop list option; [@option]
       (** emergency_dial_strings *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  microsoft_teams_voicemail_pilot_number : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  microsoft_teams_voicemail_pilot_number : string prop option;
+      [@option]
       (** microsoft_teams_voicemail_pilot_number *)
-  name : string;  (** name *)
-  on_prem_mcp_enabled : bool option; [@option]
+  name : string prop;  (** name *)
+  on_prem_mcp_enabled : bool prop option; [@option]
       (** on_prem_mcp_enabled *)
-  platforms : string list;  (** platforms *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  platforms : string prop list;  (** platforms *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   service_location :
     azurerm_voice_services_communications_gateway__service_location
     list;

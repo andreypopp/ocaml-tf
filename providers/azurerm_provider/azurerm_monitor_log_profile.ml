@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_monitor_log_profile__retention_policy = {
-  days : float option; [@option]  (** days *)
-  enabled : bool;  (** enabled *)
+  days : float prop option; [@option]  (** days *)
+  enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_log_profile__retention_policy *)
 
 type azurerm_monitor_log_profile__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_log_profile__timeouts *)
 
 type azurerm_monitor_log_profile = {
-  categories : string list;  (** categories *)
-  id : string option; [@option]  (** id *)
-  locations : string list;  (** locations *)
-  name : string;  (** name *)
-  servicebus_rule_id : string option; [@option]
+  categories : string prop list;  (** categories *)
+  id : string prop option; [@option]  (** id *)
+  locations : string prop list;  (** locations *)
+  name : string prop;  (** name *)
+  servicebus_rule_id : string prop option; [@option]
       (** servicebus_rule_id *)
-  storage_account_id : string option; [@option]
+  storage_account_id : string prop option; [@option]
       (** storage_account_id *)
   retention_policy :
     azurerm_monitor_log_profile__retention_policy list;

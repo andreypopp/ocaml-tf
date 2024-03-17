@@ -6,14 +6,14 @@ type azurerm_key_vault_managed_storage_account__timeouts
 type azurerm_key_vault_managed_storage_account
 
 val azurerm_key_vault_managed_storage_account :
-  ?id:string ->
-  ?regenerate_key_automatically:bool ->
-  ?regeneration_period:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?regenerate_key_automatically:bool prop ->
+  ?regeneration_period:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_key_vault_managed_storage_account__timeouts ->
-  key_vault_id:string ->
-  name:string ->
-  storage_account_id:string ->
-  storage_account_key:string ->
+  key_vault_id:string prop ->
+  name:string prop ->
+  storage_account_id:string prop ->
+  storage_account_key:string prop ->
   string ->
   unit

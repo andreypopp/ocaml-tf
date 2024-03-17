@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_iothub__cloud_to_device__feedback = {
-  lock_duration : string option; [@option]  (** lock_duration *)
-  max_delivery_count : float option; [@option]
+  lock_duration : string prop option; [@option]  (** lock_duration *)
+  max_delivery_count : float prop option; [@option]
       (** max_delivery_count *)
-  time_to_live : string option; [@option]  (** time_to_live *)
+  time_to_live : string prop option; [@option]  (** time_to_live *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub__cloud_to_device__feedback *)
 
 type azurerm_iothub__cloud_to_device = {
-  default_ttl : string option; [@option]  (** default_ttl *)
-  max_delivery_count : float option; [@option]
+  default_ttl : string prop option; [@option]  (** default_ttl *)
+  max_delivery_count : float prop option; [@option]
       (** max_delivery_count *)
   feedback : azurerm_iothub__cloud_to_device__feedback list;
 }
@@ -23,112 +23,115 @@ type azurerm_iothub__cloud_to_device = {
 (** azurerm_iothub__cloud_to_device *)
 
 type azurerm_iothub__fallback_route = {
-  condition : string option; [@option]  (** condition *)
-  enabled : bool option; [@option]  (** enabled *)
-  endpoint_names : string list option; [@option]
+  condition : string prop option; [@option]  (** condition *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  endpoint_names : string prop list option; [@option]
       (** endpoint_names *)
-  source : string option; [@option]  (** source *)
+  source : string prop option; [@option]  (** source *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub__fallback_route *)
 
 type azurerm_iothub__file_upload = {
-  authentication_type : string option; [@option]
+  authentication_type : string prop option; [@option]
       (** authentication_type *)
-  connection_string : string;  (** connection_string *)
-  container_name : string;  (** container_name *)
-  default_ttl : string option; [@option]  (** default_ttl *)
-  identity_id : string option; [@option]  (** identity_id *)
-  lock_duration : string option; [@option]  (** lock_duration *)
-  max_delivery_count : float option; [@option]
+  connection_string : string prop;  (** connection_string *)
+  container_name : string prop;  (** container_name *)
+  default_ttl : string prop option; [@option]  (** default_ttl *)
+  identity_id : string prop option; [@option]  (** identity_id *)
+  lock_duration : string prop option; [@option]  (** lock_duration *)
+  max_delivery_count : float prop option; [@option]
       (** max_delivery_count *)
-  notifications : bool option; [@option]  (** notifications *)
-  sas_ttl : string option; [@option]  (** sas_ttl *)
+  notifications : bool prop option; [@option]  (** notifications *)
+  sas_ttl : string prop option; [@option]  (** sas_ttl *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub__file_upload *)
 
 type azurerm_iothub__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub__identity *)
 
 type azurerm_iothub__network_rule_set__ip_rule = {
-  action : string option; [@option]  (** action *)
-  ip_mask : string;  (** ip_mask *)
-  name : string;  (** name *)
+  action : string prop option; [@option]  (** action *)
+  ip_mask : string prop;  (** ip_mask *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub__network_rule_set__ip_rule *)
 
 type azurerm_iothub__network_rule_set = {
-  apply_to_builtin_eventhub_endpoint : bool option; [@option]
+  apply_to_builtin_eventhub_endpoint : bool prop option; [@option]
       (** apply_to_builtin_eventhub_endpoint *)
-  default_action : string option; [@option]  (** default_action *)
+  default_action : string prop option; [@option]
+      (** default_action *)
   ip_rule : azurerm_iothub__network_rule_set__ip_rule list;
 }
 [@@deriving yojson_of]
 (** azurerm_iothub__network_rule_set *)
 
 type azurerm_iothub__sku = {
-  capacity : float;  (** capacity *)
-  name : string;  (** name *)
+  capacity : float prop;  (** capacity *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub__sku *)
 
 type azurerm_iothub__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub__timeouts *)
 
 type azurerm_iothub__endpoint = {
-  authentication_type : string;  (** authentication_type *)
-  batch_frequency_in_seconds : float;
+  authentication_type : string prop;  (** authentication_type *)
+  batch_frequency_in_seconds : float prop;
       (** batch_frequency_in_seconds *)
-  connection_string : string;  (** connection_string *)
-  container_name : string;  (** container_name *)
-  encoding : string;  (** encoding *)
-  endpoint_uri : string;  (** endpoint_uri *)
-  entity_path : string;  (** entity_path *)
-  file_name_format : string;  (** file_name_format *)
-  identity_id : string;  (** identity_id *)
-  max_chunk_size_in_bytes : float;  (** max_chunk_size_in_bytes *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  type_ : string; [@key "type"]  (** type *)
+  connection_string : string prop;  (** connection_string *)
+  container_name : string prop;  (** container_name *)
+  encoding : string prop;  (** encoding *)
+  endpoint_uri : string prop;  (** endpoint_uri *)
+  entity_path : string prop;  (** entity_path *)
+  file_name_format : string prop;  (** file_name_format *)
+  identity_id : string prop;  (** identity_id *)
+  max_chunk_size_in_bytes : float prop;
+      (** max_chunk_size_in_bytes *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
 type azurerm_iothub__enrichment = {
-  endpoint_names : string list;  (** endpoint_names *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  endpoint_names : string prop list;  (** endpoint_names *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 
 type azurerm_iothub__route = {
-  condition : string;  (** condition *)
-  enabled : bool;  (** enabled *)
-  endpoint_names : string list;  (** endpoint_names *)
-  name : string;  (** name *)
-  source : string;  (** source *)
+  condition : string prop;  (** condition *)
+  enabled : bool prop;  (** enabled *)
+  endpoint_names : string prop list;  (** endpoint_names *)
+  name : string prop;  (** name *)
+  source : string prop;  (** source *)
 }
 [@@deriving yojson_of]
 
 type azurerm_iothub__shared_access_policy = {
-  key_name : string;  (** key_name *)
-  permissions : string;  (** permissions *)
-  primary_key : string;  (** primary_key *)
-  secondary_key : string;  (** secondary_key *)
+  key_name : string prop;  (** key_name *)
+  permissions : string prop;  (** permissions *)
+  primary_key : string prop;  (** primary_key *)
+  secondary_key : string prop;  (** secondary_key *)
 }
 [@@deriving yojson_of]
 
@@ -137,21 +140,22 @@ type azurerm_iothub = {
       (** endpoint *)
   enrichment : azurerm_iothub__enrichment list option; [@option]
       (** enrichment *)
-  event_hub_partition_count : float option; [@option]
+  event_hub_partition_count : float prop option; [@option]
       (** event_hub_partition_count *)
-  event_hub_retention_in_days : float option; [@option]
+  event_hub_retention_in_days : float prop option; [@option]
       (** event_hub_retention_in_days *)
-  id : string option; [@option]  (** id *)
-  local_authentication_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  local_authentication_enabled : bool prop option; [@option]
       (** local_authentication_enabled *)
-  location : string;  (** location *)
-  min_tls_version : string option; [@option]  (** min_tls_version *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  location : string prop;  (** location *)
+  min_tls_version : string prop option; [@option]
+      (** min_tls_version *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   route : azurerm_iothub__route list option; [@option]  (** route *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   cloud_to_device : azurerm_iothub__cloud_to_device list;
   fallback_route : azurerm_iothub__fallback_route list;
   file_upload : azurerm_iothub__file_upload list;

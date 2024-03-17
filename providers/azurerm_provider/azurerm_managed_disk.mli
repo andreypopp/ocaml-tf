@@ -9,42 +9,42 @@ type azurerm_managed_disk__timeouts
 type azurerm_managed_disk
 
 val azurerm_managed_disk :
-  ?disk_access_id:string ->
-  ?disk_encryption_set_id:string ->
-  ?disk_iops_read_only:float ->
-  ?disk_iops_read_write:float ->
-  ?disk_mbps_read_only:float ->
-  ?disk_mbps_read_write:float ->
-  ?disk_size_gb:float ->
-  ?edge_zone:string ->
-  ?gallery_image_reference_id:string ->
-  ?hyper_v_generation:string ->
-  ?id:string ->
-  ?image_reference_id:string ->
-  ?logical_sector_size:float ->
-  ?max_shares:float ->
-  ?network_access_policy:string ->
-  ?on_demand_bursting_enabled:bool ->
-  ?optimized_frequent_attach_enabled:bool ->
-  ?os_type:string ->
-  ?performance_plus_enabled:bool ->
-  ?public_network_access_enabled:bool ->
-  ?secure_vm_disk_encryption_set_id:string ->
-  ?security_type:string ->
-  ?source_resource_id:string ->
-  ?source_uri:string ->
-  ?storage_account_id:string ->
-  ?tags:(string * string) list ->
-  ?tier:string ->
-  ?trusted_launch_enabled:bool ->
-  ?upload_size_bytes:float ->
-  ?zone:string ->
+  ?disk_access_id:string prop ->
+  ?disk_encryption_set_id:string prop ->
+  ?disk_iops_read_only:float prop ->
+  ?disk_iops_read_write:float prop ->
+  ?disk_mbps_read_only:float prop ->
+  ?disk_mbps_read_write:float prop ->
+  ?disk_size_gb:float prop ->
+  ?edge_zone:string prop ->
+  ?gallery_image_reference_id:string prop ->
+  ?hyper_v_generation:string prop ->
+  ?id:string prop ->
+  ?image_reference_id:string prop ->
+  ?logical_sector_size:float prop ->
+  ?max_shares:float prop ->
+  ?network_access_policy:string prop ->
+  ?on_demand_bursting_enabled:bool prop ->
+  ?optimized_frequent_attach_enabled:bool prop ->
+  ?os_type:string prop ->
+  ?performance_plus_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?secure_vm_disk_encryption_set_id:string prop ->
+  ?security_type:string prop ->
+  ?source_resource_id:string prop ->
+  ?source_uri:string prop ->
+  ?storage_account_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tier:string prop ->
+  ?trusted_launch_enabled:bool prop ->
+  ?upload_size_bytes:float prop ->
+  ?zone:string prop ->
   ?timeouts:azurerm_managed_disk__timeouts ->
-  create_option:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  storage_account_type:string ->
+  create_option:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_account_type:string prop ->
   encryption_settings:azurerm_managed_disk__encryption_settings list ->
   string ->
   unit

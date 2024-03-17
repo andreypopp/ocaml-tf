@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type cloudflare_zone_cache_variants = {
-  avif : string list option; [@option]
+  avif : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for avif. *)
-  bmp : string list option; [@option]
+  bmp : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for bmp. *)
-  gif : string list option; [@option]
+  gif : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for gif. *)
-  id : string option; [@option]  (** id *)
-  jp2 : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  jp2 : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for jp2. *)
-  jpeg : string list option; [@option]
+  jpeg : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for jpeg. *)
-  jpg : string list option; [@option]
+  jpg : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for jpg. *)
-  jpg2 : string list option; [@option]
+  jpg2 : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for jpg2. *)
-  png : string list option; [@option]
+  png : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for png. *)
-  tif : string list option; [@option]
+  tif : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for tif. *)
-  tiff : string list option; [@option]
+  tiff : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for tiff. *)
-  webp : string list option; [@option]
+  webp : string prop list option; [@option]
       (** List of strings with the MIME types of all the variants that should be served for webp. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

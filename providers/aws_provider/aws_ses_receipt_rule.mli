@@ -12,14 +12,14 @@ type aws_ses_receipt_rule__workmail_action
 type aws_ses_receipt_rule
 
 val aws_ses_receipt_rule :
-  ?after:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?recipients:string list ->
-  ?scan_enabled:bool ->
-  ?tls_policy:string ->
-  name:string ->
-  rule_set_name:string ->
+  ?after:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?recipients:string prop list ->
+  ?scan_enabled:bool prop ->
+  ?tls_policy:string prop ->
+  name:string prop ->
+  rule_set_name:string prop ->
   add_header_action:aws_ses_receipt_rule__add_header_action list ->
   bounce_action:aws_ses_receipt_rule__bounce_action list ->
   lambda_action:aws_ses_receipt_rule__lambda_action list ->

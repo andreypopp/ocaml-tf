@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_kms_ciphertext = {
-  context : (string * string) list option; [@option]  (** context *)
-  id : string option; [@option]  (** id *)
-  key_id : string;  (** key_id *)
-  plaintext : string;  (** plaintext *)
+  context : (string * string prop) list option; [@option]
+      (** context *)
+  id : string prop option; [@option]  (** id *)
+  key_id : string prop;  (** key_id *)
+  plaintext : string prop;  (** plaintext *)
 }
 [@@deriving yojson_of]
 (** aws_kms_ciphertext *)

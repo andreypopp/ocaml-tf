@@ -14,13 +14,13 @@ type azurerm_consumption_budget_resource_group__timeouts
 type azurerm_consumption_budget_resource_group
 
 val azurerm_consumption_budget_resource_group :
-  ?etag:string ->
-  ?id:string ->
-  ?time_grain:string ->
+  ?etag:string prop ->
+  ?id:string prop ->
+  ?time_grain:string prop ->
   ?timeouts:azurerm_consumption_budget_resource_group__timeouts ->
-  amount:float ->
-  name:string ->
-  resource_group_id:string ->
+  amount:float prop ->
+  name:string prop ->
+  resource_group_id:string prop ->
   filter:azurerm_consumption_budget_resource_group__filter list ->
   notification:
     azurerm_consumption_budget_resource_group__notification list ->

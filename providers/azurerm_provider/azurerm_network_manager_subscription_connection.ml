@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_network_manager_subscription_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_subscription_connection__timeouts *)
 
 type azurerm_network_manager_subscription_connection = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  network_manager_id : string;  (** network_manager_id *)
-  subscription_id : string;  (** subscription_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  network_manager_id : string prop;  (** network_manager_id *)
+  subscription_id : string prop;  (** subscription_id *)
   timeouts :
     azurerm_network_manager_subscription_connection__timeouts option;
 }

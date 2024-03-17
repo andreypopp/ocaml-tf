@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_location_route_calculator__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_location_route_calculator__timeouts *)
 
 type aws_location_route_calculator = {
-  calculator_name : string;  (** calculator_name *)
-  data_source : string;  (** data_source *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  calculator_name : string prop;  (** calculator_name *)
+  data_source : string prop;  (** data_source *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_location_route_calculator__timeouts option;
 }

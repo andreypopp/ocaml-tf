@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type google_container_attached_cluster__authorization = {
-  admin_groups : string list option; [@option]
+  admin_groups : string prop list option; [@option]
       (** Groups that can perform operations as a cluster admin. A managed
 ClusterRoleBinding will be created to grant the 'cluster-admin' ClusterRole
 to the groups. Up to ten admin groups can be provided.
 
 For more info on RBAC, see
 https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles *)
-  admin_users : string list option; [@option]
+  admin_users : string prop list option; [@option]
       (** Users that can perform operations as a cluster admin. A managed
 ClusterRoleBinding will be created to grant the 'cluster-admin' ClusterRole
 to the users. Up to ten admin users can be provided.
@@ -24,25 +24,25 @@ https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles 
 (** Configuration related to the cluster RBAC settings. *)
 
 type google_container_attached_cluster__binary_authorization = {
-  evaluation_mode : string option; [@option]
+  evaluation_mode : string prop option; [@option]
       (** Configure Binary Authorization evaluation mode. Possible values: [DISABLED, PROJECT_SINGLETON_POLICY_ENFORCE] *)
 }
 [@@deriving yojson_of]
 (** Binary Authorization configuration. *)
 
 type google_container_attached_cluster__fleet = {
-  membership : string;
+  membership : string prop;
       (** The name of the managed Hub Membership resource associated to this
 cluster. Membership names are formatted as
 projects/<project-number>/locations/global/membership/<cluster-id>. *)
-  project : string;
+  project : string prop;
       (** The number of the Fleet host project where this cluster will be registered. *)
 }
 [@@deriving yojson_of]
 (** Fleet configuration. *)
 
 type google_container_attached_cluster__logging_config__component_config = {
-  enable_components : string list option; [@option]
+  enable_components : string prop list option; [@option]
       (** The components to be enabled. Possible values: [SYSTEM_COMPONENTS, WORKLOADS] *)
 }
 [@@deriving yojson_of]
@@ -57,7 +57,8 @@ type google_container_attached_cluster__logging_config = {
 (** Logging configuration. *)
 
 type google_container_attached_cluster__monitoring_config__managed_prometheus_config = {
-  enabled : bool option; [@option]  (** Enable Managed Collection. *)
+  enabled : bool prop option; [@option]
+      (** Enable Managed Collection. *)
 }
 [@@deriving yojson_of]
 (** Enable Google Cloud Managed Service for Prometheus in the cluster. *)
@@ -71,9 +72,9 @@ type google_container_attached_cluster__monitoring_config = {
 (** Monitoring configuration. *)
 
 type google_container_attached_cluster__oidc_config = {
-  issuer_url : string;
+  issuer_url : string prop;
       (** A JSON Web Token (JWT) issuer URI. 'issuer' must start with 'https://' *)
-  jwks : string option; [@option]
+  jwks : string prop option; [@option]
       (** OIDC verification keys in JWKS format (RFC 7517). *)
 }
 [@@deriving yojson_of]
@@ -90,9 +91,9 @@ while clusters with private issuers need to provide both
 'issuer_url' and 'jwks'. *)
 
 type google_container_attached_cluster__proxy_config__kubernetes_secret = {
-  name : string;
+  name : string prop;
       (** Name of the kubernetes secret containing the proxy config. *)
-  namespace : string;
+  namespace : string prop;
       (** Namespace of the kubernetes secret containing the proxy config. *)
 }
 [@@deriving yojson_of]
@@ -107,27 +108,27 @@ type google_container_attached_cluster__proxy_config = {
 (** Support for proxy configuration. *)
 
 type google_container_attached_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_container_attached_cluster__timeouts *)
 
 type google_container_attached_cluster__errors = {
-  message : string;  (** message *)
+  message : string prop;  (** message *)
 }
 [@@deriving yojson_of]
 
 type google_container_attached_cluster__workload_identity_config = {
-  identity_provider : string;  (** identity_provider *)
-  issuer_uri : string;  (** issuer_uri *)
-  workload_pool : string;  (** workload_pool *)
+  identity_provider : string prop;  (** identity_provider *)
+  issuer_uri : string prop;  (** issuer_uri *)
+  workload_pool : string prop;  (** workload_pool *)
 }
 [@@deriving yojson_of]
 
 type google_container_attached_cluster = {
-  annotations : (string * string) list option; [@option]
+  annotations : (string * string prop) list option; [@option]
       (** Optional. Annotations on the cluster. This field has the same
 restrictions as Kubernetes annotations. The total size of all keys and
 values combined is limited to 256k. Key can have 2 segments: prefix (optional)
@@ -138,20 +139,20 @@ with dashes (-), underscores (_), dots (.), and alphanumerics between.
 
 **Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
 Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
-  deletion_policy : string option; [@option]
+  deletion_policy : string prop option; [@option]
       (** Policy to determine what flags to send on delete. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A human readable description of this attached cluster. Cannot be longer
 than 255 UTF-8 encoded bytes. *)
-  distribution : string;
+  distribution : string prop;
       (** The Kubernetes distribution of the underlying attached cluster. Supported values:
 eks, aks. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location for the resource *)
-  name : string;  (** The name of this resource. *)
-  platform_version : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location for the resource *)
+  name : string prop;  (** The name of this resource. *)
+  platform_version : string prop;
       (** The platform version for the cluster (e.g. '1.23.0-gke.1'). *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   authorization :
     google_container_attached_cluster__authorization list;
   binary_authorization :

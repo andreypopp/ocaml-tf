@@ -9,23 +9,23 @@ type aws_fsx_ontap_storage_virtual_machine__active_directory_configuration
 type aws_fsx_ontap_storage_virtual_machine__timeouts
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__smb = {
-  dns_name : string;  (** dns_name *)
-  ip_addresses : string list;  (** ip_addresses *)
+  dns_name : string prop;  (** dns_name *)
+  ip_addresses : string prop list;  (** ip_addresses *)
 }
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__nfs = {
-  dns_name : string;  (** dns_name *)
-  ip_addresses : string list;  (** ip_addresses *)
+  dns_name : string prop;  (** dns_name *)
+  ip_addresses : string prop list;  (** ip_addresses *)
 }
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__management = {
-  dns_name : string;  (** dns_name *)
-  ip_addresses : string list;  (** ip_addresses *)
+  dns_name : string prop;  (** dns_name *)
+  ip_addresses : string prop list;  (** ip_addresses *)
 }
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints__iscsi = {
-  dns_name : string;  (** dns_name *)
-  ip_addresses : string list;  (** ip_addresses *)
+  dns_name : string prop;  (** dns_name *)
+  ip_addresses : string prop list;  (** ip_addresses *)
 }
 
 type aws_fsx_ontap_storage_virtual_machine__endpoints = {
@@ -44,14 +44,14 @@ type aws_fsx_ontap_storage_virtual_machine__endpoints = {
 type aws_fsx_ontap_storage_virtual_machine
 
 val aws_fsx_ontap_storage_virtual_machine :
-  ?id:string ->
-  ?root_volume_security_style:string ->
-  ?svm_admin_password:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?root_volume_security_style:string prop ->
+  ?svm_admin_password:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_fsx_ontap_storage_virtual_machine__timeouts ->
-  file_system_id:string ->
-  name:string ->
+  file_system_id:string prop ->
+  name:string prop ->
   active_directory_configuration:
     aws_fsx_ontap_storage_virtual_machine__active_directory_configuration
     list ->

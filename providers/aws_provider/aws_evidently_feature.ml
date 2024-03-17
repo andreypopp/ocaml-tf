@@ -5,48 +5,48 @@
 open! Tf.Prelude
 
 type aws_evidently_feature__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_evidently_feature__timeouts *)
 
 type aws_evidently_feature__variations__value = {
-  bool_value : string option; [@option]  (** bool_value *)
-  double_value : string option; [@option]  (** double_value *)
-  long_value : string option; [@option]  (** long_value *)
-  string_value : string option; [@option]  (** string_value *)
+  bool_value : string prop option; [@option]  (** bool_value *)
+  double_value : string prop option; [@option]  (** double_value *)
+  long_value : string prop option; [@option]  (** long_value *)
+  string_value : string prop option; [@option]  (** string_value *)
 }
 [@@deriving yojson_of]
 (** aws_evidently_feature__variations__value *)
 
 type aws_evidently_feature__variations = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   value : aws_evidently_feature__variations__value list;
 }
 [@@deriving yojson_of]
 (** aws_evidently_feature__variations *)
 
 type aws_evidently_feature__evaluation_rules = {
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
 type aws_evidently_feature = {
-  default_variation : string option; [@option]
+  default_variation : string prop option; [@option]
       (** default_variation *)
-  description : string option; [@option]  (** description *)
-  entity_overrides : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  entity_overrides : (string * string prop) list option; [@option]
       (** entity_overrides *)
-  evaluation_strategy : string option; [@option]
+  evaluation_strategy : string prop option; [@option]
       (** evaluation_strategy *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  project : string;  (** project *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  project : string prop;  (** project *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_evidently_feature__timeouts option;
   variations : aws_evidently_feature__variations list;

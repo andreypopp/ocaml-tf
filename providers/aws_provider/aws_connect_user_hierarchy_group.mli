@@ -3,33 +3,33 @@
 open! Tf.Prelude
 
 type aws_connect_user_hierarchy_group__hierarchy_path__level_two = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 
 type aws_connect_user_hierarchy_group__hierarchy_path__level_three = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 
 type aws_connect_user_hierarchy_group__hierarchy_path__level_one = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 
 type aws_connect_user_hierarchy_group__hierarchy_path__level_four = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 
 type aws_connect_user_hierarchy_group__hierarchy_path__level_five = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 
 type aws_connect_user_hierarchy_group__hierarchy_path = {
@@ -54,11 +54,11 @@ type aws_connect_user_hierarchy_group__hierarchy_path = {
 type aws_connect_user_hierarchy_group
 
 val aws_connect_user_hierarchy_group :
-  ?id:string ->
-  ?parent_group_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  instance_id:string ->
-  name:string ->
+  ?id:string prop ->
+  ?parent_group_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  instance_id:string prop ->
+  name:string prop ->
   string ->
   unit

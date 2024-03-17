@@ -5,42 +5,42 @@
 open! Tf.Prelude
 
 type google_bigquery_reservation__autoscale = {
-  current_slots : float;
+  current_slots : float prop;
       (** The slot capacity added to this reservation when autoscale happens. Will be between [0, max_slots]. *)
-  max_slots : float option; [@option]
+  max_slots : float prop option; [@option]
       (** Number of slots to be scaled when needed. *)
 }
 [@@deriving yojson_of]
 (** The configuration parameters for the auto scaling feature. *)
 
 type google_bigquery_reservation__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_bigquery_reservation__timeouts *)
 
 type google_bigquery_reservation = {
-  concurrency : float option; [@option]
+  concurrency : float prop option; [@option]
       (** Maximum number of queries that are allowed to run concurrently in this reservation. This is a soft limit due to asynchronous nature of the system and various optimizations for small queries. Default value is 0 which means that concurrency will be automatically set based on the reservation size. *)
-  edition : string option; [@option]
+  edition : string prop option; [@option]
       (** The edition type. Valid values are STANDARD, ENTERPRISE, ENTERPRISE_PLUS *)
-  id : string option; [@option]  (** id *)
-  ignore_idle_slots : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ignore_idle_slots : bool prop option; [@option]
       (** If false, any query using this reservation will use idle slots from other reservations within
 the same admin project. If true, a query using this reservation will execute with the slot
 capacity specified above at most. *)
-  location : string option; [@option]
+  location : string prop option; [@option]
       (** The geographic location where the transfer config should reside.
 Examples: US, EU, asia-northeast1. The default value is US. *)
-  multi_region_auxiliary : bool option; [@option]
+  multi_region_auxiliary : bool prop option; [@option]
       (** Applicable only for reservations located within one of the BigQuery multi-regions (US or EU).
 If set to true, this reservation is placed in the organization's secondary region which is designated for disaster recovery purposes. If false, this reservation is placed in the organization's default region. *)
-  name : string;
+  name : string prop;
       (** The name of the reservation. This field must only contain alphanumeric characters or dash. *)
-  project : string option; [@option]  (** project *)
-  slot_capacity : float;
+  project : string prop option; [@option]  (** project *)
+  slot_capacity : float prop;
       (** Minimum slots available to this reservation. A slot is a unit of computational power in BigQuery, and serves as the
 unit of parallelism. Queries using this reservation might use more slots during runtime if ignoreIdleSlots is set to false. *)
   autoscale : google_bigquery_reservation__autoscale list;

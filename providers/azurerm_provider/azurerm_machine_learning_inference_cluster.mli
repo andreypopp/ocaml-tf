@@ -8,15 +8,15 @@ type azurerm_machine_learning_inference_cluster__timeouts
 type azurerm_machine_learning_inference_cluster
 
 val azurerm_machine_learning_inference_cluster :
-  ?cluster_purpose:string ->
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?cluster_purpose:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_machine_learning_inference_cluster__timeouts ->
-  kubernetes_cluster_id:string ->
-  location:string ->
-  machine_learning_workspace_id:string ->
-  name:string ->
+  kubernetes_cluster_id:string prop ->
+  location:string prop ->
+  machine_learning_workspace_id:string prop ->
+  name:string prop ->
   identity:azurerm_machine_learning_inference_cluster__identity list ->
   ssl:azurerm_machine_learning_inference_cluster__ssl list ->
   string ->

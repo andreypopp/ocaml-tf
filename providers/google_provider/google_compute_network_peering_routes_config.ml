@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type google_compute_network_peering_routes_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_network_peering_routes_config__timeouts *)
 
 type google_compute_network_peering_routes_config = {
-  export_custom_routes : bool;
+  export_custom_routes : bool prop;
       (** Whether to export the custom routes to the peer network. *)
-  id : string option; [@option]  (** id *)
-  import_custom_routes : bool;
+  id : string prop option; [@option]  (** id *)
+  import_custom_routes : bool prop;
       (** Whether to import the custom routes to the peer network. *)
-  network : string;
+  network : string prop;
       (** The name of the primary network for the peering. *)
-  peering : string;  (** Name of the peering. *)
-  project : string option; [@option]  (** project *)
+  peering : string prop;  (** Name of the peering. *)
+  project : string prop option; [@option]  (** project *)
   timeouts :
     google_compute_network_peering_routes_config__timeouts option;
 }

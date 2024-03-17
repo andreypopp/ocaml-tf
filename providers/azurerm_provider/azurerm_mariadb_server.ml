@@ -5,43 +5,44 @@
 open! Tf.Prelude
 
 type azurerm_mariadb_server__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mariadb_server__timeouts *)
 
 type azurerm_mariadb_server = {
-  administrator_login : string option; [@option]
+  administrator_login : string prop option; [@option]
       (** administrator_login *)
-  administrator_login_password : string option; [@option]
+  administrator_login_password : string prop option; [@option]
       (** administrator_login_password *)
-  auto_grow_enabled : bool option; [@option]
+  auto_grow_enabled : bool prop option; [@option]
       (** auto_grow_enabled *)
-  backup_retention_days : float option; [@option]
+  backup_retention_days : float prop option; [@option]
       (** backup_retention_days *)
-  create_mode : string option; [@option]  (** create_mode *)
-  creation_source_server_id : string option; [@option]
+  create_mode : string prop option; [@option]  (** create_mode *)
+  creation_source_server_id : string prop option; [@option]
       (** creation_source_server_id *)
-  geo_redundant_backup_enabled : bool option; [@option]
+  geo_redundant_backup_enabled : bool prop option; [@option]
       (** geo_redundant_backup_enabled *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  restore_point_in_time : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  restore_point_in_time : string prop option; [@option]
       (** restore_point_in_time *)
-  sku_name : string;  (** sku_name *)
-  ssl_enforcement_enabled : bool;  (** ssl_enforcement_enabled *)
-  ssl_minimal_tls_version_enforced : string option; [@option]
+  sku_name : string prop;  (** sku_name *)
+  ssl_enforcement_enabled : bool prop;
+      (** ssl_enforcement_enabled *)
+  ssl_minimal_tls_version_enforced : string prop option; [@option]
       (** ssl_minimal_tls_version_enforced *)
-  storage_mb : float option; [@option]  (** storage_mb *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  version : string;  (** version *)
+  storage_mb : float prop option; [@option]  (** storage_mb *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  version : string prop;  (** version *)
   timeouts : azurerm_mariadb_server__timeouts option;
 }
 [@@deriving yojson_of]

@@ -37,15 +37,15 @@ type aws_msk_cluster__timeouts
 type aws_msk_cluster
 
 val aws_msk_cluster :
-  ?enhanced_monitoring:string ->
-  ?id:string ->
-  ?storage_mode:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?enhanced_monitoring:string prop ->
+  ?id:string prop ->
+  ?storage_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_msk_cluster__timeouts ->
-  cluster_name:string ->
-  kafka_version:string ->
-  number_of_broker_nodes:float ->
+  cluster_name:string prop ->
+  kafka_version:string prop ->
+  number_of_broker_nodes:float prop ->
   broker_node_group_info:aws_msk_cluster__broker_node_group_info list ->
   client_authentication:aws_msk_cluster__client_authentication list ->
   configuration_info:aws_msk_cluster__configuration_info list ->

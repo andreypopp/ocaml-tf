@@ -6,61 +6,64 @@ open! Tf.Prelude
 
 type aws_lb_listener__default_action__authenticate_cognito = {
   authentication_request_extra_params :
-    (string * string) list option;
+    (string * string prop) list option;
       [@option]
       (** authentication_request_extra_params *)
-  on_unauthenticated_request : string option; [@option]
+  on_unauthenticated_request : string prop option; [@option]
       (** on_unauthenticated_request *)
-  scope : string option; [@option]  (** scope *)
-  session_cookie_name : string option; [@option]
+  scope : string prop option; [@option]  (** scope *)
+  session_cookie_name : string prop option; [@option]
       (** session_cookie_name *)
-  session_timeout : float option; [@option]  (** session_timeout *)
-  user_pool_arn : string;  (** user_pool_arn *)
-  user_pool_client_id : string;  (** user_pool_client_id *)
-  user_pool_domain : string;  (** user_pool_domain *)
+  session_timeout : float prop option; [@option]
+      (** session_timeout *)
+  user_pool_arn : string prop;  (** user_pool_arn *)
+  user_pool_client_id : string prop;  (** user_pool_client_id *)
+  user_pool_domain : string prop;  (** user_pool_domain *)
 }
 [@@deriving yojson_of]
 (** aws_lb_listener__default_action__authenticate_cognito *)
 
 type aws_lb_listener__default_action__authenticate_oidc = {
   authentication_request_extra_params :
-    (string * string) list option;
+    (string * string prop) list option;
       [@option]
       (** authentication_request_extra_params *)
-  authorization_endpoint : string;  (** authorization_endpoint *)
-  client_id : string;  (** client_id *)
-  client_secret : string;  (** client_secret *)
-  issuer : string;  (** issuer *)
-  on_unauthenticated_request : string option; [@option]
+  authorization_endpoint : string prop;
+      (** authorization_endpoint *)
+  client_id : string prop;  (** client_id *)
+  client_secret : string prop;  (** client_secret *)
+  issuer : string prop;  (** issuer *)
+  on_unauthenticated_request : string prop option; [@option]
       (** on_unauthenticated_request *)
-  scope : string option; [@option]  (** scope *)
-  session_cookie_name : string option; [@option]
+  scope : string prop option; [@option]  (** scope *)
+  session_cookie_name : string prop option; [@option]
       (** session_cookie_name *)
-  session_timeout : float option; [@option]  (** session_timeout *)
-  token_endpoint : string;  (** token_endpoint *)
-  user_info_endpoint : string;  (** user_info_endpoint *)
+  session_timeout : float prop option; [@option]
+      (** session_timeout *)
+  token_endpoint : string prop;  (** token_endpoint *)
+  user_info_endpoint : string prop;  (** user_info_endpoint *)
 }
 [@@deriving yojson_of]
 (** aws_lb_listener__default_action__authenticate_oidc *)
 
 type aws_lb_listener__default_action__fixed_response = {
-  content_type : string;  (** content_type *)
-  message_body : string option; [@option]  (** message_body *)
-  status_code : string option; [@option]  (** status_code *)
+  content_type : string prop;  (** content_type *)
+  message_body : string prop option; [@option]  (** message_body *)
+  status_code : string prop option; [@option]  (** status_code *)
 }
 [@@deriving yojson_of]
 (** aws_lb_listener__default_action__fixed_response *)
 
 type aws_lb_listener__default_action__forward__stickiness = {
-  duration : float;  (** duration *)
-  enabled : bool option; [@option]  (** enabled *)
+  duration : float prop;  (** duration *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_lb_listener__default_action__forward__stickiness *)
 
 type aws_lb_listener__default_action__forward__target_group = {
-  arn : string;  (** arn *)
-  weight : float option; [@option]  (** weight *)
+  arn : string prop;  (** arn *)
+  weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
 (** aws_lb_listener__default_action__forward__target_group *)
@@ -75,21 +78,21 @@ type aws_lb_listener__default_action__forward = {
 (** aws_lb_listener__default_action__forward *)
 
 type aws_lb_listener__default_action__redirect = {
-  host : string option; [@option]  (** host *)
-  path : string option; [@option]  (** path *)
-  port : string option; [@option]  (** port *)
-  protocol : string option; [@option]  (** protocol *)
-  query : string option; [@option]  (** query *)
-  status_code : string;  (** status_code *)
+  host : string prop option; [@option]  (** host *)
+  path : string prop option; [@option]  (** path *)
+  port : string prop option; [@option]  (** port *)
+  protocol : string prop option; [@option]  (** protocol *)
+  query : string prop option; [@option]  (** query *)
+  status_code : string prop;  (** status_code *)
 }
 [@@deriving yojson_of]
 (** aws_lb_listener__default_action__redirect *)
 
 type aws_lb_listener__default_action = {
-  order : float option; [@option]  (** order *)
-  target_group_arn : string option; [@option]
+  order : float prop option; [@option]  (** order *)
+  target_group_arn : string prop option; [@option]
       (** target_group_arn *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   authenticate_cognito :
     aws_lb_listener__default_action__authenticate_cognito list;
   authenticate_oidc :
@@ -103,31 +106,33 @@ type aws_lb_listener__default_action = {
 (** aws_lb_listener__default_action *)
 
 type aws_lb_listener__mutual_authentication = {
-  ignore_client_certificate_expiry : bool option; [@option]
+  ignore_client_certificate_expiry : bool prop option; [@option]
       (** ignore_client_certificate_expiry *)
-  mode : string;  (** mode *)
-  trust_store_arn : string option; [@option]  (** trust_store_arn *)
+  mode : string prop;  (** mode *)
+  trust_store_arn : string prop option; [@option]
+      (** trust_store_arn *)
 }
 [@@deriving yojson_of]
 (** aws_lb_listener__mutual_authentication *)
 
 type aws_lb_listener__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_lb_listener__timeouts *)
 
 type aws_lb_listener = {
-  alpn_policy : string option; [@option]  (** alpn_policy *)
-  certificate_arn : string option; [@option]  (** certificate_arn *)
-  id : string option; [@option]  (** id *)
-  load_balancer_arn : string;  (** load_balancer_arn *)
-  port : float option; [@option]  (** port *)
-  protocol : string option; [@option]  (** protocol *)
-  ssl_policy : string option; [@option]  (** ssl_policy *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  alpn_policy : string prop option; [@option]  (** alpn_policy *)
+  certificate_arn : string prop option; [@option]
+      (** certificate_arn *)
+  id : string prop option; [@option]  (** id *)
+  load_balancer_arn : string prop;  (** load_balancer_arn *)
+  port : float prop option; [@option]  (** port *)
+  protocol : string prop option; [@option]  (** protocol *)
+  ssl_policy : string prop option; [@option]  (** ssl_policy *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   default_action : aws_lb_listener__default_action list;
   mutual_authentication :

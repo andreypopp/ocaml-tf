@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_eip_association
 
 val aws_eip_association :
-  ?allocation_id:string ->
-  ?allow_reassociation:bool ->
-  ?id:string ->
-  ?instance_id:string ->
-  ?network_interface_id:string ->
-  ?private_ip_address:string ->
-  ?public_ip:string ->
+  ?allocation_id:string prop ->
+  ?allow_reassociation:bool prop ->
+  ?id:string prop ->
+  ?instance_id:string prop ->
+  ?network_interface_id:string prop ->
+  ?private_ip_address:string prop ->
+  ?public_ip:string prop ->
   string ->
   unit

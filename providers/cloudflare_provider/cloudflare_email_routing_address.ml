@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type cloudflare_email_routing_address = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  email : string;  (** The contact email address of the user. *)
+  email : string prop;  (** The contact email address of the user. *)
 }
 [@@deriving yojson_of]
 (** The [Email Routing Address](https://developers.cloudflare.com/email-routing/setup/email-routing-addresses/#destination-addresses) resource allows you to manage Cloudflare Email Routing Destination Addresses.

@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_data_protection_backup_instance_postgresql__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_instance_postgresql__timeouts *)
 
 type azurerm_data_protection_backup_instance_postgresql = {
-  backup_policy_id : string;  (** backup_policy_id *)
-  database_credential_key_vault_secret_id : string option; [@option]
+  backup_policy_id : string prop;  (** backup_policy_id *)
+  database_credential_key_vault_secret_id : string prop option;
+      [@option]
       (** database_credential_key_vault_secret_id *)
-  database_id : string;  (** database_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  vault_id : string;  (** vault_id *)
+  database_id : string prop;  (** database_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  vault_id : string prop;  (** vault_id *)
   timeouts :
     azurerm_data_protection_backup_instance_postgresql__timeouts
     option;

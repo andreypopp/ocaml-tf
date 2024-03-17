@@ -11,18 +11,18 @@ type azurerm_nginx_deployment__timeouts
 type azurerm_nginx_deployment
 
 val azurerm_nginx_deployment :
-  ?automatic_upgrade_channel:string ->
-  ?capacity:float ->
-  ?diagnose_support_enabled:bool ->
-  ?email:string ->
-  ?id:string ->
-  ?managed_resource_group:string ->
-  ?tags:(string * string) list ->
+  ?automatic_upgrade_channel:string prop ->
+  ?capacity:float prop ->
+  ?diagnose_support_enabled:bool prop ->
+  ?email:string prop ->
+  ?id:string prop ->
+  ?managed_resource_group:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_nginx_deployment__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
   frontend_private:azurerm_nginx_deployment__frontend_private list ->
   frontend_public:azurerm_nginx_deployment__frontend_public list ->
   identity:azurerm_nginx_deployment__identity list ->

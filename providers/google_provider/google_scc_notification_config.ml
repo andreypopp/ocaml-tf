@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_scc_notification_config__streaming_config = {
-  filter : string;
+  filter : string prop;
       (** Expression that defines the filter to apply across create/update
 events of assets or findings as specified by the event type. The
 expression is a list of zero or more restrictions combined via
@@ -36,23 +36,23 @@ for information on how to write a filter. *)
 (** The config for triggering streaming-based notifications. *)
 
 type google_scc_notification_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_scc_notification_config__timeouts *)
 
 type google_scc_notification_config = {
-  config_id : string;
+  config_id : string prop;
       (** This must be unique within the organization. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description of the notification config (max of 1024 characters). *)
-  id : string option; [@option]  (** id *)
-  organization : string;
+  id : string prop option; [@option]  (** id *)
+  organization : string prop;
       (** The organization whose Cloud Security Command Center the Notification
 Config lives in. *)
-  pubsub_topic : string;
+  pubsub_topic : string prop;
       (** The Pub/Sub topic to send notifications to. Its format is
 projects/[project_id]/topics/[topic]. *)
   streaming_config :

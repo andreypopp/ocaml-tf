@@ -5,10 +5,10 @@ open! Tf.Prelude
 type cloudflare_api_shield_operation
 
 val cloudflare_api_shield_operation :
-  ?id:string ->
-  endpoint:string ->
-  host:string ->
-  method_:string ->
-  zone_id:string ->
+  ?id:string prop ->
+  endpoint:string prop ->
+  host:string prop ->
+  method_:string prop ->
+  zone_id:string prop ->
   string ->
   unit

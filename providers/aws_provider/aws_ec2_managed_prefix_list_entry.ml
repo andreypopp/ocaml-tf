@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_ec2_managed_prefix_list_entry = {
-  cidr : string;  (** cidr *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  prefix_list_id : string;  (** prefix_list_id *)
+  cidr : string prop;  (** cidr *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  prefix_list_id : string prop;  (** prefix_list_id *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_managed_prefix_list_entry *)

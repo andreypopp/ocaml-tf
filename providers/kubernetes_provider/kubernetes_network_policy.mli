@@ -33,7 +33,7 @@ type kubernetes_network_policy__spec
 type kubernetes_network_policy
 
 val kubernetes_network_policy :
-  ?id:string ->
+  ?id:string prop ->
   metadata:kubernetes_network_policy__metadata list ->
   spec:kubernetes_network_policy__spec list ->
   string ->

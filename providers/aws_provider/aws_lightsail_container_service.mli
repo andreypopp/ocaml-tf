@@ -11,14 +11,14 @@ type aws_lightsail_container_service__timeouts
 type aws_lightsail_container_service
 
 val aws_lightsail_container_service :
-  ?id:string ->
-  ?is_disabled:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?is_disabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_lightsail_container_service__timeouts ->
-  name:string ->
-  power:string ->
-  scale:float ->
+  name:string prop ->
+  power:string prop ->
+  scale:float prop ->
   private_registry_access:
     aws_lightsail_container_service__private_registry_access list ->
   public_domain_names:

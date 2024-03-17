@@ -6,17 +6,17 @@ type azurerm_virtual_desktop_application__timeouts
 type azurerm_virtual_desktop_application
 
 val azurerm_virtual_desktop_application :
-  ?command_line_arguments:string ->
-  ?description:string ->
-  ?friendly_name:string ->
-  ?icon_index:float ->
-  ?icon_path:string ->
-  ?id:string ->
-  ?show_in_portal:bool ->
+  ?command_line_arguments:string prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?icon_index:float prop ->
+  ?icon_path:string prop ->
+  ?id:string prop ->
+  ?show_in_portal:bool prop ->
   ?timeouts:azurerm_virtual_desktop_application__timeouts ->
-  application_group_id:string ->
-  command_line_argument_policy:string ->
-  name:string ->
-  path:string ->
+  application_group_id:string prop ->
+  command_line_argument_policy:string prop ->
+  name:string prop ->
+  path:string prop ->
   string ->
   unit

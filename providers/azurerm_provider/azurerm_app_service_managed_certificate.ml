@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_app_service_managed_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_managed_certificate__timeouts *)
 
 type azurerm_app_service_managed_certificate = {
-  custom_hostname_binding_id : string;
+  custom_hostname_binding_id : string prop;
       (** custom_hostname_binding_id *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_app_service_managed_certificate__timeouts option;
 }
 [@@deriving yojson_of]

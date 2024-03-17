@@ -6,10 +6,10 @@ type cloudflare_regional_hostname__timeouts
 type cloudflare_regional_hostname
 
 val cloudflare_regional_hostname :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:cloudflare_regional_hostname__timeouts ->
-  hostname:string ->
-  region_key:string ->
-  zone_id:string ->
+  hostname:string prop ->
+  region_key:string prop ->
+  zone_id:string prop ->
   string ->
   unit

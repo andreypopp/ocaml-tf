@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_synapse_firewall_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_firewall_rule__timeouts *)
 
 type azurerm_synapse_firewall_rule = {
-  end_ip_address : string;  (** end_ip_address *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  start_ip_address : string;  (** start_ip_address *)
-  synapse_workspace_id : string;  (** synapse_workspace_id *)
+  end_ip_address : string prop;  (** end_ip_address *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  start_ip_address : string prop;  (** start_ip_address *)
+  synapse_workspace_id : string prop;  (** synapse_workspace_id *)
   timeouts : azurerm_synapse_firewall_rule__timeouts option;
 }
 [@@deriving yojson_of]

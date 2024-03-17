@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type google_bigquery_analytics_hub_listing_iam_member__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_bigquery_analytics_hub_listing_iam_member__condition *)
 
 type google_bigquery_analytics_hub_listing_iam_member = {
-  data_exchange_id : string;  (** data_exchange_id *)
-  id : string option; [@option]  (** id *)
-  listing_id : string;  (** listing_id *)
-  location : string option; [@option]  (** location *)
-  member : string;  (** member *)
-  project : string option; [@option]  (** project *)
-  role : string;  (** role *)
+  data_exchange_id : string prop;  (** data_exchange_id *)
+  id : string prop option; [@option]  (** id *)
+  listing_id : string prop;  (** listing_id *)
+  location : string prop option; [@option]  (** location *)
+  member : string prop;  (** member *)
+  project : string prop option; [@option]  (** project *)
+  role : string prop;  (** role *)
   condition :
     google_bigquery_analytics_hub_listing_iam_member__condition list;
 }

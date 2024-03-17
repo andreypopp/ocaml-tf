@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_ecs_cluster_capacity_providers__default_capacity_provider_strategy = {
-  base : float option; [@option]  (** base *)
-  capacity_provider : string;  (** capacity_provider *)
-  weight : float option; [@option]  (** weight *)
+  base : float prop option; [@option]  (** base *)
+  capacity_provider : string prop;  (** capacity_provider *)
+  weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
 (** aws_ecs_cluster_capacity_providers__default_capacity_provider_strategy *)
 
 type aws_ecs_cluster_capacity_providers = {
-  capacity_providers : string list option; [@option]
+  capacity_providers : string prop list option; [@option]
       (** capacity_providers *)
-  cluster_name : string;  (** cluster_name *)
-  id : string option; [@option]  (** id *)
+  cluster_name : string prop;  (** cluster_name *)
+  id : string prop option; [@option]  (** id *)
   default_capacity_provider_strategy :
     aws_ecs_cluster_capacity_providers__default_capacity_provider_strategy
     list;

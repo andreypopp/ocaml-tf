@@ -15,14 +15,14 @@ type cloudflare_worker_script__webassembly_binding
 type cloudflare_worker_script
 
 val cloudflare_worker_script :
-  ?compatibility_date:string ->
-  ?compatibility_flags:string list ->
-  ?id:string ->
-  ?logpush:bool ->
-  ?module_:bool ->
-  account_id:string ->
-  content:string ->
-  name:string ->
+  ?compatibility_date:string prop ->
+  ?compatibility_flags:string prop list ->
+  ?id:string prop ->
+  ?logpush:bool prop ->
+  ?module_:bool prop ->
+  account_id:string prop ->
+  content:string prop ->
+  name:string prop ->
   analytics_engine_binding:
     cloudflare_worker_script__analytics_engine_binding list ->
   d1_database_binding:

@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_key_vault_certificate_contacts__contact = {
-  email : string;  (** email *)
-  name : string option; [@option]  (** name *)
-  phone : string option; [@option]  (** phone *)
+  email : string prop;  (** email *)
+  name : string prop option; [@option]  (** name *)
+  phone : string prop option; [@option]  (** phone *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate_contacts__contact *)
 
 type azurerm_key_vault_certificate_contacts__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_certificate_contacts__timeouts *)
 
 type azurerm_key_vault_certificate_contacts = {
-  id : string option; [@option]  (** id *)
-  key_vault_id : string;  (** key_vault_id *)
+  id : string prop option; [@option]  (** id *)
+  key_vault_id : string prop;  (** key_vault_id *)
   contact : azurerm_key_vault_certificate_contacts__contact list;
   timeouts : azurerm_key_vault_certificate_contacts__timeouts option;
 }

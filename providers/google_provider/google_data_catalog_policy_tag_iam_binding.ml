@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_data_catalog_policy_tag_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_data_catalog_policy_tag_iam_binding__condition *)
 
 type google_data_catalog_policy_tag_iam_binding = {
-  id : string option; [@option]  (** id *)
-  members : string list;  (** members *)
-  policy_tag : string;  (** policy_tag *)
-  role : string;  (** role *)
+  id : string prop option; [@option]  (** id *)
+  members : string prop list;  (** members *)
+  policy_tag : string prop;  (** policy_tag *)
+  role : string prop;  (** role *)
   condition :
     google_data_catalog_policy_tag_iam_binding__condition list;
 }

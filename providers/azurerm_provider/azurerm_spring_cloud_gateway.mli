@@ -13,17 +13,17 @@ type azurerm_spring_cloud_gateway__timeouts
 type azurerm_spring_cloud_gateway
 
 val azurerm_spring_cloud_gateway :
-  ?application_performance_monitoring_ids:string list ->
-  ?application_performance_monitoring_types:string list ->
-  ?environment_variables:(string * string) list ->
-  ?https_only:bool ->
-  ?id:string ->
-  ?instance_count:float ->
-  ?public_network_access_enabled:bool ->
-  ?sensitive_environment_variables:(string * string) list ->
+  ?application_performance_monitoring_ids:string prop list ->
+  ?application_performance_monitoring_types:string prop list ->
+  ?environment_variables:(string * string prop) list ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?instance_count:float prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?sensitive_environment_variables:(string * string prop) list ->
   ?timeouts:azurerm_spring_cloud_gateway__timeouts ->
-  name:string ->
-  spring_cloud_service_id:string ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
   api_metadata:azurerm_spring_cloud_gateway__api_metadata list ->
   client_authorization:
     azurerm_spring_cloud_gateway__client_authorization list ->

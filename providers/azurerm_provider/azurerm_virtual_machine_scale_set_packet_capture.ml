@@ -5,54 +5,54 @@
 open! Tf.Prelude
 
 type azurerm_virtual_machine_scale_set_packet_capture__filter = {
-  local_ip_address : string option; [@option]
+  local_ip_address : string prop option; [@option]
       (** local_ip_address *)
-  local_port : string option; [@option]  (** local_port *)
-  protocol : string;  (** protocol *)
-  remote_ip_address : string option; [@option]
+  local_port : string prop option; [@option]  (** local_port *)
+  protocol : string prop;  (** protocol *)
+  remote_ip_address : string prop option; [@option]
       (** remote_ip_address *)
-  remote_port : string option; [@option]  (** remote_port *)
+  remote_port : string prop option; [@option]  (** remote_port *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_scale_set_packet_capture__filter *)
 
 type azurerm_virtual_machine_scale_set_packet_capture__machine_scope = {
-  exclude_instance_ids : string list option; [@option]
+  exclude_instance_ids : string prop list option; [@option]
       (** exclude_instance_ids *)
-  include_instance_ids : string list option; [@option]
+  include_instance_ids : string prop list option; [@option]
       (** include_instance_ids *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_scale_set_packet_capture__machine_scope *)
 
 type azurerm_virtual_machine_scale_set_packet_capture__storage_location = {
-  file_path : string option; [@option]  (** file_path *)
-  storage_account_id : string option; [@option]
+  file_path : string prop option; [@option]  (** file_path *)
+  storage_account_id : string prop option; [@option]
       (** storage_account_id *)
-  storage_path : string;  (** storage_path *)
+  storage_path : string prop;  (** storage_path *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_scale_set_packet_capture__storage_location *)
 
 type azurerm_virtual_machine_scale_set_packet_capture__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_scale_set_packet_capture__timeouts *)
 
 type azurerm_virtual_machine_scale_set_packet_capture = {
-  id : string option; [@option]  (** id *)
-  maximum_bytes_per_packet : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  maximum_bytes_per_packet : float prop option; [@option]
       (** maximum_bytes_per_packet *)
-  maximum_bytes_per_session : float option; [@option]
+  maximum_bytes_per_session : float prop option; [@option]
       (** maximum_bytes_per_session *)
-  maximum_capture_duration_in_seconds : float option; [@option]
+  maximum_capture_duration_in_seconds : float prop option; [@option]
       (** maximum_capture_duration_in_seconds *)
-  name : string;  (** name *)
-  network_watcher_id : string;  (** network_watcher_id *)
-  virtual_machine_scale_set_id : string;
+  name : string prop;  (** name *)
+  network_watcher_id : string prop;  (** network_watcher_id *)
+  virtual_machine_scale_set_id : string prop;
       (** virtual_machine_scale_set_id *)
   filter :
     azurerm_virtual_machine_scale_set_packet_capture__filter list;

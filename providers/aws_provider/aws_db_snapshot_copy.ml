@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type aws_db_snapshot_copy__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_db_snapshot_copy__timeouts *)
 
 type aws_db_snapshot_copy = {
-  copy_tags : bool option; [@option]  (** copy_tags *)
-  destination_region : string option; [@option]
+  copy_tags : bool prop option; [@option]  (** copy_tags *)
+  destination_region : string prop option; [@option]
       (** destination_region *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  option_group_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  option_group_name : string prop option; [@option]
       (** option_group_name *)
-  presigned_url : string option; [@option]  (** presigned_url *)
-  source_db_snapshot_identifier : string;
+  presigned_url : string prop option; [@option]  (** presigned_url *)
+  source_db_snapshot_identifier : string prop;
       (** source_db_snapshot_identifier *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  target_custom_availability_zone : string option; [@option]
+  target_custom_availability_zone : string prop option; [@option]
       (** target_custom_availability_zone *)
-  target_db_snapshot_identifier : string;
+  target_db_snapshot_identifier : string prop;
       (** target_db_snapshot_identifier *)
   timeouts : aws_db_snapshot_copy__timeouts option;
 }

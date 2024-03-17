@@ -41,31 +41,31 @@ type aws_spot_fleet_request__timeouts
 type aws_spot_fleet_request
 
 val aws_spot_fleet_request :
-  ?allocation_strategy:string ->
-  ?context:string ->
-  ?excess_capacity_termination_policy:string ->
-  ?fleet_type:string ->
-  ?id:string ->
-  ?instance_interruption_behaviour:string ->
-  ?instance_pools_to_use_count:float ->
-  ?load_balancers:string list ->
-  ?on_demand_allocation_strategy:string ->
-  ?on_demand_max_total_price:string ->
-  ?on_demand_target_capacity:float ->
-  ?replace_unhealthy_instances:bool ->
-  ?spot_price:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?target_capacity_unit_type:string ->
-  ?target_group_arns:string list ->
-  ?terminate_instances_on_delete:string ->
-  ?terminate_instances_with_expiration:bool ->
-  ?valid_from:string ->
-  ?valid_until:string ->
-  ?wait_for_fulfillment:bool ->
+  ?allocation_strategy:string prop ->
+  ?context:string prop ->
+  ?excess_capacity_termination_policy:string prop ->
+  ?fleet_type:string prop ->
+  ?id:string prop ->
+  ?instance_interruption_behaviour:string prop ->
+  ?instance_pools_to_use_count:float prop ->
+  ?load_balancers:string prop list ->
+  ?on_demand_allocation_strategy:string prop ->
+  ?on_demand_max_total_price:string prop ->
+  ?on_demand_target_capacity:float prop ->
+  ?replace_unhealthy_instances:bool prop ->
+  ?spot_price:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?target_capacity_unit_type:string prop ->
+  ?target_group_arns:string prop list ->
+  ?terminate_instances_on_delete:string prop ->
+  ?terminate_instances_with_expiration:bool prop ->
+  ?valid_from:string prop ->
+  ?valid_until:string prop ->
+  ?wait_for_fulfillment:bool prop ->
   ?timeouts:aws_spot_fleet_request__timeouts ->
-  iam_fleet_role:string ->
-  target_capacity:float ->
+  iam_fleet_role:string prop ->
+  target_capacity:float prop ->
   launch_specification:
     aws_spot_fleet_request__launch_specification list ->
   launch_template_config:

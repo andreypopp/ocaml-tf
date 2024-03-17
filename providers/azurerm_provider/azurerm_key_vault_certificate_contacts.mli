@@ -7,9 +7,9 @@ type azurerm_key_vault_certificate_contacts__timeouts
 type azurerm_key_vault_certificate_contacts
 
 val azurerm_key_vault_certificate_contacts :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_key_vault_certificate_contacts__timeouts ->
-  key_vault_id:string ->
+  key_vault_id:string prop ->
   contact:azurerm_key_vault_certificate_contacts__contact list ->
   string ->
   unit

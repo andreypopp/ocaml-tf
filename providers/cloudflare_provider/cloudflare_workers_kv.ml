@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type cloudflare_workers_kv = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  key : string;
+  id : string prop option; [@option]  (** id *)
+  key : string prop;
       (** Name of the KV pair. **Modifying this attribute will force creation of a new resource.** *)
-  namespace_id : string;
+  namespace_id : string prop;
       (** The ID of the Workers KV namespace in which you want to create the KV pair. **Modifying this attribute will force creation of a new resource.** *)
-  value : string;  (** Value of the KV pair. *)
+  value : string prop;  (** Value of the KV pair. *)
 }
 [@@deriving yojson_of]
 (** Provides a resource to manage a Cloudflare Workers KV Pair. *)

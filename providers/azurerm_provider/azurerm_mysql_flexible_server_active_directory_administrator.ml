@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_mysql_flexible_server_active_directory_administrator__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server_active_directory_administrator__timeouts *)
 
 type azurerm_mysql_flexible_server_active_directory_administrator = {
-  id : string option; [@option]  (** id *)
-  identity_id : string;  (** identity_id *)
-  login : string;  (** login *)
-  object_id : string;  (** object_id *)
-  server_id : string;  (** server_id *)
-  tenant_id : string;  (** tenant_id *)
+  id : string prop option; [@option]  (** id *)
+  identity_id : string prop;  (** identity_id *)
+  login : string prop;  (** login *)
+  object_id : string prop;  (** object_id *)
+  server_id : string prop;  (** server_id *)
+  tenant_id : string prop;  (** tenant_id *)
   timeouts :
     azurerm_mysql_flexible_server_active_directory_administrator__timeouts
     option;

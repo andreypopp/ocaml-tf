@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_log_stream = {
-  id : string option; [@option]  (** id *)
-  log_group_name : string;  (** log_group_name *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  log_group_name : string prop;  (** log_group_name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_stream *)

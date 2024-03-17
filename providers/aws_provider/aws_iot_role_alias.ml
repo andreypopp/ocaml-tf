@@ -5,13 +5,14 @@
 open! Tf.Prelude
 
 type aws_iot_role_alias = {
-  alias : string;  (** alias *)
-  credential_duration : float option; [@option]
+  alias : string prop;  (** alias *)
+  credential_duration : float prop option; [@option]
       (** credential_duration *)
-  id : string option; [@option]  (** id *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_iot_role_alias *)

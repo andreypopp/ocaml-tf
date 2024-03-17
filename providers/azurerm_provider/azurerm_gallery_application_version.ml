@@ -5,55 +5,56 @@
 open! Tf.Prelude
 
 type azurerm_gallery_application_version__manage_action = {
-  install : string;  (** install *)
-  remove : string;  (** remove *)
-  update : string option; [@option]  (** update *)
+  install : string prop;  (** install *)
+  remove : string prop;  (** remove *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_gallery_application_version__manage_action *)
 
 type azurerm_gallery_application_version__source = {
-  default_configuration_link : string option; [@option]
+  default_configuration_link : string prop option; [@option]
       (** default_configuration_link *)
-  media_link : string;  (** media_link *)
+  media_link : string prop;  (** media_link *)
 }
 [@@deriving yojson_of]
 (** azurerm_gallery_application_version__source *)
 
 type azurerm_gallery_application_version__target_region = {
-  exclude_from_latest : bool option; [@option]
+  exclude_from_latest : bool prop option; [@option]
       (** exclude_from_latest *)
-  name : string;  (** name *)
-  regional_replica_count : float;  (** regional_replica_count *)
-  storage_account_type : string option; [@option]
+  name : string prop;  (** name *)
+  regional_replica_count : float prop;  (** regional_replica_count *)
+  storage_account_type : string prop option; [@option]
       (** storage_account_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_gallery_application_version__target_region *)
 
 type azurerm_gallery_application_version__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_gallery_application_version__timeouts *)
 
 type azurerm_gallery_application_version = {
-  config_file : string option; [@option]  (** config_file *)
-  enable_health_check : bool option; [@option]
+  config_file : string prop option; [@option]  (** config_file *)
+  enable_health_check : bool prop option; [@option]
       (** enable_health_check *)
-  end_of_life_date : string option; [@option]
+  end_of_life_date : string prop option; [@option]
       (** end_of_life_date *)
-  exclude_from_latest : bool option; [@option]
+  exclude_from_latest : bool prop option; [@option]
       (** exclude_from_latest *)
-  gallery_application_id : string;  (** gallery_application_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  package_file : string option; [@option]  (** package_file *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  gallery_application_id : string prop;
+      (** gallery_application_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  package_file : string prop option; [@option]  (** package_file *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   manage_action :
     azurerm_gallery_application_version__manage_action list;
   source : azurerm_gallery_application_version__source list;

@@ -14,19 +14,19 @@ type aws_imagebuilder_container_recipe__target_repository
 type aws_imagebuilder_container_recipe
 
 val aws_imagebuilder_container_recipe :
-  ?description:string ->
-  ?dockerfile_template_data:string ->
-  ?dockerfile_template_uri:string ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?platform_override:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?working_directory:string ->
-  container_type:string ->
-  name:string ->
-  parent_image:string ->
-  version:string ->
+  ?description:string prop ->
+  ?dockerfile_template_data:string prop ->
+  ?dockerfile_template_uri:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?platform_override:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?working_directory:string prop ->
+  container_type:string prop ->
+  name:string prop ->
+  parent_image:string prop ->
+  version:string prop ->
   component:aws_imagebuilder_container_recipe__component list ->
   instance_configuration:
     aws_imagebuilder_container_recipe__instance_configuration list ->

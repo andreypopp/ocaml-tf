@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_pinpoint_event_stream = {
-  application_id : string;  (** application_id *)
-  destination_stream_arn : string;  (** destination_stream_arn *)
-  id : string option; [@option]  (** id *)
-  role_arn : string;  (** role_arn *)
+  application_id : string prop;  (** application_id *)
+  destination_stream_arn : string prop;
+      (** destination_stream_arn *)
+  id : string prop option; [@option]  (** id *)
+  role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_pinpoint_event_stream *)

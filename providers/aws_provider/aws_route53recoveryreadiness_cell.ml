@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_route53recoveryreadiness_cell__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoveryreadiness_cell__timeouts *)
 
 type aws_route53recoveryreadiness_cell = {
-  cell_name : string;  (** cell_name *)
-  cells : string list option; [@option]  (** cells *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  cell_name : string prop;  (** cell_name *)
+  cells : string prop list option; [@option]  (** cells *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_route53recoveryreadiness_cell__timeouts option;
 }

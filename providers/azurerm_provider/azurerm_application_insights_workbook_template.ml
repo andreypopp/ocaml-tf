@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_application_insights_workbook_template__galleries = {
-  category : string;  (** category *)
-  name : string;  (** name *)
-  order : float option; [@option]  (** order *)
-  resource_type : string option; [@option]  (** resource_type *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  category : string prop;  (** category *)
+  name : string prop;  (** name *)
+  order : float prop option; [@option]  (** order *)
+  resource_type : string prop option; [@option]  (** resource_type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_workbook_template__galleries *)
 
 type azurerm_application_insights_workbook_template__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_workbook_template__timeouts *)
 
 type azurerm_application_insights_workbook_template = {
-  author : string option; [@option]  (** author *)
-  id : string option; [@option]  (** id *)
-  localized : string option; [@option]  (** localized *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  priority : float option; [@option]  (** priority *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  template_data : string;  (** template_data *)
+  author : string prop option; [@option]  (** author *)
+  id : string prop option; [@option]  (** id *)
+  localized : string prop option; [@option]  (** localized *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  priority : float prop option; [@option]  (** priority *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  template_data : string prop;  (** template_data *)
   galleries :
     azurerm_application_insights_workbook_template__galleries list;
   timeouts :

@@ -5,9 +5,9 @@ open! Tf.Prelude
 type google_iap_web_type_app_engine_iam_policy
 
 val google_iap_web_type_app_engine_iam_policy :
-  ?id:string ->
-  ?project:string ->
-  app_id:string ->
-  policy_data:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  app_id:string prop ->
+  policy_data:string prop ->
   string ->
   unit

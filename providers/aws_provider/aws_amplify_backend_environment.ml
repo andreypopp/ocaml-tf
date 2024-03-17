@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_amplify_backend_environment = {
-  app_id : string;  (** app_id *)
-  deployment_artifacts : string option; [@option]
+  app_id : string prop;  (** app_id *)
+  deployment_artifacts : string prop option; [@option]
       (** deployment_artifacts *)
-  environment_name : string;  (** environment_name *)
-  id : string option; [@option]  (** id *)
-  stack_name : string option; [@option]  (** stack_name *)
+  environment_name : string prop;  (** environment_name *)
+  id : string prop option; [@option]  (** id *)
+  stack_name : string prop option; [@option]  (** stack_name *)
 }
 [@@deriving yojson_of]
 (** aws_amplify_backend_environment *)

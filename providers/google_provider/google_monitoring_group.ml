@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type google_monitoring_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_monitoring_group__timeouts *)
 
 type google_monitoring_group = {
-  display_name : string;
+  display_name : string prop;
       (** A user-assigned name for this group, used only for display
 purposes. *)
-  filter : string;
+  filter : string prop;
       (** The filter used to determine which monitored resources
 belong to this group. *)
-  id : string option; [@option]  (** id *)
-  is_cluster : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  is_cluster : bool prop option; [@option]
       (** If true, the members of this group are considered to be a
 cluster. The system can perform additional analysis on
 groups that are clusters. *)
-  parent_name : string option; [@option]
+  parent_name : string prop option; [@option]
       (** The name of the group's parent, if it has one. The format is
 projects/{project_id_or_number}/groups/{group_id}. For
 groups with no parent, parentName is the empty string, . *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_monitoring_group__timeouts option;
 }
 [@@deriving yojson_of]

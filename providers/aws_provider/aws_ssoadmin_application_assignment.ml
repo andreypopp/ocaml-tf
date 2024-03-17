@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_application_assignment = {
-  application_arn : string;  (** application_arn *)
-  principal_id : string;  (** principal_id *)
-  principal_type : string;  (** principal_type *)
+  application_arn : string prop;  (** application_arn *)
+  principal_id : string prop;  (** principal_id *)
+  principal_type : string prop;  (** principal_type *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_application_assignment *)

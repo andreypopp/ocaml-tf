@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_ses_domain_mail_from = {
-  behavior_on_mx_failure : string option; [@option]
+  behavior_on_mx_failure : string prop option; [@option]
       (** behavior_on_mx_failure *)
-  domain : string;  (** domain *)
-  id : string option; [@option]  (** id *)
-  mail_from_domain : string;  (** mail_from_domain *)
+  domain : string prop;  (** domain *)
+  id : string prop option; [@option]  (** id *)
+  mail_from_domain : string prop;  (** mail_from_domain *)
 }
 [@@deriving yojson_of]
 (** aws_ses_domain_mail_from *)

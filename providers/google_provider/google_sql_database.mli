@@ -6,13 +6,13 @@ type google_sql_database__timeouts
 type google_sql_database
 
 val google_sql_database :
-  ?charset:string ->
-  ?collation:string ->
-  ?deletion_policy:string ->
-  ?id:string ->
-  ?project:string ->
+  ?charset:string prop ->
+  ?collation:string prop ->
+  ?deletion_policy:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_sql_database__timeouts ->
-  instance:string ->
-  name:string ->
+  instance:string prop ->
+  name:string prop ->
   string ->
   unit

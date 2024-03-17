@@ -5,40 +5,40 @@
 open! Tf.Prelude
 
 type azurerm_application_insights__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights__timeouts *)
 
 type azurerm_application_insights = {
-  application_type : string;  (** application_type *)
-  daily_data_cap_in_gb : float option; [@option]
+  application_type : string prop;  (** application_type *)
+  daily_data_cap_in_gb : float prop option; [@option]
       (** daily_data_cap_in_gb *)
-  daily_data_cap_notifications_disabled : bool option; [@option]
+  daily_data_cap_notifications_disabled : bool prop option; [@option]
       (** daily_data_cap_notifications_disabled *)
-  disable_ip_masking : bool option; [@option]
+  disable_ip_masking : bool prop option; [@option]
       (** disable_ip_masking *)
-  force_customer_storage_for_profiler : bool option; [@option]
+  force_customer_storage_for_profiler : bool prop option; [@option]
       (** force_customer_storage_for_profiler *)
-  id : string option; [@option]  (** id *)
-  internet_ingestion_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  internet_ingestion_enabled : bool prop option; [@option]
       (** internet_ingestion_enabled *)
-  internet_query_enabled : bool option; [@option]
+  internet_query_enabled : bool prop option; [@option]
       (** internet_query_enabled *)
-  local_authentication_disabled : bool option; [@option]
+  local_authentication_disabled : bool prop option; [@option]
       (** local_authentication_disabled *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  retention_in_days : float option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  retention_in_days : float prop option; [@option]
       (** retention_in_days *)
-  sampling_percentage : float option; [@option]
+  sampling_percentage : float prop option; [@option]
       (** sampling_percentage *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  workspace_id : string option; [@option]  (** workspace_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  workspace_id : string prop option; [@option]  (** workspace_id *)
   timeouts : azurerm_application_insights__timeouts option;
 }
 [@@deriving yojson_of]

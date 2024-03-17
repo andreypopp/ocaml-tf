@@ -14,11 +14,11 @@ type google_apikeys_key__timeouts
 type google_apikeys_key
 
 val google_apikeys_key :
-  ?display_name:string ->
-  ?id:string ->
-  ?project:string ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_apikeys_key__timeouts ->
-  name:string ->
+  name:string prop ->
   restrictions:google_apikeys_key__restrictions list ->
   string ->
   unit

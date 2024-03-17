@@ -16,15 +16,15 @@ type azurerm_lab_service_lab__virtual_machine
 type azurerm_lab_service_lab
 
 val azurerm_lab_service_lab :
-  ?description:string ->
-  ?id:string ->
-  ?lab_plan_id:string ->
-  ?tags:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?lab_plan_id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_lab_service_lab__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  title:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  title:string prop ->
   auto_shutdown:azurerm_lab_service_lab__auto_shutdown list ->
   connection_setting:azurerm_lab_service_lab__connection_setting list ->
   network:azurerm_lab_service_lab__network list ->

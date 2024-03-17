@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type hcloud_firewall_attachment = {
-  firewall_id : float;  (** firewall_id *)
-  id : string option; [@option]  (** id *)
-  label_selectors : string list option; [@option]
+  firewall_id : float prop;  (** firewall_id *)
+  id : string prop option; [@option]  (** id *)
+  label_selectors : string prop list option; [@option]
       (** label_selectors *)
-  server_ids : float list option; [@option]  (** server_ids *)
+  server_ids : float prop list option; [@option]  (** server_ids *)
 }
 [@@deriving yojson_of]
 (** hcloud_firewall_attachment *)

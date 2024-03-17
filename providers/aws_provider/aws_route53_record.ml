@@ -5,45 +5,45 @@
 open! Tf.Prelude
 
 type aws_route53_record__alias = {
-  evaluate_target_health : bool;  (** evaluate_target_health *)
-  name : string;  (** name *)
-  zone_id : string;  (** zone_id *)
+  evaluate_target_health : bool prop;  (** evaluate_target_health *)
+  name : string prop;  (** name *)
+  zone_id : string prop;  (** zone_id *)
 }
 [@@deriving yojson_of]
 (** aws_route53_record__alias *)
 
 type aws_route53_record__cidr_routing_policy = {
-  collection_id : string;  (** collection_id *)
-  location_name : string;  (** location_name *)
+  collection_id : string prop;  (** collection_id *)
+  location_name : string prop;  (** location_name *)
 }
 [@@deriving yojson_of]
 (** aws_route53_record__cidr_routing_policy *)
 
 type aws_route53_record__failover_routing_policy = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_route53_record__failover_routing_policy *)
 
 type aws_route53_record__geolocation_routing_policy = {
-  continent : string option; [@option]  (** continent *)
-  country : string option; [@option]  (** country *)
-  subdivision : string option; [@option]  (** subdivision *)
+  continent : string prop option; [@option]  (** continent *)
+  country : string prop option; [@option]  (** country *)
+  subdivision : string prop option; [@option]  (** subdivision *)
 }
 [@@deriving yojson_of]
 (** aws_route53_record__geolocation_routing_policy *)
 
 type aws_route53_record__geoproximity_routing_policy__coordinates = {
-  latitude : string;  (** latitude *)
-  longitude : string;  (** longitude *)
+  latitude : string prop;  (** latitude *)
+  longitude : string prop;  (** longitude *)
 }
 [@@deriving yojson_of]
 (** aws_route53_record__geoproximity_routing_policy__coordinates *)
 
 type aws_route53_record__geoproximity_routing_policy = {
-  aws_region : string option; [@option]  (** aws_region *)
-  bias : float option; [@option]  (** bias *)
-  local_zone_group : string option; [@option]
+  aws_region : string prop option; [@option]  (** aws_region *)
+  bias : float prop option; [@option]  (** bias *)
+  local_zone_group : string prop option; [@option]
       (** local_zone_group *)
   coordinates :
     aws_route53_record__geoproximity_routing_policy__coordinates list;
@@ -52,29 +52,32 @@ type aws_route53_record__geoproximity_routing_policy = {
 (** aws_route53_record__geoproximity_routing_policy *)
 
 type aws_route53_record__latency_routing_policy = {
-  region : string;  (** region *)
+  region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
 (** aws_route53_record__latency_routing_policy *)
 
 type aws_route53_record__weighted_routing_policy = {
-  weight : float;  (** weight *)
+  weight : float prop;  (** weight *)
 }
 [@@deriving yojson_of]
 (** aws_route53_record__weighted_routing_policy *)
 
 type aws_route53_record = {
-  allow_overwrite : bool option; [@option]  (** allow_overwrite *)
-  health_check_id : string option; [@option]  (** health_check_id *)
-  id : string option; [@option]  (** id *)
-  multivalue_answer_routing_policy : bool option; [@option]
+  allow_overwrite : bool prop option; [@option]
+      (** allow_overwrite *)
+  health_check_id : string prop option; [@option]
+      (** health_check_id *)
+  id : string prop option; [@option]  (** id *)
+  multivalue_answer_routing_policy : bool prop option; [@option]
       (** multivalue_answer_routing_policy *)
-  name : string;  (** name *)
-  records : string list option; [@option]  (** records *)
-  set_identifier : string option; [@option]  (** set_identifier *)
-  ttl : float option; [@option]  (** ttl *)
-  type_ : string; [@key "type"]  (** type *)
-  zone_id : string;  (** zone_id *)
+  name : string prop;  (** name *)
+  records : string prop list option; [@option]  (** records *)
+  set_identifier : string prop option; [@option]
+      (** set_identifier *)
+  ttl : float prop option; [@option]  (** ttl *)
+  type_ : string prop; [@key "type"]  (** type *)
+  zone_id : string prop;  (** zone_id *)
   alias : aws_route53_record__alias list;
   cidr_routing_policy : aws_route53_record__cidr_routing_policy list;
   failover_routing_policy :

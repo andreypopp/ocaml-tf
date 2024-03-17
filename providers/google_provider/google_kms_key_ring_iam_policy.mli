@@ -5,8 +5,8 @@ open! Tf.Prelude
 type google_kms_key_ring_iam_policy
 
 val google_kms_key_ring_iam_policy :
-  ?id:string ->
-  key_ring_id:string ->
-  policy_data:string ->
+  ?id:string prop ->
+  key_ring_id:string prop ->
+  policy_data:string prop ->
   string ->
   unit

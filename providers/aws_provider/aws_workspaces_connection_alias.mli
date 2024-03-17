@@ -6,8 +6,8 @@ type aws_workspaces_connection_alias__timeouts
 type aws_workspaces_connection_alias
 
 val aws_workspaces_connection_alias :
-  ?tags:(string * string) list ->
+  ?tags:(string * string prop) list ->
   ?timeouts:aws_workspaces_connection_alias__timeouts ->
-  connection_string:string ->
+  connection_string:string prop ->
   string ->
   unit

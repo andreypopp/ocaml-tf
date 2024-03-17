@@ -5,44 +5,45 @@
 open! Tf.Prelude
 
 type azurerm_eventhub_namespace__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace__identity *)
 
 type azurerm_eventhub_namespace__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventhub_namespace__timeouts *)
 
 type azurerm_eventhub_namespace__network_rulesets__virtual_network_rule = {
-  ignore_missing_virtual_network_service_endpoint : bool;
+  ignore_missing_virtual_network_service_endpoint : bool prop;
       (** ignore_missing_virtual_network_service_endpoint *)
-  subnet_id : string;  (** subnet_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 
 type azurerm_eventhub_namespace__network_rulesets__ip_rule = {
-  action : string;  (** action *)
-  ip_mask : string;  (** ip_mask *)
+  action : string prop;  (** action *)
+  ip_mask : string prop;  (** ip_mask *)
 }
 [@@deriving yojson_of]
 
 type azurerm_eventhub_namespace__network_rulesets = {
-  default_action : string;  (** default_action *)
+  default_action : string prop;  (** default_action *)
   ip_rule :
     azurerm_eventhub_namespace__network_rulesets__ip_rule list;
       (** ip_rule *)
-  public_network_access_enabled : bool;
+  public_network_access_enabled : bool prop;
       (** public_network_access_enabled *)
-  trusted_service_access_enabled : bool;
+  trusted_service_access_enabled : bool prop;
       (** trusted_service_access_enabled *)
   virtual_network_rule :
     azurerm_eventhub_namespace__network_rulesets__virtual_network_rule
@@ -52,30 +53,30 @@ type azurerm_eventhub_namespace__network_rulesets = {
 [@@deriving yojson_of]
 
 type azurerm_eventhub_namespace = {
-  auto_inflate_enabled : bool option; [@option]
+  auto_inflate_enabled : bool prop option; [@option]
       (** auto_inflate_enabled *)
-  capacity : float option; [@option]  (** capacity *)
-  dedicated_cluster_id : string option; [@option]
+  capacity : float prop option; [@option]  (** capacity *)
+  dedicated_cluster_id : string prop option; [@option]
       (** dedicated_cluster_id *)
-  id : string option; [@option]  (** id *)
-  local_authentication_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  local_authentication_enabled : bool prop option; [@option]
       (** local_authentication_enabled *)
-  location : string;  (** location *)
-  maximum_throughput_units : float option; [@option]
+  location : string prop;  (** location *)
+  maximum_throughput_units : float prop option; [@option]
       (** maximum_throughput_units *)
-  minimum_tls_version : string option; [@option]
+  minimum_tls_version : string prop option; [@option]
       (** minimum_tls_version *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   network_rulesets :
     azurerm_eventhub_namespace__network_rulesets list option;
       [@option]
       (** network_rulesets *)
-  public_network_access_enabled : bool option; [@option]
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku : string;  (** sku *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  zone_redundant : bool option; [@option]  (** zone_redundant *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku : string prop;  (** sku *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  zone_redundant : bool prop option; [@option]  (** zone_redundant *)
   identity : azurerm_eventhub_namespace__identity list;
   timeouts : azurerm_eventhub_namespace__timeouts option;
 }

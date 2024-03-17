@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_vpn_connection__tunnel1_log_options__cloudwatch_log_options = {
-  log_enabled : bool option; [@option]  (** log_enabled *)
-  log_group_arn : string option; [@option]  (** log_group_arn *)
-  log_output_format : string option; [@option]
+  log_enabled : bool prop option; [@option]  (** log_enabled *)
+  log_group_arn : string prop option; [@option]  (** log_group_arn *)
+  log_output_format : string prop option; [@option]
       (** log_output_format *)
 }
 [@@deriving yojson_of]
@@ -22,9 +22,9 @@ type aws_vpn_connection__tunnel1_log_options = {
 (** aws_vpn_connection__tunnel1_log_options *)
 
 type aws_vpn_connection__tunnel2_log_options__cloudwatch_log_options = {
-  log_enabled : bool option; [@option]  (** log_enabled *)
-  log_group_arn : string option; [@option]  (** log_group_arn *)
-  log_output_format : string option; [@option]
+  log_enabled : bool prop option; [@option]  (** log_enabled *)
+  log_group_arn : string prop option; [@option]  (** log_group_arn *)
+  log_output_format : string prop option; [@option]
       (** log_output_format *)
 }
 [@@deriving yojson_of]
@@ -39,130 +39,139 @@ type aws_vpn_connection__tunnel2_log_options = {
 (** aws_vpn_connection__tunnel2_log_options *)
 
 type aws_vpn_connection__routes = {
-  destination_cidr_block : string;  (** destination_cidr_block *)
-  source : string;  (** source *)
-  state : string;  (** state *)
+  destination_cidr_block : string prop;
+      (** destination_cidr_block *)
+  source : string prop;  (** source *)
+  state : string prop;  (** state *)
 }
 [@@deriving yojson_of]
 
 type aws_vpn_connection__vgw_telemetry = {
-  accepted_route_count : float;  (** accepted_route_count *)
-  certificate_arn : string;  (** certificate_arn *)
-  last_status_change : string;  (** last_status_change *)
-  outside_ip_address : string;  (** outside_ip_address *)
-  status : string;  (** status *)
-  status_message : string;  (** status_message *)
+  accepted_route_count : float prop;  (** accepted_route_count *)
+  certificate_arn : string prop;  (** certificate_arn *)
+  last_status_change : string prop;  (** last_status_change *)
+  outside_ip_address : string prop;  (** outside_ip_address *)
+  status : string prop;  (** status *)
+  status_message : string prop;  (** status_message *)
 }
 [@@deriving yojson_of]
 
 type aws_vpn_connection = {
-  customer_gateway_id : string;  (** customer_gateway_id *)
-  enable_acceleration : bool option; [@option]
+  customer_gateway_id : string prop;  (** customer_gateway_id *)
+  enable_acceleration : bool prop option; [@option]
       (** enable_acceleration *)
-  id : string option; [@option]  (** id *)
-  local_ipv4_network_cidr : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  local_ipv4_network_cidr : string prop option; [@option]
       (** local_ipv4_network_cidr *)
-  local_ipv6_network_cidr : string option; [@option]
+  local_ipv6_network_cidr : string prop option; [@option]
       (** local_ipv6_network_cidr *)
-  outside_ip_address_type : string option; [@option]
+  outside_ip_address_type : string prop option; [@option]
       (** outside_ip_address_type *)
-  remote_ipv4_network_cidr : string option; [@option]
+  remote_ipv4_network_cidr : string prop option; [@option]
       (** remote_ipv4_network_cidr *)
-  remote_ipv6_network_cidr : string option; [@option]
+  remote_ipv6_network_cidr : string prop option; [@option]
       (** remote_ipv6_network_cidr *)
-  static_routes_only : bool option; [@option]
+  static_routes_only : bool prop option; [@option]
       (** static_routes_only *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  transit_gateway_id : string option; [@option]
+  transit_gateway_id : string prop option; [@option]
       (** transit_gateway_id *)
-  transport_transit_gateway_attachment_id : string option; [@option]
+  transport_transit_gateway_attachment_id : string prop option;
+      [@option]
       (** transport_transit_gateway_attachment_id *)
-  tunnel1_dpd_timeout_action : string option; [@option]
+  tunnel1_dpd_timeout_action : string prop option; [@option]
       (** tunnel1_dpd_timeout_action *)
-  tunnel1_dpd_timeout_seconds : float option; [@option]
+  tunnel1_dpd_timeout_seconds : float prop option; [@option]
       (** tunnel1_dpd_timeout_seconds *)
-  tunnel1_enable_tunnel_lifecycle_control : bool option; [@option]
+  tunnel1_enable_tunnel_lifecycle_control : bool prop option;
+      [@option]
       (** tunnel1_enable_tunnel_lifecycle_control *)
-  tunnel1_ike_versions : string list option; [@option]
+  tunnel1_ike_versions : string prop list option; [@option]
       (** tunnel1_ike_versions *)
-  tunnel1_inside_cidr : string option; [@option]
+  tunnel1_inside_cidr : string prop option; [@option]
       (** tunnel1_inside_cidr *)
-  tunnel1_inside_ipv6_cidr : string option; [@option]
+  tunnel1_inside_ipv6_cidr : string prop option; [@option]
       (** tunnel1_inside_ipv6_cidr *)
-  tunnel1_phase1_dh_group_numbers : float list option; [@option]
+  tunnel1_phase1_dh_group_numbers : float prop list option; [@option]
       (** tunnel1_phase1_dh_group_numbers *)
-  tunnel1_phase1_encryption_algorithms : string list option;
+  tunnel1_phase1_encryption_algorithms : string prop list option;
       [@option]
       (** tunnel1_phase1_encryption_algorithms *)
-  tunnel1_phase1_integrity_algorithms : string list option; [@option]
+  tunnel1_phase1_integrity_algorithms : string prop list option;
+      [@option]
       (** tunnel1_phase1_integrity_algorithms *)
-  tunnel1_phase1_lifetime_seconds : float option; [@option]
+  tunnel1_phase1_lifetime_seconds : float prop option; [@option]
       (** tunnel1_phase1_lifetime_seconds *)
-  tunnel1_phase2_dh_group_numbers : float list option; [@option]
+  tunnel1_phase2_dh_group_numbers : float prop list option; [@option]
       (** tunnel1_phase2_dh_group_numbers *)
-  tunnel1_phase2_encryption_algorithms : string list option;
+  tunnel1_phase2_encryption_algorithms : string prop list option;
       [@option]
       (** tunnel1_phase2_encryption_algorithms *)
-  tunnel1_phase2_integrity_algorithms : string list option; [@option]
+  tunnel1_phase2_integrity_algorithms : string prop list option;
+      [@option]
       (** tunnel1_phase2_integrity_algorithms *)
-  tunnel1_phase2_lifetime_seconds : float option; [@option]
+  tunnel1_phase2_lifetime_seconds : float prop option; [@option]
       (** tunnel1_phase2_lifetime_seconds *)
-  tunnel1_preshared_key : string option; [@option]
+  tunnel1_preshared_key : string prop option; [@option]
       (** tunnel1_preshared_key *)
-  tunnel1_rekey_fuzz_percentage : float option; [@option]
+  tunnel1_rekey_fuzz_percentage : float prop option; [@option]
       (** tunnel1_rekey_fuzz_percentage *)
-  tunnel1_rekey_margin_time_seconds : float option; [@option]
+  tunnel1_rekey_margin_time_seconds : float prop option; [@option]
       (** tunnel1_rekey_margin_time_seconds *)
-  tunnel1_replay_window_size : float option; [@option]
+  tunnel1_replay_window_size : float prop option; [@option]
       (** tunnel1_replay_window_size *)
-  tunnel1_startup_action : string option; [@option]
+  tunnel1_startup_action : string prop option; [@option]
       (** tunnel1_startup_action *)
-  tunnel2_dpd_timeout_action : string option; [@option]
+  tunnel2_dpd_timeout_action : string prop option; [@option]
       (** tunnel2_dpd_timeout_action *)
-  tunnel2_dpd_timeout_seconds : float option; [@option]
+  tunnel2_dpd_timeout_seconds : float prop option; [@option]
       (** tunnel2_dpd_timeout_seconds *)
-  tunnel2_enable_tunnel_lifecycle_control : bool option; [@option]
+  tunnel2_enable_tunnel_lifecycle_control : bool prop option;
+      [@option]
       (** tunnel2_enable_tunnel_lifecycle_control *)
-  tunnel2_ike_versions : string list option; [@option]
+  tunnel2_ike_versions : string prop list option; [@option]
       (** tunnel2_ike_versions *)
-  tunnel2_inside_cidr : string option; [@option]
+  tunnel2_inside_cidr : string prop option; [@option]
       (** tunnel2_inside_cidr *)
-  tunnel2_inside_ipv6_cidr : string option; [@option]
+  tunnel2_inside_ipv6_cidr : string prop option; [@option]
       (** tunnel2_inside_ipv6_cidr *)
-  tunnel2_phase1_dh_group_numbers : float list option; [@option]
+  tunnel2_phase1_dh_group_numbers : float prop list option; [@option]
       (** tunnel2_phase1_dh_group_numbers *)
-  tunnel2_phase1_encryption_algorithms : string list option;
+  tunnel2_phase1_encryption_algorithms : string prop list option;
       [@option]
       (** tunnel2_phase1_encryption_algorithms *)
-  tunnel2_phase1_integrity_algorithms : string list option; [@option]
+  tunnel2_phase1_integrity_algorithms : string prop list option;
+      [@option]
       (** tunnel2_phase1_integrity_algorithms *)
-  tunnel2_phase1_lifetime_seconds : float option; [@option]
+  tunnel2_phase1_lifetime_seconds : float prop option; [@option]
       (** tunnel2_phase1_lifetime_seconds *)
-  tunnel2_phase2_dh_group_numbers : float list option; [@option]
+  tunnel2_phase2_dh_group_numbers : float prop list option; [@option]
       (** tunnel2_phase2_dh_group_numbers *)
-  tunnel2_phase2_encryption_algorithms : string list option;
+  tunnel2_phase2_encryption_algorithms : string prop list option;
       [@option]
       (** tunnel2_phase2_encryption_algorithms *)
-  tunnel2_phase2_integrity_algorithms : string list option; [@option]
+  tunnel2_phase2_integrity_algorithms : string prop list option;
+      [@option]
       (** tunnel2_phase2_integrity_algorithms *)
-  tunnel2_phase2_lifetime_seconds : float option; [@option]
+  tunnel2_phase2_lifetime_seconds : float prop option; [@option]
       (** tunnel2_phase2_lifetime_seconds *)
-  tunnel2_preshared_key : string option; [@option]
+  tunnel2_preshared_key : string prop option; [@option]
       (** tunnel2_preshared_key *)
-  tunnel2_rekey_fuzz_percentage : float option; [@option]
+  tunnel2_rekey_fuzz_percentage : float prop option; [@option]
       (** tunnel2_rekey_fuzz_percentage *)
-  tunnel2_rekey_margin_time_seconds : float option; [@option]
+  tunnel2_rekey_margin_time_seconds : float prop option; [@option]
       (** tunnel2_rekey_margin_time_seconds *)
-  tunnel2_replay_window_size : float option; [@option]
+  tunnel2_replay_window_size : float prop option; [@option]
       (** tunnel2_replay_window_size *)
-  tunnel2_startup_action : string option; [@option]
+  tunnel2_startup_action : string prop option; [@option]
       (** tunnel2_startup_action *)
-  tunnel_inside_ip_version : string option; [@option]
+  tunnel_inside_ip_version : string prop option; [@option]
       (** tunnel_inside_ip_version *)
-  type_ : string; [@key "type"]  (** type *)
-  vpn_gateway_id : string option; [@option]  (** vpn_gateway_id *)
+  type_ : string prop; [@key "type"]  (** type *)
+  vpn_gateway_id : string prop option; [@option]
+      (** vpn_gateway_id *)
   tunnel1_log_options : aws_vpn_connection__tunnel1_log_options list;
   tunnel2_log_options : aws_vpn_connection__tunnel2_log_options list;
 }

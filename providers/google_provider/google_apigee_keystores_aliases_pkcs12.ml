@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type google_apigee_keystores_aliases_pkcs12__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_apigee_keystores_aliases_pkcs12__timeouts *)
 
 type google_apigee_keystores_aliases_pkcs12__certs_info__cert_info = {
-  basic_constraints : string;  (** basic_constraints *)
-  expiry_date : string;  (** expiry_date *)
-  is_valid : string;  (** is_valid *)
-  issuer : string;  (** issuer *)
-  public_key : string;  (** public_key *)
-  serial_number : string;  (** serial_number *)
-  sig_alg_name : string;  (** sig_alg_name *)
-  subject : string;  (** subject *)
-  subject_alternative_names : string list;
+  basic_constraints : string prop;  (** basic_constraints *)
+  expiry_date : string prop;  (** expiry_date *)
+  is_valid : string prop;  (** is_valid *)
+  issuer : string prop;  (** issuer *)
+  public_key : string prop;  (** public_key *)
+  serial_number : string prop;  (** serial_number *)
+  sig_alg_name : string prop;  (** sig_alg_name *)
+  subject : string prop;  (** subject *)
+  subject_alternative_names : string prop list;
       (** subject_alternative_names *)
-  valid_from : string;  (** valid_from *)
-  version : float;  (** version *)
+  valid_from : string prop;  (** valid_from *)
+  version : float prop;  (** version *)
 }
 [@@deriving yojson_of]
 
@@ -36,14 +36,16 @@ type google_apigee_keystores_aliases_pkcs12__certs_info = {
 [@@deriving yojson_of]
 
 type google_apigee_keystores_aliases_pkcs12 = {
-  alias : string;  (** Alias Name *)
-  environment : string;  (** Environment associated with the alias *)
-  file : string;  (** Cert content *)
-  filehash : string;  (** Hash of the pkcs file *)
-  id : string option; [@option]  (** id *)
-  keystore : string;  (** Keystore Name *)
-  org_id : string;  (** Organization ID associated with the alias *)
-  password : string option; [@option]
+  alias : string prop;  (** Alias Name *)
+  environment : string prop;
+      (** Environment associated with the alias *)
+  file : string prop;  (** Cert content *)
+  filehash : string prop;  (** Hash of the pkcs file *)
+  id : string prop option; [@option]  (** id *)
+  keystore : string prop;  (** Keystore Name *)
+  org_id : string prop;
+      (** Organization ID associated with the alias *)
+  password : string prop option; [@option]
       (** Password for the Private Key if it's encrypted *)
   timeouts : google_apigee_keystores_aliases_pkcs12__timeouts option;
 }

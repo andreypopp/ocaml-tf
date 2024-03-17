@@ -6,20 +6,20 @@ type azurerm_bot_web_app__timeouts
 type azurerm_bot_web_app
 
 val azurerm_bot_web_app :
-  ?developer_app_insights_api_key:string ->
-  ?developer_app_insights_application_id:string ->
-  ?developer_app_insights_key:string ->
-  ?display_name:string ->
-  ?endpoint:string ->
-  ?id:string ->
-  ?luis_app_ids:string list ->
-  ?luis_key:string ->
-  ?tags:(string * string) list ->
+  ?developer_app_insights_api_key:string prop ->
+  ?developer_app_insights_application_id:string prop ->
+  ?developer_app_insights_key:string prop ->
+  ?display_name:string prop ->
+  ?endpoint:string prop ->
+  ?id:string prop ->
+  ?luis_app_ids:string prop list ->
+  ?luis_key:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_bot_web_app__timeouts ->
-  location:string ->
-  microsoft_app_id:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku:string ->
+  location:string prop ->
+  microsoft_app_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
   string ->
   unit

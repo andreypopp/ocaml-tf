@@ -8,17 +8,17 @@ type azurerm_network_manager_admin_rule__timeouts
 type azurerm_network_manager_admin_rule
 
 val azurerm_network_manager_admin_rule :
-  ?description:string ->
-  ?destination_port_ranges:string list ->
-  ?id:string ->
-  ?source_port_ranges:string list ->
+  ?description:string prop ->
+  ?destination_port_ranges:string prop list ->
+  ?id:string prop ->
+  ?source_port_ranges:string prop list ->
   ?timeouts:azurerm_network_manager_admin_rule__timeouts ->
-  action:string ->
-  admin_rule_collection_id:string ->
-  direction:string ->
-  name:string ->
-  priority:float ->
-  protocol:string ->
+  action:string prop ->
+  admin_rule_collection_id:string prop ->
+  direction:string prop ->
+  name:string prop ->
+  priority:float prop ->
+  protocol:string prop ->
   destination:azurerm_network_manager_admin_rule__destination list ->
   source:azurerm_network_manager_admin_rule__source list ->
   string ->

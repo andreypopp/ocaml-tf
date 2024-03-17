@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_dns_response_policy__gke_clusters = {
-  gke_cluster_name : string;
+  gke_cluster_name : string prop;
       (** The resource name of the cluster to bind this ManagedZone to.
 This should be specified in the format like
 'projects/*/locations/*/clusters/*' *)
@@ -14,7 +14,7 @@ This should be specified in the format like
 (** The list of Google Kubernetes Engine clusters that can see this zone. *)
 
 type google_dns_response_policy__networks = {
-  network_url : string;
+  network_url : string prop;
       (** The fully qualified URL of the VPC network to bind to.
 This should be formatted like
 'https://www.googleapis.com/compute/v1/projects/{project}/global/networks/{network}' *)
@@ -23,19 +23,19 @@ This should be formatted like
 (** The list of network names specifying networks to which this policy is applied. *)
 
 type google_dns_response_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_dns_response_policy__timeouts *)
 
 type google_dns_response_policy = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description of the response policy, such as 'My new response policy'. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  response_policy_name : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  response_policy_name : string prop;
       (** The user assigned name for this Response Policy, such as 'myresponsepolicy'. *)
   gke_clusters : google_dns_response_policy__gke_clusters list;
   networks : google_dns_response_policy__networks list;

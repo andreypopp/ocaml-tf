@@ -5,30 +5,31 @@
 open! Tf.Prelude
 
 type google_data_catalog_taxonomy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_data_catalog_taxonomy__timeouts *)
 
 type google_data_catalog_taxonomy = {
-  activated_policy_types : string list option; [@option]
+  activated_policy_types : string prop list option; [@option]
       (** A list of policy types that are activated for this taxonomy. If not set,
 defaults to an empty list. Possible values: [POLICY_TYPE_UNSPECIFIED, FINE_GRAINED_ACCESS_CONTROL] *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of this taxonomy. It must: contain only unicode characters,
 tabs, newlines, carriage returns and page breaks; and be at most 2000 bytes
 long when encoded in UTF-8. If not set, defaults to an empty description. *)
-  display_name : string;
+  display_name : string prop;
       (** User defined name of this taxonomy.
 The taxonomy display name must be unique within an organization.
 It must: contain only unicode letters, numbers, underscores, dashes
 and spaces; not start or end with spaces; and be at most 200 bytes
 long when encoded in UTF-8. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** Taxonomy location region. *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
+      (** Taxonomy location region. *)
   timeouts : google_data_catalog_taxonomy__timeouts option;
 }
 [@@deriving yojson_of]

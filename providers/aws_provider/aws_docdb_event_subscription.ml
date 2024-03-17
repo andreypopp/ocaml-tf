@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type aws_docdb_event_subscription__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_docdb_event_subscription__timeouts *)
 
 type aws_docdb_event_subscription = {
-  enabled : bool option; [@option]  (** enabled *)
-  event_categories : string list option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  event_categories : string prop list option; [@option]
       (** event_categories *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  sns_topic_arn : string;  (** sns_topic_arn *)
-  source_ids : string list option; [@option]  (** source_ids *)
-  source_type : string option; [@option]  (** source_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  sns_topic_arn : string prop;  (** sns_topic_arn *)
+  source_ids : string prop list option; [@option]  (** source_ids *)
+  source_type : string prop option; [@option]  (** source_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_docdb_event_subscription__timeouts option;
 }

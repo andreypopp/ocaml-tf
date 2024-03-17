@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_dynamodb_kinesis_streaming_destination = {
-  id : string option; [@option]  (** id *)
-  stream_arn : string;  (** stream_arn *)
-  table_name : string;  (** table_name *)
+  id : string prop option; [@option]  (** id *)
+  stream_arn : string prop;  (** stream_arn *)
+  table_name : string prop;  (** table_name *)
 }
 [@@deriving yojson_of]
 (** aws_dynamodb_kinesis_streaming_destination *)

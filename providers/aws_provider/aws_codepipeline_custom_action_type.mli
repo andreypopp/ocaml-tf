@@ -9,12 +9,12 @@ type aws_codepipeline_custom_action_type__settings
 type aws_codepipeline_custom_action_type
 
 val aws_codepipeline_custom_action_type :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  category:string ->
-  provider_name:string ->
-  version:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  category:string prop ->
+  provider_name:string prop ->
+  version:string prop ->
   configuration_property:
     aws_codepipeline_custom_action_type__configuration_property list ->
   input_artifact_details:

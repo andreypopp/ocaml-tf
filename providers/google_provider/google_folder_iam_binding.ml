@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_folder_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_folder_iam_binding__condition *)
 
 type google_folder_iam_binding = {
-  folder : string;  (** folder *)
-  id : string option; [@option]  (** id *)
-  members : string list;  (** members *)
-  role : string;  (** role *)
+  folder : string prop;  (** folder *)
+  id : string prop option; [@option]  (** id *)
+  members : string prop list;  (** members *)
+  role : string prop;  (** role *)
   condition : google_folder_iam_binding__condition list;
 }
 [@@deriving yojson_of]

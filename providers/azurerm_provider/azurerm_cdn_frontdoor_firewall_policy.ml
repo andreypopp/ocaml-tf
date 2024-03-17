@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_firewall_policy__custom_rule__match_condition = {
-  match_values : string list;  (** match_values *)
-  match_variable : string;  (** match_variable *)
-  negation_condition : bool option; [@option]
+  match_values : string prop list;  (** match_values *)
+  match_variable : string prop;  (** match_variable *)
+  negation_condition : bool prop option; [@option]
       (** negation_condition *)
-  operator : string;  (** operator *)
-  selector : string option; [@option]  (** selector *)
-  transforms : string list option; [@option]  (** transforms *)
+  operator : string prop;  (** operator *)
+  selector : string prop option; [@option]  (** selector *)
+  transforms : string prop list option; [@option]  (** transforms *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_firewall_policy__custom_rule__match_condition *)
 
 type azurerm_cdn_frontdoor_firewall_policy__custom_rule = {
-  action : string;  (** action *)
-  enabled : bool option; [@option]  (** enabled *)
-  name : string;  (** name *)
-  priority : float option; [@option]  (** priority *)
-  rate_limit_duration_in_minutes : float option; [@option]
+  action : string prop;  (** action *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  name : string prop;  (** name *)
+  priority : float prop option; [@option]  (** priority *)
+  rate_limit_duration_in_minutes : float prop option; [@option]
       (** rate_limit_duration_in_minutes *)
-  rate_limit_threshold : float option; [@option]
+  rate_limit_threshold : float prop option; [@option]
       (** rate_limit_threshold *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   match_condition :
     azurerm_cdn_frontdoor_firewall_policy__custom_rule__match_condition
     list;
@@ -34,33 +34,33 @@ type azurerm_cdn_frontdoor_firewall_policy__custom_rule = {
 (** azurerm_cdn_frontdoor_firewall_policy__custom_rule *)
 
 type azurerm_cdn_frontdoor_firewall_policy__managed_rule__exclusion = {
-  match_variable : string;  (** match_variable *)
-  operator : string;  (** operator *)
-  selector : string;  (** selector *)
+  match_variable : string prop;  (** match_variable *)
+  operator : string prop;  (** operator *)
+  selector : string prop;  (** selector *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_firewall_policy__managed_rule__exclusion *)
 
 type azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__exclusion = {
-  match_variable : string;  (** match_variable *)
-  operator : string;  (** operator *)
-  selector : string;  (** selector *)
+  match_variable : string prop;  (** match_variable *)
+  operator : string prop;  (** operator *)
+  selector : string prop;  (** selector *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__exclusion *)
 
 type azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__rule__exclusion = {
-  match_variable : string;  (** match_variable *)
-  operator : string;  (** operator *)
-  selector : string;  (** selector *)
+  match_variable : string prop;  (** match_variable *)
+  operator : string prop;  (** operator *)
+  selector : string prop;  (** selector *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__rule__exclusion *)
 
 type azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__rule = {
-  action : string;  (** action *)
-  enabled : bool option; [@option]  (** enabled *)
-  rule_id : string;  (** rule_id *)
+  action : string prop;  (** action *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  rule_id : string prop;  (** rule_id *)
   exclusion :
     azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__rule__exclusion
     list;
@@ -69,7 +69,7 @@ type azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__rule = {
 (** azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__rule *)
 
 type azurerm_cdn_frontdoor_firewall_policy__managed_rule__override = {
-  rule_group_name : string;  (** rule_group_name *)
+  rule_group_name : string prop;  (** rule_group_name *)
   exclusion :
     azurerm_cdn_frontdoor_firewall_policy__managed_rule__override__exclusion
     list;
@@ -81,9 +81,9 @@ type azurerm_cdn_frontdoor_firewall_policy__managed_rule__override = {
 (** azurerm_cdn_frontdoor_firewall_policy__managed_rule__override *)
 
 type azurerm_cdn_frontdoor_firewall_policy__managed_rule = {
-  action : string;  (** action *)
-  type_ : string; [@key "type"]  (** type *)
-  version : string;  (** version *)
+  action : string prop;  (** action *)
+  type_ : string prop; [@key "type"]  (** type *)
+  version : string prop;  (** version *)
   exclusion :
     azurerm_cdn_frontdoor_firewall_policy__managed_rule__exclusion
     list;
@@ -95,29 +95,29 @@ type azurerm_cdn_frontdoor_firewall_policy__managed_rule = {
 (** azurerm_cdn_frontdoor_firewall_policy__managed_rule *)
 
 type azurerm_cdn_frontdoor_firewall_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_firewall_policy__timeouts *)
 
 type azurerm_cdn_frontdoor_firewall_policy = {
-  custom_block_response_body : string option; [@option]
+  custom_block_response_body : string prop option; [@option]
       (** custom_block_response_body *)
-  custom_block_response_status_code : float option; [@option]
+  custom_block_response_status_code : float prop option; [@option]
       (** custom_block_response_status_code *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  mode : string;  (** mode *)
-  name : string;  (** name *)
-  redirect_url : string option; [@option]  (** redirect_url *)
-  request_body_check_enabled : bool option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  mode : string prop;  (** mode *)
+  name : string prop;  (** name *)
+  redirect_url : string prop option; [@option]  (** redirect_url *)
+  request_body_check_enabled : bool prop option; [@option]
       (** request_body_check_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   custom_rule :
     azurerm_cdn_frontdoor_firewall_policy__custom_rule list;
   managed_rule :

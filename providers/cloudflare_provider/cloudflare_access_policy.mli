@@ -30,18 +30,18 @@ type cloudflare_access_policy__require
 type cloudflare_access_policy
 
 val cloudflare_access_policy :
-  ?account_id:string ->
-  ?approval_required:bool ->
-  ?id:string ->
-  ?isolation_required:bool ->
-  ?purpose_justification_prompt:string ->
-  ?purpose_justification_required:bool ->
-  ?session_duration:string ->
-  ?zone_id:string ->
-  application_id:string ->
-  decision:string ->
-  name:string ->
-  precedence:float ->
+  ?account_id:string prop ->
+  ?approval_required:bool prop ->
+  ?id:string prop ->
+  ?isolation_required:bool prop ->
+  ?purpose_justification_prompt:string prop ->
+  ?purpose_justification_required:bool prop ->
+  ?session_duration:string prop ->
+  ?zone_id:string prop ->
+  application_id:string prop ->
+  decision:string prop ->
+  name:string prop ->
+  precedence:float prop ->
   approval_group:cloudflare_access_policy__approval_group list ->
   exclude:cloudflare_access_policy__exclude list ->
   include_:cloudflare_access_policy__include list ->

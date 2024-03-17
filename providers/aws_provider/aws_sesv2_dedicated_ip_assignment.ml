@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_sesv2_dedicated_ip_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_dedicated_ip_assignment__timeouts *)
 
 type aws_sesv2_dedicated_ip_assignment = {
-  destination_pool_name : string;  (** destination_pool_name *)
-  id : string option; [@option]  (** id *)
-  ip : string;  (** ip *)
+  destination_pool_name : string prop;  (** destination_pool_name *)
+  id : string prop option; [@option]  (** id *)
+  ip : string prop;  (** ip *)
   timeouts : aws_sesv2_dedicated_ip_assignment__timeouts option;
 }
 [@@deriving yojson_of]

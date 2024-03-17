@@ -5,25 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_stream_analytics_output_function__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_output_function__timeouts *)
 
 type azurerm_stream_analytics_output_function = {
-  api_key : string;  (** api_key *)
-  batch_max_count : float option; [@option]  (** batch_max_count *)
-  batch_max_in_bytes : float option; [@option]
+  api_key : string prop;  (** api_key *)
+  batch_max_count : float prop option; [@option]
+      (** batch_max_count *)
+  batch_max_in_bytes : float prop option; [@option]
       (** batch_max_in_bytes *)
-  function_app : string;  (** function_app *)
-  function_name : string;  (** function_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  stream_analytics_job_name : string;
+  function_app : string prop;  (** function_app *)
+  function_name : string prop;  (** function_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  stream_analytics_job_name : string prop;
       (** stream_analytics_job_name *)
   timeouts :
     azurerm_stream_analytics_output_function__timeouts option;

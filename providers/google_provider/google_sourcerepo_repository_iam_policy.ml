@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_sourcerepo_repository_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  repository : string;  (** repository *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  repository : string prop;  (** repository *)
 }
 [@@deriving yojson_of]
 (** google_sourcerepo_repository_iam_policy *)

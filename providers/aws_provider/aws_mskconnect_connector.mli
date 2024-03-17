@@ -29,13 +29,13 @@ type aws_mskconnect_connector__worker_configuration
 type aws_mskconnect_connector
 
 val aws_mskconnect_connector :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:aws_mskconnect_connector__timeouts ->
-  connector_configuration:(string * string) list ->
-  kafkaconnect_version:string ->
-  name:string ->
-  service_execution_role_arn:string ->
+  connector_configuration:(string * string prop) list ->
+  kafkaconnect_version:string prop ->
+  name:string prop ->
+  service_execution_role_arn:string prop ->
   capacity:aws_mskconnect_connector__capacity list ->
   kafka_cluster:aws_mskconnect_connector__kafka_cluster list ->
   kafka_cluster_client_authentication:

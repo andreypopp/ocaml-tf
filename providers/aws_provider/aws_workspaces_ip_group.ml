@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_workspaces_ip_group__rules = {
-  description : string option; [@option]  (** description *)
-  source : string;  (** source *)
+  description : string prop option; [@option]  (** description *)
+  source : string prop;  (** source *)
 }
 [@@deriving yojson_of]
 (** aws_workspaces_ip_group__rules *)
 
 type aws_workspaces_ip_group = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   rules : aws_workspaces_ip_group__rules list;
 }

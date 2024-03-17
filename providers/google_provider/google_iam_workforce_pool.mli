@@ -8,15 +8,15 @@ type google_iam_workforce_pool__timeouts
 type google_iam_workforce_pool
 
 val google_iam_workforce_pool :
-  ?description:string ->
-  ?disabled:bool ->
-  ?display_name:string ->
-  ?id:string ->
-  ?session_duration:string ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?session_duration:string prop ->
   ?timeouts:google_iam_workforce_pool__timeouts ->
-  location:string ->
-  parent:string ->
-  workforce_pool_id:string ->
+  location:string prop ->
+  parent:string prop ->
+  workforce_pool_id:string prop ->
   access_restrictions:
     google_iam_workforce_pool__access_restrictions list ->
   string ->

@@ -6,11 +6,11 @@ type azurerm_api_management_product_group__timeouts
 type azurerm_api_management_product_group
 
 val azurerm_api_management_product_group :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_api_management_product_group__timeouts ->
-  api_management_name:string ->
-  group_name:string ->
-  product_id:string ->
-  resource_group_name:string ->
+  api_management_name:string prop ->
+  group_name:string prop ->
+  product_id:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

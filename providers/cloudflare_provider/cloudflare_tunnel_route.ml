@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type cloudflare_tunnel_route = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  comment : string option; [@option]
+  comment : string prop option; [@option]
       (** Description of the tunnel route. *)
-  id : string option; [@option]  (** id *)
-  network : string;
+  id : string prop option; [@option]  (** id *)
+  network : string prop;
       (** The IPv4 or IPv6 network that should use this tunnel route, in CIDR notation. *)
-  tunnel_id : string;
+  tunnel_id : string prop;
       (** The ID of the tunnel that will service the tunnel route. *)
-  virtual_network_id : string option; [@option]
+  virtual_network_id : string prop option; [@option]
       (** The ID of the virtual network for which this route is being added; uses the default virtual network of the account if none is provided. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

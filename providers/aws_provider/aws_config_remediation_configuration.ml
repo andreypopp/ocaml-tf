@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type aws_config_remediation_configuration__execution_controls__ssm_controls = {
-  concurrent_execution_rate_percentage : float option; [@option]
+  concurrent_execution_rate_percentage : float prop option; [@option]
       (** concurrent_execution_rate_percentage *)
-  error_percentage : float option; [@option]  (** error_percentage *)
+  error_percentage : float prop option; [@option]
+      (** error_percentage *)
 }
 [@@deriving yojson_of]
 (** aws_config_remediation_configuration__execution_controls__ssm_controls *)
@@ -21,26 +22,29 @@ type aws_config_remediation_configuration__execution_controls = {
 (** aws_config_remediation_configuration__execution_controls *)
 
 type aws_config_remediation_configuration__parameter = {
-  name : string;  (** name *)
-  resource_value : string option; [@option]  (** resource_value *)
-  static_value : string option; [@option]  (** static_value *)
-  static_values : string list option; [@option]  (** static_values *)
+  name : string prop;  (** name *)
+  resource_value : string prop option; [@option]
+      (** resource_value *)
+  static_value : string prop option; [@option]  (** static_value *)
+  static_values : string prop list option; [@option]
+      (** static_values *)
 }
 [@@deriving yojson_of]
 (** aws_config_remediation_configuration__parameter *)
 
 type aws_config_remediation_configuration = {
-  automatic : bool option; [@option]  (** automatic *)
-  config_rule_name : string;  (** config_rule_name *)
-  id : string option; [@option]  (** id *)
-  maximum_automatic_attempts : float option; [@option]
+  automatic : bool prop option; [@option]  (** automatic *)
+  config_rule_name : string prop;  (** config_rule_name *)
+  id : string prop option; [@option]  (** id *)
+  maximum_automatic_attempts : float prop option; [@option]
       (** maximum_automatic_attempts *)
-  resource_type : string option; [@option]  (** resource_type *)
-  retry_attempt_seconds : float option; [@option]
+  resource_type : string prop option; [@option]  (** resource_type *)
+  retry_attempt_seconds : float prop option; [@option]
       (** retry_attempt_seconds *)
-  target_id : string;  (** target_id *)
-  target_type : string;  (** target_type *)
-  target_version : string option; [@option]  (** target_version *)
+  target_id : string prop;  (** target_id *)
+  target_type : string prop;  (** target_type *)
+  target_version : string prop option; [@option]
+      (** target_version *)
   execution_controls :
     aws_config_remediation_configuration__execution_controls list;
   parameter : aws_config_remediation_configuration__parameter list;

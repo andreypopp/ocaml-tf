@@ -5,48 +5,48 @@
 open! Tf.Prelude
 
 type aws_directory_service_directory__connect_settings = {
-  availability_zones : string list;  (** availability_zones *)
-  connect_ips : string list;  (** connect_ips *)
-  customer_dns_ips : string list;  (** customer_dns_ips *)
-  customer_username : string;  (** customer_username *)
-  subnet_ids : string list;  (** subnet_ids *)
-  vpc_id : string;  (** vpc_id *)
+  availability_zones : string prop list;  (** availability_zones *)
+  connect_ips : string prop list;  (** connect_ips *)
+  customer_dns_ips : string prop list;  (** customer_dns_ips *)
+  customer_username : string prop;  (** customer_username *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_directory__connect_settings *)
 
 type aws_directory_service_directory__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_directory__timeouts *)
 
 type aws_directory_service_directory__vpc_settings = {
-  availability_zones : string list;  (** availability_zones *)
-  subnet_ids : string list;  (** subnet_ids *)
-  vpc_id : string;  (** vpc_id *)
+  availability_zones : string prop list;  (** availability_zones *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_directory__vpc_settings *)
 
 type aws_directory_service_directory = {
-  alias : string option; [@option]  (** alias *)
-  description : string option; [@option]  (** description *)
-  desired_number_of_domain_controllers : float option; [@option]
+  alias : string prop option; [@option]  (** alias *)
+  description : string prop option; [@option]  (** description *)
+  desired_number_of_domain_controllers : float prop option; [@option]
       (** desired_number_of_domain_controllers *)
-  edition : string option; [@option]  (** edition *)
-  enable_sso : bool option; [@option]  (** enable_sso *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  password : string;  (** password *)
-  short_name : string option; [@option]  (** short_name *)
-  size : string option; [@option]  (** size *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  edition : string prop option; [@option]  (** edition *)
+  enable_sso : bool prop option; [@option]  (** enable_sso *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  password : string prop;  (** password *)
+  short_name : string prop option; [@option]  (** short_name *)
+  size : string prop option; [@option]  (** size *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   connect_settings :
     aws_directory_service_directory__connect_settings list;
   timeouts : aws_directory_service_directory__timeouts option;

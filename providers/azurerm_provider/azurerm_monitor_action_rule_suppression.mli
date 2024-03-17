@@ -21,13 +21,13 @@ type azurerm_monitor_action_rule_suppression__timeouts
 type azurerm_monitor_action_rule_suppression
 
 val azurerm_monitor_action_rule_suppression :
-  ?description:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_monitor_action_rule_suppression__timeouts ->
-  name:string ->
-  resource_group_name:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
   condition:azurerm_monitor_action_rule_suppression__condition list ->
   scope:azurerm_monitor_action_rule_suppression__scope list ->
   suppression:

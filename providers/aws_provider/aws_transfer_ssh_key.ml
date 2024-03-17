@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_transfer_ssh_key = {
-  body : string;  (** body *)
-  id : string option; [@option]  (** id *)
-  server_id : string;  (** server_id *)
-  user_name : string;  (** user_name *)
+  body : string prop;  (** body *)
+  id : string prop option; [@option]  (** id *)
+  server_id : string prop;  (** server_id *)
+  user_name : string prop;  (** user_name *)
 }
 [@@deriving yojson_of]
 (** aws_transfer_ssh_key *)

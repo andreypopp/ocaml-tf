@@ -6,13 +6,13 @@ type aws_route53_zone__vpc
 type aws_route53_zone
 
 val aws_route53_zone :
-  ?comment:string ->
-  ?delegation_set_id:string ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?comment:string prop ->
+  ?delegation_set_id:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   vpc:aws_route53_zone__vpc list ->
   string ->
   unit

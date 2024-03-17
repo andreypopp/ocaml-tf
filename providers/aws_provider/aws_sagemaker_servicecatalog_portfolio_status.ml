@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_sagemaker_servicecatalog_portfolio_status = {
-  id : string option; [@option]  (** id *)
-  status : string;  (** status *)
+  id : string prop option; [@option]  (** id *)
+  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_servicecatalog_portfolio_status *)

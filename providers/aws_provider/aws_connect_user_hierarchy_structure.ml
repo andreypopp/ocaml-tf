@@ -5,41 +5,41 @@
 open! Tf.Prelude
 
 type aws_connect_user_hierarchy_structure__hierarchy_structure__level_five = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_connect_user_hierarchy_structure__hierarchy_structure__level_five *)
 
 type aws_connect_user_hierarchy_structure__hierarchy_structure__level_four = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_connect_user_hierarchy_structure__hierarchy_structure__level_four *)
 
 type aws_connect_user_hierarchy_structure__hierarchy_structure__level_one = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_connect_user_hierarchy_structure__hierarchy_structure__level_one *)
 
 type aws_connect_user_hierarchy_structure__hierarchy_structure__level_three = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_connect_user_hierarchy_structure__hierarchy_structure__level_three *)
 
 type aws_connect_user_hierarchy_structure__hierarchy_structure__level_two = {
-  arn : string;  (** arn *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_connect_user_hierarchy_structure__hierarchy_structure__level_two *)
@@ -65,8 +65,8 @@ type aws_connect_user_hierarchy_structure__hierarchy_structure = {
 (** aws_connect_user_hierarchy_structure__hierarchy_structure *)
 
 type aws_connect_user_hierarchy_structure = {
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
   hierarchy_structure :
     aws_connect_user_hierarchy_structure__hierarchy_structure list;
 }

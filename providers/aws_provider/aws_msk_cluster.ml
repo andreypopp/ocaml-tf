@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_msk_cluster__broker_node_group_info__connectivity_info__public_access = {
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__broker_node_group_info__connectivity_info__public_access *)
 
 type aws_msk_cluster__broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication__sasl = {
-  iam : bool option; [@option]  (** iam *)
-  scram : bool option; [@option]  (** scram *)
+  iam : bool prop option; [@option]  (** iam *)
+  scram : bool prop option; [@option]  (** scram *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication__sasl *)
 
 type aws_msk_cluster__broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication = {
-  tls : bool option; [@option]  (** tls *)
+  tls : bool prop option; [@option]  (** tls *)
   sasl :
     aws_msk_cluster__broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication__sasl
     list;
@@ -46,15 +46,15 @@ type aws_msk_cluster__broker_node_group_info__connectivity_info = {
 (** aws_msk_cluster__broker_node_group_info__connectivity_info *)
 
 type aws_msk_cluster__broker_node_group_info__storage_info__ebs_storage_info__provisioned_throughput = {
-  enabled : bool option; [@option]  (** enabled *)
-  volume_throughput : float option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  volume_throughput : float prop option; [@option]
       (** volume_throughput *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__broker_node_group_info__storage_info__ebs_storage_info__provisioned_throughput *)
 
 type aws_msk_cluster__broker_node_group_info__storage_info__ebs_storage_info = {
-  volume_size : float option; [@option]  (** volume_size *)
+  volume_size : float prop option; [@option]  (** volume_size *)
   provisioned_throughput :
     aws_msk_cluster__broker_node_group_info__storage_info__ebs_storage_info__provisioned_throughput
     list;
@@ -71,10 +71,11 @@ type aws_msk_cluster__broker_node_group_info__storage_info = {
 (** aws_msk_cluster__broker_node_group_info__storage_info *)
 
 type aws_msk_cluster__broker_node_group_info = {
-  az_distribution : string option; [@option]  (** az_distribution *)
-  client_subnets : string list;  (** client_subnets *)
-  instance_type : string;  (** instance_type *)
-  security_groups : string list;  (** security_groups *)
+  az_distribution : string prop option; [@option]
+      (** az_distribution *)
+  client_subnets : string prop list;  (** client_subnets *)
+  instance_type : string prop;  (** instance_type *)
+  security_groups : string prop list;  (** security_groups *)
   connectivity_info :
     aws_msk_cluster__broker_node_group_info__connectivity_info list;
   storage_info :
@@ -84,21 +85,22 @@ type aws_msk_cluster__broker_node_group_info = {
 (** aws_msk_cluster__broker_node_group_info *)
 
 type aws_msk_cluster__client_authentication__sasl = {
-  iam : bool option; [@option]  (** iam *)
-  scram : bool option; [@option]  (** scram *)
+  iam : bool prop option; [@option]  (** iam *)
+  scram : bool prop option; [@option]  (** scram *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__client_authentication__sasl *)
 
 type aws_msk_cluster__client_authentication__tls = {
-  certificate_authority_arns : string list option; [@option]
+  certificate_authority_arns : string prop list option; [@option]
       (** certificate_authority_arns *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__client_authentication__tls *)
 
 type aws_msk_cluster__client_authentication = {
-  unauthenticated : bool option; [@option]  (** unauthenticated *)
+  unauthenticated : bool prop option; [@option]
+      (** unauthenticated *)
   sasl : aws_msk_cluster__client_authentication__sasl list;
   tls : aws_msk_cluster__client_authentication__tls list;
 }
@@ -106,21 +108,21 @@ type aws_msk_cluster__client_authentication = {
 (** aws_msk_cluster__client_authentication *)
 
 type aws_msk_cluster__configuration_info = {
-  arn : string;  (** arn *)
-  revision : float;  (** revision *)
+  arn : string prop;  (** arn *)
+  revision : float prop;  (** revision *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__configuration_info *)
 
 type aws_msk_cluster__encryption_info__encryption_in_transit = {
-  client_broker : string option; [@option]  (** client_broker *)
-  in_cluster : bool option; [@option]  (** in_cluster *)
+  client_broker : string prop option; [@option]  (** client_broker *)
+  in_cluster : bool prop option; [@option]  (** in_cluster *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__encryption_info__encryption_in_transit *)
 
 type aws_msk_cluster__encryption_info = {
-  encryption_at_rest_kms_key_arn : string option; [@option]
+  encryption_at_rest_kms_key_arn : string prop option; [@option]
       (** encryption_at_rest_kms_key_arn *)
   encryption_in_transit :
     aws_msk_cluster__encryption_info__encryption_in_transit list;
@@ -129,23 +131,24 @@ type aws_msk_cluster__encryption_info = {
 (** aws_msk_cluster__encryption_info *)
 
 type aws_msk_cluster__logging_info__broker_logs__cloudwatch_logs = {
-  enabled : bool;  (** enabled *)
-  log_group : string option; [@option]  (** log_group *)
+  enabled : bool prop;  (** enabled *)
+  log_group : string prop option; [@option]  (** log_group *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__logging_info__broker_logs__cloudwatch_logs *)
 
 type aws_msk_cluster__logging_info__broker_logs__firehose = {
-  delivery_stream : string option; [@option]  (** delivery_stream *)
-  enabled : bool;  (** enabled *)
+  delivery_stream : string prop option; [@option]
+      (** delivery_stream *)
+  enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__logging_info__broker_logs__firehose *)
 
 type aws_msk_cluster__logging_info__broker_logs__s3 = {
-  bucket : string option; [@option]  (** bucket *)
-  enabled : bool;  (** enabled *)
-  prefix : string option; [@option]  (** prefix *)
+  bucket : string prop option; [@option]  (** bucket *)
+  enabled : bool prop;  (** enabled *)
+  prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__logging_info__broker_logs__s3 *)
@@ -167,13 +170,13 @@ type aws_msk_cluster__logging_info = {
 (** aws_msk_cluster__logging_info *)
 
 type aws_msk_cluster__open_monitoring__prometheus__jmx_exporter = {
-  enabled_in_broker : bool;  (** enabled_in_broker *)
+  enabled_in_broker : bool prop;  (** enabled_in_broker *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__open_monitoring__prometheus__jmx_exporter *)
 
 type aws_msk_cluster__open_monitoring__prometheus__node_exporter = {
-  enabled_in_broker : bool;  (** enabled_in_broker *)
+  enabled_in_broker : bool prop;  (** enabled_in_broker *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__open_monitoring__prometheus__node_exporter *)
@@ -194,23 +197,23 @@ type aws_msk_cluster__open_monitoring = {
 (** aws_msk_cluster__open_monitoring *)
 
 type aws_msk_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_msk_cluster__timeouts *)
 
 type aws_msk_cluster = {
-  cluster_name : string;  (** cluster_name *)
-  enhanced_monitoring : string option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  enhanced_monitoring : string prop option; [@option]
       (** enhanced_monitoring *)
-  id : string option; [@option]  (** id *)
-  kafka_version : string;  (** kafka_version *)
-  number_of_broker_nodes : float;  (** number_of_broker_nodes *)
-  storage_mode : string option; [@option]  (** storage_mode *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kafka_version : string prop;  (** kafka_version *)
+  number_of_broker_nodes : float prop;  (** number_of_broker_nodes *)
+  storage_mode : string prop option; [@option]  (** storage_mode *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   broker_node_group_info :
     aws_msk_cluster__broker_node_group_info list;

@@ -6,15 +6,15 @@ type aws_appautoscaling_scheduled_action__scalable_target_action
 type aws_appautoscaling_scheduled_action
 
 val aws_appautoscaling_scheduled_action :
-  ?end_time:string ->
-  ?id:string ->
-  ?start_time:string ->
-  ?timezone:string ->
-  name:string ->
-  resource_id:string ->
-  scalable_dimension:string ->
-  schedule:string ->
-  service_namespace:string ->
+  ?end_time:string prop ->
+  ?id:string prop ->
+  ?start_time:string prop ->
+  ?timezone:string prop ->
+  name:string prop ->
+  resource_id:string prop ->
+  scalable_dimension:string prop ->
+  schedule:string prop ->
+  service_namespace:string prop ->
   scalable_target_action:
     aws_appautoscaling_scheduled_action__scalable_target_action list ->
   string ->

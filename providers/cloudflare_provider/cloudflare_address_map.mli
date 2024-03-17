@@ -7,11 +7,11 @@ type cloudflare_address_map__memberships
 type cloudflare_address_map
 
 val cloudflare_address_map :
-  ?default_sni:string ->
-  ?description:string ->
-  ?id:string ->
-  account_id:string ->
-  enabled:bool ->
+  ?default_sni:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  enabled:bool prop ->
   ips:cloudflare_address_map__ips list ->
   memberships:cloudflare_address_map__memberships list ->
   string ->

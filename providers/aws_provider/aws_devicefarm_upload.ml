@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_devicefarm_upload = {
-  content_type : string option; [@option]  (** content_type *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  project_arn : string;  (** project_arn *)
-  type_ : string; [@key "type"]  (** type *)
+  content_type : string prop option; [@option]  (** content_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  project_arn : string prop;  (** project_arn *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_devicefarm_upload *)

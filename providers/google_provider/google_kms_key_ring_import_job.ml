@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type google_kms_key_ring_import_job__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_kms_key_ring_import_job__timeouts *)
 
 type google_kms_key_ring_import_job__attestation = {
-  content : string;  (** content *)
-  format : string;  (** format *)
+  content : string prop;  (** content *)
+  format : string prop;  (** format *)
 }
 [@@deriving yojson_of]
 
 type google_kms_key_ring_import_job__public_key = {
-  pem : string;  (** pem *)
+  pem : string prop;  (** pem *)
 }
 [@@deriving yojson_of]
 
 type google_kms_key_ring_import_job = {
-  id : string option; [@option]  (** id *)
-  import_job_id : string;
+  id : string prop option; [@option]  (** id *)
+  import_job_id : string prop;
       (** It must be unique within a KeyRing and match the regular expression [a-zA-Z0-9_-]{1,63} *)
-  import_method : string;
+  import_method : string prop;
       (** The wrapping method to be used for incoming key material. Possible values: [RSA_OAEP_3072_SHA1_AES_256, RSA_OAEP_4096_SHA1_AES_256] *)
-  key_ring : string;
+  key_ring : string prop;
       (** The KeyRing that this import job belongs to.
 Format: ''projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}''. *)
-  protection_level : string;
+  protection_level : string prop;
       (** The protection level of the ImportJob. This must match the protectionLevel of the
 versionTemplate on the CryptoKey you attempt to import into. Possible values: [SOFTWARE, HSM, EXTERNAL] *)
   timeouts : google_kms_key_ring_import_job__timeouts option;

@@ -5,18 +5,18 @@ open! Tf.Prelude
 type google_storage_object_access_control__timeouts
 
 type google_storage_object_access_control__project_team = {
-  project_number : string;  (** project_number *)
-  team : string;  (** team *)
+  project_number : string prop;  (** project_number *)
+  team : string prop;  (** team *)
 }
 
 type google_storage_object_access_control
 
 val google_storage_object_access_control :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_storage_object_access_control__timeouts ->
-  bucket:string ->
-  entity:string ->
-  object_:string ->
-  role:string ->
+  bucket:string prop ->
+  entity:string prop ->
+  object_:string prop ->
+  role:string prop ->
   string ->
   unit

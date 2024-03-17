@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_redshiftserverless_usage_limit = {
-  amount : float;  (** amount *)
-  breach_action : string option; [@option]  (** breach_action *)
-  id : string option; [@option]  (** id *)
-  period : string option; [@option]  (** period *)
-  resource_arn : string;  (** resource_arn *)
-  usage_type : string;  (** usage_type *)
+  amount : float prop;  (** amount *)
+  breach_action : string prop option; [@option]  (** breach_action *)
+  id : string prop option; [@option]  (** id *)
+  period : string prop option; [@option]  (** period *)
+  resource_arn : string prop;  (** resource_arn *)
+  usage_type : string prop;  (** usage_type *)
 }
 [@@deriving yojson_of]
 (** aws_redshiftserverless_usage_limit *)

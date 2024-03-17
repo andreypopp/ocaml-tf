@@ -68,13 +68,13 @@ type aws_sagemaker_user_profile__user_settings
 type aws_sagemaker_user_profile
 
 val aws_sagemaker_user_profile :
-  ?id:string ->
-  ?single_sign_on_user_identifier:string ->
-  ?single_sign_on_user_value:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  domain_id:string ->
-  user_profile_name:string ->
+  ?id:string prop ->
+  ?single_sign_on_user_identifier:string prop ->
+  ?single_sign_on_user_value:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  domain_id:string prop ->
+  user_profile_name:string prop ->
   user_settings:aws_sagemaker_user_profile__user_settings list ->
   string ->
   unit

@@ -6,14 +6,14 @@ type azurerm_log_analytics_storage_insights__timeouts
 type azurerm_log_analytics_storage_insights
 
 val azurerm_log_analytics_storage_insights :
-  ?blob_container_names:string list ->
-  ?id:string ->
-  ?table_names:string list ->
+  ?blob_container_names:string prop list ->
+  ?id:string prop ->
+  ?table_names:string prop list ->
   ?timeouts:azurerm_log_analytics_storage_insights__timeouts ->
-  name:string ->
-  resource_group_name:string ->
-  storage_account_id:string ->
-  storage_account_key:string ->
-  workspace_id:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_account_id:string prop ->
+  storage_account_key:string prop ->
+  workspace_id:string prop ->
   string ->
   unit

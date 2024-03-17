@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_lightsail_lb_certificate_attachment = {
-  certificate_name : string;  (** certificate_name *)
-  id : string option; [@option]  (** id *)
-  lb_name : string;  (** lb_name *)
+  certificate_name : string prop;  (** certificate_name *)
+  id : string prop option; [@option]  (** id *)
+  lb_name : string prop;  (** lb_name *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_lb_certificate_attachment *)

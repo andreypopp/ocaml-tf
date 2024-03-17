@@ -6,11 +6,11 @@ type google_access_context_manager_gcp_user_access_binding__timeouts
 type google_access_context_manager_gcp_user_access_binding
 
 val google_access_context_manager_gcp_user_access_binding :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     google_access_context_manager_gcp_user_access_binding__timeouts ->
-  access_levels:string list ->
-  group_key:string ->
-  organization_id:string ->
+  access_levels:string prop list ->
+  group_key:string prop ->
+  organization_id:string prop ->
   string ->
   unit

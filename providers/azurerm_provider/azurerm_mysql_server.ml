@@ -5,69 +5,72 @@
 open! Tf.Prelude
 
 type azurerm_mysql_server__identity = {
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_server__identity *)
 
 type azurerm_mysql_server__threat_detection_policy = {
-  disabled_alerts : string list option; [@option]
+  disabled_alerts : string prop list option; [@option]
       (** disabled_alerts *)
-  email_account_admins : bool option; [@option]
+  email_account_admins : bool prop option; [@option]
       (** email_account_admins *)
-  email_addresses : string list option; [@option]
+  email_addresses : string prop list option; [@option]
       (** email_addresses *)
-  enabled : bool option; [@option]  (** enabled *)
-  retention_days : float option; [@option]  (** retention_days *)
-  storage_account_access_key : string option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  retention_days : float prop option; [@option]
+      (** retention_days *)
+  storage_account_access_key : string prop option; [@option]
       (** storage_account_access_key *)
-  storage_endpoint : string option; [@option]  (** storage_endpoint *)
+  storage_endpoint : string prop option; [@option]
+      (** storage_endpoint *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_server__threat_detection_policy *)
 
 type azurerm_mysql_server__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_server__timeouts *)
 
 type azurerm_mysql_server = {
-  administrator_login : string option; [@option]
+  administrator_login : string prop option; [@option]
       (** administrator_login *)
-  administrator_login_password : string option; [@option]
+  administrator_login_password : string prop option; [@option]
       (** administrator_login_password *)
-  auto_grow_enabled : bool option; [@option]
+  auto_grow_enabled : bool prop option; [@option]
       (** auto_grow_enabled *)
-  backup_retention_days : float option; [@option]
+  backup_retention_days : float prop option; [@option]
       (** backup_retention_days *)
-  create_mode : string option; [@option]  (** create_mode *)
-  creation_source_server_id : string option; [@option]
+  create_mode : string prop option; [@option]  (** create_mode *)
+  creation_source_server_id : string prop option; [@option]
       (** creation_source_server_id *)
-  geo_redundant_backup_enabled : bool option; [@option]
+  geo_redundant_backup_enabled : bool prop option; [@option]
       (** geo_redundant_backup_enabled *)
-  id : string option; [@option]  (** id *)
-  infrastructure_encryption_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  infrastructure_encryption_enabled : bool prop option; [@option]
       (** infrastructure_encryption_enabled *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  restore_point_in_time : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  restore_point_in_time : string prop option; [@option]
       (** restore_point_in_time *)
-  sku_name : string;  (** sku_name *)
-  ssl_enforcement_enabled : bool;  (** ssl_enforcement_enabled *)
-  ssl_minimal_tls_version_enforced : string option; [@option]
+  sku_name : string prop;  (** sku_name *)
+  ssl_enforcement_enabled : bool prop;
+      (** ssl_enforcement_enabled *)
+  ssl_minimal_tls_version_enforced : string prop option; [@option]
       (** ssl_minimal_tls_version_enforced *)
-  storage_mb : float option; [@option]  (** storage_mb *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  version : string;  (** version *)
+  storage_mb : float prop option; [@option]  (** storage_mb *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  version : string prop;  (** version *)
   identity : azurerm_mysql_server__identity list;
   threat_detection_policy :
     azurerm_mysql_server__threat_detection_policy list;

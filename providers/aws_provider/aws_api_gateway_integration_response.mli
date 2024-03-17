@@ -5,14 +5,14 @@ open! Tf.Prelude
 type aws_api_gateway_integration_response
 
 val aws_api_gateway_integration_response :
-  ?content_handling:string ->
-  ?id:string ->
-  ?response_parameters:(string * string) list ->
-  ?response_templates:(string * string) list ->
-  ?selection_pattern:string ->
-  http_method:string ->
-  resource_id:string ->
-  rest_api_id:string ->
-  status_code:string ->
+  ?content_handling:string prop ->
+  ?id:string prop ->
+  ?response_parameters:(string * string prop) list ->
+  ?response_templates:(string * string prop) list ->
+  ?selection_pattern:string prop ->
+  http_method:string prop ->
+  resource_id:string prop ->
+  rest_api_id:string prop ->
+  status_code:string prop ->
   string ->
   unit

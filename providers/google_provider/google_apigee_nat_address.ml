@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_apigee_nat_address__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_apigee_nat_address__timeouts *)
 
 type google_apigee_nat_address = {
-  id : string option; [@option]  (** id *)
-  instance_id : string;
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;
       (** The Apigee instance associated with the Apigee environment,
 in the format 'organizations/{{org_name}}/instances/{{instance_name}}'. *)
-  name : string;  (** Resource ID of the NAT address. *)
+  name : string prop;  (** Resource ID of the NAT address. *)
   timeouts : google_apigee_nat_address__timeouts option;
 }
 [@@deriving yojson_of]

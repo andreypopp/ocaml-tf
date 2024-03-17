@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_snapshot__encryption_settings__disk_encryption_key = {
-  secret_url : string;  (** secret_url *)
-  source_vault_id : string;  (** source_vault_id *)
+  secret_url : string prop;  (** secret_url *)
+  source_vault_id : string prop;  (** source_vault_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_snapshot__encryption_settings__disk_encryption_key *)
 
 type azurerm_snapshot__encryption_settings__key_encryption_key = {
-  key_url : string;  (** key_url *)
-  source_vault_id : string;  (** source_vault_id *)
+  key_url : string prop;  (** key_url *)
+  source_vault_id : string prop;  (** source_vault_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_snapshot__encryption_settings__key_encryption_key *)
 
 type azurerm_snapshot__encryption_settings = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
   disk_encryption_key :
     azurerm_snapshot__encryption_settings__disk_encryption_key list;
   key_encryption_key :
@@ -29,29 +29,29 @@ type azurerm_snapshot__encryption_settings = {
 (** azurerm_snapshot__encryption_settings *)
 
 type azurerm_snapshot__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_snapshot__timeouts *)
 
 type azurerm_snapshot = {
-  create_option : string;  (** create_option *)
-  disk_size_gb : float option; [@option]  (** disk_size_gb *)
-  id : string option; [@option]  (** id *)
-  incremental_enabled : bool option; [@option]
+  create_option : string prop;  (** create_option *)
+  disk_size_gb : float prop option; [@option]  (** disk_size_gb *)
+  id : string prop option; [@option]  (** id *)
+  incremental_enabled : bool prop option; [@option]
       (** incremental_enabled *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  source_resource_id : string option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  source_resource_id : string prop option; [@option]
       (** source_resource_id *)
-  source_uri : string option; [@option]  (** source_uri *)
-  storage_account_id : string option; [@option]
+  source_uri : string prop option; [@option]  (** source_uri *)
+  storage_account_id : string prop option; [@option]
       (** storage_account_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   encryption_settings : azurerm_snapshot__encryption_settings list;
   timeouts : azurerm_snapshot__timeouts option;
 }

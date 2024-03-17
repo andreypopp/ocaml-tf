@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_key_vault_managed_storage_account__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_storage_account__timeouts *)
 
 type azurerm_key_vault_managed_storage_account = {
-  id : string option; [@option]  (** id *)
-  key_vault_id : string;  (** key_vault_id *)
-  name : string;  (** name *)
-  regenerate_key_automatically : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  key_vault_id : string prop;  (** key_vault_id *)
+  name : string prop;  (** name *)
+  regenerate_key_automatically : bool prop option; [@option]
       (** regenerate_key_automatically *)
-  regeneration_period : string option; [@option]
+  regeneration_period : string prop option; [@option]
       (** regeneration_period *)
-  storage_account_id : string;  (** storage_account_id *)
-  storage_account_key : string;  (** storage_account_key *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  storage_account_id : string prop;  (** storage_account_id *)
+  storage_account_key : string prop;  (** storage_account_key *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts :
     azurerm_key_vault_managed_storage_account__timeouts option;
 }

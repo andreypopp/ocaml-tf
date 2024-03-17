@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_waf_regex_pattern_set = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  regex_pattern_strings : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  regex_pattern_strings : string prop list option; [@option]
       (** regex_pattern_strings *)
 }
 [@@deriving yojson_of]

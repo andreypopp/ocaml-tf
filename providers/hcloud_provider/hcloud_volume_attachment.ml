@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type hcloud_volume_attachment = {
-  automount : bool option; [@option]  (** automount *)
-  id : string option; [@option]  (** id *)
-  server_id : float;  (** server_id *)
-  volume_id : float;  (** volume_id *)
+  automount : bool prop option; [@option]  (** automount *)
+  id : string prop option; [@option]  (** id *)
+  server_id : float prop;  (** server_id *)
+  volume_id : float prop;  (** volume_id *)
 }
 [@@deriving yojson_of]
 (** hcloud_volume_attachment *)

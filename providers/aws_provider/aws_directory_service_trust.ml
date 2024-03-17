@@ -5,16 +5,18 @@
 open! Tf.Prelude
 
 type aws_directory_service_trust = {
-  conditional_forwarder_ip_addrs : string list option; [@option]
+  conditional_forwarder_ip_addrs : string prop list option; [@option]
       (** conditional_forwarder_ip_addrs *)
-  delete_associated_conditional_forwarder : bool option; [@option]
+  delete_associated_conditional_forwarder : bool prop option;
+      [@option]
       (** delete_associated_conditional_forwarder *)
-  directory_id : string;  (** directory_id *)
-  remote_domain_name : string;  (** remote_domain_name *)
-  selective_auth : string option; [@option]  (** selective_auth *)
-  trust_direction : string;  (** trust_direction *)
-  trust_password : string;  (** trust_password *)
-  trust_type : string option; [@option]  (** trust_type *)
+  directory_id : string prop;  (** directory_id *)
+  remote_domain_name : string prop;  (** remote_domain_name *)
+  selective_auth : string prop option; [@option]
+      (** selective_auth *)
+  trust_direction : string prop;  (** trust_direction *)
+  trust_password : string prop;  (** trust_password *)
+  trust_type : string prop option; [@option]  (** trust_type *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_trust *)

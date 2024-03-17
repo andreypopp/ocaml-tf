@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_media_streaming_endpoint__access_control__akamai_signature_header_authentication_key = {
-  base64_key : string option; [@option]  (** base64_key *)
-  expiration : string option; [@option]  (** expiration *)
-  identifier : string option; [@option]  (** identifier *)
+  base64_key : string prop option; [@option]  (** base64_key *)
+  expiration : string prop option; [@option]  (** expiration *)
+  identifier : string prop option; [@option]  (** identifier *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_streaming_endpoint__access_control__akamai_signature_header_authentication_key *)
 
 type azurerm_media_streaming_endpoint__access_control__ip_allow = {
-  address : string option; [@option]  (** address *)
-  name : string option; [@option]  (** name *)
-  subnet_prefix_length : float option; [@option]
+  address : string prop option; [@option]  (** address *)
+  name : string prop option; [@option]  (** name *)
+  subnet_prefix_length : float prop option; [@option]
       (** subnet_prefix_length *)
 }
 [@@deriving yojson_of]
@@ -32,48 +32,48 @@ type azurerm_media_streaming_endpoint__access_control = {
 (** azurerm_media_streaming_endpoint__access_control *)
 
 type azurerm_media_streaming_endpoint__cross_site_access_policy = {
-  client_access_policy : string option; [@option]
+  client_access_policy : string prop option; [@option]
       (** client_access_policy *)
-  cross_domain_policy : string option; [@option]
+  cross_domain_policy : string prop option; [@option]
       (** cross_domain_policy *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_streaming_endpoint__cross_site_access_policy *)
 
 type azurerm_media_streaming_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_streaming_endpoint__timeouts *)
 
 type azurerm_media_streaming_endpoint__sku = {
-  capacity : float;  (** capacity *)
-  name : string;  (** name *)
+  capacity : float prop;  (** capacity *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
 type azurerm_media_streaming_endpoint = {
-  auto_start_enabled : bool option; [@option]
+  auto_start_enabled : bool prop option; [@option]
       (** auto_start_enabled *)
-  cdn_enabled : bool option; [@option]  (** cdn_enabled *)
-  cdn_profile : string option; [@option]  (** cdn_profile *)
-  cdn_provider : string option; [@option]  (** cdn_provider *)
-  custom_host_names : string list option; [@option]
+  cdn_enabled : bool prop option; [@option]  (** cdn_enabled *)
+  cdn_profile : string prop option; [@option]  (** cdn_profile *)
+  cdn_provider : string prop option; [@option]  (** cdn_provider *)
+  custom_host_names : string prop list option; [@option]
       (** custom_host_names *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  max_cache_age_seconds : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  max_cache_age_seconds : float prop option; [@option]
       (** max_cache_age_seconds *)
-  media_services_account_name : string;
+  media_services_account_name : string prop;
       (** media_services_account_name *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  scale_units : float;  (** scale_units *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  scale_units : float prop;  (** scale_units *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   access_control :
     azurerm_media_streaming_endpoint__access_control list;
   cross_site_access_policy :

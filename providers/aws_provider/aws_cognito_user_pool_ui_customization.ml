@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_cognito_user_pool_ui_customization = {
-  client_id : string option; [@option]  (** client_id *)
-  css : string option; [@option]  (** css *)
-  id : string option; [@option]  (** id *)
-  image_file : string option; [@option]  (** image_file *)
-  user_pool_id : string;  (** user_pool_id *)
+  client_id : string prop option; [@option]  (** client_id *)
+  css : string prop option; [@option]  (** css *)
+  id : string prop option; [@option]  (** id *)
+  image_file : string prop option; [@option]  (** image_file *)
+  user_pool_id : string prop;  (** user_pool_id *)
 }
 [@@deriving yojson_of]
 (** aws_cognito_user_pool_ui_customization *)

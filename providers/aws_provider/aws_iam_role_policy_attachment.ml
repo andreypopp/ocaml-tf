@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_iam_role_policy_attachment = {
-  id : string option; [@option]  (** id *)
-  policy_arn : string;  (** policy_arn *)
-  role : string;  (** role *)
+  id : string prop option; [@option]  (** id *)
+  policy_arn : string prop;  (** policy_arn *)
+  role : string prop;  (** role *)
 }
 [@@deriving yojson_of]
 (** aws_iam_role_policy_attachment *)

@@ -5,26 +5,28 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_composite_alarm__actions_suppressor = {
-  alarm : string;  (** alarm *)
-  extension_period : float;  (** extension_period *)
-  wait_period : float;  (** wait_period *)
+  alarm : string prop;  (** alarm *)
+  extension_period : float prop;  (** extension_period *)
+  wait_period : float prop;  (** wait_period *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_composite_alarm__actions_suppressor *)
 
 type aws_cloudwatch_composite_alarm = {
-  actions_enabled : bool option; [@option]  (** actions_enabled *)
-  alarm_actions : string list option; [@option]  (** alarm_actions *)
-  alarm_description : string option; [@option]
+  actions_enabled : bool prop option; [@option]
+      (** actions_enabled *)
+  alarm_actions : string prop list option; [@option]
+      (** alarm_actions *)
+  alarm_description : string prop option; [@option]
       (** alarm_description *)
-  alarm_name : string;  (** alarm_name *)
-  alarm_rule : string;  (** alarm_rule *)
-  id : string option; [@option]  (** id *)
-  insufficient_data_actions : string list option; [@option]
+  alarm_name : string prop;  (** alarm_name *)
+  alarm_rule : string prop;  (** alarm_rule *)
+  id : string prop option; [@option]  (** id *)
+  insufficient_data_actions : string prop list option; [@option]
       (** insufficient_data_actions *)
-  ok_actions : string list option; [@option]  (** ok_actions *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  ok_actions : string prop list option; [@option]  (** ok_actions *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   actions_suppressor :
     aws_cloudwatch_composite_alarm__actions_suppressor list;

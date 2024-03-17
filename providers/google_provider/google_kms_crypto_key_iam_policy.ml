@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_kms_crypto_key_iam_policy = {
-  crypto_key_id : string;  (** crypto_key_id *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
+  crypto_key_id : string prop;  (** crypto_key_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_kms_crypto_key_iam_policy *)

@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_subscription__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_subscription__timeouts *)
 
 type azurerm_subscription = {
-  alias : string option; [@option]
+  alias : string prop option; [@option]
       (** The Alias Name of the subscription. If omitted a new UUID will be generated for this property. *)
-  billing_scope_id : string option; [@option]
+  billing_scope_id : string prop option; [@option]
       (** billing_scope_id *)
-  id : string option; [@option]  (** id *)
-  subscription_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  subscription_id : string prop option; [@option]
       (** The GUID of the Subscription. *)
-  subscription_name : string;
+  subscription_name : string prop;
       (** The Display Name for the Subscription. *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  workload : string option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  workload : string prop option; [@option]
       (** The workload type for the Subscription. Possible values are `Production` (default) and `DevTest`. *)
   timeouts : azurerm_subscription__timeouts option;
 }

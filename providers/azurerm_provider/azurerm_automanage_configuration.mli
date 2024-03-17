@@ -21,18 +21,18 @@ type azurerm_automanage_configuration__timeouts
 type azurerm_automanage_configuration
 
 val azurerm_automanage_configuration :
-  ?automation_account_enabled:bool ->
-  ?boot_diagnostics_enabled:bool ->
-  ?defender_for_cloud_enabled:bool ->
-  ?guest_configuration_enabled:bool ->
-  ?id:string ->
-  ?log_analytics_enabled:bool ->
-  ?status_change_alert_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?automation_account_enabled:bool prop ->
+  ?boot_diagnostics_enabled:bool prop ->
+  ?defender_for_cloud_enabled:bool prop ->
+  ?guest_configuration_enabled:bool prop ->
+  ?id:string prop ->
+  ?log_analytics_enabled:bool prop ->
+  ?status_change_alert_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_automanage_configuration__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   antimalware:azurerm_automanage_configuration__antimalware list ->
   azure_security_baseline:
     azurerm_automanage_configuration__azure_security_baseline list ->

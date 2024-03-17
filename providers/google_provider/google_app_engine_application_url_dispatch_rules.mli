@@ -7,8 +7,8 @@ type google_app_engine_application_url_dispatch_rules__timeouts
 type google_app_engine_application_url_dispatch_rules
 
 val google_app_engine_application_url_dispatch_rules :
-  ?id:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:
     google_app_engine_application_url_dispatch_rules__timeouts ->
   dispatch_rules:

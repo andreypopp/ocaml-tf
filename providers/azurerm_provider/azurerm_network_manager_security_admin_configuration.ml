@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_network_manager_security_admin_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_manager_security_admin_configuration__timeouts *)
 
 type azurerm_network_manager_security_admin_configuration = {
-  apply_on_network_intent_policy_based_services : string list option;
+  apply_on_network_intent_policy_based_services :
+    string prop list option;
       [@option]
       (** apply_on_network_intent_policy_based_services *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  network_manager_id : string;  (** network_manager_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  network_manager_id : string prop;  (** network_manager_id *)
   timeouts :
     azurerm_network_manager_security_admin_configuration__timeouts
     option;

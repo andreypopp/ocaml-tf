@@ -5,38 +5,39 @@
 open! Tf.Prelude
 
 type aws_sagemaker_notebook_instance__instance_metadata_service_configuration = {
-  minimum_instance_metadata_service_version : string option; [@option]
+  minimum_instance_metadata_service_version : string prop option;
+      [@option]
       (** minimum_instance_metadata_service_version *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_notebook_instance__instance_metadata_service_configuration *)
 
 type aws_sagemaker_notebook_instance = {
-  accelerator_types : string list option; [@option]
+  accelerator_types : string prop list option; [@option]
       (** accelerator_types *)
-  additional_code_repositories : string list option; [@option]
+  additional_code_repositories : string prop list option; [@option]
       (** additional_code_repositories *)
-  default_code_repository : string option; [@option]
+  default_code_repository : string prop option; [@option]
       (** default_code_repository *)
-  direct_internet_access : string option; [@option]
+  direct_internet_access : string prop option; [@option]
       (** direct_internet_access *)
-  id : string option; [@option]  (** id *)
-  instance_type : string;  (** instance_type *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  lifecycle_config_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instance_type : string prop;  (** instance_type *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  lifecycle_config_name : string prop option; [@option]
       (** lifecycle_config_name *)
-  name : string;  (** name *)
-  platform_identifier : string option; [@option]
+  name : string prop;  (** name *)
+  platform_identifier : string prop option; [@option]
       (** platform_identifier *)
-  role_arn : string;  (** role_arn *)
-  root_access : string option; [@option]  (** root_access *)
-  security_groups : string list option; [@option]
+  role_arn : string prop;  (** role_arn *)
+  root_access : string prop option; [@option]  (** root_access *)
+  security_groups : string prop list option; [@option]
       (** security_groups *)
-  subnet_id : string option; [@option]  (** subnet_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  subnet_id : string prop option; [@option]  (** subnet_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  volume_size : float option; [@option]  (** volume_size *)
+  volume_size : float prop option; [@option]  (** volume_size *)
   instance_metadata_service_configuration :
     aws_sagemaker_notebook_instance__instance_metadata_service_configuration
     list;

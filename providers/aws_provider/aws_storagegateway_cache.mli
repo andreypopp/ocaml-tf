@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_storagegateway_cache
 
 val aws_storagegateway_cache :
-  ?id:string ->
-  disk_id:string ->
-  gateway_arn:string ->
+  ?id:string prop ->
+  disk_id:string prop ->
+  gateway_arn:string prop ->
   string ->
   unit

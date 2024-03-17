@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_kms_key_ring_iam_policy = {
-  id : string option; [@option]  (** id *)
-  key_ring_id : string;  (** key_ring_id *)
-  policy_data : string;  (** policy_data *)
+  id : string prop option; [@option]  (** id *)
+  key_ring_id : string prop;  (** key_ring_id *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_kms_key_ring_iam_policy *)

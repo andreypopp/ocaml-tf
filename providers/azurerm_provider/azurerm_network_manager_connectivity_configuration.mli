@@ -9,15 +9,15 @@ type azurerm_network_manager_connectivity_configuration__timeouts
 type azurerm_network_manager_connectivity_configuration
 
 val azurerm_network_manager_connectivity_configuration :
-  ?delete_existing_peering_enabled:bool ->
-  ?description:string ->
-  ?global_mesh_enabled:bool ->
-  ?id:string ->
+  ?delete_existing_peering_enabled:bool prop ->
+  ?description:string prop ->
+  ?global_mesh_enabled:bool prop ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_network_manager_connectivity_configuration__timeouts ->
-  connectivity_topology:string ->
-  name:string ->
-  network_manager_id:string ->
+  connectivity_topology:string prop ->
+  name:string prop ->
+  network_manager_id:string prop ->
   applies_to_group:
     azurerm_network_manager_connectivity_configuration__applies_to_group
     list ->

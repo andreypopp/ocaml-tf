@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_container_analysis_note_iam_policy = {
-  id : string option; [@option]  (** id *)
-  note : string;  (** note *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  note : string prop;  (** note *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_container_analysis_note_iam_policy *)

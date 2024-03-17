@@ -6,12 +6,12 @@ type google_privateca_ca_pool_iam_member__condition
 type google_privateca_ca_pool_iam_member
 
 val google_privateca_ca_pool_iam_member :
-  ?id:string ->
-  ?location:string ->
-  ?project:string ->
-  ca_pool:string ->
-  member:string ->
-  role:string ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ca_pool:string prop ->
+  member:string prop ->
+  role:string prop ->
   condition:google_privateca_ca_pool_iam_member__condition list ->
   string ->
   unit

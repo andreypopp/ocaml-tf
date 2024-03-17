@@ -8,15 +8,15 @@ type azurerm_express_route_connection__timeouts
 type azurerm_express_route_connection
 
 val azurerm_express_route_connection :
-  ?authorization_key:string ->
-  ?enable_internet_security:bool ->
-  ?express_route_gateway_bypass_enabled:bool ->
-  ?id:string ->
-  ?routing_weight:float ->
+  ?authorization_key:string prop ->
+  ?enable_internet_security:bool prop ->
+  ?express_route_gateway_bypass_enabled:bool prop ->
+  ?id:string prop ->
+  ?routing_weight:float prop ->
   ?timeouts:azurerm_express_route_connection__timeouts ->
-  express_route_circuit_peering_id:string ->
-  express_route_gateway_id:string ->
-  name:string ->
+  express_route_circuit_peering_id:string prop ->
+  express_route_gateway_id:string prop ->
+  name:string prop ->
   routing:azurerm_express_route_connection__routing list ->
   string ->
   unit

@@ -31,12 +31,12 @@ type azurerm_web_application_firewall_policy__timeouts
 type azurerm_web_application_firewall_policy
 
 val azurerm_web_application_firewall_policy :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_web_application_firewall_policy__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   custom_rules:
     azurerm_web_application_firewall_policy__custom_rules list ->
   managed_rules:

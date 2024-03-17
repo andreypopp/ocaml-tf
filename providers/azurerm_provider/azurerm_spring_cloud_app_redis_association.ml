@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_app_redis_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app_redis_association__timeouts *)
 
 type azurerm_spring_cloud_app_redis_association = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  redis_access_key : string;  (** redis_access_key *)
-  redis_cache_id : string;  (** redis_cache_id *)
-  spring_cloud_app_id : string;  (** spring_cloud_app_id *)
-  ssl_enabled : bool option; [@option]  (** ssl_enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  redis_access_key : string prop;  (** redis_access_key *)
+  redis_cache_id : string prop;  (** redis_cache_id *)
+  spring_cloud_app_id : string prop;  (** spring_cloud_app_id *)
+  ssl_enabled : bool prop option; [@option]  (** ssl_enabled *)
   timeouts :
     azurerm_spring_cloud_app_redis_association__timeouts option;
 }

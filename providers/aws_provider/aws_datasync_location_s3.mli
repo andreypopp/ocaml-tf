@@ -6,13 +6,13 @@ type aws_datasync_location_s3__s3_config
 type aws_datasync_location_s3
 
 val aws_datasync_location_s3 :
-  ?agent_arns:string list ->
-  ?id:string ->
-  ?s3_storage_class:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  s3_bucket_arn:string ->
-  subdirectory:string ->
+  ?agent_arns:string prop list ->
+  ?id:string prop ->
+  ?s3_storage_class:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  s3_bucket_arn:string prop ->
+  subdirectory:string prop ->
   s3_config:aws_datasync_location_s3__s3_config list ->
   string ->
   unit

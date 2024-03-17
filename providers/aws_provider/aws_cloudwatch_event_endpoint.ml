@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_event_endpoint__event_bus = {
-  event_bus_arn : string;  (** event_bus_arn *)
+  event_bus_arn : string prop;  (** event_bus_arn *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_endpoint__event_bus *)
 
 type aws_cloudwatch_event_endpoint__replication_config = {
-  state : string option; [@option]  (** state *)
+  state : string prop option; [@option]  (** state *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_endpoint__replication_config *)
 
 type aws_cloudwatch_event_endpoint__routing_config__failover_config__primary = {
-  health_check : string option; [@option]  (** health_check *)
+  health_check : string prop option; [@option]  (** health_check *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_endpoint__routing_config__failover_config__primary *)
 
 type aws_cloudwatch_event_endpoint__routing_config__failover_config__secondary = {
-  route : string option; [@option]  (** route *)
+  route : string prop option; [@option]  (** route *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_endpoint__routing_config__failover_config__secondary *)
@@ -48,10 +48,10 @@ type aws_cloudwatch_event_endpoint__routing_config = {
 (** aws_cloudwatch_event_endpoint__routing_config *)
 
 type aws_cloudwatch_event_endpoint = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  role_arn : string option; [@option]  (** role_arn *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  role_arn : string prop option; [@option]  (** role_arn *)
   event_bus : aws_cloudwatch_event_endpoint__event_bus list;
   replication_config :
     aws_cloudwatch_event_endpoint__replication_config list;

@@ -6,10 +6,10 @@ type azurerm_nat_gateway_public_ip_prefix_association__timeouts
 type azurerm_nat_gateway_public_ip_prefix_association
 
 val azurerm_nat_gateway_public_ip_prefix_association :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_nat_gateway_public_ip_prefix_association__timeouts ->
-  nat_gateway_id:string ->
-  public_ip_prefix_id:string ->
+  nat_gateway_id:string prop ->
+  public_ip_prefix_id:string prop ->
   string ->
   unit

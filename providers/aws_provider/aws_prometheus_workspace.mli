@@ -6,11 +6,11 @@ type aws_prometheus_workspace__logging_configuration
 type aws_prometheus_workspace
 
 val aws_prometheus_workspace :
-  ?alias:string ->
-  ?id:string ->
-  ?kms_key_arn:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?alias:string prop ->
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   logging_configuration:
     aws_prometheus_workspace__logging_configuration list ->
   string ->

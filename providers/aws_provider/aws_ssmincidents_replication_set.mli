@@ -7,9 +7,9 @@ type aws_ssmincidents_replication_set__timeouts
 type aws_ssmincidents_replication_set
 
 val aws_ssmincidents_replication_set :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_ssmincidents_replication_set__timeouts ->
   region:aws_ssmincidents_replication_set__region list ->
   string ->

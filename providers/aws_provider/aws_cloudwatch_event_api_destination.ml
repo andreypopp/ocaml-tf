@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_event_api_destination = {
-  connection_arn : string;  (** connection_arn *)
-  description : string option; [@option]  (** description *)
-  http_method : string;  (** http_method *)
-  id : string option; [@option]  (** id *)
-  invocation_endpoint : string;  (** invocation_endpoint *)
-  invocation_rate_limit_per_second : float option; [@option]
+  connection_arn : string prop;  (** connection_arn *)
+  description : string prop option; [@option]  (** description *)
+  http_method : string prop;  (** http_method *)
+  id : string prop option; [@option]  (** id *)
+  invocation_endpoint : string prop;  (** invocation_endpoint *)
+  invocation_rate_limit_per_second : float prop option; [@option]
       (** invocation_rate_limit_per_second *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_api_destination *)

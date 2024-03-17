@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_api_management_identity_provider_aadb2c__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_identity_provider_aadb2c__timeouts *)
 
 type azurerm_api_management_identity_provider_aadb2c = {
-  allowed_tenant : string;  (** allowed_tenant *)
-  api_management_name : string;  (** api_management_name *)
-  authority : string;  (** authority *)
-  client_id : string;  (** client_id *)
-  client_secret : string;  (** client_secret *)
-  id : string option; [@option]  (** id *)
-  password_reset_policy : string option; [@option]
+  allowed_tenant : string prop;  (** allowed_tenant *)
+  api_management_name : string prop;  (** api_management_name *)
+  authority : string prop;  (** authority *)
+  client_id : string prop;  (** client_id *)
+  client_secret : string prop;  (** client_secret *)
+  id : string prop option; [@option]  (** id *)
+  password_reset_policy : string prop option; [@option]
       (** password_reset_policy *)
-  profile_editing_policy : string option; [@option]
+  profile_editing_policy : string prop option; [@option]
       (** profile_editing_policy *)
-  resource_group_name : string;  (** resource_group_name *)
-  signin_policy : string;  (** signin_policy *)
-  signin_tenant : string;  (** signin_tenant *)
-  signup_policy : string;  (** signup_policy *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  signin_policy : string prop;  (** signin_policy *)
+  signin_tenant : string prop;  (** signin_tenant *)
+  signup_policy : string prop;  (** signup_policy *)
   timeouts :
     azurerm_api_management_identity_provider_aadb2c__timeouts option;
 }

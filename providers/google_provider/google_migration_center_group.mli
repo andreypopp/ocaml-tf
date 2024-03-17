@@ -6,13 +6,13 @@ type google_migration_center_group__timeouts
 type google_migration_center_group
 
 val google_migration_center_group :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_migration_center_group__timeouts ->
-  group_id:string ->
-  location:string ->
+  group_id:string prop ->
+  location:string prop ->
   string ->
   unit

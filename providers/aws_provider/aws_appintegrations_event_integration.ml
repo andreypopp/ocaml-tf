@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_appintegrations_event_integration__event_filter = {
-  source : string;  (** source *)
+  source : string prop;  (** source *)
 }
 [@@deriving yojson_of]
 (** aws_appintegrations_event_integration__event_filter *)
 
 type aws_appintegrations_event_integration = {
-  description : string option; [@option]  (** description *)
-  eventbridge_bus : string;  (** eventbridge_bus *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  eventbridge_bus : string prop;  (** eventbridge_bus *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   event_filter :
     aws_appintegrations_event_integration__event_filter list;

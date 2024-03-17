@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_memorydb_acl = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user_names : string list option; [@option]  (** user_names *)
+  user_names : string prop list option; [@option]  (** user_names *)
 }
 [@@deriving yojson_of]
 (** aws_memorydb_acl *)

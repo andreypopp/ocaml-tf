@@ -5,38 +5,40 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_linked_service_azure_file_storage__key_vault_password = {
-  linked_service_name : string;  (** linked_service_name *)
-  secret_name : string;  (** secret_name *)
+  linked_service_name : string prop;  (** linked_service_name *)
+  secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_azure_file_storage__key_vault_password *)
 
 type azurerm_data_factory_linked_service_azure_file_storage__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_azure_file_storage__timeouts *)
 
 type azurerm_data_factory_linked_service_azure_file_storage = {
-  additional_properties : (string * string) list option; [@option]
+  additional_properties : (string * string prop) list option;
+      [@option]
       (** additional_properties *)
-  annotations : string list option; [@option]  (** annotations *)
-  connection_string : string;  (** connection_string *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  file_share : string option; [@option]  (** file_share *)
-  host : string option; [@option]  (** host *)
-  id : string option; [@option]  (** id *)
-  integration_runtime_name : string option; [@option]
+  annotations : string prop list option; [@option]
+      (** annotations *)
+  connection_string : string prop;  (** connection_string *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  file_share : string prop option; [@option]  (** file_share *)
+  host : string prop option; [@option]  (** host *)
+  id : string prop option; [@option]  (** id *)
+  integration_runtime_name : string prop option; [@option]
       (** integration_runtime_name *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  password : string option; [@option]  (** password *)
-  user_id : string option; [@option]  (** user_id *)
+  password : string prop option; [@option]  (** password *)
+  user_id : string prop option; [@option]  (** user_id *)
   key_vault_password :
     azurerm_data_factory_linked_service_azure_file_storage__key_vault_password
     list;

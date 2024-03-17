@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type aws_applicationinsights_application = {
-  auto_config_enabled : bool option; [@option]
+  auto_config_enabled : bool prop option; [@option]
       (** auto_config_enabled *)
-  auto_create : bool option; [@option]  (** auto_create *)
-  cwe_monitor_enabled : bool option; [@option]
+  auto_create : bool prop option; [@option]  (** auto_create *)
+  cwe_monitor_enabled : bool prop option; [@option]
       (** cwe_monitor_enabled *)
-  grouping_type : string option; [@option]  (** grouping_type *)
-  id : string option; [@option]  (** id *)
-  ops_center_enabled : bool option; [@option]
+  grouping_type : string prop option; [@option]  (** grouping_type *)
+  id : string prop option; [@option]  (** id *)
+  ops_center_enabled : bool prop option; [@option]
       (** ops_center_enabled *)
-  ops_item_sns_topic_arn : string option; [@option]
+  ops_item_sns_topic_arn : string prop option; [@option]
       (** ops_item_sns_topic_arn *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_applicationinsights_application *)

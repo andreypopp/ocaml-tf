@@ -39,15 +39,15 @@ type azurerm_monitor_alert_processing_rule_suppression__timeouts
 type azurerm_monitor_alert_processing_rule_suppression
 
 val azurerm_monitor_alert_processing_rule_suppression :
-  ?description:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:
     azurerm_monitor_alert_processing_rule_suppression__timeouts ->
-  name:string ->
-  resource_group_name:string ->
-  scopes:string list ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scopes:string prop list ->
   condition:
     azurerm_monitor_alert_processing_rule_suppression__condition list ->
   schedule:

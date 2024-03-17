@@ -6,11 +6,11 @@ type azurerm_logic_app_integration_account_session__timeouts
 type azurerm_logic_app_integration_account_session
 
 val azurerm_logic_app_integration_account_session :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_logic_app_integration_account_session__timeouts ->
-  content:string ->
-  integration_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  content:string prop ->
+  integration_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_express_route_port_authorization__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_port_authorization__timeouts *)
 
 type azurerm_express_route_port_authorization = {
-  express_route_port_name : string;  (** express_route_port_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  express_route_port_name : string prop;
+      (** express_route_port_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts :
     azurerm_express_route_port_authorization__timeouts option;
 }

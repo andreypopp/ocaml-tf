@@ -5,62 +5,65 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_metric_alarm__metric_query__metric = {
-  dimensions : (string * string) list option; [@option]
+  dimensions : (string * string prop) list option; [@option]
       (** dimensions *)
-  metric_name : string;  (** metric_name *)
-  namespace : string option; [@option]  (** namespace *)
-  period : float;  (** period *)
-  stat : string;  (** stat *)
-  unit : string option; [@option]  (** unit *)
+  metric_name : string prop;  (** metric_name *)
+  namespace : string prop option; [@option]  (** namespace *)
+  period : float prop;  (** period *)
+  stat : string prop;  (** stat *)
+  unit : string prop option; [@option]  (** unit *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_metric_alarm__metric_query__metric *)
 
 type aws_cloudwatch_metric_alarm__metric_query = {
-  account_id : string option; [@option]  (** account_id *)
-  expression : string option; [@option]  (** expression *)
-  id : string;  (** id *)
-  label : string option; [@option]  (** label *)
-  period : float option; [@option]  (** period *)
-  return_data : bool option; [@option]  (** return_data *)
+  account_id : string prop option; [@option]  (** account_id *)
+  expression : string prop option; [@option]  (** expression *)
+  id : string prop;  (** id *)
+  label : string prop option; [@option]  (** label *)
+  period : float prop option; [@option]  (** period *)
+  return_data : bool prop option; [@option]  (** return_data *)
   metric : aws_cloudwatch_metric_alarm__metric_query__metric list;
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_metric_alarm__metric_query *)
 
 type aws_cloudwatch_metric_alarm = {
-  actions_enabled : bool option; [@option]  (** actions_enabled *)
-  alarm_actions : string list option; [@option]  (** alarm_actions *)
-  alarm_description : string option; [@option]
+  actions_enabled : bool prop option; [@option]
+      (** actions_enabled *)
+  alarm_actions : string prop list option; [@option]
+      (** alarm_actions *)
+  alarm_description : string prop option; [@option]
       (** alarm_description *)
-  alarm_name : string;  (** alarm_name *)
-  comparison_operator : string;  (** comparison_operator *)
-  datapoints_to_alarm : float option; [@option]
+  alarm_name : string prop;  (** alarm_name *)
+  comparison_operator : string prop;  (** comparison_operator *)
+  datapoints_to_alarm : float prop option; [@option]
       (** datapoints_to_alarm *)
-  dimensions : (string * string) list option; [@option]
+  dimensions : (string * string prop) list option; [@option]
       (** dimensions *)
-  evaluate_low_sample_count_percentiles : string option; [@option]
+  evaluate_low_sample_count_percentiles : string prop option;
+      [@option]
       (** evaluate_low_sample_count_percentiles *)
-  evaluation_periods : float;  (** evaluation_periods *)
-  extended_statistic : string option; [@option]
+  evaluation_periods : float prop;  (** evaluation_periods *)
+  extended_statistic : string prop option; [@option]
       (** extended_statistic *)
-  id : string option; [@option]  (** id *)
-  insufficient_data_actions : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  insufficient_data_actions : string prop list option; [@option]
       (** insufficient_data_actions *)
-  metric_name : string option; [@option]  (** metric_name *)
-  namespace : string option; [@option]  (** namespace *)
-  ok_actions : string list option; [@option]  (** ok_actions *)
-  period : float option; [@option]  (** period *)
-  statistic : string option; [@option]  (** statistic *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  metric_name : string prop option; [@option]  (** metric_name *)
+  namespace : string prop option; [@option]  (** namespace *)
+  ok_actions : string prop list option; [@option]  (** ok_actions *)
+  period : float prop option; [@option]  (** period *)
+  statistic : string prop option; [@option]  (** statistic *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  threshold : float option; [@option]  (** threshold *)
-  threshold_metric_id : string option; [@option]
+  threshold : float prop option; [@option]  (** threshold *)
+  threshold_metric_id : string prop option; [@option]
       (** threshold_metric_id *)
-  treat_missing_data : string option; [@option]
+  treat_missing_data : string prop option; [@option]
       (** treat_missing_data *)
-  unit : string option; [@option]  (** unit *)
+  unit : string prop option; [@option]  (** unit *)
   metric_query : aws_cloudwatch_metric_alarm__metric_query list;
 }
 [@@deriving yojson_of]

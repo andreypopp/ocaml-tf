@@ -5,43 +5,43 @@
 open! Tf.Prelude
 
 type azurerm_vmware_private_cloud__management_cluster = {
-  hosts : string list;  (** hosts *)
-  id : float;  (** id *)
-  size : float;  (** size *)
+  hosts : string prop list;  (** hosts *)
+  id : float prop;  (** id *)
+  size : float prop;  (** size *)
 }
 [@@deriving yojson_of]
 (** azurerm_vmware_private_cloud__management_cluster *)
 
 type azurerm_vmware_private_cloud__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_vmware_private_cloud__timeouts *)
 
 type azurerm_vmware_private_cloud__circuit = {
-  express_route_id : string;  (** express_route_id *)
-  express_route_private_peering_id : string;
+  express_route_id : string prop;  (** express_route_id *)
+  express_route_private_peering_id : string prop;
       (** express_route_private_peering_id *)
-  primary_subnet_cidr : string;  (** primary_subnet_cidr *)
-  secondary_subnet_cidr : string;  (** secondary_subnet_cidr *)
+  primary_subnet_cidr : string prop;  (** primary_subnet_cidr *)
+  secondary_subnet_cidr : string prop;  (** secondary_subnet_cidr *)
 }
 [@@deriving yojson_of]
 
 type azurerm_vmware_private_cloud = {
-  id : string option; [@option]  (** id *)
-  internet_connection_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  internet_connection_enabled : bool prop option; [@option]
       (** internet_connection_enabled *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  network_subnet_cidr : string;  (** network_subnet_cidr *)
-  nsxt_password : string option; [@option]  (** nsxt_password *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  vcenter_password : string option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  network_subnet_cidr : string prop;  (** network_subnet_cidr *)
+  nsxt_password : string prop option; [@option]  (** nsxt_password *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  vcenter_password : string prop option; [@option]
       (** vcenter_password *)
   management_cluster :
     azurerm_vmware_private_cloud__management_cluster list;

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_ssm_patch_group = {
-  baseline_id : string;  (** baseline_id *)
-  id : string option; [@option]  (** id *)
-  patch_group : string;  (** patch_group *)
+  baseline_id : string prop;  (** baseline_id *)
+  id : string prop option; [@option]  (** id *)
+  patch_group : string prop;  (** patch_group *)
 }
 [@@deriving yojson_of]
 (** aws_ssm_patch_group *)

@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type cloudflare_custom_ssl__custom_ssl_options = {
-  bundle_method : string option; [@option]
+  bundle_method : string prop option; [@option]
       (** Method of building intermediate certificate chain. A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it. Available values: `ubiquitous`, `optimal`, `force`. *)
-  certificate : string option; [@option]
+  certificate : string prop option; [@option]
       (** Certificate certificate and the intermediate(s). *)
-  geo_restrictions : string option; [@option]
+  geo_restrictions : string prop option; [@option]
       (** Specifies the region where your private key can be held locally. Available values: `us`, `eu`, `highest_security`. *)
-  private_key : string option; [@option]
+  private_key : string prop option; [@option]
       (** Certificate's private key. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** Whether to enable support for legacy clients which do not include SNI in the TLS handshake. Available values: `legacy_custom`, `sni_custom`. *)
 }
 [@@deriving yojson_of]
 (** The certificate associated parameters. **Modifying this attribute will force creation of a new resource.** *)
 
 type cloudflare_custom_ssl__custom_ssl_priority = {
-  id : string option; [@option]  (** id *)
-  priority : float option; [@option]  (** priority *)
+  id : string prop option; [@option]  (** id *)
+  priority : float prop option; [@option]  (** priority *)
 }
 [@@deriving yojson_of]
 (** cloudflare_custom_ssl__custom_ssl_priority *)
 
 type cloudflare_custom_ssl = {
-  id : string option; [@option]  (** id *)
-  zone_id : string;
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
   custom_ssl_options :
     cloudflare_custom_ssl__custom_ssl_options list;

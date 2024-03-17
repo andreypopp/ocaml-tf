@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_waf_rule__predicates = {
-  data_id : string;  (** data_id *)
-  negated : bool;  (** negated *)
-  type_ : string; [@key "type"]  (** type *)
+  data_id : string prop;  (** data_id *)
+  negated : bool prop;  (** negated *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_waf_rule__predicates *)
 
 type aws_waf_rule = {
-  id : string option; [@option]  (** id *)
-  metric_name : string;  (** metric_name *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  metric_name : string prop;  (** metric_name *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   predicates : aws_waf_rule__predicates list;
 }

@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_chimesdkvoice_global_settings__voice_connector = {
-  cdr_bucket : string option; [@option]  (** cdr_bucket *)
+  cdr_bucket : string prop option; [@option]  (** cdr_bucket *)
 }
 [@@deriving yojson_of]
 (** aws_chimesdkvoice_global_settings__voice_connector *)
 
 type aws_chimesdkvoice_global_settings = {
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   voice_connector :
     aws_chimesdkvoice_global_settings__voice_connector list;
 }

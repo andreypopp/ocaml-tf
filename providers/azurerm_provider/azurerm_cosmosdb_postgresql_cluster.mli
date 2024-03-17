@@ -7,30 +7,30 @@ type azurerm_cosmosdb_postgresql_cluster__timeouts
 type azurerm_cosmosdb_postgresql_cluster
 
 val azurerm_cosmosdb_postgresql_cluster :
-  ?administrator_login_password:string ->
-  ?citus_version:string ->
-  ?coordinator_public_ip_access_enabled:bool ->
-  ?coordinator_server_edition:string ->
-  ?coordinator_storage_quota_in_mb:float ->
-  ?coordinator_vcore_count:float ->
-  ?ha_enabled:bool ->
-  ?id:string ->
-  ?node_public_ip_access_enabled:bool ->
-  ?node_server_edition:string ->
-  ?node_storage_quota_in_mb:float ->
-  ?node_vcores:float ->
-  ?point_in_time_in_utc:string ->
-  ?preferred_primary_zone:string ->
-  ?shards_on_coordinator_enabled:bool ->
-  ?source_location:string ->
-  ?source_resource_id:string ->
-  ?sql_version:string ->
-  ?tags:(string * string) list ->
+  ?administrator_login_password:string prop ->
+  ?citus_version:string prop ->
+  ?coordinator_public_ip_access_enabled:bool prop ->
+  ?coordinator_server_edition:string prop ->
+  ?coordinator_storage_quota_in_mb:float prop ->
+  ?coordinator_vcore_count:float prop ->
+  ?ha_enabled:bool prop ->
+  ?id:string prop ->
+  ?node_public_ip_access_enabled:bool prop ->
+  ?node_server_edition:string prop ->
+  ?node_storage_quota_in_mb:float prop ->
+  ?node_vcores:float prop ->
+  ?point_in_time_in_utc:string prop ->
+  ?preferred_primary_zone:string prop ->
+  ?shards_on_coordinator_enabled:bool prop ->
+  ?source_location:string prop ->
+  ?source_resource_id:string prop ->
+  ?sql_version:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_cosmosdb_postgresql_cluster__timeouts ->
-  location:string ->
-  name:string ->
-  node_count:float ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  node_count:float prop ->
+  resource_group_name:string prop ->
   maintenance_window:
     azurerm_cosmosdb_postgresql_cluster__maintenance_window list ->
   string ->

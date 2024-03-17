@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_iap_brand__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_iap_brand__timeouts *)
 
 type google_iap_brand = {
-  application_title : string;
+  application_title : string prop;
       (** Application name displayed on OAuth consent screen. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  support_email : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  support_email : string prop;
       (** Support email displayed on the OAuth consent screen. Can be either a
 user or group email. When a user email is specified, the caller must
 be the user with the associated email address. When a group email is

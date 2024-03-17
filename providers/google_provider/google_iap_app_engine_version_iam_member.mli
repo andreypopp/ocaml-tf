@@ -6,13 +6,13 @@ type google_iap_app_engine_version_iam_member__condition
 type google_iap_app_engine_version_iam_member
 
 val google_iap_app_engine_version_iam_member :
-  ?id:string ->
-  ?project:string ->
-  app_id:string ->
-  member:string ->
-  role:string ->
-  service:string ->
-  version_id:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  app_id:string prop ->
+  member:string prop ->
+  role:string prop ->
+  service:string prop ->
+  version_id:string prop ->
   condition:google_iap_app_engine_version_iam_member__condition list ->
   string ->
   unit

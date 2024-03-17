@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_route53_cidr_location = {
-  cidr_blocks : string list;  (** cidr_blocks *)
-  cidr_collection_id : string;  (** cidr_collection_id *)
-  name : string;  (** name *)
+  cidr_blocks : string prop list;  (** cidr_blocks *)
+  cidr_collection_id : string prop;  (** cidr_collection_id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_route53_cidr_location *)

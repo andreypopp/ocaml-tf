@@ -5,38 +5,39 @@
 open! Tf.Prelude
 
 type azurerm_cognitive_deployment__model = {
-  format : string;  (** format *)
-  name : string;  (** name *)
-  version : string option; [@option]  (** version *)
+  format : string prop;  (** format *)
+  name : string prop;  (** name *)
+  version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
 (** azurerm_cognitive_deployment__model *)
 
 type azurerm_cognitive_deployment__scale = {
-  capacity : float option; [@option]  (** capacity *)
-  family : string option; [@option]  (** family *)
-  size : string option; [@option]  (** size *)
-  tier : string option; [@option]  (** tier *)
-  type_ : string; [@key "type"]  (** type *)
+  capacity : float prop option; [@option]  (** capacity *)
+  family : string prop option; [@option]  (** family *)
+  size : string prop option; [@option]  (** size *)
+  tier : string prop option; [@option]  (** tier *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_cognitive_deployment__scale *)
 
 type azurerm_cognitive_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cognitive_deployment__timeouts *)
 
 type azurerm_cognitive_deployment = {
-  cognitive_account_id : string;  (** cognitive_account_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  rai_policy_name : string option; [@option]  (** rai_policy_name *)
-  version_upgrade_option : string option; [@option]
+  cognitive_account_id : string prop;  (** cognitive_account_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  rai_policy_name : string prop option; [@option]
+      (** rai_policy_name *)
+  version_upgrade_option : string prop option; [@option]
       (** version_upgrade_option *)
   model : azurerm_cognitive_deployment__model list;
   scale : azurerm_cognitive_deployment__scale list;

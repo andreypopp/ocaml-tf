@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_route53_key_signing_key = {
-  hosted_zone_id : string;  (** hosted_zone_id *)
-  id : string option; [@option]  (** id *)
-  key_management_service_arn : string;
+  hosted_zone_id : string prop;  (** hosted_zone_id *)
+  id : string prop option; [@option]  (** id *)
+  key_management_service_arn : string prop;
       (** key_management_service_arn *)
-  name : string;  (** name *)
-  status : string option; [@option]  (** status *)
+  name : string prop;  (** name *)
+  status : string prop option; [@option]  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_route53_key_signing_key *)

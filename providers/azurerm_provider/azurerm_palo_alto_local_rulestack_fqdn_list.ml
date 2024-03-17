@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_palo_alto_local_rulestack_fqdn_list__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack_fqdn_list__timeouts *)
 
 type azurerm_palo_alto_local_rulestack_fqdn_list = {
-  audit_comment : string option; [@option]  (** audit_comment *)
-  description : string option; [@option]  (** description *)
-  fully_qualified_domain_names : string list;
+  audit_comment : string prop option; [@option]  (** audit_comment *)
+  description : string prop option; [@option]  (** description *)
+  fully_qualified_domain_names : string prop list;
       (** fully_qualified_domain_names *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  rulestack_id : string;  (** rulestack_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  rulestack_id : string prop;  (** rulestack_id *)
   timeouts :
     azurerm_palo_alto_local_rulestack_fqdn_list__timeouts option;
 }

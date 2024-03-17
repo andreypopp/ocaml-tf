@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_management_lock__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_management_lock__timeouts *)
 
 type azurerm_management_lock = {
-  id : string option; [@option]  (** id *)
-  lock_level : string;  (** lock_level *)
-  name : string;  (** name *)
-  notes : string option; [@option]  (** notes *)
-  scope : string;  (** scope *)
+  id : string prop option; [@option]  (** id *)
+  lock_level : string prop;  (** lock_level *)
+  name : string prop;  (** name *)
+  notes : string prop option; [@option]  (** notes *)
+  scope : string prop;  (** scope *)
   timeouts : azurerm_management_lock__timeouts option;
 }
 [@@deriving yojson_of]

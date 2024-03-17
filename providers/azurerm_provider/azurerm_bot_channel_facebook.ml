@@ -5,29 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_bot_channel_facebook__page = {
-  access_token : string;  (** access_token *)
-  id : string;  (** id *)
+  access_token : string prop;  (** access_token *)
+  id : string prop;  (** id *)
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_facebook__page *)
 
 type azurerm_bot_channel_facebook__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_facebook__timeouts *)
 
 type azurerm_bot_channel_facebook = {
-  bot_name : string;  (** bot_name *)
-  facebook_application_id : string;  (** facebook_application_id *)
-  facebook_application_secret : string;
+  bot_name : string prop;  (** bot_name *)
+  facebook_application_id : string prop;
+      (** facebook_application_id *)
+  facebook_application_secret : string prop;
       (** facebook_application_secret *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  resource_group_name : string;  (** resource_group_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  resource_group_name : string prop;  (** resource_group_name *)
   page : azurerm_bot_channel_facebook__page list;
   timeouts : azurerm_bot_channel_facebook__timeouts option;
 }

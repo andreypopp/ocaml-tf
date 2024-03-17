@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_batch_job__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_batch_job__timeouts *)
 
 type azurerm_batch_job = {
-  batch_pool_id : string;  (** batch_pool_id *)
-  common_environment_properties : (string * string) list option;
+  batch_pool_id : string prop;  (** batch_pool_id *)
+  common_environment_properties : (string * string prop) list option;
       [@option]
       (** common_environment_properties *)
-  display_name : string option; [@option]  (** display_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  priority : float option; [@option]  (** priority *)
-  task_retry_maximum : float option; [@option]
+  display_name : string prop option; [@option]  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  priority : float prop option; [@option]  (** priority *)
+  task_retry_maximum : float prop option; [@option]
       (** task_retry_maximum *)
   timeouts : azurerm_batch_job__timeouts option;
 }

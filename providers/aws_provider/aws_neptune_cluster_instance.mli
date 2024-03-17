@@ -6,26 +6,26 @@ type aws_neptune_cluster_instance__timeouts
 type aws_neptune_cluster_instance
 
 val aws_neptune_cluster_instance :
-  ?apply_immediately:bool ->
-  ?auto_minor_version_upgrade:bool ->
-  ?availability_zone:string ->
-  ?engine:string ->
-  ?engine_version:string ->
-  ?id:string ->
-  ?identifier:string ->
-  ?identifier_prefix:string ->
-  ?neptune_parameter_group_name:string ->
-  ?neptune_subnet_group_name:string ->
-  ?port:float ->
-  ?preferred_backup_window:string ->
-  ?preferred_maintenance_window:string ->
-  ?promotion_tier:float ->
-  ?publicly_accessible:bool ->
-  ?skip_final_snapshot:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?apply_immediately:bool prop ->
+  ?auto_minor_version_upgrade:bool prop ->
+  ?availability_zone:string prop ->
+  ?engine:string prop ->
+  ?engine_version:string prop ->
+  ?id:string prop ->
+  ?identifier:string prop ->
+  ?identifier_prefix:string prop ->
+  ?neptune_parameter_group_name:string prop ->
+  ?neptune_subnet_group_name:string prop ->
+  ?port:float prop ->
+  ?preferred_backup_window:string prop ->
+  ?preferred_maintenance_window:string prop ->
+  ?promotion_tier:float prop ->
+  ?publicly_accessible:bool prop ->
+  ?skip_final_snapshot:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_neptune_cluster_instance__timeouts ->
-  cluster_identifier:string ->
-  instance_class:string ->
+  cluster_identifier:string prop ->
+  instance_class:string prop ->
   string ->
   unit

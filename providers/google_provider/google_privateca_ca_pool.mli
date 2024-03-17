@@ -38,13 +38,13 @@ type google_privateca_ca_pool__timeouts
 type google_privateca_ca_pool
 
 val google_privateca_ca_pool :
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_privateca_ca_pool__timeouts ->
-  location:string ->
-  name:string ->
-  tier:string ->
+  location:string prop ->
+  name:string prop ->
+  tier:string prop ->
   issuance_policy:google_privateca_ca_pool__issuance_policy list ->
   publishing_options:
     google_privateca_ca_pool__publishing_options list ->

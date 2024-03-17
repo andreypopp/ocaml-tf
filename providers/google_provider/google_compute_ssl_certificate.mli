@@ -6,13 +6,13 @@ type google_compute_ssl_certificate__timeouts
 type google_compute_ssl_certificate
 
 val google_compute_ssl_certificate :
-  ?description:string ->
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?project:string prop ->
   ?timeouts:google_compute_ssl_certificate__timeouts ->
-  certificate:string ->
-  private_key:string ->
+  certificate:string prop ->
+  private_key:string prop ->
   string ->
   unit

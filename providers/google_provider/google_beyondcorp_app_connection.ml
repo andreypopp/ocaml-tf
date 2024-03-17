@@ -5,52 +5,52 @@
 open! Tf.Prelude
 
 type google_beyondcorp_app_connection__application_endpoint = {
-  host : string;
+  host : string prop;
       (** Hostname or IP address of the remote application endpoint. *)
-  port : float;  (** Port of the remote application endpoint. *)
+  port : float prop;  (** Port of the remote application endpoint. *)
 }
 [@@deriving yojson_of]
 (** Address of the remote application endpoint for the BeyondCorp AppConnection. *)
 
 type google_beyondcorp_app_connection__gateway = {
-  app_gateway : string;
+  app_gateway : string prop;
       (** AppGateway name in following format: projects/{project_id}/locations/{locationId}/appgateways/{gateway_id}. *)
-  ingress_port : float;
+  ingress_port : float prop;
       (** Ingress port reserved on the gateways for this AppConnection, if not specified or zero, the default port is 19443. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of hosting used by the gateway. Refer to
 https://cloud.google.com/beyondcorp/docs/reference/rest/v1/projects.locations.appConnections#Type_1
 for a list of possible values. *)
-  uri : string;  (** Server-defined URI for this resource. *)
+  uri : string prop;  (** Server-defined URI for this resource. *)
 }
 [@@deriving yojson_of]
 (** Gateway used by the AppConnection. *)
 
 type google_beyondcorp_app_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_beyondcorp_app_connection__timeouts *)
 
 type google_beyondcorp_app_connection = {
-  connectors : string list option; [@option]
+  connectors : string prop list option; [@option]
       (** List of AppConnectors that are authorised to be associated with this AppConnection *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** An arbitrary user-provided name for the AppConnection. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string;  (** ID of the AppConnection. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  name : string prop;  (** ID of the AppConnection. *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** The region of the AppConnection. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of network connectivity used by the AppConnection. Refer to
 https://cloud.google.com/beyondcorp/docs/reference/rest/v1/projects.locations.appConnections#type
 for a list of possible values. *)

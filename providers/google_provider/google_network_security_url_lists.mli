@@ -6,12 +6,12 @@ type google_network_security_url_lists__timeouts
 type google_network_security_url_lists
 
 val google_network_security_url_lists :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_network_security_url_lists__timeouts ->
-  location:string ->
-  name:string ->
-  values:string list ->
+  location:string prop ->
+  name:string prop ->
+  values:string prop list ->
   string ->
   unit

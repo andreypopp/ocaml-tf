@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_container_registry = {
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]
       (** The location of the registry. One of ASIA, EU, US or not specified. See the official documentation for more information on registry locations. *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
 }
 [@@deriving yojson_of]

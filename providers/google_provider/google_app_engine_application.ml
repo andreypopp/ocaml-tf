@@ -5,47 +5,48 @@
 open! Tf.Prelude
 
 type google_app_engine_application__feature_settings = {
-  split_health_checks : bool;  (** split_health_checks *)
+  split_health_checks : bool prop;  (** split_health_checks *)
 }
 [@@deriving yojson_of]
 (** A block of optional settings to configure specific App Engine features: *)
 
 type google_app_engine_application__iap = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Adapted for use with the app *)
-  oauth2_client_id : string;
+  oauth2_client_id : string prop;
       (** OAuth2 client ID to use for the authentication flow. *)
-  oauth2_client_secret : string;
+  oauth2_client_secret : string prop;
       (** OAuth2 client secret to use for the authentication flow. The SHA-256 hash of the value is returned in the oauth2ClientSecretSha256 field. *)
-  oauth2_client_secret_sha256 : string;
+  oauth2_client_secret_sha256 : string prop;
       (** Hex-encoded SHA-256 hash of the client secret. *)
 }
 [@@deriving yojson_of]
 (** Settings for enabling Cloud Identity Aware Proxy *)
 
 type google_app_engine_application__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_app_engine_application__timeouts *)
 
 type google_app_engine_application__url_dispatch_rule = {
-  domain : string;  (** domain *)
-  path : string;  (** path *)
-  service : string;  (** service *)
+  domain : string prop;  (** domain *)
+  path : string prop;  (** path *)
+  service : string prop;  (** service *)
 }
 [@@deriving yojson_of]
 
 type google_app_engine_application = {
-  auth_domain : string option; [@option]
+  auth_domain : string prop option; [@option]
       (** The domain to authenticate users with when using App Engine's User API. *)
-  database_type : string option; [@option]  (** database_type *)
-  id : string option; [@option]  (** id *)
-  location_id : string;  (** The location to serve the app from. *)
-  project : string option; [@option]
+  database_type : string prop option; [@option]  (** database_type *)
+  id : string prop option; [@option]  (** id *)
+  location_id : string prop;
+      (** The location to serve the app from. *)
+  project : string prop option; [@option]
       (** The project ID to create the application under. *)
-  serving_status : string option; [@option]
+  serving_status : string prop option; [@option]
       (** The serving status of the app. *)
   feature_settings :
     google_app_engine_application__feature_settings list;

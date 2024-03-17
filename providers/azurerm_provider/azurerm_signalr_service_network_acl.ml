@@ -5,37 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_signalr_service_network_acl__private_endpoint = {
-  allowed_request_types : string list option; [@option]
+  allowed_request_types : string prop list option; [@option]
       (** allowed_request_types *)
-  denied_request_types : string list option; [@option]
+  denied_request_types : string prop list option; [@option]
       (** denied_request_types *)
-  id : string;  (** id *)
+  id : string prop;  (** id *)
 }
 [@@deriving yojson_of]
 (** azurerm_signalr_service_network_acl__private_endpoint *)
 
 type azurerm_signalr_service_network_acl__public_network = {
-  allowed_request_types : string list option; [@option]
+  allowed_request_types : string prop list option; [@option]
       (** allowed_request_types *)
-  denied_request_types : string list option; [@option]
+  denied_request_types : string prop list option; [@option]
       (** denied_request_types *)
 }
 [@@deriving yojson_of]
 (** azurerm_signalr_service_network_acl__public_network *)
 
 type azurerm_signalr_service_network_acl__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_signalr_service_network_acl__timeouts *)
 
 type azurerm_signalr_service_network_acl = {
-  default_action : string;  (** default_action *)
-  id : string option; [@option]  (** id *)
-  signalr_service_id : string;  (** signalr_service_id *)
+  default_action : string prop;  (** default_action *)
+  id : string prop option; [@option]  (** id *)
+  signalr_service_id : string prop;  (** signalr_service_id *)
   private_endpoint :
     azurerm_signalr_service_network_acl__private_endpoint list;
   public_network :

@@ -12,11 +12,11 @@ type aws_eks_cluster__timeouts
 type aws_eks_cluster__vpc_config
 
 type aws_eks_cluster__certificate_authority = {
-  data : string;  (** data *)
+  data : string prop;  (** data *)
 }
 
 type aws_eks_cluster__identity__oidc = {
-  issuer : string;  (** issuer *)
+  issuer : string prop;  (** issuer *)
 }
 
 type aws_eks_cluster__identity = {
@@ -26,14 +26,14 @@ type aws_eks_cluster__identity = {
 type aws_eks_cluster
 
 val aws_eks_cluster :
-  ?enabled_cluster_log_types:string list ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?version:string ->
+  ?enabled_cluster_log_types:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?version:string prop ->
   ?timeouts:aws_eks_cluster__timeouts ->
-  name:string ->
-  role_arn:string ->
+  name:string prop ->
+  role_arn:string prop ->
   access_config:aws_eks_cluster__access_config list ->
   encryption_config:aws_eks_cluster__encryption_config list ->
   kubernetes_network_config:

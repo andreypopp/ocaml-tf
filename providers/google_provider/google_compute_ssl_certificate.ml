@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type google_compute_ssl_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_ssl_certificate__timeouts *)
 
 type google_compute_ssl_certificate = {
-  certificate : string;
+  certificate : string prop;
       (** The certificate in PEM format.
 The certificate chain must be no greater than 5 certs long.
 The chain must include at least one intermediate cert. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
 RFC1035. Specifically, the name must be 1-63 characters long and match
@@ -30,11 +30,11 @@ character, which cannot be a dash.
 
 
 These are in the same namespace as the managed SSL certificates. *)
-  name_prefix : string option; [@option]
+  name_prefix : string prop option; [@option]
       (** Creates a unique name beginning with the specified prefix. Conflicts with name. *)
-  private_key : string;
+  private_key : string prop;
       (** The write-only private key in PEM format. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_compute_ssl_certificate__timeouts option;
 }
 [@@deriving yojson_of]

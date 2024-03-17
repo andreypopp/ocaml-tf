@@ -6,15 +6,15 @@ type azurerm_automation_python3_package__timeouts
 type azurerm_automation_python3_package
 
 val azurerm_automation_python3_package :
-  ?content_version:string ->
-  ?hash_algorithm:string ->
-  ?hash_value:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?content_version:string prop ->
+  ?hash_algorithm:string prop ->
+  ?hash_value:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_automation_python3_package__timeouts ->
-  automation_account_name:string ->
-  content_uri:string ->
-  name:string ->
-  resource_group_name:string ->
+  automation_account_name:string prop ->
+  content_uri:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

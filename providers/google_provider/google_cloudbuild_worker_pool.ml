@@ -5,45 +5,45 @@
 open! Tf.Prelude
 
 type google_cloudbuild_worker_pool__network_config = {
-  peered_network : string;
+  peered_network : string prop;
       (** Required. Immutable. The network definition that the workers are peered to. If this section is left empty, the workers will be peered to `WorkerPool.project_id` on the service producer network. Must be in the format `projects/{project}/global/networks/{network}`, where `{project}` is a project number, such as `12345`, and `{network}` is the name of a VPC network in the project. See [Understanding network configuration options](https://cloud.google.com/cloud-build/docs/custom-workers/set-up-custom-worker-pool-environment#understanding_the_network_configuration_options) *)
-  peered_network_ip_range : string option; [@option]
+  peered_network_ip_range : string prop option; [@option]
       (** Optional. Immutable. Subnet IP range within the peered network. This is specified in CIDR notation with a slash and the subnet prefix size. You can optionally specify an IP address before the subnet prefix value. e.g. `192.168.0.0/29` would specify an IP range starting at 192.168.0.0 with a prefix size of 29 bits. `/16` would specify a prefix size of 16 bits, with an automatically determined IP within the peered VPC. If unspecified, a value of `/24` will be used. *)
 }
 [@@deriving yojson_of]
 (** Network configuration for the `WorkerPool`. *)
 
 type google_cloudbuild_worker_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_cloudbuild_worker_pool__timeouts *)
 
 type google_cloudbuild_worker_pool__worker_config = {
-  disk_size_gb : float option; [@option]
+  disk_size_gb : float prop option; [@option]
       (** Size of the disk attached to the worker, in GB. See [Worker pool config file](https://cloud.google.com/cloud-build/docs/custom-workers/worker-pool-config-file). Specify a value of up to 1000. If `0` is specified, Cloud Build will use a standard disk size. *)
-  machine_type : string option; [@option]
+  machine_type : string prop option; [@option]
       (** Machine type of a worker, such as `n1-standard-1`. See [Worker pool config file](https://cloud.google.com/cloud-build/docs/custom-workers/worker-pool-config-file). If left blank, Cloud Build will use `n1-standard-1`. *)
-  no_external_ip : bool option; [@option]
+  no_external_ip : bool prop option; [@option]
       (** If true, workers are created without any public address, which prevents network egress to public IPs. *)
 }
 [@@deriving yojson_of]
 (** Configuration to be used for a creating workers in the `WorkerPool`. *)
 
 type google_cloudbuild_worker_pool = {
-  annotations : (string * string) list option; [@option]
+  annotations : (string * string prop) list option; [@option]
       (** User specified annotations. See https://google.aip.dev/128#annotations for more details such as format and size limitations.
 
 **Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
 Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** A user-specified, human-readable name for the `WorkerPool`. If provided, this value must be 1-63 characters. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location for the resource *)
-  name : string;  (** User-defined name of the `WorkerPool`. *)
-  project : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location for the resource *)
+  name : string prop;  (** User-defined name of the `WorkerPool`. *)
+  project : string prop option; [@option]
       (** The project for the resource *)
   network_config :
     google_cloudbuild_worker_pool__network_config list;

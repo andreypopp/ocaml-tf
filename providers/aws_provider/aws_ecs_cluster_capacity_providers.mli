@@ -7,9 +7,9 @@ type aws_ecs_cluster_capacity_providers__default_capacity_provider_strategy
 type aws_ecs_cluster_capacity_providers
 
 val aws_ecs_cluster_capacity_providers :
-  ?capacity_providers:string list ->
-  ?id:string ->
-  cluster_name:string ->
+  ?capacity_providers:string prop list ->
+  ?id:string prop ->
+  cluster_name:string prop ->
   default_capacity_provider_strategy:
     aws_ecs_cluster_capacity_providers__default_capacity_provider_strategy
     list ->

@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_acmpca_permission = {
-  actions : string list;  (** actions *)
-  certificate_authority_arn : string;
+  actions : string prop list;  (** actions *)
+  certificate_authority_arn : string prop;
       (** certificate_authority_arn *)
-  id : string option; [@option]  (** id *)
-  principal : string;  (** principal *)
-  source_account : string option; [@option]  (** source_account *)
+  id : string prop option; [@option]  (** id *)
+  principal : string prop;  (** principal *)
+  source_account : string prop option; [@option]
+      (** source_account *)
 }
 [@@deriving yojson_of]
 (** aws_acmpca_permission *)

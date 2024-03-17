@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_gremlin_database__autoscale_settings = {
-  max_throughput : float option; [@option]  (** max_throughput *)
+  max_throughput : float prop option; [@option]  (** max_throughput *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_gremlin_database__autoscale_settings *)
 
 type azurerm_cosmosdb_gremlin_database__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_gremlin_database__timeouts *)
 
 type azurerm_cosmosdb_gremlin_database = {
-  account_name : string;  (** account_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  throughput : float option; [@option]  (** throughput *)
+  account_name : string prop;  (** account_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  throughput : float prop option; [@option]  (** throughput *)
   autoscale_settings :
     azurerm_cosmosdb_gremlin_database__autoscale_settings list;
   timeouts : azurerm_cosmosdb_gremlin_database__timeouts option;

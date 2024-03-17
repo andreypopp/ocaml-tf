@@ -5,46 +5,47 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_gateway_route_config__open_api = {
-  uri : string option; [@option]  (** uri *)
+  uri : string prop option; [@option]  (** uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway_route_config__open_api *)
 
 type azurerm_spring_cloud_gateway_route_config__route = {
-  classification_tags : string list option; [@option]
+  classification_tags : string prop list option; [@option]
       (** classification_tags *)
-  description : string option; [@option]  (** description *)
-  filters : string list option; [@option]  (** filters *)
-  order : float;  (** order *)
-  predicates : string list option; [@option]  (** predicates *)
-  sso_validation_enabled : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  filters : string prop list option; [@option]  (** filters *)
+  order : float prop;  (** order *)
+  predicates : string prop list option; [@option]  (** predicates *)
+  sso_validation_enabled : bool prop option; [@option]
       (** sso_validation_enabled *)
-  title : string option; [@option]  (** title *)
-  token_relay : bool option; [@option]  (** token_relay *)
-  uri : string option; [@option]  (** uri *)
+  title : string prop option; [@option]  (** title *)
+  token_relay : bool prop option; [@option]  (** token_relay *)
+  uri : string prop option; [@option]  (** uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway_route_config__route *)
 
 type azurerm_spring_cloud_gateway_route_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_gateway_route_config__timeouts *)
 
 type azurerm_spring_cloud_gateway_route_config = {
-  filters : string list option; [@option]  (** filters *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  predicates : string list option; [@option]  (** predicates *)
-  protocol : string option; [@option]  (** protocol *)
-  spring_cloud_app_id : string option; [@option]
+  filters : string prop list option; [@option]  (** filters *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  predicates : string prop list option; [@option]  (** predicates *)
+  protocol : string prop option; [@option]  (** protocol *)
+  spring_cloud_app_id : string prop option; [@option]
       (** spring_cloud_app_id *)
-  spring_cloud_gateway_id : string;  (** spring_cloud_gateway_id *)
-  sso_validation_enabled : bool option; [@option]
+  spring_cloud_gateway_id : string prop;
+      (** spring_cloud_gateway_id *)
+  sso_validation_enabled : bool prop option; [@option]
       (** sso_validation_enabled *)
   open_api :
     azurerm_spring_cloud_gateway_route_config__open_api list;

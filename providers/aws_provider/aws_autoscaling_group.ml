@@ -5,50 +5,52 @@
 open! Tf.Prelude
 
 type aws_autoscaling_group__initial_lifecycle_hook = {
-  default_result : string option; [@option]  (** default_result *)
-  heartbeat_timeout : float option; [@option]
+  default_result : string prop option; [@option]
+      (** default_result *)
+  heartbeat_timeout : float prop option; [@option]
       (** heartbeat_timeout *)
-  lifecycle_transition : string;  (** lifecycle_transition *)
-  name : string;  (** name *)
-  notification_metadata : string option; [@option]
+  lifecycle_transition : string prop;  (** lifecycle_transition *)
+  name : string prop;  (** name *)
+  notification_metadata : string prop option; [@option]
       (** notification_metadata *)
-  notification_target_arn : string option; [@option]
+  notification_target_arn : string prop option; [@option]
       (** notification_target_arn *)
-  role_arn : string option; [@option]  (** role_arn *)
+  role_arn : string prop option; [@option]  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__initial_lifecycle_hook *)
 
 type aws_autoscaling_group__instance_maintenance_policy = {
-  max_healthy_percentage : float;  (** max_healthy_percentage *)
-  min_healthy_percentage : float;  (** min_healthy_percentage *)
+  max_healthy_percentage : float prop;  (** max_healthy_percentage *)
+  min_healthy_percentage : float prop;  (** min_healthy_percentage *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__instance_maintenance_policy *)
 
 type aws_autoscaling_group__instance_refresh__preferences = {
-  auto_rollback : bool option; [@option]  (** auto_rollback *)
-  checkpoint_delay : string option; [@option]
+  auto_rollback : bool prop option; [@option]  (** auto_rollback *)
+  checkpoint_delay : string prop option; [@option]
       (** checkpoint_delay *)
-  checkpoint_percentages : float list option; [@option]
+  checkpoint_percentages : float prop list option; [@option]
       (** checkpoint_percentages *)
-  instance_warmup : string option; [@option]  (** instance_warmup *)
-  max_healthy_percentage : float option; [@option]
+  instance_warmup : string prop option; [@option]
+      (** instance_warmup *)
+  max_healthy_percentage : float prop option; [@option]
       (** max_healthy_percentage *)
-  min_healthy_percentage : float option; [@option]
+  min_healthy_percentage : float prop option; [@option]
       (** min_healthy_percentage *)
-  scale_in_protected_instances : string option; [@option]
+  scale_in_protected_instances : string prop option; [@option]
       (** scale_in_protected_instances *)
-  skip_matching : bool option; [@option]  (** skip_matching *)
-  standby_instances : string option; [@option]
+  skip_matching : bool prop option; [@option]  (** skip_matching *)
+  standby_instances : string prop option; [@option]
       (** standby_instances *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__instance_refresh__preferences *)
 
 type aws_autoscaling_group__instance_refresh = {
-  strategy : string;  (** strategy *)
-  triggers : string list option; [@option]  (** triggers *)
+  strategy : string prop;  (** strategy *)
+  triggers : string prop list option; [@option]  (** triggers *)
   preferences :
     aws_autoscaling_group__instance_refresh__preferences list;
 }
@@ -56,129 +58,132 @@ type aws_autoscaling_group__instance_refresh = {
 (** aws_autoscaling_group__instance_refresh *)
 
 type aws_autoscaling_group__launch_template = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  version : string option; [@option]  (** version *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__launch_template *)
 
 type aws_autoscaling_group__mixed_instances_policy__instances_distribution = {
-  on_demand_allocation_strategy : string option; [@option]
+  on_demand_allocation_strategy : string prop option; [@option]
       (** on_demand_allocation_strategy *)
-  on_demand_base_capacity : float option; [@option]
+  on_demand_base_capacity : float prop option; [@option]
       (** on_demand_base_capacity *)
-  on_demand_percentage_above_base_capacity : float option; [@option]
+  on_demand_percentage_above_base_capacity : float prop option;
+      [@option]
       (** on_demand_percentage_above_base_capacity *)
-  spot_allocation_strategy : string option; [@option]
+  spot_allocation_strategy : string prop option; [@option]
       (** spot_allocation_strategy *)
-  spot_instance_pools : float option; [@option]
+  spot_instance_pools : float prop option; [@option]
       (** spot_instance_pools *)
-  spot_max_price : string option; [@option]  (** spot_max_price *)
+  spot_max_price : string prop option; [@option]
+      (** spot_max_price *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__instances_distribution *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__launch_template_specification = {
-  launch_template_id : string option; [@option]
+  launch_template_id : string prop option; [@option]
       (** launch_template_id *)
-  launch_template_name : string option; [@option]
+  launch_template_name : string prop option; [@option]
       (** launch_template_name *)
-  version : string option; [@option]  (** version *)
+  version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__launch_template_specification *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__memory_mib = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__memory_mib *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count = {
-  max : float option; [@option]  (** max *)
-  min : float option; [@option]  (** min *)
+  max : float prop option; [@option]  (** max *)
+  min : float prop option; [@option]  (** min *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements = {
-  accelerator_manufacturers : string list option; [@option]
+  accelerator_manufacturers : string prop list option; [@option]
       (** accelerator_manufacturers *)
-  accelerator_names : string list option; [@option]
+  accelerator_names : string prop list option; [@option]
       (** accelerator_names *)
-  accelerator_types : string list option; [@option]
+  accelerator_types : string prop list option; [@option]
       (** accelerator_types *)
-  allowed_instance_types : string list option; [@option]
+  allowed_instance_types : string prop list option; [@option]
       (** allowed_instance_types *)
-  bare_metal : string option; [@option]  (** bare_metal *)
-  burstable_performance : string option; [@option]
+  bare_metal : string prop option; [@option]  (** bare_metal *)
+  burstable_performance : string prop option; [@option]
       (** burstable_performance *)
-  cpu_manufacturers : string list option; [@option]
+  cpu_manufacturers : string prop list option; [@option]
       (** cpu_manufacturers *)
-  excluded_instance_types : string list option; [@option]
+  excluded_instance_types : string prop list option; [@option]
       (** excluded_instance_types *)
-  instance_generations : string list option; [@option]
+  instance_generations : string prop list option; [@option]
       (** instance_generations *)
-  local_storage : string option; [@option]  (** local_storage *)
-  local_storage_types : string list option; [@option]
+  local_storage : string prop option; [@option]  (** local_storage *)
+  local_storage_types : string prop list option; [@option]
       (** local_storage_types *)
-  on_demand_max_price_percentage_over_lowest_price : float option;
+  on_demand_max_price_percentage_over_lowest_price :
+    float prop option;
       [@option]
       (** on_demand_max_price_percentage_over_lowest_price *)
-  require_hibernate_support : bool option; [@option]
+  require_hibernate_support : bool prop option; [@option]
       (** require_hibernate_support *)
-  spot_max_price_percentage_over_lowest_price : float option;
+  spot_max_price_percentage_over_lowest_price : float prop option;
       [@option]
       (** spot_max_price_percentage_over_lowest_price *)
   accelerator_count :
@@ -213,18 +218,18 @@ type aws_autoscaling_group__mixed_instances_policy__launch_template__override__i
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override__launch_template_specification = {
-  launch_template_id : string option; [@option]
+  launch_template_id : string prop option; [@option]
       (** launch_template_id *)
-  launch_template_name : string option; [@option]
+  launch_template_name : string prop option; [@option]
       (** launch_template_name *)
-  version : string option; [@option]  (** version *)
+  version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__mixed_instances_policy__launch_template__override__launch_template_specification *)
 
 type aws_autoscaling_group__mixed_instances_policy__launch_template__override = {
-  instance_type : string option; [@option]  (** instance_type *)
-  weighted_capacity : string option; [@option]
+  instance_type : string prop option; [@option]  (** instance_type *)
+  weighted_capacity : string prop option; [@option]
       (** weighted_capacity *)
   instance_requirements :
     aws_autoscaling_group__mixed_instances_policy__launch_template__override__instance_requirements
@@ -259,38 +264,39 @@ type aws_autoscaling_group__mixed_instances_policy = {
 (** aws_autoscaling_group__mixed_instances_policy *)
 
 type aws_autoscaling_group__tag = {
-  key : string;  (** key *)
-  propagate_at_launch : bool;  (** propagate_at_launch *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  propagate_at_launch : bool prop;  (** propagate_at_launch *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__tag *)
 
 type aws_autoscaling_group__timeouts = {
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__timeouts *)
 
 type aws_autoscaling_group__traffic_source = {
-  identifier : string;  (** identifier *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  identifier : string prop;  (** identifier *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__traffic_source *)
 
 type aws_autoscaling_group__warm_pool__instance_reuse_policy = {
-  reuse_on_scale_in : bool option; [@option]  (** reuse_on_scale_in *)
+  reuse_on_scale_in : bool prop option; [@option]
+      (** reuse_on_scale_in *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_group__warm_pool__instance_reuse_policy *)
 
 type aws_autoscaling_group__warm_pool = {
-  max_group_prepared_capacity : float option; [@option]
+  max_group_prepared_capacity : float prop option; [@option]
       (** max_group_prepared_capacity *)
-  min_size : float option; [@option]  (** min_size *)
-  pool_state : string option; [@option]  (** pool_state *)
+  min_size : float prop option; [@option]  (** min_size *)
+  pool_state : string prop option; [@option]  (** pool_state *)
   instance_reuse_policy :
     aws_autoscaling_group__warm_pool__instance_reuse_policy list;
 }
@@ -298,58 +304,62 @@ type aws_autoscaling_group__warm_pool = {
 (** aws_autoscaling_group__warm_pool *)
 
 type aws_autoscaling_group = {
-  availability_zones : string list option; [@option]
+  availability_zones : string prop list option; [@option]
       (** availability_zones *)
-  capacity_rebalance : bool option; [@option]
+  capacity_rebalance : bool prop option; [@option]
       (** capacity_rebalance *)
-  context : string option; [@option]  (** context *)
-  default_cooldown : float option; [@option]  (** default_cooldown *)
-  default_instance_warmup : float option; [@option]
+  context : string prop option; [@option]  (** context *)
+  default_cooldown : float prop option; [@option]
+      (** default_cooldown *)
+  default_instance_warmup : float prop option; [@option]
       (** default_instance_warmup *)
-  desired_capacity : float option; [@option]  (** desired_capacity *)
-  desired_capacity_type : string option; [@option]
+  desired_capacity : float prop option; [@option]
+      (** desired_capacity *)
+  desired_capacity_type : string prop option; [@option]
       (** desired_capacity_type *)
-  enabled_metrics : string list option; [@option]
+  enabled_metrics : string prop list option; [@option]
       (** enabled_metrics *)
-  force_delete : bool option; [@option]  (** force_delete *)
-  force_delete_warm_pool : bool option; [@option]
+  force_delete : bool prop option; [@option]  (** force_delete *)
+  force_delete_warm_pool : bool prop option; [@option]
       (** force_delete_warm_pool *)
-  health_check_grace_period : float option; [@option]
+  health_check_grace_period : float prop option; [@option]
       (** health_check_grace_period *)
-  health_check_type : string option; [@option]
+  health_check_type : string prop option; [@option]
       (** health_check_type *)
-  id : string option; [@option]  (** id *)
-  ignore_failed_scaling_activities : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ignore_failed_scaling_activities : bool prop option; [@option]
       (** ignore_failed_scaling_activities *)
-  launch_configuration : string option; [@option]
+  launch_configuration : string prop option; [@option]
       (** launch_configuration *)
-  load_balancers : string list option; [@option]
+  load_balancers : string prop list option; [@option]
       (** load_balancers *)
-  max_instance_lifetime : float option; [@option]
+  max_instance_lifetime : float prop option; [@option]
       (** max_instance_lifetime *)
-  max_size : float;  (** max_size *)
-  metrics_granularity : string option; [@option]
+  max_size : float prop;  (** max_size *)
+  metrics_granularity : string prop option; [@option]
       (** metrics_granularity *)
-  min_elb_capacity : float option; [@option]  (** min_elb_capacity *)
-  min_size : float;  (** min_size *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  placement_group : string option; [@option]  (** placement_group *)
-  protect_from_scale_in : bool option; [@option]
+  min_elb_capacity : float prop option; [@option]
+      (** min_elb_capacity *)
+  min_size : float prop;  (** min_size *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  placement_group : string prop option; [@option]
+      (** placement_group *)
+  protect_from_scale_in : bool prop option; [@option]
       (** protect_from_scale_in *)
-  service_linked_role_arn : string option; [@option]
+  service_linked_role_arn : string prop option; [@option]
       (** service_linked_role_arn *)
-  suspended_processes : string list option; [@option]
+  suspended_processes : string prop list option; [@option]
       (** suspended_processes *)
-  target_group_arns : string list option; [@option]
+  target_group_arns : string prop list option; [@option]
       (** target_group_arns *)
-  termination_policies : string list option; [@option]
+  termination_policies : string prop list option; [@option]
       (** termination_policies *)
-  vpc_zone_identifier : string list option; [@option]
+  vpc_zone_identifier : string prop list option; [@option]
       (** vpc_zone_identifier *)
-  wait_for_capacity_timeout : string option; [@option]
+  wait_for_capacity_timeout : string prop option; [@option]
       (** wait_for_capacity_timeout *)
-  wait_for_elb_capacity : float option; [@option]
+  wait_for_elb_capacity : float prop option; [@option]
       (** wait_for_elb_capacity *)
   initial_lifecycle_hook :
     aws_autoscaling_group__initial_lifecycle_hook list;

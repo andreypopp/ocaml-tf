@@ -32,12 +32,12 @@ type azurerm_site_recovery_replication_recovery_plan__timeouts
 type azurerm_site_recovery_replication_recovery_plan
 
 val azurerm_site_recovery_replication_recovery_plan :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_site_recovery_replication_recovery_plan__timeouts ->
-  name:string ->
-  recovery_vault_id:string ->
-  source_recovery_fabric_id:string ->
-  target_recovery_fabric_id:string ->
+  name:string prop ->
+  recovery_vault_id:string prop ->
+  source_recovery_fabric_id:string prop ->
+  target_recovery_fabric_id:string prop ->
   azure_to_azure_settings:
     azurerm_site_recovery_replication_recovery_plan__azure_to_azure_settings
     list ->

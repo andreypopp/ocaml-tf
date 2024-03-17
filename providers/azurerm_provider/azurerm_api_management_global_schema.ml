@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_api_management_global_schema__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_global_schema__timeouts *)
 
 type azurerm_api_management_global_schema = {
-  api_management_name : string;  (** api_management_name *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  resource_group_name : string;  (** resource_group_name *)
-  schema_id : string;  (** schema_id *)
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
+  api_management_name : string prop;  (** api_management_name *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  schema_id : string prop;  (** schema_id *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
   timeouts : azurerm_api_management_global_schema__timeouts option;
 }
 [@@deriving yojson_of]

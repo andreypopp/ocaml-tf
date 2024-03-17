@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type cloudflare_d1_database = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  name : string;  (** The name of the D1 Database. *)
+  name : string prop;  (** The name of the D1 Database. *)
 }
 [@@deriving yojson_of]
 (** The [D1 Database](https://developers.cloudflare.com/d1/) resource allows you to manage Cloudflare D1 databases.

@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_transit_gateway__timeouts *)
 
 type aws_ec2_transit_gateway = {
-  amazon_side_asn : float option; [@option]  (** amazon_side_asn *)
-  auto_accept_shared_attachments : string option; [@option]
+  amazon_side_asn : float prop option; [@option]
+      (** amazon_side_asn *)
+  auto_accept_shared_attachments : string prop option; [@option]
       (** auto_accept_shared_attachments *)
-  default_route_table_association : string option; [@option]
+  default_route_table_association : string prop option; [@option]
       (** default_route_table_association *)
-  default_route_table_propagation : string option; [@option]
+  default_route_table_propagation : string prop option; [@option]
       (** default_route_table_propagation *)
-  description : string option; [@option]  (** description *)
-  dns_support : string option; [@option]  (** dns_support *)
-  id : string option; [@option]  (** id *)
-  multicast_support : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  dns_support : string prop option; [@option]  (** dns_support *)
+  id : string prop option; [@option]  (** id *)
+  multicast_support : string prop option; [@option]
       (** multicast_support *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  transit_gateway_cidr_blocks : string list option; [@option]
+  transit_gateway_cidr_blocks : string prop list option; [@option]
       (** transit_gateway_cidr_blocks *)
-  vpn_ecmp_support : string option; [@option]
+  vpn_ecmp_support : string prop option; [@option]
       (** vpn_ecmp_support *)
   timeouts : aws_ec2_transit_gateway__timeouts option;
 }

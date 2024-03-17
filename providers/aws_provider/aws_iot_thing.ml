@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_iot_thing = {
-  attributes : (string * string) list option; [@option]
+  attributes : (string * string prop) list option; [@option]
       (** attributes *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  thing_type_name : string option; [@option]  (** thing_type_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  thing_type_name : string prop option; [@option]
+      (** thing_type_name *)
 }
 [@@deriving yojson_of]
 (** aws_iot_thing *)

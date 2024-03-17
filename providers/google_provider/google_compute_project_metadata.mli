@@ -6,9 +6,9 @@ type google_compute_project_metadata__timeouts
 type google_compute_project_metadata
 
 val google_compute_project_metadata :
-  ?id:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_compute_project_metadata__timeouts ->
-  metadata:(string * string) list ->
+  metadata:(string * string prop) list ->
   string ->
   unit

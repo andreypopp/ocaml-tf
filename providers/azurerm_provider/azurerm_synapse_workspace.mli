@@ -9,40 +9,40 @@ type azurerm_synapse_workspace__identity
 type azurerm_synapse_workspace__timeouts
 
 type azurerm_synapse_workspace__aad_admin = {
-  login : string;  (** login *)
-  object_id : string;  (** object_id *)
-  tenant_id : string;  (** tenant_id *)
+  login : string prop;  (** login *)
+  object_id : string prop;  (** object_id *)
+  tenant_id : string prop;  (** tenant_id *)
 }
 
 type azurerm_synapse_workspace__sql_aad_admin = {
-  login : string;  (** login *)
-  object_id : string;  (** object_id *)
-  tenant_id : string;  (** tenant_id *)
+  login : string prop;  (** login *)
+  object_id : string prop;  (** object_id *)
+  tenant_id : string prop;  (** tenant_id *)
 }
 
 type azurerm_synapse_workspace
 
 val azurerm_synapse_workspace :
   ?aad_admin:azurerm_synapse_workspace__aad_admin list ->
-  ?azuread_authentication_only:bool ->
-  ?compute_subnet_id:string ->
-  ?data_exfiltration_protection_enabled:bool ->
-  ?id:string ->
-  ?linking_allowed_for_aad_tenant_ids:string list ->
-  ?managed_resource_group_name:string ->
-  ?managed_virtual_network_enabled:bool ->
-  ?public_network_access_enabled:bool ->
-  ?purview_id:string ->
+  ?azuread_authentication_only:bool prop ->
+  ?compute_subnet_id:string prop ->
+  ?data_exfiltration_protection_enabled:bool prop ->
+  ?id:string prop ->
+  ?linking_allowed_for_aad_tenant_ids:string prop list ->
+  ?managed_resource_group_name:string prop ->
+  ?managed_virtual_network_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?purview_id:string prop ->
   ?sql_aad_admin:azurerm_synapse_workspace__sql_aad_admin list ->
-  ?sql_administrator_login:string ->
-  ?sql_administrator_login_password:string ->
-  ?sql_identity_control_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?sql_administrator_login:string prop ->
+  ?sql_administrator_login_password:string prop ->
+  ?sql_identity_control_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_synapse_workspace__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  storage_data_lake_gen2_filesystem_id:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_data_lake_gen2_filesystem_id:string prop ->
   azure_devops_repo:azurerm_synapse_workspace__azure_devops_repo list ->
   customer_managed_key:
     azurerm_synapse_workspace__customer_managed_key list ->

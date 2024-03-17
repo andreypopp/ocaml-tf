@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type cloudflare_email_routing_settings = {
-  enabled : bool;
+  enabled : bool prop;
       (** State of the zone settings for Email Routing. **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  skip_wizard : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  skip_wizard : bool prop option; [@option]
       (** Flag to check if the user skipped the configuration wizard. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

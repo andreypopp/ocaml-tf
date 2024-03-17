@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_storage_share_file__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_share_file__timeouts *)
 
 type azurerm_storage_share_file = {
-  content_disposition : string option; [@option]
+  content_disposition : string prop option; [@option]
       (** content_disposition *)
-  content_encoding : string option; [@option]
+  content_encoding : string prop option; [@option]
       (** content_encoding *)
-  content_md5 : string option; [@option]  (** content_md5 *)
-  content_type : string option; [@option]  (** content_type *)
-  id : string option; [@option]  (** id *)
-  metadata : (string * string) list option; [@option]
+  content_md5 : string prop option; [@option]  (** content_md5 *)
+  content_type : string prop option; [@option]  (** content_type *)
+  id : string prop option; [@option]  (** id *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  name : string;  (** name *)
-  path : string option; [@option]  (** path *)
-  source : string option; [@option]  (** source *)
-  storage_share_id : string;  (** storage_share_id *)
+  name : string prop;  (** name *)
+  path : string prop option; [@option]  (** path *)
+  source : string prop option; [@option]  (** source *)
+  storage_share_id : string prop;  (** storage_share_id *)
   timeouts : azurerm_storage_share_file__timeouts option;
 }
 [@@deriving yojson_of]

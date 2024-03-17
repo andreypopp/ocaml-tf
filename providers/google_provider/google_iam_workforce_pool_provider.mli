@@ -11,16 +11,16 @@ type google_iam_workforce_pool_provider__timeouts
 type google_iam_workforce_pool_provider
 
 val google_iam_workforce_pool_provider :
-  ?attribute_condition:string ->
-  ?attribute_mapping:(string * string) list ->
-  ?description:string ->
-  ?disabled:bool ->
-  ?display_name:string ->
-  ?id:string ->
+  ?attribute_condition:string prop ->
+  ?attribute_mapping:(string * string prop) list ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
   ?timeouts:google_iam_workforce_pool_provider__timeouts ->
-  location:string ->
-  provider_id:string ->
-  workforce_pool_id:string ->
+  location:string prop ->
+  provider_id:string prop ->
+  workforce_pool_id:string prop ->
   oidc:google_iam_workforce_pool_provider__oidc list ->
   saml:google_iam_workforce_pool_provider__saml list ->
   string ->

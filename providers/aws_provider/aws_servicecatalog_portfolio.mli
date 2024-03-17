@@ -6,12 +6,12 @@ type aws_servicecatalog_portfolio__timeouts
 type aws_servicecatalog_portfolio
 
 val aws_servicecatalog_portfolio :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_servicecatalog_portfolio__timeouts ->
-  name:string ->
-  provider_name:string ->
+  name:string prop ->
+  provider_name:string prop ->
   string ->
   unit

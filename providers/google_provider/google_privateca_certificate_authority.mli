@@ -36,29 +36,29 @@ type google_privateca_certificate_authority__subordinate_config
 type google_privateca_certificate_authority__timeouts
 
 type google_privateca_certificate_authority__access_urls = {
-  ca_certificate_access_url : string;
+  ca_certificate_access_url : string prop;
       (** ca_certificate_access_url *)
-  crl_access_urls : string list;  (** crl_access_urls *)
+  crl_access_urls : string prop list;  (** crl_access_urls *)
 }
 
 type google_privateca_certificate_authority
 
 val google_privateca_certificate_authority :
-  ?deletion_protection:bool ->
-  ?desired_state:string ->
-  ?gcs_bucket:string ->
-  ?id:string ->
-  ?ignore_active_certificates_on_deletion:bool ->
-  ?labels:(string * string) list ->
-  ?lifetime:string ->
-  ?pem_ca_certificate:string ->
-  ?project:string ->
-  ?skip_grace_period:bool ->
-  ?type_:string ->
+  ?deletion_protection:bool prop ->
+  ?desired_state:string prop ->
+  ?gcs_bucket:string prop ->
+  ?id:string prop ->
+  ?ignore_active_certificates_on_deletion:bool prop ->
+  ?labels:(string * string prop) list ->
+  ?lifetime:string prop ->
+  ?pem_ca_certificate:string prop ->
+  ?project:string prop ->
+  ?skip_grace_period:bool prop ->
+  ?type_:string prop ->
   ?timeouts:google_privateca_certificate_authority__timeouts ->
-  certificate_authority_id:string ->
-  location:string ->
-  pool:string ->
+  certificate_authority_id:string prop ->
+  location:string prop ->
+  pool:string prop ->
   config:google_privateca_certificate_authority__config list ->
   key_spec:google_privateca_certificate_authority__key_spec list ->
   subordinate_config:

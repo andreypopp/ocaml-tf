@@ -16,12 +16,12 @@ type google_bigquery_connection__timeouts
 type google_bigquery_connection
 
 val google_bigquery_connection :
-  ?connection_id:string ->
-  ?description:string ->
-  ?friendly_name:string ->
-  ?id:string ->
-  ?location:string ->
-  ?project:string ->
+  ?connection_id:string prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
   ?timeouts:google_bigquery_connection__timeouts ->
   aws:google_bigquery_connection__aws list ->
   azure:google_bigquery_connection__azure list ->

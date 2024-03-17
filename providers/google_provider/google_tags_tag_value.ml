@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_tags_tag_value__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_tags_tag_value__timeouts *)
 
 type google_tags_tag_value = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** User-assigned description of the TagValue. Must not exceed 256 characters. *)
-  id : string option; [@option]  (** id *)
-  parent : string;
+  id : string prop option; [@option]  (** id *)
+  parent : string prop;
       (** Input only. The resource name of the new TagValue's parent. Must be of the form tagKeys/{tag_key_id}. *)
-  short_name : string;
+  short_name : string prop;
       (** Input only. User-assigned short name for TagValue. The short name should be unique for TagValues within the same parent TagKey.
 
 The short name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), underscores (_), dots (.), and alphanumerics between. *)

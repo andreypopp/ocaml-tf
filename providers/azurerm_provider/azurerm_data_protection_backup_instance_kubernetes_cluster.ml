@@ -5,41 +5,41 @@
 open! Tf.Prelude
 
 type azurerm_data_protection_backup_instance_kubernetes_cluster__backup_datasource_parameters = {
-  cluster_scoped_resources_enabled : bool option; [@option]
+  cluster_scoped_resources_enabled : bool prop option; [@option]
       (** cluster_scoped_resources_enabled *)
-  excluded_namespaces : string list option; [@option]
+  excluded_namespaces : string prop list option; [@option]
       (** excluded_namespaces *)
-  excluded_resource_types : string list option; [@option]
+  excluded_resource_types : string prop list option; [@option]
       (** excluded_resource_types *)
-  included_namespaces : string list option; [@option]
+  included_namespaces : string prop list option; [@option]
       (** included_namespaces *)
-  included_resource_types : string list option; [@option]
+  included_resource_types : string prop list option; [@option]
       (** included_resource_types *)
-  label_selectors : string list option; [@option]
+  label_selectors : string prop list option; [@option]
       (** label_selectors *)
-  volume_snapshot_enabled : bool option; [@option]
+  volume_snapshot_enabled : bool prop option; [@option]
       (** volume_snapshot_enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_instance_kubernetes_cluster__backup_datasource_parameters *)
 
 type azurerm_data_protection_backup_instance_kubernetes_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_instance_kubernetes_cluster__timeouts *)
 
 type azurerm_data_protection_backup_instance_kubernetes_cluster = {
-  backup_policy_id : string;  (** backup_policy_id *)
-  id : string option; [@option]  (** id *)
-  kubernetes_cluster_id : string;  (** kubernetes_cluster_id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  snapshot_resource_group_name : string;
+  backup_policy_id : string prop;  (** backup_policy_id *)
+  id : string prop option; [@option]  (** id *)
+  kubernetes_cluster_id : string prop;  (** kubernetes_cluster_id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  snapshot_resource_group_name : string prop;
       (** snapshot_resource_group_name *)
-  vault_id : string;  (** vault_id *)
+  vault_id : string prop;  (** vault_id *)
   backup_datasource_parameters :
     azurerm_data_protection_backup_instance_kubernetes_cluster__backup_datasource_parameters
     list;

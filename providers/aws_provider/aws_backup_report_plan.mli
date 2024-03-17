@@ -7,11 +7,11 @@ type aws_backup_report_plan__report_setting
 type aws_backup_report_plan
 
 val aws_backup_report_plan :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   report_delivery_channel:
     aws_backup_report_plan__report_delivery_channel list ->
   report_setting:aws_backup_report_plan__report_setting list ->

@@ -26,33 +26,33 @@ type google_compute_instance__shielded_instance_config
 type google_compute_instance__timeouts
 
 type google_compute_instance__guest_accelerator = {
-  count : float;  (** count *)
-  type_ : string; [@key "type"]  (** type *)
+  count : float prop;  (** count *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_compute_instance
 
 val google_compute_instance :
-  ?allow_stopping_for_update:bool ->
-  ?can_ip_forward:bool ->
-  ?deletion_protection:bool ->
-  ?description:string ->
-  ?desired_status:string ->
-  ?enable_display:bool ->
+  ?allow_stopping_for_update:bool prop ->
+  ?can_ip_forward:bool prop ->
+  ?deletion_protection:bool prop ->
+  ?description:string prop ->
+  ?desired_status:string prop ->
+  ?enable_display:bool prop ->
   ?guest_accelerator:google_compute_instance__guest_accelerator list ->
-  ?hostname:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?metadata:(string * string) list ->
-  ?metadata_startup_script:string ->
-  ?min_cpu_platform:string ->
-  ?project:string ->
-  ?resource_policies:string list ->
-  ?tags:string list ->
-  ?zone:string ->
+  ?hostname:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?metadata:(string * string prop) list ->
+  ?metadata_startup_script:string prop ->
+  ?min_cpu_platform:string prop ->
+  ?project:string prop ->
+  ?resource_policies:string prop list ->
+  ?tags:string prop list ->
+  ?zone:string prop ->
   ?timeouts:google_compute_instance__timeouts ->
-  machine_type:string ->
-  name:string ->
+  machine_type:string prop ->
+  name:string prop ->
   advanced_machine_features:
     google_compute_instance__advanced_machine_features list ->
   attached_disk:google_compute_instance__attached_disk list ->

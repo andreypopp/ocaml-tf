@@ -9,20 +9,20 @@ type aws_ec2_client_vpn_endpoint__connection_log_options
 type aws_ec2_client_vpn_endpoint
 
 val aws_ec2_client_vpn_endpoint :
-  ?description:string ->
-  ?dns_servers:string list ->
-  ?id:string ->
-  ?security_group_ids:string list ->
-  ?self_service_portal:string ->
-  ?session_timeout_hours:float ->
-  ?split_tunnel:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?transport_protocol:string ->
-  ?vpc_id:string ->
-  ?vpn_port:float ->
-  client_cidr_block:string ->
-  server_certificate_arn:string ->
+  ?description:string prop ->
+  ?dns_servers:string prop list ->
+  ?id:string prop ->
+  ?security_group_ids:string prop list ->
+  ?self_service_portal:string prop ->
+  ?session_timeout_hours:float prop ->
+  ?split_tunnel:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?transport_protocol:string prop ->
+  ?vpc_id:string prop ->
+  ?vpn_port:float prop ->
+  client_cidr_block:string prop ->
+  server_certificate_arn:string prop ->
   authentication_options:
     aws_ec2_client_vpn_endpoint__authentication_options list ->
   client_connect_options:

@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_macie2_findings_filter__finding_criteria__criterion = {
-  eq : string list option; [@option]  (** eq *)
-  eq_exact_match : string list option; [@option]
+  eq : string prop list option; [@option]  (** eq *)
+  eq_exact_match : string prop list option; [@option]
       (** eq_exact_match *)
-  field : string;  (** field *)
-  gt : string option; [@option]  (** gt *)
-  gte : string option; [@option]  (** gte *)
-  lt : string option; [@option]  (** lt *)
-  lte : string option; [@option]  (** lte *)
-  neq : string list option; [@option]  (** neq *)
+  field : string prop;  (** field *)
+  gt : string prop option; [@option]  (** gt *)
+  gte : string prop option; [@option]  (** gte *)
+  lt : string prop option; [@option]  (** lt *)
+  lte : string prop option; [@option]  (** lte *)
+  neq : string prop list option; [@option]  (** neq *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_findings_filter__finding_criteria__criterion *)
@@ -26,14 +26,14 @@ type aws_macie2_findings_filter__finding_criteria = {
 (** aws_macie2_findings_filter__finding_criteria *)
 
 type aws_macie2_findings_filter = {
-  action : string;  (** action *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  position : float option; [@option]  (** position *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  action : string prop;  (** action *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  position : float prop option; [@option]  (** position *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   finding_criteria :
     aws_macie2_findings_filter__finding_criteria list;

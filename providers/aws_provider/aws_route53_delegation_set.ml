@@ -5,8 +5,9 @@
 open! Tf.Prelude
 
 type aws_route53_delegation_set = {
-  id : string option; [@option]  (** id *)
-  reference_name : string option; [@option]  (** reference_name *)
+  id : string prop option; [@option]  (** id *)
+  reference_name : string prop option; [@option]
+      (** reference_name *)
 }
 [@@deriving yojson_of]
 (** aws_route53_delegation_set *)

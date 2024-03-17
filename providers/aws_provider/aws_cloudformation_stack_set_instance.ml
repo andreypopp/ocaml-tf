@@ -5,52 +5,54 @@
 open! Tf.Prelude
 
 type aws_cloudformation_stack_set_instance__deployment_targets = {
-  organizational_unit_ids : string list option; [@option]
+  organizational_unit_ids : string prop list option; [@option]
       (** organizational_unit_ids *)
 }
 [@@deriving yojson_of]
 (** aws_cloudformation_stack_set_instance__deployment_targets *)
 
 type aws_cloudformation_stack_set_instance__operation_preferences = {
-  failure_tolerance_count : float option; [@option]
+  failure_tolerance_count : float prop option; [@option]
       (** failure_tolerance_count *)
-  failure_tolerance_percentage : float option; [@option]
+  failure_tolerance_percentage : float prop option; [@option]
       (** failure_tolerance_percentage *)
-  max_concurrent_count : float option; [@option]
+  max_concurrent_count : float prop option; [@option]
       (** max_concurrent_count *)
-  max_concurrent_percentage : float option; [@option]
+  max_concurrent_percentage : float prop option; [@option]
       (** max_concurrent_percentage *)
-  region_concurrency_type : string option; [@option]
+  region_concurrency_type : string prop option; [@option]
       (** region_concurrency_type *)
-  region_order : string list option; [@option]  (** region_order *)
+  region_order : string prop list option; [@option]
+      (** region_order *)
 }
 [@@deriving yojson_of]
 (** aws_cloudformation_stack_set_instance__operation_preferences *)
 
 type aws_cloudformation_stack_set_instance__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_cloudformation_stack_set_instance__timeouts *)
 
 type aws_cloudformation_stack_set_instance__stack_instance_summaries = {
-  account_id : string;  (** account_id *)
-  organizational_unit_id : string;  (** organizational_unit_id *)
-  stack_id : string;  (** stack_id *)
+  account_id : string prop;  (** account_id *)
+  organizational_unit_id : string prop;
+      (** organizational_unit_id *)
+  stack_id : string prop;  (** stack_id *)
 }
 [@@deriving yojson_of]
 
 type aws_cloudformation_stack_set_instance = {
-  account_id : string option; [@option]  (** account_id *)
-  call_as : string option; [@option]  (** call_as *)
-  id : string option; [@option]  (** id *)
-  parameter_overrides : (string * string) list option; [@option]
+  account_id : string prop option; [@option]  (** account_id *)
+  call_as : string prop option; [@option]  (** call_as *)
+  id : string prop option; [@option]  (** id *)
+  parameter_overrides : (string * string prop) list option; [@option]
       (** parameter_overrides *)
-  region : string option; [@option]  (** region *)
-  retain_stack : bool option; [@option]  (** retain_stack *)
-  stack_set_name : string;  (** stack_set_name *)
+  region : string prop option; [@option]  (** region *)
+  retain_stack : bool prop option; [@option]  (** retain_stack *)
+  stack_set_name : string prop;  (** stack_set_name *)
   deployment_targets :
     aws_cloudformation_stack_set_instance__deployment_targets list;
   operation_preferences :

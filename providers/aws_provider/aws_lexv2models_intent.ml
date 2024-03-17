@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__closing_setting__closing_response__message_group__message__image_response_card__button
     list;
@@ -29,13 +29,13 @@ type aws_lexv2models_intent__closing_setting__closing_response__message_group__m
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__message__ssml_message *)
@@ -58,22 +58,22 @@ type aws_lexv2models_intent__closing_setting__closing_response__message_group__m
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__message *)
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__image_response_card__button
     list;
@@ -82,13 +82,13 @@ type aws_lexv2models_intent__closing_setting__closing_response__message_group__v
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group__variation__ssml_message *)
@@ -122,7 +122,8 @@ type aws_lexv2models_intent__closing_setting__closing_response__message_group = 
 (** aws_lexv2models_intent__closing_setting__closing_response__message_group *)
 
 type aws_lexv2models_intent__closing_setting__closing_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__closing_setting__closing_response__message_group
     list;
@@ -131,30 +132,31 @@ type aws_lexv2models_intent__closing_setting__closing_response = {
 (** aws_lexv2models_intent__closing_setting__closing_response *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -163,7 +165,7 @@ type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__n
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent__slot
     list;
@@ -172,7 +174,7 @@ type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__n
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step__dialog_action
@@ -185,22 +187,22 @@ type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__n
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -209,13 +211,13 @@ type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__r
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -238,22 +240,22 @@ type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__r
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -262,13 +264,13 @@ type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__r
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -302,7 +304,8 @@ type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__r
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response__message_group
     list;
@@ -311,7 +314,7 @@ type aws_lexv2models_intent__closing_setting__conditional__conditional_branch__r
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__closing_setting__conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__closing_setting__conditional__conditional_branch__condition
     list;
@@ -326,24 +329,25 @@ type aws_lexv2models_intent__closing_setting__conditional__conditional_branch = 
 (** aws_lexv2models_intent__closing_setting__conditional__conditional_branch *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent__slot__value
     list;
@@ -352,7 +356,7 @@ type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent__slot
     list;
@@ -361,7 +365,7 @@ type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step__dialog_action
@@ -374,22 +378,22 @@ type aws_lexv2models_intent__closing_setting__conditional__default_branch__next_
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -398,13 +402,13 @@ type aws_lexv2models_intent__closing_setting__conditional__default_branch__respo
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message__ssml_message *)
@@ -427,22 +431,22 @@ type aws_lexv2models_intent__closing_setting__conditional__default_branch__respo
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -451,13 +455,13 @@ type aws_lexv2models_intent__closing_setting__conditional__default_branch__respo
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -491,7 +495,8 @@ type aws_lexv2models_intent__closing_setting__conditional__default_branch__respo
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__closing_setting__conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__closing_setting__conditional__default_branch__response__message_group
     list;
@@ -511,7 +516,7 @@ type aws_lexv2models_intent__closing_setting__conditional__default_branch = {
 (** aws_lexv2models_intent__closing_setting__conditional__default_branch *)
 
 type aws_lexv2models_intent__closing_setting__conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__closing_setting__conditional__conditional_branch
     list;
@@ -523,24 +528,25 @@ type aws_lexv2models_intent__closing_setting__conditional = {
 (** aws_lexv2models_intent__closing_setting__conditional *)
 
 type aws_lexv2models_intent__closing_setting__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__next_step__dialog_action *)
 
 type aws_lexv2models_intent__closing_setting__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__closing_setting__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__closing_setting__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__closing_setting__next_step__intent__slot__value
     list;
@@ -549,7 +555,7 @@ type aws_lexv2models_intent__closing_setting__next_step__intent__slot = {
 (** aws_lexv2models_intent__closing_setting__next_step__intent__slot *)
 
 type aws_lexv2models_intent__closing_setting__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__closing_setting__next_step__intent__slot
     list;
@@ -558,7 +564,7 @@ type aws_lexv2models_intent__closing_setting__next_step__intent = {
 (** aws_lexv2models_intent__closing_setting__next_step__intent *)
 
 type aws_lexv2models_intent__closing_setting__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__closing_setting__next_step__dialog_action
@@ -570,7 +576,7 @@ type aws_lexv2models_intent__closing_setting__next_step = {
 (** aws_lexv2models_intent__closing_setting__next_step *)
 
 type aws_lexv2models_intent__closing_setting = {
-  active : bool option; [@option]  (** active *)
+  active : bool prop option; [@option]  (** active *)
   closing_response :
     aws_lexv2models_intent__closing_setting__closing_response list;
   conditional :
@@ -581,30 +587,31 @@ type aws_lexv2models_intent__closing_setting = {
 (** aws_lexv2models_intent__closing_setting *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -613,7 +620,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -622,7 +629,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
@@ -635,22 +642,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -659,13 +666,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -688,22 +695,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -712,13 +719,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -752,7 +759,8 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
     list;
@@ -761,7 +769,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
     list;
@@ -776,24 +784,25 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -802,7 +811,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
     list;
@@ -811,7 +820,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
@@ -824,22 +833,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -848,13 +857,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -877,22 +886,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -901,13 +910,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -941,7 +950,8 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
     list;
@@ -961,7 +971,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
     list;
@@ -973,24 +983,25 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_conditional *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
     list;
@@ -999,7 +1010,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
     list;
@@ -1008,7 +1019,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
@@ -1021,22 +1032,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
     list;
@@ -1045,13 +1056,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message *)
@@ -1074,22 +1085,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
     list;
@@ -1098,13 +1109,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message *)
@@ -1138,7 +1149,8 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group
     list;
@@ -1147,30 +1159,31 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__failure_response *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -1179,7 +1192,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -1188,7 +1201,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
@@ -1201,22 +1214,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -1225,13 +1238,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -1254,22 +1267,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -1278,13 +1291,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -1318,7 +1331,8 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
     list;
@@ -1327,7 +1341,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
     list;
@@ -1342,24 +1356,25 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -1368,7 +1383,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
     list;
@@ -1377,7 +1392,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
@@ -1390,22 +1405,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -1414,13 +1429,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -1443,22 +1458,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -1467,13 +1482,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -1507,7 +1522,8 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
     list;
@@ -1527,7 +1543,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
     list;
@@ -1539,24 +1555,25 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_conditional *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
     list;
@@ -1565,7 +1582,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
     list;
@@ -1574,7 +1591,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
@@ -1587,22 +1604,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
     list;
@@ -1611,13 +1628,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message *)
@@ -1640,22 +1657,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
     list;
@@ -1664,13 +1681,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message *)
@@ -1704,7 +1721,8 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group
     list;
@@ -1713,30 +1731,31 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__success_response *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -1745,7 +1764,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -1754,7 +1773,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
@@ -1767,22 +1786,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -1791,13 +1810,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -1820,22 +1839,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -1844,13 +1863,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -1884,7 +1903,8 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
     list;
@@ -1893,7 +1913,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
     list;
@@ -1908,24 +1928,25 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -1934,7 +1955,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
     list;
@@ -1943,7 +1964,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
@@ -1956,22 +1977,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -1980,13 +2001,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -2009,22 +2030,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -2033,13 +2054,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -2073,7 +2094,8 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
     list;
@@ -2093,7 +2115,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
     list;
@@ -2105,24 +2127,25 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
     list;
@@ -2131,7 +2154,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
     list;
@@ -2140,7 +2163,7 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
@@ -2153,22 +2176,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
     list;
@@ -2177,13 +2200,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message *)
@@ -2206,22 +2229,22 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
     list;
@@ -2230,13 +2253,13 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message *)
@@ -2270,7 +2293,8 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group
     list;
@@ -2311,10 +2335,10 @@ type aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_spe
 (** aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification *)
 
 type aws_lexv2models_intent__confirmation_setting__code_hook = {
-  active : bool;  (** active *)
-  enable_code_hook_invocation : bool;
+  active : bool prop;  (** active *)
+  enable_code_hook_invocation : bool prop;
       (** enable_code_hook_invocation *)
-  invocation_label : string option; [@option]
+  invocation_label : string prop option; [@option]
       (** invocation_label *)
   post_code_hook_specification :
     aws_lexv2models_intent__confirmation_setting__code_hook__post_code_hook_specification
@@ -2324,30 +2348,31 @@ type aws_lexv2models_intent__confirmation_setting__code_hook = {
 (** aws_lexv2models_intent__confirmation_setting__code_hook *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -2356,7 +2381,7 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__con
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -2365,7 +2390,7 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__con
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action
@@ -2378,22 +2403,22 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__con
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -2402,13 +2427,13 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__con
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -2431,22 +2456,22 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__con
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -2455,13 +2480,13 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__con
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -2495,7 +2520,8 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__con
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response__message_group
     list;
@@ -2504,7 +2530,7 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__con
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch__condition
     list;
@@ -2519,24 +2545,25 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__con
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -2545,7 +2572,7 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__def
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot
     list;
@@ -2554,7 +2581,7 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__def
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action
@@ -2567,22 +2594,22 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__def
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -2591,13 +2618,13 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__def
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -2620,22 +2647,22 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__def
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -2644,13 +2671,13 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__def
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -2684,7 +2711,8 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__def
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch__response__message_group
     list;
@@ -2704,7 +2732,7 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional__def
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional__default_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__confirmation_setting__confirmation_conditional__conditional_branch
     list;
@@ -2716,24 +2744,25 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_conditional = {
 (** aws_lexv2models_intent__confirmation_setting__confirmation_conditional *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent__slot__value
     list;
@@ -2742,7 +2771,7 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_next_step__inten
 (** aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent__slot
     list;
@@ -2751,7 +2780,7 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_next_step__inten
 (** aws_lexv2models_intent__confirmation_setting__confirmation_next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__confirmation_next_step__dialog_action
@@ -2764,22 +2793,22 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_next_step = {
 (** aws_lexv2models_intent__confirmation_setting__confirmation_next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__image_response_card__button
     list;
@@ -2788,13 +2817,13 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_response__messag
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message__ssml_message *)
@@ -2817,22 +2846,22 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_response__messag
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__image_response_card__button
     list;
@@ -2841,13 +2870,13 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_response__messag
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group__variation__ssml_message *)
@@ -2881,7 +2910,8 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_response__messag
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__confirmation_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__confirmation_response__message_group
     list;
@@ -2890,30 +2920,31 @@ type aws_lexv2models_intent__confirmation_setting__confirmation_response = {
 (** aws_lexv2models_intent__confirmation_setting__confirmation_response *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -2922,7 +2953,7 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__cond
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -2931,7 +2962,7 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__cond
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action
@@ -2944,22 +2975,22 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__cond
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -2968,13 +2999,13 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__cond
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -2997,22 +3028,22 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__cond
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -3021,13 +3052,13 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__cond
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -3061,7 +3092,8 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__cond
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response__message_group
     list;
@@ -3070,7 +3102,7 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__cond
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch__condition
     list;
@@ -3085,24 +3117,25 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__cond
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -3111,7 +3144,7 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__defa
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent__slot
     list;
@@ -3120,7 +3153,7 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__defa
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step__dialog_action
@@ -3133,22 +3166,22 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__defa
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -3157,13 +3190,13 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__defa
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -3186,22 +3219,22 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__defa
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -3210,13 +3243,13 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__defa
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -3250,7 +3283,8 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__defa
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch__response__message_group
     list;
@@ -3270,7 +3304,7 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional__defa
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional__default_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__confirmation_setting__declination_conditional__conditional_branch
     list;
@@ -3282,24 +3316,25 @@ type aws_lexv2models_intent__confirmation_setting__declination_conditional = {
 (** aws_lexv2models_intent__confirmation_setting__declination_conditional *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__declination_next_step__intent__slot__value
     list;
@@ -3308,7 +3343,7 @@ type aws_lexv2models_intent__confirmation_setting__declination_next_step__intent
 (** aws_lexv2models_intent__confirmation_setting__declination_next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__declination_next_step__intent__slot
     list;
@@ -3317,7 +3352,7 @@ type aws_lexv2models_intent__confirmation_setting__declination_next_step__intent
 (** aws_lexv2models_intent__confirmation_setting__declination_next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__declination_next_step__dialog_action
@@ -3330,22 +3365,22 @@ type aws_lexv2models_intent__confirmation_setting__declination_next_step = {
 (** aws_lexv2models_intent__confirmation_setting__declination_next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__image_response_card__button
     list;
@@ -3354,13 +3389,13 @@ type aws_lexv2models_intent__confirmation_setting__declination_response__message
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message__ssml_message *)
@@ -3383,22 +3418,22 @@ type aws_lexv2models_intent__confirmation_setting__declination_response__message
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__image_response_card__button
     list;
@@ -3407,13 +3442,13 @@ type aws_lexv2models_intent__confirmation_setting__declination_response__message
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group__variation__ssml_message *)
@@ -3447,7 +3482,8 @@ type aws_lexv2models_intent__confirmation_setting__declination_response__message
 (** aws_lexv2models_intent__confirmation_setting__declination_response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__declination_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__declination_response__message_group
     list;
@@ -3456,38 +3492,40 @@ type aws_lexv2models_intent__confirmation_setting__declination_response = {
 (** aws_lexv2models_intent__confirmation_setting__declination_response *)
 
 type aws_lexv2models_intent__confirmation_setting__elicitation_code_hook = {
-  enable_code_hook_invocation : bool option; [@option]
+  enable_code_hook_invocation : bool prop option; [@option]
       (** enable_code_hook_invocation *)
-  invocation_label : string option; [@option]  (** invocation_label *)
+  invocation_label : string prop option; [@option]
+      (** invocation_label *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__elicitation_code_hook *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -3496,7 +3534,7 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditio
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -3505,7 +3543,7 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditio
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action
@@ -3518,22 +3556,22 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditio
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -3542,13 +3580,13 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditio
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -3571,22 +3609,22 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditio
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -3595,13 +3633,13 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditio
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -3635,7 +3673,8 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditio
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response__message_group
     list;
@@ -3644,7 +3683,7 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditio
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch__condition
     list;
@@ -3659,24 +3698,25 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__conditio
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -3685,7 +3725,7 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent__slot
     list;
@@ -3694,7 +3734,7 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step__dialog_action
@@ -3707,22 +3747,22 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -3731,13 +3771,13 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -3760,22 +3800,22 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -3784,13 +3824,13 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -3824,7 +3864,8 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch__response__message_group
     list;
@@ -3844,7 +3885,7 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional__default_
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional__default_branch *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__confirmation_setting__failure_conditional__conditional_branch
     list;
@@ -3856,24 +3897,25 @@ type aws_lexv2models_intent__confirmation_setting__failure_conditional = {
 (** aws_lexv2models_intent__confirmation_setting__failure_conditional *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_next_step__dialog_action *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__confirmation_setting__failure_next_step__intent__slot__value
     list;
@@ -3882,7 +3924,7 @@ type aws_lexv2models_intent__confirmation_setting__failure_next_step__intent__sl
 (** aws_lexv2models_intent__confirmation_setting__failure_next_step__intent__slot *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__confirmation_setting__failure_next_step__intent__slot
     list;
@@ -3891,7 +3933,7 @@ type aws_lexv2models_intent__confirmation_setting__failure_next_step__intent = {
 (** aws_lexv2models_intent__confirmation_setting__failure_next_step__intent *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__confirmation_setting__failure_next_step__dialog_action
@@ -3904,22 +3946,22 @@ type aws_lexv2models_intent__confirmation_setting__failure_next_step = {
 (** aws_lexv2models_intent__confirmation_setting__failure_next_step *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__image_response_card__button
     list;
@@ -3928,13 +3970,13 @@ type aws_lexv2models_intent__confirmation_setting__failure_response__message_gro
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message__ssml_message *)
@@ -3957,22 +3999,22 @@ type aws_lexv2models_intent__confirmation_setting__failure_response__message_gro
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__image_response_card__button
     list;
@@ -3981,13 +4023,13 @@ type aws_lexv2models_intent__confirmation_setting__failure_response__message_gro
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group__variation__ssml_message *)
@@ -4021,7 +4063,8 @@ type aws_lexv2models_intent__confirmation_setting__failure_response__message_gro
 (** aws_lexv2models_intent__confirmation_setting__failure_response__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__failure_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__failure_response__message_group
     list;
@@ -4030,22 +4073,22 @@ type aws_lexv2models_intent__confirmation_setting__failure_response = {
 (** aws_lexv2models_intent__confirmation_setting__failure_response *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__image_response_card__button
     list;
@@ -4054,13 +4097,13 @@ type aws_lexv2models_intent__confirmation_setting__prompt_specification__message
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message__ssml_message *)
@@ -4083,22 +4126,22 @@ type aws_lexv2models_intent__confirmation_setting__prompt_specification__message
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__message *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__image_response_card__button
     list;
@@ -4107,13 +4150,13 @@ type aws_lexv2models_intent__confirmation_setting__prompt_specification__message
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group__variation__ssml_message *)
@@ -4147,30 +4190,30 @@ type aws_lexv2models_intent__confirmation_setting__prompt_specification__message
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types = {
-  allow_audio_input : bool;  (** allow_audio_input *)
-  allow_dtmf_input : bool;  (** allow_dtmf_input *)
+  allow_audio_input : bool prop;  (** allow_audio_input *)
+  allow_dtmf_input : bool prop;  (** allow_dtmf_input *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification = {
-  end_timeout_ms : float;  (** end_timeout_ms *)
-  max_length_ms : float;  (** max_length_ms *)
+  end_timeout_ms : float prop;  (** end_timeout_ms *)
+  max_length_ms : float prop;  (** max_length_ms *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification = {
-  deletion_character : string;  (** deletion_character *)
-  end_character : string;  (** end_character *)
-  end_timeout_ms : float;  (** end_timeout_ms *)
-  max_length : float;  (** max_length *)
+  deletion_character : string prop;  (** deletion_character *)
+  end_character : string prop;  (** end_character *)
+  end_timeout_ms : float prop;  (** end_timeout_ms *)
+  max_length : float prop;  (** max_length *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification = {
-  start_timeout_ms : float;  (** start_timeout_ms *)
+  start_timeout_ms : float prop;  (** start_timeout_ms *)
   audio_specification :
     aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification
     list;
@@ -4182,14 +4225,15 @@ type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__text_input_specification = {
-  start_timeout_ms : float;  (** start_timeout_ms *)
+  start_timeout_ms : float prop;  (** start_timeout_ms *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__text_input_specification *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
-  map_block_key : string;  (** map_block_key *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
+  map_block_key : string prop;  (** map_block_key *)
   allowed_input_types :
     aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types
     list;
@@ -4204,9 +4248,10 @@ type aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification__prompt_attempts_specification *)
 
 type aws_lexv2models_intent__confirmation_setting__prompt_specification = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
-  max_retries : float;  (** max_retries *)
-  message_selection_strategy : string option; [@option]
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
+  max_retries : float prop;  (** max_retries *)
+  message_selection_strategy : string prop option; [@option]
       (** message_selection_strategy *)
   message_group :
     aws_lexv2models_intent__confirmation_setting__prompt_specification__message_group
@@ -4219,7 +4264,7 @@ type aws_lexv2models_intent__confirmation_setting__prompt_specification = {
 (** aws_lexv2models_intent__confirmation_setting__prompt_specification *)
 
 type aws_lexv2models_intent__confirmation_setting = {
-  active : bool option; [@option]  (** active *)
+  active : bool prop option; [@option]  (** active *)
   code_hook :
     aws_lexv2models_intent__confirmation_setting__code_hook list;
   confirmation_conditional :
@@ -4260,28 +4305,28 @@ type aws_lexv2models_intent__confirmation_setting = {
 (** aws_lexv2models_intent__confirmation_setting *)
 
 type aws_lexv2models_intent__dialog_code_hook = {
-  enabled : bool;  (** enabled *)
+  enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__dialog_code_hook *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button
     list;
@@ -4290,13 +4335,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__ssml_message *)
@@ -4319,22 +4364,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button
     list;
@@ -4343,13 +4388,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__ssml_message *)
@@ -4383,8 +4428,10 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
-  delay_in_seconds : float option; [@option]  (** delay_in_seconds *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
+  delay_in_seconds : float prop option; [@option]
+      (** delay_in_seconds *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group
     list;
@@ -4393,22 +4440,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button
     list;
@@ -4417,13 +4464,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__ssml_message *)
@@ -4446,22 +4493,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button
     list;
@@ -4470,13 +4517,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__ssml_message *)
@@ -4510,8 +4557,9 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
-  frequency_in_seconds : float;  (** frequency_in_seconds *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
+  frequency_in_seconds : float prop;  (** frequency_in_seconds *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group
     list;
@@ -4520,8 +4568,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__update_response *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification = {
-  active : bool;  (** active *)
-  timeout_in_seconds : float option; [@option]
+  active : bool prop;  (** active *)
+  timeout_in_seconds : float prop option; [@option]
       (** timeout_in_seconds *)
   start_response :
     aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification__start_response
@@ -4534,30 +4582,31 @@ type aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specific
 (** aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -4566,7 +4615,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -4575,7 +4624,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action
@@ -4588,22 +4637,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -4612,13 +4661,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -4641,22 +4690,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -4665,13 +4714,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -4705,7 +4754,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group
     list;
@@ -4714,7 +4764,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition
     list;
@@ -4729,24 +4779,25 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -4755,7 +4806,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot
     list;
@@ -4764,7 +4815,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action
@@ -4777,22 +4828,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -4801,13 +4852,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -4830,22 +4881,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -4854,13 +4905,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -4894,7 +4945,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group
     list;
@@ -4914,7 +4966,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch
     list;
@@ -4926,24 +4978,25 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value
     list;
@@ -4952,7 +5005,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot
     list;
@@ -4961,7 +5014,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action
@@ -4974,22 +5027,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button
     list;
@@ -4998,13 +5051,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__ssml_message *)
@@ -5027,22 +5080,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button
     list;
@@ -5051,13 +5104,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__ssml_message *)
@@ -5091,7 +5144,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group
     list;
@@ -5100,30 +5154,31 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__failure_response *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -5132,7 +5187,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -5141,7 +5196,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action
@@ -5154,22 +5209,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -5178,13 +5233,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -5207,22 +5262,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -5231,13 +5286,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -5271,7 +5326,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group
     list;
@@ -5280,7 +5336,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition
     list;
@@ -5295,24 +5351,25 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -5321,7 +5378,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot
     list;
@@ -5330,7 +5387,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action
@@ -5343,22 +5400,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -5367,13 +5424,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -5396,22 +5453,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -5420,13 +5477,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -5460,7 +5517,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group
     list;
@@ -5480,7 +5538,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch
     list;
@@ -5492,24 +5550,25 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_conditional *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value
     list;
@@ -5518,7 +5577,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot
     list;
@@ -5527,7 +5586,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action
@@ -5540,22 +5599,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_next_step *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button
     list;
@@ -5564,13 +5623,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__ssml_message *)
@@ -5593,22 +5652,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button
     list;
@@ -5617,13 +5676,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__ssml_message *)
@@ -5657,7 +5716,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group
     list;
@@ -5666,30 +5726,31 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__success_response *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -5698,7 +5759,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -5707,7 +5768,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action
@@ -5720,22 +5781,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -5744,13 +5805,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -5773,22 +5834,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -5797,13 +5858,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -5837,7 +5898,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group
     list;
@@ -5846,7 +5908,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition
     list;
@@ -5861,24 +5923,25 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -5887,7 +5950,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot
     list;
@@ -5896,7 +5959,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action
@@ -5909,22 +5972,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -5933,13 +5996,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -5962,22 +6025,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -5986,13 +6049,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -6026,7 +6089,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group
     list;
@@ -6046,7 +6110,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch
     list;
@@ -6058,24 +6122,25 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value
     list;
@@ -6084,7 +6149,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot
     list;
@@ -6093,7 +6158,7 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action
@@ -6106,22 +6171,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button
     list;
@@ -6130,13 +6195,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__ssml_message *)
@@ -6159,22 +6224,22 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button
     list;
@@ -6183,13 +6248,13 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__ssml_message *)
@@ -6223,7 +6288,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group *)
 
 type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group
     list;
@@ -6264,8 +6330,8 @@ type aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_spec
 (** aws_lexv2models_intent__fulfillment_code_hook__post_fulfillment_status_specification *)
 
 type aws_lexv2models_intent__fulfillment_code_hook = {
-  active : bool option; [@option]  (** active *)
-  enabled : bool;  (** enabled *)
+  active : bool prop option; [@option]  (** active *)
+  enabled : bool prop;  (** enabled *)
   fulfillment_updates_specification :
     aws_lexv2models_intent__fulfillment_code_hook__fulfillment_updates_specification
     list;
@@ -6277,30 +6343,31 @@ type aws_lexv2models_intent__fulfillment_code_hook = {
 (** aws_lexv2models_intent__fulfillment_code_hook *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -6309,7 +6376,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -6318,7 +6385,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
@@ -6331,22 +6398,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -6355,13 +6422,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -6384,22 +6451,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -6408,13 +6475,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -6448,7 +6515,8 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
     list;
@@ -6457,7 +6525,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
     list;
@@ -6472,24 +6540,25 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -6498,7 +6567,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
     list;
@@ -6507,7 +6576,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
@@ -6520,22 +6589,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -6544,13 +6613,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -6573,22 +6642,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -6597,13 +6666,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -6637,7 +6706,8 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
     list;
@@ -6657,7 +6727,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
     list;
@@ -6669,24 +6739,25 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_conditional *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
     list;
@@ -6695,7 +6766,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
     list;
@@ -6704,7 +6775,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
@@ -6717,22 +6788,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
     list;
@@ -6741,13 +6812,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message *)
@@ -6770,22 +6841,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
     list;
@@ -6794,13 +6865,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message *)
@@ -6834,7 +6905,8 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group
     list;
@@ -6843,30 +6915,31 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__failure_response *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -6875,7 +6948,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -6884,7 +6957,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
@@ -6897,22 +6970,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -6921,13 +6994,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -6950,22 +7023,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -6974,13 +7047,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -7014,7 +7087,8 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
     list;
@@ -7023,7 +7097,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
     list;
@@ -7038,24 +7112,25 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -7064,7 +7139,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
     list;
@@ -7073,7 +7148,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
@@ -7086,22 +7161,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -7110,13 +7185,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -7139,22 +7214,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -7163,13 +7238,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -7203,7 +7278,8 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
     list;
@@ -7223,7 +7299,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
     list;
@@ -7235,24 +7311,25 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_conditional *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
     list;
@@ -7261,7 +7338,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
     list;
@@ -7270,7 +7347,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
@@ -7283,22 +7360,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
     list;
@@ -7307,13 +7384,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message *)
@@ -7336,22 +7413,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
     list;
@@ -7360,13 +7437,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message *)
@@ -7400,7 +7477,8 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group
     list;
@@ -7409,30 +7487,31 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__success_response *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -7441,7 +7520,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
     list;
@@ -7450,7 +7529,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
@@ -7463,22 +7542,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -7487,13 +7566,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -7516,22 +7595,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -7540,13 +7619,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -7580,7 +7659,8 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
     list;
@@ -7589,7 +7669,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
     list;
@@ -7604,24 +7684,25 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
     list;
@@ -7630,7 +7711,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
     list;
@@ -7639,7 +7720,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
@@ -7652,22 +7733,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -7676,13 +7757,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message *)
@@ -7705,22 +7786,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -7729,13 +7810,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -7769,7 +7850,8 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
     list;
@@ -7789,7 +7871,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
     list;
@@ -7801,24 +7883,25 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
     list;
@@ -7827,7 +7910,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
     list;
@@ -7836,7 +7919,7 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
@@ -7849,22 +7932,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
     list;
@@ -7873,13 +7956,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message *)
@@ -7902,22 +7985,22 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
     list;
@@ -7926,13 +8009,13 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message *)
@@ -7966,7 +8049,8 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group
     list;
@@ -8007,10 +8091,10 @@ type aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook
 (** aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification *)
 
 type aws_lexv2models_intent__initial_response_setting__code_hook = {
-  active : bool;  (** active *)
-  enable_code_hook_invocation : bool;
+  active : bool prop;  (** active *)
+  enable_code_hook_invocation : bool prop;
       (** enable_code_hook_invocation *)
-  invocation_label : string option; [@option]
+  invocation_label : string prop option; [@option]
       (** invocation_label *)
   post_code_hook_specification :
     aws_lexv2models_intent__initial_response_setting__code_hook__post_code_hook_specification
@@ -8020,30 +8104,31 @@ type aws_lexv2models_intent__initial_response_setting__code_hook = {
 (** aws_lexv2models_intent__initial_response_setting__code_hook *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__condition = {
-  expression_string : string;  (** expression_string *)
+  expression_string : string prop;  (** expression_string *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__condition *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value
     list;
@@ -8052,7 +8137,7 @@ type aws_lexv2models_intent__initial_response_setting__conditional__conditional_
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent__slot
     list;
@@ -8061,7 +8146,7 @@ type aws_lexv2models_intent__initial_response_setting__conditional__conditional_
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step__dialog_action
@@ -8074,22 +8159,22 @@ type aws_lexv2models_intent__initial_response_setting__conditional__conditional_
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
@@ -8098,13 +8183,13 @@ type aws_lexv2models_intent__initial_response_setting__conditional__conditional_
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message__ssml_message *)
@@ -8127,22 +8212,22 @@ type aws_lexv2models_intent__initial_response_setting__conditional__conditional_
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
@@ -8151,13 +8236,13 @@ type aws_lexv2models_intent__initial_response_setting__conditional__conditional_
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group__variation__ssml_message *)
@@ -8191,7 +8276,8 @@ type aws_lexv2models_intent__initial_response_setting__conditional__conditional_
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response__message_group
     list;
@@ -8200,7 +8286,7 @@ type aws_lexv2models_intent__initial_response_setting__conditional__conditional_
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__response *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   condition :
     aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch__condition
     list;
@@ -8215,24 +8301,25 @@ type aws_lexv2models_intent__initial_response_setting__conditional__conditional_
 (** aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent__slot__value
     list;
@@ -8241,7 +8328,7 @@ type aws_lexv2models_intent__initial_response_setting__conditional__default_bran
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent__slot
     list;
@@ -8250,7 +8337,7 @@ type aws_lexv2models_intent__initial_response_setting__conditional__default_bran
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step__dialog_action
@@ -8263,22 +8350,22 @@ type aws_lexv2models_intent__initial_response_setting__conditional__default_bran
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__next_step *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button
     list;
@@ -8287,13 +8374,13 @@ type aws_lexv2models_intent__initial_response_setting__conditional__default_bran
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message__ssml_message *)
@@ -8316,22 +8403,22 @@ type aws_lexv2models_intent__initial_response_setting__conditional__default_bran
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
@@ -8340,13 +8427,13 @@ type aws_lexv2models_intent__initial_response_setting__conditional__default_bran
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group__variation__ssml_message *)
@@ -8380,7 +8467,8 @@ type aws_lexv2models_intent__initial_response_setting__conditional__default_bran
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__conditional__default_branch__response__message_group
     list;
@@ -8400,7 +8488,7 @@ type aws_lexv2models_intent__initial_response_setting__conditional__default_bran
 (** aws_lexv2models_intent__initial_response_setting__conditional__default_branch *)
 
 type aws_lexv2models_intent__initial_response_setting__conditional = {
-  active : bool;  (** active *)
+  active : bool prop;  (** active *)
   conditional_branch :
     aws_lexv2models_intent__initial_response_setting__conditional__conditional_branch
     list;
@@ -8412,22 +8500,22 @@ type aws_lexv2models_intent__initial_response_setting__conditional = {
 (** aws_lexv2models_intent__initial_response_setting__conditional *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__image_response_card__button
     list;
@@ -8436,13 +8524,13 @@ type aws_lexv2models_intent__initial_response_setting__initial_response__message
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message__ssml_message *)
@@ -8465,22 +8553,22 @@ type aws_lexv2models_intent__initial_response_setting__initial_response__message
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__message *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__custom_payload = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__custom_payload *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__image_response_card__button = {
-  text : string;  (** text *)
-  value : string;  (** value *)
+  text : string prop;  (** text *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__image_response_card__button *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__image_response_card = {
-  image_url : string option; [@option]  (** image_url *)
-  subtitle : string option; [@option]  (** subtitle *)
-  title : string;  (** title *)
+  image_url : string prop option; [@option]  (** image_url *)
+  subtitle : string prop option; [@option]  (** subtitle *)
+  title : string prop;  (** title *)
   button :
     aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__image_response_card__button
     list;
@@ -8489,13 +8577,13 @@ type aws_lexv2models_intent__initial_response_setting__initial_response__message
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__image_response_card *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__plain_text_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__plain_text_message *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__ssml_message = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group__variation__ssml_message *)
@@ -8529,7 +8617,8 @@ type aws_lexv2models_intent__initial_response_setting__initial_response__message
 (** aws_lexv2models_intent__initial_response_setting__initial_response__message_group *)
 
 type aws_lexv2models_intent__initial_response_setting__initial_response = {
-  allow_interrupt : bool option; [@option]  (** allow_interrupt *)
+  allow_interrupt : bool prop option; [@option]
+      (** allow_interrupt *)
   message_group :
     aws_lexv2models_intent__initial_response_setting__initial_response__message_group
     list;
@@ -8538,24 +8627,25 @@ type aws_lexv2models_intent__initial_response_setting__initial_response = {
 (** aws_lexv2models_intent__initial_response_setting__initial_response *)
 
 type aws_lexv2models_intent__initial_response_setting__next_step__dialog_action = {
-  slot_to_elicit : string option; [@option]  (** slot_to_elicit *)
-  suppress_next_message : bool option; [@option]
+  slot_to_elicit : string prop option; [@option]
+      (** slot_to_elicit *)
+  suppress_next_message : bool prop option; [@option]
       (** suppress_next_message *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__next_step__dialog_action *)
 
 type aws_lexv2models_intent__initial_response_setting__next_step__intent__slot__value = {
-  interpreted_value : string option; [@option]
+  interpreted_value : string prop option; [@option]
       (** interpreted_value *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__initial_response_setting__next_step__intent__slot__value *)
 
 type aws_lexv2models_intent__initial_response_setting__next_step__intent__slot = {
-  map_block_key : string;  (** map_block_key *)
-  shape : string option; [@option]  (** shape *)
+  map_block_key : string prop;  (** map_block_key *)
+  shape : string prop option; [@option]  (** shape *)
   value :
     aws_lexv2models_intent__initial_response_setting__next_step__intent__slot__value
     list;
@@ -8564,7 +8654,7 @@ type aws_lexv2models_intent__initial_response_setting__next_step__intent__slot =
 (** aws_lexv2models_intent__initial_response_setting__next_step__intent__slot *)
 
 type aws_lexv2models_intent__initial_response_setting__next_step__intent = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   slot :
     aws_lexv2models_intent__initial_response_setting__next_step__intent__slot
     list;
@@ -8573,7 +8663,7 @@ type aws_lexv2models_intent__initial_response_setting__next_step__intent = {
 (** aws_lexv2models_intent__initial_response_setting__next_step__intent *)
 
 type aws_lexv2models_intent__initial_response_setting__next_step = {
-  session_attributes : (string * string) list option; [@option]
+  session_attributes : (string * string prop) list option; [@option]
       (** session_attributes *)
   dialog_action :
     aws_lexv2models_intent__initial_response_setting__next_step__dialog_action
@@ -8601,60 +8691,61 @@ type aws_lexv2models_intent__initial_response_setting = {
 (** aws_lexv2models_intent__initial_response_setting *)
 
 type aws_lexv2models_intent__input_context = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__input_context *)
 
 type aws_lexv2models_intent__kendra_configuration = {
-  kendra_index : string;  (** kendra_index *)
-  query_filter_string : string option; [@option]
+  kendra_index : string prop;  (** kendra_index *)
+  query_filter_string : string prop option; [@option]
       (** query_filter_string *)
-  query_filter_string_enabled : bool option; [@option]
+  query_filter_string_enabled : bool prop option; [@option]
       (** query_filter_string_enabled *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__kendra_configuration *)
 
 type aws_lexv2models_intent__output_context = {
-  name : string;  (** name *)
-  time_to_live_in_seconds : float;  (** time_to_live_in_seconds *)
-  turns_to_live : float;  (** turns_to_live *)
+  name : string prop;  (** name *)
+  time_to_live_in_seconds : float prop;
+      (** time_to_live_in_seconds *)
+  turns_to_live : float prop;  (** turns_to_live *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__output_context *)
 
 type aws_lexv2models_intent__sample_utterance = {
-  utterance : string;  (** utterance *)
+  utterance : string prop;  (** utterance *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__sample_utterance *)
 
 type aws_lexv2models_intent__slot_priority = {
-  priority : float;  (** priority *)
-  slot_id : string;  (** slot_id *)
+  priority : float prop;  (** priority *)
+  slot_id : string prop;  (** slot_id *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__slot_priority *)
 
 type aws_lexv2models_intent__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-  delete : string option; [@option]
+  delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
-  update : string option; [@option]
+  update : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
 (** aws_lexv2models_intent__timeouts *)
 
 type aws_lexv2models_intent = {
-  bot_id : string;  (** bot_id *)
-  bot_version : string;  (** bot_version *)
-  description : string option; [@option]  (** description *)
-  locale_id : string;  (** locale_id *)
-  name : string;  (** name *)
-  parent_intent_signature : string option; [@option]
+  bot_id : string prop;  (** bot_id *)
+  bot_version : string prop;  (** bot_version *)
+  description : string prop option; [@option]  (** description *)
+  locale_id : string prop;  (** locale_id *)
+  name : string prop;  (** name *)
+  parent_intent_signature : string prop option; [@option]
       (** parent_intent_signature *)
   closing_setting : aws_lexv2models_intent__closing_setting list;
   confirmation_setting :

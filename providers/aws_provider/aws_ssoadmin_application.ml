@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_application__portal_options__sign_in_options = {
-  application_url : string option; [@option]  (** application_url *)
-  origin : string;  (** origin *)
+  application_url : string prop option; [@option]
+      (** application_url *)
+  origin : string prop;  (** origin *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_application__portal_options__sign_in_options *)
 
 type aws_ssoadmin_application__portal_options = {
-  visibility : string option; [@option]  (** visibility *)
+  visibility : string prop option; [@option]  (** visibility *)
   sign_in_options :
     aws_ssoadmin_application__portal_options__sign_in_options list;
 }
@@ -20,13 +21,14 @@ type aws_ssoadmin_application__portal_options = {
 (** aws_ssoadmin_application__portal_options *)
 
 type aws_ssoadmin_application = {
-  application_provider_arn : string;  (** application_provider_arn *)
-  client_token : string option; [@option]  (** client_token *)
-  description : string option; [@option]  (** description *)
-  instance_arn : string;  (** instance_arn *)
-  name : string;  (** name *)
-  status : string option; [@option]  (** status *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  application_provider_arn : string prop;
+      (** application_provider_arn *)
+  client_token : string prop option; [@option]  (** client_token *)
+  description : string prop option; [@option]  (** description *)
+  instance_arn : string prop;  (** instance_arn *)
+  name : string prop;  (** name *)
+  status : string prop option; [@option]  (** status *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   portal_options : aws_ssoadmin_application__portal_options list;
 }
 [@@deriving yojson_of]

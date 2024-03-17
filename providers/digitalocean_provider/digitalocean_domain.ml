@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type digitalocean_domain = {
-  id : string option; [@option]  (** id *)
-  ip_address : string option; [@option]  (** ip_address *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop option; [@option]  (** ip_address *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** digitalocean_domain *)

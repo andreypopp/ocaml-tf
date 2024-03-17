@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_app_service_hybrid_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_hybrid_connection__timeouts *)
 
 type azurerm_app_service_hybrid_connection = {
-  app_service_name : string;  (** app_service_name *)
-  hostname : string;  (** hostname *)
-  id : string option; [@option]  (** id *)
-  port : float;  (** port *)
-  relay_id : string;  (** relay_id *)
-  resource_group_name : string;  (** resource_group_name *)
-  send_key_name : string option; [@option]  (** send_key_name *)
+  app_service_name : string prop;  (** app_service_name *)
+  hostname : string prop;  (** hostname *)
+  id : string prop option; [@option]  (** id *)
+  port : float prop;  (** port *)
+  relay_id : string prop;  (** relay_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  send_key_name : string prop option; [@option]  (** send_key_name *)
   timeouts : azurerm_app_service_hybrid_connection__timeouts option;
 }
 [@@deriving yojson_of]

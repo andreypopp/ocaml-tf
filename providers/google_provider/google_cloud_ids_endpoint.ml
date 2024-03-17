@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type google_cloud_ids_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_cloud_ids_endpoint__timeouts *)
 
 type google_cloud_ids_endpoint = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of the endpoint. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location for the endpoint. *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location for the endpoint. *)
+  name : string prop;
       (** Name of the endpoint in the format projects/{project_id}/locations/{locationId}/endpoints/{endpointId}. *)
-  network : string;
+  network : string prop;
       (** Name of the VPC network that is connected to the IDS endpoint. This can either contain the VPC network name itself (like src-net) or the full URL to the network (like projects/{project_id}/global/networks/src-net). *)
-  project : string option; [@option]  (** project *)
-  severity : string;
+  project : string prop option; [@option]  (** project *)
+  severity : string prop;
       (** The minimum alert severity level that is reported by the endpoint. Possible values: [INFORMATIONAL, LOW, MEDIUM, HIGH, CRITICAL] *)
-  threat_exceptions : string list option; [@option]
+  threat_exceptions : string prop list option; [@option]
       (** Configuration for threat IDs excluded from generating alerts. Limit: 99 IDs. *)
   timeouts : google_cloud_ids_endpoint__timeouts option;
 }

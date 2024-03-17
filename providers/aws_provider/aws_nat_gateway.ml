@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type aws_nat_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_nat_gateway__timeouts *)
 
 type aws_nat_gateway = {
-  allocation_id : string option; [@option]  (** allocation_id *)
-  connectivity_type : string option; [@option]
+  allocation_id : string prop option; [@option]  (** allocation_id *)
+  connectivity_type : string prop option; [@option]
       (** connectivity_type *)
-  id : string option; [@option]  (** id *)
-  private_ip : string option; [@option]  (** private_ip *)
-  secondary_allocation_ids : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  private_ip : string prop option; [@option]  (** private_ip *)
+  secondary_allocation_ids : string prop list option; [@option]
       (** secondary_allocation_ids *)
-  secondary_private_ip_address_count : float option; [@option]
+  secondary_private_ip_address_count : float prop option; [@option]
       (** secondary_private_ip_address_count *)
-  secondary_private_ip_addresses : string list option; [@option]
+  secondary_private_ip_addresses : string prop list option; [@option]
       (** secondary_private_ip_addresses *)
-  subnet_id : string;  (** subnet_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  subnet_id : string prop;  (** subnet_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_nat_gateway__timeouts option;
 }

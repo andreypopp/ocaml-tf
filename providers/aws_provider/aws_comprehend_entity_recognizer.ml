@@ -5,47 +5,47 @@
 open! Tf.Prelude
 
 type aws_comprehend_entity_recognizer__input_data_config__annotations = {
-  s3_uri : string;  (** s3_uri *)
-  test_s3_uri : string option; [@option]  (** test_s3_uri *)
+  s3_uri : string prop;  (** s3_uri *)
+  test_s3_uri : string prop option; [@option]  (** test_s3_uri *)
 }
 [@@deriving yojson_of]
 (** aws_comprehend_entity_recognizer__input_data_config__annotations *)
 
 type aws_comprehend_entity_recognizer__input_data_config__augmented_manifests = {
-  annotation_data_s3_uri : string option; [@option]
+  annotation_data_s3_uri : string prop option; [@option]
       (** annotation_data_s3_uri *)
-  attribute_names : string list;  (** attribute_names *)
-  document_type : string option; [@option]  (** document_type *)
-  s3_uri : string;  (** s3_uri *)
-  source_documents_s3_uri : string option; [@option]
+  attribute_names : string prop list;  (** attribute_names *)
+  document_type : string prop option; [@option]  (** document_type *)
+  s3_uri : string prop;  (** s3_uri *)
+  source_documents_s3_uri : string prop option; [@option]
       (** source_documents_s3_uri *)
-  split : string option; [@option]  (** split *)
+  split : string prop option; [@option]  (** split *)
 }
 [@@deriving yojson_of]
 (** aws_comprehend_entity_recognizer__input_data_config__augmented_manifests *)
 
 type aws_comprehend_entity_recognizer__input_data_config__documents = {
-  input_format : string option; [@option]  (** input_format *)
-  s3_uri : string;  (** s3_uri *)
-  test_s3_uri : string option; [@option]  (** test_s3_uri *)
+  input_format : string prop option; [@option]  (** input_format *)
+  s3_uri : string prop;  (** s3_uri *)
+  test_s3_uri : string prop option; [@option]  (** test_s3_uri *)
 }
 [@@deriving yojson_of]
 (** aws_comprehend_entity_recognizer__input_data_config__documents *)
 
 type aws_comprehend_entity_recognizer__input_data_config__entity_list = {
-  s3_uri : string;  (** s3_uri *)
+  s3_uri : string prop;  (** s3_uri *)
 }
 [@@deriving yojson_of]
 (** aws_comprehend_entity_recognizer__input_data_config__entity_list *)
 
 type aws_comprehend_entity_recognizer__input_data_config__entity_types = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_comprehend_entity_recognizer__input_data_config__entity_types *)
 
 type aws_comprehend_entity_recognizer__input_data_config = {
-  data_format : string option; [@option]  (** data_format *)
+  data_format : string prop option; [@option]  (** data_format *)
   annotations :
     aws_comprehend_entity_recognizer__input_data_config__annotations
     list;
@@ -66,34 +66,34 @@ type aws_comprehend_entity_recognizer__input_data_config = {
 (** aws_comprehend_entity_recognizer__input_data_config *)
 
 type aws_comprehend_entity_recognizer__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_comprehend_entity_recognizer__timeouts *)
 
 type aws_comprehend_entity_recognizer__vpc_config = {
-  security_group_ids : string list;  (** security_group_ids *)
-  subnets : string list;  (** subnets *)
+  security_group_ids : string prop list;  (** security_group_ids *)
+  subnets : string prop list;  (** subnets *)
 }
 [@@deriving yojson_of]
 (** aws_comprehend_entity_recognizer__vpc_config *)
 
 type aws_comprehend_entity_recognizer = {
-  data_access_role_arn : string;  (** data_access_role_arn *)
-  id : string option; [@option]  (** id *)
-  language_code : string;  (** language_code *)
-  model_kms_key_id : string option; [@option]
+  data_access_role_arn : string prop;  (** data_access_role_arn *)
+  id : string prop option; [@option]  (** id *)
+  language_code : string prop;  (** language_code *)
+  model_kms_key_id : string prop option; [@option]
       (** model_kms_key_id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  version_name : string option; [@option]  (** version_name *)
-  version_name_prefix : string option; [@option]
+  version_name : string prop option; [@option]  (** version_name *)
+  version_name_prefix : string prop option; [@option]
       (** version_name_prefix *)
-  volume_kms_key_id : string option; [@option]
+  volume_kms_key_id : string prop option; [@option]
       (** volume_kms_key_id *)
   input_data_config :
     aws_comprehend_entity_recognizer__input_data_config list;

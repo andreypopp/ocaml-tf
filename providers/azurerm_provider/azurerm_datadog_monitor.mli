@@ -9,14 +9,14 @@ type azurerm_datadog_monitor__user
 type azurerm_datadog_monitor
 
 val azurerm_datadog_monitor :
-  ?id:string ->
-  ?monitoring_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?monitoring_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_datadog_monitor__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
   datadog_organization:
     azurerm_datadog_monitor__datadog_organization list ->
   identity:azurerm_datadog_monitor__identity list ->

@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_ebs_encryption_by_default
 
 val aws_ebs_encryption_by_default :
-  ?enabled:bool -> ?id:string -> string -> unit
+  ?enabled:bool prop -> ?id:string prop -> string -> unit

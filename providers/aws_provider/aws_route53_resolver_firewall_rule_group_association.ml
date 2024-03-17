@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type aws_route53_resolver_firewall_rule_group_association = {
-  firewall_rule_group_id : string;  (** firewall_rule_group_id *)
-  id : string option; [@option]  (** id *)
-  mutation_protection : string option; [@option]
+  firewall_rule_group_id : string prop;
+      (** firewall_rule_group_id *)
+  id : string prop option; [@option]  (** id *)
+  mutation_protection : string prop option; [@option]
       (** mutation_protection *)
-  name : string;  (** name *)
-  priority : float;  (** priority *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_id : string;  (** vpc_id *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_route53_resolver_firewall_rule_group_association *)

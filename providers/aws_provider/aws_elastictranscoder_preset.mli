@@ -10,12 +10,12 @@ type aws_elastictranscoder_preset__video_watermarks
 type aws_elastictranscoder_preset
 
 val aws_elastictranscoder_preset :
-  ?description:string ->
-  ?id:string ->
-  ?name:string ->
-  ?type_:string ->
-  ?video_codec_options:(string * string) list ->
-  container:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?type_:string prop ->
+  ?video_codec_options:(string * string prop) list ->
+  container:string prop ->
   audio:aws_elastictranscoder_preset__audio list ->
   audio_codec_options:
     aws_elastictranscoder_preset__audio_codec_options list ->

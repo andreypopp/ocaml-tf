@@ -5,11 +5,11 @@ open! Tf.Prelude
 type hcloud_network_subnet
 
 val hcloud_network_subnet :
-  ?id:string ->
-  ?vswitch_id:float ->
-  ip_range:string ->
-  network_id:float ->
-  network_zone:string ->
-  type_:string ->
+  ?id:string prop ->
+  ?vswitch_id:float prop ->
+  ip_range:string prop ->
+  network_id:float prop ->
+  network_zone:string prop ->
+  type_:string prop ->
   string ->
   unit

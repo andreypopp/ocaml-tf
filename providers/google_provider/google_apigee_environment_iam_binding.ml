@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type google_apigee_environment_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_apigee_environment_iam_binding__condition *)
 
 type google_apigee_environment_iam_binding = {
-  env_id : string;  (** env_id *)
-  id : string option; [@option]  (** id *)
-  members : string list;  (** members *)
-  org_id : string;  (** org_id *)
-  role : string;  (** role *)
+  env_id : string prop;  (** env_id *)
+  id : string prop option; [@option]  (** id *)
+  members : string prop list;  (** members *)
+  org_id : string prop;  (** org_id *)
+  role : string prop;  (** role *)
   condition : google_apigee_environment_iam_binding__condition list;
 }
 [@@deriving yojson_of]

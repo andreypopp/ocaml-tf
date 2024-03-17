@@ -17,19 +17,19 @@ type azurerm_logic_app_workflow__timeouts
 type azurerm_logic_app_workflow
 
 val azurerm_logic_app_workflow :
-  ?enabled:bool ->
-  ?id:string ->
-  ?integration_service_environment_id:string ->
-  ?logic_app_integration_account_id:string ->
-  ?parameters:(string * string) list ->
-  ?tags:(string * string) list ->
-  ?workflow_parameters:(string * string) list ->
-  ?workflow_schema:string ->
-  ?workflow_version:string ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?integration_service_environment_id:string prop ->
+  ?logic_app_integration_account_id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?workflow_parameters:(string * string prop) list ->
+  ?workflow_schema:string prop ->
+  ?workflow_version:string prop ->
   ?timeouts:azurerm_logic_app_workflow__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   access_control:azurerm_logic_app_workflow__access_control list ->
   identity:azurerm_logic_app_workflow__identity list ->
   string ->

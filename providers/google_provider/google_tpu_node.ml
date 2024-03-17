@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type google_tpu_node__scheduling_config = {
-  preemptible : bool;
+  preemptible : bool prop;
       (** Defines whether the TPU instance is preemptible. *)
 }
 [@@deriving yojson_of]
 (** Sets the scheduling options for this TPU instance. *)
 
 type google_tpu_node__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_tpu_node__timeouts *)
 
 type google_tpu_node__network_endpoints = {
-  ip_address : string;  (** ip_address *)
-  port : float;  (** port *)
+  ip_address : string prop;  (** ip_address *)
+  port : float prop;  (** port *)
 }
 [@@deriving yojson_of]
 
 type google_tpu_node = {
-  accelerator_type : string;
+  accelerator_type : string prop;
       (** The type of hardware accelerators associated with this node. *)
-  cidr_block : string option; [@option]
+  cidr_block : string prop option; [@option]
       (** The CIDR block that the TPU node will use when selecting an IP
 address. This CIDR block must be a /29 block; the Compute Engine
 networks API forbids a smaller block, and using a larger block would
@@ -38,29 +38,29 @@ Errors will occur if the CIDR block has already been used for a
 currently existing TPU node, the CIDR block conflicts with any
 subnetworks in the user's provided network, or the provided network
 is peered with another network that is using that CIDR block. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The user-supplied description of the TPU. Maximum of 512 characters. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Resource labels to represent user provided metadata.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string;  (** The immutable name of the TPU. *)
-  network : string option; [@option]
+  name : string prop;  (** The immutable name of the TPU. *)
+  network : string prop option; [@option]
       (** The name of a network to peer the TPU node to. It must be a
 preexisting Compute Engine network inside of the project on which
 this API has been activated. If none is provided, default will be
 used. *)
-  project : string option; [@option]  (** project *)
-  tensorflow_version : string;
+  project : string prop option; [@option]  (** project *)
+  tensorflow_version : string prop;
       (** The version of Tensorflow running in the Node. *)
-  use_service_networking : bool option; [@option]
+  use_service_networking : bool prop option; [@option]
       (** Whether the VPC peering for the node is set up through Service Networking API.
 The VPC Peering should be set up before provisioning the node. If this field is set,
 cidr_block field should not be specified. If the network that you want to peer the
 TPU Node to is a Shared VPC network, the node must be created with this this field enabled. *)
-  zone : string option; [@option]
+  zone : string prop option; [@option]
       (** The GCP location for the TPU. If it is not provided, the provider zone is used. *)
   scheduling_config : google_tpu_node__scheduling_config list;
   timeouts : google_tpu_node__timeouts option;

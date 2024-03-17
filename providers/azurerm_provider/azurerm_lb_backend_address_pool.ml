@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_lb_backend_address_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_lb_backend_address_pool__timeouts *)
 
 type azurerm_lb_backend_address_pool__tunnel_interface = {
-  identifier : float;  (** identifier *)
-  port : float;  (** port *)
-  protocol : string;  (** protocol *)
-  type_ : string; [@key "type"]  (** type *)
+  identifier : float prop;  (** identifier *)
+  port : float prop;  (** port *)
+  protocol : string prop;  (** protocol *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_lb_backend_address_pool__tunnel_interface *)
 
 type azurerm_lb_backend_address_pool = {
-  id : string option; [@option]  (** id *)
-  loadbalancer_id : string;  (** loadbalancer_id *)
-  name : string;  (** name *)
-  virtual_network_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  loadbalancer_id : string prop;  (** loadbalancer_id *)
+  name : string prop;  (** name *)
+  virtual_network_id : string prop option; [@option]
       (** virtual_network_id *)
   timeouts : azurerm_lb_backend_address_pool__timeouts option;
   tunnel_interface :

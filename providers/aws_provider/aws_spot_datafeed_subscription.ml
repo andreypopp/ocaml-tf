@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_spot_datafeed_subscription = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  prefix : string option; [@option]  (** prefix *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
 (** aws_spot_datafeed_subscription *)

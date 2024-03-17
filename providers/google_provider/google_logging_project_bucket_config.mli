@@ -7,14 +7,14 @@ type google_logging_project_bucket_config__index_configs
 type google_logging_project_bucket_config
 
 val google_logging_project_bucket_config :
-  ?description:string ->
-  ?enable_analytics:bool ->
-  ?id:string ->
-  ?locked:bool ->
-  ?retention_days:float ->
-  bucket_id:string ->
-  location:string ->
-  project:string ->
+  ?description:string prop ->
+  ?enable_analytics:bool prop ->
+  ?id:string prop ->
+  ?locked:bool prop ->
+  ?retention_days:float prop ->
+  bucket_id:string prop ->
+  location:string prop ->
+  project:string prop ->
   cmek_settings:
     google_logging_project_bucket_config__cmek_settings list ->
   index_configs:

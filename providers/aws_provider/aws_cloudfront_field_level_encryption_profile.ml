@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_cloudfront_field_level_encryption_profile__encryption_entities__items__field_patterns = {
-  items : string list option; [@option]  (** items *)
+  items : string prop list option; [@option]  (** items *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_field_level_encryption_profile__encryption_entities__items__field_patterns *)
 
 type aws_cloudfront_field_level_encryption_profile__encryption_entities__items = {
-  provider_id : string;  (** provider_id *)
-  public_key_id : string;  (** public_key_id *)
+  provider_id : string prop;  (** provider_id *)
+  public_key_id : string prop;  (** public_key_id *)
   field_patterns :
     aws_cloudfront_field_level_encryption_profile__encryption_entities__items__field_patterns
     list;
@@ -29,9 +29,9 @@ type aws_cloudfront_field_level_encryption_profile__encryption_entities = {
 (** aws_cloudfront_field_level_encryption_profile__encryption_entities *)
 
 type aws_cloudfront_field_level_encryption_profile = {
-  comment : string option; [@option]  (** comment *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  comment : string prop option; [@option]  (** comment *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   encryption_entities :
     aws_cloudfront_field_level_encryption_profile__encryption_entities
     list;

@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_relay_hybrid_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_relay_hybrid_connection__timeouts *)
 
 type azurerm_relay_hybrid_connection = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  relay_namespace_name : string;  (** relay_namespace_name *)
-  requires_client_authorization : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  relay_namespace_name : string prop;  (** relay_namespace_name *)
+  requires_client_authorization : bool prop option; [@option]
       (** requires_client_authorization *)
-  resource_group_name : string;  (** resource_group_name *)
-  user_metadata : string option; [@option]  (** user_metadata *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  user_metadata : string prop option; [@option]  (** user_metadata *)
   timeouts : azurerm_relay_hybrid_connection__timeouts option;
 }
 [@@deriving yojson_of]

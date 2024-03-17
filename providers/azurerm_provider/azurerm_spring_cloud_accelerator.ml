@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_accelerator__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_accelerator__timeouts *)
 
 type azurerm_spring_cloud_accelerator = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
   timeouts : azurerm_spring_cloud_accelerator__timeouts option;
 }
 [@@deriving yojson_of]

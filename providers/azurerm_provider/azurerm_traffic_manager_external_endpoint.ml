@@ -5,42 +5,43 @@
 open! Tf.Prelude
 
 type azurerm_traffic_manager_external_endpoint__custom_header = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_traffic_manager_external_endpoint__custom_header *)
 
 type azurerm_traffic_manager_external_endpoint__subnet = {
-  first : string;  (** first *)
-  last : string option; [@option]  (** last *)
-  scope : float option; [@option]  (** scope *)
+  first : string prop;  (** first *)
+  last : string prop option; [@option]  (** last *)
+  scope : float prop option; [@option]  (** scope *)
 }
 [@@deriving yojson_of]
 (** azurerm_traffic_manager_external_endpoint__subnet *)
 
 type azurerm_traffic_manager_external_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_traffic_manager_external_endpoint__timeouts *)
 
 type azurerm_traffic_manager_external_endpoint = {
-  always_serve_enabled : bool option; [@option]
+  always_serve_enabled : bool prop option; [@option]
       (** always_serve_enabled *)
-  enabled : bool option; [@option]  (** enabled *)
-  endpoint_location : string option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  endpoint_location : string prop option; [@option]
       (** endpoint_location *)
-  geo_mappings : string list option; [@option]  (** geo_mappings *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  priority : float option; [@option]  (** priority *)
-  profile_id : string;  (** profile_id *)
-  target : string;  (** target *)
-  weight : float option; [@option]  (** weight *)
+  geo_mappings : string prop list option; [@option]
+      (** geo_mappings *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  priority : float prop option; [@option]  (** priority *)
+  profile_id : string prop;  (** profile_id *)
+  target : string prop;  (** target *)
+  weight : float prop option; [@option]  (** weight *)
   custom_header :
     azurerm_traffic_manager_external_endpoint__custom_header list;
   subnet : azurerm_traffic_manager_external_endpoint__subnet list;

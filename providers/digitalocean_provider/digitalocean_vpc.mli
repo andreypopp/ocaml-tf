@@ -6,11 +6,11 @@ type digitalocean_vpc__timeouts
 type digitalocean_vpc
 
 val digitalocean_vpc :
-  ?description:string ->
-  ?id:string ->
-  ?ip_range:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ip_range:string prop ->
   ?timeouts:digitalocean_vpc__timeouts ->
-  name:string ->
-  region:string ->
+  name:string prop ->
+  region:string prop ->
   string ->
   unit

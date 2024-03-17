@@ -5,42 +5,42 @@
 open! Tf.Prelude
 
 type aws_network_acl__egress = {
-  action : string;  (** action *)
-  cidr_block : string;  (** cidr_block *)
-  from_port : float;  (** from_port *)
-  icmp_code : float;  (** icmp_code *)
-  icmp_type : float;  (** icmp_type *)
-  ipv6_cidr_block : string;  (** ipv6_cidr_block *)
-  protocol : string;  (** protocol *)
-  rule_no : float;  (** rule_no *)
-  to_port : float;  (** to_port *)
+  action : string prop;  (** action *)
+  cidr_block : string prop;  (** cidr_block *)
+  from_port : float prop;  (** from_port *)
+  icmp_code : float prop;  (** icmp_code *)
+  icmp_type : float prop;  (** icmp_type *)
+  ipv6_cidr_block : string prop;  (** ipv6_cidr_block *)
+  protocol : string prop;  (** protocol *)
+  rule_no : float prop;  (** rule_no *)
+  to_port : float prop;  (** to_port *)
 }
 [@@deriving yojson_of]
 
 type aws_network_acl__ingress = {
-  action : string;  (** action *)
-  cidr_block : string;  (** cidr_block *)
-  from_port : float;  (** from_port *)
-  icmp_code : float;  (** icmp_code *)
-  icmp_type : float;  (** icmp_type *)
-  ipv6_cidr_block : string;  (** ipv6_cidr_block *)
-  protocol : string;  (** protocol *)
-  rule_no : float;  (** rule_no *)
-  to_port : float;  (** to_port *)
+  action : string prop;  (** action *)
+  cidr_block : string prop;  (** cidr_block *)
+  from_port : float prop;  (** from_port *)
+  icmp_code : float prop;  (** icmp_code *)
+  icmp_type : float prop;  (** icmp_type *)
+  ipv6_cidr_block : string prop;  (** ipv6_cidr_block *)
+  protocol : string prop;  (** protocol *)
+  rule_no : float prop;  (** rule_no *)
+  to_port : float prop;  (** to_port *)
 }
 [@@deriving yojson_of]
 
 type aws_network_acl = {
   egress : aws_network_acl__egress list option; [@option]
       (** egress *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   ingress : aws_network_acl__ingress list option; [@option]
       (** ingress *)
-  subnet_ids : string list option; [@option]  (** subnet_ids *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  subnet_ids : string prop list option; [@option]  (** subnet_ids *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_id : string;  (** vpc_id *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_network_acl *)

@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_api_management_tag__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_tag__timeouts *)
 
 type azurerm_api_management_tag = {
-  api_management_id : string;  (** api_management_id *)
-  display_name : string option; [@option]  (** display_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  api_management_id : string prop;  (** api_management_id *)
+  display_name : string prop option; [@option]  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   timeouts : azurerm_api_management_tag__timeouts option;
 }
 [@@deriving yojson_of]

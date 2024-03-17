@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_event_permission__condition = {
-  key : string;  (** key *)
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_permission__condition *)
 
 type aws_cloudwatch_event_permission = {
-  action : string option; [@option]  (** action *)
-  event_bus_name : string option; [@option]  (** event_bus_name *)
-  id : string option; [@option]  (** id *)
-  principal : string;  (** principal *)
-  statement_id : string;  (** statement_id *)
+  action : string prop option; [@option]  (** action *)
+  event_bus_name : string prop option; [@option]
+      (** event_bus_name *)
+  id : string prop option; [@option]  (** id *)
+  principal : string prop;  (** principal *)
+  statement_id : string prop;  (** statement_id *)
   condition : aws_cloudwatch_event_permission__condition list;
 }
 [@@deriving yojson_of]

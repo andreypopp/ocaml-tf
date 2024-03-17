@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_iot_policy_attachment = {
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  target : string;  (** target *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  target : string prop;  (** target *)
 }
 [@@deriving yojson_of]
 (** aws_iot_policy_attachment *)

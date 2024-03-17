@@ -5,27 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_automation_webhook__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_webhook__timeouts *)
 
 type azurerm_automation_webhook = {
-  automation_account_name : string;  (** automation_account_name *)
-  enabled : bool option; [@option]  (** enabled *)
-  expiry_time : string;  (** expiry_time *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  automation_account_name : string prop;
+      (** automation_account_name *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  expiry_time : string prop;  (** expiry_time *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  resource_group_name : string;  (** resource_group_name *)
-  run_on_worker_group : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  run_on_worker_group : string prop option; [@option]
       (** run_on_worker_group *)
-  runbook_name : string;  (** runbook_name *)
-  uri : string option; [@option]  (** uri *)
+  runbook_name : string prop;  (** runbook_name *)
+  uri : string prop option; [@option]  (** uri *)
   timeouts : azurerm_automation_webhook__timeouts option;
 }
 [@@deriving yojson_of]

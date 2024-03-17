@@ -1,6 +1,15 @@
 type json = Yojson.Safe.t
 
-module Make_collection () = struct
+let yojson_of_json json = json
+
+module type COLLECTION = sig
+  type t
+
+  val add : type_:string -> id:string -> json -> unit
+  val yojson_of : unit -> json
+end
+
+module Make_collection () : COLLECTION = struct
   type t = (string * (string * json) list) list ref
 
   let t : t = ref []
@@ -11,9 +20,9 @@ module Make_collection () = struct
         | None -> Some [ id, resource ]
         | Some xs -> Some ((id, resource) :: xs))
 
-  let yojson_of_t t : json =
+  let yojson_of () : json =
     `Assoc
-      (List.map t ~f:(fun (resource_type, resources) ->
+      (List.map !t ~f:(fun (resource_type, resources) ->
            resource_type, `Assoc resources))
 end
 
@@ -25,6 +34,7 @@ module Prop = struct
     | S : string -> string t
     | I : int -> int t
     | B : bool -> bool t
+    | D : json -> json t
     | C : string -> _ t  (** computed *)
 
   let yojson_of_t (type a) _ (p : a t) : json =
@@ -32,12 +42,14 @@ module Prop = struct
     | S s -> `String s
     | I i -> `Int i
     | B b -> `Bool b
+    | D j -> j
     | C c -> `String c
 
   let resource_id t n = S (Printf.sprintf "%s.%s" t n)
   let string s = S s
   let number i = I i
   let bool b = B b
+  let dynamic j = D j
 
   let computed type_ id prop =
     C (Printf.sprintf "${%s.%s.%s}" type_ id prop)

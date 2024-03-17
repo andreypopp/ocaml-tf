@@ -6,13 +6,13 @@ type azurerm_palo_alto_local_rulestack_certificate__timeouts
 type azurerm_palo_alto_local_rulestack_certificate
 
 val azurerm_palo_alto_local_rulestack_certificate :
-  ?audit_comment:string ->
-  ?description:string ->
-  ?id:string ->
-  ?key_vault_certificate_id:string ->
-  ?self_signed:bool ->
+  ?audit_comment:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?key_vault_certificate_id:string prop ->
+  ?self_signed:bool prop ->
   ?timeouts:azurerm_palo_alto_local_rulestack_certificate__timeouts ->
-  name:string ->
-  rulestack_id:string ->
+  name:string prop ->
+  rulestack_id:string prop ->
   string ->
   unit

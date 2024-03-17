@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_iam_user_group_membership = {
-  groups : string list;  (** groups *)
-  id : string option; [@option]  (** id *)
-  user : string;  (** user *)
+  groups : string prop list;  (** groups *)
+  id : string prop option; [@option]  (** id *)
+  user : string prop;  (** user *)
 }
 [@@deriving yojson_of]
 (** aws_iam_user_group_membership *)

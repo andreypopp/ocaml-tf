@@ -5,37 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_cdn_endpoint_custom_domain__cdn_managed_https = {
-  certificate_type : string;  (** certificate_type *)
-  protocol_type : string;  (** protocol_type *)
-  tls_version : string option; [@option]  (** tls_version *)
+  certificate_type : string prop;  (** certificate_type *)
+  protocol_type : string prop;  (** protocol_type *)
+  tls_version : string prop option; [@option]  (** tls_version *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_endpoint_custom_domain__cdn_managed_https *)
 
 type azurerm_cdn_endpoint_custom_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_endpoint_custom_domain__timeouts *)
 
 type azurerm_cdn_endpoint_custom_domain__user_managed_https = {
-  key_vault_certificate_id : string option; [@option]
+  key_vault_certificate_id : string prop option; [@option]
       (** key_vault_certificate_id *)
-  key_vault_secret_id : string option; [@option]
+  key_vault_secret_id : string prop option; [@option]
       (** key_vault_secret_id *)
-  tls_version : string option; [@option]  (** tls_version *)
+  tls_version : string prop option; [@option]  (** tls_version *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_endpoint_custom_domain__user_managed_https *)
 
 type azurerm_cdn_endpoint_custom_domain = {
-  cdn_endpoint_id : string;  (** cdn_endpoint_id *)
-  host_name : string;  (** host_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  cdn_endpoint_id : string prop;  (** cdn_endpoint_id *)
+  host_name : string prop;  (** host_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   cdn_managed_https :
     azurerm_cdn_endpoint_custom_domain__cdn_managed_https list;
   timeouts : azurerm_cdn_endpoint_custom_domain__timeouts option;

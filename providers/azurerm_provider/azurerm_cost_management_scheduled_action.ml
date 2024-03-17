@@ -5,30 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_cost_management_scheduled_action__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cost_management_scheduled_action__timeouts *)
 
 type azurerm_cost_management_scheduled_action = {
-  day_of_month : float option; [@option]  (** day_of_month *)
-  days_of_week : string list option; [@option]  (** days_of_week *)
-  display_name : string;  (** display_name *)
-  email_address_sender : string;  (** email_address_sender *)
-  email_addresses : string list;  (** email_addresses *)
-  email_subject : string;  (** email_subject *)
-  end_date : string;  (** end_date *)
-  frequency : string;  (** frequency *)
-  hour_of_day : float option; [@option]  (** hour_of_day *)
-  id : string option; [@option]  (** id *)
-  message : string option; [@option]  (** message *)
-  name : string;  (** name *)
-  start_date : string;  (** start_date *)
-  view_id : string;  (** view_id *)
-  weeks_of_month : string list option; [@option]
+  day_of_month : float prop option; [@option]  (** day_of_month *)
+  days_of_week : string prop list option; [@option]
+      (** days_of_week *)
+  display_name : string prop;  (** display_name *)
+  email_address_sender : string prop;  (** email_address_sender *)
+  email_addresses : string prop list;  (** email_addresses *)
+  email_subject : string prop;  (** email_subject *)
+  end_date : string prop;  (** end_date *)
+  frequency : string prop;  (** frequency *)
+  hour_of_day : float prop option; [@option]  (** hour_of_day *)
+  id : string prop option; [@option]  (** id *)
+  message : string prop option; [@option]  (** message *)
+  name : string prop;  (** name *)
+  start_date : string prop;  (** start_date *)
+  view_id : string prop;  (** view_id *)
+  weeks_of_month : string prop list option; [@option]
       (** weeks_of_month *)
   timeouts :
     azurerm_cost_management_scheduled_action__timeouts option;

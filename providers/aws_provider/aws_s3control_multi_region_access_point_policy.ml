@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_s3control_multi_region_access_point_policy__details = {
-  name : string;  (** name *)
-  policy : string;  (** policy *)
+  name : string prop;  (** name *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_multi_region_access_point_policy__details *)
 
 type aws_s3control_multi_region_access_point_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_multi_region_access_point_policy__timeouts *)
 
 type aws_s3control_multi_region_access_point_policy = {
-  account_id : string option; [@option]  (** account_id *)
-  id : string option; [@option]  (** id *)
+  account_id : string prop option; [@option]  (** account_id *)
+  id : string prop option; [@option]  (** id *)
   details :
     aws_s3control_multi_region_access_point_policy__details list;
   timeouts :

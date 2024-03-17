@@ -12,15 +12,15 @@ type azurerm_subscription_cost_management_view__timeouts
 type azurerm_subscription_cost_management_view
 
 val azurerm_subscription_cost_management_view :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_subscription_cost_management_view__timeouts ->
-  accumulated:bool ->
-  chart_type:string ->
-  display_name:string ->
-  name:string ->
-  report_type:string ->
-  subscription_id:string ->
-  timeframe:string ->
+  accumulated:bool prop ->
+  chart_type:string prop ->
+  display_name:string prop ->
+  name:string prop ->
+  report_type:string prop ->
+  subscription_id:string prop ->
+  timeframe:string prop ->
   dataset:azurerm_subscription_cost_management_view__dataset list ->
   kpi:azurerm_subscription_cost_management_view__kpi list ->
   pivot:azurerm_subscription_cost_management_view__pivot list ->

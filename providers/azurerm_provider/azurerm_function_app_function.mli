@@ -7,14 +7,14 @@ type azurerm_function_app_function__timeouts
 type azurerm_function_app_function
 
 val azurerm_function_app_function :
-  ?enabled:bool ->
-  ?id:string ->
-  ?language:string ->
-  ?test_data:string ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?language:string prop ->
+  ?test_data:string prop ->
   ?timeouts:azurerm_function_app_function__timeouts ->
-  config_json:string ->
-  function_app_id:string ->
-  name:string ->
+  config_json:string prop ->
+  function_app_id:string prop ->
+  name:string prop ->
   file:azurerm_function_app_function__file list ->
   string ->
   unit

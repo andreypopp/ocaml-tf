@@ -7,14 +7,14 @@ type google_logging_organization_sink__exclusions
 type google_logging_organization_sink
 
 val google_logging_organization_sink :
-  ?description:string ->
-  ?disabled:bool ->
-  ?filter:string ->
-  ?id:string ->
-  ?include_children:bool ->
-  destination:string ->
-  name:string ->
-  org_id:string ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?filter:string prop ->
+  ?id:string prop ->
+  ?include_children:bool prop ->
+  destination:string prop ->
+  name:string prop ->
+  org_id:string prop ->
   bigquery_options:
     google_logging_organization_sink__bigquery_options list ->
   exclusions:google_logging_organization_sink__exclusions list ->

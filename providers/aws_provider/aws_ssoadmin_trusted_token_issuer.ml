@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_trusted_token_issuer__trusted_token_issuer_configuration__oidc_jwt_configuration = {
-  claim_attribute_path : string;  (** claim_attribute_path *)
-  identity_store_attribute_path : string;
+  claim_attribute_path : string prop;  (** claim_attribute_path *)
+  identity_store_attribute_path : string prop;
       (** identity_store_attribute_path *)
-  issuer_url : string;  (** issuer_url *)
-  jwks_retrieval_option : string;  (** jwks_retrieval_option *)
+  issuer_url : string prop;  (** issuer_url *)
+  jwks_retrieval_option : string prop;  (** jwks_retrieval_option *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_trusted_token_issuer__trusted_token_issuer_configuration__oidc_jwt_configuration *)
@@ -23,11 +23,11 @@ type aws_ssoadmin_trusted_token_issuer__trusted_token_issuer_configuration = {
 (** aws_ssoadmin_trusted_token_issuer__trusted_token_issuer_configuration *)
 
 type aws_ssoadmin_trusted_token_issuer = {
-  client_token : string option; [@option]  (** client_token *)
-  instance_arn : string;  (** instance_arn *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  trusted_token_issuer_type : string;
+  client_token : string prop option; [@option]  (** client_token *)
+  instance_arn : string prop;  (** instance_arn *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  trusted_token_issuer_type : string prop;
       (** trusted_token_issuer_type *)
   trusted_token_issuer_configuration :
     aws_ssoadmin_trusted_token_issuer__trusted_token_issuer_configuration

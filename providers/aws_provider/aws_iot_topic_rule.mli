@@ -54,14 +54,14 @@ type aws_iot_topic_rule__timestream
 type aws_iot_topic_rule
 
 val aws_iot_topic_rule :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  enabled:bool ->
-  name:string ->
-  sql:string ->
-  sql_version:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  enabled:bool prop ->
+  name:string prop ->
+  sql:string prop ->
+  sql_version:string prop ->
   cloudwatch_alarm:aws_iot_topic_rule__cloudwatch_alarm list ->
   cloudwatch_logs:aws_iot_topic_rule__cloudwatch_logs list ->
   cloudwatch_metric:aws_iot_topic_rule__cloudwatch_metric list ->

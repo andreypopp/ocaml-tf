@@ -28,9 +28,9 @@ type aws_securityhub_configuration_policy__configuration_policy
 type aws_securityhub_configuration_policy
 
 val aws_securityhub_configuration_policy :
-  ?description:string ->
-  ?id:string ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  name:string prop ->
   configuration_policy:
     aws_securityhub_configuration_policy__configuration_policy list ->
   string ->

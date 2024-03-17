@@ -10,11 +10,11 @@ type aws_msk_serverless_cluster__vpc_config
 type aws_msk_serverless_cluster
 
 val aws_msk_serverless_cluster :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_msk_serverless_cluster__timeouts ->
-  cluster_name:string ->
+  cluster_name:string prop ->
   client_authentication:
     aws_msk_serverless_cluster__client_authentication list ->
   vpc_config:aws_msk_serverless_cluster__vpc_config list ->

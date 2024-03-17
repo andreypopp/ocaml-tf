@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_glue_data_quality_ruleset__target_table = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  database_name : string;  (** database_name *)
-  table_name : string;  (** table_name *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  database_name : string prop;  (** database_name *)
+  table_name : string prop;  (** table_name *)
 }
 [@@deriving yojson_of]
 (** aws_glue_data_quality_ruleset__target_table *)
 
 type aws_glue_data_quality_ruleset = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  ruleset : string;  (** ruleset *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  ruleset : string prop;  (** ruleset *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   target_table : aws_glue_data_quality_ruleset__target_table list;
 }

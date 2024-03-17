@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type google_firestore_field__index_config__indexes = {
-  array_config : string option; [@option]
+  array_config : string prop option; [@option]
       (** Indicates that this field supports operations on arrayValues. Only one of 'order' and 'arrayConfig' can
 be specified. Possible values: [CONTAINS] *)
-  order : string option; [@option]
+  order : string prop option; [@option]
       (** Indicates that this field supports ordering by the specified order or comparing using =, <, <=, >, >=, !=.
 Only one of 'order' and 'arrayConfig' can be specified. Possible values: [ASCENDING, DESCENDING] *)
-  query_scope : string option; [@option]
+  query_scope : string prop option; [@option]
       (** The scope at which a query is run. Collection scoped queries require you specify
 the collection at query time. Collection group scope allows queries across all
 collections with the same id. Default value: COLLECTION Possible values: [COLLECTION, COLLECTION_GROUP] *)
@@ -29,28 +29,28 @@ indexes specified. Configuring the index configuration with an empty block disab
 the field. *)
 
 type google_firestore_field__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_firestore_field__timeouts *)
 
 type google_firestore_field__ttl_config = {
-  state : string;
+  state : string prop;
       (** The state of TTL (time-to-live) configuration for documents that have this Field set. *)
 }
 [@@deriving yojson_of]
 (** The TTL configuration for this Field. If set to an empty block (i.e. 'ttl_config {}'), a TTL policy is configured based on the field. If unset, a TTL policy is not configured (or will be disabled upon updating the resource). *)
 
 type google_firestore_field = {
-  collection : string;
+  collection : string prop;
       (** The id of the collection group to configure. *)
-  database : string option; [@option]
+  database : string prop option; [@option]
       (** The Firestore database id. Defaults to '(default)'. *)
-  field : string;  (** The id of the field to configure. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
+  field : string prop;  (** The id of the field to configure. *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
   index_config : google_firestore_field__index_config list;
   timeouts : google_firestore_field__timeouts option;
   ttl_config : google_firestore_field__ttl_config list;

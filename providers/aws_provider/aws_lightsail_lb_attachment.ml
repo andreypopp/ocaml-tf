@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_lightsail_lb_attachment = {
-  id : string option; [@option]  (** id *)
-  instance_name : string;  (** instance_name *)
-  lb_name : string;  (** lb_name *)
+  id : string prop option; [@option]  (** id *)
+  instance_name : string prop;  (** instance_name *)
+  lb_name : string prop;  (** lb_name *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_lb_attachment *)

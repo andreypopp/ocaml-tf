@@ -6,11 +6,11 @@ type azurerm_eventhub_namespace_customer_managed_key__timeouts
 type azurerm_eventhub_namespace_customer_managed_key
 
 val azurerm_eventhub_namespace_customer_managed_key :
-  ?id:string ->
-  ?infrastructure_encryption_enabled:bool ->
-  ?user_assigned_identity_id:string ->
+  ?id:string prop ->
+  ?infrastructure_encryption_enabled:bool prop ->
+  ?user_assigned_identity_id:string prop ->
   ?timeouts:azurerm_eventhub_namespace_customer_managed_key__timeouts ->
-  eventhub_namespace_id:string ->
-  key_vault_key_ids:string list ->
+  eventhub_namespace_id:string prop ->
+  key_vault_key_ids:string prop list ->
   string ->
   unit

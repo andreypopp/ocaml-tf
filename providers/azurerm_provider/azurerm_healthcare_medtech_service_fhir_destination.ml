@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_healthcare_medtech_service_fhir_destination__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_medtech_service_fhir_destination__timeouts *)
 
 type azurerm_healthcare_medtech_service_fhir_destination = {
-  destination_fhir_mapping_json : string;
+  destination_fhir_mapping_json : string prop;
       (** destination_fhir_mapping_json *)
-  destination_fhir_service_id : string;
+  destination_fhir_service_id : string prop;
       (** destination_fhir_service_id *)
-  destination_identity_resolution_type : string;
+  destination_identity_resolution_type : string prop;
       (** destination_identity_resolution_type *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  medtech_service_id : string;  (** medtech_service_id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  medtech_service_id : string prop;  (** medtech_service_id *)
+  name : string prop;  (** name *)
   timeouts :
     azurerm_healthcare_medtech_service_fhir_destination__timeouts
     option;

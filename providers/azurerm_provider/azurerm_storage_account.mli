@@ -34,33 +34,33 @@ type azurerm_storage_account__timeouts
 type azurerm_storage_account
 
 val azurerm_storage_account :
-  ?access_tier:string ->
-  ?account_kind:string ->
-  ?allow_nested_items_to_be_public:bool ->
-  ?allowed_copy_scope:string ->
-  ?cross_tenant_replication_enabled:bool ->
-  ?default_to_oauth_authentication:bool ->
-  ?edge_zone:string ->
-  ?enable_https_traffic_only:bool ->
-  ?id:string ->
-  ?infrastructure_encryption_enabled:bool ->
-  ?is_hns_enabled:bool ->
-  ?large_file_share_enabled:bool ->
-  ?local_user_enabled:bool ->
-  ?min_tls_version:string ->
-  ?nfsv3_enabled:bool ->
-  ?public_network_access_enabled:bool ->
-  ?queue_encryption_key_type:string ->
-  ?sftp_enabled:bool ->
-  ?shared_access_key_enabled:bool ->
-  ?table_encryption_key_type:string ->
-  ?tags:(string * string) list ->
+  ?access_tier:string prop ->
+  ?account_kind:string prop ->
+  ?allow_nested_items_to_be_public:bool prop ->
+  ?allowed_copy_scope:string prop ->
+  ?cross_tenant_replication_enabled:bool prop ->
+  ?default_to_oauth_authentication:bool prop ->
+  ?edge_zone:string prop ->
+  ?enable_https_traffic_only:bool prop ->
+  ?id:string prop ->
+  ?infrastructure_encryption_enabled:bool prop ->
+  ?is_hns_enabled:bool prop ->
+  ?large_file_share_enabled:bool prop ->
+  ?local_user_enabled:bool prop ->
+  ?min_tls_version:string prop ->
+  ?nfsv3_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?queue_encryption_key_type:string prop ->
+  ?sftp_enabled:bool prop ->
+  ?shared_access_key_enabled:bool prop ->
+  ?table_encryption_key_type:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_storage_account__timeouts ->
-  account_replication_type:string ->
-  account_tier:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  account_replication_type:string prop ->
+  account_tier:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   azure_files_authentication:
     azurerm_storage_account__azure_files_authentication list ->
   blob_properties:azurerm_storage_account__blob_properties list ->

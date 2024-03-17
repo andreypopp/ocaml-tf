@@ -5,25 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_kusto_script__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_script__timeouts *)
 
 type azurerm_kusto_script = {
-  continue_on_errors_enabled : bool option; [@option]
+  continue_on_errors_enabled : bool prop option; [@option]
       (** continue_on_errors_enabled *)
-  database_id : string;  (** database_id *)
-  force_an_update_when_value_changed : string option; [@option]
+  database_id : string prop;  (** database_id *)
+  force_an_update_when_value_changed : string prop option; [@option]
       (** force_an_update_when_value_changed *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  sas_token : string option; [@option]  (** sas_token *)
-  script_content : string option; [@option]  (** script_content *)
-  url : string option; [@option]  (** url *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  sas_token : string prop option; [@option]  (** sas_token *)
+  script_content : string prop option; [@option]
+      (** script_content *)
+  url : string prop option; [@option]  (** url *)
   timeouts : azurerm_kusto_script__timeouts option;
 }
 [@@deriving yojson_of]

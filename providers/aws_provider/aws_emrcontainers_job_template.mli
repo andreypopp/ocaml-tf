@@ -24,12 +24,12 @@ type aws_emrcontainers_job_template__timeouts
 type aws_emrcontainers_job_template
 
 val aws_emrcontainers_job_template :
-  ?id:string ->
-  ?kms_key_arn:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_emrcontainers_job_template__timeouts ->
-  name:string ->
+  name:string prop ->
   job_template_data:
     aws_emrcontainers_job_template__job_template_data list ->
   string ->

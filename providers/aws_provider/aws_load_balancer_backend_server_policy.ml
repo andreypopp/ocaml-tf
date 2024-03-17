@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_load_balancer_backend_server_policy = {
-  id : string option; [@option]  (** id *)
-  instance_port : float;  (** instance_port *)
-  load_balancer_name : string;  (** load_balancer_name *)
-  policy_names : string list option; [@option]  (** policy_names *)
+  id : string prop option; [@option]  (** id *)
+  instance_port : float prop;  (** instance_port *)
+  load_balancer_name : string prop;  (** load_balancer_name *)
+  policy_names : string prop list option; [@option]
+      (** policy_names *)
 }
 [@@deriving yojson_of]
 (** aws_load_balancer_backend_server_policy *)

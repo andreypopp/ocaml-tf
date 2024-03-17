@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_federated_identity_credential__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_federated_identity_credential__timeouts *)
 
 type azurerm_federated_identity_credential = {
-  audience : string list;  (** audience *)
-  id : string option; [@option]  (** id *)
-  issuer : string;  (** issuer *)
-  name : string;  (** name *)
-  parent_id : string;  (** parent_id *)
-  resource_group_name : string;  (** resource_group_name *)
-  subject : string;  (** subject *)
+  audience : string prop list;  (** audience *)
+  id : string prop option; [@option]  (** id *)
+  issuer : string prop;  (** issuer *)
+  name : string prop;  (** name *)
+  parent_id : string prop;  (** parent_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  subject : string prop;  (** subject *)
   timeouts : azurerm_federated_identity_credential__timeouts option;
 }
 [@@deriving yojson_of]

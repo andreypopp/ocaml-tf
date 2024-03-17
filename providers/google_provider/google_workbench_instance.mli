@@ -25,29 +25,29 @@ type google_workbench_instance__timeouts
 type google_workbench_instance__health_info = {
 }
 type google_workbench_instance__upgrade_history = {
-  action: string;  (** action *)
-  container_image: string;  (** container_image *)
-  create_time: string;  (** create_time *)
-  framework: string;  (** framework *)
-  snapshot: string;  (** snapshot *)
-  state: string;  (** state *)
-  target_version: string;  (** target_version *)
-  version: string;  (** version *)
-  vm_image: string;  (** vm_image *)
+  action: string prop;  (** action *)
+  container_image: string prop;  (** container_image *)
+  create_time: string prop;  (** create_time *)
+  framework: string prop;  (** framework *)
+  snapshot: string prop;  (** snapshot *)
+  state: string prop;  (** state *)
+  target_version: string prop;  (** target_version *)
+  version: string prop;  (** version *)
+  vm_image: string prop;  (** vm_image *)
 }
 type google_workbench_instance
 
 val google_workbench_instance :
-    ?desired_state:string ->
-    ?disable_proxy_access:bool ->
-    ?id:string ->
-    ?instance_id:string ->
-    ?instance_owners:string list ->
-    ?labels:(string * string) list ->
-    ?project:string ->
+    ?desired_state:string prop ->
+    ?disable_proxy_access:bool prop ->
+    ?id:string prop ->
+    ?instance_id:string prop ->
+    ?instance_owners:string prop list ->
+    ?labels:(string * string prop) list ->
+    ?project:string prop ->
     ?timeouts:google_workbench_instance__timeouts ->
-    location:string ->
-    name:string ->
+    location:string prop ->
+    name:string prop ->
     gce_setup:google_workbench_instance__gce_setup list ->
     string ->
     unit

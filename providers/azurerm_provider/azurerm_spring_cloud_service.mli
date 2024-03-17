@@ -20,29 +20,29 @@ type azurerm_spring_cloud_service__timeouts
 type azurerm_spring_cloud_service__trace
 
 type azurerm_spring_cloud_service__required_network_traffic_rules = {
-  direction : string;  (** direction *)
-  fqdns : string list;  (** fqdns *)
-  ip_addresses : string list;  (** ip_addresses *)
-  port : float;  (** port *)
-  protocol : string;  (** protocol *)
+  direction : string prop;  (** direction *)
+  fqdns : string prop list;  (** fqdns *)
+  ip_addresses : string prop list;  (** ip_addresses *)
+  port : float prop;  (** port *)
+  protocol : string prop;  (** protocol *)
 }
 
 type azurerm_spring_cloud_service
 
 val azurerm_spring_cloud_service :
-  ?build_agent_pool_size:string ->
-  ?id:string ->
-  ?log_stream_public_endpoint_enabled:bool ->
-  ?managed_environment_id:string ->
-  ?service_registry_enabled:bool ->
-  ?sku_name:string ->
-  ?sku_tier:string ->
-  ?tags:(string * string) list ->
-  ?zone_redundant:bool ->
+  ?build_agent_pool_size:string prop ->
+  ?id:string prop ->
+  ?log_stream_public_endpoint_enabled:bool prop ->
+  ?managed_environment_id:string prop ->
+  ?service_registry_enabled:bool prop ->
+  ?sku_name:string prop ->
+  ?sku_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundant:bool prop ->
   ?timeouts:azurerm_spring_cloud_service__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   config_server_git_setting:
     azurerm_spring_cloud_service__config_server_git_setting list ->
   container_registry:

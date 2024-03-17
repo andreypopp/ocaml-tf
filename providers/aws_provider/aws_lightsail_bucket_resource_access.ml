@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_lightsail_bucket_resource_access = {
-  bucket_name : string;  (** bucket_name *)
-  id : string option; [@option]  (** id *)
-  resource_name : string;  (** resource_name *)
+  bucket_name : string prop;  (** bucket_name *)
+  id : string prop option; [@option]  (** id *)
+  resource_name : string prop;  (** resource_name *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_bucket_resource_access *)

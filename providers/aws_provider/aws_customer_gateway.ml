@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_customer_gateway = {
-  bgp_asn : string;  (** bgp_asn *)
-  certificate_arn : string option; [@option]  (** certificate_arn *)
-  device_name : string option; [@option]  (** device_name *)
-  id : string option; [@option]  (** id *)
-  ip_address : string option; [@option]  (** ip_address *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  bgp_asn : string prop;  (** bgp_asn *)
+  certificate_arn : string prop option; [@option]
+      (** certificate_arn *)
+  device_name : string prop option; [@option]  (** device_name *)
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop option; [@option]  (** ip_address *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_customer_gateway *)

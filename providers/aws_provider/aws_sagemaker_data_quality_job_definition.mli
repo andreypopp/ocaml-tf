@@ -39,11 +39,11 @@ type aws_sagemaker_data_quality_job_definition__stopping_condition
 type aws_sagemaker_data_quality_job_definition
 
 val aws_sagemaker_data_quality_job_definition :
-  ?id:string ->
-  ?name:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  role_arn:string ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  role_arn:string prop ->
   data_quality_app_specification:
     aws_sagemaker_data_quality_job_definition__data_quality_app_specification
     list ->

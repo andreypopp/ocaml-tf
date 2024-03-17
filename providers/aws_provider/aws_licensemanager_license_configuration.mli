@@ -5,14 +5,14 @@ open! Tf.Prelude
 type aws_licensemanager_license_configuration
 
 val aws_licensemanager_license_configuration :
-  ?description:string ->
-  ?id:string ->
-  ?license_count:float ->
-  ?license_count_hard_limit:bool ->
-  ?license_rules:string list ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  license_counting_type:string ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?license_count:float prop ->
+  ?license_count_hard_limit:bool prop ->
+  ?license_rules:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  license_counting_type:string prop ->
+  name:string prop ->
   string ->
   unit

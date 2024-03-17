@@ -5,16 +5,18 @@
 open! Tf.Prelude
 
 type aws_licensemanager_license_configuration = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  license_count : float option; [@option]  (** license_count *)
-  license_count_hard_limit : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  license_count : float prop option; [@option]  (** license_count *)
+  license_count_hard_limit : bool prop option; [@option]
       (** license_count_hard_limit *)
-  license_counting_type : string;  (** license_counting_type *)
-  license_rules : string list option; [@option]  (** license_rules *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  license_counting_type : string prop;  (** license_counting_type *)
+  license_rules : string prop list option; [@option]
+      (** license_rules *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_licensemanager_license_configuration *)

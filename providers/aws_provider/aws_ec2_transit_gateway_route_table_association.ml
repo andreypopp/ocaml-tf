@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_route_table_association = {
-  id : string option; [@option]  (** id *)
-  replace_existing_association : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  replace_existing_association : bool prop option; [@option]
       (** replace_existing_association *)
-  transit_gateway_attachment_id : string;
+  transit_gateway_attachment_id : string prop;
       (** transit_gateway_attachment_id *)
-  transit_gateway_route_table_id : string;
+  transit_gateway_route_table_id : string prop;
       (** transit_gateway_route_table_id *)
 }
 [@@deriving yojson_of]

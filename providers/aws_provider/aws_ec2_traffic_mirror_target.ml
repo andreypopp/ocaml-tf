@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type aws_ec2_traffic_mirror_target = {
-  description : string option; [@option]  (** description *)
-  gateway_load_balancer_endpoint_id : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  gateway_load_balancer_endpoint_id : string prop option; [@option]
       (** gateway_load_balancer_endpoint_id *)
-  id : string option; [@option]  (** id *)
-  network_interface_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  network_interface_id : string prop option; [@option]
       (** network_interface_id *)
-  network_load_balancer_arn : string option; [@option]
+  network_load_balancer_arn : string prop option; [@option]
       (** network_load_balancer_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_traffic_mirror_target *)

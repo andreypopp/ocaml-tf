@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type cloudflare_gre_tunnel = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  cloudflare_gre_endpoint : string;
+  cloudflare_gre_endpoint : string prop;
       (** The IP address assigned to the Cloudflare side of the GRE tunnel. *)
-  customer_gre_endpoint : string;
+  customer_gre_endpoint : string prop;
       (** The IP address assigned to the customer side of the GRE tunnel. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of the GRE tunnel intent. *)
-  health_check_enabled : bool option; [@option]
+  health_check_enabled : bool prop option; [@option]
       (** Specifies if ICMP tunnel health checks are enabled. *)
-  health_check_target : string option; [@option]
+  health_check_target : string prop option; [@option]
       (** The IP address of the customer endpoint that will receive tunnel health checks. *)
-  health_check_type : string option; [@option]
+  health_check_type : string prop option; [@option]
       (** Specifies the ICMP echo type for the health check. Available values: `request`, `reply`. *)
-  id : string option; [@option]  (** id *)
-  interface_address : string;
+  id : string prop option; [@option]  (** id *)
+  interface_address : string prop;
       (** 31-bit prefix (/31 in CIDR notation) supporting 2 hosts, one for each side of the tunnel. *)
-  mtu : float option; [@option]
+  mtu : float prop option; [@option]
       (** Maximum Transmission Unit (MTU) in bytes for the GRE tunnel. *)
-  name : string;  (** Name of the GRE tunnel. *)
-  ttl : float option; [@option]
+  name : string prop;  (** Name of the GRE tunnel. *)
+  ttl : float prop option; [@option]
       (** Time To Live (TTL) in number of hops of the GRE tunnel. *)
 }
 [@@deriving yojson_of]

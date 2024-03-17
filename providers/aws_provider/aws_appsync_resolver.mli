@@ -10,16 +10,16 @@ type aws_appsync_resolver__sync_config
 type aws_appsync_resolver
 
 val aws_appsync_resolver :
-  ?code:string ->
-  ?data_source:string ->
-  ?id:string ->
-  ?kind:string ->
-  ?max_batch_size:float ->
-  ?request_template:string ->
-  ?response_template:string ->
-  api_id:string ->
-  field:string ->
-  type_:string ->
+  ?code:string prop ->
+  ?data_source:string prop ->
+  ?id:string prop ->
+  ?kind:string prop ->
+  ?max_batch_size:float prop ->
+  ?request_template:string prop ->
+  ?response_template:string prop ->
+  api_id:string prop ->
+  field:string prop ->
+  type_:string prop ->
   caching_config:aws_appsync_resolver__caching_config list ->
   pipeline_config:aws_appsync_resolver__pipeline_config list ->
   runtime:aws_appsync_resolver__runtime list ->

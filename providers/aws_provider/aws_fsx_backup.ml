@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type aws_fsx_backup__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_fsx_backup__timeouts *)
 
 type aws_fsx_backup = {
-  file_system_id : string option; [@option]  (** file_system_id *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  file_system_id : string prop option; [@option]
+      (** file_system_id *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  volume_id : string option; [@option]  (** volume_id *)
+  volume_id : string prop option; [@option]  (** volume_id *)
   timeouts : aws_fsx_backup__timeouts option;
 }
 [@@deriving yojson_of]

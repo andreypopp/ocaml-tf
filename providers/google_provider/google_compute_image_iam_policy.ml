@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_compute_image_iam_policy = {
-  id : string option; [@option]  (** id *)
-  image : string;  (** image *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  image : string prop;  (** image *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_compute_image_iam_policy *)

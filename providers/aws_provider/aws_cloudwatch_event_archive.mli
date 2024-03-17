@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_cloudwatch_event_archive
 
 val aws_cloudwatch_event_archive :
-  ?description:string ->
-  ?event_pattern:string ->
-  ?id:string ->
-  ?retention_days:float ->
-  event_source_arn:string ->
-  name:string ->
+  ?description:string prop ->
+  ?event_pattern:string prop ->
+  ?id:string prop ->
+  ?retention_days:float prop ->
+  event_source_arn:string prop ->
+  name:string prop ->
   string ->
   unit

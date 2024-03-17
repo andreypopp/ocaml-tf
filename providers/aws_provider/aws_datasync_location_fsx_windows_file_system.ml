@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_datasync_location_fsx_windows_file_system = {
-  domain : string option; [@option]  (** domain *)
-  fsx_filesystem_arn : string;  (** fsx_filesystem_arn *)
-  id : string option; [@option]  (** id *)
-  password : string;  (** password *)
-  security_group_arns : string list;  (** security_group_arns *)
-  subdirectory : string option; [@option]  (** subdirectory *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  domain : string prop option; [@option]  (** domain *)
+  fsx_filesystem_arn : string prop;  (** fsx_filesystem_arn *)
+  id : string prop option; [@option]  (** id *)
+  password : string prop;  (** password *)
+  security_group_arns : string prop list;  (** security_group_arns *)
+  subdirectory : string prop option; [@option]  (** subdirectory *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user : string;  (** user *)
+  user : string prop;  (** user *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_fsx_windows_file_system *)

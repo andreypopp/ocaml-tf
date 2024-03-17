@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type google_identity_platform_tenant_oauth_idp_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_identity_platform_tenant_oauth_idp_config__timeouts *)
 
 type google_identity_platform_tenant_oauth_idp_config = {
-  client_id : string;  (** The client id of an OAuth client. *)
-  client_secret : string option; [@option]
+  client_id : string prop;  (** The client id of an OAuth client. *)
+  client_secret : string prop option; [@option]
       (** The client secret of the OAuth client, to enable OIDC code flow. *)
-  display_name : string;  (** Human friendly display name. *)
-  enabled : bool option; [@option]
+  display_name : string prop;  (** Human friendly display name. *)
+  enabled : bool prop option; [@option]
       (** If this config allows users to sign in with the provider. *)
-  id : string option; [@option]  (** id *)
-  issuer : string;  (** For OIDC Idps, the issuer identifier. *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  issuer : string prop;  (** For OIDC Idps, the issuer identifier. *)
+  name : string prop;
       (** The name of the OauthIdpConfig. Must start with 'oidc.'. *)
-  project : string option; [@option]  (** project *)
-  tenant : string;
+  project : string prop option; [@option]  (** project *)
+  tenant : string prop;
       (** The name of the tenant where this OIDC IDP configuration resource exists *)
   timeouts :
     google_identity_platform_tenant_oauth_idp_config__timeouts option;

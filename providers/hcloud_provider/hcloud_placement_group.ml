@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type hcloud_placement_group = {
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** hcloud_placement_group *)

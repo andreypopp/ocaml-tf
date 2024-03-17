@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_dx_gateway_association_proposal = {
-  allowed_prefixes : string list option; [@option]
+  allowed_prefixes : string prop list option; [@option]
       (** allowed_prefixes *)
-  associated_gateway_id : string;  (** associated_gateway_id *)
-  dx_gateway_id : string;  (** dx_gateway_id *)
-  dx_gateway_owner_account_id : string;
+  associated_gateway_id : string prop;  (** associated_gateway_id *)
+  dx_gateway_id : string prop;  (** dx_gateway_id *)
+  dx_gateway_owner_account_id : string prop;
       (** dx_gateway_owner_account_id *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_dx_gateway_association_proposal *)

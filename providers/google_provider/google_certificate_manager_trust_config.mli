@@ -12,13 +12,13 @@ type google_certificate_manager_trust_config__trust_stores
 type google_certificate_manager_trust_config
 
 val google_certificate_manager_trust_config :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_certificate_manager_trust_config__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   trust_stores:
     google_certificate_manager_trust_config__trust_stores list ->
   string ->

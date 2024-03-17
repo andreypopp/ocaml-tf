@@ -8,11 +8,11 @@ type azurerm_nginx_configuration__timeouts
 type azurerm_nginx_configuration
 
 val azurerm_nginx_configuration :
-  ?id:string ->
-  ?package_data:string ->
+  ?id:string prop ->
+  ?package_data:string prop ->
   ?timeouts:azurerm_nginx_configuration__timeouts ->
-  nginx_deployment_id:string ->
-  root_file:string ->
+  nginx_deployment_id:string prop ->
+  root_file:string prop ->
   config_file:azurerm_nginx_configuration__config_file list ->
   protected_file:azurerm_nginx_configuration__protected_file list ->
   string ->

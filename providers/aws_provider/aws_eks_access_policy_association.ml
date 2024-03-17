@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_eks_access_policy_association__access_scope = {
-  namespaces : string list option; [@option]  (** namespaces *)
-  type_ : string; [@key "type"]  (** type *)
+  namespaces : string prop list option; [@option]  (** namespaces *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_eks_access_policy_association__access_scope *)
 
 type aws_eks_access_policy_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_eks_access_policy_association__timeouts *)
 
 type aws_eks_access_policy_association = {
-  cluster_name : string;  (** cluster_name *)
-  id : string option; [@option]  (** id *)
-  policy_arn : string;  (** policy_arn *)
-  principal_arn : string;  (** principal_arn *)
+  cluster_name : string prop;  (** cluster_name *)
+  id : string prop option; [@option]  (** id *)
+  policy_arn : string prop;  (** policy_arn *)
+  principal_arn : string prop;  (** principal_arn *)
   access_scope :
     aws_eks_access_policy_association__access_scope list;
   timeouts : aws_eks_access_policy_association__timeouts option;

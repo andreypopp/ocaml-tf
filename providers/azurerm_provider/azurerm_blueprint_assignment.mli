@@ -7,17 +7,17 @@ type azurerm_blueprint_assignment__timeouts
 type azurerm_blueprint_assignment
 
 val azurerm_blueprint_assignment :
-  ?id:string ->
-  ?lock_exclude_actions:string list ->
-  ?lock_exclude_principals:string list ->
-  ?lock_mode:string ->
-  ?parameter_values:string ->
-  ?resource_groups:string ->
+  ?id:string prop ->
+  ?lock_exclude_actions:string prop list ->
+  ?lock_exclude_principals:string prop list ->
+  ?lock_mode:string prop ->
+  ?parameter_values:string prop ->
+  ?resource_groups:string prop ->
   ?timeouts:azurerm_blueprint_assignment__timeouts ->
-  location:string ->
-  name:string ->
-  target_subscription_id:string ->
-  version_id:string ->
+  location:string prop ->
+  name:string prop ->
+  target_subscription_id:string prop ->
+  version_id:string prop ->
   identity:azurerm_blueprint_assignment__identity list ->
   string ->
   unit

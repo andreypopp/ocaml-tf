@@ -5,24 +5,25 @@
 open! Tf.Prelude
 
 type aws_dx_gateway_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_dx_gateway_association__timeouts *)
 
 type aws_dx_gateway_association = {
-  allowed_prefixes : string list option; [@option]
+  allowed_prefixes : string prop list option; [@option]
       (** allowed_prefixes *)
-  associated_gateway_id : string option; [@option]
+  associated_gateway_id : string prop option; [@option]
       (** associated_gateway_id *)
-  associated_gateway_owner_account_id : string option; [@option]
+  associated_gateway_owner_account_id : string prop option; [@option]
       (** associated_gateway_owner_account_id *)
-  dx_gateway_id : string;  (** dx_gateway_id *)
-  id : string option; [@option]  (** id *)
-  proposal_id : string option; [@option]  (** proposal_id *)
-  vpn_gateway_id : string option; [@option]  (** vpn_gateway_id *)
+  dx_gateway_id : string prop;  (** dx_gateway_id *)
+  id : string prop option; [@option]  (** id *)
+  proposal_id : string prop option; [@option]  (** proposal_id *)
+  vpn_gateway_id : string prop option; [@option]
+      (** vpn_gateway_id *)
   timeouts : aws_dx_gateway_association__timeouts option;
 }
 [@@deriving yojson_of]

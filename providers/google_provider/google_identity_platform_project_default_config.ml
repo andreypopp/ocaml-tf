@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type google_identity_platform_project_default_config__sign_in__anonymous = {
-  enabled : bool;
+  enabled : bool prop;
       (** Whether anonymous user auth is enabled for the project or not. *)
 }
 [@@deriving yojson_of]
 (** Configuration options related to authenticating an anonymous user. *)
 
 type google_identity_platform_project_default_config__sign_in__email = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether email auth is enabled for the project or not. *)
-  password_required : bool option; [@option]
+  password_required : bool prop option; [@option]
       (** Whether a password is required for email auth or not. If true, both an email and
 password must be provided to sign in. If false, a user may sign in via either
 email/password or email link. *)
@@ -23,25 +23,25 @@ email/password or email link. *)
 (** Configuration options related to authenticating a user by their email address. *)
 
 type google_identity_platform_project_default_config__sign_in__phone_number = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether phone number auth is enabled for the project or not. *)
-  test_phone_numbers : (string * string) list option; [@option]
+  test_phone_numbers : (string * string prop) list option; [@option]
       (** A map of <test phone number, fake code> that can be used for phone auth testing. *)
 }
 [@@deriving yojson_of]
 (** Configuration options related to authenticated a user by their phone number. *)
 
 type google_identity_platform_project_default_config__sign_in__hash_config = {
-  algorithm : string;  (** algorithm *)
-  memory_cost : float;  (** memory_cost *)
-  rounds : float;  (** rounds *)
-  salt_separator : string;  (** salt_separator *)
-  signer_key : string;  (** signer_key *)
+  algorithm : string prop;  (** algorithm *)
+  memory_cost : float prop;  (** memory_cost *)
+  rounds : float prop;  (** rounds *)
+  salt_separator : string prop;  (** salt_separator *)
+  signer_key : string prop;  (** signer_key *)
 }
 [@@deriving yojson_of]
 
 type google_identity_platform_project_default_config__sign_in = {
-  allow_duplicate_emails : bool option; [@option]
+  allow_duplicate_emails : bool prop option; [@option]
       (** Whether to allow more than one account to have the same email. *)
   hash_config :
     google_identity_platform_project_default_config__sign_in__hash_config
@@ -61,16 +61,16 @@ type google_identity_platform_project_default_config__sign_in = {
 (** Configuration related to local sign in methods. *)
 
 type google_identity_platform_project_default_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_identity_platform_project_default_config__timeouts *)
 
 type google_identity_platform_project_default_config = {
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
   sign_in :
     google_identity_platform_project_default_config__sign_in list;
   timeouts :

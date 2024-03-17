@@ -6,10 +6,10 @@ type google_healthcare_dataset_iam_binding__condition
 type google_healthcare_dataset_iam_binding
 
 val google_healthcare_dataset_iam_binding :
-  ?id:string ->
-  dataset_id:string ->
-  members:string list ->
-  role:string ->
+  ?id:string prop ->
+  dataset_id:string prop ->
+  members:string prop list ->
+  role:string prop ->
   condition:google_healthcare_dataset_iam_binding__condition list ->
   string ->
   unit

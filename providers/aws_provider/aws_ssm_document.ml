@@ -5,34 +5,35 @@
 open! Tf.Prelude
 
 type aws_ssm_document__attachments_source = {
-  key : string;  (** key *)
-  name : string option; [@option]  (** name *)
-  values : string list;  (** values *)
+  key : string prop;  (** key *)
+  name : string prop option; [@option]  (** name *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_ssm_document__attachments_source *)
 
 type aws_ssm_document__parameter = {
-  default_value : string;  (** default_value *)
-  description : string;  (** description *)
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  default_value : string prop;  (** default_value *)
+  description : string prop;  (** description *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
 type aws_ssm_document = {
-  content : string;  (** content *)
-  document_format : string option; [@option]  (** document_format *)
-  document_type : string;  (** document_type *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  permissions : (string * string) list option; [@option]
+  content : string prop;  (** content *)
+  document_format : string prop option; [@option]
+      (** document_format *)
+  document_type : string prop;  (** document_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  permissions : (string * string prop) list option; [@option]
       (** permissions *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  target_type : string option; [@option]  (** target_type *)
-  version_name : string option; [@option]  (** version_name *)
+  target_type : string prop option; [@option]  (** target_type *)
+  version_name : string prop option; [@option]  (** version_name *)
   attachments_source : aws_ssm_document__attachments_source list;
 }
 [@@deriving yojson_of]

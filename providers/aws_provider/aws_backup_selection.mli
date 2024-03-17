@@ -11,12 +11,12 @@ type aws_backup_selection__selection_tag
 type aws_backup_selection
 
 val aws_backup_selection :
-  ?id:string ->
-  ?not_resources:string list ->
-  ?resources:string list ->
-  iam_role_arn:string ->
-  name:string ->
-  plan_id:string ->
+  ?id:string prop ->
+  ?not_resources:string prop list ->
+  ?resources:string prop list ->
+  iam_role_arn:string prop ->
+  name:string prop ->
+  plan_id:string prop ->
   condition:aws_backup_selection__condition list ->
   selection_tag:aws_backup_selection__selection_tag list ->
   string ->

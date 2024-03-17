@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_dx_hosted_connection = {
-  bandwidth : string;  (** bandwidth *)
-  connection_id : string;  (** connection_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  owner_account_id : string;  (** owner_account_id *)
-  vlan : float;  (** vlan *)
+  bandwidth : string prop;  (** bandwidth *)
+  connection_id : string prop;  (** connection_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  owner_account_id : string prop;  (** owner_account_id *)
+  vlan : float prop;  (** vlan *)
 }
 [@@deriving yojson_of]
 (** aws_dx_hosted_connection *)

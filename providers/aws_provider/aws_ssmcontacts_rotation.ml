@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_ssmcontacts_rotation__recurrence__daily_settings = {
-  hour_of_day : float;  (** hour_of_day *)
-  minute_of_hour : float;  (** minute_of_hour *)
+  hour_of_day : float prop;  (** hour_of_day *)
+  minute_of_hour : float prop;  (** minute_of_hour *)
 }
 [@@deriving yojson_of]
 (** aws_ssmcontacts_rotation__recurrence__daily_settings *)
 
 type aws_ssmcontacts_rotation__recurrence__monthly_settings__hand_off_time = {
-  hour_of_day : float;  (** hour_of_day *)
-  minute_of_hour : float;  (** minute_of_hour *)
+  hour_of_day : float prop;  (** hour_of_day *)
+  minute_of_hour : float prop;  (** minute_of_hour *)
 }
 [@@deriving yojson_of]
 (** aws_ssmcontacts_rotation__recurrence__monthly_settings__hand_off_time *)
 
 type aws_ssmcontacts_rotation__recurrence__monthly_settings = {
-  day_of_month : float;  (** day_of_month *)
+  day_of_month : float prop;  (** day_of_month *)
   hand_off_time :
     aws_ssmcontacts_rotation__recurrence__monthly_settings__hand_off_time
     list;
@@ -28,15 +28,15 @@ type aws_ssmcontacts_rotation__recurrence__monthly_settings = {
 (** aws_ssmcontacts_rotation__recurrence__monthly_settings *)
 
 type aws_ssmcontacts_rotation__recurrence__shift_coverages__coverage_times__end = {
-  hour_of_day : float;  (** hour_of_day *)
-  minute_of_hour : float;  (** minute_of_hour *)
+  hour_of_day : float prop;  (** hour_of_day *)
+  minute_of_hour : float prop;  (** minute_of_hour *)
 }
 [@@deriving yojson_of]
 (** aws_ssmcontacts_rotation__recurrence__shift_coverages__coverage_times__end *)
 
 type aws_ssmcontacts_rotation__recurrence__shift_coverages__coverage_times__start = {
-  hour_of_day : float;  (** hour_of_day *)
-  minute_of_hour : float;  (** minute_of_hour *)
+  hour_of_day : float prop;  (** hour_of_day *)
+  minute_of_hour : float prop;  (** minute_of_hour *)
 }
 [@@deriving yojson_of]
 (** aws_ssmcontacts_rotation__recurrence__shift_coverages__coverage_times__start *)
@@ -53,7 +53,7 @@ type aws_ssmcontacts_rotation__recurrence__shift_coverages__coverage_times = {
 (** aws_ssmcontacts_rotation__recurrence__shift_coverages__coverage_times *)
 
 type aws_ssmcontacts_rotation__recurrence__shift_coverages = {
-  map_block_key : string;  (** map_block_key *)
+  map_block_key : string prop;  (** map_block_key *)
   coverage_times :
     aws_ssmcontacts_rotation__recurrence__shift_coverages__coverage_times
     list;
@@ -62,14 +62,14 @@ type aws_ssmcontacts_rotation__recurrence__shift_coverages = {
 (** aws_ssmcontacts_rotation__recurrence__shift_coverages *)
 
 type aws_ssmcontacts_rotation__recurrence__weekly_settings__hand_off_time = {
-  hour_of_day : float;  (** hour_of_day *)
-  minute_of_hour : float;  (** minute_of_hour *)
+  hour_of_day : float prop;  (** hour_of_day *)
+  minute_of_hour : float prop;  (** minute_of_hour *)
 }
 [@@deriving yojson_of]
 (** aws_ssmcontacts_rotation__recurrence__weekly_settings__hand_off_time *)
 
 type aws_ssmcontacts_rotation__recurrence__weekly_settings = {
-  day_of_week : string;  (** day_of_week *)
+  day_of_week : string prop;  (** day_of_week *)
   hand_off_time :
     aws_ssmcontacts_rotation__recurrence__weekly_settings__hand_off_time
     list;
@@ -78,8 +78,8 @@ type aws_ssmcontacts_rotation__recurrence__weekly_settings = {
 (** aws_ssmcontacts_rotation__recurrence__weekly_settings *)
 
 type aws_ssmcontacts_rotation__recurrence = {
-  number_of_on_calls : float;  (** number_of_on_calls *)
-  recurrence_multiplier : float;  (** recurrence_multiplier *)
+  number_of_on_calls : float prop;  (** number_of_on_calls *)
+  recurrence_multiplier : float prop;  (** recurrence_multiplier *)
   daily_settings :
     aws_ssmcontacts_rotation__recurrence__daily_settings list;
   monthly_settings :
@@ -93,11 +93,11 @@ type aws_ssmcontacts_rotation__recurrence = {
 (** aws_ssmcontacts_rotation__recurrence *)
 
 type aws_ssmcontacts_rotation = {
-  contact_ids : string list;  (** contact_ids *)
-  name : string;  (** name *)
-  start_time : string option; [@option]  (** start_time *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  time_zone_id : string;  (** time_zone_id *)
+  contact_ids : string prop list;  (** contact_ids *)
+  name : string prop;  (** name *)
+  start_time : string prop option; [@option]  (** start_time *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  time_zone_id : string prop;  (** time_zone_id *)
   recurrence : aws_ssmcontacts_rotation__recurrence list;
 }
 [@@deriving yojson_of]

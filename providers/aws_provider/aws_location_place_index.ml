@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_location_place_index__data_source_configuration = {
-  intended_use : string option; [@option]  (** intended_use *)
+  intended_use : string prop option; [@option]  (** intended_use *)
 }
 [@@deriving yojson_of]
 (** aws_location_place_index__data_source_configuration *)
 
 type aws_location_place_index = {
-  data_source : string;  (** data_source *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  index_name : string;  (** index_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  data_source : string prop;  (** data_source *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  index_name : string prop;  (** index_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   data_source_configuration :
     aws_location_place_index__data_source_configuration list;

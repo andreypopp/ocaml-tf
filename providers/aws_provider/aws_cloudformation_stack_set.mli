@@ -9,20 +9,20 @@ type aws_cloudformation_stack_set__timeouts
 type aws_cloudformation_stack_set
 
 val aws_cloudformation_stack_set :
-  ?administration_role_arn:string ->
-  ?call_as:string ->
-  ?capabilities:string list ->
-  ?description:string ->
-  ?execution_role_name:string ->
-  ?id:string ->
-  ?parameters:(string * string) list ->
-  ?permission_model:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?template_body:string ->
-  ?template_url:string ->
+  ?administration_role_arn:string prop ->
+  ?call_as:string prop ->
+  ?capabilities:string prop list ->
+  ?description:string prop ->
+  ?execution_role_name:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?permission_model:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?template_body:string prop ->
+  ?template_url:string prop ->
   ?timeouts:aws_cloudformation_stack_set__timeouts ->
-  name:string ->
+  name:string prop ->
   auto_deployment:aws_cloudformation_stack_set__auto_deployment list ->
   managed_execution:
     aws_cloudformation_stack_set__managed_execution list ->

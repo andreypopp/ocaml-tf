@@ -5,107 +5,112 @@
 open! Tf.Prelude
 
 type cloudflare_zone_settings_override__settings__minify = {
-  css : string;  (** css *)
-  html : string;  (** html *)
-  js : string;  (** js *)
+  css : string prop;  (** css *)
+  html : string prop;  (** html *)
+  js : string prop;  (** js *)
 }
 [@@deriving yojson_of]
 (** cloudflare_zone_settings_override__settings__minify *)
 
 type cloudflare_zone_settings_override__settings__mobile_redirect = {
-  mobile_subdomain : string;  (** mobile_subdomain *)
-  status : string;  (** status *)
-  strip_uri : bool;  (** strip_uri *)
+  mobile_subdomain : string prop;  (** mobile_subdomain *)
+  status : string prop;  (** status *)
+  strip_uri : bool prop;  (** strip_uri *)
 }
 [@@deriving yojson_of]
 (** cloudflare_zone_settings_override__settings__mobile_redirect *)
 
 type cloudflare_zone_settings_override__settings__security_header = {
-  enabled : bool option; [@option]  (** enabled *)
-  include_subdomains : bool option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  include_subdomains : bool prop option; [@option]
       (** include_subdomains *)
-  max_age : float option; [@option]  (** max_age *)
-  nosniff : bool option; [@option]  (** nosniff *)
-  preload : bool option; [@option]  (** preload *)
+  max_age : float prop option; [@option]  (** max_age *)
+  nosniff : bool prop option; [@option]  (** nosniff *)
+  preload : bool prop option; [@option]  (** preload *)
 }
 [@@deriving yojson_of]
 (** cloudflare_zone_settings_override__settings__security_header *)
 
 type cloudflare_zone_settings_override__settings = {
-  always_online : string option; [@option]  (** always_online *)
-  always_use_https : string option; [@option]
+  always_online : string prop option; [@option]  (** always_online *)
+  always_use_https : string prop option; [@option]
       (** always_use_https *)
-  automatic_https_rewrites : string option; [@option]
+  automatic_https_rewrites : string prop option; [@option]
       (** automatic_https_rewrites *)
-  binary_ast : string option; [@option]  (** binary_ast *)
-  brotli : string option; [@option]  (** brotli *)
-  browser_cache_ttl : float option; [@option]
+  binary_ast : string prop option; [@option]  (** binary_ast *)
+  brotli : string prop option; [@option]  (** brotli *)
+  browser_cache_ttl : float prop option; [@option]
       (** browser_cache_ttl *)
-  browser_check : string option; [@option]  (** browser_check *)
-  cache_level : string option; [@option]  (** cache_level *)
-  challenge_ttl : float option; [@option]  (** challenge_ttl *)
-  ciphers : string list option; [@option]  (** ciphers *)
-  cname_flattening : string option; [@option]
+  browser_check : string prop option; [@option]  (** browser_check *)
+  cache_level : string prop option; [@option]  (** cache_level *)
+  challenge_ttl : float prop option; [@option]  (** challenge_ttl *)
+  ciphers : string prop list option; [@option]  (** ciphers *)
+  cname_flattening : string prop option; [@option]
       (** cname_flattening *)
-  development_mode : string option; [@option]
+  development_mode : string prop option; [@option]
       (** development_mode *)
-  early_hints : string option; [@option]  (** early_hints *)
-  email_obfuscation : string option; [@option]
+  early_hints : string prop option; [@option]  (** early_hints *)
+  email_obfuscation : string prop option; [@option]
       (** email_obfuscation *)
-  filter_logs_to_cloudflare : string option; [@option]
+  filter_logs_to_cloudflare : string prop option; [@option]
       (** filter_logs_to_cloudflare *)
-  fonts : string option; [@option]  (** fonts *)
-  h2_prioritization : string option; [@option]
+  fonts : string prop option; [@option]  (** fonts *)
+  h2_prioritization : string prop option; [@option]
       (** h2_prioritization *)
-  hotlink_protection : string option; [@option]
+  hotlink_protection : string prop option; [@option]
       (** hotlink_protection *)
-  http2 : string option; [@option]  (** http2 *)
-  http3 : string option; [@option]  (** http3 *)
-  image_resizing : string option; [@option]  (** image_resizing *)
-  ip_geolocation : string option; [@option]  (** ip_geolocation *)
-  ipv6 : string option; [@option]  (** ipv6 *)
-  log_to_cloudflare : string option; [@option]
+  http2 : string prop option; [@option]  (** http2 *)
+  http3 : string prop option; [@option]  (** http3 *)
+  image_resizing : string prop option; [@option]
+      (** image_resizing *)
+  ip_geolocation : string prop option; [@option]
+      (** ip_geolocation *)
+  ipv6 : string prop option; [@option]  (** ipv6 *)
+  log_to_cloudflare : string prop option; [@option]
       (** log_to_cloudflare *)
-  max_upload : float option; [@option]  (** max_upload *)
-  min_tls_version : string option; [@option]  (** min_tls_version *)
-  mirage : string option; [@option]  (** mirage *)
-  opportunistic_encryption : string option; [@option]
+  max_upload : float prop option; [@option]  (** max_upload *)
+  min_tls_version : string prop option; [@option]
+      (** min_tls_version *)
+  mirage : string prop option; [@option]  (** mirage *)
+  opportunistic_encryption : string prop option; [@option]
       (** opportunistic_encryption *)
-  opportunistic_onion : string option; [@option]
+  opportunistic_onion : string prop option; [@option]
       (** opportunistic_onion *)
-  orange_to_orange : string option; [@option]
+  orange_to_orange : string prop option; [@option]
       (** orange_to_orange *)
-  origin_error_page_pass_thru : string option; [@option]
+  origin_error_page_pass_thru : string prop option; [@option]
       (** origin_error_page_pass_thru *)
-  origin_max_http_version : string option; [@option]
+  origin_max_http_version : string prop option; [@option]
       (** origin_max_http_version *)
-  polish : string option; [@option]  (** polish *)
-  prefetch_preload : string option; [@option]
+  polish : string prop option; [@option]  (** polish *)
+  prefetch_preload : string prop option; [@option]
       (** prefetch_preload *)
-  privacy_pass : string option; [@option]  (** privacy_pass *)
-  proxy_read_timeout : string option; [@option]
+  privacy_pass : string prop option; [@option]  (** privacy_pass *)
+  proxy_read_timeout : string prop option; [@option]
       (** proxy_read_timeout *)
-  pseudo_ipv4 : string option; [@option]  (** pseudo_ipv4 *)
-  response_buffering : string option; [@option]
+  pseudo_ipv4 : string prop option; [@option]  (** pseudo_ipv4 *)
+  response_buffering : string prop option; [@option]
       (** response_buffering *)
-  rocket_loader : string option; [@option]  (** rocket_loader *)
-  security_level : string option; [@option]  (** security_level *)
-  server_side_exclude : string option; [@option]
+  rocket_loader : string prop option; [@option]  (** rocket_loader *)
+  security_level : string prop option; [@option]
+      (** security_level *)
+  server_side_exclude : string prop option; [@option]
       (** server_side_exclude *)
-  sort_query_string_for_cache : string option; [@option]
+  sort_query_string_for_cache : string prop option; [@option]
       (** sort_query_string_for_cache *)
-  ssl : string option; [@option]  (** ssl *)
-  tls_1_2_only : string option; [@option]  (** tls_1_2_only *)
-  tls_1_3 : string option; [@option]  (** tls_1_3 *)
-  tls_client_auth : string option; [@option]  (** tls_client_auth *)
-  true_client_ip_header : string option; [@option]
+  ssl : string prop option; [@option]  (** ssl *)
+  tls_1_2_only : string prop option; [@option]  (** tls_1_2_only *)
+  tls_1_3 : string prop option; [@option]  (** tls_1_3 *)
+  tls_client_auth : string prop option; [@option]
+      (** tls_client_auth *)
+  true_client_ip_header : string prop option; [@option]
       (** true_client_ip_header *)
-  universal_ssl : string option; [@option]  (** universal_ssl *)
-  visitor_ip : string option; [@option]  (** visitor_ip *)
-  waf : string option; [@option]  (** waf *)
-  webp : string option; [@option]  (** webp *)
-  websockets : string option; [@option]  (** websockets *)
-  zero_rtt : string option; [@option]  (** zero_rtt *)
+  universal_ssl : string prop option; [@option]  (** universal_ssl *)
+  visitor_ip : string prop option; [@option]  (** visitor_ip *)
+  waf : string prop option; [@option]  (** waf *)
+  webp : string prop option; [@option]  (** webp *)
+  websockets : string prop option; [@option]  (** websockets *)
+  zero_rtt : string prop option; [@option]  (** zero_rtt *)
   minify : cloudflare_zone_settings_override__settings__minify list;
   mobile_redirect :
     cloudflare_zone_settings_override__settings__mobile_redirect list;
@@ -116,102 +121,105 @@ type cloudflare_zone_settings_override__settings = {
 (** cloudflare_zone_settings_override__settings *)
 
 type cloudflare_zone_settings_override__initial_settings__security_header = {
-  enabled : bool;  (** enabled *)
-  include_subdomains : bool;  (** include_subdomains *)
-  max_age : float;  (** max_age *)
-  nosniff : bool;  (** nosniff *)
-  preload : bool;  (** preload *)
+  enabled : bool prop;  (** enabled *)
+  include_subdomains : bool prop;  (** include_subdomains *)
+  max_age : float prop;  (** max_age *)
+  nosniff : bool prop;  (** nosniff *)
+  preload : bool prop;  (** preload *)
 }
 [@@deriving yojson_of]
 
 type cloudflare_zone_settings_override__initial_settings__mobile_redirect = {
-  mobile_subdomain : string;  (** mobile_subdomain *)
-  status : string;  (** status *)
-  strip_uri : bool;  (** strip_uri *)
+  mobile_subdomain : string prop;  (** mobile_subdomain *)
+  status : string prop;  (** status *)
+  strip_uri : bool prop;  (** strip_uri *)
 }
 [@@deriving yojson_of]
 
 type cloudflare_zone_settings_override__initial_settings__minify = {
-  css : string;  (** css *)
-  html : string;  (** html *)
-  js : string;  (** js *)
+  css : string prop;  (** css *)
+  html : string prop;  (** html *)
+  js : string prop;  (** js *)
 }
 [@@deriving yojson_of]
 
 type cloudflare_zone_settings_override__initial_settings = {
-  always_online : string;  (** always_online *)
-  always_use_https : string;  (** always_use_https *)
-  automatic_https_rewrites : string;  (** automatic_https_rewrites *)
-  binary_ast : string;  (** binary_ast *)
-  brotli : string;  (** brotli *)
-  browser_cache_ttl : float;  (** browser_cache_ttl *)
-  browser_check : string;  (** browser_check *)
-  cache_level : string;  (** cache_level *)
-  challenge_ttl : float;  (** challenge_ttl *)
-  ciphers : string list;  (** ciphers *)
-  cname_flattening : string;  (** cname_flattening *)
-  development_mode : string;  (** development_mode *)
-  early_hints : string;  (** early_hints *)
-  email_obfuscation : string;  (** email_obfuscation *)
-  filter_logs_to_cloudflare : string;
+  always_online : string prop;  (** always_online *)
+  always_use_https : string prop;  (** always_use_https *)
+  automatic_https_rewrites : string prop;
+      (** automatic_https_rewrites *)
+  binary_ast : string prop;  (** binary_ast *)
+  brotli : string prop;  (** brotli *)
+  browser_cache_ttl : float prop;  (** browser_cache_ttl *)
+  browser_check : string prop;  (** browser_check *)
+  cache_level : string prop;  (** cache_level *)
+  challenge_ttl : float prop;  (** challenge_ttl *)
+  ciphers : string prop list;  (** ciphers *)
+  cname_flattening : string prop;  (** cname_flattening *)
+  development_mode : string prop;  (** development_mode *)
+  early_hints : string prop;  (** early_hints *)
+  email_obfuscation : string prop;  (** email_obfuscation *)
+  filter_logs_to_cloudflare : string prop;
       (** filter_logs_to_cloudflare *)
-  fonts : string;  (** fonts *)
-  h2_prioritization : string;  (** h2_prioritization *)
-  hotlink_protection : string;  (** hotlink_protection *)
-  http2 : string;  (** http2 *)
-  http3 : string;  (** http3 *)
-  image_resizing : string;  (** image_resizing *)
-  ip_geolocation : string;  (** ip_geolocation *)
-  ipv6 : string;  (** ipv6 *)
-  log_to_cloudflare : string;  (** log_to_cloudflare *)
-  max_upload : float;  (** max_upload *)
-  min_tls_version : string;  (** min_tls_version *)
+  fonts : string prop;  (** fonts *)
+  h2_prioritization : string prop;  (** h2_prioritization *)
+  hotlink_protection : string prop;  (** hotlink_protection *)
+  http2 : string prop;  (** http2 *)
+  http3 : string prop;  (** http3 *)
+  image_resizing : string prop;  (** image_resizing *)
+  ip_geolocation : string prop;  (** ip_geolocation *)
+  ipv6 : string prop;  (** ipv6 *)
+  log_to_cloudflare : string prop;  (** log_to_cloudflare *)
+  max_upload : float prop;  (** max_upload *)
+  min_tls_version : string prop;  (** min_tls_version *)
   minify :
     cloudflare_zone_settings_override__initial_settings__minify list;
       (** minify *)
-  mirage : string;  (** mirage *)
+  mirage : string prop;  (** mirage *)
   mobile_redirect :
     cloudflare_zone_settings_override__initial_settings__mobile_redirect
     list;
       (** mobile_redirect *)
-  opportunistic_encryption : string;  (** opportunistic_encryption *)
-  opportunistic_onion : string;  (** opportunistic_onion *)
-  orange_to_orange : string;  (** orange_to_orange *)
-  origin_error_page_pass_thru : string;
+  opportunistic_encryption : string prop;
+      (** opportunistic_encryption *)
+  opportunistic_onion : string prop;  (** opportunistic_onion *)
+  orange_to_orange : string prop;  (** orange_to_orange *)
+  origin_error_page_pass_thru : string prop;
       (** origin_error_page_pass_thru *)
-  origin_max_http_version : string;  (** origin_max_http_version *)
-  polish : string;  (** polish *)
-  prefetch_preload : string;  (** prefetch_preload *)
-  privacy_pass : string;  (** privacy_pass *)
-  proxy_read_timeout : string;  (** proxy_read_timeout *)
-  pseudo_ipv4 : string;  (** pseudo_ipv4 *)
-  response_buffering : string;  (** response_buffering *)
-  rocket_loader : string;  (** rocket_loader *)
+  origin_max_http_version : string prop;
+      (** origin_max_http_version *)
+  polish : string prop;  (** polish *)
+  prefetch_preload : string prop;  (** prefetch_preload *)
+  privacy_pass : string prop;  (** privacy_pass *)
+  proxy_read_timeout : string prop;  (** proxy_read_timeout *)
+  pseudo_ipv4 : string prop;  (** pseudo_ipv4 *)
+  response_buffering : string prop;  (** response_buffering *)
+  rocket_loader : string prop;  (** rocket_loader *)
   security_header :
     cloudflare_zone_settings_override__initial_settings__security_header
     list;
       (** security_header *)
-  security_level : string;  (** security_level *)
-  server_side_exclude : string;  (** server_side_exclude *)
-  sort_query_string_for_cache : string;
+  security_level : string prop;  (** security_level *)
+  server_side_exclude : string prop;  (** server_side_exclude *)
+  sort_query_string_for_cache : string prop;
       (** sort_query_string_for_cache *)
-  ssl : string;  (** ssl *)
-  tls_1_2_only : string;  (** tls_1_2_only *)
-  tls_1_3 : string;  (** tls_1_3 *)
-  tls_client_auth : string;  (** tls_client_auth *)
-  true_client_ip_header : string;  (** true_client_ip_header *)
-  universal_ssl : string;  (** universal_ssl *)
-  visitor_ip : string;  (** visitor_ip *)
-  waf : string;  (** waf *)
-  webp : string;  (** webp *)
-  websockets : string;  (** websockets *)
-  zero_rtt : string;  (** zero_rtt *)
+  ssl : string prop;  (** ssl *)
+  tls_1_2_only : string prop;  (** tls_1_2_only *)
+  tls_1_3 : string prop;  (** tls_1_3 *)
+  tls_client_auth : string prop;  (** tls_client_auth *)
+  true_client_ip_header : string prop;  (** true_client_ip_header *)
+  universal_ssl : string prop;  (** universal_ssl *)
+  visitor_ip : string prop;  (** visitor_ip *)
+  waf : string prop;  (** waf *)
+  webp : string prop;  (** webp *)
+  websockets : string prop;  (** websockets *)
+  zero_rtt : string prop;  (** zero_rtt *)
 }
 [@@deriving yojson_of]
 
 type cloudflare_zone_settings_override = {
-  id : string option; [@option]  (** id *)
-  zone_id : string;
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   settings : cloudflare_zone_settings_override__settings list;
 }

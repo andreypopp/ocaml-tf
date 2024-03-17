@@ -17223,14 +17223,14 @@ type aws_quicksight_template__timeouts
 type aws_quicksight_template
 
 val aws_quicksight_template :
-    ?aws_account_id:string ->
-    ?id:string ->
-    ?tags:(string * string) list ->
-    ?tags_all:(string * string) list ->
+    ?aws_account_id:string prop ->
+    ?id:string prop ->
+    ?tags:(string * string prop) list ->
+    ?tags_all:(string * string prop) list ->
     ?timeouts:aws_quicksight_template__timeouts ->
-    name:string ->
-    template_id:string ->
-    version_description:string ->
+    name:string prop ->
+    template_id:string prop ->
+    version_description:string prop ->
     definition:aws_quicksight_template__definition list ->
     permissions:aws_quicksight_template__permissions list ->
     source_entity:aws_quicksight_template__source_entity list ->

@@ -5,46 +5,46 @@
 open! Tf.Prelude
 
 type azurerm_policy_set_definition__policy_definition_group = {
-  additional_metadata_resource_id : string option; [@option]
+  additional_metadata_resource_id : string prop option; [@option]
       (** additional_metadata_resource_id *)
-  category : string option; [@option]  (** category *)
-  description : string option; [@option]  (** description *)
-  display_name : string option; [@option]  (** display_name *)
-  name : string;  (** name *)
+  category : string prop option; [@option]  (** category *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop option; [@option]  (** display_name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_policy_set_definition__policy_definition_group *)
 
 type azurerm_policy_set_definition__policy_definition_reference = {
-  parameter_values : string option; [@option]
+  parameter_values : string prop option; [@option]
       (** parameter_values *)
-  policy_definition_id : string;  (** policy_definition_id *)
-  policy_group_names : string list option; [@option]
+  policy_definition_id : string prop;  (** policy_definition_id *)
+  policy_group_names : string prop list option; [@option]
       (** policy_group_names *)
-  reference_id : string option; [@option]  (** reference_id *)
+  reference_id : string prop option; [@option]  (** reference_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_policy_set_definition__policy_definition_reference *)
 
 type azurerm_policy_set_definition__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_policy_set_definition__timeouts *)
 
 type azurerm_policy_set_definition = {
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  management_group_id : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  management_group_id : string prop option; [@option]
       (** management_group_id *)
-  metadata : string option; [@option]  (** metadata *)
-  name : string;  (** name *)
-  parameters : string option; [@option]  (** parameters *)
-  policy_type : string;  (** policy_type *)
+  metadata : string prop option; [@option]  (** metadata *)
+  name : string prop;  (** name *)
+  parameters : string prop option; [@option]  (** parameters *)
+  policy_type : string prop;  (** policy_type *)
   policy_definition_group :
     azurerm_policy_set_definition__policy_definition_group list;
   policy_definition_reference :

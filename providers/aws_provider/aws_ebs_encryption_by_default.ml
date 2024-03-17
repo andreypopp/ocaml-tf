@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_ebs_encryption_by_default = {
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_ebs_encryption_by_default *)

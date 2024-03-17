@@ -6,7 +6,7 @@ type aws_verifiedpermissions_policy_store__validation_settings
 type aws_verifiedpermissions_policy_store
 
 val aws_verifiedpermissions_policy_store :
-  ?description:string ->
+  ?description:string prop ->
   validation_settings:
     aws_verifiedpermissions_policy_store__validation_settings list ->
   string ->

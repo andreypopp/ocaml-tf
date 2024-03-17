@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_amplify_webhook
 
 val aws_amplify_webhook :
-  ?description:string ->
-  ?id:string ->
-  app_id:string ->
-  branch_name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  app_id:string prop ->
+  branch_name:string prop ->
   string ->
   unit

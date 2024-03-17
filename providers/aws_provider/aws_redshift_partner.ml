@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_redshift_partner = {
-  account_id : string;  (** account_id *)
-  cluster_identifier : string;  (** cluster_identifier *)
-  database_name : string;  (** database_name *)
-  id : string option; [@option]  (** id *)
-  partner_name : string;  (** partner_name *)
+  account_id : string prop;  (** account_id *)
+  cluster_identifier : string prop;  (** cluster_identifier *)
+  database_name : string prop;  (** database_name *)
+  id : string prop option; [@option]  (** id *)
+  partner_name : string prop;  (** partner_name *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_partner *)

@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_site_recovery_protection_container__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_protection_container__timeouts *)
 
 type azurerm_site_recovery_protection_container = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  recovery_fabric_name : string;  (** recovery_fabric_name *)
-  recovery_vault_name : string;  (** recovery_vault_name *)
-  resource_group_name : string;  (** resource_group_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  recovery_fabric_name : string prop;  (** recovery_fabric_name *)
+  recovery_vault_name : string prop;  (** recovery_vault_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts :
     azurerm_site_recovery_protection_container__timeouts option;
 }

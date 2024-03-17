@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_chime_voice_connector_termination_credentials__credentials = {
-  password : string;  (** password *)
-  username : string;  (** username *)
+  password : string prop;  (** password *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_termination_credentials__credentials *)
 
 type aws_chime_voice_connector_termination_credentials = {
-  id : string option; [@option]  (** id *)
-  voice_connector_id : string;  (** voice_connector_id *)
+  id : string prop option; [@option]  (** id *)
+  voice_connector_id : string prop;  (** voice_connector_id *)
   credentials :
     aws_chime_voice_connector_termination_credentials__credentials
     list;

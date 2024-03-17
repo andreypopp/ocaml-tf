@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_codeguruprofiler_profiling_group__agent_orchestration_config = {
-  profiling_enabled : bool;  (** profiling_enabled *)
+  profiling_enabled : bool prop;  (** profiling_enabled *)
 }
 [@@deriving yojson_of]
 (** aws_codeguruprofiler_profiling_group__agent_orchestration_config *)
 
 type aws_codeguruprofiler_profiling_group = {
-  compute_platform : string option; [@option]
+  compute_platform : string prop option; [@option]
       (** compute_platform *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   agent_orchestration_config :
     aws_codeguruprofiler_profiling_group__agent_orchestration_config
     list;

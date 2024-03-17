@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_servicebus_queue_authorization_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_servicebus_queue_authorization_rule__timeouts *)
 
 type azurerm_servicebus_queue_authorization_rule = {
-  id : string option; [@option]  (** id *)
-  listen : bool option; [@option]  (** listen *)
-  manage : bool option; [@option]  (** manage *)
-  name : string;  (** name *)
-  queue_id : string;  (** queue_id *)
-  send : bool option; [@option]  (** send *)
+  id : string prop option; [@option]  (** id *)
+  listen : bool prop option; [@option]  (** listen *)
+  manage : bool prop option; [@option]  (** manage *)
+  name : string prop;  (** name *)
+  queue_id : string prop;  (** queue_id *)
+  send : bool prop option; [@option]  (** send *)
   timeouts :
     azurerm_servicebus_queue_authorization_rule__timeouts option;
 }

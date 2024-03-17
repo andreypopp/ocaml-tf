@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_opensearch_package__package_source = {
-  s3_bucket_name : string;  (** s3_bucket_name *)
-  s3_key : string;  (** s3_key *)
+  s3_bucket_name : string prop;  (** s3_bucket_name *)
+  s3_key : string prop;  (** s3_key *)
 }
 [@@deriving yojson_of]
 (** aws_opensearch_package__package_source *)
 
 type aws_opensearch_package = {
-  id : string option; [@option]  (** id *)
-  package_description : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  package_description : string prop option; [@option]
       (** package_description *)
-  package_name : string;  (** package_name *)
-  package_type : string;  (** package_type *)
+  package_name : string prop;  (** package_name *)
+  package_type : string prop;  (** package_type *)
   package_source : aws_opensearch_package__package_source list;
 }
 [@@deriving yojson_of]

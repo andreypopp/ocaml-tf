@@ -5,10 +5,10 @@ open! Tf.Prelude
 type google_dataproc_cluster_iam_policy
 
 val google_dataproc_cluster_iam_policy :
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
-  cluster:string ->
-  policy_data:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  cluster:string prop ->
+  policy_data:string prop ->
   string ->
   unit

@@ -36,23 +36,23 @@ type google_compute_instance_template__timeouts
 type google_compute_instance_template
 
 val google_compute_instance_template :
-  ?can_ip_forward:bool ->
-  ?description:string ->
-  ?id:string ->
-  ?instance_description:string ->
-  ?labels:(string * string) list ->
-  ?metadata:(string * string) list ->
-  ?metadata_startup_script:string ->
-  ?min_cpu_platform:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?project:string ->
-  ?region:string ->
-  ?resource_manager_tags:(string * string) list ->
-  ?resource_policies:string list ->
-  ?tags:string list ->
+  ?can_ip_forward:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?instance_description:string prop ->
+  ?labels:(string * string prop) list ->
+  ?metadata:(string * string prop) list ->
+  ?metadata_startup_script:string prop ->
+  ?min_cpu_platform:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?resource_manager_tags:(string * string prop) list ->
+  ?resource_policies:string prop list ->
+  ?tags:string prop list ->
   ?timeouts:google_compute_instance_template__timeouts ->
-  machine_type:string ->
+  machine_type:string prop ->
   advanced_machine_features:
     google_compute_instance_template__advanced_machine_features list ->
   confidential_instance_config:

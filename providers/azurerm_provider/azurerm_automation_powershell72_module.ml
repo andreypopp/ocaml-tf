@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type azurerm_automation_powershell72_module__module_link__hash = {
-  algorithm : string;  (** algorithm *)
-  value : string;  (** value *)
+  algorithm : string prop;  (** algorithm *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_powershell72_module__module_link__hash *)
 
 type azurerm_automation_powershell72_module__module_link = {
-  uri : string;  (** uri *)
+  uri : string prop;  (** uri *)
   hash :
     azurerm_automation_powershell72_module__module_link__hash list;
 }
@@ -20,18 +20,18 @@ type azurerm_automation_powershell72_module__module_link = {
 (** azurerm_automation_powershell72_module__module_link *)
 
 type azurerm_automation_powershell72_module__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_powershell72_module__timeouts *)
 
 type azurerm_automation_powershell72_module = {
-  automation_account_id : string;  (** automation_account_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  automation_account_id : string prop;  (** automation_account_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   module_link :
     azurerm_automation_powershell72_module__module_link list;
   timeouts : azurerm_automation_powershell72_module__timeouts option;

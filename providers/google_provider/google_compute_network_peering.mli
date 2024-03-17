@@ -6,15 +6,15 @@ type google_compute_network_peering__timeouts
 type google_compute_network_peering
 
 val google_compute_network_peering :
-  ?export_custom_routes:bool ->
-  ?export_subnet_routes_with_public_ip:bool ->
-  ?id:string ->
-  ?import_custom_routes:bool ->
-  ?import_subnet_routes_with_public_ip:bool ->
-  ?stack_type:string ->
+  ?export_custom_routes:bool prop ->
+  ?export_subnet_routes_with_public_ip:bool prop ->
+  ?id:string prop ->
+  ?import_custom_routes:bool prop ->
+  ?import_subnet_routes_with_public_ip:bool prop ->
+  ?stack_type:string prop ->
   ?timeouts:google_compute_network_peering__timeouts ->
-  name:string ->
-  network:string ->
-  peer_network:string ->
+  name:string prop ->
+  network:string prop ->
+  peer_network:string prop ->
   string ->
   unit

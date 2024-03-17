@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_iothub_endpoint_servicebus_topic__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_endpoint_servicebus_topic__timeouts *)
 
 type azurerm_iothub_endpoint_servicebus_topic = {
-  authentication_type : string option; [@option]
+  authentication_type : string prop option; [@option]
       (** authentication_type *)
-  connection_string : string option; [@option]
+  connection_string : string prop option; [@option]
       (** connection_string *)
-  endpoint_uri : string option; [@option]  (** endpoint_uri *)
-  entity_path : string option; [@option]  (** entity_path *)
-  id : string option; [@option]  (** id *)
-  identity_id : string option; [@option]  (** identity_id *)
-  iothub_id : string;  (** iothub_id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  endpoint_uri : string prop option; [@option]  (** endpoint_uri *)
+  entity_path : string prop option; [@option]  (** entity_path *)
+  id : string prop option; [@option]  (** id *)
+  identity_id : string prop option; [@option]  (** identity_id *)
+  iothub_id : string prop;  (** iothub_id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts :
     azurerm_iothub_endpoint_servicebus_topic__timeouts option;
 }

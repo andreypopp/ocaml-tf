@@ -6,14 +6,14 @@ type google_dataplex_asset_iam_member__condition
 type google_dataplex_asset_iam_member
 
 val google_dataplex_asset_iam_member :
-  ?id:string ->
-  ?location:string ->
-  ?project:string ->
-  asset:string ->
-  dataplex_zone:string ->
-  lake:string ->
-  member:string ->
-  role:string ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  asset:string prop ->
+  dataplex_zone:string prop ->
+  lake:string prop ->
+  member:string prop ->
+  role:string prop ->
   condition:google_dataplex_asset_iam_member__condition list ->
   string ->
   unit

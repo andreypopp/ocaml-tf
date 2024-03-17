@@ -8,16 +8,16 @@ type azurerm_logic_app_integration_account_agreement__timeouts
 type azurerm_logic_app_integration_account_agreement
 
 val azurerm_logic_app_integration_account_agreement :
-  ?id:string ->
-  ?metadata:(string * string) list ->
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
   ?timeouts:azurerm_logic_app_integration_account_agreement__timeouts ->
-  agreement_type:string ->
-  content:string ->
-  guest_partner_name:string ->
-  host_partner_name:string ->
-  integration_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  agreement_type:string prop ->
+  content:string prop ->
+  guest_partner_name:string prop ->
+  host_partner_name:string prop ->
+  integration_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   guest_identity:
     azurerm_logic_app_integration_account_agreement__guest_identity
     list ->

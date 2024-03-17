@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_signer_signing_job__destination__s3 = {
-  bucket : string;  (** bucket *)
-  prefix : string option; [@option]  (** prefix *)
+  bucket : string prop;  (** bucket *)
+  prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
 (** aws_signer_signing_job__destination__s3 *)
@@ -18,9 +18,9 @@ type aws_signer_signing_job__destination = {
 (** aws_signer_signing_job__destination *)
 
 type aws_signer_signing_job__source__s3 = {
-  bucket : string;  (** bucket *)
-  key : string;  (** key *)
-  version : string;  (** version *)
+  bucket : string prop;  (** bucket *)
+  key : string prop;  (** key *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_signer_signing_job__source__s3 *)
@@ -32,15 +32,15 @@ type aws_signer_signing_job__source = {
 (** aws_signer_signing_job__source *)
 
 type aws_signer_signing_job__revocation_record = {
-  reason : string;  (** reason *)
-  revoked_at : string;  (** revoked_at *)
-  revoked_by : string;  (** revoked_by *)
+  reason : string prop;  (** reason *)
+  revoked_at : string prop;  (** revoked_at *)
+  revoked_by : string prop;  (** revoked_by *)
 }
 [@@deriving yojson_of]
 
 type aws_signer_signing_job__signed_object__s3 = {
-  bucket : string;  (** bucket *)
-  key : string;  (** key *)
+  bucket : string prop;  (** bucket *)
+  key : string prop;  (** key *)
 }
 [@@deriving yojson_of]
 
@@ -50,10 +50,10 @@ type aws_signer_signing_job__signed_object = {
 [@@deriving yojson_of]
 
 type aws_signer_signing_job = {
-  id : string option; [@option]  (** id *)
-  ignore_signing_job_failure : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ignore_signing_job_failure : bool prop option; [@option]
       (** ignore_signing_job_failure *)
-  profile_name : string;  (** profile_name *)
+  profile_name : string prop;  (** profile_name *)
   destination : aws_signer_signing_job__destination list;
   source : aws_signer_signing_job__source list;
 }

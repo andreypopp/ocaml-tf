@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_location_tracker_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_location_tracker_association__timeouts *)
 
 type aws_location_tracker_association = {
-  consumer_arn : string;  (** consumer_arn *)
-  id : string option; [@option]  (** id *)
-  tracker_name : string;  (** tracker_name *)
+  consumer_arn : string prop;  (** consumer_arn *)
+  id : string prop option; [@option]  (** id *)
+  tracker_name : string prop;  (** tracker_name *)
   timeouts : aws_location_tracker_association__timeouts option;
 }
 [@@deriving yojson_of]

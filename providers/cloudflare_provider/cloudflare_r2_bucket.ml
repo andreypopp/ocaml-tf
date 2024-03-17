@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type cloudflare_r2_bucket = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  location : string option; [@option]
+  location : string prop option; [@option]
       (** The location hint of the R2 bucket. *)
-  name : string;  (** The name of the R2 bucket. *)
+  name : string prop;  (** The name of the R2 bucket. *)
 }
 [@@deriving yojson_of]
 (** The [R2 Bucket](https://developers.cloudflare.com/r2/) resource allows you to manage Cloudflare R2 buckets.

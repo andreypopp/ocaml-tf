@@ -5,76 +5,79 @@
 open! Tf.Prelude
 
 type cloudflare_record__data = {
-  algorithm : float option; [@option]  (** algorithm *)
-  altitude : float option; [@option]  (** altitude *)
-  certificate : string option; [@option]  (** certificate *)
-  content : string option; [@option]  (** content *)
-  digest : string option; [@option]  (** digest *)
-  digest_type : float option; [@option]  (** digest_type *)
-  fingerprint : string option; [@option]  (** fingerprint *)
-  flags : string option; [@option]  (** flags *)
-  key_tag : float option; [@option]  (** key_tag *)
-  lat_degrees : float option; [@option]  (** lat_degrees *)
-  lat_direction : string option; [@option]  (** lat_direction *)
-  lat_minutes : float option; [@option]  (** lat_minutes *)
-  lat_seconds : float option; [@option]  (** lat_seconds *)
-  long_degrees : float option; [@option]  (** long_degrees *)
-  long_direction : string option; [@option]  (** long_direction *)
-  long_minutes : float option; [@option]  (** long_minutes *)
-  long_seconds : float option; [@option]  (** long_seconds *)
-  matching_type : float option; [@option]  (** matching_type *)
-  name : string option; [@option]  (** name *)
-  order : float option; [@option]  (** order *)
-  port : float option; [@option]  (** port *)
-  precision_horz : float option; [@option]  (** precision_horz *)
-  precision_vert : float option; [@option]  (** precision_vert *)
-  preference : float option; [@option]  (** preference *)
-  priority : float option; [@option]  (** priority *)
-  proto : string option; [@option]  (** proto *)
-  protocol : float option; [@option]  (** protocol *)
-  public_key : string option; [@option]  (** public_key *)
-  regex : string option; [@option]  (** regex *)
-  replacement : string option; [@option]  (** replacement *)
-  selector : float option; [@option]  (** selector *)
-  service : string option; [@option]  (** service *)
-  size : float option; [@option]  (** size *)
-  tag : string option; [@option]  (** tag *)
-  target : string option; [@option]  (** target *)
-  type_ : float option; [@option] [@key "type"]  (** type *)
-  usage : float option; [@option]  (** usage *)
-  value : string option; [@option]  (** value *)
-  weight : float option; [@option]  (** weight *)
+  algorithm : float prop option; [@option]  (** algorithm *)
+  altitude : float prop option; [@option]  (** altitude *)
+  certificate : string prop option; [@option]  (** certificate *)
+  content : string prop option; [@option]  (** content *)
+  digest : string prop option; [@option]  (** digest *)
+  digest_type : float prop option; [@option]  (** digest_type *)
+  fingerprint : string prop option; [@option]  (** fingerprint *)
+  flags : string prop option; [@option]  (** flags *)
+  key_tag : float prop option; [@option]  (** key_tag *)
+  lat_degrees : float prop option; [@option]  (** lat_degrees *)
+  lat_direction : string prop option; [@option]  (** lat_direction *)
+  lat_minutes : float prop option; [@option]  (** lat_minutes *)
+  lat_seconds : float prop option; [@option]  (** lat_seconds *)
+  long_degrees : float prop option; [@option]  (** long_degrees *)
+  long_direction : string prop option; [@option]
+      (** long_direction *)
+  long_minutes : float prop option; [@option]  (** long_minutes *)
+  long_seconds : float prop option; [@option]  (** long_seconds *)
+  matching_type : float prop option; [@option]  (** matching_type *)
+  name : string prop option; [@option]  (** name *)
+  order : float prop option; [@option]  (** order *)
+  port : float prop option; [@option]  (** port *)
+  precision_horz : float prop option; [@option]
+      (** precision_horz *)
+  precision_vert : float prop option; [@option]
+      (** precision_vert *)
+  preference : float prop option; [@option]  (** preference *)
+  priority : float prop option; [@option]  (** priority *)
+  proto : string prop option; [@option]  (** proto *)
+  protocol : float prop option; [@option]  (** protocol *)
+  public_key : string prop option; [@option]  (** public_key *)
+  regex : string prop option; [@option]  (** regex *)
+  replacement : string prop option; [@option]  (** replacement *)
+  selector : float prop option; [@option]  (** selector *)
+  service : string prop option; [@option]  (** service *)
+  size : float prop option; [@option]  (** size *)
+  tag : string prop option; [@option]  (** tag *)
+  target : string prop option; [@option]  (** target *)
+  type_ : float prop option; [@option] [@key "type"]  (** type *)
+  usage : float prop option; [@option]  (** usage *)
+  value : string prop option; [@option]  (** value *)
+  weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
 (** Map of attributes that constitute the record value. Conflicts with `value`. *)
 
 type cloudflare_record__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** cloudflare_record__timeouts *)
 
 type cloudflare_record = {
-  allow_overwrite : bool option; [@option]
+  allow_overwrite : bool prop option; [@option]
       (** Allow creation of this record in Terraform to overwrite an existing record, if any. This does not affect the ability to update the record in Terraform and does not prevent other resources within Terraform or manual changes outside Terraform from overwriting this record. **This configuration is not recommended for most environments**. Defaults to `false`. *)
-  comment : string option; [@option]
+  comment : string prop option; [@option]
       (** Comments or notes about the DNS record. This field has no effect on DNS responses. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The name of the record. **Modifying this attribute will force creation of a new resource.** *)
-  priority : float option; [@option]
+  priority : float prop option; [@option]
       (** The priority of the record. *)
-  proxied : bool option; [@option]
+  proxied : bool prop option; [@option]
       (** Whether the record gets Cloudflare's origin protection. *)
-  tags : string list option; [@option]
+  tags : string prop list option; [@option]
       (** Custom tags for the DNS record. *)
-  ttl : float option; [@option]  (** The TTL of the record. *)
-  type_ : string; [@key "type"]
+  ttl : float prop option; [@option]  (** The TTL of the record. *)
+  type_ : string prop; [@key "type"]
       (** The type of the record. Available values: `A`, `AAAA`, `CAA`, `CNAME`, `TXT`, `SRV`, `LOC`, `MX`, `NS`, `SPF`, `CERT`, `DNSKEY`, `DS`, `NAPTR`, `SMIMEA`, `SSHFP`, `TLSA`, `URI`, `PTR`, `HTTPS`, `SVCB`. **Modifying this attribute will force creation of a new resource.** *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** The value of the record. Conflicts with `data`. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   data : cloudflare_record__data list;
   timeouts : cloudflare_record__timeouts option;

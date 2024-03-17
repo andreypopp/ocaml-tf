@@ -13,15 +13,15 @@ type google_compute_health_check__timeouts
 type google_compute_health_check
 
 val google_compute_health_check :
-  ?check_interval_sec:float ->
-  ?description:string ->
-  ?healthy_threshold:float ->
-  ?id:string ->
-  ?project:string ->
-  ?timeout_sec:float ->
-  ?unhealthy_threshold:float ->
+  ?check_interval_sec:float prop ->
+  ?description:string prop ->
+  ?healthy_threshold:float prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeout_sec:float prop ->
+  ?unhealthy_threshold:float prop ->
   ?timeouts:google_compute_health_check__timeouts ->
-  name:string ->
+  name:string prop ->
   grpc_health_check:
     google_compute_health_check__grpc_health_check list ->
   http2_health_check:

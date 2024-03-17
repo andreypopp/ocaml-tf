@@ -8,9 +8,9 @@ type aws_s3_bucket_notification__topic
 type aws_s3_bucket_notification
 
 val aws_s3_bucket_notification :
-  ?eventbridge:bool ->
-  ?id:string ->
-  bucket:string ->
+  ?eventbridge:bool prop ->
+  ?id:string prop ->
+  bucket:string prop ->
   lambda_function:aws_s3_bucket_notification__lambda_function list ->
   queue:aws_s3_bucket_notification__queue list ->
   topic:aws_s3_bucket_notification__topic list ->

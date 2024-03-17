@@ -394,8 +394,8 @@ type kubernetes_stateful_set_v1__timeouts
 type kubernetes_stateful_set_v1
 
 val kubernetes_stateful_set_v1 :
-  ?id:string ->
-  ?wait_for_rollout:bool ->
+  ?id:string prop ->
+  ?wait_for_rollout:bool prop ->
   ?timeouts:kubernetes_stateful_set_v1__timeouts ->
   metadata:kubernetes_stateful_set_v1__metadata list ->
   spec:kubernetes_stateful_set_v1__spec list ->

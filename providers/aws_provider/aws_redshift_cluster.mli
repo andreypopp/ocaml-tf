@@ -7,58 +7,58 @@ type aws_redshift_cluster__snapshot_copy
 type aws_redshift_cluster__timeouts
 
 type aws_redshift_cluster__cluster_nodes = {
-  node_role : string;  (** node_role *)
-  private_ip_address : string;  (** private_ip_address *)
-  public_ip_address : string;  (** public_ip_address *)
+  node_role : string prop;  (** node_role *)
+  private_ip_address : string prop;  (** private_ip_address *)
+  public_ip_address : string prop;  (** public_ip_address *)
 }
 
 type aws_redshift_cluster
 
 val aws_redshift_cluster :
-  ?allow_version_upgrade:bool ->
-  ?apply_immediately:bool ->
-  ?aqua_configuration_status:string ->
-  ?automated_snapshot_retention_period:float ->
-  ?availability_zone:string ->
-  ?availability_zone_relocation_enabled:bool ->
-  ?cluster_parameter_group_name:string ->
-  ?cluster_public_key:string ->
-  ?cluster_revision_number:string ->
-  ?cluster_subnet_group_name:string ->
-  ?cluster_type:string ->
-  ?cluster_version:string ->
-  ?database_name:string ->
-  ?default_iam_role_arn:string ->
-  ?elastic_ip:string ->
-  ?encrypted:bool ->
-  ?endpoint:string ->
-  ?enhanced_vpc_routing:bool ->
-  ?final_snapshot_identifier:string ->
-  ?iam_roles:string list ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?maintenance_track_name:string ->
-  ?manage_master_password:bool ->
-  ?manual_snapshot_retention_period:float ->
-  ?master_password:string ->
-  ?master_password_secret_kms_key_id:string ->
-  ?master_username:string ->
-  ?multi_az:bool ->
-  ?number_of_nodes:float ->
-  ?owner_account:string ->
-  ?port:float ->
-  ?preferred_maintenance_window:string ->
-  ?publicly_accessible:bool ->
-  ?skip_final_snapshot:bool ->
-  ?snapshot_arn:string ->
-  ?snapshot_cluster_identifier:string ->
-  ?snapshot_identifier:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?vpc_security_group_ids:string list ->
+  ?allow_version_upgrade:bool prop ->
+  ?apply_immediately:bool prop ->
+  ?aqua_configuration_status:string prop ->
+  ?automated_snapshot_retention_period:float prop ->
+  ?availability_zone:string prop ->
+  ?availability_zone_relocation_enabled:bool prop ->
+  ?cluster_parameter_group_name:string prop ->
+  ?cluster_public_key:string prop ->
+  ?cluster_revision_number:string prop ->
+  ?cluster_subnet_group_name:string prop ->
+  ?cluster_type:string prop ->
+  ?cluster_version:string prop ->
+  ?database_name:string prop ->
+  ?default_iam_role_arn:string prop ->
+  ?elastic_ip:string prop ->
+  ?encrypted:bool prop ->
+  ?endpoint:string prop ->
+  ?enhanced_vpc_routing:bool prop ->
+  ?final_snapshot_identifier:string prop ->
+  ?iam_roles:string prop list ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?maintenance_track_name:string prop ->
+  ?manage_master_password:bool prop ->
+  ?manual_snapshot_retention_period:float prop ->
+  ?master_password:string prop ->
+  ?master_password_secret_kms_key_id:string prop ->
+  ?master_username:string prop ->
+  ?multi_az:bool prop ->
+  ?number_of_nodes:float prop ->
+  ?owner_account:string prop ->
+  ?port:float prop ->
+  ?preferred_maintenance_window:string prop ->
+  ?publicly_accessible:bool prop ->
+  ?skip_final_snapshot:bool prop ->
+  ?snapshot_arn:string prop ->
+  ?snapshot_cluster_identifier:string prop ->
+  ?snapshot_identifier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_security_group_ids:string prop list ->
   ?timeouts:aws_redshift_cluster__timeouts ->
-  cluster_identifier:string ->
-  node_type:string ->
+  cluster_identifier:string prop ->
+  node_type:string prop ->
   logging:aws_redshift_cluster__logging list ->
   snapshot_copy:aws_redshift_cluster__snapshot_copy list ->
   string ->

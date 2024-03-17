@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_app_mysql_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_app_mysql_association__timeouts *)
 
 type azurerm_spring_cloud_app_mysql_association = {
-  database_name : string;  (** database_name *)
-  id : string option; [@option]  (** id *)
-  mysql_server_id : string;  (** mysql_server_id *)
-  name : string;  (** name *)
-  password : string;  (** password *)
-  spring_cloud_app_id : string;  (** spring_cloud_app_id *)
-  username : string;  (** username *)
+  database_name : string prop;  (** database_name *)
+  id : string prop option; [@option]  (** id *)
+  mysql_server_id : string prop;  (** mysql_server_id *)
+  name : string prop;  (** name *)
+  password : string prop;  (** password *)
+  spring_cloud_app_id : string prop;  (** spring_cloud_app_id *)
+  username : string prop;  (** username *)
   timeouts :
     azurerm_spring_cloud_app_mysql_association__timeouts option;
 }

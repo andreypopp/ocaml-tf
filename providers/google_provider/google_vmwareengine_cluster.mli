@@ -7,10 +7,10 @@ type google_vmwareengine_cluster__timeouts
 type google_vmwareengine_cluster
 
 val google_vmwareengine_cluster :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_vmwareengine_cluster__timeouts ->
-  name:string ->
-  parent:string ->
+  name:string prop ->
+  parent:string prop ->
   node_type_configs:
     google_vmwareengine_cluster__node_type_configs list ->
   string ->

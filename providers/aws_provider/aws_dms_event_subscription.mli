@@ -6,15 +6,15 @@ type aws_dms_event_subscription__timeouts
 type aws_dms_event_subscription
 
 val aws_dms_event_subscription :
-  ?enabled:bool ->
-  ?id:string ->
-  ?source_ids:string list ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?source_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_dms_event_subscription__timeouts ->
-  event_categories:string list ->
-  name:string ->
-  sns_topic_arn:string ->
-  source_type:string ->
+  event_categories:string prop list ->
+  name:string prop ->
+  sns_topic_arn:string prop ->
+  source_type:string prop ->
   string ->
   unit

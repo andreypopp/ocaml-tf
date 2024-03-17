@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_ecr_pull_through_cache_rule = {
-  credential_arn : string option; [@option]  (** credential_arn *)
-  ecr_repository_prefix : string;  (** ecr_repository_prefix *)
-  id : string option; [@option]  (** id *)
-  upstream_registry_url : string;  (** upstream_registry_url *)
+  credential_arn : string prop option; [@option]
+      (** credential_arn *)
+  ecr_repository_prefix : string prop;  (** ecr_repository_prefix *)
+  id : string prop option; [@option]  (** id *)
+  upstream_registry_url : string prop;  (** upstream_registry_url *)
 }
 [@@deriving yojson_of]
 (** aws_ecr_pull_through_cache_rule *)

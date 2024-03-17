@@ -19,17 +19,17 @@ type aws_glue_catalog_table__target_table
 type aws_glue_catalog_table
 
 val aws_glue_catalog_table :
-  ?catalog_id:string ->
-  ?description:string ->
-  ?id:string ->
-  ?owner:string ->
-  ?parameters:(string * string) list ->
-  ?retention:float ->
-  ?table_type:string ->
-  ?view_expanded_text:string ->
-  ?view_original_text:string ->
-  database_name:string ->
-  name:string ->
+  ?catalog_id:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?owner:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?retention:float prop ->
+  ?table_type:string prop ->
+  ?view_expanded_text:string prop ->
+  ?view_original_text:string prop ->
+  database_name:string prop ->
+  name:string prop ->
   open_table_format_input:
     aws_glue_catalog_table__open_table_format_input list ->
   partition_index:aws_glue_catalog_table__partition_index list ->

@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type cloudflare_account_member = {
-  account_id : string;
+  account_id : string prop;
       (** Account ID to create the account member in. *)
-  email_address : string;
+  email_address : string prop;
       (** The email address of the user who you wish to manage. Following creation, this field becomes read only via the API and cannot be updated. *)
-  id : string option; [@option]  (** id *)
-  role_ids : string list;
+  id : string prop option; [@option]  (** id *)
+  role_ids : string prop list;
       (** List of account role IDs that you want to assign to a member. *)
-  status : string option; [@option]
+  status : string prop option; [@option]
       (** A member's status in the account. Available values: `accepted`, `pending`. *)
 }
 [@@deriving yojson_of]

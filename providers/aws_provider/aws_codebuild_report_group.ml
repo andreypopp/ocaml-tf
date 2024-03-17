@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_codebuild_report_group__export_config__s3_destination = {
-  bucket : string;  (** bucket *)
-  encryption_disabled : bool option; [@option]
+  bucket : string prop;  (** bucket *)
+  encryption_disabled : bool prop option; [@option]
       (** encryption_disabled *)
-  encryption_key : string;  (** encryption_key *)
-  packaging : string option; [@option]  (** packaging *)
-  path : string option; [@option]  (** path *)
+  encryption_key : string prop;  (** encryption_key *)
+  packaging : string prop option; [@option]  (** packaging *)
+  path : string prop option; [@option]  (** path *)
 }
 [@@deriving yojson_of]
 (** aws_codebuild_report_group__export_config__s3_destination *)
 
 type aws_codebuild_report_group__export_config = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   s3_destination :
     aws_codebuild_report_group__export_config__s3_destination list;
 }
@@ -24,13 +24,13 @@ type aws_codebuild_report_group__export_config = {
 (** aws_codebuild_report_group__export_config *)
 
 type aws_codebuild_report_group = {
-  delete_reports : bool option; [@option]  (** delete_reports *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  delete_reports : bool prop option; [@option]  (** delete_reports *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   export_config : aws_codebuild_report_group__export_config list;
 }
 [@@deriving yojson_of]

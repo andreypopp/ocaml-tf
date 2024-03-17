@@ -6,14 +6,14 @@ type aws_kinesis_video_stream__timeouts
 type aws_kinesis_video_stream
 
 val aws_kinesis_video_stream :
-  ?data_retention_in_hours:float ->
-  ?device_name:string ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?media_type:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?data_retention_in_hours:float prop ->
+  ?device_name:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?media_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_kinesis_video_stream__timeouts ->
-  name:string ->
+  name:string prop ->
   string ->
   unit

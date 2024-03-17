@@ -6,12 +6,12 @@ type azurerm_stream_analytics_cluster__timeouts
 type azurerm_stream_analytics_cluster
 
 val azurerm_stream_analytics_cluster :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_stream_analytics_cluster__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  streaming_capacity:float ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  streaming_capacity:float prop ->
   string ->
   unit

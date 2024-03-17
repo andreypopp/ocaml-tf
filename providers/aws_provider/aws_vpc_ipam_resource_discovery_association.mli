@@ -6,11 +6,11 @@ type aws_vpc_ipam_resource_discovery_association__timeouts
 type aws_vpc_ipam_resource_discovery_association
 
 val aws_vpc_ipam_resource_discovery_association :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_vpc_ipam_resource_discovery_association__timeouts ->
-  ipam_id:string ->
-  ipam_resource_discovery_id:string ->
+  ipam_id:string prop ->
+  ipam_resource_discovery_id:string prop ->
   string ->
   unit

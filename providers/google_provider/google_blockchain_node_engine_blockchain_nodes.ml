@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type google_blockchain_node_engine_blockchain_nodes__ethereum_details__geth_details = {
-  garbage_collection_mode : string option; [@option]
+  garbage_collection_mode : string prop option; [@option]
       (** Blockchain garbage collection modes. Only applicable when NodeType is FULL or ARCHIVE. Possible values: [FULL, ARCHIVE] *)
 }
 [@@deriving yojson_of]
 (** User-provided key-value pairs *)
 
 type google_blockchain_node_engine_blockchain_nodes__ethereum_details__validator_config = {
-  mev_relay_urls : string list option; [@option]
+  mev_relay_urls : string prop list option; [@option]
       (** URLs for MEV-relay services to use for block building. When set, a managed MEV-boost service is configured on the beacon client. *)
 }
 [@@deriving yojson_of]
 (** Configuration for validator-related parameters on the beacon client, and for any managed validator client. *)
 
 type google_blockchain_node_engine_blockchain_nodes__ethereum_details__additional_endpoints = {
-  beacon_api_endpoint : string;  (** beacon_api_endpoint *)
-  beacon_prometheus_metrics_api_endpoint : string;
+  beacon_api_endpoint : string prop;  (** beacon_api_endpoint *)
+  beacon_prometheus_metrics_api_endpoint : string prop;
       (** beacon_prometheus_metrics_api_endpoint *)
-  execution_client_prometheus_metrics_api_endpoint : string;
+  execution_client_prometheus_metrics_api_endpoint : string prop;
       (** execution_client_prometheus_metrics_api_endpoint *)
 }
 [@@deriving yojson_of]
@@ -32,17 +32,17 @@ type google_blockchain_node_engine_blockchain_nodes__ethereum_details = {
     google_blockchain_node_engine_blockchain_nodes__ethereum_details__additional_endpoints
     list;
       (** User-provided key-value pairs *)
-  api_enable_admin : bool option; [@option]
+  api_enable_admin : bool prop option; [@option]
       (** Enables JSON-RPC access to functions in the admin namespace. Defaults to false. *)
-  api_enable_debug : bool option; [@option]
+  api_enable_debug : bool prop option; [@option]
       (** Enables JSON-RPC access to functions in the debug namespace. Defaults to false. *)
-  consensus_client : string option; [@option]
+  consensus_client : string prop option; [@option]
       (** The consensus client Possible values: [CONSENSUS_CLIENT_UNSPECIFIED, LIGHTHOUSE] *)
-  execution_client : string option; [@option]
+  execution_client : string prop option; [@option]
       (** The execution client Possible values: [EXECUTION_CLIENT_UNSPECIFIED, GETH, ERIGON] *)
-  network : string option; [@option]
+  network : string prop option; [@option]
       (** The Ethereum environment being accessed. Possible values: [MAINNET, TESTNET_GOERLI_PRATER, TESTNET_SEPOLIA] *)
-  node_type : string option; [@option]
+  node_type : string prop option; [@option]
       (** The type of Ethereum node. Possible values: [LIGHT, FULL, ARCHIVE] *)
   geth_details :
     google_blockchain_node_engine_blockchain_nodes__ethereum_details__geth_details
@@ -55,16 +55,17 @@ type google_blockchain_node_engine_blockchain_nodes__ethereum_details = {
 (** User-provided key-value pairs *)
 
 type google_blockchain_node_engine_blockchain_nodes__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_blockchain_node_engine_blockchain_nodes__timeouts *)
 
 type google_blockchain_node_engine_blockchain_nodes__connection_info__endpoint_info = {
-  json_rpc_api_endpoint : string;  (** json_rpc_api_endpoint *)
-  websockets_api_endpoint : string;  (** websockets_api_endpoint *)
+  json_rpc_api_endpoint : string prop;  (** json_rpc_api_endpoint *)
+  websockets_api_endpoint : string prop;
+      (** websockets_api_endpoint *)
 }
 [@@deriving yojson_of]
 
@@ -73,24 +74,25 @@ type google_blockchain_node_engine_blockchain_nodes__connection_info = {
     google_blockchain_node_engine_blockchain_nodes__connection_info__endpoint_info
     list;
       (** endpoint_info *)
-  service_attachment : string;  (** service_attachment *)
+  service_attachment : string prop;  (** service_attachment *)
 }
 [@@deriving yojson_of]
 
 type google_blockchain_node_engine_blockchain_nodes = {
-  blockchain_node_id : string;  (** ID of the requesting object. *)
-  blockchain_type : string option; [@option]
+  blockchain_node_id : string prop;
+      (** ID of the requesting object. *)
+  blockchain_type : string prop option; [@option]
       (** User-provided key-value pairs Possible values: [ETHEREUM] *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** User-provided key-value pairs
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;
+  location : string prop;
       (** Location of Blockchain Node being created. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   ethereum_details :
     google_blockchain_node_engine_blockchain_nodes__ethereum_details
     list;

@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type cloudflare_regional_hostname__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** cloudflare_regional_hostname__timeouts *)
 
 type cloudflare_regional_hostname = {
-  hostname : string;  (** The hostname to regionalize. *)
-  id : string option; [@option]  (** id *)
-  region_key : string;
+  hostname : string prop;  (** The hostname to regionalize. *)
+  id : string prop option; [@option]  (** id *)
+  region_key : string prop;
       (** The region key. See [the full region list](https://developers.cloudflare.com/data-localization/regional-services/get-started/). *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
   timeouts : cloudflare_regional_hostname__timeouts option;
 }

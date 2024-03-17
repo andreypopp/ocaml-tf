@@ -6,17 +6,17 @@ type google_vmwareengine_network_peering__timeouts
 type google_vmwareengine_network_peering
 
 val google_vmwareengine_network_peering :
-  ?description:string ->
-  ?export_custom_routes:bool ->
-  ?export_custom_routes_with_public_ip:bool ->
-  ?id:string ->
-  ?import_custom_routes:bool ->
-  ?import_custom_routes_with_public_ip:bool ->
-  ?project:string ->
+  ?description:string prop ->
+  ?export_custom_routes:bool prop ->
+  ?export_custom_routes_with_public_ip:bool prop ->
+  ?id:string prop ->
+  ?import_custom_routes:bool prop ->
+  ?import_custom_routes_with_public_ip:bool prop ->
+  ?project:string prop ->
   ?timeouts:google_vmwareengine_network_peering__timeouts ->
-  name:string ->
-  peer_network:string ->
-  peer_network_type:string ->
-  vmware_engine_network:string ->
+  name:string prop ->
+  peer_network:string prop ->
+  peer_network_type:string prop ->
+  vmware_engine_network:string prop ->
   string ->
   unit

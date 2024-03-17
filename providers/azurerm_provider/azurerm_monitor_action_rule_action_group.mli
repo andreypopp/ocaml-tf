@@ -21,14 +21,14 @@ type azurerm_monitor_action_rule_action_group__timeouts
 type azurerm_monitor_action_rule_action_group
 
 val azurerm_monitor_action_rule_action_group :
-  ?description:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_monitor_action_rule_action_group__timeouts ->
-  action_group_id:string ->
-  name:string ->
-  resource_group_name:string ->
+  action_group_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   condition:azurerm_monitor_action_rule_action_group__condition list ->
   scope:azurerm_monitor_action_rule_action_group__scope list ->
   string ->

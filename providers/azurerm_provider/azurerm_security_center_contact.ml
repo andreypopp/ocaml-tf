@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_security_center_contact__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_contact__timeouts *)
 
 type azurerm_security_center_contact = {
-  alert_notifications : bool;  (** alert_notifications *)
-  alerts_to_admins : bool;  (** alerts_to_admins *)
-  email : string;  (** email *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  phone : string option; [@option]  (** phone *)
+  alert_notifications : bool prop;  (** alert_notifications *)
+  alerts_to_admins : bool prop;  (** alerts_to_admins *)
+  email : string prop;  (** email *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  phone : string prop option; [@option]  (** phone *)
   timeouts : azurerm_security_center_contact__timeouts option;
 }
 [@@deriving yojson_of]

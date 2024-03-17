@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type digitalocean_uptime_alert__notifications__slack = {
-  channel : string;  (** The Slack channel to send alerts to *)
-  url : string;  (** The webhook URL for Slack *)
+  channel : string prop;  (** The Slack channel to send alerts to *)
+  url : string prop;  (** The webhook URL for Slack *)
 }
 [@@deriving yojson_of]
 (** digitalocean_uptime_alert__notifications__slack *)
 
 type digitalocean_uptime_alert__notifications = {
-  email : string list option; [@option]
+  email : string prop list option; [@option]
       (** List of email addresses to sent notifications to *)
   slack : digitalocean_uptime_alert__notifications__slack list;
 }
@@ -20,15 +20,16 @@ type digitalocean_uptime_alert__notifications = {
 (** The notification settings for a trigger alert. *)
 
 type digitalocean_uptime_alert = {
-  check_id : string;  (** A unique identifier for a check. *)
-  comparison : string option; [@option]
+  check_id : string prop;  (** A unique identifier for a check. *)
+  comparison : string prop option; [@option]
       (** The comparison operator used against the alert's threshold. Enum: 'greater_than' 'less_than *)
-  name : string;  (** A human-friendly display name for the alert. *)
-  period : string option; [@option]
+  name : string prop;
+      (** A human-friendly display name for the alert. *)
+  period : string prop option; [@option]
       (** Period of time the threshold must be exceeded to trigger the alert. Enum '2m' '3m' '5m' '10m' '15m' '30m' '1h' *)
-  threshold : float option; [@option]
+  threshold : float prop option; [@option]
       (** The threshold at which the alert will enter a trigger state. The specific threshold is dependent on the alert type. *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** The type of health check to perform. Enum: 'latency' 'down' 'down_global' 'ssl_expiry' *)
   notifications : digitalocean_uptime_alert__notifications list;
 }

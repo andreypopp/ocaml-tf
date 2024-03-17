@@ -16,13 +16,13 @@ type google_compute_reservation__timeouts
 type google_compute_reservation
 
 val google_compute_reservation :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
-  ?specific_reservation_required:bool ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?specific_reservation_required:bool prop ->
   ?timeouts:google_compute_reservation__timeouts ->
-  name:string ->
-  zone:string ->
+  name:string prop ->
+  zone:string prop ->
   share_settings:google_compute_reservation__share_settings list ->
   specific_reservation:
     google_compute_reservation__specific_reservation list ->

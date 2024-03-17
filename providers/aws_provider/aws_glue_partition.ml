@@ -5,54 +5,55 @@
 open! Tf.Prelude
 
 type aws_glue_partition__storage_descriptor__columns = {
-  comment : string option; [@option]  (** comment *)
-  name : string;  (** name *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  comment : string prop option; [@option]  (** comment *)
+  name : string prop;  (** name *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_glue_partition__storage_descriptor__columns *)
 
 type aws_glue_partition__storage_descriptor__ser_de_info = {
-  name : string option; [@option]  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop option; [@option]  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  serialization_library : string option; [@option]
+  serialization_library : string prop option; [@option]
       (** serialization_library *)
 }
 [@@deriving yojson_of]
 (** aws_glue_partition__storage_descriptor__ser_de_info *)
 
 type aws_glue_partition__storage_descriptor__skewed_info = {
-  skewed_column_names : string list option; [@option]
+  skewed_column_names : string prop list option; [@option]
       (** skewed_column_names *)
-  skewed_column_value_location_maps : (string * string) list option;
+  skewed_column_value_location_maps :
+    (string * string prop) list option;
       [@option]
       (** skewed_column_value_location_maps *)
-  skewed_column_values : string list option; [@option]
+  skewed_column_values : string prop list option; [@option]
       (** skewed_column_values *)
 }
 [@@deriving yojson_of]
 (** aws_glue_partition__storage_descriptor__skewed_info *)
 
 type aws_glue_partition__storage_descriptor__sort_columns = {
-  column : string;  (** column *)
-  sort_order : float;  (** sort_order *)
+  column : string prop;  (** column *)
+  sort_order : float prop;  (** sort_order *)
 }
 [@@deriving yojson_of]
 (** aws_glue_partition__storage_descriptor__sort_columns *)
 
 type aws_glue_partition__storage_descriptor = {
-  bucket_columns : string list option; [@option]
+  bucket_columns : string prop list option; [@option]
       (** bucket_columns *)
-  compressed : bool option; [@option]  (** compressed *)
-  input_format : string option; [@option]  (** input_format *)
-  location : string option; [@option]  (** location *)
-  number_of_buckets : float option; [@option]
+  compressed : bool prop option; [@option]  (** compressed *)
+  input_format : string prop option; [@option]  (** input_format *)
+  location : string prop option; [@option]  (** location *)
+  number_of_buckets : float prop option; [@option]
       (** number_of_buckets *)
-  output_format : string option; [@option]  (** output_format *)
-  parameters : (string * string) list option; [@option]
+  output_format : string prop option; [@option]  (** output_format *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  stored_as_sub_directories : bool option; [@option]
+  stored_as_sub_directories : bool prop option; [@option]
       (** stored_as_sub_directories *)
   columns : aws_glue_partition__storage_descriptor__columns list;
   ser_de_info :
@@ -66,13 +67,13 @@ type aws_glue_partition__storage_descriptor = {
 (** aws_glue_partition__storage_descriptor *)
 
 type aws_glue_partition = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  database_name : string;  (** database_name *)
-  id : string option; [@option]  (** id *)
-  parameters : (string * string) list option; [@option]
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  database_name : string prop;  (** database_name *)
+  id : string prop option; [@option]  (** id *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  partition_values : string list;  (** partition_values *)
-  table_name : string;  (** table_name *)
+  partition_values : string prop list;  (** partition_values *)
+  table_name : string prop;  (** table_name *)
   storage_descriptor : aws_glue_partition__storage_descriptor list;
 }
 [@@deriving yojson_of]

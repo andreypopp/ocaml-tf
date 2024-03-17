@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_ce_cost_allocation_tag = {
-  id : string option; [@option]  (** id *)
-  status : string;  (** status *)
-  tag_key : string;  (** tag_key *)
+  id : string prop option; [@option]  (** id *)
+  status : string prop;  (** status *)
+  tag_key : string prop;  (** tag_key *)
 }
 [@@deriving yojson_of]
 (** aws_ce_cost_allocation_tag *)

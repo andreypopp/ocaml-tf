@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_guardduty_invite_accepter__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_invite_accepter__timeouts *)
 
 type aws_guardduty_invite_accepter = {
-  detector_id : string;  (** detector_id *)
-  id : string option; [@option]  (** id *)
-  master_account_id : string;  (** master_account_id *)
+  detector_id : string prop;  (** detector_id *)
+  id : string prop option; [@option]  (** id *)
+  master_account_id : string prop;  (** master_account_id *)
   timeouts : aws_guardduty_invite_accepter__timeouts option;
 }
 [@@deriving yojson_of]

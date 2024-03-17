@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_securityhub_product_subscription = {
-  id : string option; [@option]  (** id *)
-  product_arn : string;  (** product_arn *)
+  id : string prop option; [@option]  (** id *)
+  product_arn : string prop;  (** product_arn *)
 }
 [@@deriving yojson_of]
 (** aws_securityhub_product_subscription *)

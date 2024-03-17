@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type google_compute_target_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_target_pool__timeouts *)
 
 type google_compute_target_pool = {
-  backup_pool : string option; [@option]
+  backup_pool : string prop option; [@option]
       (** URL to the backup target pool. Must also set failover_ratio. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Textual description field. *)
-  failover_ratio : float option; [@option]
+  failover_ratio : float prop option; [@option]
       (** Ratio (0 to 1) of failed nodes before using the backup pool (which must also be set). *)
-  health_checks : string list option; [@option]
+  health_checks : string prop list option; [@option]
       (** List of zero or one health check name or self_link. Only legacy google_compute_http_health_check is supported. *)
-  id : string option; [@option]  (** id *)
-  instances : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instances : string prop list option; [@option]
       (** List of instances in the pool. They can be given as URLs, or in the form of zone/name. Note that the instances need not exist at the time of target pool creation, so there is no need to use the Terraform interpolators to create a dependency on the instances from the target pool. *)
-  name : string;
+  name : string prop;
       (** A unique name for the resource, required by GCE. Changing this forces a new resource to be created. *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
-  region : string option; [@option]
+  region : string prop option; [@option]
       (** Where the target pool resides. Defaults to project region. *)
-  session_affinity : string option; [@option]
+  session_affinity : string prop option; [@option]
       (** How to distribute load. Options are NONE (no affinity). CLIENT_IP (hash of the source/dest addresses / ports), and CLIENT_IP_PROTO also includes the protocol (default NONE). *)
   timeouts : google_compute_target_pool__timeouts option;
 }

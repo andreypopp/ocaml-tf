@@ -5,18 +5,20 @@
 open! Tf.Prelude
 
 type aws_organizations_account = {
-  close_on_deletion : bool option; [@option]
+  close_on_deletion : bool prop option; [@option]
       (** close_on_deletion *)
-  create_govcloud : bool option; [@option]  (** create_govcloud *)
-  email : string;  (** email *)
-  iam_user_access_to_billing : string option; [@option]
+  create_govcloud : bool prop option; [@option]
+      (** create_govcloud *)
+  email : string prop;  (** email *)
+  iam_user_access_to_billing : string prop option; [@option]
       (** iam_user_access_to_billing *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  parent_id : string option; [@option]  (** parent_id *)
-  role_name : string option; [@option]  (** role_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  parent_id : string prop option; [@option]  (** parent_id *)
+  role_name : string prop option; [@option]  (** role_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_organizations_account *)

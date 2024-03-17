@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type aws_config_configuration_aggregator__account_aggregation_source = {
-  account_ids : string list;  (** account_ids *)
-  all_regions : bool option; [@option]  (** all_regions *)
-  regions : string list option; [@option]  (** regions *)
+  account_ids : string prop list;  (** account_ids *)
+  all_regions : bool prop option; [@option]  (** all_regions *)
+  regions : string prop list option; [@option]  (** regions *)
 }
 [@@deriving yojson_of]
 (** aws_config_configuration_aggregator__account_aggregation_source *)
 
 type aws_config_configuration_aggregator__organization_aggregation_source = {
-  all_regions : bool option; [@option]  (** all_regions *)
-  regions : string list option; [@option]  (** regions *)
-  role_arn : string;  (** role_arn *)
+  all_regions : bool prop option; [@option]  (** all_regions *)
+  regions : string prop list option; [@option]  (** regions *)
+  role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_config_configuration_aggregator__organization_aggregation_source *)
 
 type aws_config_configuration_aggregator = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   account_aggregation_source :
     aws_config_configuration_aggregator__account_aggregation_source

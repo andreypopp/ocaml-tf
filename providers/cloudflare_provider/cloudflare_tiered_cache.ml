@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_tiered_cache = {
-  cache_type : string;
+  cache_type : string prop;
       (** The typed of tiered cache to utilize on the zone. Available values: `generic`, `smart`, `off`. *)
-  id : string option; [@option]  (** id *)
-  zone_id : string;
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

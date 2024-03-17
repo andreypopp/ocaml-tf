@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_apigee_environment_iam_policy = {
-  env_id : string;  (** env_id *)
-  id : string option; [@option]  (** id *)
-  org_id : string;  (** org_id *)
-  policy_data : string;  (** policy_data *)
+  env_id : string prop;  (** env_id *)
+  id : string prop option; [@option]  (** id *)
+  org_id : string prop;  (** org_id *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_apigee_environment_iam_policy *)

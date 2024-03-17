@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_verifiedpermissions_policy_template = {
-  description : string option; [@option]  (** description *)
-  policy_store_id : string;  (** policy_store_id *)
-  statement : string;  (** statement *)
+  description : string prop option; [@option]  (** description *)
+  policy_store_id : string prop;  (** policy_store_id *)
+  statement : string prop;  (** statement *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedpermissions_policy_template *)

@@ -5,25 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_lb_probe__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_lb_probe__timeouts *)
 
 type azurerm_lb_probe = {
-  id : string option; [@option]  (** id *)
-  interval_in_seconds : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  interval_in_seconds : float prop option; [@option]
       (** interval_in_seconds *)
-  loadbalancer_id : string;  (** loadbalancer_id *)
-  name : string;  (** name *)
-  number_of_probes : float option; [@option]  (** number_of_probes *)
-  port : float;  (** port *)
-  probe_threshold : float option; [@option]  (** probe_threshold *)
-  protocol : string option; [@option]  (** protocol *)
-  request_path : string option; [@option]  (** request_path *)
+  loadbalancer_id : string prop;  (** loadbalancer_id *)
+  name : string prop;  (** name *)
+  number_of_probes : float prop option; [@option]
+      (** number_of_probes *)
+  port : float prop;  (** port *)
+  probe_threshold : float prop option; [@option]
+      (** probe_threshold *)
+  protocol : string prop option; [@option]  (** protocol *)
+  request_path : string prop option; [@option]  (** request_path *)
   timeouts : azurerm_lb_probe__timeouts option;
 }
 [@@deriving yojson_of]

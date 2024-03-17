@@ -5,25 +5,26 @@
 open! Tf.Prelude
 
 type google_cloudbuildv2_repository__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_cloudbuildv2_repository__timeouts *)
 
 type google_cloudbuildv2_repository = {
-  annotations : (string * string) list option; [@option]
+  annotations : (string * string prop) list option; [@option]
       (** Allows clients to store small amounts of arbitrary data.
 
 **Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
 Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]
       (** The location for the resource *)
-  name : string;  (** Name of the repository. *)
-  parent_connection : string;  (** The connection for the resource *)
-  project : string option; [@option]  (** project *)
-  remote_uri : string;  (** Required. Git Clone HTTPS URI. *)
+  name : string prop;  (** Name of the repository. *)
+  parent_connection : string prop;
+      (** The connection for the resource *)
+  project : string prop option; [@option]  (** project *)
+  remote_uri : string prop;  (** Required. Git Clone HTTPS URI. *)
   timeouts : google_cloudbuildv2_repository__timeouts option;
 }
 [@@deriving yojson_of]

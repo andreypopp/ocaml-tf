@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_web_app_active_slot__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_app_active_slot__timeouts *)
 
 type azurerm_web_app_active_slot = {
-  id : string option; [@option]  (** id *)
-  overwrite_network_config : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  overwrite_network_config : bool prop option; [@option]
       (** The swap action should overwrite the Production slot's network configuration with the configuration from this slot. Defaults to `true`. *)
-  slot_id : string;
+  slot_id : string prop;
       (** The ID of the Slot to swap with `Production`. *)
   timeouts : azurerm_web_app_active_slot__timeouts option;
 }

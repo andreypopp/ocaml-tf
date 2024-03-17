@@ -6,11 +6,11 @@ type azurerm_synapse_firewall_rule__timeouts
 type azurerm_synapse_firewall_rule
 
 val azurerm_synapse_firewall_rule :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_synapse_firewall_rule__timeouts ->
-  end_ip_address:string ->
-  name:string ->
-  start_ip_address:string ->
-  synapse_workspace_id:string ->
+  end_ip_address:string prop ->
+  name:string prop ->
+  start_ip_address:string prop ->
+  synapse_workspace_id:string prop ->
   string ->
   unit

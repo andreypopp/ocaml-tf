@@ -7,13 +7,13 @@ type aws_athena_database__encryption_configuration
 type aws_athena_database
 
 val aws_athena_database :
-  ?bucket:string ->
-  ?comment:string ->
-  ?expected_bucket_owner:string ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?properties:(string * string) list ->
-  name:string ->
+  ?bucket:string prop ->
+  ?comment:string prop ->
+  ?expected_bucket_owner:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?properties:(string * string prop) list ->
+  name:string prop ->
   acl_configuration:aws_athena_database__acl_configuration list ->
   encryption_configuration:
     aws_athena_database__encryption_configuration list ->

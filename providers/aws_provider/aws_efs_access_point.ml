@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_efs_access_point__posix_user = {
-  gid : float;  (** gid *)
-  secondary_gids : float list option; [@option]
+  gid : float prop;  (** gid *)
+  secondary_gids : float prop list option; [@option]
       (** secondary_gids *)
-  uid : float;  (** uid *)
+  uid : float prop;  (** uid *)
 }
 [@@deriving yojson_of]
 (** aws_efs_access_point__posix_user *)
 
 type aws_efs_access_point__root_directory__creation_info = {
-  owner_gid : float;  (** owner_gid *)
-  owner_uid : float;  (** owner_uid *)
-  permissions : string;  (** permissions *)
+  owner_gid : float prop;  (** owner_gid *)
+  owner_uid : float prop;  (** owner_uid *)
+  permissions : string prop;  (** permissions *)
 }
 [@@deriving yojson_of]
 (** aws_efs_access_point__root_directory__creation_info *)
 
 type aws_efs_access_point__root_directory = {
-  path : string option; [@option]  (** path *)
+  path : string prop option; [@option]  (** path *)
   creation_info :
     aws_efs_access_point__root_directory__creation_info list;
 }
@@ -30,10 +30,10 @@ type aws_efs_access_point__root_directory = {
 (** aws_efs_access_point__root_directory *)
 
 type aws_efs_access_point = {
-  file_system_id : string;  (** file_system_id *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  file_system_id : string prop;  (** file_system_id *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   posix_user : aws_efs_access_point__posix_user list;
   root_directory : aws_efs_access_point__root_directory list;

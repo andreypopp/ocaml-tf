@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_virtual_network_dns_servers__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_network_dns_servers__timeouts *)
 
 type azurerm_virtual_network_dns_servers = {
-  dns_servers : string list option; [@option]  (** dns_servers *)
-  id : string option; [@option]  (** id *)
-  virtual_network_id : string;  (** virtual_network_id *)
+  dns_servers : string prop list option; [@option]
+      (** dns_servers *)
+  id : string prop option; [@option]  (** id *)
+  virtual_network_id : string prop;  (** virtual_network_id *)
   timeouts : azurerm_virtual_network_dns_servers__timeouts option;
 }
 [@@deriving yojson_of]

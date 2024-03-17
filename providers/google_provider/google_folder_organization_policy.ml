@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type google_folder_organization_policy__boolean_policy = {
-  enforced : bool;
+  enforced : bool prop;
       (** If true, then the Policy is enforced. If false, then any configuration is acceptable. *)
 }
 [@@deriving yojson_of]
 (** A boolean policy is a constraint that is either enforced or not. *)
 
 type google_folder_organization_policy__list_policy__allow = {
-  all : bool option; [@option]
+  all : bool prop option; [@option]
       (** The policy allows or denies all values. *)
-  values : string list option; [@option]
+  values : string prop list option; [@option]
       (** The policy can define specific values that are allowed or denied. *)
 }
 [@@deriving yojson_of]
 (** One or the other must be set. *)
 
 type google_folder_organization_policy__list_policy__deny = {
-  all : bool option; [@option]
+  all : bool prop option; [@option]
       (** The policy allows or denies all values. *)
-  values : string list option; [@option]
+  values : string prop list option; [@option]
       (** The policy can define specific values that are allowed or denied. *)
 }
 [@@deriving yojson_of]
 (** One or the other must be set. *)
 
 type google_folder_organization_policy__list_policy = {
-  inherit_from_parent : bool option; [@option]
+  inherit_from_parent : bool prop option; [@option]
       (** If set to true, the values from the effective Policy of the parent resource are inherited, meaning the values set in this Policy are added to the values inherited up the hierarchy. *)
-  suggested_value : string option; [@option]
+  suggested_value : string prop option; [@option]
       (** The Google Cloud Console will try to default to a configuration that matches the value specified in this field. *)
   allow : google_folder_organization_policy__list_policy__allow list;
   deny : google_folder_organization_policy__list_policy__deny list;
@@ -41,28 +41,28 @@ type google_folder_organization_policy__list_policy = {
 (** A policy that can define specific values that are allowed or denied for the given constraint. It can also be used to allow or deny all values.  *)
 
 type google_folder_organization_policy__restore_policy = {
-  default : bool;
+  default : bool prop;
       (** May only be set to true. If set, then the default Policy is restored. *)
 }
 [@@deriving yojson_of]
 (** A restore policy is a constraint to restore the default policy. *)
 
 type google_folder_organization_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_folder_organization_policy__timeouts *)
 
 type google_folder_organization_policy = {
-  constraint_ : string; [@key "constraint"]
+  constraint_ : string prop; [@key "constraint"]
       (** The name of the Constraint the Policy is configuring, for example, serviceuser.services. *)
-  folder : string;
+  folder : string prop;
       (** The resource name of the folder to set the policy for. Its format is folders/{folder_id}. *)
-  id : string option; [@option]  (** id *)
-  version : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  version : float prop option; [@option]
       (** Version of the Policy. Default version is 0. *)
   boolean_policy :
     google_folder_organization_policy__boolean_policy list;

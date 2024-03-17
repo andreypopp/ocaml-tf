@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type google_compute_project_default_network_tier__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** google_compute_project_default_network_tier__timeouts *)
 
 type google_compute_project_default_network_tier = {
-  id : string option; [@option]  (** id *)
-  network_tier : string;
+  id : string prop option; [@option]  (** id *)
+  network_tier : string prop;
       (** The default network tier to be configured for the project. This field can take the following values: PREMIUM or STANDARD. *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   timeouts :
     google_compute_project_default_network_tier__timeouts option;

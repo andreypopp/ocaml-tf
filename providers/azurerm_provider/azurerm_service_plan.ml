@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_service_plan__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_service_plan__timeouts *)
 
 type azurerm_service_plan = {
-  app_service_environment_id : string option; [@option]
+  app_service_environment_id : string prop option; [@option]
       (** app_service_environment_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  maximum_elastic_worker_count : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  maximum_elastic_worker_count : float prop option; [@option]
       (** maximum_elastic_worker_count *)
-  name : string;  (** name *)
-  os_type : string;  (** os_type *)
-  per_site_scaling_enabled : bool option; [@option]
+  name : string prop;  (** name *)
+  os_type : string prop;  (** os_type *)
+  per_site_scaling_enabled : bool prop option; [@option]
       (** per_site_scaling_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  worker_count : float option; [@option]  (** worker_count *)
-  zone_balancing_enabled : bool option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  worker_count : float prop option; [@option]  (** worker_count *)
+  zone_balancing_enabled : bool prop option; [@option]
       (** zone_balancing_enabled *)
   timeouts : azurerm_service_plan__timeouts option;
 }

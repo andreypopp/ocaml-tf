@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_schemas_registry_policy = {
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  registry_name : string;  (** registry_name *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  registry_name : string prop;  (** registry_name *)
 }
 [@@deriving yojson_of]
 (** aws_schemas_registry_policy *)

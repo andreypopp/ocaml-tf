@@ -15,33 +15,33 @@ type aws_lambda_function__vpc_config
 type aws_lambda_function
 
 val aws_lambda_function :
-  ?architectures:string list ->
-  ?code_signing_config_arn:string ->
-  ?description:string ->
-  ?filename:string ->
-  ?handler:string ->
-  ?id:string ->
-  ?image_uri:string ->
-  ?kms_key_arn:string ->
-  ?layers:string list ->
-  ?memory_size:float ->
-  ?package_type:string ->
-  ?publish:bool ->
-  ?replace_security_groups_on_destroy:bool ->
-  ?replacement_security_group_ids:string list ->
-  ?reserved_concurrent_executions:float ->
-  ?runtime:string ->
-  ?s3_bucket:string ->
-  ?s3_key:string ->
-  ?s3_object_version:string ->
-  ?skip_destroy:bool ->
-  ?source_code_hash:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?timeout:float ->
+  ?architectures:string prop list ->
+  ?code_signing_config_arn:string prop ->
+  ?description:string prop ->
+  ?filename:string prop ->
+  ?handler:string prop ->
+  ?id:string prop ->
+  ?image_uri:string prop ->
+  ?kms_key_arn:string prop ->
+  ?layers:string prop list ->
+  ?memory_size:float prop ->
+  ?package_type:string prop ->
+  ?publish:bool prop ->
+  ?replace_security_groups_on_destroy:bool prop ->
+  ?replacement_security_group_ids:string prop list ->
+  ?reserved_concurrent_executions:float prop ->
+  ?runtime:string prop ->
+  ?s3_bucket:string prop ->
+  ?s3_key:string prop ->
+  ?s3_object_version:string prop ->
+  ?skip_destroy:bool prop ->
+  ?source_code_hash:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeout:float prop ->
   ?timeouts:aws_lambda_function__timeouts ->
-  function_name:string ->
-  role:string ->
+  function_name:string prop ->
+  role:string prop ->
   dead_letter_config:aws_lambda_function__dead_letter_config list ->
   environment:aws_lambda_function__environment list ->
   ephemeral_storage:aws_lambda_function__ephemeral_storage list ->

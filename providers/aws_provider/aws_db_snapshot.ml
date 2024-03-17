@@ -5,19 +5,21 @@
 open! Tf.Prelude
 
 type aws_db_snapshot__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_db_snapshot__timeouts *)
 
 type aws_db_snapshot = {
-  db_instance_identifier : string;  (** db_instance_identifier *)
-  db_snapshot_identifier : string;  (** db_snapshot_identifier *)
-  id : string option; [@option]  (** id *)
-  shared_accounts : string list option; [@option]
+  db_instance_identifier : string prop;
+      (** db_instance_identifier *)
+  db_snapshot_identifier : string prop;
+      (** db_snapshot_identifier *)
+  id : string prop option; [@option]  (** id *)
+  shared_accounts : string prop list option; [@option]
       (** shared_accounts *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_db_snapshot__timeouts option;
 }

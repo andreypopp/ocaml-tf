@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_data_connector_azure_active_directory__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_azure_active_directory__timeouts *)
 
 type azurerm_sentinel_data_connector_azure_active_directory = {
-  id : string option; [@option]  (** id *)
-  log_analytics_workspace_id : string;
+  id : string prop option; [@option]  (** id *)
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  name : string;  (** name *)
-  tenant_id : string option; [@option]  (** tenant_id *)
+  name : string prop;  (** name *)
+  tenant_id : string prop option; [@option]  (** tenant_id *)
   timeouts :
     azurerm_sentinel_data_connector_azure_active_directory__timeouts
     option;

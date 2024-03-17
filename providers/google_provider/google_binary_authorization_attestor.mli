@@ -11,11 +11,11 @@ type google_binary_authorization_attestor__timeouts
 type google_binary_authorization_attestor
 
 val google_binary_authorization_attestor :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_binary_authorization_attestor__timeouts ->
-  name:string ->
+  name:string prop ->
   attestation_authority_note:
     google_binary_authorization_attestor__attestation_authority_note
     list ->

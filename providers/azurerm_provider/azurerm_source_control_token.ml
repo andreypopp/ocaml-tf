@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_source_control_token__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_source_control_token__timeouts *)
 
 type azurerm_source_control_token = {
-  id : string option; [@option]  (** id *)
-  token : string;  (** token *)
-  token_secret : string option; [@option]  (** token_secret *)
-  type_ : string; [@key "type"]  (** type *)
+  id : string prop option; [@option]  (** id *)
+  token : string prop;  (** token *)
+  token_secret : string prop option; [@option]  (** token_secret *)
+  type_ : string prop; [@key "type"]  (** type *)
   timeouts : azurerm_source_control_token__timeouts option;
 }
 [@@deriving yojson_of]

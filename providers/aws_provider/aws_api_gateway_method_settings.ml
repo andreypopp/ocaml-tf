@@ -5,22 +5,25 @@
 open! Tf.Prelude
 
 type aws_api_gateway_method_settings__settings = {
-  cache_data_encrypted : bool option; [@option]
+  cache_data_encrypted : bool prop option; [@option]
       (** cache_data_encrypted *)
-  cache_ttl_in_seconds : float option; [@option]
+  cache_ttl_in_seconds : float prop option; [@option]
       (** cache_ttl_in_seconds *)
-  caching_enabled : bool option; [@option]  (** caching_enabled *)
-  data_trace_enabled : bool option; [@option]
+  caching_enabled : bool prop option; [@option]
+      (** caching_enabled *)
+  data_trace_enabled : bool prop option; [@option]
       (** data_trace_enabled *)
-  logging_level : string option; [@option]  (** logging_level *)
-  metrics_enabled : bool option; [@option]  (** metrics_enabled *)
-  require_authorization_for_cache_control : bool option; [@option]
+  logging_level : string prop option; [@option]  (** logging_level *)
+  metrics_enabled : bool prop option; [@option]
+      (** metrics_enabled *)
+  require_authorization_for_cache_control : bool prop option;
+      [@option]
       (** require_authorization_for_cache_control *)
-  throttling_burst_limit : float option; [@option]
+  throttling_burst_limit : float prop option; [@option]
       (** throttling_burst_limit *)
-  throttling_rate_limit : float option; [@option]
+  throttling_rate_limit : float prop option; [@option]
       (** throttling_rate_limit *)
-  unauthorized_cache_control_header_strategy : string option;
+  unauthorized_cache_control_header_strategy : string prop option;
       [@option]
       (** unauthorized_cache_control_header_strategy *)
 }
@@ -28,10 +31,10 @@ type aws_api_gateway_method_settings__settings = {
 (** aws_api_gateway_method_settings__settings *)
 
 type aws_api_gateway_method_settings = {
-  id : string option; [@option]  (** id *)
-  method_path : string;  (** method_path *)
-  rest_api_id : string;  (** rest_api_id *)
-  stage_name : string;  (** stage_name *)
+  id : string prop option; [@option]  (** id *)
+  method_path : string prop;  (** method_path *)
+  rest_api_id : string prop;  (** rest_api_id *)
+  stage_name : string prop;  (** stage_name *)
   settings : aws_api_gateway_method_settings__settings list;
 }
 [@@deriving yojson_of]

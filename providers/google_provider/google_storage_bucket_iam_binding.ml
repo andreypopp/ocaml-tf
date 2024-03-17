@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_storage_bucket_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_storage_bucket_iam_binding__condition *)
 
 type google_storage_bucket_iam_binding = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  members : string list;  (** members *)
-  role : string;  (** role *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  members : string prop list;  (** members *)
+  role : string prop;  (** role *)
   condition : google_storage_bucket_iam_binding__condition list;
 }
 [@@deriving yojson_of]

@@ -14,11 +14,11 @@ type aws_wafregional_web_acl__rule
 type aws_wafregional_web_acl
 
 val aws_wafregional_web_acl :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  metric_name:string ->
-  name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  metric_name:string prop ->
+  name:string prop ->
   default_action:aws_wafregional_web_acl__default_action list ->
   logging_configuration:
     aws_wafregional_web_acl__logging_configuration list ->

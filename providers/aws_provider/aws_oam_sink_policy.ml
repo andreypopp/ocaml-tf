@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_oam_sink_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_oam_sink_policy__timeouts *)
 
 type aws_oam_sink_policy = {
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  sink_identifier : string;  (** sink_identifier *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  sink_identifier : string prop;  (** sink_identifier *)
   timeouts : aws_oam_sink_policy__timeouts option;
 }
 [@@deriving yojson_of]

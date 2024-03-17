@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type google_data_catalog_tag__fields = {
-  bool_value : bool option; [@option]
+  bool_value : bool prop option; [@option]
       (** Holds the value for a tag field with boolean type. *)
-  display_name : string;  (** The display name of this field *)
-  double_value : float option; [@option]
+  display_name : string prop;  (** The display name of this field *)
+  double_value : float prop option; [@option]
       (** Holds the value for a tag field with double type. *)
-  enum_value : string option; [@option]
+  enum_value : string prop option; [@option]
       (** The display name of the enum value. *)
-  field_name : string;  (** field_name *)
-  order : float;
+  field_name : string prop;  (** field_name *)
+  order : float prop;
       (** The order of this field with respect to other fields in this tag. For example, a higher value can indicate
 a more important field. The value can be negative. Multiple fields can have the same order, and field orders
 within a tag do not have to be sequential. *)
-  string_value : string option; [@option]
+  string_value : string prop option; [@option]
       (** Holds the value for a tag field with string type. *)
-  timestamp_value : string option; [@option]
+  timestamp_value : string prop option; [@option]
       (** Holds the value for a tag field with timestamp type. *)
 }
 [@@deriving yojson_of]
@@ -27,25 +27,25 @@ within a tag do not have to be sequential. *)
 Valid field IDs are defined by the tag's template. A tag must have at least 1 field and at most 500 fields. *)
 
 type google_data_catalog_tag__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_data_catalog_tag__timeouts *)
 
 type google_data_catalog_tag = {
-  column : string option; [@option]
+  column : string prop option; [@option]
       (** Resources like Entry can have schemas associated with them. This scope allows users to attach tags to an
 individual column based on that schema.
 
 For attaching a tag to a nested column, use '.' to separate the column names. Example:
 'outer_column.inner_column' *)
-  id : string option; [@option]  (** id *)
-  parent : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  parent : string prop option; [@option]
       (** The name of the parent this tag is attached to. This can be the name of an entry or an entry group. If an entry group, the tag will be attached to
 all entries in that group. *)
-  template : string;
+  template : string prop;
       (** The resource name of the tag template that this tag uses. Example:
 projects/{project_id}/locations/{location}/tagTemplates/{tagTemplateId}
 This field cannot be modified after creation. *)

@@ -5,41 +5,42 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_website_configuration__error_document = {
-  key : string;  (** key *)
+  key : string prop;  (** key *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_website_configuration__error_document *)
 
 type aws_s3_bucket_website_configuration__index_document = {
-  suffix : string;  (** suffix *)
+  suffix : string prop;  (** suffix *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_website_configuration__index_document *)
 
 type aws_s3_bucket_website_configuration__redirect_all_requests_to = {
-  host_name : string;  (** host_name *)
-  protocol : string option; [@option]  (** protocol *)
+  host_name : string prop;  (** host_name *)
+  protocol : string prop option; [@option]  (** protocol *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_website_configuration__redirect_all_requests_to *)
 
 type aws_s3_bucket_website_configuration__routing_rule__condition = {
-  http_error_code_returned_equals : string option; [@option]
+  http_error_code_returned_equals : string prop option; [@option]
       (** http_error_code_returned_equals *)
-  key_prefix_equals : string option; [@option]
+  key_prefix_equals : string prop option; [@option]
       (** key_prefix_equals *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_website_configuration__routing_rule__condition *)
 
 type aws_s3_bucket_website_configuration__routing_rule__redirect = {
-  host_name : string option; [@option]  (** host_name *)
-  http_redirect_code : string option; [@option]
+  host_name : string prop option; [@option]  (** host_name *)
+  http_redirect_code : string prop option; [@option]
       (** http_redirect_code *)
-  protocol : string option; [@option]  (** protocol *)
-  replace_key_prefix_with : string option; [@option]
+  protocol : string prop option; [@option]  (** protocol *)
+  replace_key_prefix_with : string prop option; [@option]
       (** replace_key_prefix_with *)
-  replace_key_with : string option; [@option]  (** replace_key_with *)
+  replace_key_with : string prop option; [@option]
+      (** replace_key_with *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_website_configuration__routing_rule__redirect *)
@@ -54,11 +55,11 @@ type aws_s3_bucket_website_configuration__routing_rule = {
 (** aws_s3_bucket_website_configuration__routing_rule *)
 
 type aws_s3_bucket_website_configuration = {
-  bucket : string;  (** bucket *)
-  expected_bucket_owner : string option; [@option]
+  bucket : string prop;  (** bucket *)
+  expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
-  id : string option; [@option]  (** id *)
-  routing_rules : string option; [@option]  (** routing_rules *)
+  id : string prop option; [@option]  (** id *)
+  routing_rules : string prop option; [@option]  (** routing_rules *)
   error_document :
     aws_s3_bucket_website_configuration__error_document list;
   index_document :

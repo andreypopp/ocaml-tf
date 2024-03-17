@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type google_edgecontainer_vpn_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_edgecontainer_vpn_connection__timeouts *)
 
 type google_edgecontainer_vpn_connection__vpc_project = {
-  project_id : string option; [@option]
+  project_id : string prop option; [@option]
       (** The project of the VPC to connect to. If not specified, it is the same as the cluster project. *)
 }
 [@@deriving yojson_of]
 (** Project detail of the VPC network. Required if VPC is in a different project than the cluster project. *)
 
 type google_edgecontainer_vpn_connection__details__cloud_vpns = {
-  gateway : string;  (** gateway *)
+  gateway : string prop;  (** gateway *)
 }
 [@@deriving yojson_of]
 
 type google_edgecontainer_vpn_connection__details__cloud_router = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
@@ -36,31 +36,31 @@ type google_edgecontainer_vpn_connection__details = {
   cloud_vpns :
     google_edgecontainer_vpn_connection__details__cloud_vpns list;
       (** cloud_vpns *)
-  error : string;  (** error *)
-  state : string;  (** state *)
+  error : string prop;  (** error *)
+  state : string prop;  (** state *)
 }
 [@@deriving yojson_of]
 
 type google_edgecontainer_vpn_connection = {
-  cluster : string;
+  cluster : string prop;
       (** The canonical Cluster name to connect to. It is in the form of projects/{project}/locations/{location}/clusters/{cluster}. *)
-  enable_high_availability : bool option; [@option]
+  enable_high_availability : bool prop option; [@option]
       (** Whether this VPN connection has HA enabled on cluster side. If enabled, when creating VPN connection we will attempt to use 2 ANG floating IPs. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Labels associated with this resource.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;  (** Google Cloud Platform location. *)
-  name : string;  (** The resource name of VPN connection *)
-  nat_gateway_ip : string option; [@option]
+  location : string prop;  (** Google Cloud Platform location. *)
+  name : string prop;  (** The resource name of VPN connection *)
+  nat_gateway_ip : string prop option; [@option]
       (** NAT gateway IP, or WAN IP address. If a customer has multiple NAT IPs, the customer needs to configure NAT such that only one external IP maps to the GMEC Anthos cluster.
 This is empty if NAT is not used. *)
-  project : string option; [@option]  (** project *)
-  router : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  router : string prop option; [@option]
       (** The VPN connection Cloud Router name. *)
-  vpc : string option; [@option]
+  vpc : string prop option; [@option]
       (** The network ID of VPC to connect to. *)
   timeouts : google_edgecontainer_vpn_connection__timeouts option;
   vpc_project : google_edgecontainer_vpn_connection__vpc_project list;

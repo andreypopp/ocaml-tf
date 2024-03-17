@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_elasticache_subnet_group
 
 val aws_elasticache_subnet_group :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
-  subnet_ids:string list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  subnet_ids:string prop list ->
   string ->
   unit

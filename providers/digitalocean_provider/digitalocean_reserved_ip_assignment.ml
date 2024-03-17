@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type digitalocean_reserved_ip_assignment = {
-  droplet_id : float;  (** droplet_id *)
-  id : string option; [@option]  (** id *)
-  ip_address : string;  (** ip_address *)
+  droplet_id : float prop;  (** droplet_id *)
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop;  (** ip_address *)
 }
 [@@deriving yojson_of]
 (** digitalocean_reserved_ip_assignment *)

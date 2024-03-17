@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_wafregional_ipset__ip_set_descriptor = {
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_wafregional_ipset__ip_set_descriptor *)
 
 type aws_wafregional_ipset = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   ip_set_descriptor : aws_wafregional_ipset__ip_set_descriptor list;
 }
 [@@deriving yojson_of]

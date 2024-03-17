@@ -5,68 +5,70 @@
 open! Tf.Prelude
 
 type azurerm_linux_virtual_machine__additional_capabilities = {
-  ultra_ssd_enabled : bool option; [@option]  (** ultra_ssd_enabled *)
+  ultra_ssd_enabled : bool prop option; [@option]
+      (** ultra_ssd_enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__additional_capabilities *)
 
 type azurerm_linux_virtual_machine__admin_ssh_key = {
-  public_key : string;  (** public_key *)
-  username : string;  (** username *)
+  public_key : string prop;  (** public_key *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__admin_ssh_key *)
 
 type azurerm_linux_virtual_machine__boot_diagnostics = {
-  storage_account_uri : string option; [@option]
+  storage_account_uri : string prop option; [@option]
       (** storage_account_uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__boot_diagnostics *)
 
 type azurerm_linux_virtual_machine__gallery_application = {
-  automatic_upgrade_enabled : bool option; [@option]
+  automatic_upgrade_enabled : bool prop option; [@option]
       (** automatic_upgrade_enabled *)
-  configuration_blob_uri : string option; [@option]
+  configuration_blob_uri : string prop option; [@option]
       (** configuration_blob_uri *)
-  order : float option; [@option]  (** order *)
-  tag : string option; [@option]  (** tag *)
-  treat_failure_as_deployment_failure_enabled : bool option;
+  order : float prop option; [@option]  (** order *)
+  tag : string prop option; [@option]  (** tag *)
+  treat_failure_as_deployment_failure_enabled : bool prop option;
       [@option]
       (** treat_failure_as_deployment_failure_enabled *)
-  version_id : string;  (** version_id *)
+  version_id : string prop;  (** version_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__gallery_application *)
 
 type azurerm_linux_virtual_machine__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__identity *)
 
 type azurerm_linux_virtual_machine__os_disk__diff_disk_settings = {
-  option : string;  (** option *)
-  placement : string option; [@option]  (** placement *)
+  option : string prop;  (** option *)
+  placement : string prop option; [@option]  (** placement *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__os_disk__diff_disk_settings *)
 
 type azurerm_linux_virtual_machine__os_disk = {
-  caching : string;  (** caching *)
-  disk_encryption_set_id : string option; [@option]
+  caching : string prop;  (** caching *)
+  disk_encryption_set_id : string prop option; [@option]
       (** disk_encryption_set_id *)
-  disk_size_gb : float option; [@option]  (** disk_size_gb *)
-  name : string option; [@option]  (** name *)
-  secure_vm_disk_encryption_set_id : string option; [@option]
+  disk_size_gb : float prop option; [@option]  (** disk_size_gb *)
+  name : string prop option; [@option]  (** name *)
+  secure_vm_disk_encryption_set_id : string prop option; [@option]
       (** secure_vm_disk_encryption_set_id *)
-  security_encryption_type : string option; [@option]
+  security_encryption_type : string prop option; [@option]
       (** security_encryption_type *)
-  storage_account_type : string;  (** storage_account_type *)
-  write_accelerator_enabled : bool option; [@option]
+  storage_account_type : string prop;  (** storage_account_type *)
+  write_accelerator_enabled : bool prop option; [@option]
       (** write_accelerator_enabled *)
   diff_disk_settings :
     azurerm_linux_virtual_machine__os_disk__diff_disk_settings list;
@@ -75,27 +77,27 @@ type azurerm_linux_virtual_machine__os_disk = {
 (** azurerm_linux_virtual_machine__os_disk *)
 
 type azurerm_linux_virtual_machine__os_image_notification = {
-  timeout : string option; [@option]  (** timeout *)
+  timeout : string prop option; [@option]  (** timeout *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__os_image_notification *)
 
 type azurerm_linux_virtual_machine__plan = {
-  name : string;  (** name *)
-  product : string;  (** product *)
-  publisher : string;  (** publisher *)
+  name : string prop;  (** name *)
+  product : string prop;  (** product *)
+  publisher : string prop;  (** publisher *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__plan *)
 
 type azurerm_linux_virtual_machine__secret__certificate = {
-  url : string;  (** url *)
+  url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__secret__certificate *)
 
 type azurerm_linux_virtual_machine__secret = {
-  key_vault_id : string;  (** key_vault_id *)
+  key_vault_id : string prop;  (** key_vault_id *)
   certificate :
     azurerm_linux_virtual_machine__secret__certificate list;
 }
@@ -103,89 +105,94 @@ type azurerm_linux_virtual_machine__secret = {
 (** azurerm_linux_virtual_machine__secret *)
 
 type azurerm_linux_virtual_machine__source_image_reference = {
-  offer : string;  (** offer *)
-  publisher : string;  (** publisher *)
-  sku : string;  (** sku *)
-  version : string;  (** version *)
+  offer : string prop;  (** offer *)
+  publisher : string prop;  (** publisher *)
+  sku : string prop;  (** sku *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__source_image_reference *)
 
 type azurerm_linux_virtual_machine__termination_notification = {
-  enabled : bool;  (** enabled *)
-  timeout : string option; [@option]  (** timeout *)
+  enabled : bool prop;  (** enabled *)
+  timeout : string prop option; [@option]  (** timeout *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__termination_notification *)
 
 type azurerm_linux_virtual_machine__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_linux_virtual_machine__timeouts *)
 
 type azurerm_linux_virtual_machine = {
-  admin_password : string option; [@option]  (** admin_password *)
-  admin_username : string;  (** admin_username *)
-  allow_extension_operations : bool option; [@option]
+  admin_password : string prop option; [@option]
+      (** admin_password *)
+  admin_username : string prop;  (** admin_username *)
+  allow_extension_operations : bool prop option; [@option]
       (** allow_extension_operations *)
-  availability_set_id : string option; [@option]
+  availability_set_id : string prop option; [@option]
       (** availability_set_id *)
   bypass_platform_safety_checks_on_user_schedule_enabled :
-    bool option;
+    bool prop option;
       [@option]
       (** bypass_platform_safety_checks_on_user_schedule_enabled *)
-  capacity_reservation_group_id : string option; [@option]
+  capacity_reservation_group_id : string prop option; [@option]
       (** capacity_reservation_group_id *)
-  computer_name : string option; [@option]  (** computer_name *)
-  custom_data : string option; [@option]  (** custom_data *)
-  dedicated_host_group_id : string option; [@option]
+  computer_name : string prop option; [@option]  (** computer_name *)
+  custom_data : string prop option; [@option]  (** custom_data *)
+  dedicated_host_group_id : string prop option; [@option]
       (** dedicated_host_group_id *)
-  dedicated_host_id : string option; [@option]
+  dedicated_host_id : string prop option; [@option]
       (** dedicated_host_id *)
-  disable_password_authentication : bool option; [@option]
+  disable_password_authentication : bool prop option; [@option]
       (** disable_password_authentication *)
-  disk_controller_type : string option; [@option]
+  disk_controller_type : string prop option; [@option]
       (** disk_controller_type *)
-  edge_zone : string option; [@option]  (** edge_zone *)
-  encryption_at_host_enabled : bool option; [@option]
+  edge_zone : string prop option; [@option]  (** edge_zone *)
+  encryption_at_host_enabled : bool prop option; [@option]
       (** encryption_at_host_enabled *)
-  eviction_policy : string option; [@option]  (** eviction_policy *)
-  extensions_time_budget : string option; [@option]
+  eviction_policy : string prop option; [@option]
+      (** eviction_policy *)
+  extensions_time_budget : string prop option; [@option]
       (** extensions_time_budget *)
-  id : string option; [@option]  (** id *)
-  license_type : string option; [@option]  (** license_type *)
-  location : string;  (** location *)
-  max_bid_price : float option; [@option]  (** max_bid_price *)
-  name : string;  (** name *)
-  network_interface_ids : string list;  (** network_interface_ids *)
-  patch_assessment_mode : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  license_type : string prop option; [@option]  (** license_type *)
+  location : string prop;  (** location *)
+  max_bid_price : float prop option; [@option]  (** max_bid_price *)
+  name : string prop;  (** name *)
+  network_interface_ids : string prop list;
+      (** network_interface_ids *)
+  patch_assessment_mode : string prop option; [@option]
       (** patch_assessment_mode *)
-  patch_mode : string option; [@option]  (** patch_mode *)
-  platform_fault_domain : float option; [@option]
+  patch_mode : string prop option; [@option]  (** patch_mode *)
+  platform_fault_domain : float prop option; [@option]
       (** platform_fault_domain *)
-  priority : string option; [@option]  (** priority *)
-  provision_vm_agent : bool option; [@option]
+  priority : string prop option; [@option]  (** priority *)
+  provision_vm_agent : bool prop option; [@option]
       (** provision_vm_agent *)
-  proximity_placement_group_id : string option; [@option]
+  proximity_placement_group_id : string prop option; [@option]
       (** proximity_placement_group_id *)
-  reboot_setting : string option; [@option]  (** reboot_setting *)
-  resource_group_name : string;  (** resource_group_name *)
-  secure_boot_enabled : bool option; [@option]
+  reboot_setting : string prop option; [@option]
+      (** reboot_setting *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  secure_boot_enabled : bool prop option; [@option]
       (** secure_boot_enabled *)
-  size : string;  (** size *)
-  source_image_id : string option; [@option]  (** source_image_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  user_data : string option; [@option]  (** user_data *)
-  virtual_machine_scale_set_id : string option; [@option]
+  size : string prop;  (** size *)
+  source_image_id : string prop option; [@option]
+      (** source_image_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  user_data : string prop option; [@option]  (** user_data *)
+  virtual_machine_scale_set_id : string prop option; [@option]
       (** virtual_machine_scale_set_id *)
-  vm_agent_platform_updates_enabled : bool option; [@option]
+  vm_agent_platform_updates_enabled : bool prop option; [@option]
       (** vm_agent_platform_updates_enabled *)
-  vtpm_enabled : bool option; [@option]  (** vtpm_enabled *)
-  zone : string option; [@option]  (** zone *)
+  vtpm_enabled : bool prop option; [@option]  (** vtpm_enabled *)
+  zone : string prop option; [@option]  (** zone *)
   additional_capabilities :
     azurerm_linux_virtual_machine__additional_capabilities list;
   admin_ssh_key : azurerm_linux_virtual_machine__admin_ssh_key list;

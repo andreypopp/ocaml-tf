@@ -9,9 +9,9 @@ type google_cloud_identity_group_membership__timeouts
 type google_cloud_identity_group_membership
 
 val google_cloud_identity_group_membership :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_cloud_identity_group_membership__timeouts ->
-  group:string ->
+  group:string prop ->
   preferred_member_key:
     google_cloud_identity_group_membership__preferred_member_key list ->
   roles:google_cloud_identity_group_membership__roles list ->

@@ -6,12 +6,12 @@ type aws_ram_resource_share__timeouts
 type aws_ram_resource_share
 
 val aws_ram_resource_share :
-  ?allow_external_principals:bool ->
-  ?id:string ->
-  ?permission_arns:string list ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?allow_external_principals:bool prop ->
+  ?id:string prop ->
+  ?permission_arns:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_ram_resource_share__timeouts ->
-  name:string ->
+  name:string prop ->
   string ->
   unit

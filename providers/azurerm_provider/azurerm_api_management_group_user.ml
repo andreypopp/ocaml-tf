@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_api_management_group_user__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_group_user__timeouts *)
 
 type azurerm_api_management_group_user = {
-  api_management_name : string;  (** api_management_name *)
-  group_name : string;  (** group_name *)
-  id : string option; [@option]  (** id *)
-  resource_group_name : string;  (** resource_group_name *)
-  user_id : string;  (** user_id *)
+  api_management_name : string prop;  (** api_management_name *)
+  group_name : string prop;  (** group_name *)
+  id : string prop option; [@option]  (** id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  user_id : string prop;  (** user_id *)
   timeouts : azurerm_api_management_group_user__timeouts option;
 }
 [@@deriving yojson_of]

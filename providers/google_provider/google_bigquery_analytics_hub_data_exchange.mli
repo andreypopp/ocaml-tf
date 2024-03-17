@@ -6,15 +6,15 @@ type google_bigquery_analytics_hub_data_exchange__timeouts
 type google_bigquery_analytics_hub_data_exchange
 
 val google_bigquery_analytics_hub_data_exchange :
-  ?description:string ->
-  ?documentation:string ->
-  ?icon:string ->
-  ?id:string ->
-  ?primary_contact:string ->
-  ?project:string ->
+  ?description:string prop ->
+  ?documentation:string prop ->
+  ?icon:string prop ->
+  ?id:string prop ->
+  ?primary_contact:string prop ->
+  ?project:string prop ->
   ?timeouts:google_bigquery_analytics_hub_data_exchange__timeouts ->
-  data_exchange_id:string ->
-  display_name:string ->
-  location:string ->
+  data_exchange_id:string prop ->
+  display_name:string prop ->
+  location:string prop ->
   string ->
   unit

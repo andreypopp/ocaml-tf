@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_frontdoor_rules_engine__rule__action__request_header = {
-  header_action_type : string option; [@option]
+  header_action_type : string prop option; [@option]
       (** header_action_type *)
-  header_name : string option; [@option]  (** header_name *)
-  value : string option; [@option]  (** value *)
+  header_name : string prop option; [@option]  (** header_name *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_frontdoor_rules_engine__rule__action__request_header *)
 
 type azurerm_frontdoor_rules_engine__rule__action__response_header = {
-  header_action_type : string option; [@option]
+  header_action_type : string prop option; [@option]
       (** header_action_type *)
-  header_name : string option; [@option]  (** header_name *)
-  value : string option; [@option]  (** value *)
+  header_name : string prop option; [@option]  (** header_name *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_frontdoor_rules_engine__rule__action__response_header *)
@@ -33,19 +33,20 @@ type azurerm_frontdoor_rules_engine__rule__action = {
 (** azurerm_frontdoor_rules_engine__rule__action *)
 
 type azurerm_frontdoor_rules_engine__rule__match_condition = {
-  negate_condition : bool option; [@option]  (** negate_condition *)
-  operator : string;  (** operator *)
-  selector : string option; [@option]  (** selector *)
-  transform : string list option; [@option]  (** transform *)
-  value : string list option; [@option]  (** value *)
-  variable : string option; [@option]  (** variable *)
+  negate_condition : bool prop option; [@option]
+      (** negate_condition *)
+  operator : string prop;  (** operator *)
+  selector : string prop option; [@option]  (** selector *)
+  transform : string prop list option; [@option]  (** transform *)
+  value : string prop list option; [@option]  (** value *)
+  variable : string prop option; [@option]  (** variable *)
 }
 [@@deriving yojson_of]
 (** azurerm_frontdoor_rules_engine__rule__match_condition *)
 
 type azurerm_frontdoor_rules_engine__rule = {
-  name : string;  (** name *)
-  priority : float;  (** priority *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
   action : azurerm_frontdoor_rules_engine__rule__action list;
   match_condition :
     azurerm_frontdoor_rules_engine__rule__match_condition list;
@@ -54,20 +55,20 @@ type azurerm_frontdoor_rules_engine__rule = {
 (** azurerm_frontdoor_rules_engine__rule *)
 
 type azurerm_frontdoor_rules_engine__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_frontdoor_rules_engine__timeouts *)
 
 type azurerm_frontdoor_rules_engine = {
-  enabled : bool option; [@option]  (** enabled *)
-  frontdoor_name : string;  (** frontdoor_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  frontdoor_name : string prop;  (** frontdoor_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   rule : azurerm_frontdoor_rules_engine__rule list;
   timeouts : azurerm_frontdoor_rules_engine__timeouts option;
 }

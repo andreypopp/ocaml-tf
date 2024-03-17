@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_app_service_custom_hostname_binding__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_custom_hostname_binding__timeouts *)
 
 type azurerm_app_service_custom_hostname_binding = {
-  app_service_name : string;  (** app_service_name *)
-  hostname : string;  (** hostname *)
-  id : string option; [@option]  (** id *)
-  resource_group_name : string;  (** resource_group_name *)
-  ssl_state : string option; [@option]  (** ssl_state *)
-  thumbprint : string option; [@option]  (** thumbprint *)
+  app_service_name : string prop;  (** app_service_name *)
+  hostname : string prop;  (** hostname *)
+  id : string prop option; [@option]  (** id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  ssl_state : string prop option; [@option]  (** ssl_state *)
+  thumbprint : string prop option; [@option]  (** thumbprint *)
   timeouts :
     azurerm_app_service_custom_hostname_binding__timeouts option;
 }

@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_ses_domain_dkim = {
-  domain : string;  (** domain *)
-  id : string option; [@option]  (** id *)
+  domain : string prop;  (** domain *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_ses_domain_dkim *)

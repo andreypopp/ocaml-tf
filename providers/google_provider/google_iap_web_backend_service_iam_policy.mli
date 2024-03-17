@@ -5,9 +5,9 @@ open! Tf.Prelude
 type google_iap_web_backend_service_iam_policy
 
 val google_iap_web_backend_service_iam_policy :
-  ?id:string ->
-  ?project:string ->
-  policy_data:string ->
-  web_backend_service:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  policy_data:string prop ->
+  web_backend_service:string prop ->
   string ->
   unit

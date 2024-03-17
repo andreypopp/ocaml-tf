@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_apprunner_vpc_connector = {
-  id : string option; [@option]  (** id *)
-  security_groups : string list;  (** security_groups *)
-  subnets : string list;  (** subnets *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  security_groups : string prop list;  (** security_groups *)
+  subnets : string prop list;  (** subnets *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_connector_name : string;  (** vpc_connector_name *)
+  vpc_connector_name : string prop;  (** vpc_connector_name *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_vpc_connector *)

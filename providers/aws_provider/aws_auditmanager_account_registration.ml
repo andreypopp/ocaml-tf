@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_auditmanager_account_registration = {
-  delegated_admin_account : string option; [@option]
+  delegated_admin_account : string prop option; [@option]
       (** delegated_admin_account *)
-  deregister_on_destroy : bool option; [@option]
+  deregister_on_destroy : bool prop option; [@option]
       (** deregister_on_destroy *)
-  kms_key : string option; [@option]  (** kms_key *)
+  kms_key : string prop option; [@option]  (** kms_key *)
 }
 [@@deriving yojson_of]
 (** aws_auditmanager_account_registration *)

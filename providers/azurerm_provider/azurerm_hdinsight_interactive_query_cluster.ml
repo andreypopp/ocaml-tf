@@ -5,70 +5,70 @@
 open! Tf.Prelude
 
 type azurerm_hdinsight_interactive_query_cluster__component_version = {
-  interactive_hive : string;  (** interactive_hive *)
+  interactive_hive : string prop;  (** interactive_hive *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__component_version *)
 
 type azurerm_hdinsight_interactive_query_cluster__compute_isolation = {
-  compute_isolation_enabled : bool option; [@option]
+  compute_isolation_enabled : bool prop option; [@option]
       (** compute_isolation_enabled *)
-  host_sku : string option; [@option]  (** host_sku *)
+  host_sku : string prop option; [@option]  (** host_sku *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__compute_isolation *)
 
 type azurerm_hdinsight_interactive_query_cluster__disk_encryption = {
-  encryption_algorithm : string option; [@option]
+  encryption_algorithm : string prop option; [@option]
       (** encryption_algorithm *)
-  encryption_at_host_enabled : bool option; [@option]
+  encryption_at_host_enabled : bool prop option; [@option]
       (** encryption_at_host_enabled *)
-  key_vault_key_id : string option; [@option]
+  key_vault_key_id : string prop option; [@option]
       (** key_vault_key_id *)
-  key_vault_managed_identity_id : string option; [@option]
+  key_vault_managed_identity_id : string prop option; [@option]
       (** key_vault_managed_identity_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__disk_encryption *)
 
 type azurerm_hdinsight_interactive_query_cluster__extension = {
-  log_analytics_workspace_id : string;
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  primary_key : string;  (** primary_key *)
+  primary_key : string prop;  (** primary_key *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__extension *)
 
 type azurerm_hdinsight_interactive_query_cluster__gateway = {
-  password : string;  (** password *)
-  username : string;  (** username *)
+  password : string prop;  (** password *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__gateway *)
 
 type azurerm_hdinsight_interactive_query_cluster__metastores__ambari = {
-  database_name : string;  (** database_name *)
-  password : string;  (** password *)
-  server : string;  (** server *)
-  username : string;  (** username *)
+  database_name : string prop;  (** database_name *)
+  password : string prop;  (** password *)
+  server : string prop;  (** server *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__metastores__ambari *)
 
 type azurerm_hdinsight_interactive_query_cluster__metastores__hive = {
-  database_name : string;  (** database_name *)
-  password : string;  (** password *)
-  server : string;  (** server *)
-  username : string;  (** username *)
+  database_name : string prop;  (** database_name *)
+  password : string prop;  (** password *)
+  server : string prop;  (** server *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__metastores__hive *)
 
 type azurerm_hdinsight_interactive_query_cluster__metastores__oozie = {
-  database_name : string;  (** database_name *)
-  password : string;  (** password *)
-  server : string;  (** server *)
-  username : string;  (** username *)
+  database_name : string prop;  (** database_name *)
+  password : string prop;  (** password *)
+  server : string prop;  (** server *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__metastores__oozie *)
@@ -88,38 +88,38 @@ type azurerm_hdinsight_interactive_query_cluster__metastores = {
 (** azurerm_hdinsight_interactive_query_cluster__metastores *)
 
 type azurerm_hdinsight_interactive_query_cluster__monitor = {
-  log_analytics_workspace_id : string;
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  primary_key : string;  (** primary_key *)
+  primary_key : string prop;  (** primary_key *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__monitor *)
 
 type azurerm_hdinsight_interactive_query_cluster__network = {
-  connection_direction : string option; [@option]
+  connection_direction : string prop option; [@option]
       (** connection_direction *)
-  private_link_enabled : bool option; [@option]
+  private_link_enabled : bool prop option; [@option]
       (** private_link_enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__network *)
 
 type azurerm_hdinsight_interactive_query_cluster__roles__head_node__script_actions = {
-  name : string;  (** name *)
-  parameters : string option; [@option]  (** parameters *)
-  uri : string;  (** uri *)
+  name : string prop;  (** name *)
+  parameters : string prop option; [@option]  (** parameters *)
+  uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__roles__head_node__script_actions *)
 
 type azurerm_hdinsight_interactive_query_cluster__roles__head_node = {
-  password : string option; [@option]  (** password *)
-  ssh_keys : string list option; [@option]  (** ssh_keys *)
-  subnet_id : string option; [@option]  (** subnet_id *)
-  username : string;  (** username *)
-  virtual_network_id : string option; [@option]
+  password : string prop option; [@option]  (** password *)
+  ssh_keys : string prop list option; [@option]  (** ssh_keys *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
+  username : string prop;  (** username *)
+  virtual_network_id : string prop option; [@option]
       (** virtual_network_id *)
-  vm_size : string;  (** vm_size *)
+  vm_size : string prop;  (** vm_size *)
   script_actions :
     azurerm_hdinsight_interactive_query_cluster__roles__head_node__script_actions
     list;
@@ -128,22 +128,22 @@ type azurerm_hdinsight_interactive_query_cluster__roles__head_node = {
 (** azurerm_hdinsight_interactive_query_cluster__roles__head_node *)
 
 type azurerm_hdinsight_interactive_query_cluster__roles__worker_node__autoscale__capacity = {
-  max_instance_count : float;  (** max_instance_count *)
-  min_instance_count : float;  (** min_instance_count *)
+  max_instance_count : float prop;  (** max_instance_count *)
+  min_instance_count : float prop;  (** min_instance_count *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__roles__worker_node__autoscale__capacity *)
 
 type azurerm_hdinsight_interactive_query_cluster__roles__worker_node__autoscale__recurrence__schedule = {
-  days : string list;  (** days *)
-  target_instance_count : float;  (** target_instance_count *)
-  time : string;  (** time *)
+  days : string prop list;  (** days *)
+  target_instance_count : float prop;  (** target_instance_count *)
+  time : string prop;  (** time *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__roles__worker_node__autoscale__recurrence__schedule *)
 
 type azurerm_hdinsight_interactive_query_cluster__roles__worker_node__autoscale__recurrence = {
-  timezone : string;  (** timezone *)
+  timezone : string prop;  (** timezone *)
   schedule :
     azurerm_hdinsight_interactive_query_cluster__roles__worker_node__autoscale__recurrence__schedule
     list;
@@ -163,22 +163,22 @@ type azurerm_hdinsight_interactive_query_cluster__roles__worker_node__autoscale 
 (** azurerm_hdinsight_interactive_query_cluster__roles__worker_node__autoscale *)
 
 type azurerm_hdinsight_interactive_query_cluster__roles__worker_node__script_actions = {
-  name : string;  (** name *)
-  parameters : string option; [@option]  (** parameters *)
-  uri : string;  (** uri *)
+  name : string prop;  (** name *)
+  parameters : string prop option; [@option]  (** parameters *)
+  uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__roles__worker_node__script_actions *)
 
 type azurerm_hdinsight_interactive_query_cluster__roles__worker_node = {
-  password : string option; [@option]  (** password *)
-  ssh_keys : string list option; [@option]  (** ssh_keys *)
-  subnet_id : string option; [@option]  (** subnet_id *)
-  target_instance_count : float;  (** target_instance_count *)
-  username : string;  (** username *)
-  virtual_network_id : string option; [@option]
+  password : string prop option; [@option]  (** password *)
+  ssh_keys : string prop list option; [@option]  (** ssh_keys *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
+  target_instance_count : float prop;  (** target_instance_count *)
+  username : string prop;  (** username *)
+  virtual_network_id : string prop option; [@option]
       (** virtual_network_id *)
-  vm_size : string;  (** vm_size *)
+  vm_size : string prop;  (** vm_size *)
   autoscale :
     azurerm_hdinsight_interactive_query_cluster__roles__worker_node__autoscale
     list;
@@ -190,21 +190,21 @@ type azurerm_hdinsight_interactive_query_cluster__roles__worker_node = {
 (** azurerm_hdinsight_interactive_query_cluster__roles__worker_node *)
 
 type azurerm_hdinsight_interactive_query_cluster__roles__zookeeper_node__script_actions = {
-  name : string;  (** name *)
-  parameters : string option; [@option]  (** parameters *)
-  uri : string;  (** uri *)
+  name : string prop;  (** name *)
+  parameters : string prop option; [@option]  (** parameters *)
+  uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__roles__zookeeper_node__script_actions *)
 
 type azurerm_hdinsight_interactive_query_cluster__roles__zookeeper_node = {
-  password : string option; [@option]  (** password *)
-  ssh_keys : string list option; [@option]  (** ssh_keys *)
-  subnet_id : string option; [@option]  (** subnet_id *)
-  username : string;  (** username *)
-  virtual_network_id : string option; [@option]
+  password : string prop option; [@option]  (** password *)
+  ssh_keys : string prop list option; [@option]  (** ssh_keys *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
+  username : string prop;  (** username *)
+  virtual_network_id : string prop option; [@option]
       (** virtual_network_id *)
-  vm_size : string;  (** vm_size *)
+  vm_size : string prop;  (** vm_size *)
   script_actions :
     azurerm_hdinsight_interactive_query_cluster__roles__zookeeper_node__script_actions
     list;
@@ -227,58 +227,59 @@ type azurerm_hdinsight_interactive_query_cluster__roles = {
 (** azurerm_hdinsight_interactive_query_cluster__roles *)
 
 type azurerm_hdinsight_interactive_query_cluster__security_profile = {
-  aadds_resource_id : string;  (** aadds_resource_id *)
-  cluster_users_group_dns : string list option; [@option]
+  aadds_resource_id : string prop;  (** aadds_resource_id *)
+  cluster_users_group_dns : string prop list option; [@option]
       (** cluster_users_group_dns *)
-  domain_name : string;  (** domain_name *)
-  domain_user_password : string;  (** domain_user_password *)
-  domain_username : string;  (** domain_username *)
-  ldaps_urls : string list;  (** ldaps_urls *)
-  msi_resource_id : string;  (** msi_resource_id *)
+  domain_name : string prop;  (** domain_name *)
+  domain_user_password : string prop;  (** domain_user_password *)
+  domain_username : string prop;  (** domain_username *)
+  ldaps_urls : string prop list;  (** ldaps_urls *)
+  msi_resource_id : string prop;  (** msi_resource_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__security_profile *)
 
 type azurerm_hdinsight_interactive_query_cluster__storage_account = {
-  is_default : bool;  (** is_default *)
-  storage_account_key : string;  (** storage_account_key *)
-  storage_container_id : string;  (** storage_container_id *)
-  storage_resource_id : string option; [@option]
+  is_default : bool prop;  (** is_default *)
+  storage_account_key : string prop;  (** storage_account_key *)
+  storage_container_id : string prop;  (** storage_container_id *)
+  storage_resource_id : string prop option; [@option]
       (** storage_resource_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__storage_account *)
 
 type azurerm_hdinsight_interactive_query_cluster__storage_account_gen2 = {
-  filesystem_id : string;  (** filesystem_id *)
-  is_default : bool;  (** is_default *)
-  managed_identity_resource_id : string;
+  filesystem_id : string prop;  (** filesystem_id *)
+  is_default : bool prop;  (** is_default *)
+  managed_identity_resource_id : string prop;
       (** managed_identity_resource_id *)
-  storage_resource_id : string;  (** storage_resource_id *)
+  storage_resource_id : string prop;  (** storage_resource_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__storage_account_gen2 *)
 
 type azurerm_hdinsight_interactive_query_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_hdinsight_interactive_query_cluster__timeouts *)
 
 type azurerm_hdinsight_interactive_query_cluster = {
-  cluster_version : string;  (** cluster_version *)
-  encryption_in_transit_enabled : bool option; [@option]
+  cluster_version : string prop;  (** cluster_version *)
+  encryption_in_transit_enabled : bool prop option; [@option]
       (** encryption_in_transit_enabled *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tier : string;  (** tier *)
-  tls_min_version : string option; [@option]  (** tls_min_version *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tier : string prop;  (** tier *)
+  tls_min_version : string prop option; [@option]
+      (** tls_min_version *)
   component_version :
     azurerm_hdinsight_interactive_query_cluster__component_version
     list;

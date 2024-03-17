@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_storage_default_object_acl = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  role_entity : string list option; [@option]  (** role_entity *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  role_entity : string prop list option; [@option]  (** role_entity *)
 }
 [@@deriving yojson_of]
 (** google_storage_default_object_acl *)

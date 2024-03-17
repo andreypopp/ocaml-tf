@@ -8,20 +8,20 @@ type aws_directory_service_directory__vpc_settings
 type aws_directory_service_directory
 
 val aws_directory_service_directory :
-  ?alias:string ->
-  ?description:string ->
-  ?desired_number_of_domain_controllers:float ->
-  ?edition:string ->
-  ?enable_sso:bool ->
-  ?id:string ->
-  ?short_name:string ->
-  ?size:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?type_:string ->
+  ?alias:string prop ->
+  ?description:string prop ->
+  ?desired_number_of_domain_controllers:float prop ->
+  ?edition:string prop ->
+  ?enable_sso:bool prop ->
+  ?id:string prop ->
+  ?short_name:string prop ->
+  ?size:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
   ?timeouts:aws_directory_service_directory__timeouts ->
-  name:string ->
-  password:string ->
+  name:string prop ->
+  password:string prop ->
   connect_settings:
     aws_directory_service_directory__connect_settings list ->
   vpc_settings:aws_directory_service_directory__vpc_settings list ->

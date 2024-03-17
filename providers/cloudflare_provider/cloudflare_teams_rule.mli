@@ -14,17 +14,17 @@ type cloudflare_teams_rule__rule_settings
 type cloudflare_teams_rule
 
 val cloudflare_teams_rule :
-  ?device_posture:string ->
-  ?enabled:bool ->
-  ?filters:string list ->
-  ?id:string ->
-  ?identity:string ->
-  ?traffic:string ->
-  account_id:string ->
-  action:string ->
-  description:string ->
-  name:string ->
-  precedence:float ->
+  ?device_posture:string prop ->
+  ?enabled:bool prop ->
+  ?filters:string prop list ->
+  ?id:string prop ->
+  ?identity:string prop ->
+  ?traffic:string prop ->
+  account_id:string prop ->
+  action:string prop ->
+  description:string prop ->
+  name:string prop ->
+  precedence:float prop ->
   rule_settings:cloudflare_teams_rule__rule_settings list ->
   string ->
   unit

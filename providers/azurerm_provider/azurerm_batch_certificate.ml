@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_batch_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_batch_certificate__timeouts *)
 
 type azurerm_batch_certificate = {
-  account_name : string;  (** account_name *)
-  certificate : string;  (** certificate *)
-  format : string;  (** format *)
-  id : string option; [@option]  (** id *)
-  password : string option; [@option]  (** password *)
-  resource_group_name : string;  (** resource_group_name *)
-  thumbprint : string;  (** thumbprint *)
-  thumbprint_algorithm : string;  (** thumbprint_algorithm *)
+  account_name : string prop;  (** account_name *)
+  certificate : string prop;  (** certificate *)
+  format : string prop;  (** format *)
+  id : string prop option; [@option]  (** id *)
+  password : string prop option; [@option]  (** password *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  thumbprint : string prop;  (** thumbprint *)
+  thumbprint_algorithm : string prop;  (** thumbprint_algorithm *)
   timeouts : azurerm_batch_certificate__timeouts option;
 }
 [@@deriving yojson_of]

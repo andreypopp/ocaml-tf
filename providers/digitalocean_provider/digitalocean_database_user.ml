@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type digitalocean_database_user__settings__acl = {
-  id : string;  (** id *)
-  permission : string;  (** permission *)
-  topic : string;  (** topic *)
+  id : string prop;  (** id *)
+  permission : string prop;  (** permission *)
+  topic : string prop;  (** topic *)
 }
 [@@deriving yojson_of]
 (** digitalocean_database_user__settings__acl *)
@@ -19,11 +19,11 @@ type digitalocean_database_user__settings = {
 (** digitalocean_database_user__settings *)
 
 type digitalocean_database_user = {
-  cluster_id : string;  (** cluster_id *)
-  id : string option; [@option]  (** id *)
-  mysql_auth_plugin : string option; [@option]
+  cluster_id : string prop;  (** cluster_id *)
+  id : string prop option; [@option]  (** id *)
+  mysql_auth_plugin : string prop option; [@option]
       (** mysql_auth_plugin *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   settings : digitalocean_database_user__settings list;
 }
 [@@deriving yojson_of]

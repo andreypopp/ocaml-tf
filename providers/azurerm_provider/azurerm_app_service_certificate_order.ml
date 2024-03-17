@@ -5,35 +5,35 @@
 open! Tf.Prelude
 
 type azurerm_app_service_certificate_order__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_certificate_order__timeouts *)
 
 type azurerm_app_service_certificate_order__certificates = {
-  certificate_name : string;  (** certificate_name *)
-  key_vault_id : string;  (** key_vault_id *)
-  key_vault_secret_name : string;  (** key_vault_secret_name *)
-  provisioning_state : string;  (** provisioning_state *)
+  certificate_name : string prop;  (** certificate_name *)
+  key_vault_id : string prop;  (** key_vault_id *)
+  key_vault_secret_name : string prop;  (** key_vault_secret_name *)
+  provisioning_state : string prop;  (** provisioning_state *)
 }
 [@@deriving yojson_of]
 
 type azurerm_app_service_certificate_order = {
-  auto_renew : bool option; [@option]  (** auto_renew *)
-  csr : string option; [@option]  (** csr *)
-  distinguished_name : string option; [@option]
+  auto_renew : bool prop option; [@option]  (** auto_renew *)
+  csr : string prop option; [@option]  (** csr *)
+  distinguished_name : string prop option; [@option]
       (** distinguished_name *)
-  id : string option; [@option]  (** id *)
-  key_size : float option; [@option]  (** key_size *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  product_type : string option; [@option]  (** product_type *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  validity_in_years : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  key_size : float prop option; [@option]  (** key_size *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  product_type : string prop option; [@option]  (** product_type *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  validity_in_years : float prop option; [@option]
       (** validity_in_years *)
   timeouts : azurerm_app_service_certificate_order__timeouts option;
 }

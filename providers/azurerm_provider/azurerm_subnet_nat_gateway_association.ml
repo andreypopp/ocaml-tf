@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_subnet_nat_gateway_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_subnet_nat_gateway_association__timeouts *)
 
 type azurerm_subnet_nat_gateway_association = {
-  id : string option; [@option]  (** id *)
-  nat_gateway_id : string;  (** nat_gateway_id *)
-  subnet_id : string;  (** subnet_id *)
+  id : string prop option; [@option]  (** id *)
+  nat_gateway_id : string prop;  (** nat_gateway_id *)
+  subnet_id : string prop;  (** subnet_id *)
   timeouts : azurerm_subnet_nat_gateway_association__timeouts option;
 }
 [@@deriving yojson_of]

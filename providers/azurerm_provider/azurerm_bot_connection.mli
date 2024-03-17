@@ -6,17 +6,17 @@ type azurerm_bot_connection__timeouts
 type azurerm_bot_connection
 
 val azurerm_bot_connection :
-  ?id:string ->
-  ?parameters:(string * string) list ->
-  ?scopes:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?scopes:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_bot_connection__timeouts ->
-  bot_name:string ->
-  client_id:string ->
-  client_secret:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  service_provider_name:string ->
+  bot_name:string prop ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  service_provider_name:string prop ->
   string ->
   unit

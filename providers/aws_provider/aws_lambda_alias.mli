@@ -6,11 +6,11 @@ type aws_lambda_alias__routing_config
 type aws_lambda_alias
 
 val aws_lambda_alias :
-  ?description:string ->
-  ?id:string ->
-  function_name:string ->
-  function_version:string ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  function_name:string prop ->
+  function_version:string prop ->
+  name:string prop ->
   routing_config:aws_lambda_alias__routing_config list ->
   string ->
   unit

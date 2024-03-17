@@ -6,10 +6,10 @@ type azurerm_monitor_private_link_scope__timeouts
 type azurerm_monitor_private_link_scope
 
 val azurerm_monitor_private_link_scope :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_monitor_private_link_scope__timeouts ->
-  name:string ->
-  resource_group_name:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

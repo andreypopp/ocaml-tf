@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_ram_resource_share__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ram_resource_share__timeouts *)
 
 type aws_ram_resource_share = {
-  allow_external_principals : bool option; [@option]
+  allow_external_principals : bool prop option; [@option]
       (** allow_external_principals *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  permission_arns : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  permission_arns : string prop list option; [@option]
       (** permission_arns *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_ram_resource_share__timeouts option;
 }

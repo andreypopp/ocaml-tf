@@ -54,42 +54,42 @@ type google_cloud_run_service__timeouts
 type google_cloud_run_service__traffic
 
 type google_cloud_run_service__status__traffic = {
-  latest_revision : bool;  (** latest_revision *)
-  percent : float;  (** percent *)
-  revision_name : string;  (** revision_name *)
-  tag : string;  (** tag *)
-  url : string;  (** url *)
+  latest_revision : bool prop;  (** latest_revision *)
+  percent : float prop;  (** percent *)
+  revision_name : string prop;  (** revision_name *)
+  tag : string prop;  (** tag *)
+  url : string prop;  (** url *)
 }
 
 type google_cloud_run_service__status__conditions = {
-  message : string;  (** message *)
-  reason : string;  (** reason *)
-  status : string;  (** status *)
-  type_ : string; [@key "type"]  (** type *)
+  message : string prop;  (** message *)
+  reason : string prop;  (** reason *)
+  status : string prop;  (** status *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_cloud_run_service__status = {
   conditions : google_cloud_run_service__status__conditions list;
       (** conditions *)
-  latest_created_revision_name : string;
+  latest_created_revision_name : string prop;
       (** latest_created_revision_name *)
-  latest_ready_revision_name : string;
+  latest_ready_revision_name : string prop;
       (** latest_ready_revision_name *)
-  observed_generation : float;  (** observed_generation *)
+  observed_generation : float prop;  (** observed_generation *)
   traffic : google_cloud_run_service__status__traffic list;
       (** traffic *)
-  url : string;  (** url *)
+  url : string prop;  (** url *)
 }
 
 type google_cloud_run_service
 
 val google_cloud_run_service :
-  ?autogenerate_revision_name:bool ->
-  ?id:string ->
-  ?project:string ->
+  ?autogenerate_revision_name:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_cloud_run_service__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   metadata:google_cloud_run_service__metadata list ->
   template:google_cloud_run_service__template list ->
   traffic:google_cloud_run_service__traffic list ->

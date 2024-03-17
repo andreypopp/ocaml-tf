@@ -15,14 +15,14 @@ type azurerm_vpn_server_configuration__timeouts
 type azurerm_vpn_server_configuration
 
 val azurerm_vpn_server_configuration :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?vpn_protocols:string list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?vpn_protocols:string prop list ->
   ?timeouts:azurerm_vpn_server_configuration__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  vpn_authentication_types:string list ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  vpn_authentication_types:string prop list ->
   azure_active_directory_authentication:
     azurerm_vpn_server_configuration__azure_active_directory_authentication
     list ->

@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type aws_emr_studio = {
-  auth_mode : string;  (** auth_mode *)
-  default_s3_location : string;  (** default_s3_location *)
-  description : string option; [@option]  (** description *)
-  engine_security_group_id : string;  (** engine_security_group_id *)
-  id : string option; [@option]  (** id *)
-  idp_auth_url : string option; [@option]  (** idp_auth_url *)
-  idp_relay_state_parameter_name : string option; [@option]
+  auth_mode : string prop;  (** auth_mode *)
+  default_s3_location : string prop;  (** default_s3_location *)
+  description : string prop option; [@option]  (** description *)
+  engine_security_group_id : string prop;
+      (** engine_security_group_id *)
+  id : string prop option; [@option]  (** id *)
+  idp_auth_url : string prop option; [@option]  (** idp_auth_url *)
+  idp_relay_state_parameter_name : string prop option; [@option]
       (** idp_relay_state_parameter_name *)
-  name : string;  (** name *)
-  service_role : string;  (** service_role *)
-  subnet_ids : string list;  (** subnet_ids *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  service_role : string prop;  (** service_role *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user_role : string option; [@option]  (** user_role *)
-  vpc_id : string;  (** vpc_id *)
-  workspace_security_group_id : string;
+  user_role : string prop option; [@option]  (** user_role *)
+  vpc_id : string prop;  (** vpc_id *)
+  workspace_security_group_id : string prop;
       (** workspace_security_group_id *)
 }
 [@@deriving yojson_of]

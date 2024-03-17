@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type google_storage_object_access_control__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_storage_object_access_control__timeouts *)
 
 type google_storage_object_access_control__project_team = {
-  project_number : string;  (** project_number *)
-  team : string;  (** team *)
+  project_number : string prop;  (** project_number *)
+  team : string prop;  (** team *)
 }
 [@@deriving yojson_of]
 
 type google_storage_object_access_control = {
-  bucket : string;  (** The name of the bucket. *)
-  entity : string;
+  bucket : string prop;  (** The name of the bucket. *)
+  entity : string prop;
       (** The entity holding the permission, in one of the following forms:
   * user-{{userId}}
   * user-{{email}} (such as user-liz@example.com)
@@ -30,10 +30,10 @@ type google_storage_object_access_control = {
   * project-team-{{projectId}}
   * allUsers
   * allAuthenticatedUsers *)
-  id : string option; [@option]  (** id *)
-  object_ : string; [@key "object"]
+  id : string prop option; [@option]  (** id *)
+  object_ : string prop; [@key "object"]
       (** The name of the object to apply the access control to. *)
-  role : string;
+  role : string prop;
       (** The access permission for the entity. Possible values: [OWNER, READER] *)
   timeouts : google_storage_object_access_control__timeouts option;
 }

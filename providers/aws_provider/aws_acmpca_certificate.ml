@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type aws_acmpca_certificate__validity = {
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_acmpca_certificate__validity *)
 
 type aws_acmpca_certificate = {
-  api_passthrough : string option; [@option]  (** api_passthrough *)
-  certificate_authority_arn : string;
+  api_passthrough : string prop option; [@option]
+      (** api_passthrough *)
+  certificate_authority_arn : string prop;
       (** certificate_authority_arn *)
-  certificate_signing_request : string;
+  certificate_signing_request : string prop;
       (** certificate_signing_request *)
-  id : string option; [@option]  (** id *)
-  signing_algorithm : string;  (** signing_algorithm *)
-  template_arn : string option; [@option]  (** template_arn *)
+  id : string prop option; [@option]  (** id *)
+  signing_algorithm : string prop;  (** signing_algorithm *)
+  template_arn : string prop option; [@option]  (** template_arn *)
   validity : aws_acmpca_certificate__validity list;
 }
 [@@deriving yojson_of]

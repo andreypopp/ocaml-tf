@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type google_iap_app_engine_version_iam_policy = {
-  app_id : string;  (** app_id *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  service : string;  (** service *)
-  version_id : string;  (** version_id *)
+  app_id : string prop;  (** app_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  service : string prop;  (** service *)
+  version_id : string prop;  (** version_id *)
 }
 [@@deriving yojson_of]
 (** google_iap_app_engine_version_iam_policy *)

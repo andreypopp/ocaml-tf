@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_pinpoint_email_channel = {
-  application_id : string;  (** application_id *)
-  configuration_set : string option; [@option]
+  application_id : string prop;  (** application_id *)
+  configuration_set : string prop option; [@option]
       (** configuration_set *)
-  enabled : bool option; [@option]  (** enabled *)
-  from_address : string;  (** from_address *)
-  id : string option; [@option]  (** id *)
-  identity : string;  (** identity *)
-  role_arn : string option; [@option]  (** role_arn *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  from_address : string prop;  (** from_address *)
+  id : string prop option; [@option]  (** id *)
+  identity : string prop;  (** identity *)
+  role_arn : string prop option; [@option]  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_pinpoint_email_channel *)

@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type digitalocean_database_replica = {
-  cluster_id : string;  (** cluster_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  private_network_uuid : string option; [@option]
+  cluster_id : string prop;  (** cluster_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  private_network_uuid : string prop option; [@option]
       (** private_network_uuid *)
-  region : string option; [@option]  (** region *)
-  size : string option; [@option]  (** size *)
-  storage_size_mib : string option; [@option]
+  region : string prop option; [@option]  (** region *)
+  size : string prop option; [@option]  (** size *)
+  storage_size_mib : string prop option; [@option]
       (** storage_size_mib *)
-  tags : string list option; [@option]  (** tags *)
+  tags : string prop list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** digitalocean_database_replica *)

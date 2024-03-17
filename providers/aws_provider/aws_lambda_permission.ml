@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type aws_lambda_permission = {
-  action : string;  (** action *)
-  event_source_token : string option; [@option]
+  action : string prop;  (** action *)
+  event_source_token : string prop option; [@option]
       (** event_source_token *)
-  function_name : string;  (** function_name *)
-  function_url_auth_type : string option; [@option]
+  function_name : string prop;  (** function_name *)
+  function_url_auth_type : string prop option; [@option]
       (** function_url_auth_type *)
-  id : string option; [@option]  (** id *)
-  principal : string;  (** principal *)
-  principal_org_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  principal : string prop;  (** principal *)
+  principal_org_id : string prop option; [@option]
       (** principal_org_id *)
-  qualifier : string option; [@option]  (** qualifier *)
-  source_account : string option; [@option]  (** source_account *)
-  source_arn : string option; [@option]  (** source_arn *)
-  statement_id : string option; [@option]  (** statement_id *)
-  statement_id_prefix : string option; [@option]
+  qualifier : string prop option; [@option]  (** qualifier *)
+  source_account : string prop option; [@option]
+      (** source_account *)
+  source_arn : string prop option; [@option]  (** source_arn *)
+  statement_id : string prop option; [@option]  (** statement_id *)
+  statement_id_prefix : string prop option; [@option]
       (** statement_id_prefix *)
 }
 [@@deriving yojson_of]

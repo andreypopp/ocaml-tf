@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type google_logging_billing_account_exclusion = {
-  billing_account : string;  (** billing_account *)
-  description : string option; [@option]
+  billing_account : string prop;  (** billing_account *)
+  description : string prop option; [@option]
       (** A human-readable description. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** Whether this exclusion rule should be disabled or not. This defaults to false. *)
-  filter : string;
+  filter : string prop;
       (** The filter to apply when excluding logs. Only log entries that match the filter are excluded. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The name of the logging exclusion. *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The name of the logging exclusion. *)
 }
 [@@deriving yojson_of]
 (** google_logging_billing_account_exclusion *)

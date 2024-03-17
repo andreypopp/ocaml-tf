@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_route53recoverycontrolconfig_control_panel = {
-  cluster_arn : string;  (** cluster_arn *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  cluster_arn : string prop;  (** cluster_arn *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoverycontrolconfig_control_panel *)

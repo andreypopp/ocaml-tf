@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_auditmanager_organization_admin_account_registration = {
-  admin_account_id : string;  (** admin_account_id *)
+  admin_account_id : string prop;  (** admin_account_id *)
 }
 [@@deriving yojson_of]
 (** aws_auditmanager_organization_admin_account_registration *)

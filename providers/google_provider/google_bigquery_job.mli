@@ -23,34 +23,34 @@ type google_bigquery_job__query
 type google_bigquery_job__timeouts
 
 type google_bigquery_job__status__errors = {
-  location : string;  (** location *)
-  message : string;  (** message *)
-  reason : string;  (** reason *)
+  location : string prop;  (** location *)
+  message : string prop;  (** message *)
+  reason : string prop;  (** reason *)
 }
 
 type google_bigquery_job__status__error_result = {
-  location : string;  (** location *)
-  message : string;  (** message *)
-  reason : string;  (** reason *)
+  location : string prop;  (** location *)
+  message : string prop;  (** message *)
+  reason : string prop;  (** reason *)
 }
 
 type google_bigquery_job__status = {
   error_result : google_bigquery_job__status__error_result list;
       (** error_result *)
   errors : google_bigquery_job__status__errors list;  (** errors *)
-  state : string;  (** state *)
+  state : string prop;  (** state *)
 }
 
 type google_bigquery_job
 
 val google_bigquery_job :
-  ?id:string ->
-  ?job_timeout_ms:string ->
-  ?labels:(string * string) list ->
-  ?location:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?job_timeout_ms:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?project:string prop ->
   ?timeouts:google_bigquery_job__timeouts ->
-  job_id:string ->
+  job_id:string prop ->
   copy:google_bigquery_job__copy list ->
   extract:google_bigquery_job__extract list ->
   load:google_bigquery_job__load list ->

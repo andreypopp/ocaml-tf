@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_guardduty_publishing_destination = {
-  destination_arn : string;  (** destination_arn *)
-  destination_type : string option; [@option]
+  destination_arn : string prop;  (** destination_arn *)
+  destination_type : string prop option; [@option]
       (** destination_type *)
-  detector_id : string;  (** detector_id *)
-  id : string option; [@option]  (** id *)
-  kms_key_arn : string;  (** kms_key_arn *)
+  detector_id : string prop;  (** detector_id *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_arn : string prop;  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_publishing_destination *)

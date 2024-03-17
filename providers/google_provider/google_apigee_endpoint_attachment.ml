@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type google_apigee_endpoint_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_apigee_endpoint_attachment__timeouts *)
 
 type google_apigee_endpoint_attachment = {
-  endpoint_attachment_id : string;
+  endpoint_attachment_id : string prop;
       (** ID of the endpoint attachment. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** Location of the endpoint attachment. *)
-  org_id : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;
+      (** Location of the endpoint attachment. *)
+  org_id : string prop;
       (** The Apigee Organization associated with the Apigee instance,
 in the format 'organizations/{{org_name}}'. *)
-  service_attachment : string;
+  service_attachment : string prop;
       (** Format: projects/*/regions/*/serviceAttachments/* *)
   timeouts : google_apigee_endpoint_attachment__timeouts option;
 }

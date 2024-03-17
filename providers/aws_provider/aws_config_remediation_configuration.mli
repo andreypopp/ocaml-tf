@@ -9,15 +9,15 @@ type aws_config_remediation_configuration__parameter
 type aws_config_remediation_configuration
 
 val aws_config_remediation_configuration :
-  ?automatic:bool ->
-  ?id:string ->
-  ?maximum_automatic_attempts:float ->
-  ?resource_type:string ->
-  ?retry_attempt_seconds:float ->
-  ?target_version:string ->
-  config_rule_name:string ->
-  target_id:string ->
-  target_type:string ->
+  ?automatic:bool prop ->
+  ?id:string prop ->
+  ?maximum_automatic_attempts:float prop ->
+  ?resource_type:string prop ->
+  ?retry_attempt_seconds:float prop ->
+  ?target_version:string prop ->
+  config_rule_name:string prop ->
+  target_id:string prop ->
+  target_type:string prop ->
   execution_controls:
     aws_config_remediation_configuration__execution_controls list ->
   parameter:aws_config_remediation_configuration__parameter list ->

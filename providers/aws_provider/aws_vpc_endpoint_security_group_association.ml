@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_vpc_endpoint_security_group_association = {
-  id : string option; [@option]  (** id *)
-  replace_default_association : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  replace_default_association : bool prop option; [@option]
       (** replace_default_association *)
-  security_group_id : string;  (** security_group_id *)
-  vpc_endpoint_id : string;  (** vpc_endpoint_id *)
+  security_group_id : string prop;  (** security_group_id *)
+  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_security_group_association *)

@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_verifiedpermissions_policy_store__validation_settings = {
-  mode : string;  (** mode *)
+  mode : string prop;  (** mode *)
 }
 [@@deriving yojson_of]
 (** aws_verifiedpermissions_policy_store__validation_settings *)
 
 type aws_verifiedpermissions_policy_store = {
-  description : string option; [@option]  (** description *)
+  description : string prop option; [@option]  (** description *)
   validation_settings :
     aws_verifiedpermissions_policy_store__validation_settings list;
 }

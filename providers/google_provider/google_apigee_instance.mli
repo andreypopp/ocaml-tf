@@ -6,16 +6,16 @@ type google_apigee_instance__timeouts
 type google_apigee_instance
 
 val google_apigee_instance :
-  ?consumer_accept_list:string list ->
-  ?description:string ->
-  ?disk_encryption_key_name:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?ip_range:string ->
-  ?peering_cidr_range:string ->
+  ?consumer_accept_list:string prop list ->
+  ?description:string prop ->
+  ?disk_encryption_key_name:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?ip_range:string prop ->
+  ?peering_cidr_range:string prop ->
   ?timeouts:google_apigee_instance__timeouts ->
-  location:string ->
-  name:string ->
-  org_id:string ->
+  location:string prop ->
+  name:string prop ->
+  org_id:string prop ->
   string ->
   unit

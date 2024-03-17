@@ -6,15 +6,15 @@ type google_network_security_address_group__timeouts
 type google_network_security_address_group
 
 val google_network_security_address_group :
-  ?description:string ->
-  ?id:string ->
-  ?items:string list ->
-  ?labels:(string * string) list ->
-  ?parent:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?items:string prop list ->
+  ?labels:(string * string prop) list ->
+  ?parent:string prop ->
   ?timeouts:google_network_security_address_group__timeouts ->
-  capacity:float ->
-  location:string ->
-  name:string ->
-  type_:string ->
+  capacity:float prop ->
+  location:string prop ->
+  name:string prop ->
+  type_:string prop ->
   string ->
   unit

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_appstream_fleet_stack_association = {
-  fleet_name : string;  (** fleet_name *)
-  id : string option; [@option]  (** id *)
-  stack_name : string;  (** stack_name *)
+  fleet_name : string prop;  (** fleet_name *)
+  id : string prop option; [@option]  (** id *)
+  stack_name : string prop;  (** stack_name *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_fleet_stack_association *)

@@ -12,33 +12,33 @@ type aws_opsworks_java_app_layer__load_based_auto_scaling
 type aws_opsworks_java_app_layer
 
 val aws_opsworks_java_app_layer :
-  ?app_server:string ->
-  ?app_server_version:string ->
-  ?auto_assign_elastic_ips:bool ->
-  ?auto_assign_public_ips:bool ->
-  ?auto_healing:bool ->
-  ?custom_configure_recipes:string list ->
-  ?custom_deploy_recipes:string list ->
-  ?custom_instance_profile_arn:string ->
-  ?custom_json:string ->
-  ?custom_security_group_ids:string list ->
-  ?custom_setup_recipes:string list ->
-  ?custom_shutdown_recipes:string list ->
-  ?custom_undeploy_recipes:string list ->
-  ?drain_elb_on_shutdown:bool ->
-  ?elastic_load_balancer:string ->
-  ?id:string ->
-  ?install_updates_on_boot:bool ->
-  ?instance_shutdown_timeout:float ->
-  ?jvm_options:string ->
-  ?jvm_type:string ->
-  ?jvm_version:string ->
-  ?name:string ->
-  ?system_packages:string list ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?use_ebs_optimized_instances:bool ->
-  stack_id:string ->
+  ?app_server:string prop ->
+  ?app_server_version:string prop ->
+  ?auto_assign_elastic_ips:bool prop ->
+  ?auto_assign_public_ips:bool prop ->
+  ?auto_healing:bool prop ->
+  ?custom_configure_recipes:string prop list ->
+  ?custom_deploy_recipes:string prop list ->
+  ?custom_instance_profile_arn:string prop ->
+  ?custom_json:string prop ->
+  ?custom_security_group_ids:string prop list ->
+  ?custom_setup_recipes:string prop list ->
+  ?custom_shutdown_recipes:string prop list ->
+  ?custom_undeploy_recipes:string prop list ->
+  ?drain_elb_on_shutdown:bool prop ->
+  ?elastic_load_balancer:string prop ->
+  ?id:string prop ->
+  ?install_updates_on_boot:bool prop ->
+  ?instance_shutdown_timeout:float prop ->
+  ?jvm_options:string prop ->
+  ?jvm_type:string prop ->
+  ?jvm_version:string prop ->
+  ?name:string prop ->
+  ?system_packages:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?use_ebs_optimized_instances:bool prop ->
+  stack_id:string prop ->
   cloudwatch_configuration:
     aws_opsworks_java_app_layer__cloudwatch_configuration list ->
   ebs_volume:aws_opsworks_java_app_layer__ebs_volume list ->

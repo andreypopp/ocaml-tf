@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_api_gateway_base_path_mapping = {
-  api_id : string;  (** api_id *)
-  base_path : string option; [@option]  (** base_path *)
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  stage_name : string option; [@option]  (** stage_name *)
+  api_id : string prop;  (** api_id *)
+  base_path : string prop option; [@option]  (** base_path *)
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  stage_name : string prop option; [@option]  (** stage_name *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_base_path_mapping *)

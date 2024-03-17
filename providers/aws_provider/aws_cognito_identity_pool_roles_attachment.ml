@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_cognito_identity_pool_roles_attachment__role_mapping__mapping_rule = {
-  claim : string;  (** claim *)
-  match_type : string;  (** match_type *)
-  role_arn : string;  (** role_arn *)
-  value : string;  (** value *)
+  claim : string prop;  (** claim *)
+  match_type : string prop;  (** match_type *)
+  role_arn : string prop;  (** role_arn *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_cognito_identity_pool_roles_attachment__role_mapping__mapping_rule *)
 
 type aws_cognito_identity_pool_roles_attachment__role_mapping = {
-  ambiguous_role_resolution : string option; [@option]
+  ambiguous_role_resolution : string prop option; [@option]
       (** ambiguous_role_resolution *)
-  identity_provider : string;  (** identity_provider *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_provider : string prop;  (** identity_provider *)
+  type_ : string prop; [@key "type"]  (** type *)
   mapping_rule :
     aws_cognito_identity_pool_roles_attachment__role_mapping__mapping_rule
     list;
@@ -26,9 +26,9 @@ type aws_cognito_identity_pool_roles_attachment__role_mapping = {
 (** aws_cognito_identity_pool_roles_attachment__role_mapping *)
 
 type aws_cognito_identity_pool_roles_attachment = {
-  id : string option; [@option]  (** id *)
-  identity_pool_id : string;  (** identity_pool_id *)
-  roles : (string * string) list;  (** roles *)
+  id : string prop option; [@option]  (** id *)
+  identity_pool_id : string prop;  (** identity_pool_id *)
+  roles : (string * string prop) list;  (** roles *)
   role_mapping :
     aws_cognito_identity_pool_roles_attachment__role_mapping list;
 }

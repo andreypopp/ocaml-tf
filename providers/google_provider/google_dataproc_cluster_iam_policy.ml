@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_dataproc_cluster_iam_policy = {
-  cluster : string;  (** cluster *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** region *)
+  cluster : string prop;  (** cluster *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]  (** region *)
 }
 [@@deriving yojson_of]
 (** google_dataproc_cluster_iam_policy *)

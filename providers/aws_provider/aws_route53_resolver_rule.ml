@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type aws_route53_resolver_rule__target_ip = {
-  ip : string;  (** ip *)
-  port : float option; [@option]  (** port *)
-  protocol : string option; [@option]  (** protocol *)
+  ip : string prop;  (** ip *)
+  port : float prop option; [@option]  (** port *)
+  protocol : string prop option; [@option]  (** protocol *)
 }
 [@@deriving yojson_of]
 (** aws_route53_resolver_rule__target_ip *)
 
 type aws_route53_resolver_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_route53_resolver_rule__timeouts *)
 
 type aws_route53_resolver_rule = {
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  resolver_endpoint_id : string option; [@option]
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  resolver_endpoint_id : string prop option; [@option]
       (** resolver_endpoint_id *)
-  rule_type : string;  (** rule_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  rule_type : string prop;  (** rule_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   target_ip : aws_route53_resolver_rule__target_ip list;
   timeouts : aws_route53_resolver_rule__timeouts option;

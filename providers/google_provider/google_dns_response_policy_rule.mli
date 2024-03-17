@@ -8,12 +8,12 @@ type google_dns_response_policy_rule__timeouts
 type google_dns_response_policy_rule
 
 val google_dns_response_policy_rule :
-  ?id:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_dns_response_policy_rule__timeouts ->
-  dns_name:string ->
-  response_policy:string ->
-  rule_name:string ->
+  dns_name:string prop ->
+  response_policy:string prop ->
+  rule_name:string prop ->
   local_data:google_dns_response_policy_rule__local_data list ->
   string ->
   unit

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_storage_bucket_iam_policy = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_storage_bucket_iam_policy *)

@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_pinpoint_adm_channel = {
-  application_id : string;  (** application_id *)
-  client_id : string;  (** client_id *)
-  client_secret : string;  (** client_secret *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
+  application_id : string prop;  (** application_id *)
+  client_id : string prop;  (** client_id *)
+  client_secret : string prop;  (** client_secret *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_pinpoint_adm_channel *)

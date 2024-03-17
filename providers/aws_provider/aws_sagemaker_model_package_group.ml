@@ -5,12 +5,14 @@
 open! Tf.Prelude
 
 type aws_sagemaker_model_package_group = {
-  id : string option; [@option]  (** id *)
-  model_package_group_description : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  model_package_group_description : string prop option; [@option]
       (** model_package_group_description *)
-  model_package_group_name : string;  (** model_package_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  model_package_group_name : string prop;
+      (** model_package_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_model_package_group *)

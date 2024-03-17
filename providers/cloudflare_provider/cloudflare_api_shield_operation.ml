@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type cloudflare_api_shield_operation = {
-  endpoint : string;
+  endpoint : string prop;
       (** The endpoint which can contain path parameter templates in curly braces, each will be replaced from left to right with `{varN}`, starting with `{var1}`. This will then be [Cloudflare-normalized](https://developers.cloudflare.com/rules/normalization/how-it-works/). **Modifying this attribute will force creation of a new resource.** *)
-  host : string;
+  host : string prop;
       (** RFC3986-compliant host. **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  method_ : string; [@key "method"]
+  id : string prop option; [@option]  (** id *)
+  method_ : string prop; [@key "method"]
       (** The HTTP method used to access the endpoint. **Modifying this attribute will force creation of a new resource.** *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

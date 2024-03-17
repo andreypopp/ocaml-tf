@@ -6,15 +6,15 @@ type azurerm_iothub_endpoint_eventhub__timeouts
 type azurerm_iothub_endpoint_eventhub
 
 val azurerm_iothub_endpoint_eventhub :
-  ?authentication_type:string ->
-  ?connection_string:string ->
-  ?endpoint_uri:string ->
-  ?entity_path:string ->
-  ?id:string ->
-  ?identity_id:string ->
+  ?authentication_type:string prop ->
+  ?connection_string:string prop ->
+  ?endpoint_uri:string prop ->
+  ?entity_path:string prop ->
+  ?id:string prop ->
+  ?identity_id:string prop ->
   ?timeouts:azurerm_iothub_endpoint_eventhub__timeouts ->
-  iothub_id:string ->
-  name:string ->
-  resource_group_name:string ->
+  iothub_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

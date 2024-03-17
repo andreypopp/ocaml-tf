@@ -8,8 +8,8 @@ type aws_wafregional_regex_match_set__regex_match_tuple
 type aws_wafregional_regex_match_set
 
 val aws_wafregional_regex_match_set :
-  ?id:string ->
-  name:string ->
+  ?id:string prop ->
+  name:string prop ->
   regex_match_tuple:
     aws_wafregional_regex_match_set__regex_match_tuple list ->
   string ->

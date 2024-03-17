@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type aws_account_alternate_contact__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_account_alternate_contact__timeouts *)
 
 type aws_account_alternate_contact = {
-  account_id : string option; [@option]  (** account_id *)
-  alternate_contact_type : string;  (** alternate_contact_type *)
-  email_address : string;  (** email_address *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  phone_number : string;  (** phone_number *)
-  title : string;  (** title *)
+  account_id : string prop option; [@option]  (** account_id *)
+  alternate_contact_type : string prop;
+      (** alternate_contact_type *)
+  email_address : string prop;  (** email_address *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  phone_number : string prop;  (** phone_number *)
+  title : string prop;  (** title *)
   timeouts : aws_account_alternate_contact__timeouts option;
 }
 [@@deriving yojson_of]

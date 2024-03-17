@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type google_certificate_manager_trust_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_trust_config__timeouts *)
 
 type google_certificate_manager_trust_config__trust_stores__intermediate_cas = {
-  pem_certificate : string option; [@option]
+  pem_certificate : string prop option; [@option]
       (** PEM intermediate certificate used for building up paths for validation.
 Each certificate provided in PEM format may occupy up to 5kB. *)
 }
@@ -22,7 +22,7 @@ Each certificate provided in PEM format may occupy up to 5kB. *)
 The field is currently not supported if trust config is used for the workload certificate feature. *)
 
 type google_certificate_manager_trust_config__trust_stores__trust_anchors = {
-  pem_certificate : string option; [@option]
+  pem_certificate : string prop option; [@option]
       (** PEM root certificate of the PKI used for validation.
 Each certificate provided in PEM format may occupy up to 5kB. *)
 }
@@ -42,18 +42,18 @@ type google_certificate_manager_trust_config__trust_stores = {
 This field is supported when TrustConfig is configured with Load Balancers, currently not supported for SPIFFE certificate validation. *)
 
 type google_certificate_manager_trust_config = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** One or more paragraphs of text description of a trust config. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Set of label tags associated with the trust config.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;  (** The trust config location. *)
-  name : string;
+  location : string prop;  (** The trust config location. *)
+  name : string prop;
       (** A user-defined name of the trust config. Trust config names must be unique globally. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   timeouts :
     google_certificate_manager_trust_config__timeouts option;
   trust_stores :

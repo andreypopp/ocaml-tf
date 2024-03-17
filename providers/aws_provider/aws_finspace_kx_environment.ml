@@ -5,39 +5,39 @@
 open! Tf.Prelude
 
 type aws_finspace_kx_environment__custom_dns_configuration = {
-  custom_dns_server_ip : string;  (** custom_dns_server_ip *)
-  custom_dns_server_name : string;  (** custom_dns_server_name *)
+  custom_dns_server_ip : string prop;  (** custom_dns_server_ip *)
+  custom_dns_server_name : string prop;  (** custom_dns_server_name *)
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_environment__custom_dns_configuration *)
 
 type aws_finspace_kx_environment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_environment__timeouts *)
 
 type aws_finspace_kx_environment__transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code = {
-  code : float;  (** code *)
-  type_ : float; [@key "type"]  (** type *)
+  code : float prop;  (** code *)
+  type_ : float prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_environment__transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code *)
 
 type aws_finspace_kx_environment__transit_gateway_configuration__attachment_network_acl_configuration__port_range = {
-  from : float;  (** from *)
-  to_ : float; [@key "to"]  (** to *)
+  from : float prop;  (** from *)
+  to_ : float prop; [@key "to"]  (** to *)
 }
 [@@deriving yojson_of]
 (** aws_finspace_kx_environment__transit_gateway_configuration__attachment_network_acl_configuration__port_range *)
 
 type aws_finspace_kx_environment__transit_gateway_configuration__attachment_network_acl_configuration = {
-  cidr_block : string;  (** cidr_block *)
-  protocol : string;  (** protocol *)
-  rule_action : string;  (** rule_action *)
-  rule_number : float;  (** rule_number *)
+  cidr_block : string prop;  (** cidr_block *)
+  protocol : string prop;  (** protocol *)
+  rule_action : string prop;  (** rule_action *)
+  rule_number : float prop;  (** rule_number *)
   icmp_type_code :
     aws_finspace_kx_environment__transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code
     list;
@@ -49,8 +49,8 @@ type aws_finspace_kx_environment__transit_gateway_configuration__attachment_netw
 (** aws_finspace_kx_environment__transit_gateway_configuration__attachment_network_acl_configuration *)
 
 type aws_finspace_kx_environment__transit_gateway_configuration = {
-  routable_cidr_space : string;  (** routable_cidr_space *)
-  transit_gateway_id : string;  (** transit_gateway_id *)
+  routable_cidr_space : string prop;  (** routable_cidr_space *)
+  transit_gateway_id : string prop;  (** transit_gateway_id *)
   attachment_network_acl_configuration :
     aws_finspace_kx_environment__transit_gateway_configuration__attachment_network_acl_configuration
     list;
@@ -59,11 +59,11 @@ type aws_finspace_kx_environment__transit_gateway_configuration = {
 (** aws_finspace_kx_environment__transit_gateway_configuration *)
 
 type aws_finspace_kx_environment = {
-  description : string option; [@option]  (** description *)
-  kms_key_id : string;  (** kms_key_id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  kms_key_id : string prop;  (** kms_key_id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   custom_dns_configuration :
     aws_finspace_kx_environment__custom_dns_configuration list;

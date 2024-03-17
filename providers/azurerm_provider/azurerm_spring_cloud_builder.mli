@@ -8,10 +8,10 @@ type azurerm_spring_cloud_builder__timeouts
 type azurerm_spring_cloud_builder
 
 val azurerm_spring_cloud_builder :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_spring_cloud_builder__timeouts ->
-  name:string ->
-  spring_cloud_service_id:string ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
   build_pack_group:
     azurerm_spring_cloud_builder__build_pack_group list ->
   stack:azurerm_spring_cloud_builder__stack list ->

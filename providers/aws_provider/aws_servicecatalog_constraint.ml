@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type aws_servicecatalog_constraint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_constraint__timeouts *)
 
 type aws_servicecatalog_constraint = {
-  accept_language : string option; [@option]  (** accept_language *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  parameters : string;  (** parameters *)
-  portfolio_id : string;  (** portfolio_id *)
-  product_id : string;  (** product_id *)
-  type_ : string; [@key "type"]  (** type *)
+  accept_language : string prop option; [@option]
+      (** accept_language *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  parameters : string prop;  (** parameters *)
+  portfolio_id : string prop;  (** portfolio_id *)
+  product_id : string prop;  (** product_id *)
+  type_ : string prop; [@key "type"]  (** type *)
   timeouts : aws_servicecatalog_constraint__timeouts option;
 }
 [@@deriving yojson_of]

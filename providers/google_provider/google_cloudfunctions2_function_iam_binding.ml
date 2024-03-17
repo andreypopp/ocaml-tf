@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_cloudfunctions2_function_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_cloudfunctions2_function_iam_binding__condition *)
 
 type google_cloudfunctions2_function_iam_binding = {
-  cloud_function : string;  (** cloud_function *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  members : string list;  (** members *)
-  project : string option; [@option]  (** project *)
-  role : string;  (** role *)
+  cloud_function : string prop;  (** cloud_function *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  members : string prop list;  (** members *)
+  project : string prop option; [@option]  (** project *)
+  role : string prop;  (** role *)
   condition :
     google_cloudfunctions2_function_iam_binding__condition list;
 }

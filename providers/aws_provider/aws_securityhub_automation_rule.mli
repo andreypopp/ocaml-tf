@@ -72,12 +72,12 @@ type aws_securityhub_automation_rule__criteria
 type aws_securityhub_automation_rule
 
 val aws_securityhub_automation_rule :
-  ?is_terminal:bool ->
-  ?rule_status:string ->
-  ?tags:(string * string) list ->
-  description:string ->
-  rule_name:string ->
-  rule_order:float ->
+  ?is_terminal:bool prop ->
+  ?rule_status:string prop ->
+  ?tags:(string * string prop) list ->
+  description:string prop ->
+  rule_name:string prop ->
+  rule_order:float prop ->
   actions:aws_securityhub_automation_rule__actions list ->
   criteria:aws_securityhub_automation_rule__criteria list ->
   string ->

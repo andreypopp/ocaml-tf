@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type cloudflare_email_routing_rule__action = {
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** Type of action. Available values: `forward`, `worker`, `drop` *)
-  value : string list option; [@option]
+  value : string prop list option; [@option]
       (** Value to match on. Required for `type` of `literal`. *)
 }
 [@@deriving yojson_of]
 (** Actions to take when a match is found. *)
 
 type cloudflare_email_routing_rule__matcher = {
-  field : string option; [@option]
+  field : string prop option; [@option]
       (** Field to match on. Required for `type` of `literal`. *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** Type of matcher. Available values: `literal`, `all` *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** Value to match on. Required for `type` of `literal`. *)
 }
 [@@deriving yojson_of]
 (** Matching patterns to forward to your actions. *)
 
 type cloudflare_email_routing_rule = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether the email routing rule is enabled. *)
-  name : string;  (** Routing rule name. *)
-  priority : float option; [@option]
+  name : string prop;  (** Routing rule name. *)
+  priority : float prop option; [@option]
       (** The priority of the email routing rule. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
   action : cloudflare_email_routing_rule__action list;
   matcher : cloudflare_email_routing_rule__matcher list;

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_billing_account_iam_policy = {
-  billing_account_id : string;  (** billing_account_id *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
+  billing_account_id : string prop;  (** billing_account_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_billing_account_iam_policy *)

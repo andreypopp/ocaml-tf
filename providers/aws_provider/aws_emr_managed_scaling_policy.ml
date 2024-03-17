@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_emr_managed_scaling_policy__compute_limits = {
-  maximum_capacity_units : float;  (** maximum_capacity_units *)
-  maximum_core_capacity_units : float option; [@option]
+  maximum_capacity_units : float prop;  (** maximum_capacity_units *)
+  maximum_core_capacity_units : float prop option; [@option]
       (** maximum_core_capacity_units *)
-  maximum_ondemand_capacity_units : float option; [@option]
+  maximum_ondemand_capacity_units : float prop option; [@option]
       (** maximum_ondemand_capacity_units *)
-  minimum_capacity_units : float;  (** minimum_capacity_units *)
-  unit_type : string;  (** unit_type *)
+  minimum_capacity_units : float prop;  (** minimum_capacity_units *)
+  unit_type : string prop;  (** unit_type *)
 }
 [@@deriving yojson_of]
 (** aws_emr_managed_scaling_policy__compute_limits *)
 
 type aws_emr_managed_scaling_policy = {
-  cluster_id : string;  (** cluster_id *)
-  id : string option; [@option]  (** id *)
+  cluster_id : string prop;  (** cluster_id *)
+  id : string prop option; [@option]  (** id *)
   compute_limits :
     aws_emr_managed_scaling_policy__compute_limits list;
 }

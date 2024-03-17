@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_endpoints_service_iam_member__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_endpoints_service_iam_member__condition *)
 
 type google_endpoints_service_iam_member = {
-  id : string option; [@option]  (** id *)
-  member : string;  (** member *)
-  role : string;  (** role *)
-  service_name : string;  (** service_name *)
+  id : string prop option; [@option]  (** id *)
+  member : string prop;  (** member *)
+  role : string prop;  (** role *)
+  service_name : string prop;  (** service_name *)
   condition : google_endpoints_service_iam_member__condition list;
 }
 [@@deriving yojson_of]

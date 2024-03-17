@@ -7,11 +7,11 @@ type aws_wafregional_rule_group__activated_rule
 type aws_wafregional_rule_group
 
 val aws_wafregional_rule_group :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  metric_name:string ->
-  name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  metric_name:string prop ->
+  name:string prop ->
   activated_rule:aws_wafregional_rule_group__activated_rule list ->
   string ->
   unit

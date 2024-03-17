@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_event_archive = {
-  description : string option; [@option]  (** description *)
-  event_pattern : string option; [@option]  (** event_pattern *)
-  event_source_arn : string;  (** event_source_arn *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  retention_days : float option; [@option]  (** retention_days *)
+  description : string prop option; [@option]  (** description *)
+  event_pattern : string prop option; [@option]  (** event_pattern *)
+  event_source_arn : string prop;  (** event_source_arn *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  retention_days : float prop option; [@option]  (** retention_days *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_event_archive *)

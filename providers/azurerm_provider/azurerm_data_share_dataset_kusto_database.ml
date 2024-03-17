@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_data_share_dataset_kusto_database__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_share_dataset_kusto_database__timeouts *)
 
 type azurerm_data_share_dataset_kusto_database = {
-  id : string option; [@option]  (** id *)
-  kusto_database_id : string;  (** kusto_database_id *)
-  name : string;  (** name *)
-  share_id : string;  (** share_id *)
+  id : string prop option; [@option]  (** id *)
+  kusto_database_id : string prop;  (** kusto_database_id *)
+  name : string prop;  (** name *)
+  share_id : string prop;  (** share_id *)
   timeouts :
     azurerm_data_share_dataset_kusto_database__timeouts option;
 }

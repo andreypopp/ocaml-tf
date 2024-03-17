@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type aws_dx_bgp_peer__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_dx_bgp_peer__timeouts *)
 
 type aws_dx_bgp_peer = {
-  address_family : string;  (** address_family *)
-  amazon_address : string option; [@option]  (** amazon_address *)
-  bgp_asn : float;  (** bgp_asn *)
-  bgp_auth_key : string option; [@option]  (** bgp_auth_key *)
-  customer_address : string option; [@option]
+  address_family : string prop;  (** address_family *)
+  amazon_address : string prop option; [@option]
+      (** amazon_address *)
+  bgp_asn : float prop;  (** bgp_asn *)
+  bgp_auth_key : string prop option; [@option]  (** bgp_auth_key *)
+  customer_address : string prop option; [@option]
       (** customer_address *)
-  id : string option; [@option]  (** id *)
-  virtual_interface_id : string;  (** virtual_interface_id *)
+  id : string prop option; [@option]  (** id *)
+  virtual_interface_id : string prop;  (** virtual_interface_id *)
   timeouts : aws_dx_bgp_peer__timeouts option;
 }
 [@@deriving yojson_of]

@@ -13,17 +13,17 @@ type azurerm_point_to_site_vpn_gateway__timeouts
 type azurerm_point_to_site_vpn_gateway
 
 val azurerm_point_to_site_vpn_gateway :
-  ?dns_servers:string list ->
-  ?id:string ->
-  ?routing_preference_internet_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?dns_servers:string prop list ->
+  ?id:string prop ->
+  ?routing_preference_internet_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_point_to_site_vpn_gateway__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  scale_unit:float ->
-  virtual_hub_id:string ->
-  vpn_server_configuration_id:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scale_unit:float prop ->
+  virtual_hub_id:string prop ->
+  vpn_server_configuration_id:string prop ->
   connection_configuration:
     azurerm_point_to_site_vpn_gateway__connection_configuration list ->
   string ->

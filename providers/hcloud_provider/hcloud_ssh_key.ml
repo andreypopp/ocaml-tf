@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type hcloud_ssh_key = {
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  name : string;  (** name *)
-  public_key : string;  (** public_key *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  name : string prop;  (** name *)
+  public_key : string prop;  (** public_key *)
 }
 [@@deriving yojson_of]
 (** hcloud_ssh_key *)

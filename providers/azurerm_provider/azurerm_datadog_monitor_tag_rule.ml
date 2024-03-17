@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_datadog_monitor_tag_rule__log__filter = {
-  action : string;  (** action *)
-  name : string;  (** name *)
-  value : string;  (** value *)
+  action : string prop;  (** action *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor_tag_rule__log__filter *)
 
 type azurerm_datadog_monitor_tag_rule__log = {
-  aad_log_enabled : bool option; [@option]  (** aad_log_enabled *)
-  resource_log_enabled : bool option; [@option]
+  aad_log_enabled : bool prop option; [@option]
+      (** aad_log_enabled *)
+  resource_log_enabled : bool prop option; [@option]
       (** resource_log_enabled *)
-  subscription_log_enabled : bool option; [@option]
+  subscription_log_enabled : bool prop option; [@option]
       (** subscription_log_enabled *)
   filter : azurerm_datadog_monitor_tag_rule__log__filter list;
 }
@@ -24,9 +25,9 @@ type azurerm_datadog_monitor_tag_rule__log = {
 (** azurerm_datadog_monitor_tag_rule__log *)
 
 type azurerm_datadog_monitor_tag_rule__metric__filter = {
-  action : string;  (** action *)
-  name : string;  (** name *)
-  value : string;  (** value *)
+  action : string prop;  (** action *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor_tag_rule__metric__filter *)
@@ -38,18 +39,18 @@ type azurerm_datadog_monitor_tag_rule__metric = {
 (** azurerm_datadog_monitor_tag_rule__metric *)
 
 type azurerm_datadog_monitor_tag_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor_tag_rule__timeouts *)
 
 type azurerm_datadog_monitor_tag_rule = {
-  datadog_monitor_id : string;  (** datadog_monitor_id *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
+  datadog_monitor_id : string prop;  (** datadog_monitor_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
   log : azurerm_datadog_monitor_tag_rule__log list;
   metric : azurerm_datadog_monitor_tag_rule__metric list;
   timeouts : azurerm_datadog_monitor_tag_rule__timeouts option;

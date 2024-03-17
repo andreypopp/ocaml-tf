@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_mskconnect_worker_configuration = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  properties_file_content : string;  (** properties_file_content *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  properties_file_content : string prop;
+      (** properties_file_content *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_worker_configuration *)

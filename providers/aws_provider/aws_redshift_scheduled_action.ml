@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type aws_redshift_scheduled_action__target_action__pause_cluster = {
-  cluster_identifier : string;  (** cluster_identifier *)
+  cluster_identifier : string prop;  (** cluster_identifier *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_scheduled_action__target_action__pause_cluster *)
 
 type aws_redshift_scheduled_action__target_action__resize_cluster = {
-  classic : bool option; [@option]  (** classic *)
-  cluster_identifier : string;  (** cluster_identifier *)
-  cluster_type : string option; [@option]  (** cluster_type *)
-  node_type : string option; [@option]  (** node_type *)
-  number_of_nodes : float option; [@option]  (** number_of_nodes *)
+  classic : bool prop option; [@option]  (** classic *)
+  cluster_identifier : string prop;  (** cluster_identifier *)
+  cluster_type : string prop option; [@option]  (** cluster_type *)
+  node_type : string prop option; [@option]  (** node_type *)
+  number_of_nodes : float prop option; [@option]
+      (** number_of_nodes *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_scheduled_action__target_action__resize_cluster *)
 
 type aws_redshift_scheduled_action__target_action__resume_cluster = {
-  cluster_identifier : string;  (** cluster_identifier *)
+  cluster_identifier : string prop;  (** cluster_identifier *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_scheduled_action__target_action__resume_cluster *)
@@ -38,14 +39,14 @@ type aws_redshift_scheduled_action__target_action = {
 (** aws_redshift_scheduled_action__target_action *)
 
 type aws_redshift_scheduled_action = {
-  description : string option; [@option]  (** description *)
-  enable : bool option; [@option]  (** enable *)
-  end_time : string option; [@option]  (** end_time *)
-  iam_role : string;  (** iam_role *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  schedule : string;  (** schedule *)
-  start_time : string option; [@option]  (** start_time *)
+  description : string prop option; [@option]  (** description *)
+  enable : bool prop option; [@option]  (** enable *)
+  end_time : string prop option; [@option]  (** end_time *)
+  iam_role : string prop;  (** iam_role *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  schedule : string prop;  (** schedule *)
+  start_time : string prop option; [@option]  (** start_time *)
   target_action : aws_redshift_scheduled_action__target_action list;
 }
 [@@deriving yojson_of]

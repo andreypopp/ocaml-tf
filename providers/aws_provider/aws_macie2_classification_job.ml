@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and__simple_criterion = {
-  comparator : string option; [@option]  (** comparator *)
-  key : string option; [@option]  (** key *)
-  values : string list option; [@option]  (** values *)
+  comparator : string prop option; [@option]  (** comparator *)
+  key : string prop option; [@option]  (** key *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and__simple_criterion *)
 
 type aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and__tag_criterion__tag_values = {
-  key : string option; [@option]  (** key *)
-  value : string option; [@option]  (** value *)
+  key : string prop option; [@option]  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and__tag_criterion__tag_values *)
 
 type aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and__tag_criterion = {
-  comparator : string option; [@option]  (** comparator *)
+  comparator : string prop option; [@option]  (** comparator *)
   tag_values :
     aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes__and__tag_criterion__tag_values
     list;
@@ -48,22 +48,22 @@ type aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes
 (** aws_macie2_classification_job__s3_job_definition__bucket_criteria__excludes *)
 
 type aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes__and__simple_criterion = {
-  comparator : string option; [@option]  (** comparator *)
-  key : string option; [@option]  (** key *)
-  values : string list option; [@option]  (** values *)
+  comparator : string prop option; [@option]  (** comparator *)
+  key : string prop option; [@option]  (** key *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes__and__simple_criterion *)
 
 type aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes__and__tag_criterion__tag_values = {
-  key : string option; [@option]  (** key *)
-  value : string option; [@option]  (** value *)
+  key : string prop option; [@option]  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes__and__tag_criterion__tag_values *)
 
 type aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes__and__tag_criterion = {
-  comparator : string option; [@option]  (** comparator *)
+  comparator : string prop option; [@option]  (** comparator *)
   tag_values :
     aws_macie2_classification_job__s3_job_definition__bucket_criteria__includes__and__tag_criterion__tag_values
     list;
@@ -102,31 +102,31 @@ type aws_macie2_classification_job__s3_job_definition__bucket_criteria = {
 (** aws_macie2_classification_job__s3_job_definition__bucket_criteria *)
 
 type aws_macie2_classification_job__s3_job_definition__bucket_definitions = {
-  account_id : string;  (** account_id *)
-  buckets : string list;  (** buckets *)
+  account_id : string prop;  (** account_id *)
+  buckets : string prop list;  (** buckets *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_job__s3_job_definition__bucket_definitions *)
 
 type aws_macie2_classification_job__s3_job_definition__scoping__excludes__and__simple_scope_term = {
-  comparator : string option; [@option]  (** comparator *)
-  key : string option; [@option]  (** key *)
-  values : string list option; [@option]  (** values *)
+  comparator : string prop option; [@option]  (** comparator *)
+  key : string prop option; [@option]  (** key *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_job__s3_job_definition__scoping__excludes__and__simple_scope_term *)
 
 type aws_macie2_classification_job__s3_job_definition__scoping__excludes__and__tag_scope_term__tag_values = {
-  key : string option; [@option]  (** key *)
-  value : string option; [@option]  (** value *)
+  key : string prop option; [@option]  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_job__s3_job_definition__scoping__excludes__and__tag_scope_term__tag_values *)
 
 type aws_macie2_classification_job__s3_job_definition__scoping__excludes__and__tag_scope_term = {
-  comparator : string option; [@option]  (** comparator *)
-  key : string option; [@option]  (** key *)
-  target : string option; [@option]  (** target *)
+  comparator : string prop option; [@option]  (** comparator *)
+  key : string prop option; [@option]  (** key *)
+  target : string prop option; [@option]  (** target *)
   tag_values :
     aws_macie2_classification_job__s3_job_definition__scoping__excludes__and__tag_scope_term__tag_values
     list;
@@ -154,24 +154,24 @@ type aws_macie2_classification_job__s3_job_definition__scoping__excludes = {
 (** aws_macie2_classification_job__s3_job_definition__scoping__excludes *)
 
 type aws_macie2_classification_job__s3_job_definition__scoping__includes__and__simple_scope_term = {
-  comparator : string option; [@option]  (** comparator *)
-  key : string option; [@option]  (** key *)
-  values : string list option; [@option]  (** values *)
+  comparator : string prop option; [@option]  (** comparator *)
+  key : string prop option; [@option]  (** key *)
+  values : string prop list option; [@option]  (** values *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_job__s3_job_definition__scoping__includes__and__simple_scope_term *)
 
 type aws_macie2_classification_job__s3_job_definition__scoping__includes__and__tag_scope_term__tag_values = {
-  key : string option; [@option]  (** key *)
-  value : string option; [@option]  (** value *)
+  key : string prop option; [@option]  (** key *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_job__s3_job_definition__scoping__includes__and__tag_scope_term__tag_values *)
 
 type aws_macie2_classification_job__s3_job_definition__scoping__includes__and__tag_scope_term = {
-  comparator : string option; [@option]  (** comparator *)
-  key : string option; [@option]  (** key *)
-  target : string option; [@option]  (** target *)
+  comparator : string prop option; [@option]  (** comparator *)
+  key : string prop option; [@option]  (** key *)
+  target : string prop option; [@option]  (** target *)
   tag_values :
     aws_macie2_classification_job__s3_job_definition__scoping__includes__and__tag_scope_term__tag_values
     list;
@@ -223,35 +223,37 @@ type aws_macie2_classification_job__s3_job_definition = {
 (** aws_macie2_classification_job__s3_job_definition *)
 
 type aws_macie2_classification_job__schedule_frequency = {
-  daily_schedule : bool option; [@option]  (** daily_schedule *)
-  monthly_schedule : float option; [@option]  (** monthly_schedule *)
-  weekly_schedule : string option; [@option]  (** weekly_schedule *)
+  daily_schedule : bool prop option; [@option]  (** daily_schedule *)
+  monthly_schedule : float prop option; [@option]
+      (** monthly_schedule *)
+  weekly_schedule : string prop option; [@option]
+      (** weekly_schedule *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_classification_job__schedule_frequency *)
 
 type aws_macie2_classification_job__user_paused_details = {
-  job_expires_at : string;  (** job_expires_at *)
-  job_imminent_expiration_health_event_arn : string;
+  job_expires_at : string prop;  (** job_expires_at *)
+  job_imminent_expiration_health_event_arn : string prop;
       (** job_imminent_expiration_health_event_arn *)
-  job_paused_at : string;  (** job_paused_at *)
+  job_paused_at : string prop;  (** job_paused_at *)
 }
 [@@deriving yojson_of]
 
 type aws_macie2_classification_job = {
-  custom_data_identifier_ids : string list option; [@option]
+  custom_data_identifier_ids : string prop list option; [@option]
       (** custom_data_identifier_ids *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  initial_run : bool option; [@option]  (** initial_run *)
-  job_status : string option; [@option]  (** job_status *)
-  job_type : string;  (** job_type *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  sampling_percentage : float option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  initial_run : bool prop option; [@option]  (** initial_run *)
+  job_status : string prop option; [@option]  (** job_status *)
+  job_type : string prop;  (** job_type *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  sampling_percentage : float prop option; [@option]
       (** sampling_percentage *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   s3_job_definition :
     aws_macie2_classification_job__s3_job_definition list;

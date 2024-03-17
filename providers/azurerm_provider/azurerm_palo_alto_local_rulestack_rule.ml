@@ -5,65 +5,66 @@
 open! Tf.Prelude
 
 type azurerm_palo_alto_local_rulestack_rule__category = {
-  custom_urls : string list;  (** custom_urls *)
-  feeds : string list option; [@option]  (** feeds *)
+  custom_urls : string prop list;  (** custom_urls *)
+  feeds : string prop list option; [@option]  (** feeds *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack_rule__category *)
 
 type azurerm_palo_alto_local_rulestack_rule__destination = {
-  cidrs : string list option; [@option]  (** cidrs *)
-  countries : string list option; [@option]  (** countries *)
-  feeds : string list option; [@option]  (** feeds *)
-  local_rulestack_fqdn_list_ids : string list option; [@option]
+  cidrs : string prop list option; [@option]  (** cidrs *)
+  countries : string prop list option; [@option]  (** countries *)
+  feeds : string prop list option; [@option]  (** feeds *)
+  local_rulestack_fqdn_list_ids : string prop list option; [@option]
       (** local_rulestack_fqdn_list_ids *)
-  local_rulestack_prefix_list_ids : string list option; [@option]
+  local_rulestack_prefix_list_ids : string prop list option; [@option]
       (** local_rulestack_prefix_list_ids *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack_rule__destination *)
 
 type azurerm_palo_alto_local_rulestack_rule__source = {
-  cidrs : string list option; [@option]  (** cidrs *)
-  countries : string list option; [@option]  (** countries *)
-  feeds : string list option; [@option]  (** feeds *)
-  local_rulestack_prefix_list_ids : string list option; [@option]
+  cidrs : string prop list option; [@option]  (** cidrs *)
+  countries : string prop list option; [@option]  (** countries *)
+  feeds : string prop list option; [@option]  (** feeds *)
+  local_rulestack_prefix_list_ids : string prop list option; [@option]
       (** local_rulestack_prefix_list_ids *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack_rule__source *)
 
 type azurerm_palo_alto_local_rulestack_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack_rule__timeouts *)
 
 type azurerm_palo_alto_local_rulestack_rule = {
-  action : string;  (** action *)
-  applications : string list;  (** applications *)
-  audit_comment : string option; [@option]  (** audit_comment *)
-  decryption_rule_type : string option; [@option]
+  action : string prop;  (** action *)
+  applications : string prop list;  (** applications *)
+  audit_comment : string prop option; [@option]  (** audit_comment *)
+  decryption_rule_type : string prop option; [@option]
       (** decryption_rule_type *)
-  description : string option; [@option]  (** description *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  inspection_certificate_id : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  inspection_certificate_id : string prop option; [@option]
       (** inspection_certificate_id *)
-  logging_enabled : bool option; [@option]  (** logging_enabled *)
-  name : string;  (** name *)
-  negate_destination : bool option; [@option]
+  logging_enabled : bool prop option; [@option]
+      (** logging_enabled *)
+  name : string prop;  (** name *)
+  negate_destination : bool prop option; [@option]
       (** negate_destination *)
-  negate_source : bool option; [@option]  (** negate_source *)
-  priority : float;  (** priority *)
-  protocol : string option; [@option]  (** protocol *)
-  protocol_ports : string list option; [@option]
+  negate_source : bool prop option; [@option]  (** negate_source *)
+  priority : float prop;  (** priority *)
+  protocol : string prop option; [@option]  (** protocol *)
+  protocol_ports : string prop list option; [@option]
       (** protocol_ports *)
-  rulestack_id : string;  (** rulestack_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  rulestack_id : string prop;  (** rulestack_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   category : azurerm_palo_alto_local_rulestack_rule__category list;
   destination :
     azurerm_palo_alto_local_rulestack_rule__destination list;

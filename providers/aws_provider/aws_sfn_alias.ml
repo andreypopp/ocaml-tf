@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type aws_sfn_alias__routing_configuration = {
-  state_machine_version_arn : string;
+  state_machine_version_arn : string prop;
       (** state_machine_version_arn *)
-  weight : float;  (** weight *)
+  weight : float prop;  (** weight *)
 }
 [@@deriving yojson_of]
 (** aws_sfn_alias__routing_configuration *)
 
 type aws_sfn_alias__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_sfn_alias__timeouts *)
 
 type aws_sfn_alias = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   routing_configuration : aws_sfn_alias__routing_configuration list;
   timeouts : aws_sfn_alias__timeouts option;
 }

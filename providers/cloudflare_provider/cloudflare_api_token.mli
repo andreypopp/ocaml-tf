@@ -8,10 +8,10 @@ type cloudflare_api_token__policy
 type cloudflare_api_token
 
 val cloudflare_api_token :
-  ?expires_on:string ->
-  ?id:string ->
-  ?not_before:string ->
-  name:string ->
+  ?expires_on:string prop ->
+  ?id:string prop ->
+  ?not_before:string prop ->
+  name:string prop ->
   condition:cloudflare_api_token__condition list ->
   policy:cloudflare_api_token__policy list ->
   string ->

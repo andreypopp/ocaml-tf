@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_active_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_active_deployment__timeouts *)
 
 type azurerm_spring_cloud_active_deployment = {
-  deployment_name : string;  (** deployment_name *)
-  id : string option; [@option]  (** id *)
-  spring_cloud_app_id : string;  (** spring_cloud_app_id *)
+  deployment_name : string prop;  (** deployment_name *)
+  id : string prop option; [@option]  (** id *)
+  spring_cloud_app_id : string prop;  (** spring_cloud_app_id *)
   timeouts : azurerm_spring_cloud_active_deployment__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type aws_iot_provisioning_template__pre_provisioning_hook = {
-  payload_version : string option; [@option]  (** payload_version *)
-  target_arn : string;  (** target_arn *)
+  payload_version : string prop option; [@option]
+      (** payload_version *)
+  target_arn : string prop;  (** target_arn *)
 }
 [@@deriving yojson_of]
 (** aws_iot_provisioning_template__pre_provisioning_hook *)
 
 type aws_iot_provisioning_template = {
-  description : string option; [@option]  (** description *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  provisioning_role_arn : string;  (** provisioning_role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  provisioning_role_arn : string prop;  (** provisioning_role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  template_body : string;  (** template_body *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  template_body : string prop;  (** template_body *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   pre_provisioning_hook :
     aws_iot_provisioning_template__pre_provisioning_hook list;
 }

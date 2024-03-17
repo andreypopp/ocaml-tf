@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_virtual_desktop_application__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_application__timeouts *)
 
 type azurerm_virtual_desktop_application = {
-  application_group_id : string;  (** application_group_id *)
-  command_line_argument_policy : string;
+  application_group_id : string prop;  (** application_group_id *)
+  command_line_argument_policy : string prop;
       (** command_line_argument_policy *)
-  command_line_arguments : string option; [@option]
+  command_line_arguments : string prop option; [@option]
       (** command_line_arguments *)
-  description : string option; [@option]  (** description *)
-  friendly_name : string option; [@option]  (** friendly_name *)
-  icon_index : float option; [@option]  (** icon_index *)
-  icon_path : string option; [@option]  (** icon_path *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  path : string;  (** path *)
-  show_in_portal : bool option; [@option]  (** show_in_portal *)
+  description : string prop option; [@option]  (** description *)
+  friendly_name : string prop option; [@option]  (** friendly_name *)
+  icon_index : float prop option; [@option]  (** icon_index *)
+  icon_path : string prop option; [@option]  (** icon_path *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  path : string prop;  (** path *)
+  show_in_portal : bool prop option; [@option]  (** show_in_portal *)
   timeouts : azurerm_virtual_desktop_application__timeouts option;
 }
 [@@deriving yojson_of]

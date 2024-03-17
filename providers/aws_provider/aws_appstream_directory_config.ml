@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_appstream_directory_config__service_account_credentials = {
-  account_name : string;  (** account_name *)
-  account_password : string;  (** account_password *)
+  account_name : string prop;  (** account_name *)
+  account_password : string prop;  (** account_password *)
 }
 [@@deriving yojson_of]
 (** aws_appstream_directory_config__service_account_credentials *)
 
 type aws_appstream_directory_config = {
-  directory_name : string;  (** directory_name *)
-  id : string option; [@option]  (** id *)
-  organizational_unit_distinguished_names : string list;
+  directory_name : string prop;  (** directory_name *)
+  id : string prop option; [@option]  (** id *)
+  organizational_unit_distinguished_names : string prop list;
       (** organizational_unit_distinguished_names *)
   service_account_credentials :
     aws_appstream_directory_config__service_account_credentials list;

@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type aws_lex_slot_type__enumeration_value = {
-  synonyms : string list option; [@option]  (** synonyms *)
-  value : string;  (** value *)
+  synonyms : string prop list option; [@option]  (** synonyms *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_lex_slot_type__enumeration_value *)
 
 type aws_lex_slot_type__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_lex_slot_type__timeouts *)
 
 type aws_lex_slot_type = {
-  create_version : bool option; [@option]  (** create_version *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  value_selection_strategy : string option; [@option]
+  create_version : bool prop option; [@option]  (** create_version *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  value_selection_strategy : string prop option; [@option]
       (** value_selection_strategy *)
   enumeration_value : aws_lex_slot_type__enumeration_value list;
   timeouts : aws_lex_slot_type__timeouts option;

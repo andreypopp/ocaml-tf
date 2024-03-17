@@ -6,9 +6,9 @@ type aws_api_gateway_documentation_part__location
 type aws_api_gateway_documentation_part
 
 val aws_api_gateway_documentation_part :
-  ?id:string ->
-  properties:string ->
-  rest_api_id:string ->
+  ?id:string prop ->
+  properties:string prop ->
+  rest_api_id:string prop ->
   location:aws_api_gateway_documentation_part__location list ->
   string ->
   unit

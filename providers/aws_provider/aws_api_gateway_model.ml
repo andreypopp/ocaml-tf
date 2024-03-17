@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_api_gateway_model = {
-  content_type : string;  (** content_type *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  rest_api_id : string;  (** rest_api_id *)
-  schema : string option; [@option]  (** schema *)
+  content_type : string prop;  (** content_type *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  rest_api_id : string prop;  (** rest_api_id *)
+  schema : string prop option; [@option]  (** schema *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_model *)

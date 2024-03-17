@@ -7,12 +7,12 @@ type aws_transfer_connector__sftp_config
 type aws_transfer_connector
 
 val aws_transfer_connector :
-  ?id:string ->
-  ?logging_role:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  access_role:string ->
-  url:string ->
+  ?id:string prop ->
+  ?logging_role:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  access_role:string prop ->
+  url:string prop ->
   as2_config:aws_transfer_connector__as2_config list ->
   sftp_config:aws_transfer_connector__sftp_config list ->
   string ->

@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_storage_sync_cloud_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_sync_cloud_endpoint__timeouts *)
 
 type azurerm_storage_sync_cloud_endpoint = {
-  file_share_name : string;  (** file_share_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  storage_account_id : string;  (** storage_account_id *)
-  storage_account_tenant_id : string option; [@option]
+  file_share_name : string prop;  (** file_share_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  storage_account_id : string prop;  (** storage_account_id *)
+  storage_account_tenant_id : string prop option; [@option]
       (** storage_account_tenant_id *)
-  storage_sync_group_id : string;  (** storage_sync_group_id *)
+  storage_sync_group_id : string prop;  (** storage_sync_group_id *)
   timeouts : azurerm_storage_sync_cloud_endpoint__timeouts option;
 }
 [@@deriving yojson_of]

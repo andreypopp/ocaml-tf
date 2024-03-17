@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_route53recoverycontrolconfig_control_panel
 
 val aws_route53recoverycontrolconfig_control_panel :
-  ?id:string -> cluster_arn:string -> name:string -> string -> unit
+  ?id:string prop ->
+  cluster_arn:string prop ->
+  name:string prop ->
+  string ->
+  unit

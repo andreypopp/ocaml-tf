@@ -312,15 +312,15 @@ type aws_medialive_channel__vpc
 type aws_medialive_channel
 
 val aws_medialive_channel :
-  ?id:string ->
-  ?log_level:string ->
-  ?role_arn:string ->
-  ?start_channel:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?log_level:string prop ->
+  ?role_arn:string prop ->
+  ?start_channel:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_medialive_channel__timeouts ->
-  channel_class:string ->
-  name:string ->
+  channel_class:string prop ->
+  name:string prop ->
   cdi_input_specification:
     aws_medialive_channel__cdi_input_specification list ->
   destinations:aws_medialive_channel__destinations list ->

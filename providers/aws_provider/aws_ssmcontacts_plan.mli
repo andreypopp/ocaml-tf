@@ -9,8 +9,8 @@ type aws_ssmcontacts_plan__stage
 type aws_ssmcontacts_plan
 
 val aws_ssmcontacts_plan :
-  ?id:string ->
-  contact_id:string ->
+  ?id:string prop ->
+  contact_id:string prop ->
   stage:aws_ssmcontacts_plan__stage list ->
   string ->
   unit

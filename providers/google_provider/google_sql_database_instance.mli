@@ -31,34 +31,34 @@ type google_sql_database_instance__settings
 type google_sql_database_instance__timeouts
 
 type google_sql_database_instance__ip_address = {
-  ip_address : string;  (** ip_address *)
-  time_to_retire : string;  (** time_to_retire *)
-  type_ : string; [@key "type"]  (** type *)
+  ip_address : string prop;  (** ip_address *)
+  time_to_retire : string prop;  (** time_to_retire *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_sql_database_instance__server_ca_cert = {
-  cert : string;  (** cert *)
-  common_name : string;  (** common_name *)
-  create_time : string;  (** create_time *)
-  expiration_time : string;  (** expiration_time *)
-  sha1_fingerprint : string;  (** sha1_fingerprint *)
+  cert : string prop;  (** cert *)
+  common_name : string prop;  (** common_name *)
+  create_time : string prop;  (** create_time *)
+  expiration_time : string prop;  (** expiration_time *)
+  sha1_fingerprint : string prop;  (** sha1_fingerprint *)
 }
 
 type google_sql_database_instance
 
 val google_sql_database_instance :
-  ?deletion_protection:bool ->
-  ?encryption_key_name:string ->
-  ?id:string ->
-  ?instance_type:string ->
-  ?maintenance_version:string ->
-  ?master_instance_name:string ->
-  ?name:string ->
-  ?project:string ->
-  ?region:string ->
-  ?root_password:string ->
+  ?deletion_protection:bool prop ->
+  ?encryption_key_name:string prop ->
+  ?id:string prop ->
+  ?instance_type:string prop ->
+  ?maintenance_version:string prop ->
+  ?master_instance_name:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?root_password:string prop ->
   ?timeouts:google_sql_database_instance__timeouts ->
-  database_version:string ->
+  database_version:string prop ->
   clone:google_sql_database_instance__clone list ->
   replica_configuration:
     google_sql_database_instance__replica_configuration list ->

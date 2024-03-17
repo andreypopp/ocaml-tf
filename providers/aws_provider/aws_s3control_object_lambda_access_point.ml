@@ -5,8 +5,9 @@
 open! Tf.Prelude
 
 type aws_s3control_object_lambda_access_point__configuration__transformation_configuration__content_transformation__aws_lambda = {
-  function_arn : string;  (** function_arn *)
-  function_payload : string option; [@option]  (** function_payload *)
+  function_arn : string prop;  (** function_arn *)
+  function_payload : string prop option; [@option]
+      (** function_payload *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_object_lambda_access_point__configuration__transformation_configuration__content_transformation__aws_lambda *)
@@ -20,7 +21,7 @@ type aws_s3control_object_lambda_access_point__configuration__transformation_con
 (** aws_s3control_object_lambda_access_point__configuration__transformation_configuration__content_transformation *)
 
 type aws_s3control_object_lambda_access_point__configuration__transformation_configuration = {
-  actions : string list;  (** actions *)
+  actions : string prop list;  (** actions *)
   content_transformation :
     aws_s3control_object_lambda_access_point__configuration__transformation_configuration__content_transformation
     list;
@@ -29,11 +30,12 @@ type aws_s3control_object_lambda_access_point__configuration__transformation_con
 (** aws_s3control_object_lambda_access_point__configuration__transformation_configuration *)
 
 type aws_s3control_object_lambda_access_point__configuration = {
-  allowed_features : string list option; [@option]
+  allowed_features : string prop list option; [@option]
       (** allowed_features *)
-  cloud_watch_metrics_enabled : bool option; [@option]
+  cloud_watch_metrics_enabled : bool prop option; [@option]
       (** cloud_watch_metrics_enabled *)
-  supporting_access_point : string;  (** supporting_access_point *)
+  supporting_access_point : string prop;
+      (** supporting_access_point *)
   transformation_configuration :
     aws_s3control_object_lambda_access_point__configuration__transformation_configuration
     list;
@@ -42,9 +44,9 @@ type aws_s3control_object_lambda_access_point__configuration = {
 (** aws_s3control_object_lambda_access_point__configuration *)
 
 type aws_s3control_object_lambda_access_point = {
-  account_id : string option; [@option]  (** account_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  account_id : string prop option; [@option]  (** account_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   configuration :
     aws_s3control_object_lambda_access_point__configuration list;
 }

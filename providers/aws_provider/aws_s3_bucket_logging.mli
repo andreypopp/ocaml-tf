@@ -12,11 +12,11 @@ type aws_s3_bucket_logging__target_object_key_format
 type aws_s3_bucket_logging
 
 val aws_s3_bucket_logging :
-  ?expected_bucket_owner:string ->
-  ?id:string ->
-  bucket:string ->
-  target_bucket:string ->
-  target_prefix:string ->
+  ?expected_bucket_owner:string prop ->
+  ?id:string prop ->
+  bucket:string prop ->
+  target_bucket:string prop ->
+  target_prefix:string prop ->
   target_grant:aws_s3_bucket_logging__target_grant list ->
   target_object_key_format:
     aws_s3_bucket_logging__target_object_key_format list ->

@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_networkmanager_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_connection__timeouts *)
 
 type aws_networkmanager_connection = {
-  connected_device_id : string;  (** connected_device_id *)
-  connected_link_id : string option; [@option]
+  connected_device_id : string prop;  (** connected_device_id *)
+  connected_link_id : string prop option; [@option]
       (** connected_link_id *)
-  description : string option; [@option]  (** description *)
-  device_id : string;  (** device_id *)
-  global_network_id : string;  (** global_network_id *)
-  id : string option; [@option]  (** id *)
-  link_id : string option; [@option]  (** link_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  device_id : string prop;  (** device_id *)
+  global_network_id : string prop;  (** global_network_id *)
+  id : string prop option; [@option]  (** id *)
+  link_id : string prop option; [@option]  (** link_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_networkmanager_connection__timeouts option;
 }

@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_compute_subnetwork_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** region *)
-  subnetwork : string;  (** subnetwork *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]  (** region *)
+  subnetwork : string prop;  (** subnetwork *)
 }
 [@@deriving yojson_of]
 (** google_compute_subnetwork_iam_policy *)

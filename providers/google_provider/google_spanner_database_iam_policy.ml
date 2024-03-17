@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_spanner_database_iam_policy = {
-  database : string;  (** database *)
-  id : string option; [@option]  (** id *)
-  instance : string;  (** instance *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  database : string prop;  (** database *)
+  id : string prop option; [@option]  (** id *)
+  instance : string prop;  (** instance *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_spanner_database_iam_policy *)

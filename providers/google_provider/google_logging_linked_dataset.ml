@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_logging_linked_dataset__bigquery_dataset = {
-  dataset_id : string;
+  dataset_id : string prop;
       (** Output only. The full resource name of the BigQuery dataset. The DATASET_ID will match the ID
 of the link, so the link must match the naming restrictions of BigQuery datasets
 (alphanumeric characters and underscores only). The dataset will have a resource path of
@@ -17,22 +17,22 @@ with it, in the same project as the LogBucket it's linked to. This dataset will 
 Views corresponding to the LogViews in the bucket. *)
 
 type google_logging_linked_dataset__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_logging_linked_dataset__timeouts *)
 
 type google_logging_linked_dataset = {
-  bucket : string;
+  bucket : string prop;
       (** The bucket to which the linked dataset is attached. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Describes this link. The maximum length of the description is 8000 characters. *)
-  id : string option; [@option]  (** id *)
-  link_id : string;  (** The id of the linked dataset. *)
-  location : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  link_id : string prop;  (** The id of the linked dataset. *)
+  location : string prop option; [@option]
       (** The location of the linked dataset. *)
-  parent : string option; [@option]
+  parent : string prop option; [@option]
       (** The parent of the linked dataset. *)
   bigquery_dataset :
     google_logging_linked_dataset__bigquery_dataset list;

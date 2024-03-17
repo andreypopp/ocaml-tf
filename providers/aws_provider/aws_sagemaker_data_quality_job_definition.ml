@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type aws_sagemaker_data_quality_job_definition__data_quality_app_specification = {
-  environment : (string * string) list option; [@option]
+  environment : (string * string prop) list option; [@option]
       (** environment *)
-  image_uri : string;  (** image_uri *)
-  post_analytics_processor_source_uri : string option; [@option]
+  image_uri : string prop;  (** image_uri *)
+  post_analytics_processor_source_uri : string prop option; [@option]
       (** post_analytics_processor_source_uri *)
-  record_preprocessor_source_uri : string option; [@option]
+  record_preprocessor_source_uri : string prop option; [@option]
       (** record_preprocessor_source_uri *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition__data_quality_app_specification *)
 
 type aws_sagemaker_data_quality_job_definition__data_quality_baseline_config__constraints_resource = {
-  s3_uri : string option; [@option]  (** s3_uri *)
+  s3_uri : string prop option; [@option]  (** s3_uri *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition__data_quality_baseline_config__constraints_resource *)
 
 type aws_sagemaker_data_quality_job_definition__data_quality_baseline_config__statistics_resource = {
-  s3_uri : string option; [@option]  (** s3_uri *)
+  s3_uri : string prop option; [@option]  (** s3_uri *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition__data_quality_baseline_config__statistics_resource *)
@@ -40,13 +40,13 @@ type aws_sagemaker_data_quality_job_definition__data_quality_baseline_config = {
 (** aws_sagemaker_data_quality_job_definition__data_quality_baseline_config *)
 
 type aws_sagemaker_data_quality_job_definition__data_quality_job_input__batch_transform_input__dataset_format__csv = {
-  header : bool option; [@option]  (** header *)
+  header : bool prop option; [@option]  (** header *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition__data_quality_job_input__batch_transform_input__dataset_format__csv *)
 
 type aws_sagemaker_data_quality_job_definition__data_quality_job_input__batch_transform_input__dataset_format__json = {
-  line : bool option; [@option]  (** line *)
+  line : bool prop option; [@option]  (** line *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition__data_quality_job_input__batch_transform_input__dataset_format__json *)
@@ -63,12 +63,12 @@ type aws_sagemaker_data_quality_job_definition__data_quality_job_input__batch_tr
 (** aws_sagemaker_data_quality_job_definition__data_quality_job_input__batch_transform_input__dataset_format *)
 
 type aws_sagemaker_data_quality_job_definition__data_quality_job_input__batch_transform_input = {
-  data_captured_destination_s3_uri : string;
+  data_captured_destination_s3_uri : string prop;
       (** data_captured_destination_s3_uri *)
-  local_path : string option; [@option]  (** local_path *)
-  s3_data_distribution_type : string option; [@option]
+  local_path : string prop option; [@option]  (** local_path *)
+  s3_data_distribution_type : string prop option; [@option]
       (** s3_data_distribution_type *)
-  s3_input_mode : string option; [@option]  (** s3_input_mode *)
+  s3_input_mode : string prop option; [@option]  (** s3_input_mode *)
   dataset_format :
     aws_sagemaker_data_quality_job_definition__data_quality_job_input__batch_transform_input__dataset_format
     list;
@@ -77,11 +77,11 @@ type aws_sagemaker_data_quality_job_definition__data_quality_job_input__batch_tr
 (** aws_sagemaker_data_quality_job_definition__data_quality_job_input__batch_transform_input *)
 
 type aws_sagemaker_data_quality_job_definition__data_quality_job_input__endpoint_input = {
-  endpoint_name : string;  (** endpoint_name *)
-  local_path : string option; [@option]  (** local_path *)
-  s3_data_distribution_type : string option; [@option]
+  endpoint_name : string prop;  (** endpoint_name *)
+  local_path : string prop option; [@option]  (** local_path *)
+  s3_data_distribution_type : string prop option; [@option]
       (** s3_data_distribution_type *)
-  s3_input_mode : string option; [@option]  (** s3_input_mode *)
+  s3_input_mode : string prop option; [@option]  (** s3_input_mode *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition__data_quality_job_input__endpoint_input *)
@@ -98,9 +98,10 @@ type aws_sagemaker_data_quality_job_definition__data_quality_job_input = {
 (** aws_sagemaker_data_quality_job_definition__data_quality_job_input *)
 
 type aws_sagemaker_data_quality_job_definition__data_quality_job_output_config__monitoring_outputs__s3_output = {
-  local_path : string option; [@option]  (** local_path *)
-  s3_upload_mode : string option; [@option]  (** s3_upload_mode *)
-  s3_uri : string;  (** s3_uri *)
+  local_path : string prop option; [@option]  (** local_path *)
+  s3_upload_mode : string prop option; [@option]
+      (** s3_upload_mode *)
+  s3_uri : string prop;  (** s3_uri *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition__data_quality_job_output_config__monitoring_outputs__s3_output *)
@@ -114,7 +115,7 @@ type aws_sagemaker_data_quality_job_definition__data_quality_job_output_config__
 (** aws_sagemaker_data_quality_job_definition__data_quality_job_output_config__monitoring_outputs *)
 
 type aws_sagemaker_data_quality_job_definition__data_quality_job_output_config = {
-  kms_key_id : string option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
   monitoring_outputs :
     aws_sagemaker_data_quality_job_definition__data_quality_job_output_config__monitoring_outputs
     list;
@@ -123,11 +124,11 @@ type aws_sagemaker_data_quality_job_definition__data_quality_job_output_config =
 (** aws_sagemaker_data_quality_job_definition__data_quality_job_output_config *)
 
 type aws_sagemaker_data_quality_job_definition__job_resources__cluster_config = {
-  instance_count : float;  (** instance_count *)
-  instance_type : string;  (** instance_type *)
-  volume_kms_key_id : string option; [@option]
+  instance_count : float prop;  (** instance_count *)
+  instance_type : string prop;  (** instance_type *)
+  volume_kms_key_id : string prop option; [@option]
       (** volume_kms_key_id *)
-  volume_size_in_gb : float;  (** volume_size_in_gb *)
+  volume_size_in_gb : float prop;  (** volume_size_in_gb *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition__job_resources__cluster_config *)
@@ -141,16 +142,17 @@ type aws_sagemaker_data_quality_job_definition__job_resources = {
 (** aws_sagemaker_data_quality_job_definition__job_resources *)
 
 type aws_sagemaker_data_quality_job_definition__network_config__vpc_config = {
-  security_group_ids : string list;  (** security_group_ids *)
-  subnets : string list;  (** subnets *)
+  security_group_ids : string prop list;  (** security_group_ids *)
+  subnets : string prop list;  (** subnets *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition__network_config__vpc_config *)
 
 type aws_sagemaker_data_quality_job_definition__network_config = {
-  enable_inter_container_traffic_encryption : bool option; [@option]
+  enable_inter_container_traffic_encryption : bool prop option;
+      [@option]
       (** enable_inter_container_traffic_encryption *)
-  enable_network_isolation : bool option; [@option]
+  enable_network_isolation : bool prop option; [@option]
       (** enable_network_isolation *)
   vpc_config :
     aws_sagemaker_data_quality_job_definition__network_config__vpc_config
@@ -160,18 +162,18 @@ type aws_sagemaker_data_quality_job_definition__network_config = {
 (** aws_sagemaker_data_quality_job_definition__network_config *)
 
 type aws_sagemaker_data_quality_job_definition__stopping_condition = {
-  max_runtime_in_seconds : float option; [@option]
+  max_runtime_in_seconds : float prop option; [@option]
       (** max_runtime_in_seconds *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_data_quality_job_definition__stopping_condition *)
 
 type aws_sagemaker_data_quality_job_definition = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   data_quality_app_specification :
     aws_sagemaker_data_quality_job_definition__data_quality_app_specification

@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_redshift_partner
 
 val aws_redshift_partner :
-  ?id:string ->
-  account_id:string ->
-  cluster_identifier:string ->
-  database_name:string ->
-  partner_name:string ->
+  ?id:string prop ->
+  account_id:string prop ->
+  cluster_identifier:string prop ->
+  database_name:string prop ->
+  partner_name:string prop ->
   string ->
   unit

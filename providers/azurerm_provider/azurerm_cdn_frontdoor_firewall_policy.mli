@@ -19,18 +19,18 @@ type azurerm_cdn_frontdoor_firewall_policy__timeouts
 type azurerm_cdn_frontdoor_firewall_policy
 
 val azurerm_cdn_frontdoor_firewall_policy :
-  ?custom_block_response_body:string ->
-  ?custom_block_response_status_code:float ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?redirect_url:string ->
-  ?request_body_check_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?custom_block_response_body:string prop ->
+  ?custom_block_response_status_code:float prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?redirect_url:string prop ->
+  ?request_body_check_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_cdn_frontdoor_firewall_policy__timeouts ->
-  mode:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
+  mode:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
   custom_rule:azurerm_cdn_frontdoor_firewall_policy__custom_rule list ->
   managed_rule:
     azurerm_cdn_frontdoor_firewall_policy__managed_rule list ->

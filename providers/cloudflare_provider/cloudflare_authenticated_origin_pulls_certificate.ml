@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type cloudflare_authenticated_origin_pulls_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** cloudflare_authenticated_origin_pulls_certificate__timeouts *)
 
 type cloudflare_authenticated_origin_pulls_certificate = {
-  certificate : string;
+  certificate : string prop;
       (** The public client certificate. **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  private_key : string;
+  id : string prop option; [@option]  (** id *)
+  private_key : string prop;
       (** The private key of the client certificate. **Modifying this attribute will force creation of a new resource.** *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** The form of Authenticated Origin Pulls to upload the certificate to. Available values: `per-zone`, `per-hostname`. **Modifying this attribute will force creation of a new resource.** *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   timeouts :
     cloudflare_authenticated_origin_pulls_certificate__timeouts

@@ -5,25 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_credential_user_managed_identity__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_credential_user_managed_identity__timeouts *)
 
 type azurerm_data_factory_credential_user_managed_identity = {
-  annotations : string list option; [@option]
+  annotations : string prop list option; [@option]
       (** (Optional) List of string annotations. *)
-  data_factory_id : string;
+  data_factory_id : string prop;
       (** The resource ID of the parent Data Factory *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** (Optional) Short text description *)
-  id : string option; [@option]  (** id *)
-  identity_id : string;
+  id : string prop option; [@option]  (** id *)
+  identity_id : string prop;
       (** The resource ID of the User Assigned Managed Identity *)
-  name : string;  (** The desired name of the credential resource *)
+  name : string prop;
+      (** The desired name of the credential resource *)
   timeouts :
     azurerm_data_factory_credential_user_managed_identity__timeouts
     option;

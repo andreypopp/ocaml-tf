@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type aws_vpc_peering_connection_accepter__accepter = {
-  allow_remote_vpc_dns_resolution : bool option; [@option]
+  allow_remote_vpc_dns_resolution : bool prop option; [@option]
       (** allow_remote_vpc_dns_resolution *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection_accepter__accepter *)
 
 type aws_vpc_peering_connection_accepter__requester = {
-  allow_remote_vpc_dns_resolution : bool option; [@option]
+  allow_remote_vpc_dns_resolution : bool prop option; [@option]
       (** allow_remote_vpc_dns_resolution *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection_accepter__requester *)
 
 type aws_vpc_peering_connection_accepter__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection_accepter__timeouts *)
 
 type aws_vpc_peering_connection_accepter = {
-  auto_accept : bool option; [@option]  (** auto_accept *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  auto_accept : bool prop option; [@option]  (** auto_accept *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_peering_connection_id : string;
+  vpc_peering_connection_id : string prop;
       (** vpc_peering_connection_id *)
   accepter : aws_vpc_peering_connection_accepter__accepter list;
   requester : aws_vpc_peering_connection_accepter__requester list;

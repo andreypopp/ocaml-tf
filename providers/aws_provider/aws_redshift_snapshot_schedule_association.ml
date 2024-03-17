@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_redshift_snapshot_schedule_association = {
-  cluster_identifier : string;  (** cluster_identifier *)
-  id : string option; [@option]  (** id *)
-  schedule_identifier : string;  (** schedule_identifier *)
+  cluster_identifier : string prop;  (** cluster_identifier *)
+  id : string prop option; [@option]  (** id *)
+  schedule_identifier : string prop;  (** schedule_identifier *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_snapshot_schedule_association *)

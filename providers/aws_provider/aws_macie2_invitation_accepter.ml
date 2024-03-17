@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_macie2_invitation_accepter__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_macie2_invitation_accepter__timeouts *)
 
 type aws_macie2_invitation_accepter = {
-  administrator_account_id : string;  (** administrator_account_id *)
-  id : string option; [@option]  (** id *)
+  administrator_account_id : string prop;
+      (** administrator_account_id *)
+  id : string prop option; [@option]  (** id *)
   timeouts : aws_macie2_invitation_accepter__timeouts option;
 }
 [@@deriving yojson_of]

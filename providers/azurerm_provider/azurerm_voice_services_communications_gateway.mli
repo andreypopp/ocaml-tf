@@ -7,21 +7,21 @@ type azurerm_voice_services_communications_gateway__timeouts
 type azurerm_voice_services_communications_gateway
 
 val azurerm_voice_services_communications_gateway :
-  ?api_bridge:string ->
-  ?auto_generated_domain_name_label_scope:string ->
-  ?emergency_dial_strings:string list ->
-  ?id:string ->
-  ?microsoft_teams_voicemail_pilot_number:string ->
-  ?on_prem_mcp_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?api_bridge:string prop ->
+  ?auto_generated_domain_name_label_scope:string prop ->
+  ?emergency_dial_strings:string prop list ->
+  ?id:string prop ->
+  ?microsoft_teams_voicemail_pilot_number:string prop ->
+  ?on_prem_mcp_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_voice_services_communications_gateway__timeouts ->
-  codecs:string ->
-  connectivity:string ->
-  e911_type:string ->
-  location:string ->
-  name:string ->
-  platforms:string list ->
-  resource_group_name:string ->
+  codecs:string prop ->
+  connectivity:string prop ->
+  e911_type:string prop ->
+  location:string prop ->
+  name:string prop ->
+  platforms:string prop list ->
+  resource_group_name:string prop ->
   service_location:
     azurerm_voice_services_communications_gateway__service_location
     list ->

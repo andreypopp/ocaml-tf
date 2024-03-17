@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_iam_signing_certificate = {
-  certificate_body : string;  (** certificate_body *)
-  id : string option; [@option]  (** id *)
-  status : string option; [@option]  (** status *)
-  user_name : string;  (** user_name *)
+  certificate_body : string prop;  (** certificate_body *)
+  id : string prop option; [@option]  (** id *)
+  status : string prop option; [@option]  (** status *)
+  user_name : string prop;  (** user_name *)
 }
 [@@deriving yojson_of]
 (** aws_iam_signing_certificate *)

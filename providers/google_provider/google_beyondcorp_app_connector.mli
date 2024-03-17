@@ -8,13 +8,13 @@ type google_beyondcorp_app_connector__timeouts
 type google_beyondcorp_app_connector
 
 val google_beyondcorp_app_connector :
-  ?display_name:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?region:string ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_beyondcorp_app_connector__timeouts ->
-  name:string ->
+  name:string prop ->
   principal_info:google_beyondcorp_app_connector__principal_info list ->
   string ->
   unit

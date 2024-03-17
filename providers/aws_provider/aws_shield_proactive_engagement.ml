@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_shield_proactive_engagement__emergency_contact = {
-  contact_notes : string option; [@option]  (** contact_notes *)
-  email_address : string;  (** email_address *)
-  phone_number : string option; [@option]  (** phone_number *)
+  contact_notes : string prop option; [@option]  (** contact_notes *)
+  email_address : string prop;  (** email_address *)
+  phone_number : string prop option; [@option]  (** phone_number *)
 }
 [@@deriving yojson_of]
 (** aws_shield_proactive_engagement__emergency_contact *)
 
 type aws_shield_proactive_engagement = {
-  enabled : bool;  (** enabled *)
+  enabled : bool prop;  (** enabled *)
   emergency_contact :
     aws_shield_proactive_engagement__emergency_contact list;
 }

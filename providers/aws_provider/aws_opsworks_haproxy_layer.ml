@@ -5,26 +5,28 @@
 open! Tf.Prelude
 
 type aws_opsworks_haproxy_layer__cloudwatch_configuration__log_streams = {
-  batch_count : float option; [@option]  (** batch_count *)
-  batch_size : float option; [@option]  (** batch_size *)
-  buffer_duration : float option; [@option]  (** buffer_duration *)
-  datetime_format : string option; [@option]  (** datetime_format *)
-  encoding : string option; [@option]  (** encoding *)
-  file : string;  (** file *)
-  file_fingerprint_lines : string option; [@option]
+  batch_count : float prop option; [@option]  (** batch_count *)
+  batch_size : float prop option; [@option]  (** batch_size *)
+  buffer_duration : float prop option; [@option]
+      (** buffer_duration *)
+  datetime_format : string prop option; [@option]
+      (** datetime_format *)
+  encoding : string prop option; [@option]  (** encoding *)
+  file : string prop;  (** file *)
+  file_fingerprint_lines : string prop option; [@option]
       (** file_fingerprint_lines *)
-  initial_position : string option; [@option]
+  initial_position : string prop option; [@option]
       (** initial_position *)
-  log_group_name : string;  (** log_group_name *)
-  multiline_start_pattern : string option; [@option]
+  log_group_name : string prop;  (** log_group_name *)
+  multiline_start_pattern : string prop option; [@option]
       (** multiline_start_pattern *)
-  time_zone : string option; [@option]  (** time_zone *)
+  time_zone : string prop option; [@option]  (** time_zone *)
 }
 [@@deriving yojson_of]
 (** aws_opsworks_haproxy_layer__cloudwatch_configuration__log_streams *)
 
 type aws_opsworks_haproxy_layer__cloudwatch_configuration = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
   log_streams :
     aws_opsworks_haproxy_layer__cloudwatch_configuration__log_streams
     list;
@@ -33,47 +35,53 @@ type aws_opsworks_haproxy_layer__cloudwatch_configuration = {
 (** aws_opsworks_haproxy_layer__cloudwatch_configuration *)
 
 type aws_opsworks_haproxy_layer__ebs_volume = {
-  encrypted : bool option; [@option]  (** encrypted *)
-  iops : float option; [@option]  (** iops *)
-  mount_point : string;  (** mount_point *)
-  number_of_disks : float;  (** number_of_disks *)
-  raid_level : string option; [@option]  (** raid_level *)
-  size : float;  (** size *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  encrypted : bool prop option; [@option]  (** encrypted *)
+  iops : float prop option; [@option]  (** iops *)
+  mount_point : string prop;  (** mount_point *)
+  number_of_disks : float prop;  (** number_of_disks *)
+  raid_level : string prop option; [@option]  (** raid_level *)
+  size : float prop;  (** size *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_opsworks_haproxy_layer__ebs_volume *)
 
 type aws_opsworks_haproxy_layer__load_based_auto_scaling__downscaling = {
-  alarms : string list option; [@option]  (** alarms *)
-  cpu_threshold : float option; [@option]  (** cpu_threshold *)
-  ignore_metrics_time : float option; [@option]
+  alarms : string prop list option; [@option]  (** alarms *)
+  cpu_threshold : float prop option; [@option]  (** cpu_threshold *)
+  ignore_metrics_time : float prop option; [@option]
       (** ignore_metrics_time *)
-  instance_count : float option; [@option]  (** instance_count *)
-  load_threshold : float option; [@option]  (** load_threshold *)
-  memory_threshold : float option; [@option]  (** memory_threshold *)
-  thresholds_wait_time : float option; [@option]
+  instance_count : float prop option; [@option]
+      (** instance_count *)
+  load_threshold : float prop option; [@option]
+      (** load_threshold *)
+  memory_threshold : float prop option; [@option]
+      (** memory_threshold *)
+  thresholds_wait_time : float prop option; [@option]
       (** thresholds_wait_time *)
 }
 [@@deriving yojson_of]
 (** aws_opsworks_haproxy_layer__load_based_auto_scaling__downscaling *)
 
 type aws_opsworks_haproxy_layer__load_based_auto_scaling__upscaling = {
-  alarms : string list option; [@option]  (** alarms *)
-  cpu_threshold : float option; [@option]  (** cpu_threshold *)
-  ignore_metrics_time : float option; [@option]
+  alarms : string prop list option; [@option]  (** alarms *)
+  cpu_threshold : float prop option; [@option]  (** cpu_threshold *)
+  ignore_metrics_time : float prop option; [@option]
       (** ignore_metrics_time *)
-  instance_count : float option; [@option]  (** instance_count *)
-  load_threshold : float option; [@option]  (** load_threshold *)
-  memory_threshold : float option; [@option]  (** memory_threshold *)
-  thresholds_wait_time : float option; [@option]
+  instance_count : float prop option; [@option]
+      (** instance_count *)
+  load_threshold : float prop option; [@option]
+      (** load_threshold *)
+  memory_threshold : float prop option; [@option]
+      (** memory_threshold *)
+  thresholds_wait_time : float prop option; [@option]
       (** thresholds_wait_time *)
 }
 [@@deriving yojson_of]
 (** aws_opsworks_haproxy_layer__load_based_auto_scaling__upscaling *)
 
 type aws_opsworks_haproxy_layer__load_based_auto_scaling = {
-  enable : bool option; [@option]  (** enable *)
+  enable : bool prop option; [@option]  (** enable *)
   downscaling :
     aws_opsworks_haproxy_layer__load_based_auto_scaling__downscaling
     list;
@@ -85,50 +93,51 @@ type aws_opsworks_haproxy_layer__load_based_auto_scaling = {
 (** aws_opsworks_haproxy_layer__load_based_auto_scaling *)
 
 type aws_opsworks_haproxy_layer = {
-  auto_assign_elastic_ips : bool option; [@option]
+  auto_assign_elastic_ips : bool prop option; [@option]
       (** auto_assign_elastic_ips *)
-  auto_assign_public_ips : bool option; [@option]
+  auto_assign_public_ips : bool prop option; [@option]
       (** auto_assign_public_ips *)
-  auto_healing : bool option; [@option]  (** auto_healing *)
-  custom_configure_recipes : string list option; [@option]
+  auto_healing : bool prop option; [@option]  (** auto_healing *)
+  custom_configure_recipes : string prop list option; [@option]
       (** custom_configure_recipes *)
-  custom_deploy_recipes : string list option; [@option]
+  custom_deploy_recipes : string prop list option; [@option]
       (** custom_deploy_recipes *)
-  custom_instance_profile_arn : string option; [@option]
+  custom_instance_profile_arn : string prop option; [@option]
       (** custom_instance_profile_arn *)
-  custom_json : string option; [@option]  (** custom_json *)
-  custom_security_group_ids : string list option; [@option]
+  custom_json : string prop option; [@option]  (** custom_json *)
+  custom_security_group_ids : string prop list option; [@option]
       (** custom_security_group_ids *)
-  custom_setup_recipes : string list option; [@option]
+  custom_setup_recipes : string prop list option; [@option]
       (** custom_setup_recipes *)
-  custom_shutdown_recipes : string list option; [@option]
+  custom_shutdown_recipes : string prop list option; [@option]
       (** custom_shutdown_recipes *)
-  custom_undeploy_recipes : string list option; [@option]
+  custom_undeploy_recipes : string prop list option; [@option]
       (** custom_undeploy_recipes *)
-  drain_elb_on_shutdown : bool option; [@option]
+  drain_elb_on_shutdown : bool prop option; [@option]
       (** drain_elb_on_shutdown *)
-  elastic_load_balancer : string option; [@option]
+  elastic_load_balancer : string prop option; [@option]
       (** elastic_load_balancer *)
-  healthcheck_method : string option; [@option]
+  healthcheck_method : string prop option; [@option]
       (** healthcheck_method *)
-  healthcheck_url : string option; [@option]  (** healthcheck_url *)
-  id : string option; [@option]  (** id *)
-  install_updates_on_boot : bool option; [@option]
+  healthcheck_url : string prop option; [@option]
+      (** healthcheck_url *)
+  id : string prop option; [@option]  (** id *)
+  install_updates_on_boot : bool prop option; [@option]
       (** install_updates_on_boot *)
-  instance_shutdown_timeout : float option; [@option]
+  instance_shutdown_timeout : float prop option; [@option]
       (** instance_shutdown_timeout *)
-  name : string option; [@option]  (** name *)
-  stack_id : string;  (** stack_id *)
-  stats_enabled : bool option; [@option]  (** stats_enabled *)
-  stats_password : string;  (** stats_password *)
-  stats_url : string option; [@option]  (** stats_url *)
-  stats_user : string option; [@option]  (** stats_user *)
-  system_packages : string list option; [@option]
+  name : string prop option; [@option]  (** name *)
+  stack_id : string prop;  (** stack_id *)
+  stats_enabled : bool prop option; [@option]  (** stats_enabled *)
+  stats_password : string prop;  (** stats_password *)
+  stats_url : string prop option; [@option]  (** stats_url *)
+  stats_user : string prop option; [@option]  (** stats_user *)
+  system_packages : string prop list option; [@option]
       (** system_packages *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  use_ebs_optimized_instances : bool option; [@option]
+  use_ebs_optimized_instances : bool prop option; [@option]
       (** use_ebs_optimized_instances *)
   cloudwatch_configuration :
     aws_opsworks_haproxy_layer__cloudwatch_configuration list;

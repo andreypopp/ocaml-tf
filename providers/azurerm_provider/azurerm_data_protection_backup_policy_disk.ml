@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type azurerm_data_protection_backup_policy_disk__retention_rule__criteria = {
-  absolute_criteria : string option; [@option]
+  absolute_criteria : string prop option; [@option]
       (** absolute_criteria *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_disk__retention_rule__criteria *)
 
 type azurerm_data_protection_backup_policy_disk__retention_rule = {
-  duration : string;  (** duration *)
-  name : string;  (** name *)
-  priority : float;  (** priority *)
+  duration : string prop;  (** duration *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
   criteria :
     azurerm_data_protection_backup_policy_disk__retention_rule__criteria
     list;
@@ -23,22 +23,22 @@ type azurerm_data_protection_backup_policy_disk__retention_rule = {
 (** azurerm_data_protection_backup_policy_disk__retention_rule *)
 
 type azurerm_data_protection_backup_policy_disk__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_protection_backup_policy_disk__timeouts *)
 
 type azurerm_data_protection_backup_policy_disk = {
-  backup_repeating_time_intervals : string list;
+  backup_repeating_time_intervals : string prop list;
       (** backup_repeating_time_intervals *)
-  default_retention_duration : string;
+  default_retention_duration : string prop;
       (** default_retention_duration *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  time_zone : string option; [@option]  (** time_zone *)
-  vault_id : string;  (** vault_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  time_zone : string prop option; [@option]  (** time_zone *)
+  vault_id : string prop;  (** vault_id *)
   retention_rule :
     azurerm_data_protection_backup_policy_disk__retention_rule list;
   timeouts :

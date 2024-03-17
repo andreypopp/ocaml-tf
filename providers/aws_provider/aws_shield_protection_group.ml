@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_shield_protection_group = {
-  aggregation : string;  (** aggregation *)
-  id : string option; [@option]  (** id *)
-  members : string list option; [@option]  (** members *)
-  pattern : string;  (** pattern *)
-  protection_group_id : string;  (** protection_group_id *)
-  resource_type : string option; [@option]  (** resource_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  aggregation : string prop;  (** aggregation *)
+  id : string prop option; [@option]  (** id *)
+  members : string prop list option; [@option]  (** members *)
+  pattern : string prop;  (** pattern *)
+  protection_group_id : string prop;  (** protection_group_id *)
+  resource_type : string prop option; [@option]  (** resource_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_shield_protection_group *)

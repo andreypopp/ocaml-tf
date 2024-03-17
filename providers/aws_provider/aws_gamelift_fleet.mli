@@ -11,19 +11,19 @@ type aws_gamelift_fleet__timeouts
 type aws_gamelift_fleet
 
 val aws_gamelift_fleet :
-  ?build_id:string ->
-  ?description:string ->
-  ?fleet_type:string ->
-  ?id:string ->
-  ?instance_role_arn:string ->
-  ?metric_groups:string list ->
-  ?new_game_session_protection_policy:string ->
-  ?script_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?build_id:string prop ->
+  ?description:string prop ->
+  ?fleet_type:string prop ->
+  ?id:string prop ->
+  ?instance_role_arn:string prop ->
+  ?metric_groups:string prop list ->
+  ?new_game_session_protection_policy:string prop ->
+  ?script_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_gamelift_fleet__timeouts ->
-  ec2_instance_type:string ->
-  name:string ->
+  ec2_instance_type:string prop ->
+  name:string prop ->
   certificate_configuration:
     aws_gamelift_fleet__certificate_configuration list ->
   ec2_inbound_permission:

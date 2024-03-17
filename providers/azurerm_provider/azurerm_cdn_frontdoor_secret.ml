@@ -5,8 +5,9 @@
 open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_secret__secret__customer_certificate = {
-  key_vault_certificate_id : string;  (** key_vault_certificate_id *)
-  subject_alternative_names : string list;
+  key_vault_certificate_id : string prop;
+      (** key_vault_certificate_id *)
+  subject_alternative_names : string prop list;
       (** subject_alternative_names *)
 }
 [@@deriving yojson_of]
@@ -20,17 +21,18 @@ type azurerm_cdn_frontdoor_secret__secret = {
 (** azurerm_cdn_frontdoor_secret__secret *)
 
 type azurerm_cdn_frontdoor_secret__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_secret__timeouts *)
 
 type azurerm_cdn_frontdoor_secret = {
-  cdn_frontdoor_profile_id : string;  (** cdn_frontdoor_profile_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  cdn_frontdoor_profile_id : string prop;
+      (** cdn_frontdoor_profile_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   secret : azurerm_cdn_frontdoor_secret__secret list;
   timeouts : azurerm_cdn_frontdoor_secret__timeouts option;
 }

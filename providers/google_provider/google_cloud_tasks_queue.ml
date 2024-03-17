@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type google_cloud_tasks_queue__app_engine_routing_override = {
-  host : string;  (** The host that the task is sent to. *)
-  instance : string option; [@option]
+  host : string prop;  (** The host that the task is sent to. *)
+  instance : string prop option; [@option]
       (** App instance.
 
 By default, the task is sent to an instance which is available when the task is attempted. *)
-  service : string option; [@option]
+  service : string prop option; [@option]
       (** App service.
 
 By default, the task is sent to the service which is the default service when the task is attempted. *)
-  version : string option; [@option]
+  version : string prop option; [@option]
       (** App version.
 
 By default, the task is sent to the version which is the default version when the task is attempted. *)
@@ -24,19 +24,19 @@ By default, the task is sent to the version which is the default version when th
 to App Engine tasks in this queue *)
 
 type google_cloud_tasks_queue__rate_limits = {
-  max_burst_size : float;
+  max_burst_size : float prop;
       (** The max burst size.
 
 Max burst size limits how fast tasks in queue are processed when many tasks are
 in the queue and the rate is high. This field allows the queue to have a high
 rate so processing starts shortly after a task is enqueued, but still limits
 resource usage when many tasks are enqueued in a short period of time. *)
-  max_concurrent_dispatches : float option; [@option]
+  max_concurrent_dispatches : float prop option; [@option]
       (** The maximum number of concurrent tasks that Cloud Tasks allows to
 be dispatched for this queue. After this threshold has been
 reached, Cloud Tasks stops dispatching tasks until the number of
 concurrent requests decreases. *)
-  max_dispatches_per_second : float option; [@option]
+  max_dispatches_per_second : float prop option; [@option]
       (** The maximum rate at which tasks are dispatched from this queue.
 
 If unspecified when the queue is created, Cloud Tasks will pick the default. *)
@@ -53,7 +53,7 @@ The queue's actual dispatch rate is the result of:
   smooth sudden large traffic spikes. *)
 
 type google_cloud_tasks_queue__retry_config = {
-  max_attempts : float option; [@option]
+  max_attempts : float prop option; [@option]
       (** Number of attempts per task.
 
 Cloud Tasks will attempt the task maxAttempts times (that is, if
@@ -64,17 +64,17 @@ If unspecified when the queue is created, Cloud Tasks will pick
 the default.
 
 -1 indicates unlimited attempts. *)
-  max_backoff : string option; [@option]
+  max_backoff : string prop option; [@option]
       (** A task will be scheduled for retry between minBackoff and
 maxBackoff duration after it fails, if the queue's RetryConfig
 specifies that the task should be retried. *)
-  max_doublings : float option; [@option]
+  max_doublings : float prop option; [@option]
       (** The time between retries will double maxDoublings times.
 
 A task's retry interval starts at minBackoff, then doubles maxDoublings times,
 then increases linearly, and finally retries retries at intervals of maxBackoff
 up to maxAttempts times. *)
-  max_retry_duration : string option; [@option]
+  max_retry_duration : string prop option; [@option]
       (** If positive, maxRetryDuration specifies the time limit for
 retrying a failed task, measured from when the task was first
 attempted. Once maxRetryDuration time has passed and the task has
@@ -82,7 +82,7 @@ been attempted maxAttempts times, no further attempts will be
 made and the task will be deleted.
 
 If zero, then the task age is unlimited. *)
-  min_backoff : string option; [@option]
+  min_backoff : string prop option; [@option]
       (** A task will be scheduled for retry between minBackoff and
 maxBackoff duration after it fails, if the queue's RetryConfig
 specifies that the task should be retried. *)
@@ -91,7 +91,7 @@ specifies that the task should be retried. *)
 (** Settings that determine the retry behavior. *)
 
 type google_cloud_tasks_queue__stackdriver_logging_config = {
-  sampling_ratio : float;
+  sampling_ratio : float prop;
       (** Specifies the fraction of operations to write to Stackdriver Logging.
 This field may contain any value between 0.0 and 1.0, inclusive. 0.0 is the
 default and means that no operations are logged. *)
@@ -100,18 +100,18 @@ default and means that no operations are logged. *)
 (** Configuration options for writing logs to Stackdriver Logging. *)
 
 type google_cloud_tasks_queue__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_cloud_tasks_queue__timeouts *)
 
 type google_cloud_tasks_queue = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location of the queue *)
-  name : string option; [@option]  (** The queue name. *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location of the queue *)
+  name : string prop option; [@option]  (** The queue name. *)
+  project : string prop option; [@option]  (** project *)
   app_engine_routing_override :
     google_cloud_tasks_queue__app_engine_routing_override list;
   rate_limits : google_cloud_tasks_queue__rate_limits list;

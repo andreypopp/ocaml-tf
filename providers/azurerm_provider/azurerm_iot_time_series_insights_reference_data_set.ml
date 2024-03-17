@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_iot_time_series_insights_reference_data_set__key_property = {
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_reference_data_set__key_property *)
 
 type azurerm_iot_time_series_insights_reference_data_set__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_reference_data_set__timeouts *)
 
 type azurerm_iot_time_series_insights_reference_data_set = {
-  data_string_comparison_behavior : string option; [@option]
+  data_string_comparison_behavior : string prop option; [@option]
       (** data_string_comparison_behavior *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  time_series_insights_environment_id : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  time_series_insights_environment_id : string prop;
       (** time_series_insights_environment_id *)
   key_property :
     azurerm_iot_time_series_insights_reference_data_set__key_property

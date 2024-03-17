@@ -6,12 +6,12 @@ type cloudflare_device_dex_test__data
 type cloudflare_device_dex_test
 
 val cloudflare_device_dex_test :
-  ?id:string ->
-  account_id:string ->
-  description:string ->
-  enabled:bool ->
-  interval:string ->
-  name:string ->
+  ?id:string prop ->
+  account_id:string prop ->
+  description:string prop ->
+  enabled:bool prop ->
+  interval:string prop ->
+  name:string prop ->
   data:cloudflare_device_dex_test__data list ->
   string ->
   unit

@@ -6,13 +6,13 @@ type azurerm_automation_connection__timeouts
 type azurerm_automation_connection
 
 val azurerm_automation_connection :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_automation_connection__timeouts ->
-  automation_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
-  type_:string ->
-  values:(string * string) list ->
+  automation_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  type_:string prop ->
+  values:(string * string prop) list ->
   string ->
   unit

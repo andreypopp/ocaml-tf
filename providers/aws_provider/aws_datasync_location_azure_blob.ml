@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_datasync_location_azure_blob__sas_configuration = {
-  token : string;  (** token *)
+  token : string prop;  (** token *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_azure_blob__sas_configuration *)
 
 type aws_datasync_location_azure_blob = {
-  access_tier : string option; [@option]  (** access_tier *)
-  agent_arns : string list;  (** agent_arns *)
-  authentication_type : string;  (** authentication_type *)
-  blob_type : string option; [@option]  (** blob_type *)
-  container_url : string;  (** container_url *)
-  id : string option; [@option]  (** id *)
-  subdirectory : string option; [@option]  (** subdirectory *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  access_tier : string prop option; [@option]  (** access_tier *)
+  agent_arns : string prop list;  (** agent_arns *)
+  authentication_type : string prop;  (** authentication_type *)
+  blob_type : string prop option; [@option]  (** blob_type *)
+  container_url : string prop;  (** container_url *)
+  id : string prop option; [@option]  (** id *)
+  subdirectory : string prop option; [@option]  (** subdirectory *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   sas_configuration :
     aws_datasync_location_azure_blob__sas_configuration list;

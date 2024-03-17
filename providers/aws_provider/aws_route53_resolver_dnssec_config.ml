@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_route53_resolver_dnssec_config = {
-  id : string option; [@option]  (** id *)
-  resource_id : string;  (** resource_id *)
+  id : string prop option; [@option]  (** id *)
+  resource_id : string prop;  (** resource_id *)
 }
 [@@deriving yojson_of]
 (** aws_route53_resolver_dnssec_config *)

@@ -5,14 +5,14 @@ open! Tf.Prelude
 type aws_ec2_network_insights_path
 
 val aws_ec2_network_insights_path :
-  ?destination_ip:string ->
-  ?destination_port:float ->
-  ?id:string ->
-  ?source_ip:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  destination:string ->
-  protocol:string ->
-  source:string ->
+  ?destination_ip:string prop ->
+  ?destination_port:float prop ->
+  ?id:string prop ->
+  ?source_ip:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  destination:string prop ->
+  protocol:string prop ->
+  source:string prop ->
   string ->
   unit

@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_rekognition_project__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-  delete : string option; [@option]
+  delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
 }
 [@@deriving yojson_of]
 (** aws_rekognition_project__timeouts *)
 
 type aws_rekognition_project = {
-  auto_update : string option; [@option]  (** auto_update *)
-  feature : string option; [@option]  (** feature *)
-  name : string;  (** name *)
+  auto_update : string prop option; [@option]  (** auto_update *)
+  feature : string prop option; [@option]  (** feature *)
+  name : string prop;  (** name *)
   timeouts : aws_rekognition_project__timeouts option;
 }
 [@@deriving yojson_of]

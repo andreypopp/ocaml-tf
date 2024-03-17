@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type aws_cloudtrail_event_data_store__advanced_event_selector__field_selector = {
-  ends_with : string list option; [@option]  (** ends_with *)
-  equals : string list option; [@option]  (** equals *)
-  field : string option; [@option]  (** field *)
-  not_ends_with : string list option; [@option]  (** not_ends_with *)
-  not_equals : string list option; [@option]  (** not_equals *)
-  not_starts_with : string list option; [@option]
+  ends_with : string prop list option; [@option]  (** ends_with *)
+  equals : string prop list option; [@option]  (** equals *)
+  field : string prop option; [@option]  (** field *)
+  not_ends_with : string prop list option; [@option]
+      (** not_ends_with *)
+  not_equals : string prop list option; [@option]  (** not_equals *)
+  not_starts_with : string prop list option; [@option]
       (** not_starts_with *)
-  starts_with : string list option; [@option]  (** starts_with *)
+  starts_with : string prop list option; [@option]  (** starts_with *)
 }
 [@@deriving yojson_of]
 (** aws_cloudtrail_event_data_store__advanced_event_selector__field_selector *)
 
 type aws_cloudtrail_event_data_store__advanced_event_selector = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   field_selector :
     aws_cloudtrail_event_data_store__advanced_event_selector__field_selector
     list;
@@ -27,26 +28,27 @@ type aws_cloudtrail_event_data_store__advanced_event_selector = {
 (** aws_cloudtrail_event_data_store__advanced_event_selector *)
 
 type aws_cloudtrail_event_data_store__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_cloudtrail_event_data_store__timeouts *)
 
 type aws_cloudtrail_event_data_store = {
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  multi_region_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  multi_region_enabled : bool prop option; [@option]
       (** multi_region_enabled *)
-  name : string;  (** name *)
-  organization_enabled : bool option; [@option]
+  name : string prop;  (** name *)
+  organization_enabled : bool prop option; [@option]
       (** organization_enabled *)
-  retention_period : float option; [@option]  (** retention_period *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  retention_period : float prop option; [@option]
+      (** retention_period *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  termination_protection_enabled : bool option; [@option]
+  termination_protection_enabled : bool prop option; [@option]
       (** termination_protection_enabled *)
   advanced_event_selector :
     aws_cloudtrail_event_data_store__advanced_event_selector list;

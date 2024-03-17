@@ -6,12 +6,12 @@ type google_apigee_env_references__timeouts
 type google_apigee_env_references
 
 val google_apigee_env_references :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:google_apigee_env_references__timeouts ->
-  env_id:string ->
-  name:string ->
-  refers:string ->
-  resource_type:string ->
+  env_id:string prop ->
+  name:string prop ->
+  refers:string prop ->
+  resource_type:string prop ->
   string ->
   unit

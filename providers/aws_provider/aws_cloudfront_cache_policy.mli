@@ -19,12 +19,12 @@ type aws_cloudfront_cache_policy__parameters_in_cache_key_and_forwarded_to_origi
 type aws_cloudfront_cache_policy
 
 val aws_cloudfront_cache_policy :
-  ?comment:string ->
-  ?default_ttl:float ->
-  ?id:string ->
-  ?max_ttl:float ->
-  ?min_ttl:float ->
-  name:string ->
+  ?comment:string prop ->
+  ?default_ttl:float prop ->
+  ?id:string prop ->
+  ?max_ttl:float prop ->
+  ?min_ttl:float prop ->
+  name:string prop ->
   parameters_in_cache_key_and_forwarded_to_origin:
     aws_cloudfront_cache_policy__parameters_in_cache_key_and_forwarded_to_origin
     list ->

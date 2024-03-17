@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type aws_codepipeline_webhook__authentication_configuration = {
-  allowed_ip_range : string option; [@option]
+  allowed_ip_range : string prop option; [@option]
       (** allowed_ip_range *)
-  secret_token : string option; [@option]  (** secret_token *)
+  secret_token : string prop option; [@option]  (** secret_token *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline_webhook__authentication_configuration *)
 
 type aws_codepipeline_webhook__filter = {
-  json_path : string;  (** json_path *)
-  match_equals : string;  (** match_equals *)
+  json_path : string prop;  (** json_path *)
+  match_equals : string prop;  (** match_equals *)
 }
 [@@deriving yojson_of]
 (** aws_codepipeline_webhook__filter *)
 
 type aws_codepipeline_webhook = {
-  authentication : string;  (** authentication *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  authentication : string prop;  (** authentication *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  target_action : string;  (** target_action *)
-  target_pipeline : string;  (** target_pipeline *)
+  target_action : string prop;  (** target_action *)
+  target_pipeline : string prop;  (** target_pipeline *)
   authentication_configuration :
     aws_codepipeline_webhook__authentication_configuration list;
   filter : aws_codepipeline_webhook__filter list;

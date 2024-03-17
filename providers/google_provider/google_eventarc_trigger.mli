@@ -14,15 +14,15 @@ type google_eventarc_trigger__transport
 type google_eventarc_trigger
 
 val google_eventarc_trigger :
-  ?channel:string ->
-  ?event_data_content_type:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?service_account:string ->
+  ?channel:string prop ->
+  ?event_data_content_type:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?service_account:string prop ->
   ?timeouts:google_eventarc_trigger__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   destination:google_eventarc_trigger__destination list ->
   matching_criteria:google_eventarc_trigger__matching_criteria list ->
   transport:google_eventarc_trigger__transport list ->

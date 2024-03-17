@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_sqs_queue_redrive_policy = {
-  id : string option; [@option]  (** id *)
-  queue_url : string;  (** queue_url *)
-  redrive_policy : string;  (** redrive_policy *)
+  id : string prop option; [@option]  (** id *)
+  queue_url : string prop;  (** queue_url *)
+  redrive_policy : string prop;  (** redrive_policy *)
 }
 [@@deriving yojson_of]
 (** aws_sqs_queue_redrive_policy *)

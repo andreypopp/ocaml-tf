@@ -9,9 +9,9 @@ type google_document_ai_warehouse_document_schema__property_definitions__date_ti
 [@@deriving yojson_of]
 
 type google_document_ai_warehouse_document_schema__property_definitions__enum_type_options = {
-  possible_values : string list;
+  possible_values : string prop list;
       (** List of possible enum values. *)
-  validation_check_disabled : bool option; [@option]
+  validation_check_disabled : bool prop option; [@option]
       (** Make sure the enum property value provided in the document is in the possile value list during document creation. The validation check runs by default. *)
 }
 [@@deriving yojson_of]
@@ -34,9 +34,9 @@ type google_document_ai_warehouse_document_schema__property_definitions__propert
 [@@deriving yojson_of]
 
 type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__enum_type_options = {
-  possible_values : string list;
+  possible_values : string prop list;
       (** List of possible enum values. *)
-  validation_check_disabled : bool option; [@option]
+  validation_check_disabled : bool prop option; [@option]
       (** Make sure the enum property value provided in the document is in the possile value list during document creation. The validation check runs by default. *)
 }
 [@@deriving yojson_of]
@@ -55,9 +55,9 @@ type google_document_ai_warehouse_document_schema__property_definitions__propert
 [@@deriving yojson_of]
 
 type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__schema_sources = {
-  name : string option; [@option]
+  name : string prop option; [@option]
       (** The schema name in the source. *)
-  processor_type : string option; [@option]
+  processor_type : string prop option; [@option]
       (** The Doc AI processor type name. *)
 }
 [@@deriving yojson_of]
@@ -72,20 +72,20 @@ type google_document_ai_warehouse_document_schema__property_definitions__propert
 [@@deriving yojson_of]
 
 type google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions = {
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** The display-name for the property, used for front-end. *)
-  is_filterable : bool option; [@option]
+  is_filterable : bool prop option; [@option]
       (** Whether the property can be filtered. If this is a sub-property, all the parent properties must be marked filterable. *)
-  is_metadata : bool option; [@option]
+  is_metadata : bool prop option; [@option]
       (** Whether the property is user supplied metadata. *)
-  is_repeatable : bool option; [@option]
+  is_repeatable : bool prop option; [@option]
       (** Whether the property can have multiple values. *)
-  is_required : bool option; [@option]
+  is_required : bool prop option; [@option]
       (** Whether the property is mandatory. *)
-  is_searchable : bool option; [@option]
+  is_searchable : bool prop option; [@option]
       (** Indicates that the property should be included in a global search. *)
-  name : string;  (** The name of the metadata property. *)
-  retrieval_importance : string option; [@option]
+  name : string prop;  (** The name of the metadata property. *)
+  retrieval_importance : string prop option; [@option]
       (** Stores the retrieval importance. Possible values: [HIGHEST, HIGHER, HIGH, MEDIUM, LOW, LOWEST] *)
   date_time_type_options :
     google_document_ai_warehouse_document_schema__property_definitions__property_type_options__property_definitions__date_time_type_options
@@ -124,9 +124,9 @@ type google_document_ai_warehouse_document_schema__property_definitions__propert
 (** Nested structured data property. *)
 
 type google_document_ai_warehouse_document_schema__property_definitions__schema_sources = {
-  name : string option; [@option]
+  name : string prop option; [@option]
       (** The schema name in the source. *)
-  processor_type : string option; [@option]
+  processor_type : string prop option; [@option]
       (** The Doc AI processor type name. *)
 }
 [@@deriving yojson_of]
@@ -141,20 +141,20 @@ type google_document_ai_warehouse_document_schema__property_definitions__timesta
 [@@deriving yojson_of]
 
 type google_document_ai_warehouse_document_schema__property_definitions = {
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** The display-name for the property, used for front-end. *)
-  is_filterable : bool option; [@option]
+  is_filterable : bool prop option; [@option]
       (** Whether the property can be filtered. If this is a sub-property, all the parent properties must be marked filterable. *)
-  is_metadata : bool option; [@option]
+  is_metadata : bool prop option; [@option]
       (** Whether the property is user supplied metadata. *)
-  is_repeatable : bool option; [@option]
+  is_repeatable : bool prop option; [@option]
       (** Whether the property can have multiple values. *)
-  is_required : bool option; [@option]
+  is_required : bool prop option; [@option]
       (** Whether the property is mandatory. *)
-  is_searchable : bool option; [@option]
+  is_searchable : bool prop option; [@option]
       (** Indicates that the property should be included in a global search. *)
-  name : string;  (** The name of the metadata property. *)
-  retrieval_importance : string option; [@option]
+  name : string prop;  (** The name of the metadata property. *)
+  retrieval_importance : string prop option; [@option]
       (** Stores the retrieval importance. Possible values: [HIGHEST, HIGHER, HIGH, MEDIUM, LOW, LOWEST] *)
   date_time_type_options :
     google_document_ai_warehouse_document_schema__property_definitions__date_time_type_options
@@ -188,20 +188,20 @@ type google_document_ai_warehouse_document_schema__property_definitions = {
 (** Defines the metadata for a schema property. *)
 
 type google_document_ai_warehouse_document_schema__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_document_ai_warehouse_document_schema__timeouts *)
 
 type google_document_ai_warehouse_document_schema = {
-  display_name : string;
+  display_name : string prop;
       (** Name of the schema given by the user. *)
-  document_is_folder : bool option; [@option]
+  document_is_folder : bool prop option; [@option]
       (** Tells whether the document is a folder or a typical document. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location of the resource. *)
-  project_number : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location of the resource. *)
+  project_number : string prop;
       (** The unique identifier of the project. *)
   property_definitions :
     google_document_ai_warehouse_document_schema__property_definitions

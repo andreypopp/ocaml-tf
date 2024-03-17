@@ -6,12 +6,12 @@ type google_netapp_backup_vault__timeouts
 type google_netapp_backup_vault
 
 val google_netapp_backup_vault :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_netapp_backup_vault__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   string ->
   unit

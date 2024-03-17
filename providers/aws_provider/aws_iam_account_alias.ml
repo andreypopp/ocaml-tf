@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_iam_account_alias = {
-  account_alias : string;  (** account_alias *)
-  id : string option; [@option]  (** id *)
+  account_alias : string prop;  (** account_alias *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_iam_account_alias *)

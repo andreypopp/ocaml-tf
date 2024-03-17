@@ -39,10 +39,10 @@ type aws_cloudfront_response_headers_policy__server_timing_headers_config
 type aws_cloudfront_response_headers_policy
 
 val aws_cloudfront_response_headers_policy :
-  ?comment:string ->
-  ?etag:string ->
-  ?id:string ->
-  name:string ->
+  ?comment:string prop ->
+  ?etag:string prop ->
+  ?id:string prop ->
+  name:string prop ->
   cors_config:
     aws_cloudfront_response_headers_policy__cors_config list ->
   custom_headers_config:

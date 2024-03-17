@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type google_organization_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_organization_iam_binding__condition *)
 
 type google_organization_iam_binding = {
-  id : string option; [@option]  (** id *)
-  members : string list;  (** members *)
-  org_id : string;
+  id : string prop option; [@option]  (** id *)
+  members : string prop list;  (** members *)
+  org_id : string prop;
       (** The numeric ID of the organization in which you want to manage the audit logging config. *)
-  role : string;  (** role *)
+  role : string prop;  (** role *)
   condition : google_organization_iam_binding__condition list;
 }
 [@@deriving yojson_of]

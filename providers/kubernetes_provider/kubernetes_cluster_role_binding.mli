@@ -8,7 +8,7 @@ type kubernetes_cluster_role_binding__subject
 type kubernetes_cluster_role_binding
 
 val kubernetes_cluster_role_binding :
-  ?id:string ->
+  ?id:string prop ->
   metadata:kubernetes_cluster_role_binding__metadata list ->
   role_ref:kubernetes_cluster_role_binding__role_ref list ->
   subject:kubernetes_cluster_role_binding__subject list ->

@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_postgresql_server_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_postgresql_server_key__timeouts *)
 
 type azurerm_postgresql_server_key = {
-  id : string option; [@option]  (** id *)
-  key_vault_key_id : string;  (** key_vault_key_id *)
-  server_id : string;  (** server_id *)
+  id : string prop option; [@option]  (** id *)
+  key_vault_key_id : string prop;  (** key_vault_key_id *)
+  server_id : string prop;  (** server_id *)
   timeouts : azurerm_postgresql_server_key__timeouts option;
 }
 [@@deriving yojson_of]

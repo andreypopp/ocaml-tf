@@ -11,17 +11,17 @@ type google_alloydb_instance__timeouts
 type google_alloydb_instance
 
 val google_alloydb_instance :
-  ?annotations:(string * string) list ->
-  ?availability_type:string ->
-  ?database_flags:(string * string) list ->
-  ?display_name:string ->
-  ?gce_zone:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
+  ?annotations:(string * string prop) list ->
+  ?availability_type:string prop ->
+  ?database_flags:(string * string prop) list ->
+  ?display_name:string prop ->
+  ?gce_zone:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
   ?timeouts:google_alloydb_instance__timeouts ->
-  cluster:string ->
-  instance_id:string ->
-  instance_type:string ->
+  cluster:string prop ->
+  instance_id:string prop ->
+  instance_type:string prop ->
   client_connection_config:
     google_alloydb_instance__client_connection_config list ->
   machine_config:google_alloydb_instance__machine_config list ->

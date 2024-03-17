@@ -56,19 +56,19 @@ type azurerm_eventgrid_event_subscription__webhook_endpoint
 type azurerm_eventgrid_event_subscription
 
 val azurerm_eventgrid_event_subscription :
-  ?advanced_filtering_on_arrays_enabled:bool ->
-  ?event_delivery_schema:string ->
-  ?eventhub_endpoint_id:string ->
-  ?expiration_time_utc:string ->
-  ?hybrid_connection_endpoint_id:string ->
-  ?id:string ->
-  ?included_event_types:string list ->
-  ?labels:string list ->
-  ?service_bus_queue_endpoint_id:string ->
-  ?service_bus_topic_endpoint_id:string ->
+  ?advanced_filtering_on_arrays_enabled:bool prop ->
+  ?event_delivery_schema:string prop ->
+  ?eventhub_endpoint_id:string prop ->
+  ?expiration_time_utc:string prop ->
+  ?hybrid_connection_endpoint_id:string prop ->
+  ?id:string prop ->
+  ?included_event_types:string prop list ->
+  ?labels:string prop list ->
+  ?service_bus_queue_endpoint_id:string prop ->
+  ?service_bus_topic_endpoint_id:string prop ->
   ?timeouts:azurerm_eventgrid_event_subscription__timeouts ->
-  name:string ->
-  scope:string ->
+  name:string prop ->
+  scope:string prop ->
   advanced_filter:
     azurerm_eventgrid_event_subscription__advanced_filter list ->
   azure_function_endpoint:

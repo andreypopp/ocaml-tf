@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_iam_instance_profile
 
 val aws_iam_instance_profile :
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?path:string ->
-  ?role:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?path:string prop ->
+  ?role:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   string ->
   unit

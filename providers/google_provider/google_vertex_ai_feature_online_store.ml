@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_vertex_ai_feature_online_store__bigtable__auto_scaling = {
-  cpu_utilization_target : float option; [@option]
+  cpu_utilization_target : float prop option; [@option]
       (** A percentage of the cluster's CPU capacity. Can be from 10% to 80%. When a cluster's CPU utilization exceeds the target that you have set, Bigtable immediately adds nodes to the cluster. When CPU utilization is substantially lower than the target, Bigtable removes nodes. If not set will default to 50%. *)
-  max_node_count : float;
+  max_node_count : float prop;
       (** The maximum number of nodes to scale up to. Must be greater than or equal to minNodeCount, and less than or equal to 10 times of 'minNodeCount'. *)
-  min_node_count : float;
+  min_node_count : float prop;
       (** The minimum number of nodes to scale down to. Must be greater than or equal to 1. *)
 }
 [@@deriving yojson_of]
@@ -24,26 +24,26 @@ type google_vertex_ai_feature_online_store__bigtable = {
 (** Settings for Cloud Bigtable instance that will be created to serve featureValues for all FeatureViews under this FeatureOnlineStore. *)
 
 type google_vertex_ai_feature_online_store__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_feature_online_store__timeouts *)
 
 type google_vertex_ai_feature_online_store = {
-  force_destroy : bool option; [@option]
+  force_destroy : bool prop option; [@option]
       (** If set to true, any FeatureViews and Features for this FeatureOnlineStore will also be deleted. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** The labels with user-defined metadata to organize your feature online stores.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string;
+  name : string prop;
       (** The resource name of the Feature Online Store. This value may be up to 60 characters, and valid characters are [a-z0-9_]. The first character cannot be a number. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** The region of feature online store. eg us-central1 *)
   bigtable : google_vertex_ai_feature_online_store__bigtable list;
   timeouts : google_vertex_ai_feature_online_store__timeouts option;

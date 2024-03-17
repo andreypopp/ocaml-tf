@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_service_account_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_service_account_iam_binding__condition *)
 
 type google_service_account_iam_binding = {
-  id : string option; [@option]  (** id *)
-  members : string list;  (** members *)
-  role : string;  (** role *)
-  service_account_id : string;  (** service_account_id *)
+  id : string prop option; [@option]  (** id *)
+  members : string prop list;  (** members *)
+  role : string prop;  (** role *)
+  service_account_id : string prop;  (** service_account_id *)
   condition : google_service_account_iam_binding__condition list;
 }
 [@@deriving yojson_of]

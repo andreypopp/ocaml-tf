@@ -7,19 +7,19 @@ type azurerm_managed_application_definition__timeouts
 type azurerm_managed_application_definition
 
 val azurerm_managed_application_definition :
-  ?create_ui_definition:string ->
-  ?description:string ->
-  ?id:string ->
-  ?main_template:string ->
-  ?package_enabled:bool ->
-  ?package_file_uri:string ->
-  ?tags:(string * string) list ->
+  ?create_ui_definition:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?main_template:string prop ->
+  ?package_enabled:bool prop ->
+  ?package_file_uri:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_managed_application_definition__timeouts ->
-  display_name:string ->
-  location:string ->
-  lock_level:string ->
-  name:string ->
-  resource_group_name:string ->
+  display_name:string prop ->
+  location:string prop ->
+  lock_level:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   authorization:
     azurerm_managed_application_definition__authorization list ->
   string ->

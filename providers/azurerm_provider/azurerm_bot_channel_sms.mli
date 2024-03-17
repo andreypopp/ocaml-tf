@@ -6,13 +6,13 @@ type azurerm_bot_channel_sms__timeouts
 type azurerm_bot_channel_sms
 
 val azurerm_bot_channel_sms :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_bot_channel_sms__timeouts ->
-  bot_name:string ->
-  location:string ->
-  phone_number:string ->
-  resource_group_name:string ->
-  sms_channel_account_security_id:string ->
-  sms_channel_auth_token:string ->
+  bot_name:string prop ->
+  location:string prop ->
+  phone_number:string prop ->
+  resource_group_name:string prop ->
+  sms_channel_account_security_id:string prop ->
+  sms_channel_auth_token:string prop ->
   string ->
   unit

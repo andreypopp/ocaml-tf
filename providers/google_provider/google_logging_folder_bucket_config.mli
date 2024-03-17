@@ -7,12 +7,12 @@ type google_logging_folder_bucket_config__index_configs
 type google_logging_folder_bucket_config
 
 val google_logging_folder_bucket_config :
-  ?description:string ->
-  ?id:string ->
-  ?retention_days:float ->
-  bucket_id:string ->
-  folder:string ->
-  location:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?retention_days:float prop ->
+  bucket_id:string prop ->
+  folder:string prop ->
+  location:string prop ->
   cmek_settings:
     google_logging_folder_bucket_config__cmek_settings list ->
   index_configs:

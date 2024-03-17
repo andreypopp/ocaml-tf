@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type google_firestore_index__fields = {
-  array_config : string option; [@option]
+  array_config : string prop option; [@option]
       (** Indicates that this field supports operations on arrayValues. Only one of 'order' and 'arrayConfig' can
 be specified. Possible values: [CONTAINS] *)
-  field_path : string option; [@option]  (** Name of the field. *)
-  order : string option; [@option]
+  field_path : string prop option; [@option]
+      (** Name of the field. *)
+  order : string prop option; [@option]
       (** Indicates that this field supports ordering by the specified order or comparing using =, <, <=, >, >=.
 Only one of 'order' and 'arrayConfig' can be specified. Possible values: [ASCENDING, DESCENDING] *)
 }
@@ -22,21 +23,21 @@ in a composite index is not directional, the '__name__' will be
 ordered 'ASCENDING' (unless explicitly specified otherwise). *)
 
 type google_firestore_index__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_firestore_index__timeouts *)
 
 type google_firestore_index = {
-  api_scope : string option; [@option]
+  api_scope : string prop option; [@option]
       (** The API scope at which a query is run. Default value: ANY_API Possible values: [ANY_API, DATASTORE_MODE_API] *)
-  collection : string;  (** The collection being indexed. *)
-  database : string option; [@option]
+  collection : string prop;  (** The collection being indexed. *)
+  database : string prop option; [@option]
       (** The Firestore database id. Defaults to '(default)'. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  query_scope : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  query_scope : string prop option; [@option]
       (** The scope at which a query is run. Default value: COLLECTION Possible values: [COLLECTION, COLLECTION_GROUP, COLLECTION_RECURSIVE] *)
   fields : google_firestore_index__fields list;
   timeouts : google_firestore_index__timeouts option;

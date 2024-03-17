@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type google_notebooks_environment__container_image = {
-  repository : string;
+  repository : string prop;
       (** The path to the container image repository.
 For example: gcr.io/{project_id}/{imageName} *)
-  tag : string option; [@option]
+  tag : string prop option; [@option]
       (** The tag of the container image. If not specified, this defaults to the latest tag. *)
 }
 [@@deriving yojson_of]
 (** Use a container image to start the notebook instance. *)
 
 type google_notebooks_environment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_notebooks_environment__timeouts *)
 
 type google_notebooks_environment__vm_image = {
-  image_family : string option; [@option]
+  image_family : string prop option; [@option]
       (** Use this VM image family to find the image; the newest image in this family will be used. *)
-  image_name : string option; [@option]
+  image_name : string prop option; [@option]
       (** Use VM image name to find the image. *)
-  project : string;
+  project : string prop;
       (** The name of the Google Cloud project that this VM image belongs to.
 Format: projects/{project_id} *)
 }
@@ -35,20 +35,20 @@ Format: projects/{project_id} *)
 (** Use a Compute Engine VM image to start the notebook instance. *)
 
 type google_notebooks_environment = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A brief description of this environment. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** Display name of this environment for the UI. *)
-  id : string option; [@option]  (** id *)
-  location : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;
       (** A reference to the zone where the machine resides. *)
-  name : string;
+  name : string prop;
       (** The name specified for the Environment instance.
 Format: projects/{project_id}/locations/{location}/environments/{environmentId} *)
-  post_startup_script : string option; [@option]
+  post_startup_script : string prop option; [@option]
       (** Path to a Bash script that automatically runs after a notebook instance fully boots up.
 The path must be a URL or Cloud Storage path. Example: gs://path-to-file/file-name *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   container_image :
     google_notebooks_environment__container_image list;
   timeouts : google_notebooks_environment__timeouts option;

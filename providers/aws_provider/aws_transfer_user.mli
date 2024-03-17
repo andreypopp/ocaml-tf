@@ -8,16 +8,16 @@ type aws_transfer_user__timeouts
 type aws_transfer_user
 
 val aws_transfer_user :
-  ?home_directory:string ->
-  ?home_directory_type:string ->
-  ?id:string ->
-  ?policy:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?home_directory:string prop ->
+  ?home_directory_type:string prop ->
+  ?id:string prop ->
+  ?policy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_transfer_user__timeouts ->
-  role:string ->
-  server_id:string ->
-  user_name:string ->
+  role:string prop ->
+  server_id:string prop ->
+  user_name:string prop ->
   home_directory_mappings:
     aws_transfer_user__home_directory_mappings list ->
   posix_profile:aws_transfer_user__posix_profile list ->

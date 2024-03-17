@@ -5,11 +5,11 @@ open! Tf.Prelude
 type cloudflare_web3_hostname
 
 val cloudflare_web3_hostname :
-  ?description:string ->
-  ?dnslink:string ->
-  ?id:string ->
-  name:string ->
-  target:string ->
-  zone_id:string ->
+  ?description:string prop ->
+  ?dnslink:string prop ->
+  ?id:string prop ->
+  name:string prop ->
+  target:string prop ->
+  zone_id:string prop ->
   string ->
   unit

@@ -7,11 +7,11 @@ type azurerm_security_center_subscription_pricing__timeouts
 type azurerm_security_center_subscription_pricing
 
 val azurerm_security_center_subscription_pricing :
-  ?id:string ->
-  ?resource_type:string ->
-  ?subplan:string ->
+  ?id:string prop ->
+  ?resource_type:string prop ->
+  ?subplan:string prop ->
   ?timeouts:azurerm_security_center_subscription_pricing__timeouts ->
-  tier:string ->
+  tier:string prop ->
   extension:
     azurerm_security_center_subscription_pricing__extension list ->
   string ->

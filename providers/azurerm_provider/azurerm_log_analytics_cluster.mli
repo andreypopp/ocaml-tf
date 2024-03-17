@@ -7,13 +7,13 @@ type azurerm_log_analytics_cluster__timeouts
 type azurerm_log_analytics_cluster
 
 val azurerm_log_analytics_cluster :
-  ?id:string ->
-  ?size_gb:float ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?size_gb:float prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_log_analytics_cluster__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   identity:azurerm_log_analytics_cluster__identity list ->
   string ->
   unit

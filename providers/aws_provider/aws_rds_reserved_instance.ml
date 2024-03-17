@@ -5,27 +5,30 @@
 open! Tf.Prelude
 
 type aws_rds_reserved_instance__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_rds_reserved_instance__timeouts *)
 
 type aws_rds_reserved_instance__recurring_charges = {
-  recurring_charge_amount : float;  (** recurring_charge_amount *)
-  recurring_charge_frequency : string;
+  recurring_charge_amount : float prop;
+      (** recurring_charge_amount *)
+  recurring_charge_frequency : string prop;
       (** recurring_charge_frequency *)
 }
 [@@deriving yojson_of]
 
 type aws_rds_reserved_instance = {
-  id : string option; [@option]  (** id *)
-  instance_count : float option; [@option]  (** instance_count *)
-  offering_id : string;  (** offering_id *)
-  reservation_id : string option; [@option]  (** reservation_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instance_count : float prop option; [@option]
+      (** instance_count *)
+  offering_id : string prop;  (** offering_id *)
+  reservation_id : string prop option; [@option]
+      (** reservation_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_rds_reserved_instance__timeouts option;
 }

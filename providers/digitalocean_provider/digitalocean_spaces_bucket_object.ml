@@ -5,27 +5,29 @@
 open! Tf.Prelude
 
 type digitalocean_spaces_bucket_object = {
-  acl : string option; [@option]  (** acl *)
-  bucket : string;  (** bucket *)
-  cache_control : string option; [@option]  (** cache_control *)
-  content : string option; [@option]  (** content *)
-  content_base64 : string option; [@option]  (** content_base64 *)
-  content_disposition : string option; [@option]
+  acl : string prop option; [@option]  (** acl *)
+  bucket : string prop;  (** bucket *)
+  cache_control : string prop option; [@option]  (** cache_control *)
+  content : string prop option; [@option]  (** content *)
+  content_base64 : string prop option; [@option]
+      (** content_base64 *)
+  content_disposition : string prop option; [@option]
       (** content_disposition *)
-  content_encoding : string option; [@option]
+  content_encoding : string prop option; [@option]
       (** content_encoding *)
-  content_language : string option; [@option]
+  content_language : string prop option; [@option]
       (** content_language *)
-  content_type : string option; [@option]  (** content_type *)
-  etag : string option; [@option]  (** etag *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  id : string option; [@option]  (** id *)
-  key : string;  (** key *)
-  metadata : (string * string) list option; [@option]
+  content_type : string prop option; [@option]  (** content_type *)
+  etag : string prop option; [@option]  (** etag *)
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  id : string prop option; [@option]  (** id *)
+  key : string prop;  (** key *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  region : string;  (** region *)
-  source : string option; [@option]  (** source *)
-  website_redirect : string option; [@option]  (** website_redirect *)
+  region : string prop;  (** region *)
+  source : string prop option; [@option]  (** source *)
+  website_redirect : string prop option; [@option]
+      (** website_redirect *)
 }
 [@@deriving yojson_of]
 (** digitalocean_spaces_bucket_object *)

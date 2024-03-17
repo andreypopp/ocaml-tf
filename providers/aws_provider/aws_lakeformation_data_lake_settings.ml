@@ -5,32 +5,36 @@
 open! Tf.Prelude
 
 type aws_lakeformation_data_lake_settings__create_database_default_permissions = {
-  permissions : string list option; [@option]  (** permissions *)
-  principal : string option; [@option]  (** principal *)
+  permissions : string prop list option; [@option]
+      (** permissions *)
+  principal : string prop option; [@option]  (** principal *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_data_lake_settings__create_database_default_permissions *)
 
 type aws_lakeformation_data_lake_settings__create_table_default_permissions = {
-  permissions : string list option; [@option]  (** permissions *)
-  principal : string option; [@option]  (** principal *)
+  permissions : string prop list option; [@option]
+      (** permissions *)
+  principal : string prop option; [@option]  (** principal *)
 }
 [@@deriving yojson_of]
 (** aws_lakeformation_data_lake_settings__create_table_default_permissions *)
 
 type aws_lakeformation_data_lake_settings = {
-  admins : string list option; [@option]  (** admins *)
-  allow_external_data_filtering : bool option; [@option]
+  admins : string prop list option; [@option]  (** admins *)
+  allow_external_data_filtering : bool prop option; [@option]
       (** allow_external_data_filtering *)
-  authorized_session_tag_value_list : string list option; [@option]
+  authorized_session_tag_value_list : string prop list option;
+      [@option]
       (** authorized_session_tag_value_list *)
-  catalog_id : string option; [@option]  (** catalog_id *)
-  external_data_filtering_allow_list : string list option; [@option]
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  external_data_filtering_allow_list : string prop list option;
+      [@option]
       (** external_data_filtering_allow_list *)
-  id : string option; [@option]  (** id *)
-  read_only_admins : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  read_only_admins : string prop list option; [@option]
       (** read_only_admins *)
-  trusted_resource_owners : string list option; [@option]
+  trusted_resource_owners : string prop list option; [@option]
       (** trusted_resource_owners *)
   create_database_default_permissions :
     aws_lakeformation_data_lake_settings__create_database_default_permissions

@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_iot_time_series_insights_standard_environment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iot_time_series_insights_standard_environment__timeouts *)
 
 type azurerm_iot_time_series_insights_standard_environment = {
-  data_retention_time : string;  (** data_retention_time *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  partition_key : string option; [@option]  (** partition_key *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  storage_limit_exceeded_behavior : string option; [@option]
+  data_retention_time : string prop;  (** data_retention_time *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  partition_key : string prop option; [@option]  (** partition_key *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  storage_limit_exceeded_behavior : string prop option; [@option]
       (** storage_limit_exceeded_behavior *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts :
     azurerm_iot_time_series_insights_standard_environment__timeouts
     option;

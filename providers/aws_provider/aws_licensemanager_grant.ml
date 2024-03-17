@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_licensemanager_grant = {
-  allowed_operations : string list;
+  allowed_operations : string prop list;
       (** Allowed operations for the grant. This is a subset of the allowed operations on the license. *)
-  id : string option; [@option]  (** id *)
-  license_arn : string;  (** License ARN. *)
-  name : string;  (** Name of the grant. *)
-  principal : string;
+  id : string prop option; [@option]  (** id *)
+  license_arn : string prop;  (** License ARN. *)
+  name : string prop;  (** Name of the grant. *)
+  principal : string prop;
       (** The grantee principal ARN. The target account for the grant in the form of the ARN for an account principal of the root user. *)
 }
 [@@deriving yojson_of]

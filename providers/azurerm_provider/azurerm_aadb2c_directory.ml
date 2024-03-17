@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_aadb2c_directory__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_aadb2c_directory__timeouts *)
 
 type azurerm_aadb2c_directory = {
-  country_code : string option; [@option]
+  country_code : string prop option; [@option]
       (** Country code of the B2C tenant. See https://aka.ms/B2CDataResidency for valid country codes. *)
-  data_residency_location : string;
+  data_residency_location : string prop;
       (** Location in which the B2C tenant is hosted and data resides. See https://aka.ms/B2CDataResidency for more information. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** The initial display name of the B2C tenant. *)
-  domain_name : string;
+  domain_name : string prop;
       (** Domain name of the B2C tenant, including onmicrosoft.com suffix. *)
-  id : string option; [@option]  (** id *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;
+  id : string prop option; [@option]  (** id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;
       (** Billing SKU for the B2C tenant. See https://aka.ms/b2cBilling for more information. *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_aadb2c_directory__timeouts option;
 }
 [@@deriving yojson_of]

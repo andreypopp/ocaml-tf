@@ -11,14 +11,14 @@ type aws_medialive_input__vpc
 type aws_medialive_input
 
 val aws_medialive_input :
-  ?id:string ->
-  ?input_security_groups:string list ->
-  ?role_arn:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?input_security_groups:string prop list ->
+  ?role_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_medialive_input__timeouts ->
-  name:string ->
-  type_:string ->
+  name:string prop ->
+  type_:string prop ->
   destinations:aws_medialive_input__destinations list ->
   input_devices:aws_medialive_input__input_devices list ->
   media_connect_flows:aws_medialive_input__media_connect_flows list ->

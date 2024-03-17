@@ -7,15 +7,15 @@ type azurerm_lb__timeouts
 type azurerm_lb
 
 val azurerm_lb :
-  ?edge_zone:string ->
-  ?id:string ->
-  ?sku:string ->
-  ?sku_tier:string ->
-  ?tags:(string * string) list ->
+  ?edge_zone:string prop ->
+  ?id:string prop ->
+  ?sku:string prop ->
+  ?sku_tier:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_lb__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   frontend_ip_configuration:
     azurerm_lb__frontend_ip_configuration list ->
   string ->

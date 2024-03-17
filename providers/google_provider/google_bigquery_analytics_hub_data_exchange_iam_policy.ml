@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_bigquery_analytics_hub_data_exchange_iam_policy = {
-  data_exchange_id : string;  (** data_exchange_id *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  data_exchange_id : string prop;  (** data_exchange_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_bigquery_analytics_hub_data_exchange_iam_policy *)

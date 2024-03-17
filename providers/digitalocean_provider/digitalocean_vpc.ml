@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type digitalocean_vpc__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** digitalocean_vpc__timeouts *)
 
 type digitalocean_vpc = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A free-form description for the VPC *)
-  id : string option; [@option]  (** id *)
-  ip_range : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ip_range : string prop option; [@option]
       (** The range of IP addresses for the VPC in CIDR notation *)
-  name : string;  (** The name of the VPC *)
-  region : string;
+  name : string prop;  (** The name of the VPC *)
+  region : string prop;
       (** DigitalOcean region slug for the VPC's location *)
   timeouts : digitalocean_vpc__timeouts option;
 }

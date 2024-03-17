@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_datasync_location_nfs__mount_options = {
-  version : string option; [@option]  (** version *)
+  version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_nfs__mount_options *)
 
 type aws_datasync_location_nfs__on_prem_config = {
-  agent_arns : string list;  (** agent_arns *)
+  agent_arns : string prop list;  (** agent_arns *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_nfs__on_prem_config *)
 
 type aws_datasync_location_nfs = {
-  id : string option; [@option]  (** id *)
-  server_hostname : string;  (** server_hostname *)
-  subdirectory : string;  (** subdirectory *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  server_hostname : string prop;  (** server_hostname *)
+  subdirectory : string prop;  (** subdirectory *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   mount_options : aws_datasync_location_nfs__mount_options list;
   on_prem_config : aws_datasync_location_nfs__on_prem_config list;

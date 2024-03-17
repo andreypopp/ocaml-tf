@@ -5,48 +5,48 @@ open! Tf.Prelude
 type azurerm_sentinel_alert_rule_anomaly_built_in__timeouts
 
 type azurerm_sentinel_alert_rule_anomaly_built_in__multi_select_observation = {
-  description : string;  (** description *)
-  name : string;  (** name *)
-  supported_values : string list;  (** supported_values *)
-  values : string list;  (** values *)
+  description : string prop;  (** description *)
+  name : string prop;  (** name *)
+  supported_values : string prop list;  (** supported_values *)
+  values : string prop list;  (** values *)
 }
 
 type azurerm_sentinel_alert_rule_anomaly_built_in__prioritized_exclude_observation = {
-  description : string;  (** description *)
-  exclude : string;  (** exclude *)
-  name : string;  (** name *)
-  prioritize : string;  (** prioritize *)
+  description : string prop;  (** description *)
+  exclude : string prop;  (** exclude *)
+  name : string prop;  (** name *)
+  prioritize : string prop;  (** prioritize *)
 }
 
 type azurerm_sentinel_alert_rule_anomaly_built_in__required_data_connector = {
-  connector_id : string;  (** connector_id *)
-  data_types : string list;  (** data_types *)
+  connector_id : string prop;  (** connector_id *)
+  data_types : string prop list;  (** data_types *)
 }
 
 type azurerm_sentinel_alert_rule_anomaly_built_in__single_select_observation = {
-  description : string;  (** description *)
-  name : string;  (** name *)
-  supported_values : string list;  (** supported_values *)
-  value : string;  (** value *)
+  description : string prop;  (** description *)
+  name : string prop;  (** name *)
+  supported_values : string prop list;  (** supported_values *)
+  value : string prop;  (** value *)
 }
 
 type azurerm_sentinel_alert_rule_anomaly_built_in__threshold_observation = {
-  description : string;  (** description *)
-  max : string;  (** max *)
-  min : string;  (** min *)
-  name : string;  (** name *)
-  value : string;  (** value *)
+  description : string prop;  (** description *)
+  max : string prop;  (** max *)
+  min : string prop;  (** min *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 
 type azurerm_sentinel_alert_rule_anomaly_built_in
 
 val azurerm_sentinel_alert_rule_anomaly_built_in :
-  ?display_name:string ->
-  ?id:string ->
-  ?name:string ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
   ?timeouts:azurerm_sentinel_alert_rule_anomaly_built_in__timeouts ->
-  enabled:bool ->
-  log_analytics_workspace_id:string ->
-  mode:string ->
+  enabled:bool prop ->
+  log_analytics_workspace_id:string prop ->
+  mode:string prop ->
   string ->
   unit

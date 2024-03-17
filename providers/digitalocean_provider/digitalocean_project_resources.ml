@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type digitalocean_project_resources = {
-  id : string option; [@option]  (** id *)
-  project : string;  (** project ID *)
-  resources : string list;
+  id : string prop option; [@option]  (** id *)
+  project : string prop;  (** project ID *)
+  resources : string prop list;
       (** the resources associated with the project *)
 }
 [@@deriving yojson_of]

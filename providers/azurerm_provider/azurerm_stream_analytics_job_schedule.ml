@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_stream_analytics_job_schedule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_job_schedule__timeouts *)
 
 type azurerm_stream_analytics_job_schedule = {
-  id : string option; [@option]  (** id *)
-  start_mode : string;  (** start_mode *)
-  start_time : string option; [@option]  (** start_time *)
-  stream_analytics_job_id : string;  (** stream_analytics_job_id *)
+  id : string prop option; [@option]  (** id *)
+  start_mode : string prop;  (** start_mode *)
+  start_time : string prop option; [@option]  (** start_time *)
+  stream_analytics_job_id : string prop;
+      (** stream_analytics_job_id *)
   timeouts : azurerm_stream_analytics_job_schedule__timeouts option;
 }
 [@@deriving yojson_of]

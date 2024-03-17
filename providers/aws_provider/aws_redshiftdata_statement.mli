@@ -7,16 +7,16 @@ type aws_redshiftdata_statement__timeouts
 type aws_redshiftdata_statement
 
 val aws_redshiftdata_statement :
-  ?cluster_identifier:string ->
-  ?db_user:string ->
-  ?id:string ->
-  ?secret_arn:string ->
-  ?statement_name:string ->
-  ?with_event:bool ->
-  ?workgroup_name:string ->
+  ?cluster_identifier:string prop ->
+  ?db_user:string prop ->
+  ?id:string prop ->
+  ?secret_arn:string prop ->
+  ?statement_name:string prop ->
+  ?with_event:bool prop ->
+  ?workgroup_name:string prop ->
   ?timeouts:aws_redshiftdata_statement__timeouts ->
-  database:string ->
-  sql:string ->
+  database:string prop ->
+  sql:string prop ->
   parameters:aws_redshiftdata_statement__parameters list ->
   string ->
   unit

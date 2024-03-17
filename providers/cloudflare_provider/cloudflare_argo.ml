@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type cloudflare_argo = {
-  id : string option; [@option]  (** id *)
-  smart_routing : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  smart_routing : string prop option; [@option]
       (** Whether smart routing is enabled. Available values: `on`, `off`. *)
-  tiered_caching : string option; [@option]
+  tiered_caching : string prop option; [@option]
       (** Whether tiered caching is enabled. Available values: `on`, `off`. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
 }
 [@@deriving yojson_of]

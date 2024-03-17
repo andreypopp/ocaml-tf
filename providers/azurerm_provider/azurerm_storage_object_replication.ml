@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type azurerm_storage_object_replication__rules = {
-  copy_blobs_created_after : string option; [@option]
+  copy_blobs_created_after : string prop option; [@option]
       (** copy_blobs_created_after *)
-  destination_container_name : string;
+  destination_container_name : string prop;
       (** destination_container_name *)
-  filter_out_blobs_with_prefix : string list option; [@option]
+  filter_out_blobs_with_prefix : string prop list option; [@option]
       (** filter_out_blobs_with_prefix *)
-  name : string;  (** name *)
-  source_container_name : string;  (** source_container_name *)
+  name : string prop;  (** name *)
+  source_container_name : string prop;  (** source_container_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_object_replication__rules *)
 
 type azurerm_storage_object_replication__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_object_replication__timeouts *)
 
 type azurerm_storage_object_replication = {
-  destination_storage_account_id : string;
+  destination_storage_account_id : string prop;
       (** destination_storage_account_id *)
-  id : string option; [@option]  (** id *)
-  source_storage_account_id : string;
+  id : string prop option; [@option]  (** id *)
+  source_storage_account_id : string prop;
       (** source_storage_account_id *)
   rules : azurerm_storage_object_replication__rules list;
   timeouts : azurerm_storage_object_replication__timeouts option;

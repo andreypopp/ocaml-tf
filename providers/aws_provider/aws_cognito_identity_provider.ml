@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_cognito_identity_provider = {
-  attribute_mapping : (string * string) list option; [@option]
+  attribute_mapping : (string * string prop) list option; [@option]
       (** attribute_mapping *)
-  id : string option; [@option]  (** id *)
-  idp_identifiers : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  idp_identifiers : string prop list option; [@option]
       (** idp_identifiers *)
-  provider_details : (string * string) list;  (** provider_details *)
-  provider_name : string;  (** provider_name *)
-  provider_type : string;  (** provider_type *)
-  user_pool_id : string;  (** user_pool_id *)
+  provider_details : (string * string prop) list;
+      (** provider_details *)
+  provider_name : string prop;  (** provider_name *)
+  provider_type : string prop;  (** provider_type *)
+  user_pool_id : string prop;  (** user_pool_id *)
 }
 [@@deriving yojson_of]
 (** aws_cognito_identity_provider *)

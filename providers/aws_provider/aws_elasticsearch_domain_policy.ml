@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_elasticsearch_domain_policy__timeouts = {
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_elasticsearch_domain_policy__timeouts *)
 
 type aws_elasticsearch_domain_policy = {
-  access_policies : string;  (** access_policies *)
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
+  access_policies : string prop;  (** access_policies *)
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
   timeouts : aws_elasticsearch_domain_policy__timeouts option;
 }
 [@@deriving yojson_of]

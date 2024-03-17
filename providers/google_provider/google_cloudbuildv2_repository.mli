@@ -6,13 +6,13 @@ type google_cloudbuildv2_repository__timeouts
 type google_cloudbuildv2_repository
 
 val google_cloudbuildv2_repository :
-  ?annotations:(string * string) list ->
-  ?id:string ->
-  ?location:string ->
-  ?project:string ->
+  ?annotations:(string * string prop) list ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
   ?timeouts:google_cloudbuildv2_repository__timeouts ->
-  name:string ->
-  parent_connection:string ->
-  remote_uri:string ->
+  name:string prop ->
+  parent_connection:string prop ->
+  remote_uri:string prop ->
   string ->
   unit

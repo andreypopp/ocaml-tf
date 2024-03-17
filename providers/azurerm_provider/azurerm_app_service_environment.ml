@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_app_service_environment__cluster_setting = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_environment__cluster_setting *)
 
 type azurerm_app_service_environment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_environment__timeouts *)
 
 type azurerm_app_service_environment = {
-  allowed_user_ip_cidrs : string list option; [@option]
+  allowed_user_ip_cidrs : string prop list option; [@option]
       (** allowed_user_ip_cidrs *)
-  front_end_scale_factor : float option; [@option]
+  front_end_scale_factor : float prop option; [@option]
       (** front_end_scale_factor *)
-  id : string option; [@option]  (** id *)
-  internal_load_balancing_mode : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  internal_load_balancing_mode : string prop option; [@option]
       (** internal_load_balancing_mode *)
-  name : string;  (** name *)
-  pricing_tier : string option; [@option]  (** pricing_tier *)
-  resource_group_name : string;  (** resource_group_name *)
-  subnet_id : string;  (** subnet_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  name : string prop;  (** name *)
+  pricing_tier : string prop option; [@option]  (** pricing_tier *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  subnet_id : string prop;  (** subnet_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   cluster_setting :
     azurerm_app_service_environment__cluster_setting list;
   timeouts : azurerm_app_service_environment__timeouts option;

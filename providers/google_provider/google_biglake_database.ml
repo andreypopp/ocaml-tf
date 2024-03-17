@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_biglake_database__hive_options = {
-  location_uri : string option; [@option]
+  location_uri : string prop option; [@option]
       (** Cloud Storage folder URI where the database data is stored, starting with gs://. *)
-  parameters : (string * string) list option; [@option]
+  parameters : (string * string prop) list option; [@option]
       (** Stores user supplied Hive database parameters. An object containing a
 list ofkey: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
@@ -16,18 +16,18 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
 (** Options of a Hive database. *)
 
 type google_biglake_database__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_biglake_database__timeouts *)
 
 type google_biglake_database = {
-  catalog : string;  (** The parent catalog. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The name of the database. *)
-  type_ : string; [@key "type"]  (** The database type. *)
+  catalog : string prop;  (** The parent catalog. *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The name of the database. *)
+  type_ : string prop; [@key "type"]  (** The database type. *)
   hive_options : google_biglake_database__hive_options list;
   timeouts : google_biglake_database__timeouts option;
 }

@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_route53recoveryreadiness_recovery_group__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoveryreadiness_recovery_group__timeouts *)
 
 type aws_route53recoveryreadiness_recovery_group = {
-  cells : string list option; [@option]  (** cells *)
-  id : string option; [@option]  (** id *)
-  recovery_group_name : string;  (** recovery_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  cells : string prop list option; [@option]  (** cells *)
+  id : string prop option; [@option]  (** id *)
+  recovery_group_name : string prop;  (** recovery_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts :
     aws_route53recoveryreadiness_recovery_group__timeouts option;

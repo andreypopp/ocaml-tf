@@ -8,24 +8,24 @@ type azurerm_stream_analytics_job__timeouts
 type azurerm_stream_analytics_job
 
 val azurerm_stream_analytics_job :
-  ?compatibility_level:string ->
-  ?content_storage_policy:string ->
-  ?data_locale:string ->
-  ?events_late_arrival_max_delay_in_seconds:float ->
-  ?events_out_of_order_max_delay_in_seconds:float ->
-  ?events_out_of_order_policy:string ->
-  ?id:string ->
-  ?output_error_policy:string ->
-  ?sku_name:string ->
-  ?stream_analytics_cluster_id:string ->
-  ?streaming_units:float ->
-  ?tags:(string * string) list ->
-  ?type_:string ->
+  ?compatibility_level:string prop ->
+  ?content_storage_policy:string prop ->
+  ?data_locale:string prop ->
+  ?events_late_arrival_max_delay_in_seconds:float prop ->
+  ?events_out_of_order_max_delay_in_seconds:float prop ->
+  ?events_out_of_order_policy:string prop ->
+  ?id:string prop ->
+  ?output_error_policy:string prop ->
+  ?sku_name:string prop ->
+  ?stream_analytics_cluster_id:string prop ->
+  ?streaming_units:float prop ->
+  ?tags:(string * string prop) list ->
+  ?type_:string prop ->
   ?timeouts:azurerm_stream_analytics_job__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  transformation_query:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  transformation_query:string prop ->
   identity:azurerm_stream_analytics_job__identity list ->
   job_storage_account:
     azurerm_stream_analytics_job__job_storage_account list ->

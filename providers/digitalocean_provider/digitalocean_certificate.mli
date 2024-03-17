@@ -5,12 +5,12 @@ open! Tf.Prelude
 type digitalocean_certificate
 
 val digitalocean_certificate :
-  ?certificate_chain:string ->
-  ?domains:string list ->
-  ?id:string ->
-  ?leaf_certificate:string ->
-  ?private_key:string ->
-  ?type_:string ->
-  name:string ->
+  ?certificate_chain:string prop ->
+  ?domains:string prop list ->
+  ?id:string prop ->
+  ?leaf_certificate:string prop ->
+  ?private_key:string prop ->
+  ?type_:string prop ->
+  name:string prop ->
   string ->
   unit

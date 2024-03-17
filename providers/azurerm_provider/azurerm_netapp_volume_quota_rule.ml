@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_netapp_volume_quota_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_volume_quota_rule__timeouts *)
 
 type azurerm_netapp_volume_quota_rule = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  quota_size_in_kib : float;  (** quota_size_in_kib *)
-  quota_target : string option; [@option]  (** quota_target *)
-  quota_type : string;  (** quota_type *)
-  volume_id : string;  (** volume_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  quota_size_in_kib : float prop;  (** quota_size_in_kib *)
+  quota_target : string prop option; [@option]  (** quota_target *)
+  quota_type : string prop;  (** quota_type *)
+  volume_id : string prop;  (** volume_id *)
   timeouts : azurerm_netapp_volume_quota_rule__timeouts option;
 }
 [@@deriving yojson_of]

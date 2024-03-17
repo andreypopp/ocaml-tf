@@ -5,30 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_logic_app_integration_account_certificate__key_vault_key = {
-  key_name : string;  (** key_name *)
-  key_vault_id : string;  (** key_vault_id *)
-  key_version : string option; [@option]  (** key_version *)
+  key_name : string prop;  (** key_name *)
+  key_vault_id : string prop;  (** key_vault_id *)
+  key_version : string prop option; [@option]  (** key_version *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_certificate__key_vault_key *)
 
 type azurerm_logic_app_integration_account_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_certificate__timeouts *)
 
 type azurerm_logic_app_integration_account_certificate = {
-  id : string option; [@option]  (** id *)
-  integration_account_name : string;  (** integration_account_name *)
-  metadata : string option; [@option]  (** metadata *)
-  name : string;  (** name *)
-  public_certificate : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  integration_account_name : string prop;
+      (** integration_account_name *)
+  metadata : string prop option; [@option]  (** metadata *)
+  name : string prop;  (** name *)
+  public_certificate : string prop option; [@option]
       (** public_certificate *)
-  resource_group_name : string;  (** resource_group_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   key_vault_key :
     azurerm_logic_app_integration_account_certificate__key_vault_key
     list;

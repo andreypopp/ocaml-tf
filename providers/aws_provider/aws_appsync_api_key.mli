@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_appsync_api_key
 
 val aws_appsync_api_key :
-  ?description:string ->
-  ?expires:string ->
-  ?id:string ->
-  api_id:string ->
+  ?description:string prop ->
+  ?expires:string prop ->
+  ?id:string prop ->
+  api_id:string prop ->
   string ->
   unit

@@ -17,16 +17,16 @@ type google_looker_instance__user_metadata
 type google_looker_instance
 
 val google_looker_instance :
-  ?consumer_network:string ->
-  ?id:string ->
-  ?platform_edition:string ->
-  ?private_ip_enabled:bool ->
-  ?project:string ->
-  ?public_ip_enabled:bool ->
-  ?region:string ->
-  ?reserved_range:string ->
+  ?consumer_network:string prop ->
+  ?id:string prop ->
+  ?platform_edition:string prop ->
+  ?private_ip_enabled:bool prop ->
+  ?project:string prop ->
+  ?public_ip_enabled:bool prop ->
+  ?region:string prop ->
+  ?reserved_range:string prop ->
   ?timeouts:google_looker_instance__timeouts ->
-  name:string ->
+  name:string prop ->
   admin_settings:google_looker_instance__admin_settings list ->
   custom_domain:google_looker_instance__custom_domain list ->
   deny_maintenance_period:

@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_api_management_gateway_host_name_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_gateway_host_name_configuration__timeouts *)
 
 type azurerm_api_management_gateway_host_name_configuration = {
-  api_management_id : string;  (** api_management_id *)
-  certificate_id : string;  (** certificate_id *)
-  gateway_name : string;  (** gateway_name *)
-  host_name : string;  (** host_name *)
-  http2_enabled : bool option; [@option]  (** http2_enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  request_client_certificate_enabled : bool option; [@option]
+  api_management_id : string prop;  (** api_management_id *)
+  certificate_id : string prop;  (** certificate_id *)
+  gateway_name : string prop;  (** gateway_name *)
+  host_name : string prop;  (** host_name *)
+  http2_enabled : bool prop option; [@option]  (** http2_enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  request_client_certificate_enabled : bool prop option; [@option]
       (** request_client_certificate_enabled *)
-  tls10_enabled : bool option; [@option]  (** tls10_enabled *)
-  tls11_enabled : bool option; [@option]  (** tls11_enabled *)
+  tls10_enabled : bool prop option; [@option]  (** tls10_enabled *)
+  tls11_enabled : bool prop option; [@option]  (** tls11_enabled *)
   timeouts :
     azurerm_api_management_gateway_host_name_configuration__timeouts
     option;

@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_automation_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_certificate__timeouts *)
 
 type azurerm_automation_certificate = {
-  automation_account_name : string;  (** automation_account_name *)
-  base64 : string;  (** base64 *)
-  description : string option; [@option]  (** description *)
-  exportable : bool option; [@option]  (** exportable *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  automation_account_name : string prop;
+      (** automation_account_name *)
+  base64 : string prop;  (** base64 *)
+  description : string prop option; [@option]  (** description *)
+  exportable : bool prop option; [@option]  (** exportable *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_automation_certificate__timeouts option;
 }
 [@@deriving yojson_of]

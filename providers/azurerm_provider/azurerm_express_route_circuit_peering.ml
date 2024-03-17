@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_express_route_circuit_peering__ipv6__microsoft_peering = {
-  advertised_communities : string list option; [@option]
+  advertised_communities : string prop list option; [@option]
       (** advertised_communities *)
-  advertised_public_prefixes : string list option; [@option]
+  advertised_public_prefixes : string prop list option; [@option]
       (** advertised_public_prefixes *)
-  customer_asn : float option; [@option]  (** customer_asn *)
-  routing_registry_name : string option; [@option]
+  customer_asn : float prop option; [@option]  (** customer_asn *)
+  routing_registry_name : string prop option; [@option]
       (** routing_registry_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit_peering__ipv6__microsoft_peering *)
 
 type azurerm_express_route_circuit_peering__ipv6 = {
-  enabled : bool option; [@option]  (** enabled *)
-  primary_peer_address_prefix : string;
+  enabled : bool prop option; [@option]  (** enabled *)
+  primary_peer_address_prefix : string prop;
       (** primary_peer_address_prefix *)
-  route_filter_id : string option; [@option]  (** route_filter_id *)
-  secondary_peer_address_prefix : string;
+  route_filter_id : string prop option; [@option]
+      (** route_filter_id *)
+  secondary_peer_address_prefix : string prop;
       (** secondary_peer_address_prefix *)
   microsoft_peering :
     azurerm_express_route_circuit_peering__ipv6__microsoft_peering
@@ -31,41 +32,42 @@ type azurerm_express_route_circuit_peering__ipv6 = {
 (** azurerm_express_route_circuit_peering__ipv6 *)
 
 type azurerm_express_route_circuit_peering__microsoft_peering_config = {
-  advertised_communities : string list option; [@option]
+  advertised_communities : string prop list option; [@option]
       (** advertised_communities *)
-  advertised_public_prefixes : string list;
+  advertised_public_prefixes : string prop list;
       (** advertised_public_prefixes *)
-  customer_asn : float option; [@option]  (** customer_asn *)
-  routing_registry_name : string option; [@option]
+  customer_asn : float prop option; [@option]  (** customer_asn *)
+  routing_registry_name : string prop option; [@option]
       (** routing_registry_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit_peering__microsoft_peering_config *)
 
 type azurerm_express_route_circuit_peering__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit_peering__timeouts *)
 
 type azurerm_express_route_circuit_peering = {
-  express_route_circuit_name : string;
+  express_route_circuit_name : string prop;
       (** express_route_circuit_name *)
-  id : string option; [@option]  (** id *)
-  ipv4_enabled : bool option; [@option]  (** ipv4_enabled *)
-  peer_asn : float option; [@option]  (** peer_asn *)
-  peering_type : string;  (** peering_type *)
-  primary_peer_address_prefix : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ipv4_enabled : bool prop option; [@option]  (** ipv4_enabled *)
+  peer_asn : float prop option; [@option]  (** peer_asn *)
+  peering_type : string prop;  (** peering_type *)
+  primary_peer_address_prefix : string prop option; [@option]
       (** primary_peer_address_prefix *)
-  resource_group_name : string;  (** resource_group_name *)
-  route_filter_id : string option; [@option]  (** route_filter_id *)
-  secondary_peer_address_prefix : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  route_filter_id : string prop option; [@option]
+      (** route_filter_id *)
+  secondary_peer_address_prefix : string prop option; [@option]
       (** secondary_peer_address_prefix *)
-  shared_key : string option; [@option]  (** shared_key *)
-  vlan_id : float;  (** vlan_id *)
+  shared_key : string prop option; [@option]  (** shared_key *)
+  vlan_id : float prop;  (** vlan_id *)
   ipv6 : azurerm_express_route_circuit_peering__ipv6 list;
   microsoft_peering_config :
     azurerm_express_route_circuit_peering__microsoft_peering_config

@@ -8,16 +8,16 @@ type azurerm_sql_server__timeouts
 type azurerm_sql_server
 
 val azurerm_sql_server :
-  ?connection_policy:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?connection_policy:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_sql_server__timeouts ->
-  administrator_login:string ->
-  administrator_login_password:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  version:string ->
+  administrator_login:string prop ->
+  administrator_login_password:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  version:string prop ->
   identity:azurerm_sql_server__identity list ->
   threat_detection_policy:
     azurerm_sql_server__threat_detection_policy list ->

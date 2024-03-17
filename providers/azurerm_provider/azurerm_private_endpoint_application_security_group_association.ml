@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_private_endpoint_application_security_group_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_private_endpoint_application_security_group_association__timeouts *)
 
 type azurerm_private_endpoint_application_security_group_association = {
-  application_security_group_id : string;
+  application_security_group_id : string prop;
       (** application_security_group_id *)
-  id : string option; [@option]  (** id *)
-  private_endpoint_id : string;  (** private_endpoint_id *)
+  id : string prop option; [@option]  (** id *)
+  private_endpoint_id : string prop;  (** private_endpoint_id *)
   timeouts :
     azurerm_private_endpoint_application_security_group_association__timeouts
     option;

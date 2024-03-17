@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_stream_analytics_managed_private_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_managed_private_endpoint__timeouts *)
 
 type azurerm_stream_analytics_managed_private_endpoint = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  stream_analytics_cluster_name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  stream_analytics_cluster_name : string prop;
       (** stream_analytics_cluster_name *)
-  subresource_name : string;  (** subresource_name *)
-  target_resource_id : string;  (** target_resource_id *)
+  subresource_name : string prop;  (** subresource_name *)
+  target_resource_id : string prop;  (** target_resource_id *)
   timeouts :
     azurerm_stream_analytics_managed_private_endpoint__timeouts
     option;

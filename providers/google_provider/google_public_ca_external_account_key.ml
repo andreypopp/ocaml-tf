@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type google_public_ca_external_account_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_public_ca_external_account_key__timeouts *)
 
 type google_public_ca_external_account_key = {
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]
       (** Location for the externalAccountKey. Currently only 'global' is supported. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_public_ca_external_account_key__timeouts option;
 }
 [@@deriving yojson_of]

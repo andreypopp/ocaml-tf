@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type digitalocean_container_registry = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  region : string option; [@option]  (** region *)
-  subscription_tier_slug : string;  (** subscription_tier_slug *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  region : string prop option; [@option]  (** region *)
+  subscription_tier_slug : string prop;  (** subscription_tier_slug *)
 }
 [@@deriving yojson_of]
 (** digitalocean_container_registry *)

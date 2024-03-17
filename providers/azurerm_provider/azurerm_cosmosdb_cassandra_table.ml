@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_cassandra_table__autoscale_settings = {
-  max_throughput : float option; [@option]  (** max_throughput *)
+  max_throughput : float prop option; [@option]  (** max_throughput *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_cassandra_table__autoscale_settings *)
 
 type azurerm_cosmosdb_cassandra_table__schema__cluster_key = {
-  name : string;  (** name *)
-  order_by : string;  (** order_by *)
+  name : string prop;  (** name *)
+  order_by : string prop;  (** order_by *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_cassandra_table__schema__cluster_key *)
 
 type azurerm_cosmosdb_cassandra_table__schema__column = {
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_cassandra_table__schema__column *)
 
 type azurerm_cosmosdb_cassandra_table__schema__partition_key = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_cassandra_table__schema__partition_key *)
@@ -41,22 +41,22 @@ type azurerm_cosmosdb_cassandra_table__schema = {
 (** azurerm_cosmosdb_cassandra_table__schema *)
 
 type azurerm_cosmosdb_cassandra_table__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_cassandra_table__timeouts *)
 
 type azurerm_cosmosdb_cassandra_table = {
-  analytical_storage_ttl : float option; [@option]
+  analytical_storage_ttl : float prop option; [@option]
       (** analytical_storage_ttl *)
-  cassandra_keyspace_id : string;  (** cassandra_keyspace_id *)
-  default_ttl : float option; [@option]  (** default_ttl *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  throughput : float option; [@option]  (** throughput *)
+  cassandra_keyspace_id : string prop;  (** cassandra_keyspace_id *)
+  default_ttl : float prop option; [@option]  (** default_ttl *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  throughput : float prop option; [@option]  (** throughput *)
   autoscale_settings :
     azurerm_cosmosdb_cassandra_table__autoscale_settings list;
   schema : azurerm_cosmosdb_cassandra_table__schema list;

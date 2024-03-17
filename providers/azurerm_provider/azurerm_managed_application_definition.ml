@@ -5,36 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_managed_application_definition__authorization = {
-  role_definition_id : string;  (** role_definition_id *)
-  service_principal_id : string;  (** service_principal_id *)
+  role_definition_id : string prop;  (** role_definition_id *)
+  service_principal_id : string prop;  (** service_principal_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_managed_application_definition__authorization *)
 
 type azurerm_managed_application_definition__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_managed_application_definition__timeouts *)
 
 type azurerm_managed_application_definition = {
-  create_ui_definition : string option; [@option]
+  create_ui_definition : string prop option; [@option]
       (** create_ui_definition *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  lock_level : string;  (** lock_level *)
-  main_template : string option; [@option]  (** main_template *)
-  name : string;  (** name *)
-  package_enabled : bool option; [@option]  (** package_enabled *)
-  package_file_uri : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  lock_level : string prop;  (** lock_level *)
+  main_template : string prop option; [@option]  (** main_template *)
+  name : string prop;  (** name *)
+  package_enabled : bool prop option; [@option]
+      (** package_enabled *)
+  package_file_uri : string prop option; [@option]
       (** package_file_uri *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   authorization :
     azurerm_managed_application_definition__authorization list;
   timeouts : azurerm_managed_application_definition__timeouts option;

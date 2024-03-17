@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_endpoint__timeouts *)
 
 type azurerm_cdn_frontdoor_endpoint = {
-  cdn_frontdoor_profile_id : string;  (** cdn_frontdoor_profile_id *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  cdn_frontdoor_profile_id : string prop;
+      (** cdn_frontdoor_profile_id *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_cdn_frontdoor_endpoint__timeouts option;
 }
 [@@deriving yojson_of]

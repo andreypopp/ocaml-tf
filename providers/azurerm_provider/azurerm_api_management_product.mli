@@ -6,17 +6,17 @@ type azurerm_api_management_product__timeouts
 type azurerm_api_management_product
 
 val azurerm_api_management_product :
-  ?approval_required:bool ->
-  ?description:string ->
-  ?id:string ->
-  ?subscription_required:bool ->
-  ?subscriptions_limit:float ->
-  ?terms:string ->
+  ?approval_required:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?subscription_required:bool prop ->
+  ?subscriptions_limit:float prop ->
+  ?terms:string prop ->
   ?timeouts:azurerm_api_management_product__timeouts ->
-  api_management_name:string ->
-  display_name:string ->
-  product_id:string ->
-  published:bool ->
-  resource_group_name:string ->
+  api_management_name:string prop ->
+  display_name:string prop ->
+  product_id:string prop ->
+  published:bool prop ->
+  resource_group_name:string prop ->
   string ->
   unit

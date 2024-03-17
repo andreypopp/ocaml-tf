@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_inspector2_member_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_inspector2_member_association__timeouts *)
 
 type aws_inspector2_member_association = {
-  account_id : string;  (** account_id *)
-  id : string option; [@option]  (** id *)
+  account_id : string prop;  (** account_id *)
+  id : string prop option; [@option]  (** id *)
   timeouts : aws_inspector2_member_association__timeouts option;
 }
 [@@deriving yojson_of]

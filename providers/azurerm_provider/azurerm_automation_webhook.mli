@@ -6,16 +6,16 @@ type azurerm_automation_webhook__timeouts
 type azurerm_automation_webhook
 
 val azurerm_automation_webhook :
-  ?enabled:bool ->
-  ?id:string ->
-  ?parameters:(string * string) list ->
-  ?run_on_worker_group:string ->
-  ?uri:string ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?run_on_worker_group:string prop ->
+  ?uri:string prop ->
   ?timeouts:azurerm_automation_webhook__timeouts ->
-  automation_account_name:string ->
-  expiry_time:string ->
-  name:string ->
-  resource_group_name:string ->
-  runbook_name:string ->
+  automation_account_name:string prop ->
+  expiry_time:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  runbook_name:string prop ->
   string ->
   unit

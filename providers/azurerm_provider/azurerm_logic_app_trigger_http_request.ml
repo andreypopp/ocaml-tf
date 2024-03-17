@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_logic_app_trigger_http_request__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_trigger_http_request__timeouts *)
 
 type azurerm_logic_app_trigger_http_request = {
-  id : string option; [@option]  (** id *)
-  logic_app_id : string;  (** logic_app_id *)
-  method_ : string option; [@option] [@key "method"]  (** method *)
-  name : string;  (** name *)
-  relative_path : string option; [@option]  (** relative_path *)
-  schema : string;  (** schema *)
+  id : string prop option; [@option]  (** id *)
+  logic_app_id : string prop;  (** logic_app_id *)
+  method_ : string prop option; [@option] [@key "method"]
+      (** method *)
+  name : string prop;  (** name *)
+  relative_path : string prop option; [@option]  (** relative_path *)
+  schema : string prop;  (** schema *)
   timeouts : azurerm_logic_app_trigger_http_request__timeouts option;
 }
 [@@deriving yojson_of]

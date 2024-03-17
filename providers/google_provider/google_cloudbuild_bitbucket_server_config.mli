@@ -8,16 +8,16 @@ type google_cloudbuild_bitbucket_server_config__timeouts
 type google_cloudbuild_bitbucket_server_config
 
 val google_cloudbuild_bitbucket_server_config :
-  ?id:string ->
-  ?peered_network:string ->
-  ?project:string ->
-  ?ssl_ca:string ->
+  ?id:string prop ->
+  ?peered_network:string prop ->
+  ?project:string prop ->
+  ?ssl_ca:string prop ->
   ?timeouts:google_cloudbuild_bitbucket_server_config__timeouts ->
-  api_key:string ->
-  config_id:string ->
-  host_uri:string ->
-  location:string ->
-  username:string ->
+  api_key:string prop ->
+  config_id:string prop ->
+  host_uri:string prop ->
+  location:string prop ->
+  username:string prop ->
   connected_repositories:
     google_cloudbuild_bitbucket_server_config__connected_repositories
     list ->

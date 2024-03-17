@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_arc_machine_extension__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_arc_machine_extension__timeouts *)
 
 type azurerm_arc_machine_extension = {
-  arc_machine_id : string;  (** arc_machine_id *)
-  automatic_upgrade_enabled : bool option; [@option]
+  arc_machine_id : string prop;  (** arc_machine_id *)
+  automatic_upgrade_enabled : bool prop option; [@option]
       (** automatic_upgrade_enabled *)
-  force_update_tag : string option; [@option]
+  force_update_tag : string prop option; [@option]
       (** force_update_tag *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  protected_settings : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  protected_settings : string prop option; [@option]
       (** protected_settings *)
-  publisher : string;  (** publisher *)
-  settings : string option; [@option]  (** settings *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  type_ : string; [@key "type"]  (** type *)
-  type_handler_version : string option; [@option]
+  publisher : string prop;  (** publisher *)
+  settings : string prop option; [@option]  (** settings *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  type_ : string prop; [@key "type"]  (** type *)
+  type_handler_version : string prop option; [@option]
       (** type_handler_version *)
   timeouts : azurerm_arc_machine_extension__timeouts option;
 }

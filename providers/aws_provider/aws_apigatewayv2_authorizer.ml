@@ -5,28 +5,29 @@
 open! Tf.Prelude
 
 type aws_apigatewayv2_authorizer__jwt_configuration = {
-  audience : string list option; [@option]  (** audience *)
-  issuer : string option; [@option]  (** issuer *)
+  audience : string prop list option; [@option]  (** audience *)
+  issuer : string prop option; [@option]  (** issuer *)
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_authorizer__jwt_configuration *)
 
 type aws_apigatewayv2_authorizer = {
-  api_id : string;  (** api_id *)
-  authorizer_credentials_arn : string option; [@option]
+  api_id : string prop;  (** api_id *)
+  authorizer_credentials_arn : string prop option; [@option]
       (** authorizer_credentials_arn *)
-  authorizer_payload_format_version : string option; [@option]
+  authorizer_payload_format_version : string prop option; [@option]
       (** authorizer_payload_format_version *)
-  authorizer_result_ttl_in_seconds : float option; [@option]
+  authorizer_result_ttl_in_seconds : float prop option; [@option]
       (** authorizer_result_ttl_in_seconds *)
-  authorizer_type : string;  (** authorizer_type *)
-  authorizer_uri : string option; [@option]  (** authorizer_uri *)
-  enable_simple_responses : bool option; [@option]
+  authorizer_type : string prop;  (** authorizer_type *)
+  authorizer_uri : string prop option; [@option]
+      (** authorizer_uri *)
+  enable_simple_responses : bool prop option; [@option]
       (** enable_simple_responses *)
-  id : string option; [@option]  (** id *)
-  identity_sources : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  identity_sources : string prop list option; [@option]
       (** identity_sources *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   jwt_configuration :
     aws_apigatewayv2_authorizer__jwt_configuration list;
 }

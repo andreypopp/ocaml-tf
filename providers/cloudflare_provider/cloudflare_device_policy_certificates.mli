@@ -5,4 +5,8 @@ open! Tf.Prelude
 type cloudflare_device_policy_certificates
 
 val cloudflare_device_policy_certificates :
-  ?id:string -> enabled:bool -> zone_id:string -> string -> unit
+  ?id:string prop ->
+  enabled:bool prop ->
+  zone_id:string prop ->
+  string ->
+  unit

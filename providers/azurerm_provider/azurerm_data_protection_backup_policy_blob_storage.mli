@@ -6,11 +6,11 @@ type azurerm_data_protection_backup_policy_blob_storage__timeouts
 type azurerm_data_protection_backup_policy_blob_storage
 
 val azurerm_data_protection_backup_policy_blob_storage :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_data_protection_backup_policy_blob_storage__timeouts ->
-  name:string ->
-  retention_duration:string ->
-  vault_id:string ->
+  name:string prop ->
+  retention_duration:string prop ->
+  vault_id:string prop ->
   string ->
   unit

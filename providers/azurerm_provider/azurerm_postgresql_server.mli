@@ -8,27 +8,27 @@ type azurerm_postgresql_server__timeouts
 type azurerm_postgresql_server
 
 val azurerm_postgresql_server :
-  ?administrator_login:string ->
-  ?administrator_login_password:string ->
-  ?auto_grow_enabled:bool ->
-  ?backup_retention_days:float ->
-  ?create_mode:string ->
-  ?creation_source_server_id:string ->
-  ?geo_redundant_backup_enabled:bool ->
-  ?id:string ->
-  ?infrastructure_encryption_enabled:bool ->
-  ?public_network_access_enabled:bool ->
-  ?restore_point_in_time:string ->
-  ?ssl_minimal_tls_version_enforced:string ->
-  ?storage_mb:float ->
-  ?tags:(string * string) list ->
+  ?administrator_login:string prop ->
+  ?administrator_login_password:string prop ->
+  ?auto_grow_enabled:bool prop ->
+  ?backup_retention_days:float prop ->
+  ?create_mode:string prop ->
+  ?creation_source_server_id:string prop ->
+  ?geo_redundant_backup_enabled:bool prop ->
+  ?id:string prop ->
+  ?infrastructure_encryption_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?restore_point_in_time:string prop ->
+  ?ssl_minimal_tls_version_enforced:string prop ->
+  ?storage_mb:float prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_postgresql_server__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
-  ssl_enforcement_enabled:bool ->
-  version:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  ssl_enforcement_enabled:bool prop ->
+  version:string prop ->
   identity:azurerm_postgresql_server__identity list ->
   threat_detection_policy:
     azurerm_postgresql_server__threat_detection_policy list ->

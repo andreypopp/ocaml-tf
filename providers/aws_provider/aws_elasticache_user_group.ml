@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_elasticache_user_group = {
-  engine : string;  (** engine *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  engine : string prop;  (** engine *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user_group_id : string;  (** user_group_id *)
-  user_ids : string list option; [@option]  (** user_ids *)
+  user_group_id : string prop;  (** user_group_id *)
+  user_ids : string prop list option; [@option]  (** user_ids *)
 }
 [@@deriving yojson_of]
 (** aws_elasticache_user_group *)

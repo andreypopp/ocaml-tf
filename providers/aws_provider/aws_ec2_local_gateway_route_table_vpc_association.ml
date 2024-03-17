@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_ec2_local_gateway_route_table_vpc_association = {
-  id : string option; [@option]  (** id *)
-  local_gateway_route_table_id : string;
+  id : string prop option; [@option]  (** id *)
+  local_gateway_route_table_id : string prop;
       (** local_gateway_route_table_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_id : string;  (** vpc_id *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_local_gateway_route_table_vpc_association *)

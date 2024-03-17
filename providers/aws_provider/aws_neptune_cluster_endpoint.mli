@@ -5,13 +5,13 @@ open! Tf.Prelude
 type aws_neptune_cluster_endpoint
 
 val aws_neptune_cluster_endpoint :
-  ?excluded_members:string list ->
-  ?id:string ->
-  ?static_members:string list ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  cluster_endpoint_identifier:string ->
-  cluster_identifier:string ->
-  endpoint_type:string ->
+  ?excluded_members:string prop list ->
+  ?id:string prop ->
+  ?static_members:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  cluster_endpoint_identifier:string prop ->
+  cluster_identifier:string prop ->
+  endpoint_type:string prop ->
   string ->
   unit

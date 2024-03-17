@@ -6,12 +6,12 @@ type google_data_catalog_entry_group__timeouts
 type google_data_catalog_entry_group
 
 val google_data_catalog_entry_group :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_data_catalog_entry_group__timeouts ->
-  entry_group_id:string ->
+  entry_group_id:string prop ->
   string ->
   unit

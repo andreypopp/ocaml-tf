@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_iam_workforce_pool_provider__oidc__client_secret__value = {
-  plain_text : string;
+  plain_text : string prop;
       (** The plain text of the client secret value. *)
-  thumbprint : string;
+  thumbprint : string prop;
       (** A thumbprint to represent the current client secret value. *)
 }
 [@@deriving yojson_of]
@@ -22,14 +22,14 @@ type google_iam_workforce_pool_provider__oidc__client_secret = {
 (** The optional client secret. Required to enable Authorization Code flow for web sign-in. *)
 
 type google_iam_workforce_pool_provider__oidc__web_sso_config = {
-  additional_scopes : string list option; [@option]
+  additional_scopes : string prop list option; [@option]
       (** Additional scopes to request for in the OIDC authentication request on top of scopes requested by default. By default, the 'openid', 'profile' and 'email' scopes that are supported by the identity provider are requested.
 Each additional scope may be at most 256 characters. A maximum of 10 additional scopes may be configured. *)
-  assertion_claims_behavior : string;
+  assertion_claims_behavior : string prop;
       (** The behavior for how OIDC Claims are included in the 'assertion' object used for attribute mapping and attribute condition.
 * MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS: Merge the UserInfo Endpoint Claims with ID Token Claims, preferring UserInfo Claim Values for the same Claim Name. This option is available only for the Authorization Code Flow.
 * ONLY_ID_TOKEN_CLAIMS: Only include ID Token Claims. Possible values: [MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS, ONLY_ID_TOKEN_CLAIMS] *)
-  response_type : string;
+  response_type : string prop;
       (** The Response Type to request for in the OIDC Authorization Request for web sign-in.
 
 The 'CODE' Response Type is recommended to avoid the Implicit Flow, for security reasons.
@@ -40,11 +40,11 @@ The 'CODE' Response Type is recommended to avoid the Implicit Flow, for security
 (** Configuration for web single sign-on for the OIDC provider. Here, web sign-in refers to console sign-in and gcloud sign-in through the browser. *)
 
 type google_iam_workforce_pool_provider__oidc = {
-  client_id : string;
+  client_id : string prop;
       (** The client ID. Must match the audience claim of the JWT issued by the identity provider. *)
-  issuer_uri : string;
+  issuer_uri : string prop;
       (** The OIDC issuer URI. Must be a valid URI using the 'https' scheme. *)
-  jwks_json : string option; [@option]
+  jwks_json : string prop option; [@option]
       (** OIDC JWKs in JSON String format. For details on definition of a
 JWK, see https:tools.ietf.org/html/rfc7517. If not set, then we
 use the 'jwks_uri' from the discovery document fetched from the
@@ -77,7 +77,7 @@ the following fields:
 (** Represents an OpenId Connect 1.0 identity provider. *)
 
 type google_iam_workforce_pool_provider__saml = {
-  idp_metadata_xml : string;
+  idp_metadata_xml : string prop;
       (** SAML Identity provider configuration metadata xml doc.
 The xml document should comply with [SAML 2.0 specification](https://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf).
 The max size of the acceptable xml document will be bounded to 128k characters.
@@ -98,15 +98,15 @@ no non-expired signing keys present in the existing metadata. *)
 (** Represents a SAML identity provider. *)
 
 type google_iam_workforce_pool_provider__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_iam_workforce_pool_provider__timeouts *)
 
 type google_iam_workforce_pool_provider = {
-  attribute_condition : string option; [@option]
+  attribute_condition : string prop option; [@option]
       (** A [Common Expression Language](https://opensource.google/projects/cel) expression, in
 plain text, to restrict what otherwise valid authentication credentials issued by the
 provider should not be accepted.
@@ -126,7 +126,7 @@ The following example shows how to only allow credentials with a mapped 'google.
 '''
 'admins' in google.groups
 ''' *)
-  attribute_mapping : (string * string) list option; [@option]
+  attribute_mapping : (string * string prop) list option; [@option]
       (** Maps attributes from the authentication credentials issued by an external identity provider
 to Google Cloud attributes, such as 'subject' and 'segment'.
 
@@ -178,20 +178,20 @@ on a Google token:
 
 An object containing a list of 'key: value' pairs.
 Example: '{ name: wrench, mass: 1.3kg, count: 3 }'. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A user-specified description of the provider. Cannot exceed 256 characters. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** Whether the provider is disabled. You cannot use a disabled provider to exchange tokens.
 However, existing tokens still grant access. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** A user-specified display name for the provider. Cannot exceed 32 characters. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location for the resource. *)
-  provider_id : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location for the resource. *)
+  provider_id : string prop;
       (** The ID for the provider, which becomes the final component of the resource name.
 This value must be 4-32 characters, and may contain the characters [a-z0-9-].
 The prefix 'gcp-' is reserved for use by Google, and may not be specified. *)
-  workforce_pool_id : string;
+  workforce_pool_id : string prop;
       (** The ID to use for the pool, which becomes the final component of the resource name.
 The IDs must be a globally unique string of 6 to 63 lowercase letters, digits, or hyphens.
 It must start with a letter, and cannot have a trailing hyphen.

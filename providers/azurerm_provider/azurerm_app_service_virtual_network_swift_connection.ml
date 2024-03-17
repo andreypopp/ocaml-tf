@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_app_service_virtual_network_swift_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_service_virtual_network_swift_connection__timeouts *)
 
 type azurerm_app_service_virtual_network_swift_connection = {
-  app_service_id : string;  (** app_service_id *)
-  id : string option; [@option]  (** id *)
-  subnet_id : string;  (** subnet_id *)
+  app_service_id : string prop;  (** app_service_id *)
+  id : string prop option; [@option]  (** id *)
+  subnet_id : string prop;  (** subnet_id *)
   timeouts :
     azurerm_app_service_virtual_network_swift_connection__timeouts
     option;

@@ -5,13 +5,14 @@
 open! Tf.Prelude
 
 type aws_opensearch_outbound_connection__connection_properties__cross_cluster_search = {
-  skip_unavailable : string option; [@option]  (** skip_unavailable *)
+  skip_unavailable : string prop option; [@option]
+      (** skip_unavailable *)
 }
 [@@deriving yojson_of]
 (** aws_opensearch_outbound_connection__connection_properties__cross_cluster_search *)
 
 type aws_opensearch_outbound_connection__connection_properties = {
-  endpoint : string;  (** endpoint *)
+  endpoint : string prop;  (** endpoint *)
   cross_cluster_search :
     aws_opensearch_outbound_connection__connection_properties__cross_cluster_search
     list;
@@ -20,34 +21,35 @@ type aws_opensearch_outbound_connection__connection_properties = {
 (** aws_opensearch_outbound_connection__connection_properties *)
 
 type aws_opensearch_outbound_connection__local_domain_info = {
-  domain_name : string;  (** domain_name *)
-  owner_id : string;  (** owner_id *)
-  region : string;  (** region *)
+  domain_name : string prop;  (** domain_name *)
+  owner_id : string prop;  (** owner_id *)
+  region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
 (** aws_opensearch_outbound_connection__local_domain_info *)
 
 type aws_opensearch_outbound_connection__remote_domain_info = {
-  domain_name : string;  (** domain_name *)
-  owner_id : string;  (** owner_id *)
-  region : string;  (** region *)
+  domain_name : string prop;  (** domain_name *)
+  owner_id : string prop;  (** owner_id *)
+  region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
 (** aws_opensearch_outbound_connection__remote_domain_info *)
 
 type aws_opensearch_outbound_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_opensearch_outbound_connection__timeouts *)
 
 type aws_opensearch_outbound_connection = {
-  accept_connection : bool option; [@option]
+  accept_connection : bool prop option; [@option]
       (** accept_connection *)
-  connection_alias : string;  (** connection_alias *)
-  connection_mode : string option; [@option]  (** connection_mode *)
-  id : string option; [@option]  (** id *)
+  connection_alias : string prop;  (** connection_alias *)
+  connection_mode : string prop option; [@option]
+      (** connection_mode *)
+  id : string prop option; [@option]  (** id *)
   connection_properties :
     aws_opensearch_outbound_connection__connection_properties list;
   local_domain_info :

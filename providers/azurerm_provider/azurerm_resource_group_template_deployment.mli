@@ -6,15 +6,15 @@ type azurerm_resource_group_template_deployment__timeouts
 type azurerm_resource_group_template_deployment
 
 val azurerm_resource_group_template_deployment :
-  ?debug_level:string ->
-  ?id:string ->
-  ?parameters_content:string ->
-  ?tags:(string * string) list ->
-  ?template_content:string ->
-  ?template_spec_version_id:string ->
+  ?debug_level:string prop ->
+  ?id:string prop ->
+  ?parameters_content:string prop ->
+  ?tags:(string * string prop) list ->
+  ?template_content:string prop ->
+  ?template_spec_version_id:string prop ->
   ?timeouts:azurerm_resource_group_template_deployment__timeouts ->
-  deployment_mode:string ->
-  name:string ->
-  resource_group_name:string ->
+  deployment_mode:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

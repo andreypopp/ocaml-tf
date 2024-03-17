@@ -6,17 +6,17 @@ type azurerm_api_management_gateway_host_name_configuration__timeouts
 type azurerm_api_management_gateway_host_name_configuration
 
 val azurerm_api_management_gateway_host_name_configuration :
-  ?http2_enabled:bool ->
-  ?id:string ->
-  ?request_client_certificate_enabled:bool ->
-  ?tls10_enabled:bool ->
-  ?tls11_enabled:bool ->
+  ?http2_enabled:bool prop ->
+  ?id:string prop ->
+  ?request_client_certificate_enabled:bool prop ->
+  ?tls10_enabled:bool prop ->
+  ?tls11_enabled:bool prop ->
   ?timeouts:
     azurerm_api_management_gateway_host_name_configuration__timeouts ->
-  api_management_id:string ->
-  certificate_id:string ->
-  gateway_name:string ->
-  host_name:string ->
-  name:string ->
+  api_management_id:string prop ->
+  certificate_id:string prop ->
+  gateway_name:string prop ->
+  host_name:string prop ->
+  name:string prop ->
   string ->
   unit

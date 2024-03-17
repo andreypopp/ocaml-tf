@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type hcloud_primary_ip = {
-  assignee_id : float option; [@option]  (** assignee_id *)
-  assignee_type : string;  (** assignee_type *)
-  auto_delete : bool;  (** auto_delete *)
-  datacenter : string option; [@option]  (** datacenter *)
-  delete_protection : bool option; [@option]
+  assignee_id : float prop option; [@option]  (** assignee_id *)
+  assignee_type : string prop;  (** assignee_type *)
+  auto_delete : bool prop;  (** auto_delete *)
+  datacenter : string prop option; [@option]  (** datacenter *)
+  delete_protection : bool prop option; [@option]
       (** delete_protection *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  name : string option; [@option]  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  name : string prop option; [@option]  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** hcloud_primary_ip *)

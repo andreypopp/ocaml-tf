@@ -29,17 +29,17 @@ type aws_batch_job_definition__timeout
 type aws_batch_job_definition
 
 val aws_batch_job_definition :
-  ?container_properties:string ->
-  ?id:string ->
-  ?node_properties:string ->
-  ?parameters:(string * string) list ->
-  ?platform_capabilities:string list ->
-  ?propagate_tags:bool ->
-  ?scheduling_priority:float ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
-  type_:string ->
+  ?container_properties:string prop ->
+  ?id:string prop ->
+  ?node_properties:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?platform_capabilities:string prop list ->
+  ?propagate_tags:bool prop ->
+  ?scheduling_priority:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  type_:string prop ->
   eks_properties:aws_batch_job_definition__eks_properties list ->
   retry_strategy:aws_batch_job_definition__retry_strategy list ->
   timeout:aws_batch_job_definition__timeout list ->

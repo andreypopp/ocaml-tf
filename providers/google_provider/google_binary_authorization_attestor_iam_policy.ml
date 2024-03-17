@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_binary_authorization_attestor_iam_policy = {
-  attestor : string;  (** attestor *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  attestor : string prop;  (** attestor *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_binary_authorization_attestor_iam_policy *)

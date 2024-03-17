@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_alert_rule_ms_security_incident__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_alert_rule_ms_security_incident__timeouts *)
 
 type azurerm_sentinel_alert_rule_ms_security_incident = {
-  alert_rule_template_guid : string option; [@option]
+  alert_rule_template_guid : string prop option; [@option]
       (** alert_rule_template_guid *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  display_name_exclude_filter : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  display_name_exclude_filter : string prop list option; [@option]
       (** display_name_exclude_filter *)
-  display_name_filter : string list option; [@option]
+  display_name_filter : string prop list option; [@option]
       (** display_name_filter *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  log_analytics_workspace_id : string;
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  name : string;  (** name *)
-  product_filter : string;  (** product_filter *)
-  severity_filter : string list;  (** severity_filter *)
+  name : string prop;  (** name *)
+  product_filter : string prop;  (** product_filter *)
+  severity_filter : string prop list;  (** severity_filter *)
   timeouts :
     azurerm_sentinel_alert_rule_ms_security_incident__timeouts option;
 }

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_api_gateway_resource = {
-  id : string option; [@option]  (** id *)
-  parent_id : string;  (** parent_id *)
-  path_part : string;  (** path_part *)
-  rest_api_id : string;  (** rest_api_id *)
+  id : string prop option; [@option]  (** id *)
+  parent_id : string prop;  (** parent_id *)
+  path_part : string prop;  (** path_part *)
+  rest_api_id : string prop;  (** rest_api_id *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_resource *)

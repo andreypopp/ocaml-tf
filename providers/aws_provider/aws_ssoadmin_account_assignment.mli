@@ -6,13 +6,13 @@ type aws_ssoadmin_account_assignment__timeouts
 type aws_ssoadmin_account_assignment
 
 val aws_ssoadmin_account_assignment :
-  ?id:string ->
-  ?target_type:string ->
+  ?id:string prop ->
+  ?target_type:string prop ->
   ?timeouts:aws_ssoadmin_account_assignment__timeouts ->
-  instance_arn:string ->
-  permission_set_arn:string ->
-  principal_id:string ->
-  principal_type:string ->
-  target_id:string ->
+  instance_arn:string prop ->
+  permission_set_arn:string prop ->
+  principal_id:string prop ->
+  principal_type:string prop ->
+  target_id:string prop ->
   string ->
   unit

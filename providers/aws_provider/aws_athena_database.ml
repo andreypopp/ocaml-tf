@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type aws_athena_database__acl_configuration = {
-  s3_acl_option : string;  (** s3_acl_option *)
+  s3_acl_option : string prop;  (** s3_acl_option *)
 }
 [@@deriving yojson_of]
 (** aws_athena_database__acl_configuration *)
 
 type aws_athena_database__encryption_configuration = {
-  encryption_option : string;  (** encryption_option *)
-  kms_key : string option; [@option]  (** kms_key *)
+  encryption_option : string prop;  (** encryption_option *)
+  kms_key : string prop option; [@option]  (** kms_key *)
 }
 [@@deriving yojson_of]
 (** aws_athena_database__encryption_configuration *)
 
 type aws_athena_database = {
-  bucket : string option; [@option]  (** bucket *)
-  comment : string option; [@option]  (** comment *)
-  expected_bucket_owner : string option; [@option]
+  bucket : string prop option; [@option]  (** bucket *)
+  comment : string prop option; [@option]  (** comment *)
+  expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  properties : (string * string) list option; [@option]
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  properties : (string * string prop) list option; [@option]
       (** properties *)
   acl_configuration : aws_athena_database__acl_configuration list;
   encryption_configuration :

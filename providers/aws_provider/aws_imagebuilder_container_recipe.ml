@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_imagebuilder_container_recipe__component__parameter = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_container_recipe__component__parameter *)
 
 type aws_imagebuilder_container_recipe__component = {
-  component_arn : string;  (** component_arn *)
+  component_arn : string prop;  (** component_arn *)
   parameter :
     aws_imagebuilder_container_recipe__component__parameter list;
 }
@@ -20,23 +20,23 @@ type aws_imagebuilder_container_recipe__component = {
 (** aws_imagebuilder_container_recipe__component *)
 
 type aws_imagebuilder_container_recipe__instance_configuration__block_device_mapping__ebs = {
-  delete_on_termination : string option; [@option]
+  delete_on_termination : string prop option; [@option]
       (** delete_on_termination *)
-  encrypted : string option; [@option]  (** encrypted *)
-  iops : float option; [@option]  (** iops *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  snapshot_id : string option; [@option]  (** snapshot_id *)
-  throughput : float option; [@option]  (** throughput *)
-  volume_size : float option; [@option]  (** volume_size *)
-  volume_type : string option; [@option]  (** volume_type *)
+  encrypted : string prop option; [@option]  (** encrypted *)
+  iops : float prop option; [@option]  (** iops *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  snapshot_id : string prop option; [@option]  (** snapshot_id *)
+  throughput : float prop option; [@option]  (** throughput *)
+  volume_size : float prop option; [@option]  (** volume_size *)
+  volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_container_recipe__instance_configuration__block_device_mapping__ebs *)
 
 type aws_imagebuilder_container_recipe__instance_configuration__block_device_mapping = {
-  device_name : string option; [@option]  (** device_name *)
-  no_device : bool option; [@option]  (** no_device *)
-  virtual_name : string option; [@option]  (** virtual_name *)
+  device_name : string prop option; [@option]  (** device_name *)
+  no_device : bool prop option; [@option]  (** no_device *)
+  virtual_name : string prop option; [@option]  (** virtual_name *)
   ebs :
     aws_imagebuilder_container_recipe__instance_configuration__block_device_mapping__ebs
     list;
@@ -45,7 +45,7 @@ type aws_imagebuilder_container_recipe__instance_configuration__block_device_map
 (** aws_imagebuilder_container_recipe__instance_configuration__block_device_mapping *)
 
 type aws_imagebuilder_container_recipe__instance_configuration = {
-  image : string option; [@option]  (** image *)
+  image : string prop option; [@option]  (** image *)
   block_device_mapping :
     aws_imagebuilder_container_recipe__instance_configuration__block_device_mapping
     list;
@@ -54,30 +54,30 @@ type aws_imagebuilder_container_recipe__instance_configuration = {
 (** aws_imagebuilder_container_recipe__instance_configuration *)
 
 type aws_imagebuilder_container_recipe__target_repository = {
-  repository_name : string;  (** repository_name *)
-  service : string;  (** service *)
+  repository_name : string prop;  (** repository_name *)
+  service : string prop;  (** service *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_container_recipe__target_repository *)
 
 type aws_imagebuilder_container_recipe = {
-  container_type : string;  (** container_type *)
-  description : string option; [@option]  (** description *)
-  dockerfile_template_data : string option; [@option]
+  container_type : string prop;  (** container_type *)
+  description : string prop option; [@option]  (** description *)
+  dockerfile_template_data : string prop option; [@option]
       (** dockerfile_template_data *)
-  dockerfile_template_uri : string option; [@option]
+  dockerfile_template_uri : string prop option; [@option]
       (** dockerfile_template_uri *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  name : string;  (** name *)
-  parent_image : string;  (** parent_image *)
-  platform_override : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  name : string prop;  (** name *)
+  parent_image : string prop;  (** parent_image *)
+  platform_override : string prop option; [@option]
       (** platform_override *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  version : string;  (** version *)
-  working_directory : string option; [@option]
+  version : string prop;  (** version *)
+  working_directory : string prop option; [@option]
       (** working_directory *)
   component : aws_imagebuilder_container_recipe__component list;
   instance_configuration :

@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type google_identity_platform_tenant_inbound_saml_config__idp_config__idp_certificates = {
-  x509_certificate : string option; [@option]
+  x509_certificate : string prop option; [@option]
       (** The x509 certificate *)
 }
 [@@deriving yojson_of]
 (** The IDP's certificate data to verify the signature in the SAMLResponse issued by the IDP. *)
 
 type google_identity_platform_tenant_inbound_saml_config__idp_config = {
-  idp_entity_id : string;
+  idp_entity_id : string prop;
       (** Unique identifier for all SAML entities *)
-  sign_request : bool option; [@option]
+  sign_request : bool prop option; [@option]
       (** Indicates if outbounding SAMLRequest should be signed. *)
-  sso_url : string;  (** URL to send Authentication request to. *)
+  sso_url : string prop;
+      (** URL to send Authentication request to. *)
   idp_certificates :
     google_identity_platform_tenant_inbound_saml_config__idp_config__idp_certificates
     list;
@@ -25,18 +26,18 @@ type google_identity_platform_tenant_inbound_saml_config__idp_config = {
 (** SAML IdP configuration when the project acts as the relying party *)
 
 type google_identity_platform_tenant_inbound_saml_config__sp_config__sp_certificates = {
-  x509_certificate : string;  (** x509_certificate *)
+  x509_certificate : string prop;  (** x509_certificate *)
 }
 [@@deriving yojson_of]
 
 type google_identity_platform_tenant_inbound_saml_config__sp_config = {
-  callback_uri : string;
+  callback_uri : string prop;
       (** Callback URI where responses from IDP are handled. Must start with 'https://'. *)
   sp_certificates :
     google_identity_platform_tenant_inbound_saml_config__sp_config__sp_certificates
     list;
       (** The IDP's certificate data to verify the signature in the SAMLResponse issued by the IDP. *)
-  sp_entity_id : string;
+  sp_entity_id : string prop;
       (** Unique identifier for all SAML entities. *)
 }
 [@@deriving yojson_of]
@@ -44,24 +45,24 @@ type google_identity_platform_tenant_inbound_saml_config__sp_config = {
 and accept an authentication assertion issued by a SAML identity provider. *)
 
 type google_identity_platform_tenant_inbound_saml_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_identity_platform_tenant_inbound_saml_config__timeouts *)
 
 type google_identity_platform_tenant_inbound_saml_config = {
-  display_name : string;  (** Human friendly display name. *)
-  enabled : bool option; [@option]
+  display_name : string prop;  (** Human friendly display name. *)
+  enabled : bool prop option; [@option]
       (** If this config allows users to sign in with the provider. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The name of the InboundSamlConfig resource. Must start with 'saml.' and can only have alphanumeric characters,
 hyphens, underscores or periods. The part after 'saml.' must also start with a lowercase letter, end with an
 alphanumeric character, and have at least 2 characters. *)
-  project : string option; [@option]  (** project *)
-  tenant : string;
+  project : string prop option; [@option]  (** project *)
+  tenant : string prop;
       (** The name of the tenant where this inbound SAML config resource exists *)
   idp_config :
     google_identity_platform_tenant_inbound_saml_config__idp_config

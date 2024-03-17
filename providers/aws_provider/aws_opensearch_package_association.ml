@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_opensearch_package_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_opensearch_package_association__timeouts *)
 
 type aws_opensearch_package_association = {
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  package_id : string;  (** package_id *)
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  package_id : string prop;  (** package_id *)
   timeouts : aws_opensearch_package_association__timeouts option;
 }
 [@@deriving yojson_of]

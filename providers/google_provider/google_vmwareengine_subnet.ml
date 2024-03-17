@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type google_vmwareengine_subnet__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_vmwareengine_subnet__timeouts *)
 
 type google_vmwareengine_subnet__dhcp_address_ranges = {
-  first_address : string;  (** first_address *)
-  last_address : string;  (** last_address *)
+  first_address : string prop;  (** first_address *)
+  last_address : string prop;  (** last_address *)
 }
 [@@deriving yojson_of]
 
 type google_vmwareengine_subnet = {
-  id : string option; [@option]  (** id *)
-  ip_cidr_range : string;
+  id : string prop option; [@option]  (** id *)
+  ip_cidr_range : string prop;
       (** The IP address range of the subnet in CIDR format. *)
-  name : string;
+  name : string prop;
       (** The ID of the subnet. For userDefined subnets, this name should be in the format of service-n,
 where n ranges from 1 to 5. *)
-  parent : string;
+  parent : string prop;
       (** The resource name of the private cloud to create a new subnet in.
 Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
 For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)

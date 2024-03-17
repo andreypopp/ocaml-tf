@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_disk_pool_iscsi_target_lun__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_disk_pool_iscsi_target_lun__timeouts *)
 
 type azurerm_disk_pool_iscsi_target_lun = {
-  disk_pool_managed_disk_attachment_id : string;
+  disk_pool_managed_disk_attachment_id : string prop;
       (** disk_pool_managed_disk_attachment_id *)
-  id : string option; [@option]  (** id *)
-  iscsi_target_id : string;  (** iscsi_target_id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  iscsi_target_id : string prop;  (** iscsi_target_id *)
+  name : string prop;  (** name *)
   timeouts : azurerm_disk_pool_iscsi_target_lun__timeouts option;
 }
 [@@deriving yojson_of]

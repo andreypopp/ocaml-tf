@@ -59,13 +59,13 @@ type aws_quicksight_data_source__vpc_connection_properties
 type aws_quicksight_data_source
 
 val aws_quicksight_data_source :
-    ?aws_account_id:string ->
-    ?id:string ->
-    ?tags:(string * string) list ->
-    ?tags_all:(string * string) list ->
-    data_source_id:string ->
-    name:string ->
-    type_:string ->
+    ?aws_account_id:string prop ->
+    ?id:string prop ->
+    ?tags:(string * string prop) list ->
+    ?tags_all:(string * string prop) list ->
+    data_source_id:string prop ->
+    name:string prop ->
+    type_:string prop ->
     credentials:aws_quicksight_data_source__credentials list ->
     parameters:aws_quicksight_data_source__parameters list ->
     permission:aws_quicksight_data_source__permission list ->

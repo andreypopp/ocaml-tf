@@ -8,17 +8,17 @@ type aws_networkmanager_device__timeouts
 type aws_networkmanager_device
 
 val aws_networkmanager_device :
-  ?description:string ->
-  ?id:string ->
-  ?model:string ->
-  ?serial_number:string ->
-  ?site_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?type_:string ->
-  ?vendor:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?model:string prop ->
+  ?serial_number:string prop ->
+  ?site_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  ?vendor:string prop ->
   ?timeouts:aws_networkmanager_device__timeouts ->
-  global_network_id:string ->
+  global_network_id:string prop ->
   aws_location:aws_networkmanager_device__aws_location list ->
   location:aws_networkmanager_device__location list ->
   string ->

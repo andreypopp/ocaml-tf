@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_lambda_layer_version_permission = {
-  action : string;  (** action *)
-  id : string option; [@option]  (** id *)
-  layer_name : string;  (** layer_name *)
-  organization_id : string option; [@option]  (** organization_id *)
-  principal : string;  (** principal *)
-  skip_destroy : bool option; [@option]  (** skip_destroy *)
-  statement_id : string;  (** statement_id *)
-  version_number : float;  (** version_number *)
+  action : string prop;  (** action *)
+  id : string prop option; [@option]  (** id *)
+  layer_name : string prop;  (** layer_name *)
+  organization_id : string prop option; [@option]
+      (** organization_id *)
+  principal : string prop;  (** principal *)
+  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  statement_id : string prop;  (** statement_id *)
+  version_number : float prop;  (** version_number *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_layer_version_permission *)

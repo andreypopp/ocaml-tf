@@ -5,38 +5,40 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_container_deployment__quota = {
-  cpu : string option; [@option]  (** cpu *)
-  memory : string option; [@option]  (** memory *)
+  cpu : string prop option; [@option]  (** cpu *)
+  memory : string prop option; [@option]  (** memory *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_container_deployment__quota *)
 
 type azurerm_spring_cloud_container_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_container_deployment__timeouts *)
 
 type azurerm_spring_cloud_container_deployment = {
-  addon_json : string option; [@option]  (** addon_json *)
-  application_performance_monitoring_ids : string list option;
+  addon_json : string prop option; [@option]  (** addon_json *)
+  application_performance_monitoring_ids : string prop list option;
       [@option]
       (** application_performance_monitoring_ids *)
-  arguments : string list option; [@option]  (** arguments *)
-  commands : string list option; [@option]  (** commands *)
-  environment_variables : (string * string) list option; [@option]
+  arguments : string prop list option; [@option]  (** arguments *)
+  commands : string prop list option; [@option]  (** commands *)
+  environment_variables : (string * string prop) list option;
+      [@option]
       (** environment_variables *)
-  id : string option; [@option]  (** id *)
-  image : string;  (** image *)
-  instance_count : float option; [@option]  (** instance_count *)
-  language_framework : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  image : string prop;  (** image *)
+  instance_count : float prop option; [@option]
+      (** instance_count *)
+  language_framework : string prop option; [@option]
       (** language_framework *)
-  name : string;  (** name *)
-  server : string;  (** server *)
-  spring_cloud_app_id : string;  (** spring_cloud_app_id *)
+  name : string prop;  (** name *)
+  server : string prop;  (** server *)
+  spring_cloud_app_id : string prop;  (** spring_cloud_app_id *)
   quota : azurerm_spring_cloud_container_deployment__quota list;
   timeouts :
     azurerm_spring_cloud_container_deployment__timeouts option;

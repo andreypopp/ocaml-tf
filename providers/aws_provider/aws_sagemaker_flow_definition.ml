@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_sagemaker_flow_definition__human_loop_activation_config__human_loop_activation_conditions_config = {
-  human_loop_activation_conditions : string;
+  human_loop_activation_conditions : string prop;
       (** human_loop_activation_conditions *)
 }
 [@@deriving yojson_of]
@@ -20,9 +20,9 @@ type aws_sagemaker_flow_definition__human_loop_activation_config = {
 (** aws_sagemaker_flow_definition__human_loop_activation_config *)
 
 type aws_sagemaker_flow_definition__human_loop_config__public_workforce_task_price__amount_in_usd = {
-  cents : float option; [@option]  (** cents *)
-  dollars : float option; [@option]  (** dollars *)
-  tenth_fractions_of_a_cent : float option; [@option]
+  cents : float prop option; [@option]  (** cents *)
+  dollars : float prop option; [@option]  (** dollars *)
+  tenth_fractions_of_a_cent : float prop option; [@option]
       (** tenth_fractions_of_a_cent *)
 }
 [@@deriving yojson_of]
@@ -37,16 +37,18 @@ type aws_sagemaker_flow_definition__human_loop_config__public_workforce_task_pri
 (** aws_sagemaker_flow_definition__human_loop_config__public_workforce_task_price *)
 
 type aws_sagemaker_flow_definition__human_loop_config = {
-  human_task_ui_arn : string;  (** human_task_ui_arn *)
-  task_availability_lifetime_in_seconds : float option; [@option]
+  human_task_ui_arn : string prop;  (** human_task_ui_arn *)
+  task_availability_lifetime_in_seconds : float prop option;
+      [@option]
       (** task_availability_lifetime_in_seconds *)
-  task_count : float;  (** task_count *)
-  task_description : string;  (** task_description *)
-  task_keywords : string list option; [@option]  (** task_keywords *)
-  task_time_limit_in_seconds : float option; [@option]
+  task_count : float prop;  (** task_count *)
+  task_description : string prop;  (** task_description *)
+  task_keywords : string prop list option; [@option]
+      (** task_keywords *)
+  task_time_limit_in_seconds : float prop option; [@option]
       (** task_time_limit_in_seconds *)
-  task_title : string;  (** task_title *)
-  workteam_arn : string;  (** workteam_arn *)
+  task_title : string prop;  (** task_title *)
+  workteam_arn : string prop;  (** workteam_arn *)
   public_workforce_task_price :
     aws_sagemaker_flow_definition__human_loop_config__public_workforce_task_price
     list;
@@ -55,25 +57,25 @@ type aws_sagemaker_flow_definition__human_loop_config = {
 (** aws_sagemaker_flow_definition__human_loop_config *)
 
 type aws_sagemaker_flow_definition__human_loop_request_source = {
-  aws_managed_human_loop_request_source : string;
+  aws_managed_human_loop_request_source : string prop;
       (** aws_managed_human_loop_request_source *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_flow_definition__human_loop_request_source *)
 
 type aws_sagemaker_flow_definition__output_config = {
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  s3_output_path : string;  (** s3_output_path *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  s3_output_path : string prop;  (** s3_output_path *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_flow_definition__output_config *)
 
 type aws_sagemaker_flow_definition = {
-  flow_definition_name : string;  (** flow_definition_name *)
-  id : string option; [@option]  (** id *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  flow_definition_name : string prop;  (** flow_definition_name *)
+  id : string prop option; [@option]  (** id *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   human_loop_activation_config :
     aws_sagemaker_flow_definition__human_loop_activation_config list;

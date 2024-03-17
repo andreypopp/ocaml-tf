@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type aws_vpc_endpoint_connection_accepter = {
-  id : string option; [@option]  (** id *)
-  vpc_endpoint_id : string;  (** vpc_endpoint_id *)
-  vpc_endpoint_service_id : string;  (** vpc_endpoint_service_id *)
+  id : string prop option; [@option]  (** id *)
+  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
+  vpc_endpoint_service_id : string prop;
+      (** vpc_endpoint_service_id *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_connection_accepter *)

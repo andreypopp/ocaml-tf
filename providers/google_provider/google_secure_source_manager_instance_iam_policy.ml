@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_secure_source_manager_instance_iam_policy = {
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
-  location : string option; [@option]  (** location *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
+  location : string prop option; [@option]  (** location *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_secure_source_manager_instance_iam_policy *)

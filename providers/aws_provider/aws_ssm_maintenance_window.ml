@@ -5,22 +5,24 @@
 open! Tf.Prelude
 
 type aws_ssm_maintenance_window = {
-  allow_unassociated_targets : bool option; [@option]
+  allow_unassociated_targets : bool prop option; [@option]
       (** allow_unassociated_targets *)
-  cutoff : float;  (** cutoff *)
-  description : string option; [@option]  (** description *)
-  duration : float;  (** duration *)
-  enabled : bool option; [@option]  (** enabled *)
-  end_date : string option; [@option]  (** end_date *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  schedule : string;  (** schedule *)
-  schedule_offset : float option; [@option]  (** schedule_offset *)
-  schedule_timezone : string option; [@option]
+  cutoff : float prop;  (** cutoff *)
+  description : string prop option; [@option]  (** description *)
+  duration : float prop;  (** duration *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  end_date : string prop option; [@option]  (** end_date *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  schedule : string prop;  (** schedule *)
+  schedule_offset : float prop option; [@option]
+      (** schedule_offset *)
+  schedule_timezone : string prop option; [@option]
       (** schedule_timezone *)
-  start_date : string option; [@option]  (** start_date *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  start_date : string prop option; [@option]  (** start_date *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_ssm_maintenance_window *)

@@ -5,46 +5,50 @@
 open! Tf.Prelude
 
 type azurerm_site_recovery_replication_recovery_plan__azure_to_azure_settings = {
-  primary_edge_zone : string option; [@option]
+  primary_edge_zone : string prop option; [@option]
       (** primary_edge_zone *)
-  primary_zone : string option; [@option]  (** primary_zone *)
-  recovery_edge_zone : string option; [@option]
+  primary_zone : string prop option; [@option]  (** primary_zone *)
+  recovery_edge_zone : string prop option; [@option]
       (** recovery_edge_zone *)
-  recovery_zone : string option; [@option]  (** recovery_zone *)
+  recovery_zone : string prop option; [@option]  (** recovery_zone *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan__azure_to_azure_settings *)
 
 type azurerm_site_recovery_replication_recovery_plan__boot_recovery_group__post_action = {
-  fabric_location : string option; [@option]  (** fabric_location *)
-  fail_over_directions : string list;  (** fail_over_directions *)
-  fail_over_types : string list;  (** fail_over_types *)
-  manual_action_instruction : string option; [@option]
+  fabric_location : string prop option; [@option]
+      (** fabric_location *)
+  fail_over_directions : string prop list;
+      (** fail_over_directions *)
+  fail_over_types : string prop list;  (** fail_over_types *)
+  manual_action_instruction : string prop option; [@option]
       (** manual_action_instruction *)
-  name : string;  (** name *)
-  runbook_id : string option; [@option]  (** runbook_id *)
-  script_path : string option; [@option]  (** script_path *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  runbook_id : string prop option; [@option]  (** runbook_id *)
+  script_path : string prop option; [@option]  (** script_path *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan__boot_recovery_group__post_action *)
 
 type azurerm_site_recovery_replication_recovery_plan__boot_recovery_group__pre_action = {
-  fabric_location : string option; [@option]  (** fabric_location *)
-  fail_over_directions : string list;  (** fail_over_directions *)
-  fail_over_types : string list;  (** fail_over_types *)
-  manual_action_instruction : string option; [@option]
+  fabric_location : string prop option; [@option]
+      (** fabric_location *)
+  fail_over_directions : string prop list;
+      (** fail_over_directions *)
+  fail_over_types : string prop list;  (** fail_over_types *)
+  manual_action_instruction : string prop option; [@option]
       (** manual_action_instruction *)
-  name : string;  (** name *)
-  runbook_id : string option; [@option]  (** runbook_id *)
-  script_path : string option; [@option]  (** script_path *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  runbook_id : string prop option; [@option]  (** runbook_id *)
+  script_path : string prop option; [@option]  (** script_path *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan__boot_recovery_group__pre_action *)
 
 type azurerm_site_recovery_replication_recovery_plan__boot_recovery_group = {
-  replicated_protected_items : string list option; [@option]
+  replicated_protected_items : string prop list option; [@option]
       (** replicated_protected_items *)
   post_action :
     azurerm_site_recovery_replication_recovery_plan__boot_recovery_group__post_action
@@ -57,29 +61,33 @@ type azurerm_site_recovery_replication_recovery_plan__boot_recovery_group = {
 (** azurerm_site_recovery_replication_recovery_plan__boot_recovery_group *)
 
 type azurerm_site_recovery_replication_recovery_plan__failover_recovery_group__post_action = {
-  fabric_location : string option; [@option]  (** fabric_location *)
-  fail_over_directions : string list;  (** fail_over_directions *)
-  fail_over_types : string list;  (** fail_over_types *)
-  manual_action_instruction : string option; [@option]
+  fabric_location : string prop option; [@option]
+      (** fabric_location *)
+  fail_over_directions : string prop list;
+      (** fail_over_directions *)
+  fail_over_types : string prop list;  (** fail_over_types *)
+  manual_action_instruction : string prop option; [@option]
       (** manual_action_instruction *)
-  name : string;  (** name *)
-  runbook_id : string option; [@option]  (** runbook_id *)
-  script_path : string option; [@option]  (** script_path *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  runbook_id : string prop option; [@option]  (** runbook_id *)
+  script_path : string prop option; [@option]  (** script_path *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan__failover_recovery_group__post_action *)
 
 type azurerm_site_recovery_replication_recovery_plan__failover_recovery_group__pre_action = {
-  fabric_location : string option; [@option]  (** fabric_location *)
-  fail_over_directions : string list;  (** fail_over_directions *)
-  fail_over_types : string list;  (** fail_over_types *)
-  manual_action_instruction : string option; [@option]
+  fabric_location : string prop option; [@option]
+      (** fabric_location *)
+  fail_over_directions : string prop list;
+      (** fail_over_directions *)
+  fail_over_types : string prop list;  (** fail_over_types *)
+  manual_action_instruction : string prop option; [@option]
       (** manual_action_instruction *)
-  name : string;  (** name *)
-  runbook_id : string option; [@option]  (** runbook_id *)
-  script_path : string option; [@option]  (** script_path *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  runbook_id : string prop option; [@option]  (** runbook_id *)
+  script_path : string prop option; [@option]  (** script_path *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan__failover_recovery_group__pre_action *)
@@ -96,37 +104,41 @@ type azurerm_site_recovery_replication_recovery_plan__failover_recovery_group = 
 (** azurerm_site_recovery_replication_recovery_plan__failover_recovery_group *)
 
 type azurerm_site_recovery_replication_recovery_plan__recovery_group__post_action = {
-  fabric_location : string option; [@option]  (** fabric_location *)
-  fail_over_directions : string list;  (** fail_over_directions *)
-  fail_over_types : string list;  (** fail_over_types *)
-  manual_action_instruction : string option; [@option]
+  fabric_location : string prop option; [@option]
+      (** fabric_location *)
+  fail_over_directions : string prop list;
+      (** fail_over_directions *)
+  fail_over_types : string prop list;  (** fail_over_types *)
+  manual_action_instruction : string prop option; [@option]
       (** manual_action_instruction *)
-  name : string;  (** name *)
-  runbook_id : string option; [@option]  (** runbook_id *)
-  script_path : string option; [@option]  (** script_path *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  runbook_id : string prop option; [@option]  (** runbook_id *)
+  script_path : string prop option; [@option]  (** script_path *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan__recovery_group__post_action *)
 
 type azurerm_site_recovery_replication_recovery_plan__recovery_group__pre_action = {
-  fabric_location : string option; [@option]  (** fabric_location *)
-  fail_over_directions : string list;  (** fail_over_directions *)
-  fail_over_types : string list;  (** fail_over_types *)
-  manual_action_instruction : string option; [@option]
+  fabric_location : string prop option; [@option]
+      (** fabric_location *)
+  fail_over_directions : string prop list;
+      (** fail_over_directions *)
+  fail_over_types : string prop list;  (** fail_over_types *)
+  manual_action_instruction : string prop option; [@option]
       (** manual_action_instruction *)
-  name : string;  (** name *)
-  runbook_id : string option; [@option]  (** runbook_id *)
-  script_path : string option; [@option]  (** script_path *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  runbook_id : string prop option; [@option]  (** runbook_id *)
+  script_path : string prop option; [@option]  (** script_path *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan__recovery_group__pre_action *)
 
 type azurerm_site_recovery_replication_recovery_plan__recovery_group = {
-  replicated_protected_items : string list option; [@option]
+  replicated_protected_items : string prop list option; [@option]
       (** replicated_protected_items *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
   post_action :
     azurerm_site_recovery_replication_recovery_plan__recovery_group__post_action
     list;
@@ -138,29 +150,33 @@ type azurerm_site_recovery_replication_recovery_plan__recovery_group = {
 (** azurerm_site_recovery_replication_recovery_plan__recovery_group *)
 
 type azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group__post_action = {
-  fabric_location : string option; [@option]  (** fabric_location *)
-  fail_over_directions : string list;  (** fail_over_directions *)
-  fail_over_types : string list;  (** fail_over_types *)
-  manual_action_instruction : string option; [@option]
+  fabric_location : string prop option; [@option]
+      (** fabric_location *)
+  fail_over_directions : string prop list;
+      (** fail_over_directions *)
+  fail_over_types : string prop list;  (** fail_over_types *)
+  manual_action_instruction : string prop option; [@option]
       (** manual_action_instruction *)
-  name : string;  (** name *)
-  runbook_id : string option; [@option]  (** runbook_id *)
-  script_path : string option; [@option]  (** script_path *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  runbook_id : string prop option; [@option]  (** runbook_id *)
+  script_path : string prop option; [@option]  (** script_path *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group__post_action *)
 
 type azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group__pre_action = {
-  fabric_location : string option; [@option]  (** fabric_location *)
-  fail_over_directions : string list;  (** fail_over_directions *)
-  fail_over_types : string list;  (** fail_over_types *)
-  manual_action_instruction : string option; [@option]
+  fabric_location : string prop option; [@option]
+      (** fabric_location *)
+  fail_over_directions : string prop list;
+      (** fail_over_directions *)
+  fail_over_types : string prop list;  (** fail_over_types *)
+  manual_action_instruction : string prop option; [@option]
       (** manual_action_instruction *)
-  name : string;  (** name *)
-  runbook_id : string option; [@option]  (** runbook_id *)
-  script_path : string option; [@option]  (** script_path *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  runbook_id : string prop option; [@option]  (** runbook_id *)
+  script_path : string prop option; [@option]  (** script_path *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group__pre_action *)
@@ -177,21 +193,21 @@ type azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group = 
 (** azurerm_site_recovery_replication_recovery_plan__shutdown_recovery_group *)
 
 type azurerm_site_recovery_replication_recovery_plan__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_replication_recovery_plan__timeouts *)
 
 type azurerm_site_recovery_replication_recovery_plan = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  recovery_vault_id : string;  (** recovery_vault_id *)
-  source_recovery_fabric_id : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  recovery_vault_id : string prop;  (** recovery_vault_id *)
+  source_recovery_fabric_id : string prop;
       (** source_recovery_fabric_id *)
-  target_recovery_fabric_id : string;
+  target_recovery_fabric_id : string prop;
       (** target_recovery_fabric_id *)
   azure_to_azure_settings :
     azurerm_site_recovery_replication_recovery_plan__azure_to_azure_settings

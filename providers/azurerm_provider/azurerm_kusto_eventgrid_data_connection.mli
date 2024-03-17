@@ -6,23 +6,23 @@ type azurerm_kusto_eventgrid_data_connection__timeouts
 type azurerm_kusto_eventgrid_data_connection
 
 val azurerm_kusto_eventgrid_data_connection :
-  ?blob_storage_event_type:string ->
-  ?data_format:string ->
-  ?database_routing_type:string ->
-  ?eventgrid_resource_id:string ->
-  ?id:string ->
-  ?managed_identity_resource_id:string ->
-  ?mapping_rule_name:string ->
-  ?skip_first_record:bool ->
-  ?table_name:string ->
+  ?blob_storage_event_type:string prop ->
+  ?data_format:string prop ->
+  ?database_routing_type:string prop ->
+  ?eventgrid_resource_id:string prop ->
+  ?id:string prop ->
+  ?managed_identity_resource_id:string prop ->
+  ?mapping_rule_name:string prop ->
+  ?skip_first_record:bool prop ->
+  ?table_name:string prop ->
   ?timeouts:azurerm_kusto_eventgrid_data_connection__timeouts ->
-  cluster_name:string ->
-  database_name:string ->
-  eventhub_consumer_group_name:string ->
-  eventhub_id:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  storage_account_id:string ->
+  cluster_name:string prop ->
+  database_name:string prop ->
+  eventhub_consumer_group_name:string prop ->
+  eventhub_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_account_id:string prop ->
   string ->
   unit

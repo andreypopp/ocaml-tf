@@ -6,11 +6,11 @@ type cloudflare_web_analytics_site__timeouts
 type cloudflare_web_analytics_site
 
 val cloudflare_web_analytics_site :
-  ?host:string ->
-  ?id:string ->
-  ?zone_tag:string ->
+  ?host:string prop ->
+  ?id:string prop ->
+  ?zone_tag:string prop ->
   ?timeouts:cloudflare_web_analytics_site__timeouts ->
-  account_id:string ->
-  auto_install:bool ->
+  account_id:string prop ->
+  auto_install:bool prop ->
   string ->
   unit

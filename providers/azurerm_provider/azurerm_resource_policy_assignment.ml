@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_resource_policy_assignment__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_policy_assignment__identity *)
 
 type azurerm_resource_policy_assignment__non_compliance_message = {
-  content : string;  (** content *)
-  policy_definition_reference_id : string option; [@option]
+  content : string prop;  (** content *)
+  policy_definition_reference_id : string prop option; [@option]
       (** policy_definition_reference_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_policy_assignment__non_compliance_message *)
 
 type azurerm_resource_policy_assignment__overrides__selectors = {
-  in_ : string list option; [@option] [@key "in"]  (** in *)
-  kind : string;  (** kind *)
-  not_in : string list option; [@option]  (** not_in *)
+  in_ : string prop list option; [@option] [@key "in"]  (** in *)
+  kind : string prop;  (** kind *)
+  not_in : string prop list option; [@option]  (** not_in *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_policy_assignment__overrides__selectors *)
 
 type azurerm_resource_policy_assignment__overrides = {
-  value : string;  (** value *)
+  value : string prop;  (** value *)
   selectors :
     azurerm_resource_policy_assignment__overrides__selectors list;
 }
@@ -38,15 +39,15 @@ type azurerm_resource_policy_assignment__overrides = {
 (** azurerm_resource_policy_assignment__overrides *)
 
 type azurerm_resource_policy_assignment__resource_selectors__selectors = {
-  in_ : string list option; [@option] [@key "in"]  (** in *)
-  kind : string;  (** kind *)
-  not_in : string list option; [@option]  (** not_in *)
+  in_ : string prop list option; [@option] [@key "in"]  (** in *)
+  kind : string prop;  (** kind *)
+  not_in : string prop list option; [@option]  (** not_in *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_policy_assignment__resource_selectors__selectors *)
 
 type azurerm_resource_policy_assignment__resource_selectors = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
   selectors :
     azurerm_resource_policy_assignment__resource_selectors__selectors
     list;
@@ -55,26 +56,26 @@ type azurerm_resource_policy_assignment__resource_selectors = {
 (** azurerm_resource_policy_assignment__resource_selectors *)
 
 type azurerm_resource_policy_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_policy_assignment__timeouts *)
 
 type azurerm_resource_policy_assignment = {
-  description : string option; [@option]  (** description *)
-  display_name : string option; [@option]  (** display_name *)
-  enforce : bool option; [@option]  (** enforce *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  metadata : string option; [@option]  (** metadata *)
-  name : string;  (** name *)
-  not_scopes : string list option; [@option]  (** not_scopes *)
-  parameters : string option; [@option]  (** parameters *)
-  policy_definition_id : string;  (** policy_definition_id *)
-  resource_id : string;  (** resource_id *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop option; [@option]  (** display_name *)
+  enforce : bool prop option; [@option]  (** enforce *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  metadata : string prop option; [@option]  (** metadata *)
+  name : string prop;  (** name *)
+  not_scopes : string prop list option; [@option]  (** not_scopes *)
+  parameters : string prop option; [@option]  (** parameters *)
+  policy_definition_id : string prop;  (** policy_definition_id *)
+  resource_id : string prop;  (** resource_id *)
   identity : azurerm_resource_policy_assignment__identity list;
   non_compliance_message :
     azurerm_resource_policy_assignment__non_compliance_message list;

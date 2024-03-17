@@ -5,27 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_logic_app_integration_account_assembly__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_logic_app_integration_account_assembly__timeouts *)
 
 type azurerm_logic_app_integration_account_assembly = {
-  assembly_name : string;  (** assembly_name *)
-  assembly_version : string option; [@option]
+  assembly_name : string prop;  (** assembly_name *)
+  assembly_version : string prop option; [@option]
       (** assembly_version *)
-  content : string option; [@option]  (** content *)
-  content_link_uri : string option; [@option]
+  content : string prop option; [@option]  (** content *)
+  content_link_uri : string prop option; [@option]
       (** content_link_uri *)
-  id : string option; [@option]  (** id *)
-  integration_account_name : string;  (** integration_account_name *)
-  metadata : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  integration_account_name : string prop;
+      (** integration_account_name *)
+  metadata : (string * string prop) list option; [@option]
       (** metadata *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts :
     azurerm_logic_app_integration_account_assembly__timeouts option;
 }

@@ -6,8 +6,8 @@ type aws_opensearch_inbound_connection_accepter__timeouts
 type aws_opensearch_inbound_connection_accepter
 
 val aws_opensearch_inbound_connection_accepter :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_opensearch_inbound_connection_accepter__timeouts ->
-  connection_id:string ->
+  connection_id:string prop ->
   string ->
   unit

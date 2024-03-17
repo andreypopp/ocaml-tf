@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_acm_certificate_validation__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_acm_certificate_validation__timeouts *)
 
 type aws_acm_certificate_validation = {
-  certificate_arn : string;  (** certificate_arn *)
-  id : string option; [@option]  (** id *)
-  validation_record_fqdns : string list option; [@option]
+  certificate_arn : string prop;  (** certificate_arn *)
+  id : string prop option; [@option]  (** id *)
+  validation_record_fqdns : string prop list option; [@option]
       (** validation_record_fqdns *)
   timeouts : aws_acm_certificate_validation__timeouts option;
 }

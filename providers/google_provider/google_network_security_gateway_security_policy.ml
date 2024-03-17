@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type google_network_security_gateway_security_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_network_security_gateway_security_policy__timeouts *)
 
 type google_network_security_gateway_security_policy = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A free-text description of the resource. Max length 1024 characters. *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]
       (** The location of the gateway security policy.
 The default value is 'global'. *)
-  name : string;
+  name : string prop;
       (** Name of the resource. Name is of the form projects/{project}/locations/{location}/gatewaySecurityPolicies/{gatewaySecurityPolicy}
 gatewaySecurityPolicy should match the pattern:(^a-z?$). *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   timeouts :
     google_network_security_gateway_security_policy__timeouts option;
 }

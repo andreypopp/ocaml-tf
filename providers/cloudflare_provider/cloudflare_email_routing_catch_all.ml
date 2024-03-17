@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type cloudflare_email_routing_catch_all__action = {
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** Type of supported action. Available values: `drop`, `forward`, `worker`. *)
-  value : string list;
+  value : string prop list;
       (** A list with items in the following form. *)
 }
 [@@deriving yojson_of]
 (** List actions patterns. *)
 
 type cloudflare_email_routing_catch_all__matcher = {
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** Type of matcher. Available values: `all`. *)
 }
 [@@deriving yojson_of]
 (** Matching patterns to forward to your actions. *)
 
 type cloudflare_email_routing_catch_all = {
-  enabled : bool option; [@option]  (** Routing rule status. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** Routing rule name. *)
-  zone_id : string;
+  enabled : bool prop option; [@option]  (** Routing rule status. *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** Routing rule name. *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
   action : cloudflare_email_routing_catch_all__action list;
   matcher : cloudflare_email_routing_catch_all__matcher list;

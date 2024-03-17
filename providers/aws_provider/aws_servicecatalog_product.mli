@@ -7,19 +7,19 @@ type aws_servicecatalog_product__timeouts
 type aws_servicecatalog_product
 
 val aws_servicecatalog_product :
-  ?accept_language:string ->
-  ?description:string ->
-  ?distributor:string ->
-  ?id:string ->
-  ?support_description:string ->
-  ?support_email:string ->
-  ?support_url:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?accept_language:string prop ->
+  ?description:string prop ->
+  ?distributor:string prop ->
+  ?id:string prop ->
+  ?support_description:string prop ->
+  ?support_email:string prop ->
+  ?support_url:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_servicecatalog_product__timeouts ->
-  name:string ->
-  owner:string ->
-  type_:string ->
+  name:string prop ->
+  owner:string prop ->
+  type_:string prop ->
   provisioning_artifact_parameters:
     aws_servicecatalog_product__provisioning_artifact_parameters list ->
   string ->

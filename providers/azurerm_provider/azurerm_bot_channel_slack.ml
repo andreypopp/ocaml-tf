@@ -5,25 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_bot_channel_slack__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_slack__timeouts *)
 
 type azurerm_bot_channel_slack = {
-  bot_name : string;  (** bot_name *)
-  client_id : string;  (** client_id *)
-  client_secret : string;  (** client_secret *)
-  id : string option; [@option]  (** id *)
-  landing_page_url : string option; [@option]
+  bot_name : string prop;  (** bot_name *)
+  client_id : string prop;  (** client_id *)
+  client_secret : string prop;  (** client_secret *)
+  id : string prop option; [@option]  (** id *)
+  landing_page_url : string prop option; [@option]
       (** landing_page_url *)
-  location : string;  (** location *)
-  resource_group_name : string;  (** resource_group_name *)
-  signing_secret : string option; [@option]  (** signing_secret *)
-  verification_token : string;  (** verification_token *)
+  location : string prop;  (** location *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  signing_secret : string prop option; [@option]
+      (** signing_secret *)
+  verification_token : string prop;  (** verification_token *)
   timeouts : azurerm_bot_channel_slack__timeouts option;
 }
 [@@deriving yojson_of]

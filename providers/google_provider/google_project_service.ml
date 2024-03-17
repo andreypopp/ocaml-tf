@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type google_project_service__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_project_service__timeouts *)
 
 type google_project_service = {
-  disable_dependent_services : bool option; [@option]
+  disable_dependent_services : bool prop option; [@option]
       (** disable_dependent_services *)
-  disable_on_destroy : bool option; [@option]
+  disable_on_destroy : bool prop option; [@option]
       (** disable_on_destroy *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  service : string;  (** service *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  service : string prop;  (** service *)
   timeouts : google_project_service__timeouts option;
 }
 [@@deriving yojson_of]

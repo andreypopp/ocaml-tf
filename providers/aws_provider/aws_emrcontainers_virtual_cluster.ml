@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_emrcontainers_virtual_cluster__container_provider__info__eks_info = {
-  namespace : string option; [@option]  (** namespace *)
+  namespace : string prop option; [@option]  (** namespace *)
 }
 [@@deriving yojson_of]
 (** aws_emrcontainers_virtual_cluster__container_provider__info__eks_info *)
@@ -19,8 +19,8 @@ type aws_emrcontainers_virtual_cluster__container_provider__info = {
 (** aws_emrcontainers_virtual_cluster__container_provider__info *)
 
 type aws_emrcontainers_virtual_cluster__container_provider = {
-  id : string;  (** id *)
-  type_ : string; [@key "type"]  (** type *)
+  id : string prop;  (** id *)
+  type_ : string prop; [@key "type"]  (** type *)
   info :
     aws_emrcontainers_virtual_cluster__container_provider__info list;
 }
@@ -28,16 +28,16 @@ type aws_emrcontainers_virtual_cluster__container_provider = {
 (** aws_emrcontainers_virtual_cluster__container_provider *)
 
 type aws_emrcontainers_virtual_cluster__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_emrcontainers_virtual_cluster__timeouts *)
 
 type aws_emrcontainers_virtual_cluster = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   container_provider :
     aws_emrcontainers_virtual_cluster__container_provider list;

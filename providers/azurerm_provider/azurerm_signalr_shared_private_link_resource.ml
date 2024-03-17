@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_signalr_shared_private_link_resource__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_signalr_shared_private_link_resource__timeouts *)
 
 type azurerm_signalr_shared_private_link_resource = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  request_message : string option; [@option]  (** request_message *)
-  signalr_service_id : string;  (** signalr_service_id *)
-  sub_resource_name : string;  (** sub_resource_name *)
-  target_resource_id : string;  (** target_resource_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  request_message : string prop option; [@option]
+      (** request_message *)
+  signalr_service_id : string prop;  (** signalr_service_id *)
+  sub_resource_name : string prop;  (** sub_resource_name *)
+  target_resource_id : string prop;  (** target_resource_id *)
   timeouts :
     azurerm_signalr_shared_private_link_resource__timeouts option;
 }

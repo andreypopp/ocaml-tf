@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_data_connector_microsoft_cloud_app_security__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_data_connector_microsoft_cloud_app_security__timeouts *)
 
 type azurerm_sentinel_data_connector_microsoft_cloud_app_security = {
-  alerts_enabled : bool option; [@option]  (** alerts_enabled *)
-  discovery_logs_enabled : bool option; [@option]
+  alerts_enabled : bool prop option; [@option]  (** alerts_enabled *)
+  discovery_logs_enabled : bool prop option; [@option]
       (** discovery_logs_enabled *)
-  id : string option; [@option]  (** id *)
-  log_analytics_workspace_id : string;
+  id : string prop option; [@option]  (** id *)
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  name : string;  (** name *)
-  tenant_id : string option; [@option]  (** tenant_id *)
+  name : string prop;  (** name *)
+  tenant_id : string prop option; [@option]  (** tenant_id *)
   timeouts :
     azurerm_sentinel_data_connector_microsoft_cloud_app_security__timeouts
     option;

@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_storage_sync_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_sync_group__timeouts *)
 
 type azurerm_storage_sync_group = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  storage_sync_id : string;  (** storage_sync_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  storage_sync_id : string prop;  (** storage_sync_id *)
   timeouts : azurerm_storage_sync_group__timeouts option;
 }
 [@@deriving yojson_of]

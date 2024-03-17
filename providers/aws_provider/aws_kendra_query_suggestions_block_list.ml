@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type aws_kendra_query_suggestions_block_list__source_s3_path = {
-  bucket : string;  (** bucket *)
-  key : string;  (** key *)
+  bucket : string prop;  (** bucket *)
+  key : string prop;  (** key *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_query_suggestions_block_list__source_s3_path *)
 
 type aws_kendra_query_suggestions_block_list__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_query_suggestions_block_list__timeouts *)
 
 type aws_kendra_query_suggestions_block_list = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  index_id : string;  (** index_id *)
-  name : string;  (** name *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  index_id : string prop;  (** index_id *)
+  name : string prop;  (** name *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   source_s3_path :
     aws_kendra_query_suggestions_block_list__source_s3_path list;

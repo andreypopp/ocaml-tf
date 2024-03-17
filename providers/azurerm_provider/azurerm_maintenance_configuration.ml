@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_maintenance_configuration__install_patches__linux = {
-  classifications_to_include : string list option; [@option]
+  classifications_to_include : string prop list option; [@option]
       (** classifications_to_include *)
-  package_names_mask_to_exclude : string list option; [@option]
+  package_names_mask_to_exclude : string prop list option; [@option]
       (** package_names_mask_to_exclude *)
-  package_names_mask_to_include : string list option; [@option]
+  package_names_mask_to_include : string prop list option; [@option]
       (** package_names_mask_to_include *)
 }
 [@@deriving yojson_of]
 (** azurerm_maintenance_configuration__install_patches__linux *)
 
 type azurerm_maintenance_configuration__install_patches__windows = {
-  classifications_to_include : string list option; [@option]
+  classifications_to_include : string prop list option; [@option]
       (** classifications_to_include *)
-  kb_numbers_to_exclude : string list option; [@option]
+  kb_numbers_to_exclude : string prop list option; [@option]
       (** kb_numbers_to_exclude *)
-  kb_numbers_to_include : string list option; [@option]
+  kb_numbers_to_include : string prop list option; [@option]
       (** kb_numbers_to_include *)
 }
 [@@deriving yojson_of]
 (** azurerm_maintenance_configuration__install_patches__windows *)
 
 type azurerm_maintenance_configuration__install_patches = {
-  reboot : string option; [@option]  (** reboot *)
+  reboot : string prop option; [@option]  (** reboot *)
   linux :
     azurerm_maintenance_configuration__install_patches__linux list;
   windows :
@@ -37,37 +37,37 @@ type azurerm_maintenance_configuration__install_patches = {
 (** azurerm_maintenance_configuration__install_patches *)
 
 type azurerm_maintenance_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_maintenance_configuration__timeouts *)
 
 type azurerm_maintenance_configuration__window = {
-  duration : string option; [@option]  (** duration *)
-  expiration_date_time : string option; [@option]
+  duration : string prop option; [@option]  (** duration *)
+  expiration_date_time : string prop option; [@option]
       (** expiration_date_time *)
-  recur_every : string option; [@option]  (** recur_every *)
-  start_date_time : string;  (** start_date_time *)
-  time_zone : string;  (** time_zone *)
+  recur_every : string prop option; [@option]  (** recur_every *)
+  start_date_time : string prop;  (** start_date_time *)
+  time_zone : string prop;  (** time_zone *)
 }
 [@@deriving yojson_of]
 (** azurerm_maintenance_configuration__window *)
 
 type azurerm_maintenance_configuration = {
-  id : string option; [@option]  (** id *)
-  in_guest_user_patch_mode : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  in_guest_user_patch_mode : string prop option; [@option]
       (** in_guest_user_patch_mode *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  properties : (string * string) list option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  properties : (string * string prop) list option; [@option]
       (** properties *)
-  resource_group_name : string;  (** resource_group_name *)
-  scope : string;  (** scope *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  visibility : string option; [@option]  (** visibility *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  scope : string prop;  (** scope *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  visibility : string prop option; [@option]  (** visibility *)
   install_patches :
     azurerm_maintenance_configuration__install_patches list;
   timeouts : azurerm_maintenance_configuration__timeouts option;

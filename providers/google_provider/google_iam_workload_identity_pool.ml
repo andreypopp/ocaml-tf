@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type google_iam_workload_identity_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_iam_workload_identity_pool__timeouts *)
 
 type google_iam_workload_identity_pool = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A description of the pool. Cannot exceed 256 characters. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** Whether the pool is disabled. You cannot use a disabled pool to exchange tokens, or use
 existing tokens to access resources. If the pool is re-enabled, existing tokens grant
 access again. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** A display name for the pool. Cannot exceed 32 characters. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  workload_identity_pool_id : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  workload_identity_pool_id : string prop;
       (** The ID to use for the pool, which becomes the final component of the resource name. This
 value should be 4-32 characters, and may contain the characters [a-z0-9-]. The prefix
 'gcp-' is reserved for use by Google, and may not be specified. *)

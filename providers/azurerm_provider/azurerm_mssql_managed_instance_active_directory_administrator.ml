@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_mssql_managed_instance_active_directory_administrator__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_managed_instance_active_directory_administrator__timeouts *)
 
 type azurerm_mssql_managed_instance_active_directory_administrator = {
-  azuread_authentication_only : bool option; [@option]
+  azuread_authentication_only : bool prop option; [@option]
       (** azuread_authentication_only *)
-  id : string option; [@option]  (** id *)
-  login_username : string;  (** login_username *)
-  managed_instance_id : string;  (** managed_instance_id *)
-  object_id : string;  (** object_id *)
-  tenant_id : string;  (** tenant_id *)
+  id : string prop option; [@option]  (** id *)
+  login_username : string prop;  (** login_username *)
+  managed_instance_id : string prop;  (** managed_instance_id *)
+  object_id : string prop;  (** object_id *)
+  tenant_id : string prop;  (** tenant_id *)
   timeouts :
     azurerm_mssql_managed_instance_active_directory_administrator__timeouts
     option;

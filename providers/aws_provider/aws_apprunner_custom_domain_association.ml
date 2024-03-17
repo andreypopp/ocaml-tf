@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_apprunner_custom_domain_association__certificate_validation_records = {
-  name : string;  (** name *)
-  status : string;  (** status *)
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  status : string prop;  (** status *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 
 type aws_apprunner_custom_domain_association = {
-  domain_name : string;  (** domain_name *)
-  enable_www_subdomain : bool option; [@option]
+  domain_name : string prop;  (** domain_name *)
+  enable_www_subdomain : bool prop option; [@option]
       (** enable_www_subdomain *)
-  id : string option; [@option]  (** id *)
-  service_arn : string;  (** service_arn *)
+  id : string prop option; [@option]  (** id *)
+  service_arn : string prop;  (** service_arn *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_custom_domain_association *)

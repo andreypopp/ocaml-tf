@@ -24,31 +24,31 @@ type azurerm_api_management__timeouts
 type azurerm_api_management__virtual_network_configuration
 
 type azurerm_api_management__policy = {
-  xml_content : string;  (** xml_content *)
-  xml_link : string;  (** xml_link *)
+  xml_content : string prop;  (** xml_content *)
+  xml_link : string prop;  (** xml_link *)
 }
 
 type azurerm_api_management
 
 val azurerm_api_management :
-  ?client_certificate_enabled:bool ->
-  ?gateway_disabled:bool ->
-  ?id:string ->
-  ?min_api_version:string ->
-  ?notification_sender_email:string ->
+  ?client_certificate_enabled:bool prop ->
+  ?gateway_disabled:bool prop ->
+  ?id:string prop ->
+  ?min_api_version:string prop ->
+  ?notification_sender_email:string prop ->
   ?policy:azurerm_api_management__policy list ->
-  ?public_ip_address_id:string ->
-  ?public_network_access_enabled:bool ->
-  ?tags:(string * string) list ->
-  ?virtual_network_type:string ->
-  ?zones:string list ->
+  ?public_ip_address_id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?virtual_network_type:string prop ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_api_management__timeouts ->
-  location:string ->
-  name:string ->
-  publisher_email:string ->
-  publisher_name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
+  location:string prop ->
+  name:string prop ->
+  publisher_email:string prop ->
+  publisher_name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
   additional_location:
     azurerm_api_management__additional_location list ->
   certificate:azurerm_api_management__certificate list ->

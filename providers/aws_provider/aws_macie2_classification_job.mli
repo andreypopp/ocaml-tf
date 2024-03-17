@@ -51,26 +51,26 @@ type aws_macie2_classification_job__s3_job_definition
 type aws_macie2_classification_job__schedule_frequency
 
 type aws_macie2_classification_job__user_paused_details = {
-  job_expires_at : string;  (** job_expires_at *)
-  job_imminent_expiration_health_event_arn : string;
+  job_expires_at : string prop;  (** job_expires_at *)
+  job_imminent_expiration_health_event_arn : string prop;
       (** job_imminent_expiration_health_event_arn *)
-  job_paused_at : string;  (** job_paused_at *)
+  job_paused_at : string prop;  (** job_paused_at *)
 }
 
 type aws_macie2_classification_job
 
 val aws_macie2_classification_job :
-  ?custom_data_identifier_ids:string list ->
-  ?description:string ->
-  ?id:string ->
-  ?initial_run:bool ->
-  ?job_status:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?sampling_percentage:float ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  job_type:string ->
+  ?custom_data_identifier_ids:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?initial_run:bool prop ->
+  ?job_status:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?sampling_percentage:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  job_type:string prop ->
   s3_job_definition:
     aws_macie2_classification_job__s3_job_definition list ->
   schedule_frequency:

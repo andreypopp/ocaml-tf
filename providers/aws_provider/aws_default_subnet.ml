@@ -5,37 +5,38 @@
 open! Tf.Prelude
 
 type aws_default_subnet__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_default_subnet__timeouts *)
 
 type aws_default_subnet = {
-  assign_ipv6_address_on_creation : bool option; [@option]
+  assign_ipv6_address_on_creation : bool prop option; [@option]
       (** assign_ipv6_address_on_creation *)
-  availability_zone : string;  (** availability_zone *)
-  customer_owned_ipv4_pool : string option; [@option]
+  availability_zone : string prop;  (** availability_zone *)
+  customer_owned_ipv4_pool : string prop option; [@option]
       (** customer_owned_ipv4_pool *)
-  enable_dns64 : bool option; [@option]  (** enable_dns64 *)
-  enable_resource_name_dns_a_record_on_launch : bool option;
+  enable_dns64 : bool prop option; [@option]  (** enable_dns64 *)
+  enable_resource_name_dns_a_record_on_launch : bool prop option;
       [@option]
       (** enable_resource_name_dns_a_record_on_launch *)
-  enable_resource_name_dns_aaaa_record_on_launch : bool option;
+  enable_resource_name_dns_aaaa_record_on_launch : bool prop option;
       [@option]
       (** enable_resource_name_dns_aaaa_record_on_launch *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  id : string option; [@option]  (** id *)
-  ipv6_cidr_block : string option; [@option]  (** ipv6_cidr_block *)
-  ipv6_native : bool option; [@option]  (** ipv6_native *)
-  map_customer_owned_ip_on_launch : bool option; [@option]
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  id : string prop option; [@option]  (** id *)
+  ipv6_cidr_block : string prop option; [@option]
+      (** ipv6_cidr_block *)
+  ipv6_native : bool prop option; [@option]  (** ipv6_native *)
+  map_customer_owned_ip_on_launch : bool prop option; [@option]
       (** map_customer_owned_ip_on_launch *)
-  map_public_ip_on_launch : bool option; [@option]
+  map_public_ip_on_launch : bool prop option; [@option]
       (** map_public_ip_on_launch *)
-  private_dns_hostname_type_on_launch : string option; [@option]
+  private_dns_hostname_type_on_launch : string prop option; [@option]
       (** private_dns_hostname_type_on_launch *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_default_subnet__timeouts option;
 }

@@ -7,12 +7,12 @@ type azurerm_dev_center__timeouts
 type azurerm_dev_center
 
 val azurerm_dev_center :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_dev_center__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   identity:azurerm_dev_center__identity list ->
   string ->
   unit

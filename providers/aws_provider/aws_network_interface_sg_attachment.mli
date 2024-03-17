@@ -6,9 +6,9 @@ type aws_network_interface_sg_attachment__timeouts
 type aws_network_interface_sg_attachment
 
 val aws_network_interface_sg_attachment :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_network_interface_sg_attachment__timeouts ->
-  network_interface_id:string ->
-  security_group_id:string ->
+  network_interface_id:string prop ->
+  security_group_id:string prop ->
   string ->
   unit

@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type aws_appconfig_environment__monitor = {
-  alarm_arn : string;  (** alarm_arn *)
-  alarm_role_arn : string option; [@option]  (** alarm_role_arn *)
+  alarm_arn : string prop;  (** alarm_arn *)
+  alarm_role_arn : string prop option; [@option]
+      (** alarm_role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_appconfig_environment__monitor *)
 
 type aws_appconfig_environment = {
-  application_id : string;  (** application_id *)
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  application_id : string prop;  (** application_id *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   monitor : aws_appconfig_environment__monitor list;
 }
 [@@deriving yojson_of]

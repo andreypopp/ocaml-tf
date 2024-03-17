@@ -5,8 +5,8 @@ open! Tf.Prelude
 type google_storage_default_object_acl
 
 val google_storage_default_object_acl :
-  ?id:string ->
-  ?role_entity:string list ->
-  bucket:string ->
+  ?id:string prop ->
+  ?role_entity:string prop list ->
+  bucket:string prop ->
   string ->
   unit

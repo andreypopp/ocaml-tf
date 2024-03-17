@@ -13,11 +13,11 @@ type aws_timestreamwrite_table__schema
 type aws_timestreamwrite_table
 
 val aws_timestreamwrite_table :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  database_name:string ->
-  table_name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  database_name:string prop ->
+  table_name:string prop ->
   magnetic_store_write_properties:
     aws_timestreamwrite_table__magnetic_store_write_properties list ->
   retention_properties:

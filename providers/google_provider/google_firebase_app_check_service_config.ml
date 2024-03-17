@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type google_firebase_app_check_service_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_firebase_app_check_service_config__timeouts *)
 
 type google_firebase_app_check_service_config = {
-  enforcement_mode : string option; [@option]
+  enforcement_mode : string prop option; [@option]
       (** The App Check enforcement mode for a service supported by App Check. Valid values are
 
 (Unset)
@@ -44,9 +44,9 @@ Check on your Firebase services.
 
 If your app has not launched yet, you should enable enforcement immediately, since there are no outdated
 clients in use. Possible values: [UNENFORCED, ENFORCED] *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  service_id : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  service_id : string prop;
       (** The identifier of the service to configure enforcement. Currently, the following service IDs are supported:
   firebasestorage.googleapis.com (Cloud Storage for Firebase)
   firebasedatabase.googleapis.com (Firebase Realtime Database)

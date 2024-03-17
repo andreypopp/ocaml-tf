@@ -5,36 +5,38 @@
 open! Tf.Prelude
 
 type azurerm_redis_enterprise_database__module = {
-  args : string option; [@option]  (** args *)
-  name : string;  (** name *)
-  version : string;  (** version *)
+  args : string prop option; [@option]  (** args *)
+  name : string prop;  (** name *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** azurerm_redis_enterprise_database__module *)
 
 type azurerm_redis_enterprise_database__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_redis_enterprise_database__timeouts *)
 
 type azurerm_redis_enterprise_database = {
-  client_protocol : string option; [@option]  (** client_protocol *)
-  cluster_id : string;  (** cluster_id *)
-  clustering_policy : string option; [@option]
+  client_protocol : string prop option; [@option]
+      (** client_protocol *)
+  cluster_id : string prop;  (** cluster_id *)
+  clustering_policy : string prop option; [@option]
       (** clustering_policy *)
-  eviction_policy : string option; [@option]  (** eviction_policy *)
-  id : string option; [@option]  (** id *)
-  linked_database_group_nickname : string option; [@option]
+  eviction_policy : string prop option; [@option]
+      (** eviction_policy *)
+  id : string prop option; [@option]  (** id *)
+  linked_database_group_nickname : string prop option; [@option]
       (** linked_database_group_nickname *)
-  linked_database_id : string list option; [@option]
+  linked_database_id : string prop list option; [@option]
       (** linked_database_id *)
-  name : string option; [@option]  (** name *)
-  port : float option; [@option]  (** port *)
-  resource_group_name : string option; [@option]
+  name : string prop option; [@option]  (** name *)
+  port : float prop option; [@option]  (** port *)
+  resource_group_name : string prop option; [@option]
       (** resource_group_name *)
   module_ : azurerm_redis_enterprise_database__module list;
   timeouts : azurerm_redis_enterprise_database__timeouts option;

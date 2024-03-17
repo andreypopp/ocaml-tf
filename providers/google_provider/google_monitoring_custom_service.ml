@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_monitoring_custom_service__telemetry = {
-  resource_name : string option; [@option]
+  resource_name : string prop option; [@option]
       (** The full name of the resource that defines this service.
 Formatted as described in
 https://cloud.google.com/apis/design/resource_names. *)
@@ -14,22 +14,22 @@ https://cloud.google.com/apis/design/resource_names. *)
 (** Configuration for how to query telemetry on a Service. *)
 
 type google_monitoring_custom_service__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_monitoring_custom_service__timeouts *)
 
 type google_monitoring_custom_service = {
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** Name used for UI elements listing this Service. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  service_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  service_id : string prop option; [@option]
       (** An optional service ID to use. If not given, the server will generate a
 service ID. *)
-  user_labels : (string * string) list option; [@option]
+  user_labels : (string * string prop) list option; [@option]
       (** Labels which have been used to annotate the service. Label keys must start
 with a letter. Label keys and values may contain lowercase letters,
 numbers, underscores, and dashes. Label keys and values have a maximum

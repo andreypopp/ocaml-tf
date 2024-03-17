@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_storage_account_local_user__permission_scope__permissions = {
-  create : bool option; [@option]  (** create *)
-  delete : bool option; [@option]  (** delete *)
-  list : bool option; [@option]  (** list *)
-  read : bool option; [@option]  (** read *)
-  write : bool option; [@option]  (** write *)
+  create : bool prop option; [@option]  (** create *)
+  delete : bool prop option; [@option]  (** delete *)
+  list : bool prop option; [@option]  (** list *)
+  read : bool prop option; [@option]  (** read *)
+  write : bool prop option; [@option]  (** write *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_account_local_user__permission_scope__permissions *)
 
 type azurerm_storage_account_local_user__permission_scope = {
-  resource_name : string;  (** resource_name *)
-  service : string;  (** service *)
+  resource_name : string prop;  (** resource_name *)
+  service : string prop;  (** service *)
   permissions :
     azurerm_storage_account_local_user__permission_scope__permissions
     list;
@@ -25,29 +25,31 @@ type azurerm_storage_account_local_user__permission_scope = {
 (** azurerm_storage_account_local_user__permission_scope *)
 
 type azurerm_storage_account_local_user__ssh_authorized_key = {
-  description : string option; [@option]  (** description *)
-  key : string;  (** key *)
+  description : string prop option; [@option]  (** description *)
+  key : string prop;  (** key *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_account_local_user__ssh_authorized_key *)
 
 type azurerm_storage_account_local_user__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_account_local_user__timeouts *)
 
 type azurerm_storage_account_local_user = {
-  home_directory : string option; [@option]  (** home_directory *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  ssh_key_enabled : bool option; [@option]  (** ssh_key_enabled *)
-  ssh_password_enabled : bool option; [@option]
+  home_directory : string prop option; [@option]
+      (** home_directory *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  ssh_key_enabled : bool prop option; [@option]
+      (** ssh_key_enabled *)
+  ssh_password_enabled : bool prop option; [@option]
       (** ssh_password_enabled *)
-  storage_account_id : string;  (** storage_account_id *)
+  storage_account_id : string prop;  (** storage_account_id *)
   permission_scope :
     azurerm_storage_account_local_user__permission_scope list;
   ssh_authorized_key :

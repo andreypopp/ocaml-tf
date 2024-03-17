@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type google_discovery_engine_chat_engine__chat_engine_config__agent_creation_config = {
-  business : string option; [@option]
+  business : string prop option; [@option]
       (** Name of the company, organization or other entity that the agent represents. Used for knowledge connector LLM prompt and for knowledge search. *)
-  default_language_code : string;
+  default_language_code : string prop;
       (** The default language of the agent as a language tag. See [Language Support](https://cloud.google.com/dialogflow/docs/reference/language) for a list of the currently supported language codes. *)
-  location : string option; [@option]
+  location : string prop option; [@option]
       (** Agent location for Agent creation, currently supported values: global/us/eu, it needs to be the same region as the Chat Engine. *)
-  time_zone : string;
+  time_zone : string prop;
       (** The time zone of the agent from the [time zone database](https://www.iana.org/time-zones), e.g., America/New_York, Europe/Paris. *)
 }
 [@@deriving yojson_of]
@@ -26,37 +26,37 @@ type google_discovery_engine_chat_engine__chat_engine_config = {
 (** Configurations for a chat Engine. *)
 
 type google_discovery_engine_chat_engine__common_config = {
-  company_name : string option; [@option]
+  company_name : string prop option; [@option]
       (** The name of the company, business or entity that is associated with the engine. Setting this may help improve LLM related features. *)
 }
 [@@deriving yojson_of]
 (** Common config spec that specifies the metadata of the engine. *)
 
 type google_discovery_engine_chat_engine__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_discovery_engine_chat_engine__timeouts *)
 
 type google_discovery_engine_chat_engine__chat_engine_metadata = {
-  dialogflow_agent : string;  (** dialogflow_agent *)
+  dialogflow_agent : string prop;  (** dialogflow_agent *)
 }
 [@@deriving yojson_of]
 
 type google_discovery_engine_chat_engine = {
-  collection_id : string;  (** The collection ID. *)
-  data_store_ids : string list;
+  collection_id : string prop;  (** The collection ID. *)
+  data_store_ids : string prop list;
       (** The data stores associated with this engine. Multiple DataStores in the same Collection can be associated here. All listed DataStores must be 'SOLUTION_TYPE_CHAT'. Adding or removing data stores will force recreation. *)
-  display_name : string;
+  display_name : string prop;
       (** The display name of the engine. Should be human readable. UTF-8 encoded string with limit of 1024 characters. *)
-  engine_id : string;  (** The ID to use for chat engine. *)
-  id : string option; [@option]  (** id *)
-  industry_vertical : string option; [@option]
+  engine_id : string prop;  (** The ID to use for chat engine. *)
+  id : string prop option; [@option]  (** id *)
+  industry_vertical : string prop option; [@option]
       (** The industry vertical that the chat engine registers. Vertical on Engine has to match vertical of the DataStore linked to the engine. Default value: GENERIC Possible values: [GENERIC] *)
-  location : string;  (** Location. *)
-  project : string option; [@option]  (** project *)
+  location : string prop;  (** Location. *)
+  project : string prop option; [@option]  (** project *)
   chat_engine_config :
     google_discovery_engine_chat_engine__chat_engine_config list;
   common_config :

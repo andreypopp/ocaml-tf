@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type aws_bedrock_provisioned_model_throughput__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
 (** aws_bedrock_provisioned_model_throughput__timeouts *)
 
 type aws_bedrock_provisioned_model_throughput = {
-  commitment_duration : string option; [@option]
+  commitment_duration : string prop option; [@option]
       (** commitment_duration *)
-  model_arn : string;  (** model_arn *)
-  model_units : float;  (** model_units *)
-  provisioned_model_name : string;  (** provisioned_model_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  model_arn : string prop;  (** model_arn *)
+  model_units : float prop;  (** model_units *)
+  provisioned_model_name : string prop;
+      (** provisioned_model_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts :
     aws_bedrock_provisioned_model_throughput__timeouts option;
 }

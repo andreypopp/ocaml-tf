@@ -13,14 +13,14 @@ type google_vertex_ai_feature_online_store_featureview__timeouts
 type google_vertex_ai_feature_online_store_featureview
 
 val google_vertex_ai_feature_online_store_featureview :
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?name:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?project:string prop ->
   ?timeouts:
     google_vertex_ai_feature_online_store_featureview__timeouts ->
-  feature_online_store:string ->
-  region:string ->
+  feature_online_store:string prop ->
+  region:string prop ->
   big_query_source:
     google_vertex_ai_feature_online_store_featureview__big_query_source
     list ->

@@ -43,43 +43,43 @@ type azurerm_linux_virtual_machine_scale_set__timeouts
 type azurerm_linux_virtual_machine_scale_set
 
 val azurerm_linux_virtual_machine_scale_set :
-  ?admin_password:string ->
-  ?capacity_reservation_group_id:string ->
-  ?computer_name_prefix:string ->
-  ?custom_data:string ->
-  ?disable_password_authentication:bool ->
-  ?do_not_run_extensions_on_overprovisioned_machines:bool ->
-  ?edge_zone:string ->
-  ?encryption_at_host_enabled:bool ->
-  ?eviction_policy:string ->
-  ?extension_operations_enabled:bool ->
-  ?extensions_time_budget:string ->
-  ?health_probe_id:string ->
-  ?host_group_id:string ->
-  ?id:string ->
-  ?instances:float ->
-  ?max_bid_price:float ->
-  ?overprovision:bool ->
-  ?platform_fault_domain_count:float ->
-  ?priority:string ->
-  ?provision_vm_agent:bool ->
-  ?proximity_placement_group_id:string ->
-  ?scale_in_policy:string ->
-  ?secure_boot_enabled:bool ->
-  ?single_placement_group:bool ->
-  ?source_image_id:string ->
-  ?tags:(string * string) list ->
-  ?upgrade_mode:string ->
-  ?user_data:string ->
-  ?vtpm_enabled:bool ->
-  ?zone_balance:bool ->
-  ?zones:string list ->
+  ?admin_password:string prop ->
+  ?capacity_reservation_group_id:string prop ->
+  ?computer_name_prefix:string prop ->
+  ?custom_data:string prop ->
+  ?disable_password_authentication:bool prop ->
+  ?do_not_run_extensions_on_overprovisioned_machines:bool prop ->
+  ?edge_zone:string prop ->
+  ?encryption_at_host_enabled:bool prop ->
+  ?eviction_policy:string prop ->
+  ?extension_operations_enabled:bool prop ->
+  ?extensions_time_budget:string prop ->
+  ?health_probe_id:string prop ->
+  ?host_group_id:string prop ->
+  ?id:string prop ->
+  ?instances:float prop ->
+  ?max_bid_price:float prop ->
+  ?overprovision:bool prop ->
+  ?platform_fault_domain_count:float prop ->
+  ?priority:string prop ->
+  ?provision_vm_agent:bool prop ->
+  ?proximity_placement_group_id:string prop ->
+  ?scale_in_policy:string prop ->
+  ?secure_boot_enabled:bool prop ->
+  ?single_placement_group:bool prop ->
+  ?source_image_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?upgrade_mode:string prop ->
+  ?user_data:string prop ->
+  ?vtpm_enabled:bool prop ->
+  ?zone_balance:bool prop ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_linux_virtual_machine_scale_set__timeouts ->
-  admin_username:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku:string ->
+  admin_username:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
   additional_capabilities:
     azurerm_linux_virtual_machine_scale_set__additional_capabilities
     list ->

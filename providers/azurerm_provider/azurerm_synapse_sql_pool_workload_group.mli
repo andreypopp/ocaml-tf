@@ -6,15 +6,15 @@ type azurerm_synapse_sql_pool_workload_group__timeouts
 type azurerm_synapse_sql_pool_workload_group
 
 val azurerm_synapse_sql_pool_workload_group :
-  ?id:string ->
-  ?importance:string ->
-  ?max_resource_percent_per_request:float ->
-  ?min_resource_percent_per_request:float ->
-  ?query_execution_timeout_in_seconds:float ->
+  ?id:string prop ->
+  ?importance:string prop ->
+  ?max_resource_percent_per_request:float prop ->
+  ?min_resource_percent_per_request:float prop ->
+  ?query_execution_timeout_in_seconds:float prop ->
   ?timeouts:azurerm_synapse_sql_pool_workload_group__timeouts ->
-  max_resource_percent:float ->
-  min_resource_percent:float ->
-  name:string ->
-  sql_pool_id:string ->
+  max_resource_percent:float prop ->
+  min_resource_percent:float prop ->
+  name:string prop ->
+  sql_pool_id:string prop ->
   string ->
   unit

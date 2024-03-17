@@ -8,9 +8,9 @@ type azurerm_storage_blob_inventory_policy__timeouts
 type azurerm_storage_blob_inventory_policy
 
 val azurerm_storage_blob_inventory_policy :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_storage_blob_inventory_policy__timeouts ->
-  storage_account_id:string ->
+  storage_account_id:string prop ->
   rules:azurerm_storage_blob_inventory_policy__rules list ->
   string ->
   unit

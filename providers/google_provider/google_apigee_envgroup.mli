@@ -6,10 +6,10 @@ type google_apigee_envgroup__timeouts
 type google_apigee_envgroup
 
 val google_apigee_envgroup :
-  ?hostnames:string list ->
-  ?id:string ->
+  ?hostnames:string prop list ->
+  ?id:string prop ->
   ?timeouts:google_apigee_envgroup__timeouts ->
-  name:string ->
-  org_id:string ->
+  name:string prop ->
+  org_id:string prop ->
   string ->
   unit

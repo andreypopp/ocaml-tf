@@ -6,11 +6,11 @@ type google_essential_contacts_contact__timeouts
 type google_essential_contacts_contact
 
 val google_essential_contacts_contact :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_essential_contacts_contact__timeouts ->
-  email:string ->
-  language_tag:string ->
-  notification_category_subscriptions:string list ->
-  parent:string ->
+  email:string prop ->
+  language_tag:string prop ->
+  notification_category_subscriptions:string prop list ->
+  parent:string prop ->
   string ->
   unit

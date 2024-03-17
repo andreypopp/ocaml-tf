@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_iot_certificate = {
-  active : bool;  (** active *)
-  ca_pem : string option; [@option]  (** ca_pem *)
-  certificate_pem : string option; [@option]  (** certificate_pem *)
-  csr : string option; [@option]  (** csr *)
-  id : string option; [@option]  (** id *)
+  active : bool prop;  (** active *)
+  ca_pem : string prop option; [@option]  (** ca_pem *)
+  certificate_pem : string prop option; [@option]
+      (** certificate_pem *)
+  csr : string prop option; [@option]  (** csr *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_iot_certificate *)

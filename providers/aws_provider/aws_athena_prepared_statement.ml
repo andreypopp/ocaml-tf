@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_athena_prepared_statement__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_athena_prepared_statement__timeouts *)
 
 type aws_athena_prepared_statement = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  query_statement : string;  (** query_statement *)
-  workgroup : string;  (** workgroup *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  query_statement : string prop;  (** query_statement *)
+  workgroup : string prop;  (** workgroup *)
   timeouts : aws_athena_prepared_statement__timeouts option;
 }
 [@@deriving yojson_of]

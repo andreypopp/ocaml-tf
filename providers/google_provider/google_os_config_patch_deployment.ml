@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type google_os_config_patch_deployment__instance_filter__group_labels = {
-  labels : (string * string) list;
+  labels : (string * string prop) list;
       (** Compute Engine instance labels that must be present for a VM instance to be targeted by this filter *)
 }
 [@@deriving yojson_of]
 (** Targets VM instances matching ANY of these GroupLabels. This allows targeting of disparate groups of VM instances. *)
 
 type google_os_config_patch_deployment__instance_filter = {
-  all : bool option; [@option]
+  all : bool prop option; [@option]
       (** Target all VM instances in the project. If true, no other criteria is permitted. *)
-  instance_name_prefixes : string list option; [@option]
+  instance_name_prefixes : string prop list option; [@option]
       (** Targets VMs whose name starts with one of these prefixes. Similar to labels, this is another way to group
 VMs when targeting configs, for example prefix=prod-. *)
-  instances : string list option; [@option]
+  instances : string prop list option; [@option]
       (** Targets any of the VM instances specified. Instances are specified by their URI in the 'form zones/{{zone}}/instances/{{instance_name}}',
 'projects/{{project_id}}/zones/{{zone}}/instances/{{instance_name}}', or
 'https://www.googleapis.com/compute/v1/projects/{{project_id}}/zones/{{zone}}/instances/{{instance_name}}' *)
-  zones : string list option; [@option]
+  zones : string prop list option; [@option]
       (** Targets VM instances in ANY of these zones. Leave empty to target VM instances in any zone. *)
   group_labels :
     google_os_config_patch_deployment__instance_filter__group_labels
@@ -31,7 +31,7 @@ VMs when targeting configs, for example prefix=prod-. *)
 (** VM instances to patch. *)
 
 type google_os_config_patch_deployment__one_time_schedule = {
-  execute_time : string;
+  execute_time : string prop;
       (** The desired patch job execution time. A timestamp in RFC3339 UTC Zulu format,
 accurate to nanoseconds. Example: 2014-10-02T15:01:23.045123456Z. *)
 }
@@ -39,42 +39,42 @@ accurate to nanoseconds. Example: 2014-10-02T15:01:23.045123456Z. *)
 (** Schedule a one-time execution. *)
 
 type google_os_config_patch_deployment__patch_config__apt = {
-  excludes : string list option; [@option]
+  excludes : string prop list option; [@option]
       (** List of packages to exclude from update. These packages will be excluded. *)
-  exclusive_packages : string list option; [@option]
+  exclusive_packages : string prop list option; [@option]
       (** An exclusive list of packages to be updated. These are the only packages that will be updated.
 If these packages are not installed, they will be ignored. This field cannot be specified with
 any other patch configuration fields. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** By changing the type to DIST, the patching is performed using apt-get dist-upgrade instead. Possible values: [DIST, UPGRADE] *)
 }
 [@@deriving yojson_of]
 (** Apt update settings. Use this setting to override the default apt patch rules. *)
 
 type google_os_config_patch_deployment__patch_config__goo = {
-  enabled : bool;
+  enabled : bool prop;
       (** goo update settings. Use this setting to override the default goo patch rules. *)
 }
 [@@deriving yojson_of]
 (** goo update settings. Use this setting to override the default goo patch rules. *)
 
 type google_os_config_patch_deployment__patch_config__post_step__linux_exec_step_config__gcs_object = {
-  bucket : string;  (** Bucket of the Cloud Storage object. *)
-  generation_number : string;
+  bucket : string prop;  (** Bucket of the Cloud Storage object. *)
+  generation_number : string prop;
       (** Generation number of the Cloud Storage object. This is used to ensure that the ExecStep specified by this PatchJob does not change. *)
-  object_ : string; [@key "object"]
+  object_ : string prop; [@key "object"]
       (** Name of the Cloud Storage object. *)
 }
 [@@deriving yojson_of]
 (** A Cloud Storage object containing the executable. *)
 
 type google_os_config_patch_deployment__patch_config__post_step__linux_exec_step_config = {
-  allowed_success_codes : float list option; [@option]
+  allowed_success_codes : float prop list option; [@option]
       (** Defaults to [0]. A list of possible return values that the execution can return to indicate a success. *)
-  interpreter : string option; [@option]
+  interpreter : string prop option; [@option]
       (** The script interpreter to use to run the script. If no interpreter is specified the script will
 be executed directly, which will likely only succeed for scripts with shebang lines. Possible values: [SHELL, POWERSHELL] *)
-  local_path : string option; [@option]
+  local_path : string prop option; [@option]
       (** An absolute path to the executable on the VM. *)
   gcs_object :
     google_os_config_patch_deployment__patch_config__post_step__linux_exec_step_config__gcs_object
@@ -84,22 +84,22 @@ be executed directly, which will likely only succeed for scripts with shebang li
 (** The ExecStepConfig for all Linux VMs targeted by the PatchJob. *)
 
 type google_os_config_patch_deployment__patch_config__post_step__windows_exec_step_config__gcs_object = {
-  bucket : string;  (** Bucket of the Cloud Storage object. *)
-  generation_number : string;
+  bucket : string prop;  (** Bucket of the Cloud Storage object. *)
+  generation_number : string prop;
       (** Generation number of the Cloud Storage object. This is used to ensure that the ExecStep specified by this PatchJob does not change. *)
-  object_ : string; [@key "object"]
+  object_ : string prop; [@key "object"]
       (** Name of the Cloud Storage object. *)
 }
 [@@deriving yojson_of]
 (** A Cloud Storage object containing the executable. *)
 
 type google_os_config_patch_deployment__patch_config__post_step__windows_exec_step_config = {
-  allowed_success_codes : float list option; [@option]
+  allowed_success_codes : float prop list option; [@option]
       (** Defaults to [0]. A list of possible return values that the execution can return to indicate a success. *)
-  interpreter : string option; [@option]
+  interpreter : string prop option; [@option]
       (** The script interpreter to use to run the script. If no interpreter is specified the script will
 be executed directly, which will likely only succeed for scripts with shebang lines. Possible values: [SHELL, POWERSHELL] *)
-  local_path : string option; [@option]
+  local_path : string prop option; [@option]
       (** An absolute path to the executable on the VM. *)
   gcs_object :
     google_os_config_patch_deployment__patch_config__post_step__windows_exec_step_config__gcs_object
@@ -120,22 +120,22 @@ type google_os_config_patch_deployment__patch_config__post_step = {
 (** The ExecStep to run after the patch update. *)
 
 type google_os_config_patch_deployment__patch_config__pre_step__linux_exec_step_config__gcs_object = {
-  bucket : string;  (** Bucket of the Cloud Storage object. *)
-  generation_number : string;
+  bucket : string prop;  (** Bucket of the Cloud Storage object. *)
+  generation_number : string prop;
       (** Generation number of the Cloud Storage object. This is used to ensure that the ExecStep specified by this PatchJob does not change. *)
-  object_ : string; [@key "object"]
+  object_ : string prop; [@key "object"]
       (** Name of the Cloud Storage object. *)
 }
 [@@deriving yojson_of]
 (** A Cloud Storage object containing the executable. *)
 
 type google_os_config_patch_deployment__patch_config__pre_step__linux_exec_step_config = {
-  allowed_success_codes : float list option; [@option]
+  allowed_success_codes : float prop list option; [@option]
       (** Defaults to [0]. A list of possible return values that the execution can return to indicate a success. *)
-  interpreter : string option; [@option]
+  interpreter : string prop option; [@option]
       (** The script interpreter to use to run the script. If no interpreter is specified the script will
 be executed directly, which will likely only succeed for scripts with shebang lines. Possible values: [SHELL, POWERSHELL] *)
-  local_path : string option; [@option]
+  local_path : string prop option; [@option]
       (** An absolute path to the executable on the VM. *)
   gcs_object :
     google_os_config_patch_deployment__patch_config__pre_step__linux_exec_step_config__gcs_object
@@ -145,22 +145,22 @@ be executed directly, which will likely only succeed for scripts with shebang li
 (** The ExecStepConfig for all Linux VMs targeted by the PatchJob. *)
 
 type google_os_config_patch_deployment__patch_config__pre_step__windows_exec_step_config__gcs_object = {
-  bucket : string;  (** Bucket of the Cloud Storage object. *)
-  generation_number : string;
+  bucket : string prop;  (** Bucket of the Cloud Storage object. *)
+  generation_number : string prop;
       (** Generation number of the Cloud Storage object. This is used to ensure that the ExecStep specified by this PatchJob does not change. *)
-  object_ : string; [@key "object"]
+  object_ : string prop; [@key "object"]
       (** Name of the Cloud Storage object. *)
 }
 [@@deriving yojson_of]
 (** A Cloud Storage object containing the executable. *)
 
 type google_os_config_patch_deployment__patch_config__pre_step__windows_exec_step_config = {
-  allowed_success_codes : float list option; [@option]
+  allowed_success_codes : float prop list option; [@option]
       (** Defaults to [0]. A list of possible return values that the execution can return to indicate a success. *)
-  interpreter : string option; [@option]
+  interpreter : string prop option; [@option]
       (** The script interpreter to use to run the script. If no interpreter is specified the script will
 be executed directly, which will likely only succeed for scripts with shebang lines. Possible values: [SHELL, POWERSHELL] *)
-  local_path : string option; [@option]
+  local_path : string prop option; [@option]
       (** An absolute path to the executable on the VM. *)
   gcs_object :
     google_os_config_patch_deployment__patch_config__pre_step__windows_exec_step_config__gcs_object
@@ -181,11 +181,11 @@ type google_os_config_patch_deployment__patch_config__pre_step = {
 (** The ExecStep to run before the patch update. *)
 
 type google_os_config_patch_deployment__patch_config__windows_update = {
-  classifications : string list option; [@option]
+  classifications : string prop list option; [@option]
       (** Only apply updates of these windows update classifications. If empty, all updates are applied. Possible values: [CRITICAL, SECURITY, DEFINITION, DRIVER, FEATURE_PACK, SERVICE_PACK, TOOL, UPDATE_ROLLUP, UPDATE] *)
-  excludes : string list option; [@option]
+  excludes : string prop list option; [@option]
       (** List of KBs to exclude from update. *)
-  exclusive_patches : string list option; [@option]
+  exclusive_patches : string prop list option; [@option]
       (** An exclusive list of kbs to be updated. These are the only patches that will be updated.
 This field must not be used with other patch configurations. *)
 }
@@ -193,42 +193,42 @@ This field must not be used with other patch configurations. *)
 (** Windows update settings. Use this setting to override the default Windows patch rules. *)
 
 type google_os_config_patch_deployment__patch_config__yum = {
-  excludes : string list option; [@option]
+  excludes : string prop list option; [@option]
       (** List of packages to exclude from update. These packages will be excluded. *)
-  exclusive_packages : string list option; [@option]
+  exclusive_packages : string prop list option; [@option]
       (** An exclusive list of packages to be updated. These are the only packages that will be updated.
 If these packages are not installed, they will be ignored. This field cannot be specified with
 any other patch configuration fields. *)
-  minimal : bool option; [@option]
+  minimal : bool prop option; [@option]
       (** Will cause patch to run yum update-minimal instead. *)
-  security : bool option; [@option]
+  security : bool prop option; [@option]
       (** Adds the --security flag to yum update. Not supported on all platforms. *)
 }
 [@@deriving yojson_of]
 (** Yum update settings. Use this setting to override the default yum patch rules. *)
 
 type google_os_config_patch_deployment__patch_config__zypper = {
-  categories : string list option; [@option]
+  categories : string prop list option; [@option]
       (** Install only patches with these categories. Common categories include security, recommended, and feature. *)
-  excludes : string list option; [@option]
+  excludes : string prop list option; [@option]
       (** List of packages to exclude from update. *)
-  exclusive_patches : string list option; [@option]
+  exclusive_patches : string prop list option; [@option]
       (** An exclusive list of patches to be updated. These are the only patches that will be installed using 'zypper patch patch:' command.
 This field must not be used with any other patch configuration fields. *)
-  severities : string list option; [@option]
+  severities : string prop list option; [@option]
       (** Install only patches with these severities. Common severities include critical, important, moderate, and low. *)
-  with_optional : bool option; [@option]
+  with_optional : bool prop option; [@option]
       (** Adds the --with-optional flag to zypper patch. *)
-  with_update : bool option; [@option]
+  with_update : bool prop option; [@option]
       (** Adds the --with-update flag, to zypper patch. *)
 }
 [@@deriving yojson_of]
 (** zypper update settings. Use this setting to override the default zypper patch rules. *)
 
 type google_os_config_patch_deployment__patch_config = {
-  mig_instances_allowed : bool option; [@option]
+  mig_instances_allowed : bool prop option; [@option]
       (** Allows the patch job to run on Managed instance groups (MIGs). *)
-  reboot_config : string option; [@option]
+  reboot_config : string prop option; [@option]
       (** Post-patch reboot settings. Possible values: [DEFAULT, ALWAYS, NEVER] *)
   apt : google_os_config_patch_deployment__patch_config__apt list;
   goo : google_os_config_patch_deployment__patch_config__goo list;
@@ -247,18 +247,18 @@ type google_os_config_patch_deployment__patch_config = {
 (** Patch configuration that is applied. *)
 
 type google_os_config_patch_deployment__recurring_schedule__monthly__week_day_of_month = {
-  day_of_week : string;
+  day_of_week : string prop;
       (** A day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  day_offset : float option; [@option]
+  day_offset : float prop option; [@option]
       (** Represents the number of days before or after the given week day of month that the patch deployment is scheduled for. *)
-  week_ordinal : float;
+  week_ordinal : float prop;
       (** Week number in a month. 1-4 indicates the 1st to 4th week of the month. -1 indicates the last week of the month. *)
 }
 [@@deriving yojson_of]
 (** Week day in a month. *)
 
 type google_os_config_patch_deployment__recurring_schedule__monthly = {
-  month_day : float option; [@option]
+  month_day : float prop option; [@option]
       (** One day of the month. 1-31 indicates the 1st to the 31st day. -1 indicates the last day of the month.
 Months without the target day will be skipped. For example, a schedule to run every month on the 31st
 will not run in February, April, June, etc. *)
@@ -270,23 +270,23 @@ will not run in February, April, June, etc. *)
 (** Schedule with monthly executions. *)
 
 type google_os_config_patch_deployment__recurring_schedule__time_of_day = {
-  hours : float option; [@option]
+  hours : float prop option; [@option]
       (** Hours of day in 24 hour format. Should be from 0 to 23.
 An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
-  minutes : float option; [@option]
+  minutes : float prop option; [@option]
       (** Minutes of hour of day. Must be from 0 to 59. *)
-  nanos : float option; [@option]
+  nanos : float prop option; [@option]
       (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
-  seconds : float option; [@option]
+  seconds : float prop option; [@option]
       (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
 [@@deriving yojson_of]
 (** Time of the day to run a recurring deployment. *)
 
 type google_os_config_patch_deployment__recurring_schedule__time_zone = {
-  id : string;
+  id : string prop;
       (** IANA Time Zone Database time zone, e.g. America/New_York. *)
-  version : string option; [@option]
+  version : string prop option; [@option]
       (** IANA Time Zone Database version number, e.g. 2019a. *)
 }
 [@@deriving yojson_of]
@@ -294,23 +294,23 @@ type google_os_config_patch_deployment__recurring_schedule__time_zone = {
 determined by the chosen time zone. *)
 
 type google_os_config_patch_deployment__recurring_schedule__weekly = {
-  day_of_week : string;
+  day_of_week : string prop;
       (** IANA Time Zone Database time zone, e.g. America/New_York. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
 }
 [@@deriving yojson_of]
 (** Schedule with weekly executions. *)
 
 type google_os_config_patch_deployment__recurring_schedule = {
-  end_time : string option; [@option]
+  end_time : string prop option; [@option]
       (** The end time at which a recurring patch deployment schedule is no longer active.
 A timestamp in RFC3339 UTC Zulu format, accurate to nanoseconds. Example: 2014-10-02T15:01:23.045123456Z. *)
-  last_execute_time : string;
+  last_execute_time : string prop;
       (** The time the last patch job ran successfully.
 A timestamp in RFC3339 UTC Zulu format, accurate to nanoseconds. Example: 2014-10-02T15:01:23.045123456Z. *)
-  next_execute_time : string;
+  next_execute_time : string prop;
       (** The time the next patch job is scheduled to run.
 A timestamp in RFC3339 UTC Zulu format, accurate to nanoseconds. Example: 2014-10-02T15:01:23.045123456Z. *)
-  start_time : string option; [@option]
+  start_time : string prop option; [@option]
       (** The time that the recurring schedule becomes effective. Defaults to createTime of the patch deployment.
 A timestamp in RFC3339 UTC Zulu format, accurate to nanoseconds. Example: 2014-10-02T15:01:23.045123456Z. *)
   monthly :
@@ -330,8 +330,9 @@ A timestamp in RFC3339 UTC Zulu format, accurate to nanoseconds. Example: 2014-1
 (** Schedule recurring executions. *)
 
 type google_os_config_patch_deployment__rollout__disruption_budget = {
-  fixed : float option; [@option]  (** Specifies a fixed value. *)
-  percentage : float option; [@option]
+  fixed : float prop option; [@option]
+      (** Specifies a fixed value. *)
+  percentage : float prop option; [@option]
       (** Specifies the relative value defined as a percentage, which will be multiplied by a reference value. *)
 }
 [@@deriving yojson_of]
@@ -342,7 +343,7 @@ For zone-by-zone rollouts, if the disruption budget in a zone is exceeded, the p
 For example, if the disruption budget has a fixed value of 10, and 8 VMs fail to patch in the current zone, the patch job continues to patch 2 VMs at a time until the zone is completed. When that zone is completed successfully, patching begins with 10 VMs at a time in the next zone. If 10 VMs in the next zone fail to patch, the patch job stops. *)
 
 type google_os_config_patch_deployment__rollout = {
-  mode : string;
+  mode : string prop;
       (** Mode of the patch rollout. Possible values: [ZONE_BY_ZONE, CONCURRENT_ZONES] *)
   disruption_budget :
     google_os_config_patch_deployment__rollout__disruption_budget
@@ -352,27 +353,27 @@ type google_os_config_patch_deployment__rollout = {
 (** Rollout strategy of the patch job. *)
 
 type google_os_config_patch_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_os_config_patch_deployment__timeouts *)
 
 type google_os_config_patch_deployment = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of the patch deployment. Length of the description is limited to 1024 characters. *)
-  duration : string option; [@option]
+  duration : string prop option; [@option]
       (** Duration of the patch. After the duration ends, the patch times out.
 A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s *)
-  id : string option; [@option]  (** id *)
-  patch_deployment_id : string;
+  id : string prop option; [@option]  (** id *)
+  patch_deployment_id : string prop;
       (** A name for the patch deployment in the project. When creating a name the following rules apply:
 * Must contain only lowercase letters, numbers, and hyphens.
 * Must start with a letter.
 * Must be between 1-63 characters.
 * Must end with a number or a letter.
 * Must be unique within the project. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   instance_filter :
     google_os_config_patch_deployment__instance_filter list;
   one_time_schedule :

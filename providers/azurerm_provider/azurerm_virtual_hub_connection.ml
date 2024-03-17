@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_virtual_hub_connection__routing__propagated_route_table = {
-  labels : string list option; [@option]  (** labels *)
-  route_table_ids : string list option; [@option]
+  labels : string prop list option; [@option]  (** labels *)
+  route_table_ids : string prop list option; [@option]
       (** route_table_ids *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_connection__routing__propagated_route_table *)
 
 type azurerm_virtual_hub_connection__routing__static_vnet_route = {
-  address_prefixes : string list option; [@option]
+  address_prefixes : string prop list option; [@option]
       (** address_prefixes *)
-  name : string option; [@option]  (** name *)
-  next_hop_ip_address : string option; [@option]
+  name : string prop option; [@option]  (** name *)
+  next_hop_ip_address : string prop option; [@option]
       (** next_hop_ip_address *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_connection__routing__static_vnet_route *)
 
 type azurerm_virtual_hub_connection__routing = {
-  associated_route_table_id : string option; [@option]
+  associated_route_table_id : string prop option; [@option]
       (** associated_route_table_id *)
-  inbound_route_map_id : string option; [@option]
+  inbound_route_map_id : string prop option; [@option]
       (** inbound_route_map_id *)
-  outbound_route_map_id : string option; [@option]
+  outbound_route_map_id : string prop option; [@option]
       (** outbound_route_map_id *)
-  static_vnet_local_route_override_criteria : string option;
+  static_vnet_local_route_override_criteria : string prop option;
       [@option]
       (** static_vnet_local_route_override_criteria *)
   propagated_route_table :
@@ -42,22 +42,22 @@ type azurerm_virtual_hub_connection__routing = {
 (** azurerm_virtual_hub_connection__routing *)
 
 type azurerm_virtual_hub_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_connection__timeouts *)
 
 type azurerm_virtual_hub_connection = {
-  id : string option; [@option]  (** id *)
-  internet_security_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  internet_security_enabled : bool prop option; [@option]
       (** internet_security_enabled *)
-  name : string;  (** name *)
-  remote_virtual_network_id : string;
+  name : string prop;  (** name *)
+  remote_virtual_network_id : string prop;
       (** remote_virtual_network_id *)
-  virtual_hub_id : string;  (** virtual_hub_id *)
+  virtual_hub_id : string prop;  (** virtual_hub_id *)
   routing : azurerm_virtual_hub_connection__routing list;
   timeouts : azurerm_virtual_hub_connection__timeouts option;
 }

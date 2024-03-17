@@ -5,37 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_notification_hub__apns_credential = {
-  application_mode : string;  (** application_mode *)
-  bundle_id : string;  (** bundle_id *)
-  key_id : string;  (** key_id *)
-  team_id : string;  (** team_id *)
-  token : string;  (** token *)
+  application_mode : string prop;  (** application_mode *)
+  bundle_id : string prop;  (** bundle_id *)
+  key_id : string prop;  (** key_id *)
+  team_id : string prop;  (** team_id *)
+  token : string prop;  (** token *)
 }
 [@@deriving yojson_of]
 (** azurerm_notification_hub__apns_credential *)
 
 type azurerm_notification_hub__gcm_credential = {
-  api_key : string;  (** api_key *)
+  api_key : string prop;  (** api_key *)
 }
 [@@deriving yojson_of]
 (** azurerm_notification_hub__gcm_credential *)
 
 type azurerm_notification_hub__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_notification_hub__timeouts *)
 
 type azurerm_notification_hub = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  namespace_name : string;  (** namespace_name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  namespace_name : string prop;  (** namespace_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   apns_credential : azurerm_notification_hub__apns_credential list;
   gcm_credential : azurerm_notification_hub__gcm_credential list;
   timeouts : azurerm_notification_hub__timeouts option;

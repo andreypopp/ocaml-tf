@@ -5,24 +5,25 @@
 open! Tf.Prelude
 
 type google_logging_log_view__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_logging_log_view__timeouts *)
 
 type google_logging_log_view = {
-  bucket : string;  (** The bucket of the resource *)
-  description : string option; [@option]  (** Describes this view. *)
-  filter : string option; [@option]
+  bucket : string prop;  (** The bucket of the resource *)
+  description : string prop option; [@option]
+      (** Describes this view. *)
+  filter : string prop option; [@option]
       (** Filter that restricts which log entries in a bucket are visible in this view. Filters are restricted to be a logical AND of ==/!= of any of the following: - originating project/folder/organization/billing account. - resource type - log id For example: SOURCE(projects/myproject) AND resource.type = gce_instance AND LOG_ID(stdout) *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]
       (** The location of the resource. The supported locations are: global, us-central1, us-east1, us-west1, asia-east1, europe-west1. *)
-  name : string;
+  name : string prop;
       (** The resource name of the view. For example: \'projects/my-project/locations/global/buckets/my-bucket/views/my-view\' *)
-  parent : string option; [@option]
+  parent : string prop option; [@option]
       (** The parent of the resource. *)
   timeouts : google_logging_log_view__timeouts option;
 }

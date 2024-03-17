@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_ec2_transit_gateway_peering_attachment
 
 val aws_ec2_transit_gateway_peering_attachment :
-  ?id:string ->
-  ?peer_account_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  peer_region:string ->
-  peer_transit_gateway_id:string ->
-  transit_gateway_id:string ->
+  ?id:string prop ->
+  ?peer_account_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  peer_region:string prop ->
+  peer_transit_gateway_id:string prop ->
+  transit_gateway_id:string prop ->
   string ->
   unit

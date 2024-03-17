@@ -5,33 +5,35 @@
 open! Tf.Prelude
 
 type aws_kinesis_stream__stream_mode_details = {
-  stream_mode : string;  (** stream_mode *)
+  stream_mode : string prop;  (** stream_mode *)
 }
 [@@deriving yojson_of]
 (** aws_kinesis_stream__stream_mode_details *)
 
 type aws_kinesis_stream__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_kinesis_stream__timeouts *)
 
 type aws_kinesis_stream = {
-  arn : string option; [@option]  (** arn *)
-  encryption_type : string option; [@option]  (** encryption_type *)
-  enforce_consumer_deletion : bool option; [@option]
+  arn : string prop option; [@option]  (** arn *)
+  encryption_type : string prop option; [@option]
+      (** encryption_type *)
+  enforce_consumer_deletion : bool prop option; [@option]
       (** enforce_consumer_deletion *)
-  id : string option; [@option]  (** id *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  name : string;  (** name *)
-  retention_period : float option; [@option]  (** retention_period *)
-  shard_count : float option; [@option]  (** shard_count *)
-  shard_level_metrics : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  name : string prop;  (** name *)
+  retention_period : float prop option; [@option]
+      (** retention_period *)
+  shard_count : float prop option; [@option]  (** shard_count *)
+  shard_level_metrics : string prop list option; [@option]
       (** shard_level_metrics *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   stream_mode_details : aws_kinesis_stream__stream_mode_details list;
   timeouts : aws_kinesis_stream__timeouts option;

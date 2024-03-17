@@ -6,11 +6,11 @@ type google_data_catalog_policy_tag__timeouts
 type google_data_catalog_policy_tag
 
 val google_data_catalog_policy_tag :
-  ?description:string ->
-  ?id:string ->
-  ?parent_policy_tag:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?parent_policy_tag:string prop ->
   ?timeouts:google_data_catalog_policy_tag__timeouts ->
-  display_name:string ->
-  taxonomy:string ->
+  display_name:string prop ->
+  taxonomy:string prop ->
   string ->
   unit

@@ -34,16 +34,16 @@ type azurerm_api_management_api_operation__timeouts
 type azurerm_api_management_api_operation
 
 val azurerm_api_management_api_operation :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_api_management_api_operation__timeouts ->
-  api_management_name:string ->
-  api_name:string ->
-  display_name:string ->
-  method_:string ->
-  operation_id:string ->
-  resource_group_name:string ->
-  url_template:string ->
+  api_management_name:string prop ->
+  api_name:string prop ->
+  display_name:string prop ->
+  method_:string prop ->
+  operation_id:string prop ->
+  resource_group_name:string prop ->
+  url_template:string prop ->
   request:azurerm_api_management_api_operation__request list ->
   response:azurerm_api_management_api_operation__response list ->
   template_parameter:

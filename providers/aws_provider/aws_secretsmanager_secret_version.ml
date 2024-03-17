@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_secretsmanager_secret_version = {
-  id : string option; [@option]  (** id *)
-  secret_binary : string option; [@option]  (** secret_binary *)
-  secret_id : string;  (** secret_id *)
-  secret_string : string option; [@option]  (** secret_string *)
-  version_stages : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  secret_binary : string prop option; [@option]  (** secret_binary *)
+  secret_id : string prop;  (** secret_id *)
+  secret_string : string prop option; [@option]  (** secret_string *)
+  version_stages : string prop list option; [@option]
       (** version_stages *)
 }
 [@@deriving yojson_of]

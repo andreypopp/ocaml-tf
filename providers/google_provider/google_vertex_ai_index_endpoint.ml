@@ -5,42 +5,42 @@
 open! Tf.Prelude
 
 type google_vertex_ai_index_endpoint__private_service_connect_config = {
-  enable_private_service_connect : bool;
+  enable_private_service_connect : bool prop;
       (** If set to true, the IndexEndpoint is created without private service access. *)
-  project_allowlist : string list option; [@option]
+  project_allowlist : string prop list option; [@option]
       (** A list of Projects from which the forwarding rule will target the service attachment. *)
 }
 [@@deriving yojson_of]
 (** Optional. Configuration for private service connect. 'network' and 'privateServiceConnectConfig' are mutually exclusive. *)
 
 type google_vertex_ai_index_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_vertex_ai_index_endpoint__timeouts *)
 
 type google_vertex_ai_index_endpoint = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description of the Index. *)
-  display_name : string;
+  display_name : string prop;
       (** The display name of the Index. The name can be up to 128 characters long and can consist of any UTF-8 characters. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** The labels with user-defined metadata to organize your Indexes.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  network : string option; [@option]
+  network : string prop option; [@option]
       (** The full name of the Google Compute Engine [network](https://cloud.google.com//compute/docs/networks-and-firewalls#networks) to which the index endpoint should be peered.
 Private services access must already be configured for the network. If left unspecified, the index endpoint is not peered with any network.
 [Format](https://cloud.google.com/compute/docs/reference/rest/v1/networks/insert): 'projects/{project}/global/networks/{network}'.
 Where '{project}' is a project number, as in '12345', and '{network}' is network name. *)
-  project : string option; [@option]  (** project *)
-  public_endpoint_enabled : bool option; [@option]
+  project : string prop option; [@option]  (** project *)
+  public_endpoint_enabled : bool prop option; [@option]
       (** If true, the deployed index will be accessible through public endpoint. *)
-  region : string option; [@option]
+  region : string prop option; [@option]
       (** The region of the index endpoint. eg us-central1 *)
   private_service_connect_config :
     google_vertex_ai_index_endpoint__private_service_connect_config

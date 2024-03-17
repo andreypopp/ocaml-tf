@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_auditmanager_assessment_delegation
 
 val aws_auditmanager_assessment_delegation :
-  ?comment:string ->
-  assessment_id:string ->
-  control_set_id:string ->
-  role_arn:string ->
-  role_type:string ->
+  ?comment:string prop ->
+  assessment_id:string prop ->
+  control_set_id:string prop ->
+  role_arn:string prop ->
+  role_type:string prop ->
   string ->
   unit

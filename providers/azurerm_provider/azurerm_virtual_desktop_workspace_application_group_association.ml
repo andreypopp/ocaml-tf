@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_virtual_desktop_workspace_application_group_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_desktop_workspace_application_group_association__timeouts *)
 
 type azurerm_virtual_desktop_workspace_application_group_association = {
-  application_group_id : string;  (** application_group_id *)
-  id : string option; [@option]  (** id *)
-  workspace_id : string;  (** workspace_id *)
+  application_group_id : string prop;  (** application_group_id *)
+  id : string prop option; [@option]  (** id *)
+  workspace_id : string prop;  (** workspace_id *)
   timeouts :
     azurerm_virtual_desktop_workspace_application_group_association__timeouts
     option;

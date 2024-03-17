@@ -66,12 +66,12 @@ type azurerm_media_transform__timeouts
 type azurerm_media_transform
 
 val azurerm_media_transform :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_media_transform__timeouts ->
-  media_services_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  media_services_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   output:azurerm_media_transform__output list ->
   string ->
   unit

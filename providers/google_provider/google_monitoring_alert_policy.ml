@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type google_monitoring_alert_policy__alert_strategy__notification_channel_strategy = {
-  notification_channel_names : string list option; [@option]
+  notification_channel_names : string prop list option; [@option]
       (** The notification channels that these settings apply to. Each of these
 correspond to the name field in one of the NotificationChannel objects
 referenced in the notification_channels field of this AlertPolicy. The format is
 'projects/[PROJECT_ID_OR_NUMBER]/notificationChannels/[CHANNEL_ID]' *)
-  renotify_interval : string option; [@option]
+  renotify_interval : string prop option; [@option]
       (** The frequency at which to send reminder notifications for open incidents. *)
 }
 [@@deriving yojson_of]
@@ -18,7 +18,7 @@ referenced in the notification_channels field of this AlertPolicy. The format is
 are notified when this alert fires, on a per-channel basis. *)
 
 type google_monitoring_alert_policy__alert_strategy__notification_rate_limit = {
-  period : string option; [@option]
+  period : string prop option; [@option]
       (** Not more than one notification per period. *)
 }
 [@@deriving yojson_of]
@@ -26,7 +26,7 @@ type google_monitoring_alert_policy__alert_strategy__notification_rate_limit = {
 This limit is not implemented for alert policies that are not log-based. *)
 
 type google_monitoring_alert_policy__alert_strategy = {
-  auto_close : string option; [@option]
+  auto_close : string prop option; [@option]
       (** If an alert policy that was active has no data for this long, any open incidents will close. *)
   notification_channel_strategy :
     google_monitoring_alert_policy__alert_strategy__notification_channel_strategy
@@ -39,7 +39,7 @@ type google_monitoring_alert_policy__alert_strategy = {
 (** Control over how this alert policy's notification channels are notified. *)
 
 type google_monitoring_alert_policy__conditions__condition_absent__aggregations = {
-  alignment_period : string option; [@option]
+  alignment_period : string prop option; [@option]
       (** The alignment period for per-time
 series alignment. If present,
 alignmentPeriod must be at least
@@ -54,7 +54,7 @@ perSeriesAligner is specified and
 does not equal ALIGN_NONE, then
 this field must be defined;
 otherwise an error is returned. *)
-  cross_series_reducer : string option; [@option]
+  cross_series_reducer : string prop option; [@option]
       (** The approach to be used to combine
 time series. Not all reducer
 functions may be applied to all
@@ -72,7 +72,7 @@ specified and not equal ALIGN_NONE
 and alignmentPeriod must be
 specified; otherwise, an error is
 returned. Possible values: [REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05] *)
-  group_by_fields : string list option; [@option]
+  group_by_fields : string prop list option; [@option]
       (** The set of fields to preserve when
 crossSeriesReducer is specified.
 The groupByFields determine how
@@ -98,7 +98,7 @@ aggregated into a single output
 time series. If crossSeriesReducer
 is not defined, this field is
 ignored. *)
-  per_series_aligner : string option; [@option]
+  per_series_aligner : string prop option; [@option]
       (** The approach to be used to align
 individual time series. Not all
 alignment functions may be applied
@@ -129,11 +129,11 @@ Multiple aggregations are applied in the
 order specified. *)
 
 type google_monitoring_alert_policy__conditions__condition_absent__trigger = {
-  count : float option; [@option]
+  count : float prop option; [@option]
       (** The absolute number of time series
 that must fail the predicate for the
 condition to be triggered. *)
-  percent : float option; [@option]
+  percent : float prop option; [@option]
       (** The percentage of time series that
 must fail the predicate for the
 condition to be triggered. *)
@@ -147,13 +147,13 @@ is true for any of the time series that have
 been identified by filter and aggregations. *)
 
 type google_monitoring_alert_policy__conditions__condition_absent = {
-  duration : string;
+  duration : string prop;
       (** The amount of time that a time series must
 fail to report new data to be considered
 failing. Currently, only values that are a
 multiple of a minute--e.g. 60s, 120s, or 300s
 --are supported. *)
-  filter : string option; [@option]
+  filter : string prop option; [@option]
       (** A filter that identifies which time series
 should be compared with the threshold.The
 filter is similar to the one that is
@@ -178,8 +178,8 @@ in length. *)
 continues to receive new data points. *)
 
 type google_monitoring_alert_policy__conditions__condition_matched_log = {
-  filter : string;  (** A logs-based filter. *)
-  label_extractors : (string * string) list option; [@option]
+  filter : string prop;  (** A logs-based filter. *)
+  label_extractors : (string * string prop) list option; [@option]
       (** A map from a label key to an extractor expression, which is used to
 extract the value for this label key. Each entry in this map is
 a specification for how data should be extracted from log entries that
@@ -193,11 +193,11 @@ generated by this condition. *)
 If set, no other conditions can be present. *)
 
 type google_monitoring_alert_policy__conditions__condition_monitoring_query_language__trigger = {
-  count : float option; [@option]
+  count : float prop option; [@option]
       (** The absolute number of time series
 that must fail the predicate for the
 condition to be triggered. *)
-  percent : float option; [@option]
+  percent : float prop option; [@option]
       (** The percentage of time series that
 must fail the predicate for the
 condition to be triggered. *)
@@ -213,7 +213,7 @@ or by the ratio, if denominator_filter and
 denominator_aggregations are specified. *)
 
 type google_monitoring_alert_policy__conditions__condition_monitoring_query_language = {
-  duration : string;
+  duration : string prop;
       (** The amount of time that a time series must
 violate the threshold to be considered
 failing. Currently, only values that are a
@@ -229,11 +229,11 @@ enough so that a single outlier does not
 generate spurious alerts, but short enough
 that unhealthy states are detected and
 alerted on quickly. *)
-  evaluation_missing_data : string option; [@option]
+  evaluation_missing_data : string prop option; [@option]
       (** A condition control that determines how
 metric-threshold conditions are evaluated when
 data stops arriving. Possible values: [EVALUATION_MISSING_DATA_INACTIVE, EVALUATION_MISSING_DATA_ACTIVE, EVALUATION_MISSING_DATA_NO_OP] *)
-  query : string;
+  query : string prop;
       (** Monitoring Query Language query that outputs a boolean stream. *)
   trigger :
     google_monitoring_alert_policy__conditions__condition_monitoring_query_language__trigger
@@ -243,7 +243,7 @@ data stops arriving. Possible values: [EVALUATION_MISSING_DATA_INACTIVE, EVALUAT
 (** A Monitoring Query Language query that outputs a boolean stream *)
 
 type google_monitoring_alert_policy__conditions__condition_prometheus_query_language = {
-  alert_rule : string option; [@option]
+  alert_rule : string prop option; [@option]
       (** The alerting rule name of this alert in the corresponding Prometheus
 configuration file.
 
@@ -255,18 +255,18 @@ in the future.
 
 This field is optional. If this field is not empty, then it must be a
 valid Prometheus label name. *)
-  duration : string option; [@option]
+  duration : string prop option; [@option]
       (** Alerts are considered firing once their PromQL expression evaluated
 to be true for this long. Alerts whose PromQL expression was not
 evaluated to be true for long enough are considered pending. The
 default value is zero. Must be zero or positive. *)
-  evaluation_interval : string option; [@option]
+  evaluation_interval : string prop option; [@option]
       (** How often this rule should be evaluated. Must be a positive multiple
 of 30 seconds or missing. The default value is 30 seconds. If this
 PrometheusQueryLanguageCondition was generated from a Prometheus
 alerting rule, then this value should be taken from the enclosing
 rule group. *)
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** Labels to add to or overwrite in the PromQL query result. Label names
 must be valid.
 
@@ -274,11 +274,11 @@ Label values can be templatized by using variables. The only available
 variable names are the names of the labels in the PromQL result, including
 __name__ and value. labels may be empty. This field is intended to be
 used for organizing and identifying the AlertPolicy *)
-  query : string;
+  query : string prop;
       (** The PromQL expression to evaluate. Every evaluation cycle this
 expression is evaluated at the current time, and all resultant time
 series become pending/firing alerts. This field must not be empty. *)
-  rule_group : string option; [@option]
+  rule_group : string prop option; [@option]
       (** The rule group name of this alert in the corresponding Prometheus
 configuration file.
 
@@ -296,7 +296,7 @@ The PrometheusQueryLanguageCondition message contains information
 from a Prometheus alerting rule and its associated rule group. *)
 
 type google_monitoring_alert_policy__conditions__condition_threshold__aggregations = {
-  alignment_period : string option; [@option]
+  alignment_period : string prop option; [@option]
       (** The alignment period for per-time
 series alignment. If present,
 alignmentPeriod must be at least
@@ -311,7 +311,7 @@ perSeriesAligner is specified and
 does not equal ALIGN_NONE, then
 this field must be defined;
 otherwise an error is returned. *)
-  cross_series_reducer : string option; [@option]
+  cross_series_reducer : string prop option; [@option]
       (** The approach to be used to combine
 time series. Not all reducer
 functions may be applied to all
@@ -329,7 +329,7 @@ specified and not equal ALIGN_NONE
 and alignmentPeriod must be
 specified; otherwise, an error is
 returned. Possible values: [REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05] *)
-  group_by_fields : string list option; [@option]
+  group_by_fields : string prop list option; [@option]
       (** The set of fields to preserve when
 crossSeriesReducer is specified.
 The groupByFields determine how
@@ -355,7 +355,7 @@ aggregated into a single output
 time series. If crossSeriesReducer
 is not defined, this field is
 ignored. *)
-  per_series_aligner : string option; [@option]
+  per_series_aligner : string prop option; [@option]
       (** The approach to be used to align
 individual time series. Not all
 alignment functions may be applied
@@ -390,7 +390,7 @@ ListTimeSeries method when debugging this
 field. *)
 
 type google_monitoring_alert_policy__conditions__condition_threshold__denominator_aggregations = {
-  alignment_period : string option; [@option]
+  alignment_period : string prop option; [@option]
       (** The alignment period for per-time
 series alignment. If present,
 alignmentPeriod must be at least
@@ -405,7 +405,7 @@ perSeriesAligner is specified and
 does not equal ALIGN_NONE, then
 this field must be defined;
 otherwise an error is returned. *)
-  cross_series_reducer : string option; [@option]
+  cross_series_reducer : string prop option; [@option]
       (** The approach to be used to combine
 time series. Not all reducer
 functions may be applied to all
@@ -423,7 +423,7 @@ specified and not equal ALIGN_NONE
 and alignmentPeriod must be
 specified; otherwise, an error is
 returned. Possible values: [REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05] *)
-  group_by_fields : string list option; [@option]
+  group_by_fields : string prop list option; [@option]
       (** The set of fields to preserve when
 crossSeriesReducer is specified.
 The groupByFields determine how
@@ -449,7 +449,7 @@ aggregated into a single output
 time series. If crossSeriesReducer
 is not defined, this field is
 ignored. *)
-  per_series_aligner : string option; [@option]
+  per_series_aligner : string prop option; [@option]
       (** The approach to be used to align
 individual time series. Not all
 alignment functions may be applied
@@ -487,7 +487,7 @@ is advisable to use the ListTimeSeries
 method when debugging this field. *)
 
 type google_monitoring_alert_policy__conditions__condition_threshold__forecast_options = {
-  forecast_horizon : string;
+  forecast_horizon : string prop;
       (** The length of time into the future to forecast
 whether a timeseries will violate the threshold.
 If the predicted value is found to violate the
@@ -504,11 +504,11 @@ predicted to violate the threshold within the
 timeseries against the threshold. *)
 
 type google_monitoring_alert_policy__conditions__condition_threshold__trigger = {
-  count : float option; [@option]
+  count : float prop option; [@option]
       (** The absolute number of time series
 that must fail the predicate for the
 condition to be triggered. *)
-  percent : float option; [@option]
+  percent : float prop option; [@option]
       (** The percentage of time series that
 must fail the predicate for the
 condition to be triggered. *)
@@ -524,7 +524,7 @@ or by the ratio, if denominator_filter and
 denominator_aggregations are specified. *)
 
 type google_monitoring_alert_policy__conditions__condition_threshold = {
-  comparison : string;
+  comparison : string prop;
       (** The comparison to apply between the time
 series (indicated by filter and aggregation)
 and the threshold (indicated by
@@ -533,7 +533,7 @@ on each time series, with the time series on
 the left-hand side and the threshold on the
 right-hand side. Only COMPARISON_LT and
 COMPARISON_GT are supported currently. Possible values: [COMPARISON_GT, COMPARISON_GE, COMPARISON_LT, COMPARISON_LE, COMPARISON_EQ, COMPARISON_NE] *)
-  denominator_filter : string option; [@option]
+  denominator_filter : string prop option; [@option]
       (** A filter that identifies a time series that
 should be used as the denominator of a ratio
 that will be compared with the threshold. If
@@ -549,7 +549,7 @@ contain restrictions on resource type,
 resource labels, and metric labels. This
 field may not exceed 2048 Unicode characters
 in length. *)
-  duration : string;
+  duration : string prop;
       (** The amount of time that a time series must
 violate the threshold to be considered
 failing. Currently, only values that are a
@@ -565,11 +565,11 @@ enough so that a single outlier does not
 generate spurious alerts, but short enough
 that unhealthy states are detected and
 alerted on quickly. *)
-  evaluation_missing_data : string option; [@option]
+  evaluation_missing_data : string prop option; [@option]
       (** A condition control that determines how
 metric-threshold conditions are evaluated when
 data stops arriving. Possible values: [EVALUATION_MISSING_DATA_INACTIVE, EVALUATION_MISSING_DATA_ACTIVE, EVALUATION_MISSING_DATA_NO_OP] *)
-  filter : string option; [@option]
+  filter : string prop option; [@option]
       (** A filter that identifies which time series
 should be compared with the threshold.The
 filter is similar to the one that is
@@ -582,7 +582,7 @@ contain restrictions on resource type,
 resource labels, and metric labels. This
 field may not exceed 2048 Unicode characters
 in length. *)
-  threshold_value : float option; [@option]
+  threshold_value : float prop option; [@option]
       (** A value against which to compare the time
 series. *)
   aggregations :
@@ -603,13 +603,13 @@ series. *)
 threshold. *)
 
 type google_monitoring_alert_policy__conditions = {
-  display_name : string;
+  display_name : string prop;
       (** A short name or phrase used to identify the
 condition in dashboards, notifications, and
 incidents. To avoid confusion, don't use the same
 display name for multiple conditions in the same
 policy. *)
-  name : string;
+  name : string prop;
       (** The unique resource name for this condition.
 Its syntax is:
 projects/[PROJECT_ID]/alertPolicies/[POLICY_ID]/conditions/[CONDITION_ID]
@@ -638,15 +638,15 @@ evaluate to true, then an incident is created. A policy can have from
 one to six conditions. *)
 
 type google_monitoring_alert_policy__documentation = {
-  content : string option; [@option]
+  content : string prop option; [@option]
       (** The text of the documentation, interpreted according to mimeType.
 The content may not exceed 8,192 Unicode characters and may not
 exceed more than 10,240 bytes when encoded in UTF-8 format,
 whichever is smaller. *)
-  mime_type : string option; [@option]
+  mime_type : string prop option; [@option]
       (** The format of the content field. Presently, only the value
 text/markdown is supported. *)
-  subject : string option; [@option]
+  subject : string prop option; [@option]
       (** The subject line of the notification. The subject line may not
 exceed 10,240 bytes. In notifications generated by this policy the contents
 of the subject line after variable expansion will be truncated to 255 bytes
@@ -660,32 +660,32 @@ problems detected by the alerting policy. Notification channels that have
 limited capacity might not show this documentation. *)
 
 type google_monitoring_alert_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_monitoring_alert_policy__timeouts *)
 
 type google_monitoring_alert_policy__creation_record = {
-  mutate_time : string;  (** mutate_time *)
-  mutated_by : string;  (** mutated_by *)
+  mutate_time : string prop;  (** mutate_time *)
+  mutated_by : string prop;  (** mutated_by *)
 }
 [@@deriving yojson_of]
 
 type google_monitoring_alert_policy = {
-  combiner : string;
+  combiner : string prop;
       (** How to combine the results of multiple conditions to
 determine if an incident should be opened. Possible values: [AND, OR, AND_WITH_MATCHING_RESOURCE] *)
-  display_name : string;
+  display_name : string prop;
       (** A short name or phrase used to identify the policy in
 dashboards, notifications, and incidents. To avoid confusion, don't use
 the same display name for multiple policies in the same project. The
 name is limited to 512 Unicode characters. *)
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** Whether or not the policy is enabled. The default is true. *)
-  id : string option; [@option]  (** id *)
-  notification_channels : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  notification_channels : string prop list option; [@option]
       (** Identifies the notification channels to which notifications should be
 sent when incidents are opened or closed or when new violations occur
 on an already opened incident. Each element of this array corresponds
@@ -693,12 +693,12 @@ to the name field in each of the NotificationChannel objects that are
 returned from the notificationChannels.list method. The syntax of the
 entries in this field is
 'projects/[PROJECT_ID]/notificationChannels/[CHANNEL_ID]' *)
-  project : string option; [@option]  (** project *)
-  severity : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  severity : string prop option; [@option]
       (** The severity of an alert policy indicates how important incidents generated
 by that policy are. The severity level will be displayed on the Incident
 detail page and in notifications. Possible values: [CRITICAL, ERROR, WARNING] *)
-  user_labels : (string * string) list option; [@option]
+  user_labels : (string * string prop) list option; [@option]
       (** This field is intended to be used for organizing and identifying the AlertPolicy
 objects.The field can contain up to 64 entries. Each key and value is limited
 to 63 Unicode characters or 128 bytes, whichever is smaller. Labels and values

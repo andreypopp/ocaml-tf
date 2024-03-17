@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_lambda_event_source_mapping__amazon_managed_kafka_event_source_config = {
-  consumer_group_id : string option; [@option]
+  consumer_group_id : string prop option; [@option]
       (** consumer_group_id *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_event_source_mapping__amazon_managed_kafka_event_source_config *)
 
 type aws_lambda_event_source_mapping__destination_config__on_failure = {
-  destination_arn : string;  (** destination_arn *)
+  destination_arn : string prop;  (** destination_arn *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_event_source_mapping__destination_config__on_failure *)
@@ -26,15 +26,16 @@ type aws_lambda_event_source_mapping__destination_config = {
 (** aws_lambda_event_source_mapping__destination_config *)
 
 type aws_lambda_event_source_mapping__document_db_event_source_config = {
-  collection_name : string option; [@option]  (** collection_name *)
-  database_name : string;  (** database_name *)
-  full_document : string option; [@option]  (** full_document *)
+  collection_name : string prop option; [@option]
+      (** collection_name *)
+  database_name : string prop;  (** database_name *)
+  full_document : string prop option; [@option]  (** full_document *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_event_source_mapping__document_db_event_source_config *)
 
 type aws_lambda_event_source_mapping__filter_criteria__filter = {
-  pattern : string option; [@option]  (** pattern *)
+  pattern : string prop option; [@option]  (** pattern *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_event_source_mapping__filter_criteria__filter *)
@@ -47,58 +48,58 @@ type aws_lambda_event_source_mapping__filter_criteria = {
 (** aws_lambda_event_source_mapping__filter_criteria *)
 
 type aws_lambda_event_source_mapping__scaling_config = {
-  maximum_concurrency : float option; [@option]
+  maximum_concurrency : float prop option; [@option]
       (** maximum_concurrency *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_event_source_mapping__scaling_config *)
 
 type aws_lambda_event_source_mapping__self_managed_event_source = {
-  endpoints : (string * string) list;  (** endpoints *)
+  endpoints : (string * string prop) list;  (** endpoints *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_event_source_mapping__self_managed_event_source *)
 
 type aws_lambda_event_source_mapping__self_managed_kafka_event_source_config = {
-  consumer_group_id : string option; [@option]
+  consumer_group_id : string prop option; [@option]
       (** consumer_group_id *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_event_source_mapping__self_managed_kafka_event_source_config *)
 
 type aws_lambda_event_source_mapping__source_access_configuration = {
-  type_ : string; [@key "type"]  (** type *)
-  uri : string;  (** uri *)
+  type_ : string prop; [@key "type"]  (** type *)
+  uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_event_source_mapping__source_access_configuration *)
 
 type aws_lambda_event_source_mapping = {
-  batch_size : float option; [@option]  (** batch_size *)
-  bisect_batch_on_function_error : bool option; [@option]
+  batch_size : float prop option; [@option]  (** batch_size *)
+  bisect_batch_on_function_error : bool prop option; [@option]
       (** bisect_batch_on_function_error *)
-  enabled : bool option; [@option]  (** enabled *)
-  event_source_arn : string option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  event_source_arn : string prop option; [@option]
       (** event_source_arn *)
-  function_name : string;  (** function_name *)
-  function_response_types : string list option; [@option]
+  function_name : string prop;  (** function_name *)
+  function_response_types : string prop list option; [@option]
       (** function_response_types *)
-  id : string option; [@option]  (** id *)
-  maximum_batching_window_in_seconds : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  maximum_batching_window_in_seconds : float prop option; [@option]
       (** maximum_batching_window_in_seconds *)
-  maximum_record_age_in_seconds : float option; [@option]
+  maximum_record_age_in_seconds : float prop option; [@option]
       (** maximum_record_age_in_seconds *)
-  maximum_retry_attempts : float option; [@option]
+  maximum_retry_attempts : float prop option; [@option]
       (** maximum_retry_attempts *)
-  parallelization_factor : float option; [@option]
+  parallelization_factor : float prop option; [@option]
       (** parallelization_factor *)
-  queues : string list option; [@option]  (** queues *)
-  starting_position : string option; [@option]
+  queues : string prop list option; [@option]  (** queues *)
+  starting_position : string prop option; [@option]
       (** starting_position *)
-  starting_position_timestamp : string option; [@option]
+  starting_position_timestamp : string prop option; [@option]
       (** starting_position_timestamp *)
-  topics : string list option; [@option]  (** topics *)
-  tumbling_window_in_seconds : float option; [@option]
+  topics : string prop list option; [@option]  (** topics *)
+  tumbling_window_in_seconds : float prop option; [@option]
       (** tumbling_window_in_seconds *)
   amazon_managed_kafka_event_source_config :
     aws_lambda_event_source_mapping__amazon_managed_kafka_event_source_config

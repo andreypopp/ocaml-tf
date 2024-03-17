@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_apprunner_deployment__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_deployment__timeouts *)
 
 type aws_apprunner_deployment = {
-  service_arn : string;  (** service_arn *)
+  service_arn : string prop;  (** service_arn *)
   timeouts : aws_apprunner_deployment__timeouts option;
 }
 [@@deriving yojson_of]

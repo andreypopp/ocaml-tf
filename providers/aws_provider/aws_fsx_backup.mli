@@ -6,11 +6,11 @@ type aws_fsx_backup__timeouts
 type aws_fsx_backup
 
 val aws_fsx_backup :
-  ?file_system_id:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?volume_id:string ->
+  ?file_system_id:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?volume_id:string prop ->
   ?timeouts:aws_fsx_backup__timeouts ->
   string ->
   unit

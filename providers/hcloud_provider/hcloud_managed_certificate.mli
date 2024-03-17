@@ -5,9 +5,9 @@ open! Tf.Prelude
 type hcloud_managed_certificate
 
 val hcloud_managed_certificate :
-  ?id:string ->
-  ?labels:(string * string) list ->
-  domain_names:string list ->
-  name:string ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  domain_names:string prop list ->
+  name:string prop ->
   string ->
   unit

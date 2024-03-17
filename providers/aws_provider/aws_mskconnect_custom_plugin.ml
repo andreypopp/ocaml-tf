@@ -5,9 +5,10 @@
 open! Tf.Prelude
 
 type aws_mskconnect_custom_plugin__location__s3 = {
-  bucket_arn : string;  (** bucket_arn *)
-  file_key : string;  (** file_key *)
-  object_version : string option; [@option]  (** object_version *)
+  bucket_arn : string prop;  (** bucket_arn *)
+  file_key : string prop;  (** file_key *)
+  object_version : string prop option; [@option]
+      (** object_version *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_custom_plugin__location__s3 *)
@@ -19,17 +20,17 @@ type aws_mskconnect_custom_plugin__location = {
 (** aws_mskconnect_custom_plugin__location *)
 
 type aws_mskconnect_custom_plugin__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_custom_plugin__timeouts *)
 
 type aws_mskconnect_custom_plugin = {
-  content_type : string;  (** content_type *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  content_type : string prop;  (** content_type *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   location : aws_mskconnect_custom_plugin__location list;
   timeouts : aws_mskconnect_custom_plugin__timeouts option;
 }

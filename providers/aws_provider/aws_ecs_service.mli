@@ -29,27 +29,27 @@ type aws_ecs_service__timeouts
 type aws_ecs_service
 
 val aws_ecs_service :
-  ?cluster:string ->
-  ?deployment_maximum_percent:float ->
-  ?deployment_minimum_healthy_percent:float ->
-  ?desired_count:float ->
-  ?enable_ecs_managed_tags:bool ->
-  ?enable_execute_command:bool ->
-  ?force_new_deployment:bool ->
-  ?health_check_grace_period_seconds:float ->
-  ?iam_role:string ->
-  ?id:string ->
-  ?launch_type:string ->
-  ?platform_version:string ->
-  ?propagate_tags:string ->
-  ?scheduling_strategy:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?task_definition:string ->
-  ?triggers:(string * string) list ->
-  ?wait_for_steady_state:bool ->
+  ?cluster:string prop ->
+  ?deployment_maximum_percent:float prop ->
+  ?deployment_minimum_healthy_percent:float prop ->
+  ?desired_count:float prop ->
+  ?enable_ecs_managed_tags:bool prop ->
+  ?enable_execute_command:bool prop ->
+  ?force_new_deployment:bool prop ->
+  ?health_check_grace_period_seconds:float prop ->
+  ?iam_role:string prop ->
+  ?id:string prop ->
+  ?launch_type:string prop ->
+  ?platform_version:string prop ->
+  ?propagate_tags:string prop ->
+  ?scheduling_strategy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?task_definition:string prop ->
+  ?triggers:(string * string prop) list ->
+  ?wait_for_steady_state:bool prop ->
   ?timeouts:aws_ecs_service__timeouts ->
-  name:string ->
+  name:string prop ->
   alarms:aws_ecs_service__alarms list ->
   capacity_provider_strategy:
     aws_ecs_service__capacity_provider_strategy list ->

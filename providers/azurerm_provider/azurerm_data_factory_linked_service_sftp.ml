@@ -5,35 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_linked_service_sftp__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_service_sftp__timeouts *)
 
 type azurerm_data_factory_linked_service_sftp = {
-  additional_properties : (string * string) list option; [@option]
+  additional_properties : (string * string prop) list option;
+      [@option]
       (** additional_properties *)
-  annotations : string list option; [@option]  (** annotations *)
-  authentication_type : string;  (** authentication_type *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  host : string;  (** host *)
-  host_key_fingerprint : string option; [@option]
+  annotations : string prop list option; [@option]
+      (** annotations *)
+  authentication_type : string prop;  (** authentication_type *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  host : string prop;  (** host *)
+  host_key_fingerprint : string prop option; [@option]
       (** host_key_fingerprint *)
-  id : string option; [@option]  (** id *)
-  integration_runtime_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  integration_runtime_name : string prop option; [@option]
       (** integration_runtime_name *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  password : string;  (** password *)
-  port : float;  (** port *)
-  skip_host_key_validation : bool option; [@option]
+  password : string prop;  (** password *)
+  port : float prop;  (** port *)
+  skip_host_key_validation : bool prop option; [@option]
       (** skip_host_key_validation *)
-  username : string;  (** username *)
+  username : string prop;  (** username *)
   timeouts :
     azurerm_data_factory_linked_service_sftp__timeouts option;
 }

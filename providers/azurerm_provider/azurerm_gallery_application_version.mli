@@ -9,17 +9,17 @@ type azurerm_gallery_application_version__timeouts
 type azurerm_gallery_application_version
 
 val azurerm_gallery_application_version :
-  ?config_file:string ->
-  ?enable_health_check:bool ->
-  ?end_of_life_date:string ->
-  ?exclude_from_latest:bool ->
-  ?id:string ->
-  ?package_file:string ->
-  ?tags:(string * string) list ->
+  ?config_file:string prop ->
+  ?enable_health_check:bool prop ->
+  ?end_of_life_date:string prop ->
+  ?exclude_from_latest:bool prop ->
+  ?id:string prop ->
+  ?package_file:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_gallery_application_version__timeouts ->
-  gallery_application_id:string ->
-  location:string ->
-  name:string ->
+  gallery_application_id:string prop ->
+  location:string prop ->
+  name:string prop ->
   manage_action:
     azurerm_gallery_application_version__manage_action list ->
   source:azurerm_gallery_application_version__source list ->

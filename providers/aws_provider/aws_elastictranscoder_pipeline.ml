@@ -5,51 +5,52 @@
 open! Tf.Prelude
 
 type aws_elastictranscoder_pipeline__content_config = {
-  bucket : string option; [@option]  (** bucket *)
-  storage_class : string option; [@option]  (** storage_class *)
+  bucket : string prop option; [@option]  (** bucket *)
+  storage_class : string prop option; [@option]  (** storage_class *)
 }
 [@@deriving yojson_of]
 (** aws_elastictranscoder_pipeline__content_config *)
 
 type aws_elastictranscoder_pipeline__content_config_permissions = {
-  access : string list option; [@option]  (** access *)
-  grantee : string option; [@option]  (** grantee *)
-  grantee_type : string option; [@option]  (** grantee_type *)
+  access : string prop list option; [@option]  (** access *)
+  grantee : string prop option; [@option]  (** grantee *)
+  grantee_type : string prop option; [@option]  (** grantee_type *)
 }
 [@@deriving yojson_of]
 (** aws_elastictranscoder_pipeline__content_config_permissions *)
 
 type aws_elastictranscoder_pipeline__notifications = {
-  completed : string option; [@option]  (** completed *)
-  error : string option; [@option]  (** error *)
-  progressing : string option; [@option]  (** progressing *)
-  warning : string option; [@option]  (** warning *)
+  completed : string prop option; [@option]  (** completed *)
+  error : string prop option; [@option]  (** error *)
+  progressing : string prop option; [@option]  (** progressing *)
+  warning : string prop option; [@option]  (** warning *)
 }
 [@@deriving yojson_of]
 (** aws_elastictranscoder_pipeline__notifications *)
 
 type aws_elastictranscoder_pipeline__thumbnail_config = {
-  bucket : string option; [@option]  (** bucket *)
-  storage_class : string option; [@option]  (** storage_class *)
+  bucket : string prop option; [@option]  (** bucket *)
+  storage_class : string prop option; [@option]  (** storage_class *)
 }
 [@@deriving yojson_of]
 (** aws_elastictranscoder_pipeline__thumbnail_config *)
 
 type aws_elastictranscoder_pipeline__thumbnail_config_permissions = {
-  access : string list option; [@option]  (** access *)
-  grantee : string option; [@option]  (** grantee *)
-  grantee_type : string option; [@option]  (** grantee_type *)
+  access : string prop list option; [@option]  (** access *)
+  grantee : string prop option; [@option]  (** grantee *)
+  grantee_type : string prop option; [@option]  (** grantee_type *)
 }
 [@@deriving yojson_of]
 (** aws_elastictranscoder_pipeline__thumbnail_config_permissions *)
 
 type aws_elastictranscoder_pipeline = {
-  aws_kms_key_arn : string option; [@option]  (** aws_kms_key_arn *)
-  id : string option; [@option]  (** id *)
-  input_bucket : string;  (** input_bucket *)
-  name : string option; [@option]  (** name *)
-  output_bucket : string option; [@option]  (** output_bucket *)
-  role : string;  (** role *)
+  aws_kms_key_arn : string prop option; [@option]
+      (** aws_kms_key_arn *)
+  id : string prop option; [@option]  (** id *)
+  input_bucket : string prop;  (** input_bucket *)
+  name : string prop option; [@option]  (** name *)
+  output_bucket : string prop option; [@option]  (** output_bucket *)
+  role : string prop;  (** role *)
   content_config :
     aws_elastictranscoder_pipeline__content_config list;
   content_config_permissions :

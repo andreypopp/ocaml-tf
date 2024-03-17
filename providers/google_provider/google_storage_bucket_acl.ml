@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type google_storage_bucket_acl = {
-  bucket : string;  (** The name of the bucket it applies to. *)
-  default_acl : string option; [@option]
+  bucket : string prop;  (** The name of the bucket it applies to. *)
+  default_acl : string prop option; [@option]
       (** Configure this ACL to be the default ACL. *)
-  id : string option; [@option]  (** id *)
-  predefined_acl : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  predefined_acl : string prop option; [@option]
       (** The canned GCS ACL to apply. Must be set if role_entity is not. *)
-  role_entity : string list option; [@option]
+  role_entity : string prop list option; [@option]
       (** List of role/entity pairs in the form ROLE:entity. See GCS Bucket ACL documentation  for more details. Must be set if predefined_acl is not. *)
 }
 [@@deriving yojson_of]

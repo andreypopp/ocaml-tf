@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_glacier_vault__notification = {
-  events : string list;  (** events *)
-  sns_topic : string;  (** sns_topic *)
+  events : string prop list;  (** events *)
+  sns_topic : string prop;  (** sns_topic *)
 }
 [@@deriving yojson_of]
 (** aws_glacier_vault__notification *)
 
 type aws_glacier_vault = {
-  access_policy : string option; [@option]  (** access_policy *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  access_policy : string prop option; [@option]  (** access_policy *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   notification : aws_glacier_vault__notification list;
 }

@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_iam_role_policy = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  policy : string;  (** policy *)
-  role : string;  (** role *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  policy : string prop;  (** policy *)
+  role : string prop;  (** role *)
 }
 [@@deriving yojson_of]
 (** aws_iam_role_policy *)

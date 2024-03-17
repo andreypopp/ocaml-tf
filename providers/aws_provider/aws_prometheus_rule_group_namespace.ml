@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_prometheus_rule_group_namespace = {
-  data : string;  (** data *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  workspace_id : string;  (** workspace_id *)
+  data : string prop;  (** data *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  workspace_id : string prop;  (** workspace_id *)
 }
 [@@deriving yojson_of]
 (** aws_prometheus_rule_group_namespace *)

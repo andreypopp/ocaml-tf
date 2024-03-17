@@ -5,29 +5,30 @@
 open! Tf.Prelude
 
 type azurerm_application_insights_web_test__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_web_test__timeouts *)
 
 type azurerm_application_insights_web_test = {
-  application_insights_id : string;  (** application_insights_id *)
-  configuration : string;  (** configuration *)
-  description : string option; [@option]  (** description *)
-  enabled : bool option; [@option]  (** enabled *)
-  frequency : float option; [@option]  (** frequency *)
-  geo_locations : string list;  (** geo_locations *)
-  id : string option; [@option]  (** id *)
-  kind : string;  (** kind *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  retry_enabled : bool option; [@option]  (** retry_enabled *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  timeout : float option; [@option]  (** timeout *)
+  application_insights_id : string prop;
+      (** application_insights_id *)
+  configuration : string prop;  (** configuration *)
+  description : string prop option; [@option]  (** description *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  frequency : float prop option; [@option]  (** frequency *)
+  geo_locations : string prop list;  (** geo_locations *)
+  id : string prop option; [@option]  (** id *)
+  kind : string prop;  (** kind *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  retry_enabled : bool prop option; [@option]  (** retry_enabled *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  timeout : float prop option; [@option]  (** timeout *)
   timeouts : azurerm_application_insights_web_test__timeouts option;
 }
 [@@deriving yojson_of]

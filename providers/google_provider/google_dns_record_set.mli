@@ -28,13 +28,13 @@ type google_dns_record_set__routing_policy
 type google_dns_record_set
 
 val google_dns_record_set :
-  ?id:string ->
-  ?project:string ->
-  ?rrdatas:string list ->
-  ?ttl:float ->
-  managed_zone:string ->
-  name:string ->
-  type_:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?rrdatas:string prop list ->
+  ?ttl:float prop ->
+  managed_zone:string prop ->
+  name:string prop ->
+  type_:string prop ->
   routing_policy:google_dns_record_set__routing_policy list ->
   string ->
   unit

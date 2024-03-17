@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_redshiftserverless_snapshot = {
-  id : string option; [@option]  (** id *)
-  namespace_name : string;  (** namespace_name *)
-  retention_period : float option; [@option]  (** retention_period *)
-  snapshot_name : string;  (** snapshot_name *)
+  id : string prop option; [@option]  (** id *)
+  namespace_name : string prop;  (** namespace_name *)
+  retention_period : float prop option; [@option]
+      (** retention_period *)
+  snapshot_name : string prop;  (** snapshot_name *)
 }
 [@@deriving yojson_of]
 (** aws_redshiftserverless_snapshot *)

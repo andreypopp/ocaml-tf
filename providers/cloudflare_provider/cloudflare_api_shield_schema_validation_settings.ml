@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type cloudflare_api_shield_schema_validation_settings = {
-  id : string option; [@option]  (** id *)
-  validation_default_mitigation_action : string;
+  id : string prop option; [@option]  (** id *)
+  validation_default_mitigation_action : string prop;
       (** The default mitigation action used when there is no mitigation action defined on the operation. *)
-  validation_override_mitigation_action : string option; [@option]
+  validation_override_mitigation_action : string prop option;
+      [@option]
       (** When set, this overrides both zone level and operation level mitigation actions. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

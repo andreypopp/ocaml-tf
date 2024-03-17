@@ -5,27 +5,29 @@
 open! Tf.Prelude
 
 type aws_dx_public_virtual_interface__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_dx_public_virtual_interface__timeouts *)
 
 type aws_dx_public_virtual_interface = {
-  address_family : string;  (** address_family *)
-  amazon_address : string option; [@option]  (** amazon_address *)
-  bgp_asn : float;  (** bgp_asn *)
-  bgp_auth_key : string option; [@option]  (** bgp_auth_key *)
-  connection_id : string;  (** connection_id *)
-  customer_address : string option; [@option]
+  address_family : string prop;  (** address_family *)
+  amazon_address : string prop option; [@option]
+      (** amazon_address *)
+  bgp_asn : float prop;  (** bgp_asn *)
+  bgp_auth_key : string prop option; [@option]  (** bgp_auth_key *)
+  connection_id : string prop;  (** connection_id *)
+  customer_address : string prop option; [@option]
       (** customer_address *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  route_filter_prefixes : string list;  (** route_filter_prefixes *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  route_filter_prefixes : string prop list;
+      (** route_filter_prefixes *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vlan : float;  (** vlan *)
+  vlan : float prop;  (** vlan *)
   timeouts : aws_dx_public_virtual_interface__timeouts option;
 }
 [@@deriving yojson_of]

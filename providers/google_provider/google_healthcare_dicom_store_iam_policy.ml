@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_healthcare_dicom_store_iam_policy = {
-  dicom_store_id : string;  (** dicom_store_id *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
+  dicom_store_id : string prop;  (** dicom_store_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
 }
 [@@deriving yojson_of]
 (** google_healthcare_dicom_store_iam_policy *)

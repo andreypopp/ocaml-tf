@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type azurerm_web_pubsub_hub__event_handler__auth = {
-  managed_identity_id : string;  (** managed_identity_id *)
+  managed_identity_id : string prop;  (** managed_identity_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_hub__event_handler__auth *)
 
 type azurerm_web_pubsub_hub__event_handler = {
-  system_events : string list option; [@option]  (** system_events *)
-  url_template : string;  (** url_template *)
-  user_event_pattern : string option; [@option]
+  system_events : string prop list option; [@option]
+      (** system_events *)
+  url_template : string prop;  (** url_template *)
+  user_event_pattern : string prop option; [@option]
       (** user_event_pattern *)
   auth : azurerm_web_pubsub_hub__event_handler__auth list;
 }
@@ -21,31 +22,32 @@ type azurerm_web_pubsub_hub__event_handler = {
 (** azurerm_web_pubsub_hub__event_handler *)
 
 type azurerm_web_pubsub_hub__event_listener = {
-  eventhub_name : string;  (** eventhub_name *)
-  eventhub_namespace_name : string;  (** eventhub_namespace_name *)
-  system_event_name_filter : string list option; [@option]
+  eventhub_name : string prop;  (** eventhub_name *)
+  eventhub_namespace_name : string prop;
+      (** eventhub_namespace_name *)
+  system_event_name_filter : string prop list option; [@option]
       (** system_event_name_filter *)
-  user_event_name_filter : string list option; [@option]
+  user_event_name_filter : string prop list option; [@option]
       (** user_event_name_filter *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_hub__event_listener *)
 
 type azurerm_web_pubsub_hub__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_web_pubsub_hub__timeouts *)
 
 type azurerm_web_pubsub_hub = {
-  anonymous_connections_enabled : bool option; [@option]
+  anonymous_connections_enabled : bool prop option; [@option]
       (** anonymous_connections_enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  web_pubsub_id : string;  (** web_pubsub_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  web_pubsub_id : string prop;  (** web_pubsub_id *)
   event_handler : azurerm_web_pubsub_hub__event_handler list;
   event_listener : azurerm_web_pubsub_hub__event_listener list;
   timeouts : azurerm_web_pubsub_hub__timeouts option;

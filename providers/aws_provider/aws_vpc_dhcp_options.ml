@@ -5,17 +5,19 @@
 open! Tf.Prelude
 
 type aws_vpc_dhcp_options = {
-  domain_name : string option; [@option]  (** domain_name *)
-  domain_name_servers : string list option; [@option]
+  domain_name : string prop option; [@option]  (** domain_name *)
+  domain_name_servers : string prop list option; [@option]
       (** domain_name_servers *)
-  id : string option; [@option]  (** id *)
-  netbios_name_servers : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  netbios_name_servers : string prop list option; [@option]
       (** netbios_name_servers *)
-  netbios_node_type : string option; [@option]
+  netbios_node_type : string prop option; [@option]
       (** netbios_node_type *)
-  ntp_servers : string list option; [@option]  (** ntp_servers *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  ntp_servers : string prop list option; [@option]
+      (** ntp_servers *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_dhcp_options *)

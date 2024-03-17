@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_datasync_location_fsx_openzfs_file_system__protocol__nfs__mount_options = {
-  version : string option; [@option]  (** version *)
+  version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_datasync_location_fsx_openzfs_file_system__protocol__nfs__mount_options *)
@@ -26,12 +26,12 @@ type aws_datasync_location_fsx_openzfs_file_system__protocol = {
 (** aws_datasync_location_fsx_openzfs_file_system__protocol *)
 
 type aws_datasync_location_fsx_openzfs_file_system = {
-  fsx_filesystem_arn : string;  (** fsx_filesystem_arn *)
-  id : string option; [@option]  (** id *)
-  security_group_arns : string list;  (** security_group_arns *)
-  subdirectory : string option; [@option]  (** subdirectory *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  fsx_filesystem_arn : string prop;  (** fsx_filesystem_arn *)
+  id : string prop option; [@option]  (** id *)
+  security_group_arns : string prop list;  (** security_group_arns *)
+  subdirectory : string prop option; [@option]  (** subdirectory *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   protocol :
     aws_datasync_location_fsx_openzfs_file_system__protocol list;

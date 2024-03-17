@@ -10,15 +10,15 @@ type aws_vpclattice_listener__timeouts
 type aws_vpclattice_listener
 
 val aws_vpclattice_listener :
-  ?id:string ->
-  ?port:float ->
-  ?service_arn:string ->
-  ?service_identifier:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?port:float prop ->
+  ?service_arn:string prop ->
+  ?service_identifier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_vpclattice_listener__timeouts ->
-  name:string ->
-  protocol:string ->
+  name:string prop ->
+  protocol:string prop ->
   default_action:aws_vpclattice_listener__default_action list ->
   string ->
   unit

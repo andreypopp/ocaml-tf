@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_compute_forwarding_rule__service_directory_registrations = {
-  namespace : string option; [@option]
+  namespace : string prop option; [@option]
       (** Service Directory namespace to register the forwarding rule under. *)
-  service : string option; [@option]
+  service : string prop option; [@option]
       (** Service Directory service to register the forwarding rule under. *)
 }
 [@@deriving yojson_of]
@@ -16,15 +16,15 @@ type google_compute_forwarding_rule__service_directory_registrations = {
 Currently, only supports a single Service Directory resource. *)
 
 type google_compute_forwarding_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_forwarding_rule__timeouts *)
 
 type google_compute_forwarding_rule = {
-  all_ports : bool option; [@option]
+  all_ports : bool prop option; [@option]
       (** The 'ports', 'portRange', and 'allPorts' fields are mutually exclusive.
 Only packets addressed to ports in the specified range will be forwarded
 to the backends configured with this forwarding rule.
@@ -40,7 +40,7 @@ lacking destination port information (for example, UDP fragments after the
 first fragment) to be forwarded to the backends configured with this
 forwarding rule. The L3_DEFAULT protocol requires 'allPorts' be set to
 true. *)
-  allow_global_access : bool option; [@option]
+  allow_global_access : bool prop option; [@option]
       (** This field is used along with the 'backend_service' field for
 internal load balancing or with the 'target' field for internal
 TargetInstance.
@@ -50,18 +50,18 @@ regions.
 
 Otherwise only allows access from clients in the same region as the
 internal load balancer. *)
-  allow_psc_global_access : bool option; [@option]
+  allow_psc_global_access : bool prop option; [@option]
       (** This is used in PSC consumer ForwardingRule to control whether the PSC endpoint can be accessed from another region. *)
-  backend_service : string option; [@option]
+  backend_service : string prop option; [@option]
       (** Identifies the backend service to which the forwarding rule sends traffic.
 
 Required for Internal TCP/UDP Load Balancing and Network Load Balancing;
 must be omitted for all other load balancer types. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. Provide this property when
 you create the resource. *)
-  id : string option; [@option]  (** id *)
-  ip_address : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop option; [@option]
       (** IP address for which this forwarding rule accepts traffic. When a client
 sends traffic to this IP address, the forwarding rule directs the traffic
 to the referenced 'target' or 'backendService'.
@@ -102,7 +102,7 @@ specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-con
 
 When reading an 'IPAddress', the API always returns the IP
 address number. *)
-  ip_protocol : string option; [@option]
+  ip_protocol : string prop option; [@option]
       (** The IP protocol to which this rule applies.
 
 For protocol forwarding, valid
@@ -117,12 +117,12 @@ features](https://cloud.google.com/load-balancing/docs/features#protocols_from_t
 A Forwarding Rule with protocol L3_DEFAULT can attach with target instance or
 backend service with UNSPECIFIED protocol.
 A forwarding rule with L3_DEFAULT IPProtocal cannot be attached to a backend service with TCP or UDP. Possible values: [TCP, UDP, ESP, AH, SCTP, ICMP, L3_DEFAULT] *)
-  ip_version : string option; [@option]
+  ip_version : string prop option; [@option]
       (** The IP address version that will be used by this forwarding rule.
 Valid options are IPV4 and IPV6.
 
 If not set, the IPv4 address will be used by default. Possible values: [IPV4, IPV6] *)
-  is_mirroring_collector : bool option; [@option]
+  is_mirroring_collector : bool prop option; [@option]
       (** Indicates whether or not this load balancer can be used as a collector for
 packet mirroring. To prevent mirroring loops, instances behind this
 load balancer will not have their traffic mirrored even if a
@@ -130,18 +130,18 @@ load balancer will not have their traffic mirrored even if a
 
 This can only be set to true for load balancers that have their
 'loadBalancingScheme' set to 'INTERNAL'. *)
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** Labels to apply to this forwarding rule.  A list of key->value pairs.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  load_balancing_scheme : string option; [@option]
+  load_balancing_scheme : string prop option; [@option]
       (** Specifies the forwarding rule type.
 
 For more information about forwarding rules, refer to
 [Forwarding rule concepts](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts). Default value: EXTERNAL Possible values: [EXTERNAL, EXTERNAL_MANAGED, INTERNAL, INTERNAL_MANAGED] *)
-  name : string;
+  name : string prop;
       (** Name of the resource; provided by the client when the resource is created.
 The name must be 1-63 characters long, and comply with
 [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
@@ -155,7 +155,7 @@ cannot be a dash.
 For Private Service Connect forwarding rules that forward traffic to Google
 APIs, the forwarding rule name must be a 1-20 characters string with
 lowercase letters and numbers and must start with a letter. *)
-  network : string option; [@option]
+  network : string prop option; [@option]
       (** This field is not used for external load balancing.
 
 For Internal TCP/UDP Load Balancing, this field identifies the network that
@@ -166,7 +166,7 @@ be used.
 
 For Private Service Connect forwarding rules that forward traffic to Google
 APIs, a network must be provided. *)
-  network_tier : string option; [@option]
+  network_tier : string prop option; [@option]
       (** This signifies the networking tier used for configuring
 this load balancer and can only take the following values:
 'PREMIUM', 'STANDARD'.
@@ -178,9 +178,9 @@ For regional ForwardingRule, the valid values are 'PREMIUM' and
 If this field is not specified, it is assumed to be 'PREMIUM'.
 If 'IPAddress' is specified, this value must be equal to the
 networkTier of the Address. Possible values: [PREMIUM, STANDARD] *)
-  no_automate_dns_zone : bool option; [@option]
+  no_automate_dns_zone : bool prop option; [@option]
       (** This is used in PSC consumer ForwardingRule to control whether it should try to auto-generate a DNS zone or not. Non-PSC forwarding rules do not use this field. *)
-  port_range : string option; [@option]
+  port_range : string prop option; [@option]
       (** The 'ports', 'portRange', and 'allPorts' fields are mutually exclusive.
 Only packets addressed to ports in the specified range will be forwarded
 to the backends configured with this forwarding rule.
@@ -205,7 +205,7 @@ forwarding rules cannot use the same '[IPAddress, IPProtocol]' pair, and
 cannot have overlapping 'portRange's.
 
 @pattern: \d+(?:-\d+)? *)
-  ports : string list option; [@option]
+  ports : string prop list option; [@option]
       (** The 'ports', 'portRange', and 'allPorts' fields are mutually exclusive.
 Only packets addressed to ports in the specified range will be forwarded
 to the backends configured with this forwarding rule.
@@ -228,14 +228,14 @@ forwarding rules cannot use the same '[IPAddress, IPProtocol]' pair if
 they share at least one port number.
 
 @pattern: \d+(?:-\d+)? *)
-  project : string option; [@option]  (** project *)
-  recreate_closed_psc : bool option; [@option]
+  project : string prop option; [@option]  (** project *)
+  recreate_closed_psc : bool prop option; [@option]
       (** This is used in PSC consumer ForwardingRule to make terraform recreate the ForwardingRule when the status is closed *)
-  region : string option; [@option]
+  region : string prop option; [@option]
       (** A reference to the region where the regional forwarding rule resides.
 
 This field is not applicable to global forwarding rules. *)
-  service_label : string option; [@option]
+  service_label : string prop option; [@option]
       (** An optional prefix to the service name for this Forwarding Rule.
 If specified, will be the first label of the fully qualified service
 name.
@@ -248,9 +248,9 @@ must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash.
 
 This field is only used for INTERNAL load balancing. *)
-  source_ip_ranges : string list option; [@option]
+  source_ip_ranges : string prop list option; [@option]
       (** If not empty, this Forwarding Rule will only forward the traffic when the source IP address matches one of the IP addresses or CIDR ranges set here. Note that a Forwarding Rule can only have up to 64 source IP ranges, and this field can only be used with a regional Forwarding Rule whose scheme is EXTERNAL. Each sourceIpRange entry should be either an IP address (for example, 1.2.3.4) or a CIDR range (for example, 1.2.3.0/24). *)
-  subnetwork : string option; [@option]
+  subnetwork : string prop option; [@option]
       (** This field identifies the subnetwork that the load balanced IP should
 belong to for this Forwarding Rule, used in internal load balancing and
 network load balancing with IPv6.
@@ -258,7 +258,7 @@ network load balancing with IPv6.
 If the network specified is in auto subnet mode, this field is optional.
 However, a subnetwork must be specified if the network is in custom subnet
 mode or when creating external forwarding rule with IPv6. *)
-  target : string option; [@option]
+  target : string prop option; [@option]
       (** The URL of the target resource to receive the matched traffic.  For
 regional forwarding rules, this target must be in the same region as the
 forwarding rule. For global forwarding rules, this target must be a global

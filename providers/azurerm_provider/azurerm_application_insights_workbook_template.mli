@@ -7,16 +7,16 @@ type azurerm_application_insights_workbook_template__timeouts
 type azurerm_application_insights_workbook_template
 
 val azurerm_application_insights_workbook_template :
-  ?author:string ->
-  ?id:string ->
-  ?localized:string ->
-  ?priority:float ->
-  ?tags:(string * string) list ->
+  ?author:string prop ->
+  ?id:string prop ->
+  ?localized:string prop ->
+  ?priority:float prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_application_insights_workbook_template__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  template_data:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  template_data:string prop ->
   galleries:
     azurerm_application_insights_workbook_template__galleries list ->
   string ->

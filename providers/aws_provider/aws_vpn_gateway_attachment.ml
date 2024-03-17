@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_vpn_gateway_attachment = {
-  id : string option; [@option]  (** id *)
-  vpc_id : string;  (** vpc_id *)
-  vpn_gateway_id : string;  (** vpn_gateway_id *)
+  id : string prop option; [@option]  (** id *)
+  vpc_id : string prop;  (** vpc_id *)
+  vpn_gateway_id : string prop;  (** vpn_gateway_id *)
 }
 [@@deriving yojson_of]
 (** aws_vpn_gateway_attachment *)

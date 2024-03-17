@@ -5,30 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_servicebus_namespace_network_rule_set__network_rules = {
-  ignore_missing_vnet_service_endpoint : bool option; [@option]
+  ignore_missing_vnet_service_endpoint : bool prop option; [@option]
       (** ignore_missing_vnet_service_endpoint *)
-  subnet_id : string;  (** subnet_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_servicebus_namespace_network_rule_set__network_rules *)
 
 type azurerm_servicebus_namespace_network_rule_set__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_servicebus_namespace_network_rule_set__timeouts *)
 
 type azurerm_servicebus_namespace_network_rule_set = {
-  default_action : string option; [@option]  (** default_action *)
-  id : string option; [@option]  (** id *)
-  ip_rules : string list option; [@option]  (** ip_rules *)
-  namespace_id : string;  (** namespace_id *)
-  public_network_access_enabled : bool option; [@option]
+  default_action : string prop option; [@option]
+      (** default_action *)
+  id : string prop option; [@option]  (** id *)
+  ip_rules : string prop list option; [@option]  (** ip_rules *)
+  namespace_id : string prop;  (** namespace_id *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  trusted_services_allowed : bool option; [@option]
+  trusted_services_allowed : bool prop option; [@option]
       (** trusted_services_allowed *)
   network_rules :
     azurerm_servicebus_namespace_network_rule_set__network_rules list;

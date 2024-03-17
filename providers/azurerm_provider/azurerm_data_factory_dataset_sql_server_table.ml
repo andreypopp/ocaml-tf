@@ -5,35 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_dataset_sql_server_table__schema_column = {
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_dataset_sql_server_table__schema_column *)
 
 type azurerm_data_factory_dataset_sql_server_table__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_dataset_sql_server_table__timeouts *)
 
 type azurerm_data_factory_dataset_sql_server_table = {
-  additional_properties : (string * string) list option; [@option]
+  additional_properties : (string * string prop) list option;
+      [@option]
       (** additional_properties *)
-  annotations : string list option; [@option]  (** annotations *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  folder : string option; [@option]  (** folder *)
-  id : string option; [@option]  (** id *)
-  linked_service_name : string;  (** linked_service_name *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  annotations : string prop list option; [@option]
+      (** annotations *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  folder : string prop option; [@option]  (** folder *)
+  id : string prop option; [@option]  (** id *)
+  linked_service_name : string prop;  (** linked_service_name *)
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  table_name : string option; [@option]  (** table_name *)
+  table_name : string prop option; [@option]  (** table_name *)
   schema_column :
     azurerm_data_factory_dataset_sql_server_table__schema_column list;
   timeouts :

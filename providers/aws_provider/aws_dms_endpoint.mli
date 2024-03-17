@@ -14,26 +14,26 @@ type aws_dms_endpoint__timeouts
 type aws_dms_endpoint
 
 val aws_dms_endpoint :
-  ?certificate_arn:string ->
-  ?database_name:string ->
-  ?extra_connection_attributes:string ->
-  ?id:string ->
-  ?kms_key_arn:string ->
-  ?password:string ->
-  ?pause_replication_tasks:bool ->
-  ?port:float ->
-  ?secrets_manager_access_role_arn:string ->
-  ?secrets_manager_arn:string ->
-  ?server_name:string ->
-  ?service_access_role:string ->
-  ?ssl_mode:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?username:string ->
+  ?certificate_arn:string prop ->
+  ?database_name:string prop ->
+  ?extra_connection_attributes:string prop ->
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?password:string prop ->
+  ?pause_replication_tasks:bool prop ->
+  ?port:float prop ->
+  ?secrets_manager_access_role_arn:string prop ->
+  ?secrets_manager_arn:string prop ->
+  ?server_name:string prop ->
+  ?service_access_role:string prop ->
+  ?ssl_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?username:string prop ->
   ?timeouts:aws_dms_endpoint__timeouts ->
-  endpoint_id:string ->
-  endpoint_type:string ->
-  engine_name:string ->
+  endpoint_id:string prop ->
+  endpoint_type:string prop ->
+  engine_name:string prop ->
   elasticsearch_settings:
     aws_dms_endpoint__elasticsearch_settings list ->
   kafka_settings:aws_dms_endpoint__kafka_settings list ->

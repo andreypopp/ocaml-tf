@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_sql_virtual_network_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sql_virtual_network_rule__timeouts *)
 
 type azurerm_sql_virtual_network_rule = {
-  id : string option; [@option]  (** id *)
-  ignore_missing_vnet_service_endpoint : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ignore_missing_vnet_service_endpoint : bool prop option; [@option]
       (** ignore_missing_vnet_service_endpoint *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  server_name : string;  (** server_name *)
-  subnet_id : string;  (** subnet_id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  server_name : string prop;  (** server_name *)
+  subnet_id : string prop;  (** subnet_id *)
   timeouts : azurerm_sql_virtual_network_rule__timeouts option;
 }
 [@@deriving yojson_of]

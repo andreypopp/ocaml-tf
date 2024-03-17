@@ -5,37 +5,38 @@
 open! Tf.Prelude
 
 type azurerm_servicebus_subscription_rule__correlation_filter = {
-  content_type : string option; [@option]  (** content_type *)
-  correlation_id : string option; [@option]  (** correlation_id *)
-  label : string option; [@option]  (** label *)
-  message_id : string option; [@option]  (** message_id *)
-  properties : (string * string) list option; [@option]
+  content_type : string prop option; [@option]  (** content_type *)
+  correlation_id : string prop option; [@option]
+      (** correlation_id *)
+  label : string prop option; [@option]  (** label *)
+  message_id : string prop option; [@option]  (** message_id *)
+  properties : (string * string prop) list option; [@option]
       (** properties *)
-  reply_to : string option; [@option]  (** reply_to *)
-  reply_to_session_id : string option; [@option]
+  reply_to : string prop option; [@option]  (** reply_to *)
+  reply_to_session_id : string prop option; [@option]
       (** reply_to_session_id *)
-  session_id : string option; [@option]  (** session_id *)
-  to_ : string option; [@option] [@key "to"]  (** to *)
+  session_id : string prop option; [@option]  (** session_id *)
+  to_ : string prop option; [@option] [@key "to"]  (** to *)
 }
 [@@deriving yojson_of]
 (** azurerm_servicebus_subscription_rule__correlation_filter *)
 
 type azurerm_servicebus_subscription_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_servicebus_subscription_rule__timeouts *)
 
 type azurerm_servicebus_subscription_rule = {
-  action : string option; [@option]  (** action *)
-  filter_type : string;  (** filter_type *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  sql_filter : string option; [@option]  (** sql_filter *)
-  subscription_id : string;  (** subscription_id *)
+  action : string prop option; [@option]  (** action *)
+  filter_type : string prop;  (** filter_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  sql_filter : string prop option; [@option]  (** sql_filter *)
+  subscription_id : string prop;  (** subscription_id *)
   correlation_filter :
     azurerm_servicebus_subscription_rule__correlation_filter list;
   timeouts : azurerm_servicebus_subscription_rule__timeouts option;

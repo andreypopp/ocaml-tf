@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_cloud_run_v2_service_iam_policy = {
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  name : string;  (** name *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  name : string prop;  (** name *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_cloud_run_v2_service_iam_policy *)

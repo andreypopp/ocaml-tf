@@ -7,10 +7,10 @@ type azurerm_storage_object_replication__timeouts
 type azurerm_storage_object_replication
 
 val azurerm_storage_object_replication :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_storage_object_replication__timeouts ->
-  destination_storage_account_id:string ->
-  source_storage_account_id:string ->
+  destination_storage_account_id:string prop ->
+  source_storage_account_id:string prop ->
   rules:azurerm_storage_object_replication__rules list ->
   string ->
   unit

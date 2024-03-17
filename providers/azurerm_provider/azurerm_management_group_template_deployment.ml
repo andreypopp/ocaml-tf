@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_management_group_template_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_management_group_template_deployment__timeouts *)
 
 type azurerm_management_group_template_deployment = {
-  debug_level : string option; [@option]  (** debug_level *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  management_group_id : string;  (** management_group_id *)
-  name : string;  (** name *)
-  parameters_content : string option; [@option]
+  debug_level : string prop option; [@option]  (** debug_level *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  management_group_id : string prop;  (** management_group_id *)
+  name : string prop;  (** name *)
+  parameters_content : string prop option; [@option]
       (** parameters_content *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  template_content : string option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  template_content : string prop option; [@option]
       (** template_content *)
-  template_spec_version_id : string option; [@option]
+  template_spec_version_id : string prop option; [@option]
       (** template_spec_version_id *)
   timeouts :
     azurerm_management_group_template_deployment__timeouts option;

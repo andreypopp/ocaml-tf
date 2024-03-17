@@ -7,13 +7,13 @@ type azurerm_load_test__timeouts
 type azurerm_load_test
 
 val azurerm_load_test :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_load_test__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   identity:azurerm_load_test__identity list ->
   string ->
   unit

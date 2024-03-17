@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type google_firebaserules_release__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_firebaserules_release__timeouts *)
 
 type google_firebaserules_release = {
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** Format: `projects/{project_id}/releases/{release_id}`\Firestore Rules Releases will **always** have the name 'cloud.firestore' *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The project for the resource *)
-  ruleset_name : string;
+  ruleset_name : string prop;
       (** Name of the `Ruleset` referred to by this `Release`. The `Ruleset` must exist for the `Release` to be created. *)
   timeouts : google_firebaserules_release__timeouts option;
 }

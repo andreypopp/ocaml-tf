@@ -6,10 +6,10 @@ type google_firebaserules_release__timeouts
 type google_firebaserules_release
 
 val google_firebaserules_release :
-  ?id:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_firebaserules_release__timeouts ->
-  name:string ->
-  ruleset_name:string ->
+  name:string prop ->
+  ruleset_name:string prop ->
   string ->
   unit

@@ -5,38 +5,39 @@
 open! Tf.Prelude
 
 type kubernetes_limit_range__metadata = {
-  annotations : (string * string) list option; [@option]
+  annotations : (string * string prop) list option; [@option]
       (** An unstructured key value map stored with the limit range that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
-  generate_name : string option; [@option]
+  generate_name : string prop option; [@option]
       (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
-  generation : float;
+  generation : float prop;
       (** A sequence number representing a specific generation of the desired state. *)
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** Map of string keys and values that can be used to organize and categorize (scope and select) the limit range. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
-  name : string option; [@option]
+  name : string prop option; [@option]
       (** Name of the limit range, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
-  namespace : string option; [@option]
+  namespace : string prop option; [@option]
       (** Namespace defines the space within which name of the limit range must be unique. *)
-  resource_version : string;
+  resource_version : string prop;
       (** An opaque value that represents the internal version of this limit range that can be used by clients to determine when limit range has changed. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency *)
-  uid : string;
+  uid : string prop;
       (** The unique in time and space value for this limit range. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids *)
 }
 [@@deriving yojson_of]
 (** Standard limit range's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
 
 type kubernetes_limit_range__spec__limit = {
-  default : (string * string) list option; [@option]
+  default : (string * string prop) list option; [@option]
       (** Default resource requirement limit value by resource name if resource limit is omitted. *)
-  default_request : (string * string) list option; [@option]
+  default_request : (string * string prop) list option; [@option]
       (** The default resource requirement request value by resource name if resource request is omitted. *)
-  max : (string * string) list option; [@option]
+  max : (string * string prop) list option; [@option]
       (** Max usage constraints on this kind by resource name. *)
-  max_limit_request_ratio : (string * string) list option; [@option]
+  max_limit_request_ratio : (string * string prop) list option;
+      [@option]
       (** The named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value; this represents the max burst for the named resource. *)
-  min : (string * string) list option; [@option]
+  min : (string * string prop) list option; [@option]
       (** Min usage constraints on this kind by resource name. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** Type of resource that this limit applies to. *)
 }
 [@@deriving yojson_of]
@@ -49,7 +50,7 @@ type kubernetes_limit_range__spec = {
 (** Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status *)
 
 type kubernetes_limit_range = {
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   metadata : kubernetes_limit_range__metadata list;
   spec : kubernetes_limit_range__spec list;
 }

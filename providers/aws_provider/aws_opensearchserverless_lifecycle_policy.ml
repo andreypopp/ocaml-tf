@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_opensearchserverless_lifecycle_policy = {
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  policy : string;  (** policy *)
-  type_ : string; [@key "type"]  (** type *)
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  policy : string prop;  (** policy *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_opensearchserverless_lifecycle_policy *)

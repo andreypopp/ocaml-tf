@@ -6,12 +6,12 @@ type google_compute_target_grpc_proxy__timeouts
 type google_compute_target_grpc_proxy
 
 val google_compute_target_grpc_proxy :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
-  ?url_map:string ->
-  ?validate_for_proxyless:bool ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?url_map:string prop ->
+  ?validate_for_proxyless:bool prop ->
   ?timeouts:google_compute_target_grpc_proxy__timeouts ->
-  name:string ->
+  name:string prop ->
   string ->
   unit

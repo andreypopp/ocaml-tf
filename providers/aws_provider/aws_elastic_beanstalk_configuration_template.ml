@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type aws_elastic_beanstalk_configuration_template__setting = {
-  name : string;  (** name *)
-  namespace : string;  (** namespace *)
-  resource : string option; [@option]  (** resource *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  namespace : string prop;  (** namespace *)
+  resource : string prop option; [@option]  (** resource *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_elastic_beanstalk_configuration_template__setting *)
 
 type aws_elastic_beanstalk_configuration_template = {
-  application : string;  (** application *)
-  description : string option; [@option]  (** description *)
-  environment_id : string option; [@option]  (** environment_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  solution_stack_name : string option; [@option]
+  application : string prop;  (** application *)
+  description : string prop option; [@option]  (** description *)
+  environment_id : string prop option; [@option]
+      (** environment_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  solution_stack_name : string prop option; [@option]
       (** solution_stack_name *)
   setting :
     aws_elastic_beanstalk_configuration_template__setting list;

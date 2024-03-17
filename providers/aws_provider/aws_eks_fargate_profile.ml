@@ -5,27 +5,29 @@
 open! Tf.Prelude
 
 type aws_eks_fargate_profile__selector = {
-  labels : (string * string) list option; [@option]  (** labels *)
-  namespace : string;  (** namespace *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  namespace : string prop;  (** namespace *)
 }
 [@@deriving yojson_of]
 (** aws_eks_fargate_profile__selector *)
 
 type aws_eks_fargate_profile__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_eks_fargate_profile__timeouts *)
 
 type aws_eks_fargate_profile = {
-  cluster_name : string;  (** cluster_name *)
-  fargate_profile_name : string;  (** fargate_profile_name *)
-  id : string option; [@option]  (** id *)
-  pod_execution_role_arn : string;  (** pod_execution_role_arn *)
-  subnet_ids : string list option; [@option]  (** subnet_ids *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  fargate_profile_name : string prop;  (** fargate_profile_name *)
+  id : string prop option; [@option]  (** id *)
+  pod_execution_role_arn : string prop;
+      (** pod_execution_role_arn *)
+  subnet_ids : string prop list option; [@option]  (** subnet_ids *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   selector : aws_eks_fargate_profile__selector list;
   timeouts : aws_eks_fargate_profile__timeouts option;

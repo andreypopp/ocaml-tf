@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_policy_virtual_machine_configuration_assignment__configuration__parameter = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_policy_virtual_machine_configuration_assignment__configuration__parameter *)
 
 type azurerm_policy_virtual_machine_configuration_assignment__configuration = {
-  assignment_type : string option; [@option]  (** assignment_type *)
-  content_hash : string option; [@option]  (** content_hash *)
-  content_uri : string option; [@option]  (** content_uri *)
-  version : string option; [@option]  (** version *)
+  assignment_type : string prop option; [@option]
+      (** assignment_type *)
+  content_hash : string prop option; [@option]  (** content_hash *)
+  content_uri : string prop option; [@option]  (** content_uri *)
+  version : string prop option; [@option]  (** version *)
   parameter :
     azurerm_policy_virtual_machine_configuration_assignment__configuration__parameter
     list;
@@ -24,19 +25,19 @@ type azurerm_policy_virtual_machine_configuration_assignment__configuration = {
 (** azurerm_policy_virtual_machine_configuration_assignment__configuration *)
 
 type azurerm_policy_virtual_machine_configuration_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_policy_virtual_machine_configuration_assignment__timeouts *)
 
 type azurerm_policy_virtual_machine_configuration_assignment = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  virtual_machine_id : string;  (** virtual_machine_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  virtual_machine_id : string prop;  (** virtual_machine_id *)
   configuration :
     azurerm_policy_virtual_machine_configuration_assignment__configuration
     list;

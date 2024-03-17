@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_iap_web_backend_service_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  web_backend_service : string;  (** web_backend_service *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  web_backend_service : string prop;  (** web_backend_service *)
 }
 [@@deriving yojson_of]
 (** google_iap_web_backend_service_iam_policy *)

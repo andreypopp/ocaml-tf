@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type aws_directory_service_shared_directory__target = {
-  id : string;  (** id *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  id : string prop;  (** id *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_shared_directory__target *)
 
 type aws_directory_service_shared_directory__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_shared_directory__timeouts *)
 
 type aws_directory_service_shared_directory = {
-  directory_id : string;  (** directory_id *)
-  id : string option; [@option]  (** id *)
-  method_ : string option; [@option] [@key "method"]  (** method *)
-  notes : string option; [@option]  (** notes *)
+  directory_id : string prop;  (** directory_id *)
+  id : string prop option; [@option]  (** id *)
+  method_ : string prop option; [@option] [@key "method"]
+      (** method *)
+  notes : string prop option; [@option]  (** notes *)
   target : aws_directory_service_shared_directory__target list;
   timeouts : aws_directory_service_shared_directory__timeouts option;
 }

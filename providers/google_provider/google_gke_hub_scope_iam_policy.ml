@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_gke_hub_scope_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  scope_id : string;  (** scope_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  scope_id : string prop;  (** scope_id *)
 }
 [@@deriving yojson_of]
 (** google_gke_hub_scope_iam_policy *)

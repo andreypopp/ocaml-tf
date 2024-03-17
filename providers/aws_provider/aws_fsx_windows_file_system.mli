@@ -9,26 +9,26 @@ type aws_fsx_windows_file_system__timeouts
 type aws_fsx_windows_file_system
 
 val aws_fsx_windows_file_system :
-  ?active_directory_id:string ->
-  ?aliases:string list ->
-  ?automatic_backup_retention_days:float ->
-  ?backup_id:string ->
-  ?copy_tags_to_backups:bool ->
-  ?daily_automatic_backup_start_time:string ->
-  ?deployment_type:string ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?preferred_subnet_id:string ->
-  ?security_group_ids:string list ->
-  ?skip_final_backup:bool ->
-  ?storage_capacity:float ->
-  ?storage_type:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?weekly_maintenance_start_time:string ->
+  ?active_directory_id:string prop ->
+  ?aliases:string prop list ->
+  ?automatic_backup_retention_days:float prop ->
+  ?backup_id:string prop ->
+  ?copy_tags_to_backups:bool prop ->
+  ?daily_automatic_backup_start_time:string prop ->
+  ?deployment_type:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?preferred_subnet_id:string prop ->
+  ?security_group_ids:string prop list ->
+  ?skip_final_backup:bool prop ->
+  ?storage_capacity:float prop ->
+  ?storage_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?weekly_maintenance_start_time:string prop ->
   ?timeouts:aws_fsx_windows_file_system__timeouts ->
-  subnet_ids:string list ->
-  throughput_capacity:float ->
+  subnet_ids:string prop list ->
+  throughput_capacity:float prop ->
   audit_log_configuration:
     aws_fsx_windows_file_system__audit_log_configuration list ->
   disk_iops_configuration:

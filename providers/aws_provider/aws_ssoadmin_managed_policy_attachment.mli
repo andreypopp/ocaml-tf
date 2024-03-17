@@ -6,10 +6,10 @@ type aws_ssoadmin_managed_policy_attachment__timeouts
 type aws_ssoadmin_managed_policy_attachment
 
 val aws_ssoadmin_managed_policy_attachment :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_ssoadmin_managed_policy_attachment__timeouts ->
-  instance_arn:string ->
-  managed_policy_arn:string ->
-  permission_set_arn:string ->
+  instance_arn:string prop ->
+  managed_policy_arn:string prop ->
+  permission_set_arn:string prop ->
   string ->
   unit

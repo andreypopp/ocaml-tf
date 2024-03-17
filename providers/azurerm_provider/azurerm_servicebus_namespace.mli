@@ -10,19 +10,19 @@ type azurerm_servicebus_namespace__timeouts
 type azurerm_servicebus_namespace
 
 val azurerm_servicebus_namespace :
-  ?capacity:float ->
-  ?id:string ->
-  ?local_auth_enabled:bool ->
-  ?minimum_tls_version:string ->
-  ?premium_messaging_partitions:float ->
-  ?public_network_access_enabled:bool ->
-  ?tags:(string * string) list ->
-  ?zone_redundant:bool ->
+  ?capacity:float prop ->
+  ?id:string prop ->
+  ?local_auth_enabled:bool prop ->
+  ?minimum_tls_version:string prop ->
+  ?premium_messaging_partitions:float prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundant:bool prop ->
   ?timeouts:azurerm_servicebus_namespace__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  sku:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
   customer_managed_key:
     azurerm_servicebus_namespace__customer_managed_key list ->
   identity:azurerm_servicebus_namespace__identity list ->

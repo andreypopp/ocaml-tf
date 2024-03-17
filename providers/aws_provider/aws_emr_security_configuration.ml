@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_emr_security_configuration = {
-  configuration : string;  (** configuration *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
+  configuration : string prop;  (** configuration *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
 }
 [@@deriving yojson_of]
 (** aws_emr_security_configuration *)

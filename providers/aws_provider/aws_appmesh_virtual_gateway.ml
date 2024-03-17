@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__certificate__file = {
-  certificate_chain : string;  (** certificate_chain *)
-  private_key : string;  (** private_key *)
+  certificate_chain : string prop;  (** certificate_chain *)
+  private_key : string prop;  (** private_key *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__certificate__file *)
 
 type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__certificate__sds = {
-  secret_name : string;  (** secret_name *)
+  secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__certificate__sds *)
@@ -29,7 +29,7 @@ type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__ce
 (** aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__certificate *)
 
 type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match = {
-  exact : string list;  (** exact *)
+  exact : string prop list;  (** exact *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match *)
@@ -43,20 +43,20 @@ type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__va
 (** aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__subject_alternative_names *)
 
 type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__trust__acm = {
-  certificate_authority_arns : string list;
+  certificate_authority_arns : string prop list;
       (** certificate_authority_arns *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__trust__acm *)
 
 type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__trust__file = {
-  certificate_chain : string;  (** certificate_chain *)
+  certificate_chain : string prop;  (** certificate_chain *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__trust__file *)
 
 type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__trust__sds = {
-  secret_name : string;  (** secret_name *)
+  secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation__trust__sds *)
@@ -87,8 +87,8 @@ type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__va
 (** aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__validation *)
 
 type aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls = {
-  enforce : bool option; [@option]  (** enforce *)
-  ports : float list option; [@option]  (** ports *)
+  enforce : bool prop option; [@option]  (** enforce *)
+  ports : float prop list option; [@option]  (** ports *)
   certificate :
     aws_appmesh_virtual_gateway__spec__backend_defaults__client_policy__tls__certificate
     list;
@@ -116,21 +116,21 @@ type aws_appmesh_virtual_gateway__spec__backend_defaults = {
 (** aws_appmesh_virtual_gateway__spec__backend_defaults *)
 
 type aws_appmesh_virtual_gateway__spec__listener__connection_pool__grpc = {
-  max_requests : float;  (** max_requests *)
+  max_requests : float prop;  (** max_requests *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__connection_pool__grpc *)
 
 type aws_appmesh_virtual_gateway__spec__listener__connection_pool__http = {
-  max_connections : float;  (** max_connections *)
-  max_pending_requests : float option; [@option]
+  max_connections : float prop;  (** max_connections *)
+  max_pending_requests : float prop option; [@option]
       (** max_pending_requests *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__connection_pool__http *)
 
 type aws_appmesh_virtual_gateway__spec__listener__connection_pool__http2 = {
-  max_requests : float;  (** max_requests *)
+  max_requests : float prop;  (** max_requests *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__connection_pool__http2 *)
@@ -150,39 +150,39 @@ type aws_appmesh_virtual_gateway__spec__listener__connection_pool = {
 (** aws_appmesh_virtual_gateway__spec__listener__connection_pool *)
 
 type aws_appmesh_virtual_gateway__spec__listener__health_check = {
-  healthy_threshold : float;  (** healthy_threshold *)
-  interval_millis : float;  (** interval_millis *)
-  path : string option; [@option]  (** path *)
-  port : float option; [@option]  (** port *)
-  protocol : string;  (** protocol *)
-  timeout_millis : float;  (** timeout_millis *)
-  unhealthy_threshold : float;  (** unhealthy_threshold *)
+  healthy_threshold : float prop;  (** healthy_threshold *)
+  interval_millis : float prop;  (** interval_millis *)
+  path : string prop option; [@option]  (** path *)
+  port : float prop option; [@option]  (** port *)
+  protocol : string prop;  (** protocol *)
+  timeout_millis : float prop;  (** timeout_millis *)
+  unhealthy_threshold : float prop;  (** unhealthy_threshold *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__health_check *)
 
 type aws_appmesh_virtual_gateway__spec__listener__port_mapping = {
-  port : float;  (** port *)
-  protocol : string;  (** protocol *)
+  port : float prop;  (** port *)
+  protocol : string prop;  (** protocol *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__port_mapping *)
 
 type aws_appmesh_virtual_gateway__spec__listener__tls__certificate__acm = {
-  certificate_arn : string;  (** certificate_arn *)
+  certificate_arn : string prop;  (** certificate_arn *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__tls__certificate__acm *)
 
 type aws_appmesh_virtual_gateway__spec__listener__tls__certificate__file = {
-  certificate_chain : string;  (** certificate_chain *)
-  private_key : string;  (** private_key *)
+  certificate_chain : string prop;  (** certificate_chain *)
+  private_key : string prop;  (** private_key *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__tls__certificate__file *)
 
 type aws_appmesh_virtual_gateway__spec__listener__tls__certificate__sds = {
-  secret_name : string;  (** secret_name *)
+  secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__tls__certificate__sds *)
@@ -202,7 +202,7 @@ type aws_appmesh_virtual_gateway__spec__listener__tls__certificate = {
 (** aws_appmesh_virtual_gateway__spec__listener__tls__certificate *)
 
 type aws_appmesh_virtual_gateway__spec__listener__tls__validation__subject_alternative_names__match = {
-  exact : string list;  (** exact *)
+  exact : string prop list;  (** exact *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__tls__validation__subject_alternative_names__match *)
@@ -216,13 +216,13 @@ type aws_appmesh_virtual_gateway__spec__listener__tls__validation__subject_alter
 (** aws_appmesh_virtual_gateway__spec__listener__tls__validation__subject_alternative_names *)
 
 type aws_appmesh_virtual_gateway__spec__listener__tls__validation__trust__file = {
-  certificate_chain : string;  (** certificate_chain *)
+  certificate_chain : string prop;  (** certificate_chain *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__tls__validation__trust__file *)
 
 type aws_appmesh_virtual_gateway__spec__listener__tls__validation__trust__sds = {
-  secret_name : string;  (** secret_name *)
+  secret_name : string prop;  (** secret_name *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__listener__tls__validation__trust__sds *)
@@ -250,7 +250,7 @@ type aws_appmesh_virtual_gateway__spec__listener__tls__validation = {
 (** aws_appmesh_virtual_gateway__spec__listener__tls__validation *)
 
 type aws_appmesh_virtual_gateway__spec__listener__tls = {
-  mode : string;  (** mode *)
+  mode : string prop;  (** mode *)
   certificate :
     aws_appmesh_virtual_gateway__spec__listener__tls__certificate
     list;
@@ -273,14 +273,14 @@ type aws_appmesh_virtual_gateway__spec__listener = {
 (** aws_appmesh_virtual_gateway__spec__listener *)
 
 type aws_appmesh_virtual_gateway__spec__logging__access_log__file__format__json = {
-  key : string;  (** key *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_appmesh_virtual_gateway__spec__logging__access_log__file__format__json *)
 
 type aws_appmesh_virtual_gateway__spec__logging__access_log__file__format = {
-  text : string option; [@option]  (** text *)
+  text : string prop option; [@option]  (** text *)
   json :
     aws_appmesh_virtual_gateway__spec__logging__access_log__file__format__json
     list;
@@ -289,7 +289,7 @@ type aws_appmesh_virtual_gateway__spec__logging__access_log__file__format = {
 (** aws_appmesh_virtual_gateway__spec__logging__access_log__file__format *)
 
 type aws_appmesh_virtual_gateway__spec__logging__access_log__file = {
-  path : string;  (** path *)
+  path : string prop;  (** path *)
   format :
     aws_appmesh_virtual_gateway__spec__logging__access_log__file__format
     list;
@@ -321,12 +321,12 @@ type aws_appmesh_virtual_gateway__spec = {
 (** aws_appmesh_virtual_gateway__spec *)
 
 type aws_appmesh_virtual_gateway = {
-  id : string option; [@option]  (** id *)
-  mesh_name : string;  (** mesh_name *)
-  mesh_owner : string option; [@option]  (** mesh_owner *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  mesh_name : string prop;  (** mesh_name *)
+  mesh_owner : string prop option; [@option]  (** mesh_owner *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   spec : aws_appmesh_virtual_gateway__spec list;
 }

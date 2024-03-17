@@ -5,31 +5,32 @@ open! Tf.Prelude
 type aws_memorydb_snapshot__timeouts
 
 type aws_memorydb_snapshot__cluster_configuration = {
-  description : string;  (** description *)
-  engine_version : string;  (** engine_version *)
-  maintenance_window : string;  (** maintenance_window *)
-  name : string;  (** name *)
-  node_type : string;  (** node_type *)
-  num_shards : float;  (** num_shards *)
-  parameter_group_name : string;  (** parameter_group_name *)
-  port : float;  (** port *)
-  snapshot_retention_limit : float;  (** snapshot_retention_limit *)
-  snapshot_window : string;  (** snapshot_window *)
-  subnet_group_name : string;  (** subnet_group_name *)
-  topic_arn : string;  (** topic_arn *)
-  vpc_id : string;  (** vpc_id *)
+  description : string prop;  (** description *)
+  engine_version : string prop;  (** engine_version *)
+  maintenance_window : string prop;  (** maintenance_window *)
+  name : string prop;  (** name *)
+  node_type : string prop;  (** node_type *)
+  num_shards : float prop;  (** num_shards *)
+  parameter_group_name : string prop;  (** parameter_group_name *)
+  port : float prop;  (** port *)
+  snapshot_retention_limit : float prop;
+      (** snapshot_retention_limit *)
+  snapshot_window : string prop;  (** snapshot_window *)
+  subnet_group_name : string prop;  (** subnet_group_name *)
+  topic_arn : string prop;  (** topic_arn *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 
 type aws_memorydb_snapshot
 
 val aws_memorydb_snapshot :
-  ?id:string ->
-  ?kms_key_arn:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_memorydb_snapshot__timeouts ->
-  cluster_name:string ->
+  cluster_name:string prop ->
   string ->
   unit

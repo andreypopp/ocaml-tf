@@ -7,12 +7,12 @@ type azurerm_spring_cloud_configuration_service__timeouts
 type azurerm_spring_cloud_configuration_service
 
 val azurerm_spring_cloud_configuration_service :
-  ?generation:string ->
-  ?id:string ->
-  ?refresh_interval_in_seconds:float ->
+  ?generation:string prop ->
+  ?id:string prop ->
+  ?refresh_interval_in_seconds:float prop ->
   ?timeouts:azurerm_spring_cloud_configuration_service__timeouts ->
-  name:string ->
-  spring_cloud_service_id:string ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
   repository:
     azurerm_spring_cloud_configuration_service__repository list ->
   string ->

@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_iothub_file_upload__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_file_upload__timeouts *)
 
 type azurerm_iothub_file_upload = {
-  authentication_type : string option; [@option]
+  authentication_type : string prop option; [@option]
       (** authentication_type *)
-  connection_string : string;  (** connection_string *)
-  container_name : string;  (** container_name *)
-  default_ttl : string option; [@option]  (** default_ttl *)
-  id : string option; [@option]  (** id *)
-  identity_id : string option; [@option]  (** identity_id *)
-  iothub_id : string;  (** iothub_id *)
-  lock_duration : string option; [@option]  (** lock_duration *)
-  max_delivery_count : float option; [@option]
+  connection_string : string prop;  (** connection_string *)
+  container_name : string prop;  (** container_name *)
+  default_ttl : string prop option; [@option]  (** default_ttl *)
+  id : string prop option; [@option]  (** id *)
+  identity_id : string prop option; [@option]  (** identity_id *)
+  iothub_id : string prop;  (** iothub_id *)
+  lock_duration : string prop option; [@option]  (** lock_duration *)
+  max_delivery_count : float prop option; [@option]
       (** max_delivery_count *)
-  notifications_enabled : bool option; [@option]
+  notifications_enabled : bool prop option; [@option]
       (** notifications_enabled *)
-  sas_ttl : string option; [@option]  (** sas_ttl *)
+  sas_ttl : string prop option; [@option]  (** sas_ttl *)
   timeouts : azurerm_iothub_file_upload__timeouts option;
 }
 [@@deriving yojson_of]

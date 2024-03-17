@@ -25,12 +25,12 @@ type google_data_loss_prevention_stored_info_type__timeouts
 type google_data_loss_prevention_stored_info_type
 
 val google_data_loss_prevention_stored_info_type :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?stored_info_type_id:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?stored_info_type_id:string prop ->
   ?timeouts:google_data_loss_prevention_stored_info_type__timeouts ->
-  parent:string ->
+  parent:string prop ->
   dictionary:
     google_data_loss_prevention_stored_info_type__dictionary list ->
   large_custom_dictionary:

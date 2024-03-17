@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_security_center_setting__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_security_center_setting__timeouts *)
 
 type azurerm_security_center_setting = {
-  enabled : bool;  (** enabled *)
-  id : string option; [@option]  (** id *)
-  setting_name : string;  (** setting_name *)
+  enabled : bool prop;  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  setting_name : string prop;  (** setting_name *)
   timeouts : azurerm_security_center_setting__timeouts option;
 }
 [@@deriving yojson_of]

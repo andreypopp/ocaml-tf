@@ -5,38 +5,40 @@
 open! Tf.Prelude
 
 type digitalocean_spaces_bucket__cors_rule = {
-  allowed_headers : string list option; [@option]
+  allowed_headers : string prop list option; [@option]
       (** A list of headers that will be included in the CORS preflight request's Access-Control-Request-Headers. A header may contain one wildcard (e.g. x-amz-\*\). *)
-  allowed_methods : string list;
+  allowed_methods : string prop list;
       (** A list of HTTP methods (e.g. GET) which are allowed from the specified origin. *)
-  allowed_origins : string list;
+  allowed_origins : string prop list;
       (** A list of hosts from which requests using the specified methods are allowed. A host may contain one wildcard (e.g. http://*.example.com). *)
-  max_age_seconds : float option; [@option]  (** max_age_seconds *)
+  max_age_seconds : float prop option; [@option]
+      (** max_age_seconds *)
 }
 [@@deriving yojson_of]
 (** A container holding a list of elements describing allowed methods for a specific origin. *)
 
 type digitalocean_spaces_bucket__lifecycle_rule__expiration = {
-  date : string option; [@option]  (** date *)
-  days : float option; [@option]  (** days *)
-  expired_object_delete_marker : bool option; [@option]
+  date : string prop option; [@option]  (** date *)
+  days : float prop option; [@option]  (** days *)
+  expired_object_delete_marker : bool prop option; [@option]
       (** expired_object_delete_marker *)
 }
 [@@deriving yojson_of]
 (** digitalocean_spaces_bucket__lifecycle_rule__expiration *)
 
 type digitalocean_spaces_bucket__lifecycle_rule__noncurrent_version_expiration = {
-  days : float option; [@option]  (** days *)
+  days : float prop option; [@option]  (** days *)
 }
 [@@deriving yojson_of]
 (** digitalocean_spaces_bucket__lifecycle_rule__noncurrent_version_expiration *)
 
 type digitalocean_spaces_bucket__lifecycle_rule = {
-  abort_incomplete_multipart_upload_days : float option; [@option]
+  abort_incomplete_multipart_upload_days : float prop option;
+      [@option]
       (** abort_incomplete_multipart_upload_days *)
-  enabled : bool;  (** enabled *)
-  id : string option; [@option]  (** id *)
-  prefix : string option; [@option]  (** prefix *)
+  enabled : bool prop;  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  prefix : string prop option; [@option]  (** prefix *)
   expiration :
     digitalocean_spaces_bucket__lifecycle_rule__expiration list;
   noncurrent_version_expiration :
@@ -47,19 +49,19 @@ type digitalocean_spaces_bucket__lifecycle_rule = {
 (** digitalocean_spaces_bucket__lifecycle_rule *)
 
 type digitalocean_spaces_bucket__versioning = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** digitalocean_spaces_bucket__versioning *)
 
 type digitalocean_spaces_bucket = {
-  acl : string option; [@option]
+  acl : string prop option; [@option]
       (** Canned ACL applied on bucket creation *)
-  force_destroy : bool option; [@option]
+  force_destroy : bool prop option; [@option]
       (** Unless true, the bucket will only be destroyed if empty *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** Bucket name *)
-  region : string option; [@option]  (** Bucket region *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** Bucket name *)
+  region : string prop option; [@option]  (** Bucket region *)
   cors_rule : digitalocean_spaces_bucket__cors_rule list;
   lifecycle_rule : digitalocean_spaces_bucket__lifecycle_rule list;
   versioning : digitalocean_spaces_bucket__versioning list;

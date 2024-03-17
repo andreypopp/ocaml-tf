@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_iam_user_ssh_key = {
-  encoding : string;  (** encoding *)
-  id : string option; [@option]  (** id *)
-  public_key : string;  (** public_key *)
-  status : string option; [@option]  (** status *)
-  username : string;  (** username *)
+  encoding : string prop;  (** encoding *)
+  id : string prop option; [@option]  (** id *)
+  public_key : string prop;  (** public_key *)
+  status : string prop option; [@option]  (** status *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** aws_iam_user_ssh_key *)

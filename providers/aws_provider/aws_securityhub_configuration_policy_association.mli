@@ -6,10 +6,10 @@ type aws_securityhub_configuration_policy_association__timeouts
 type aws_securityhub_configuration_policy_association
 
 val aws_securityhub_configuration_policy_association :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     aws_securityhub_configuration_policy_association__timeouts ->
-  policy_id:string ->
-  target_id:string ->
+  policy_id:string prop ->
+  target_id:string prop ->
   string ->
   unit

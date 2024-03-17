@@ -14,9 +14,9 @@ type aws_config_configuration_recorder__recording_mode
 type aws_config_configuration_recorder
 
 val aws_config_configuration_recorder :
-  ?id:string ->
-  ?name:string ->
-  role_arn:string ->
+  ?id:string prop ->
+  ?name:string prop ->
+  role_arn:string prop ->
   recording_group:
     aws_config_configuration_recorder__recording_group list ->
   recording_mode:

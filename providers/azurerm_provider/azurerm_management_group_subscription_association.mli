@@ -6,10 +6,10 @@ type azurerm_management_group_subscription_association__timeouts
 type azurerm_management_group_subscription_association
 
 val azurerm_management_group_subscription_association :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_management_group_subscription_association__timeouts ->
-  management_group_id:string ->
-  subscription_id:string ->
+  management_group_id:string prop ->
+  subscription_id:string prop ->
   string ->
   unit

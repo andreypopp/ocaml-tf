@@ -6,10 +6,10 @@ type aws_ssmcontacts_contact_channel__delivery_address
 type aws_ssmcontacts_contact_channel
 
 val aws_ssmcontacts_contact_channel :
-  ?id:string ->
-  contact_id:string ->
-  name:string ->
-  type_:string ->
+  ?id:string prop ->
+  contact_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
   delivery_address:
     aws_ssmcontacts_contact_channel__delivery_address list ->
   string ->

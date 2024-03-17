@@ -5,4 +5,8 @@ open! Tf.Prelude
 type aws_iam_user_group_membership
 
 val aws_iam_user_group_membership :
-  ?id:string -> groups:string list -> user:string -> string -> unit
+  ?id:string prop ->
+  groups:string prop list ->
+  user:string prop ->
+  string ->
+  unit

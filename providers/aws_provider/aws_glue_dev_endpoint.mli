@@ -5,22 +5,22 @@ open! Tf.Prelude
 type aws_glue_dev_endpoint
 
 val aws_glue_dev_endpoint :
-  ?arguments:(string * string) list ->
-  ?extra_jars_s3_path:string ->
-  ?extra_python_libs_s3_path:string ->
-  ?glue_version:string ->
-  ?id:string ->
-  ?number_of_nodes:float ->
-  ?number_of_workers:float ->
-  ?public_key:string ->
-  ?public_keys:string list ->
-  ?security_configuration:string ->
-  ?security_group_ids:string list ->
-  ?subnet_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?worker_type:string ->
-  name:string ->
-  role_arn:string ->
+  ?arguments:(string * string prop) list ->
+  ?extra_jars_s3_path:string prop ->
+  ?extra_python_libs_s3_path:string prop ->
+  ?glue_version:string prop ->
+  ?id:string prop ->
+  ?number_of_nodes:float prop ->
+  ?number_of_workers:float prop ->
+  ?public_key:string prop ->
+  ?public_keys:string prop list ->
+  ?security_configuration:string prop ->
+  ?security_group_ids:string prop list ->
+  ?subnet_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?worker_type:string prop ->
+  name:string prop ->
+  role_arn:string prop ->
   string ->
   unit

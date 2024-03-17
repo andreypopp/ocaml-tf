@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type cloudflare_access_service_token = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
-  duration : string option; [@option]
+  duration : string prop option; [@option]
       (** Length of time the service token is valid for. Available values: `8760h`, `17520h`, `43800h`, `87600h`, `forever`. *)
-  id : string option; [@option]  (** id *)
-  min_days_for_renewal : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  min_days_for_renewal : float prop option; [@option]
       (** Refresh the token if terraform is run within the specified amount of days before expiration. Defaults to `0`. *)
-  name : string;  (** Friendly name of the token's intent. *)
-  zone_id : string option; [@option]
+  name : string prop;  (** Friendly name of the token's intent. *)
+  zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
 }
 [@@deriving yojson_of]

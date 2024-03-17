@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type aws_batch_job_queue__compute_environment_order = {
-  compute_environment : string;  (** compute_environment *)
-  order : float;  (** order *)
+  compute_environment : string prop;  (** compute_environment *)
+  order : float prop;  (** order *)
 }
 [@@deriving yojson_of]
 (** aws_batch_job_queue__compute_environment_order *)
 
 type aws_batch_job_queue__timeouts = {
-  create : string option; [@option]
+  create : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-  delete : string option; [@option]
+  delete : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
-  update : string option; [@option]
+  update : string prop option; [@option]
       (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
 [@@deriving yojson_of]
 (** aws_batch_job_queue__timeouts *)
 
 type aws_batch_job_queue = {
-  compute_environments : string list option; [@option]
+  compute_environments : string prop list option; [@option]
       (** compute_environments *)
-  name : string;  (** name *)
-  priority : float;  (** priority *)
-  scheduling_policy_arn : string option; [@option]
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  scheduling_policy_arn : string prop option; [@option]
       (** scheduling_policy_arn *)
-  state : string;  (** state *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  state : string prop;  (** state *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   compute_environment_order :
     aws_batch_job_queue__compute_environment_order list;
   timeouts : aws_batch_job_queue__timeouts option;

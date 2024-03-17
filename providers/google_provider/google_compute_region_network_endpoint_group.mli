@@ -9,16 +9,16 @@ type google_compute_region_network_endpoint_group__timeouts
 type google_compute_region_network_endpoint_group
 
 val google_compute_region_network_endpoint_group :
-  ?description:string ->
-  ?id:string ->
-  ?network:string ->
-  ?network_endpoint_type:string ->
-  ?project:string ->
-  ?psc_target_service:string ->
-  ?subnetwork:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?network:string prop ->
+  ?network_endpoint_type:string prop ->
+  ?project:string prop ->
+  ?psc_target_service:string prop ->
+  ?subnetwork:string prop ->
   ?timeouts:google_compute_region_network_endpoint_group__timeouts ->
-  name:string ->
-  region:string ->
+  name:string prop ->
+  region:string prop ->
   app_engine:
     google_compute_region_network_endpoint_group__app_engine list ->
   cloud_function:

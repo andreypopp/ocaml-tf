@@ -5,20 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_log_analytics_linked_service__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_linked_service__timeouts *)
 
 type azurerm_log_analytics_linked_service = {
-  id : string option; [@option]  (** id *)
-  read_access_id : string option; [@option]  (** read_access_id *)
-  resource_group_name : string;  (** resource_group_name *)
-  workspace_id : string;  (** workspace_id *)
-  write_access_id : string option; [@option]  (** write_access_id *)
+  id : string prop option; [@option]  (** id *)
+  read_access_id : string prop option; [@option]
+      (** read_access_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  workspace_id : string prop;  (** workspace_id *)
+  write_access_id : string prop option; [@option]
+      (** write_access_id *)
   timeouts : azurerm_log_analytics_linked_service__timeouts option;
 }
 [@@deriving yojson_of]

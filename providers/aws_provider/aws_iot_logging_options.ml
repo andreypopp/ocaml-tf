@@ -5,10 +5,11 @@
 open! Tf.Prelude
 
 type aws_iot_logging_options = {
-  default_log_level : string;  (** default_log_level *)
-  disable_all_logs : bool option; [@option]  (** disable_all_logs *)
-  id : string option; [@option]  (** id *)
-  role_arn : string;  (** role_arn *)
+  default_log_level : string prop;  (** default_log_level *)
+  disable_all_logs : bool prop option; [@option]
+      (** disable_all_logs *)
+  id : string prop option; [@option]  (** id *)
+  role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_iot_logging_options *)

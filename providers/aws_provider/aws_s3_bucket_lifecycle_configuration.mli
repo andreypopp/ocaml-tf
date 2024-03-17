@@ -19,10 +19,10 @@ type aws_s3_bucket_lifecycle_configuration__timeouts
 type aws_s3_bucket_lifecycle_configuration
 
 val aws_s3_bucket_lifecycle_configuration :
-  ?expected_bucket_owner:string ->
-  ?id:string ->
+  ?expected_bucket_owner:string prop ->
+  ?id:string prop ->
   ?timeouts:aws_s3_bucket_lifecycle_configuration__timeouts ->
-  bucket:string ->
+  bucket:string prop ->
   rule:aws_s3_bucket_lifecycle_configuration__rule list ->
   string ->
   unit

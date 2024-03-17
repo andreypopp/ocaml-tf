@@ -7,18 +7,18 @@ type cloudflare_record__timeouts
 type cloudflare_record
 
 val cloudflare_record :
-  ?allow_overwrite:bool ->
-  ?comment:string ->
-  ?id:string ->
-  ?priority:float ->
-  ?proxied:bool ->
-  ?tags:string list ->
-  ?ttl:float ->
-  ?value:string ->
+  ?allow_overwrite:bool prop ->
+  ?comment:string prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?proxied:bool prop ->
+  ?tags:string prop list ->
+  ?ttl:float prop ->
+  ?value:string prop ->
   ?timeouts:cloudflare_record__timeouts ->
-  name:string ->
-  type_:string ->
-  zone_id:string ->
+  name:string prop ->
+  type_:string prop ->
+  zone_id:string prop ->
   data:cloudflare_record__data list ->
   string ->
   unit

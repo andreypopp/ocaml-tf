@@ -5,41 +5,42 @@
 open! Tf.Prelude
 
 type digitalocean_kubernetes_node_pool__taint = {
-  effect : string;  (** effect *)
-  key : string;  (** key *)
-  value : string;  (** value *)
+  effect : string prop;  (** effect *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** digitalocean_kubernetes_node_pool__taint *)
 
 type digitalocean_kubernetes_node_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** digitalocean_kubernetes_node_pool__timeouts *)
 
 type digitalocean_kubernetes_node_pool__nodes = {
-  created_at : string;  (** created_at *)
-  droplet_id : string;  (** droplet_id *)
-  id : string;  (** id *)
-  name : string;  (** name *)
-  status : string;  (** status *)
-  updated_at : string;  (** updated_at *)
+  created_at : string prop;  (** created_at *)
+  droplet_id : string prop;  (** droplet_id *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
+  status : string prop;  (** status *)
+  updated_at : string prop;  (** updated_at *)
 }
 [@@deriving yojson_of]
 
 type digitalocean_kubernetes_node_pool = {
-  auto_scale : bool option; [@option]  (** auto_scale *)
-  cluster_id : string;  (** cluster_id *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  max_nodes : float option; [@option]  (** max_nodes *)
-  min_nodes : float option; [@option]  (** min_nodes *)
-  name : string;  (** name *)
-  node_count : float option; [@option]  (** node_count *)
-  size : string;  (** size *)
-  tags : string list option; [@option]  (** tags *)
+  auto_scale : bool prop option; [@option]  (** auto_scale *)
+  cluster_id : string prop;  (** cluster_id *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  max_nodes : float prop option; [@option]  (** max_nodes *)
+  min_nodes : float prop option; [@option]  (** min_nodes *)
+  name : string prop;  (** name *)
+  node_count : float prop option; [@option]  (** node_count *)
+  size : string prop;  (** size *)
+  tags : string prop list option; [@option]  (** tags *)
   taint : digitalocean_kubernetes_node_pool__taint list;
   timeouts : digitalocean_kubernetes_node_pool__timeouts option;
 }

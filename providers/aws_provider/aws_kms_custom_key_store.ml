@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type aws_kms_custom_key_store__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_kms_custom_key_store__timeouts *)
 
 type aws_kms_custom_key_store = {
-  cloud_hsm_cluster_id : string;  (** cloud_hsm_cluster_id *)
-  custom_key_store_name : string;  (** custom_key_store_name *)
-  id : string option; [@option]  (** id *)
-  key_store_password : string;  (** key_store_password *)
-  trust_anchor_certificate : string;  (** trust_anchor_certificate *)
+  cloud_hsm_cluster_id : string prop;  (** cloud_hsm_cluster_id *)
+  custom_key_store_name : string prop;  (** custom_key_store_name *)
+  id : string prop option; [@option]  (** id *)
+  key_store_password : string prop;  (** key_store_password *)
+  trust_anchor_certificate : string prop;
+      (** trust_anchor_certificate *)
   timeouts : aws_kms_custom_key_store__timeouts option;
 }
 [@@deriving yojson_of]

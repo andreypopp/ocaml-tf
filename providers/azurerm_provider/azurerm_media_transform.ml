@@ -5,32 +5,35 @@
 open! Tf.Prelude
 
 type azurerm_media_transform__output__audio_analyzer_preset = {
-  audio_analysis_mode : string option; [@option]
+  audio_analysis_mode : string prop option; [@option]
       (** audio_analysis_mode *)
-  audio_language : string option; [@option]  (** audio_language *)
-  experimental_options : (string * string) list option; [@option]
+  audio_language : string prop option; [@option]
+      (** audio_language *)
+  experimental_options : (string * string prop) list option; [@option]
       (** experimental_options *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__audio_analyzer_preset *)
 
 type azurerm_media_transform__output__builtin_preset__preset_configuration = {
-  complexity : string option; [@option]  (** complexity *)
-  interleave_output : string option; [@option]
+  complexity : string prop option; [@option]  (** complexity *)
+  interleave_output : string prop option; [@option]
       (** interleave_output *)
-  key_frame_interval_in_seconds : float option; [@option]
+  key_frame_interval_in_seconds : float prop option; [@option]
       (** key_frame_interval_in_seconds *)
-  max_bitrate_bps : float option; [@option]  (** max_bitrate_bps *)
-  max_height : float option; [@option]  (** max_height *)
-  max_layers : float option; [@option]  (** max_layers *)
-  min_bitrate_bps : float option; [@option]  (** min_bitrate_bps *)
-  min_height : float option; [@option]  (** min_height *)
+  max_bitrate_bps : float prop option; [@option]
+      (** max_bitrate_bps *)
+  max_height : float prop option; [@option]  (** max_height *)
+  max_layers : float prop option; [@option]  (** max_layers *)
+  min_bitrate_bps : float prop option; [@option]
+      (** min_bitrate_bps *)
+  min_height : float prop option; [@option]  (** min_height *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__builtin_preset__preset_configuration *)
 
 type azurerm_media_transform__output__builtin_preset = {
-  preset_name : string;  (** preset_name *)
+  preset_name : string prop;  (** preset_name *)
   preset_configuration :
     azurerm_media_transform__output__builtin_preset__preset_configuration
     list;
@@ -39,68 +42,69 @@ type azurerm_media_transform__output__builtin_preset = {
 (** azurerm_media_transform__output__builtin_preset *)
 
 type azurerm_media_transform__output__custom_preset__codec__aac_audio = {
-  bitrate : float option; [@option]  (** bitrate *)
-  channels : float option; [@option]  (** channels *)
-  label : string option; [@option]  (** label *)
-  profile : string option; [@option]  (** profile *)
-  sampling_rate : float option; [@option]  (** sampling_rate *)
+  bitrate : float prop option; [@option]  (** bitrate *)
+  channels : float prop option; [@option]  (** channels *)
+  label : string prop option; [@option]  (** label *)
+  profile : string prop option; [@option]  (** profile *)
+  sampling_rate : float prop option; [@option]  (** sampling_rate *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__codec__aac_audio *)
 
 type azurerm_media_transform__output__custom_preset__codec__copy_audio = {
-  label : string option; [@option]  (** label *)
+  label : string prop option; [@option]  (** label *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__codec__copy_audio *)
 
 type azurerm_media_transform__output__custom_preset__codec__copy_video = {
-  label : string option; [@option]  (** label *)
+  label : string prop option; [@option]  (** label *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__codec__copy_video *)
 
 type azurerm_media_transform__output__custom_preset__codec__dd_audio = {
-  bitrate : float option; [@option]  (** bitrate *)
-  channels : float option; [@option]  (** channels *)
-  label : string option; [@option]  (** label *)
-  sampling_rate : float option; [@option]  (** sampling_rate *)
+  bitrate : float prop option; [@option]  (** bitrate *)
+  channels : float prop option; [@option]  (** channels *)
+  label : string prop option; [@option]  (** label *)
+  sampling_rate : float prop option; [@option]  (** sampling_rate *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__codec__dd_audio *)
 
 type azurerm_media_transform__output__custom_preset__codec__h264_video__layer = {
-  adaptive_b_frame_enabled : bool option; [@option]
+  adaptive_b_frame_enabled : bool prop option; [@option]
       (** adaptive_b_frame_enabled *)
-  b_frames : float option; [@option]  (** b_frames *)
-  bitrate : float;  (** bitrate *)
-  buffer_window : string option; [@option]  (** buffer_window *)
-  crf : float option; [@option]  (** crf *)
-  entropy_mode : string option; [@option]  (** entropy_mode *)
-  frame_rate : string option; [@option]  (** frame_rate *)
-  height : string option; [@option]  (** height *)
-  label : string option; [@option]  (** label *)
-  level : string option; [@option]  (** level *)
-  max_bitrate : float option; [@option]  (** max_bitrate *)
-  profile : string option; [@option]  (** profile *)
-  reference_frames : float option; [@option]  (** reference_frames *)
-  slices : float option; [@option]  (** slices *)
-  width : string option; [@option]  (** width *)
+  b_frames : float prop option; [@option]  (** b_frames *)
+  bitrate : float prop;  (** bitrate *)
+  buffer_window : string prop option; [@option]  (** buffer_window *)
+  crf : float prop option; [@option]  (** crf *)
+  entropy_mode : string prop option; [@option]  (** entropy_mode *)
+  frame_rate : string prop option; [@option]  (** frame_rate *)
+  height : string prop option; [@option]  (** height *)
+  label : string prop option; [@option]  (** label *)
+  level : string prop option; [@option]  (** level *)
+  max_bitrate : float prop option; [@option]  (** max_bitrate *)
+  profile : string prop option; [@option]  (** profile *)
+  reference_frames : float prop option; [@option]
+      (** reference_frames *)
+  slices : float prop option; [@option]  (** slices *)
+  width : string prop option; [@option]  (** width *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__codec__h264_video__layer *)
 
 type azurerm_media_transform__output__custom_preset__codec__h264_video = {
-  complexity : string option; [@option]  (** complexity *)
-  key_frame_interval : string option; [@option]
+  complexity : string prop option; [@option]  (** complexity *)
+  key_frame_interval : string prop option; [@option]
       (** key_frame_interval *)
-  label : string option; [@option]  (** label *)
-  rate_control_mode : string option; [@option]
+  label : string prop option; [@option]  (** label *)
+  rate_control_mode : string prop option; [@option]
       (** rate_control_mode *)
-  scene_change_detection_enabled : bool option; [@option]
+  scene_change_detection_enabled : bool prop option; [@option]
       (** scene_change_detection_enabled *)
-  stretch_mode : string option; [@option]  (** stretch_mode *)
-  sync_mode : string option; [@option]  (** sync_mode *)
+  stretch_mode : string prop option; [@option]  (** stretch_mode *)
+  sync_mode : string prop option; [@option]  (** sync_mode *)
   layer :
     azurerm_media_transform__output__custom_preset__codec__h264_video__layer
     list;
@@ -109,34 +113,35 @@ type azurerm_media_transform__output__custom_preset__codec__h264_video = {
 (** azurerm_media_transform__output__custom_preset__codec__h264_video *)
 
 type azurerm_media_transform__output__custom_preset__codec__h265_video__layer = {
-  adaptive_b_frame_enabled : bool option; [@option]
+  adaptive_b_frame_enabled : bool prop option; [@option]
       (** adaptive_b_frame_enabled *)
-  b_frames : float option; [@option]  (** b_frames *)
-  bitrate : float;  (** bitrate *)
-  buffer_window : string option; [@option]  (** buffer_window *)
-  crf : float option; [@option]  (** crf *)
-  frame_rate : string option; [@option]  (** frame_rate *)
-  height : string option; [@option]  (** height *)
-  label : string option; [@option]  (** label *)
-  level : string option; [@option]  (** level *)
-  max_bitrate : float option; [@option]  (** max_bitrate *)
-  profile : string option; [@option]  (** profile *)
-  reference_frames : float option; [@option]  (** reference_frames *)
-  slices : float option; [@option]  (** slices *)
-  width : string option; [@option]  (** width *)
+  b_frames : float prop option; [@option]  (** b_frames *)
+  bitrate : float prop;  (** bitrate *)
+  buffer_window : string prop option; [@option]  (** buffer_window *)
+  crf : float prop option; [@option]  (** crf *)
+  frame_rate : string prop option; [@option]  (** frame_rate *)
+  height : string prop option; [@option]  (** height *)
+  label : string prop option; [@option]  (** label *)
+  level : string prop option; [@option]  (** level *)
+  max_bitrate : float prop option; [@option]  (** max_bitrate *)
+  profile : string prop option; [@option]  (** profile *)
+  reference_frames : float prop option; [@option]
+      (** reference_frames *)
+  slices : float prop option; [@option]  (** slices *)
+  width : string prop option; [@option]  (** width *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__codec__h265_video__layer *)
 
 type azurerm_media_transform__output__custom_preset__codec__h265_video = {
-  complexity : string option; [@option]  (** complexity *)
-  key_frame_interval : string option; [@option]
+  complexity : string prop option; [@option]  (** complexity *)
+  key_frame_interval : string prop option; [@option]
       (** key_frame_interval *)
-  label : string option; [@option]  (** label *)
-  scene_change_detection_enabled : bool option; [@option]
+  label : string prop option; [@option]  (** label *)
+  scene_change_detection_enabled : bool prop option; [@option]
       (** scene_change_detection_enabled *)
-  stretch_mode : string option; [@option]  (** stretch_mode *)
-  sync_mode : string option; [@option]  (** sync_mode *)
+  stretch_mode : string prop option; [@option]  (** stretch_mode *)
+  sync_mode : string prop option; [@option]  (** sync_mode *)
   layer :
     azurerm_media_transform__output__custom_preset__codec__h265_video__layer
     list;
@@ -145,24 +150,24 @@ type azurerm_media_transform__output__custom_preset__codec__h265_video = {
 (** azurerm_media_transform__output__custom_preset__codec__h265_video *)
 
 type azurerm_media_transform__output__custom_preset__codec__jpg_image__layer = {
-  height : string option; [@option]  (** height *)
-  label : string option; [@option]  (** label *)
-  quality : float option; [@option]  (** quality *)
-  width : string option; [@option]  (** width *)
+  height : string prop option; [@option]  (** height *)
+  label : string prop option; [@option]  (** label *)
+  quality : float prop option; [@option]  (** quality *)
+  width : string prop option; [@option]  (** width *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__codec__jpg_image__layer *)
 
 type azurerm_media_transform__output__custom_preset__codec__jpg_image = {
-  key_frame_interval : string option; [@option]
+  key_frame_interval : string prop option; [@option]
       (** key_frame_interval *)
-  label : string option; [@option]  (** label *)
-  range : string option; [@option]  (** range *)
-  sprite_column : float option; [@option]  (** sprite_column *)
-  start : string;  (** start *)
-  step : string option; [@option]  (** step *)
-  stretch_mode : string option; [@option]  (** stretch_mode *)
-  sync_mode : string option; [@option]  (** sync_mode *)
+  label : string prop option; [@option]  (** label *)
+  range : string prop option; [@option]  (** range *)
+  sprite_column : float prop option; [@option]  (** sprite_column *)
+  start : string prop;  (** start *)
+  step : string prop option; [@option]  (** step *)
+  stretch_mode : string prop option; [@option]  (** stretch_mode *)
+  sync_mode : string prop option; [@option]  (** sync_mode *)
   layer :
     azurerm_media_transform__output__custom_preset__codec__jpg_image__layer
     list;
@@ -171,22 +176,22 @@ type azurerm_media_transform__output__custom_preset__codec__jpg_image = {
 (** azurerm_media_transform__output__custom_preset__codec__jpg_image *)
 
 type azurerm_media_transform__output__custom_preset__codec__png_image__layer = {
-  height : string option; [@option]  (** height *)
-  label : string option; [@option]  (** label *)
-  width : string option; [@option]  (** width *)
+  height : string prop option; [@option]  (** height *)
+  label : string prop option; [@option]  (** label *)
+  width : string prop option; [@option]  (** width *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__codec__png_image__layer *)
 
 type azurerm_media_transform__output__custom_preset__codec__png_image = {
-  key_frame_interval : string option; [@option]
+  key_frame_interval : string prop option; [@option]
       (** key_frame_interval *)
-  label : string option; [@option]  (** label *)
-  range : string option; [@option]  (** range *)
-  start : string;  (** start *)
-  step : string option; [@option]  (** step *)
-  stretch_mode : string option; [@option]  (** stretch_mode *)
-  sync_mode : string option; [@option]  (** sync_mode *)
+  label : string prop option; [@option]  (** label *)
+  range : string prop option; [@option]  (** range *)
+  start : string prop;  (** start *)
+  step : string prop option; [@option]  (** step *)
+  stretch_mode : string prop option; [@option]  (** stretch_mode *)
+  sync_mode : string prop option; [@option]  (** sync_mode *)
   layer :
     azurerm_media_transform__output__custom_preset__codec__png_image__layer
     list;
@@ -224,78 +229,80 @@ type azurerm_media_transform__output__custom_preset__codec = {
 (** azurerm_media_transform__output__custom_preset__codec *)
 
 type azurerm_media_transform__output__custom_preset__filter__crop_rectangle = {
-  height : string option; [@option]  (** height *)
-  left : string option; [@option]  (** left *)
-  top : string option; [@option]  (** top *)
-  width : string option; [@option]  (** width *)
+  height : string prop option; [@option]  (** height *)
+  left : string prop option; [@option]  (** left *)
+  top : string prop option; [@option]  (** top *)
+  width : string prop option; [@option]  (** width *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__filter__crop_rectangle *)
 
 type azurerm_media_transform__output__custom_preset__filter__deinterlace = {
-  mode : string option; [@option]  (** mode *)
-  parity : string option; [@option]  (** parity *)
+  mode : string prop option; [@option]  (** mode *)
+  parity : string prop option; [@option]  (** parity *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__filter__deinterlace *)
 
 type azurerm_media_transform__output__custom_preset__filter__fade_in = {
-  duration : string;  (** duration *)
-  fade_color : string;  (** fade_color *)
-  start : string option; [@option]  (** start *)
+  duration : string prop;  (** duration *)
+  fade_color : string prop;  (** fade_color *)
+  start : string prop option; [@option]  (** start *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__filter__fade_in *)
 
 type azurerm_media_transform__output__custom_preset__filter__fade_out = {
-  duration : string;  (** duration *)
-  fade_color : string;  (** fade_color *)
-  start : string option; [@option]  (** start *)
+  duration : string prop;  (** duration *)
+  fade_color : string prop;  (** fade_color *)
+  start : string prop option; [@option]  (** start *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__filter__fade_out *)
 
 type azurerm_media_transform__output__custom_preset__filter__overlay__audio = {
-  audio_gain_level : float option; [@option]  (** audio_gain_level *)
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  fade_in_duration : string option; [@option]
+  audio_gain_level : float prop option; [@option]
+      (** audio_gain_level *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  fade_in_duration : string prop option; [@option]
       (** fade_in_duration *)
-  fade_out_duration : string option; [@option]
+  fade_out_duration : string prop option; [@option]
       (** fade_out_duration *)
-  input_label : string;  (** input_label *)
-  start : string option; [@option]  (** start *)
+  input_label : string prop;  (** input_label *)
+  start : string prop option; [@option]  (** start *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__filter__overlay__audio *)
 
 type azurerm_media_transform__output__custom_preset__filter__overlay__video__crop_rectangle = {
-  height : string option; [@option]  (** height *)
-  left : string option; [@option]  (** left *)
-  top : string option; [@option]  (** top *)
-  width : string option; [@option]  (** width *)
+  height : string prop option; [@option]  (** height *)
+  left : string prop option; [@option]  (** left *)
+  top : string prop option; [@option]  (** top *)
+  width : string prop option; [@option]  (** width *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__filter__overlay__video__crop_rectangle *)
 
 type azurerm_media_transform__output__custom_preset__filter__overlay__video__position = {
-  height : string option; [@option]  (** height *)
-  left : string option; [@option]  (** left *)
-  top : string option; [@option]  (** top *)
-  width : string option; [@option]  (** width *)
+  height : string prop option; [@option]  (** height *)
+  left : string prop option; [@option]  (** left *)
+  top : string prop option; [@option]  (** top *)
+  width : string prop option; [@option]  (** width *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__filter__overlay__video__position *)
 
 type azurerm_media_transform__output__custom_preset__filter__overlay__video = {
-  audio_gain_level : float option; [@option]  (** audio_gain_level *)
-  end_ : string option; [@option] [@key "end"]  (** end *)
-  fade_in_duration : string option; [@option]
+  audio_gain_level : float prop option; [@option]
+      (** audio_gain_level *)
+  end_ : string prop option; [@option] [@key "end"]  (** end *)
+  fade_in_duration : string prop option; [@option]
       (** fade_in_duration *)
-  fade_out_duration : string option; [@option]
+  fade_out_duration : string prop option; [@option]
       (** fade_out_duration *)
-  input_label : string;  (** input_label *)
-  opacity : float option; [@option]  (** opacity *)
-  start : string option; [@option]  (** start *)
+  input_label : string prop;  (** input_label *)
+  opacity : float prop option; [@option]  (** opacity *)
+  start : string prop option; [@option]  (** start *)
   crop_rectangle :
     azurerm_media_transform__output__custom_preset__filter__overlay__video__crop_rectangle
     list;
@@ -318,7 +325,7 @@ type azurerm_media_transform__output__custom_preset__filter__overlay = {
 (** azurerm_media_transform__output__custom_preset__filter__overlay *)
 
 type azurerm_media_transform__output__custom_preset__filter = {
-  rotation : string option; [@option]  (** rotation *)
+  rotation : string prop option; [@option]  (** rotation *)
   crop_rectangle :
     azurerm_media_transform__output__custom_preset__filter__crop_rectangle
     list;
@@ -339,19 +346,19 @@ type azurerm_media_transform__output__custom_preset__filter = {
 (** azurerm_media_transform__output__custom_preset__filter *)
 
 type azurerm_media_transform__output__custom_preset__format__jpg = {
-  filename_pattern : string;  (** filename_pattern *)
+  filename_pattern : string prop;  (** filename_pattern *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__format__jpg *)
 
 type azurerm_media_transform__output__custom_preset__format__mp4__output_file = {
-  labels : string list;  (** labels *)
+  labels : string prop list;  (** labels *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__format__mp4__output_file *)
 
 type azurerm_media_transform__output__custom_preset__format__mp4 = {
-  filename_pattern : string;  (** filename_pattern *)
+  filename_pattern : string prop;  (** filename_pattern *)
   output_file :
     azurerm_media_transform__output__custom_preset__format__mp4__output_file
     list;
@@ -360,19 +367,19 @@ type azurerm_media_transform__output__custom_preset__format__mp4 = {
 (** azurerm_media_transform__output__custom_preset__format__mp4 *)
 
 type azurerm_media_transform__output__custom_preset__format__png = {
-  filename_pattern : string;  (** filename_pattern *)
+  filename_pattern : string prop;  (** filename_pattern *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__format__png *)
 
 type azurerm_media_transform__output__custom_preset__format__transport_stream__output_file = {
-  labels : string list;  (** labels *)
+  labels : string prop list;  (** labels *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__custom_preset__format__transport_stream__output_file *)
 
 type azurerm_media_transform__output__custom_preset__format__transport_stream = {
-  filename_pattern : string;  (** filename_pattern *)
+  filename_pattern : string prop;  (** filename_pattern *)
   output_file :
     azurerm_media_transform__output__custom_preset__format__transport_stream__output_file
     list;
@@ -395,7 +402,8 @@ type azurerm_media_transform__output__custom_preset__format = {
 (** azurerm_media_transform__output__custom_preset__format *)
 
 type azurerm_media_transform__output__custom_preset = {
-  experimental_options : (string * string) list option; [@option]
+  experimental_options : (string * string prop) list option;
+      [@option]
       (** experimental_options *)
   codec : azurerm_media_transform__output__custom_preset__codec list;
   filter :
@@ -407,31 +415,35 @@ type azurerm_media_transform__output__custom_preset = {
 (** azurerm_media_transform__output__custom_preset *)
 
 type azurerm_media_transform__output__face_detector_preset = {
-  analysis_resolution : string option; [@option]
+  analysis_resolution : string prop option; [@option]
       (** analysis_resolution *)
-  blur_type : string option; [@option]  (** blur_type *)
-  experimental_options : (string * string) list option; [@option]
+  blur_type : string prop option; [@option]  (** blur_type *)
+  experimental_options : (string * string prop) list option;
+      [@option]
       (** experimental_options *)
-  face_redactor_mode : string option; [@option]
+  face_redactor_mode : string prop option; [@option]
       (** face_redactor_mode *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__face_detector_preset *)
 
 type azurerm_media_transform__output__video_analyzer_preset = {
-  audio_analysis_mode : string option; [@option]
+  audio_analysis_mode : string prop option; [@option]
       (** audio_analysis_mode *)
-  audio_language : string option; [@option]  (** audio_language *)
-  experimental_options : (string * string) list option; [@option]
+  audio_language : string prop option; [@option]
+      (** audio_language *)
+  experimental_options : (string * string prop) list option;
+      [@option]
       (** experimental_options *)
-  insights_type : string option; [@option]  (** insights_type *)
+  insights_type : string prop option; [@option]  (** insights_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__output__video_analyzer_preset *)
 
 type azurerm_media_transform__output = {
-  on_error_action : string option; [@option]  (** on_error_action *)
-  relative_priority : string option; [@option]
+  on_error_action : string prop option; [@option]
+      (** on_error_action *)
+  relative_priority : string prop option; [@option]
       (** relative_priority *)
   audio_analyzer_preset :
     azurerm_media_transform__output__audio_analyzer_preset list;
@@ -448,21 +460,21 @@ type azurerm_media_transform__output = {
 (** azurerm_media_transform__output *)
 
 type azurerm_media_transform__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_transform__timeouts *)
 
 type azurerm_media_transform = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  media_services_account_name : string;
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  media_services_account_name : string prop;
       (** media_services_account_name *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   output : azurerm_media_transform__output list;
   timeouts : azurerm_media_transform__timeouts option;
 }

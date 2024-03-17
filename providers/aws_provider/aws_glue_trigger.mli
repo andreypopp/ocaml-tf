@@ -11,17 +11,17 @@ type aws_glue_trigger__timeouts
 type aws_glue_trigger
 
 val aws_glue_trigger :
-  ?description:string ->
-  ?enabled:bool ->
-  ?id:string ->
-  ?schedule:string ->
-  ?start_on_creation:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?workflow_name:string ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?schedule:string prop ->
+  ?start_on_creation:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?workflow_name:string prop ->
   ?timeouts:aws_glue_trigger__timeouts ->
-  name:string ->
-  type_:string ->
+  name:string prop ->
+  type_:string prop ->
   actions:aws_glue_trigger__actions list ->
   event_batching_condition:
     aws_glue_trigger__event_batching_condition list ->

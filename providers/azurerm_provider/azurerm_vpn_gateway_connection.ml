@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_vpn_gateway_connection__routing__propagated_route_table = {
-  labels : string list option; [@option]  (** labels *)
-  route_table_ids : string list;  (** route_table_ids *)
+  labels : string prop list option; [@option]  (** labels *)
+  route_table_ids : string prop list;  (** route_table_ids *)
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway_connection__routing__propagated_route_table *)
 
 type azurerm_vpn_gateway_connection__routing = {
-  associated_route_table : string;  (** associated_route_table *)
-  inbound_route_map_id : string option; [@option]
+  associated_route_table : string prop;
+      (** associated_route_table *)
+  inbound_route_map_id : string prop option; [@option]
       (** inbound_route_map_id *)
-  outbound_route_map_id : string option; [@option]
+  outbound_route_map_id : string prop option; [@option]
       (** outbound_route_map_id *)
   propagated_route_table :
     azurerm_vpn_gateway_connection__routing__propagated_route_table
@@ -25,60 +26,66 @@ type azurerm_vpn_gateway_connection__routing = {
 (** azurerm_vpn_gateway_connection__routing *)
 
 type azurerm_vpn_gateway_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway_connection__timeouts *)
 
 type azurerm_vpn_gateway_connection__traffic_selector_policy = {
-  local_address_ranges : string list;  (** local_address_ranges *)
-  remote_address_ranges : string list;  (** remote_address_ranges *)
+  local_address_ranges : string prop list;
+      (** local_address_ranges *)
+  remote_address_ranges : string prop list;
+      (** remote_address_ranges *)
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway_connection__traffic_selector_policy *)
 
 type azurerm_vpn_gateway_connection__vpn_link__custom_bgp_address = {
-  ip_address : string;  (** ip_address *)
-  ip_configuration_id : string;  (** ip_configuration_id *)
+  ip_address : string prop;  (** ip_address *)
+  ip_configuration_id : string prop;  (** ip_configuration_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway_connection__vpn_link__custom_bgp_address *)
 
 type azurerm_vpn_gateway_connection__vpn_link__ipsec_policy = {
-  dh_group : string;  (** dh_group *)
-  encryption_algorithm : string;  (** encryption_algorithm *)
-  ike_encryption_algorithm : string;  (** ike_encryption_algorithm *)
-  ike_integrity_algorithm : string;  (** ike_integrity_algorithm *)
-  integrity_algorithm : string;  (** integrity_algorithm *)
-  pfs_group : string;  (** pfs_group *)
-  sa_data_size_kb : float;  (** sa_data_size_kb *)
-  sa_lifetime_sec : float;  (** sa_lifetime_sec *)
+  dh_group : string prop;  (** dh_group *)
+  encryption_algorithm : string prop;  (** encryption_algorithm *)
+  ike_encryption_algorithm : string prop;
+      (** ike_encryption_algorithm *)
+  ike_integrity_algorithm : string prop;
+      (** ike_integrity_algorithm *)
+  integrity_algorithm : string prop;  (** integrity_algorithm *)
+  pfs_group : string prop;  (** pfs_group *)
+  sa_data_size_kb : float prop;  (** sa_data_size_kb *)
+  sa_lifetime_sec : float prop;  (** sa_lifetime_sec *)
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway_connection__vpn_link__ipsec_policy *)
 
 type azurerm_vpn_gateway_connection__vpn_link = {
-  bandwidth_mbps : float option; [@option]  (** bandwidth_mbps *)
-  bgp_enabled : bool option; [@option]  (** bgp_enabled *)
-  connection_mode : string option; [@option]  (** connection_mode *)
-  egress_nat_rule_ids : string list option; [@option]
+  bandwidth_mbps : float prop option; [@option]
+      (** bandwidth_mbps *)
+  bgp_enabled : bool prop option; [@option]  (** bgp_enabled *)
+  connection_mode : string prop option; [@option]
+      (** connection_mode *)
+  egress_nat_rule_ids : string prop list option; [@option]
       (** egress_nat_rule_ids *)
-  ingress_nat_rule_ids : string list option; [@option]
+  ingress_nat_rule_ids : string prop list option; [@option]
       (** ingress_nat_rule_ids *)
-  local_azure_ip_address_enabled : bool option; [@option]
+  local_azure_ip_address_enabled : bool prop option; [@option]
       (** local_azure_ip_address_enabled *)
-  name : string;  (** name *)
-  policy_based_traffic_selector_enabled : bool option; [@option]
+  name : string prop;  (** name *)
+  policy_based_traffic_selector_enabled : bool prop option; [@option]
       (** policy_based_traffic_selector_enabled *)
-  protocol : string option; [@option]  (** protocol *)
-  ratelimit_enabled : bool option; [@option]
+  protocol : string prop option; [@option]  (** protocol *)
+  ratelimit_enabled : bool prop option; [@option]
       (** ratelimit_enabled *)
-  route_weight : float option; [@option]  (** route_weight *)
-  shared_key : string option; [@option]  (** shared_key *)
-  vpn_site_link_id : string;  (** vpn_site_link_id *)
+  route_weight : float prop option; [@option]  (** route_weight *)
+  shared_key : string prop option; [@option]  (** shared_key *)
+  vpn_site_link_id : string prop;  (** vpn_site_link_id *)
   custom_bgp_address :
     azurerm_vpn_gateway_connection__vpn_link__custom_bgp_address list;
   ipsec_policy :
@@ -88,12 +95,12 @@ type azurerm_vpn_gateway_connection__vpn_link = {
 (** azurerm_vpn_gateway_connection__vpn_link *)
 
 type azurerm_vpn_gateway_connection = {
-  id : string option; [@option]  (** id *)
-  internet_security_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  internet_security_enabled : bool prop option; [@option]
       (** internet_security_enabled *)
-  name : string;  (** name *)
-  remote_vpn_site_id : string;  (** remote_vpn_site_id *)
-  vpn_gateway_id : string;  (** vpn_gateway_id *)
+  name : string prop;  (** name *)
+  remote_vpn_site_id : string prop;  (** remote_vpn_site_id *)
+  vpn_gateway_id : string prop;  (** vpn_gateway_id *)
   routing : azurerm_vpn_gateway_connection__routing list;
   timeouts : azurerm_vpn_gateway_connection__timeouts option;
   traffic_selector_policy :

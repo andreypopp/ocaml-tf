@@ -5,33 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_dev_tool_portal__sso = {
-  client_id : string option; [@option]  (** client_id *)
-  client_secret : string option; [@option]  (** client_secret *)
-  metadata_url : string option; [@option]  (** metadata_url *)
-  scope : string list option; [@option]  (** scope *)
+  client_id : string prop option; [@option]  (** client_id *)
+  client_secret : string prop option; [@option]  (** client_secret *)
+  metadata_url : string prop option; [@option]  (** metadata_url *)
+  scope : string prop list option; [@option]  (** scope *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_dev_tool_portal__sso *)
 
 type azurerm_spring_cloud_dev_tool_portal__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_dev_tool_portal__timeouts *)
 
 type azurerm_spring_cloud_dev_tool_portal = {
-  application_accelerator_enabled : bool option; [@option]
+  application_accelerator_enabled : bool prop option; [@option]
       (** application_accelerator_enabled *)
-  application_live_view_enabled : bool option; [@option]
+  application_live_view_enabled : bool prop option; [@option]
       (** application_live_view_enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
   sso : azurerm_spring_cloud_dev_tool_portal__sso list;
   timeouts : azurerm_spring_cloud_dev_tool_portal__timeouts option;
 }

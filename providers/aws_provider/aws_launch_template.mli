@@ -45,26 +45,26 @@ type aws_launch_template__tag_specifications
 type aws_launch_template
 
 val aws_launch_template :
-  ?default_version:float ->
-  ?description:string ->
-  ?disable_api_stop:bool ->
-  ?disable_api_termination:bool ->
-  ?ebs_optimized:string ->
-  ?id:string ->
-  ?image_id:string ->
-  ?instance_initiated_shutdown_behavior:string ->
-  ?instance_type:string ->
-  ?kernel_id:string ->
-  ?key_name:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?ram_disk_id:string ->
-  ?security_group_names:string list ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?update_default_version:bool ->
-  ?user_data:string ->
-  ?vpc_security_group_ids:string list ->
+  ?default_version:float prop ->
+  ?description:string prop ->
+  ?disable_api_stop:bool prop ->
+  ?disable_api_termination:bool prop ->
+  ?ebs_optimized:string prop ->
+  ?id:string prop ->
+  ?image_id:string prop ->
+  ?instance_initiated_shutdown_behavior:string prop ->
+  ?instance_type:string prop ->
+  ?kernel_id:string prop ->
+  ?key_name:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?ram_disk_id:string prop ->
+  ?security_group_names:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?update_default_version:bool prop ->
+  ?user_data:string prop ->
+  ?vpc_security_group_ids:string prop list ->
   block_device_mappings:
     aws_launch_template__block_device_mappings list ->
   capacity_reservation_specification:

@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_sql_active_directory_administrator__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sql_active_directory_administrator__timeouts *)
 
 type azurerm_sql_active_directory_administrator = {
-  azuread_authentication_only : bool option; [@option]
+  azuread_authentication_only : bool prop option; [@option]
       (** azuread_authentication_only *)
-  id : string option; [@option]  (** id *)
-  login : string;  (** login *)
-  object_id : string;  (** object_id *)
-  resource_group_name : string;  (** resource_group_name *)
-  server_name : string;  (** server_name *)
-  tenant_id : string;  (** tenant_id *)
+  id : string prop option; [@option]  (** id *)
+  login : string prop;  (** login *)
+  object_id : string prop;  (** object_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  server_name : string prop;  (** server_name *)
+  tenant_id : string prop;  (** tenant_id *)
   timeouts :
     azurerm_sql_active_directory_administrator__timeouts option;
 }

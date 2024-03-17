@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_codebuild_source_credential = {
-  auth_type : string;  (** auth_type *)
-  id : string option; [@option]  (** id *)
-  server_type : string;  (** server_type *)
-  token : string;  (** token *)
-  user_name : string option; [@option]  (** user_name *)
+  auth_type : string prop;  (** auth_type *)
+  id : string prop option; [@option]  (** id *)
+  server_type : string prop;  (** server_type *)
+  token : string prop;  (** token *)
+  user_name : string prop option; [@option]  (** user_name *)
 }
 [@@deriving yojson_of]
 (** aws_codebuild_source_credential *)

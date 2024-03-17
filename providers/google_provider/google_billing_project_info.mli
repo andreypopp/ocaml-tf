@@ -6,9 +6,9 @@ type google_billing_project_info__timeouts
 type google_billing_project_info
 
 val google_billing_project_info :
-  ?id:string ->
-  ?project:string ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_billing_project_info__timeouts ->
-  billing_account:string ->
+  billing_account:string prop ->
   string ->
   unit

@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_chime_voice_connector_origination__route = {
-  host : string;  (** host *)
-  port : float option; [@option]  (** port *)
-  priority : float;  (** priority *)
-  protocol : string;  (** protocol *)
-  weight : float;  (** weight *)
+  host : string prop;  (** host *)
+  port : float prop option; [@option]  (** port *)
+  priority : float prop;  (** priority *)
+  protocol : string prop;  (** protocol *)
+  weight : float prop;  (** weight *)
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_origination__route *)
 
 type aws_chime_voice_connector_origination = {
-  disabled : bool option; [@option]  (** disabled *)
-  id : string option; [@option]  (** id *)
-  voice_connector_id : string;  (** voice_connector_id *)
+  disabled : bool prop option; [@option]  (** disabled *)
+  id : string prop option; [@option]  (** id *)
+  voice_connector_id : string prop;  (** voice_connector_id *)
   route : aws_chime_voice_connector_origination__route list;
 }
 [@@deriving yojson_of]

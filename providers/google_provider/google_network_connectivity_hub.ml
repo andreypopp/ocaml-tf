@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type google_network_connectivity_hub__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_network_connectivity_hub__timeouts *)
 
 type google_network_connectivity_hub__routing_vpcs = {
-  uri : string;  (** uri *)
+  uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
 
 type google_network_connectivity_hub = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of the hub. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Optional labels in key:value format. For more information about labels, see [Requirements for labels](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements).
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field `effective_labels` for all of the labels present on the resource. *)
-  name : string;
+  name : string prop;
       (** Immutable. The name of the hub. Hub names must be unique. They use the following form: `projects/{project_number}/locations/global/hubs/{hub_id}` *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The project for the resource *)
   timeouts : google_network_connectivity_hub__timeouts option;
 }

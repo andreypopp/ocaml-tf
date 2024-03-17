@@ -6,11 +6,11 @@ type aws_iot_policy__timeouts
 type aws_iot_policy
 
 val aws_iot_policy :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_iot_policy__timeouts ->
-  name:string ->
-  policy:string ->
+  name:string prop ->
+  policy:string prop ->
   string ->
   unit

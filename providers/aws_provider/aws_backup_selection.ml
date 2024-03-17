@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type aws_backup_selection__condition__string_equals = {
-  key : string;  (** key *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_backup_selection__condition__string_equals *)
 
 type aws_backup_selection__condition__string_like = {
-  key : string;  (** key *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_backup_selection__condition__string_like *)
 
 type aws_backup_selection__condition__string_not_equals = {
-  key : string;  (** key *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_backup_selection__condition__string_not_equals *)
 
 type aws_backup_selection__condition__string_not_like = {
-  key : string;  (** key *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_backup_selection__condition__string_not_like *)
@@ -45,20 +45,21 @@ type aws_backup_selection__condition = {
 (** aws_backup_selection__condition *)
 
 type aws_backup_selection__selection_tag = {
-  key : string;  (** key *)
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_backup_selection__selection_tag *)
 
 type aws_backup_selection = {
-  iam_role_arn : string;  (** iam_role_arn *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  not_resources : string list option; [@option]  (** not_resources *)
-  plan_id : string;  (** plan_id *)
-  resources : string list option; [@option]  (** resources *)
+  iam_role_arn : string prop;  (** iam_role_arn *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  not_resources : string prop list option; [@option]
+      (** not_resources *)
+  plan_id : string prop;  (** plan_id *)
+  resources : string prop list option; [@option]  (** resources *)
   condition : aws_backup_selection__condition list;
   selection_tag : aws_backup_selection__selection_tag list;
 }

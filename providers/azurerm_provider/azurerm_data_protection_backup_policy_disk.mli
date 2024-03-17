@@ -9,13 +9,13 @@ type azurerm_data_protection_backup_policy_disk__timeouts
 type azurerm_data_protection_backup_policy_disk
 
 val azurerm_data_protection_backup_policy_disk :
-  ?id:string ->
-  ?time_zone:string ->
+  ?id:string prop ->
+  ?time_zone:string prop ->
   ?timeouts:azurerm_data_protection_backup_policy_disk__timeouts ->
-  backup_repeating_time_intervals:string list ->
-  default_retention_duration:string ->
-  name:string ->
-  vault_id:string ->
+  backup_repeating_time_intervals:string prop list ->
+  default_retention_duration:string prop ->
+  name:string prop ->
+  vault_id:string prop ->
   retention_rule:
     azurerm_data_protection_backup_policy_disk__retention_rule list ->
   string ->

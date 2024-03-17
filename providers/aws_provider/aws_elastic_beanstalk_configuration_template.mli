@@ -6,12 +6,12 @@ type aws_elastic_beanstalk_configuration_template__setting
 type aws_elastic_beanstalk_configuration_template
 
 val aws_elastic_beanstalk_configuration_template :
-  ?description:string ->
-  ?environment_id:string ->
-  ?id:string ->
-  ?solution_stack_name:string ->
-  application:string ->
-  name:string ->
+  ?description:string prop ->
+  ?environment_id:string prop ->
+  ?id:string prop ->
+  ?solution_stack_name:string prop ->
+  application:string prop ->
+  name:string prop ->
   setting:aws_elastic_beanstalk_configuration_template__setting list ->
   string ->
   unit

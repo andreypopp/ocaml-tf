@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_vpn_gateway__bgp_settings__instance_0_bgp_peering_address = {
-  custom_ips : string list;  (** custom_ips *)
-  default_ips : string list;  (** default_ips *)
-  ip_configuration_id : string;  (** ip_configuration_id *)
-  tunnel_ips : string list;  (** tunnel_ips *)
+  custom_ips : string prop list;  (** custom_ips *)
+  default_ips : string prop list;  (** default_ips *)
+  ip_configuration_id : string prop;  (** ip_configuration_id *)
+  tunnel_ips : string prop list;  (** tunnel_ips *)
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway__bgp_settings__instance_0_bgp_peering_address *)
 
 type azurerm_vpn_gateway__bgp_settings__instance_1_bgp_peering_address = {
-  custom_ips : string list;  (** custom_ips *)
-  default_ips : string list;  (** default_ips *)
-  ip_configuration_id : string;  (** ip_configuration_id *)
-  tunnel_ips : string list;  (** tunnel_ips *)
+  custom_ips : string prop list;  (** custom_ips *)
+  default_ips : string prop list;  (** default_ips *)
+  ip_configuration_id : string prop;  (** ip_configuration_id *)
+  tunnel_ips : string prop list;  (** tunnel_ips *)
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway__bgp_settings__instance_1_bgp_peering_address *)
 
 type azurerm_vpn_gateway__bgp_settings = {
-  asn : float;  (** asn *)
-  bgp_peering_address : string;  (** bgp_peering_address *)
-  peer_weight : float;  (** peer_weight *)
+  asn : float prop;  (** asn *)
+  bgp_peering_address : string prop;  (** bgp_peering_address *)
+  peer_weight : float prop;  (** peer_weight *)
   instance_0_bgp_peering_address :
     azurerm_vpn_gateway__bgp_settings__instance_0_bgp_peering_address
     list;
@@ -37,26 +37,26 @@ type azurerm_vpn_gateway__bgp_settings = {
 (** azurerm_vpn_gateway__bgp_settings *)
 
 type azurerm_vpn_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_vpn_gateway__timeouts *)
 
 type azurerm_vpn_gateway = {
-  bgp_route_translation_for_nat_enabled : bool option; [@option]
+  bgp_route_translation_for_nat_enabled : bool prop option; [@option]
       (** bgp_route_translation_for_nat_enabled *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  routing_preference : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  routing_preference : string prop option; [@option]
       (** routing_preference *)
-  scale_unit : float option; [@option]  (** scale_unit *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  virtual_hub_id : string;  (** virtual_hub_id *)
+  scale_unit : float prop option; [@option]  (** scale_unit *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  virtual_hub_id : string prop;  (** virtual_hub_id *)
   bgp_settings : azurerm_vpn_gateway__bgp_settings list;
   timeouts : azurerm_vpn_gateway__timeouts option;
 }

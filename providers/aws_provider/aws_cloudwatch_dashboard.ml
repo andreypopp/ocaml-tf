@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_dashboard = {
-  dashboard_body : string;  (** dashboard_body *)
-  dashboard_name : string;  (** dashboard_name *)
-  id : string option; [@option]  (** id *)
+  dashboard_body : string prop;  (** dashboard_body *)
+  dashboard_name : string prop;  (** dashboard_name *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_dashboard *)

@@ -5,44 +5,45 @@
 open! Tf.Prelude
 
 type google_gke_hub_feature__fleet_default_member_config__configmanagement__config_sync__git = {
-  gcp_service_account_email : string option; [@option]
+  gcp_service_account_email : string prop option; [@option]
       (** The Google Cloud Service Account Email used for auth when secretType is gcpServiceAccount *)
-  https_proxy : string option; [@option]
+  https_proxy : string prop option; [@option]
       (** URL for the HTTPS Proxy to be used when communicating with the Git repo *)
-  policy_dir : string option; [@option]
+  policy_dir : string prop option; [@option]
       (** The path within the Git repository that represents the top level of the repo to sync *)
-  secret_type : string;
+  secret_type : string prop;
       (** Type of secret configured for access to the Git repo *)
-  sync_branch : string option; [@option]
+  sync_branch : string prop option; [@option]
       (** The branch of the repository to sync from. Default: master *)
-  sync_repo : string option; [@option]
+  sync_repo : string prop option; [@option]
       (** The URL of the Git repository to use as the source of truth *)
-  sync_rev : string option; [@option]
+  sync_rev : string prop option; [@option]
       (** Git revision (tag or hash) to check out. Default HEAD *)
-  sync_wait_secs : string option; [@option]
+  sync_wait_secs : string prop option; [@option]
       (** Period in seconds between consecutive syncs. Default: 15 *)
 }
 [@@deriving yojson_of]
 (** Git repo configuration for the cluster *)
 
 type google_gke_hub_feature__fleet_default_member_config__configmanagement__config_sync__oci = {
-  gcp_service_account_email : string option; [@option]
+  gcp_service_account_email : string prop option; [@option]
       (** The Google Cloud Service Account Email used for auth when secretType is gcpServiceAccount *)
-  policy_dir : string option; [@option]
+  policy_dir : string prop option; [@option]
       (** The absolute path of the directory that contains the local resources. Default: the root directory of the image *)
-  secret_type : string;
+  secret_type : string prop;
       (** Type of secret configured for access to the Git repo *)
-  sync_repo : string option; [@option]
+  sync_repo : string prop option; [@option]
       (** The OCI image repository URL for the package to sync from *)
-  sync_wait_secs : string option; [@option]
+  sync_wait_secs : string prop option; [@option]
       (** Period in seconds between consecutive syncs. Default: 15 *)
-  version : string option; [@option]  (** Version of ACM installed *)
+  version : string prop option; [@option]
+      (** Version of ACM installed *)
 }
 [@@deriving yojson_of]
 (** OCI repo configuration for the cluster *)
 
 type google_gke_hub_feature__fleet_default_member_config__configmanagement__config_sync = {
-  source_format : string option; [@option]
+  source_format : string prop option; [@option]
       (** Specifies whether the Config Sync Repo is in hierarchical or unstructured mode *)
   git :
     google_gke_hub_feature__fleet_default_member_config__configmanagement__config_sync__git
@@ -55,7 +56,8 @@ type google_gke_hub_feature__fleet_default_member_config__configmanagement__conf
 (** ConfigSync configuration for the cluster *)
 
 type google_gke_hub_feature__fleet_default_member_config__configmanagement = {
-  version : string option; [@option]  (** Version of ACM installed *)
+  version : string prop option; [@option]
+      (** Version of ACM installed *)
   config_sync :
     google_gke_hub_feature__fleet_default_member_config__configmanagement__config_sync
     list;
@@ -64,25 +66,25 @@ type google_gke_hub_feature__fleet_default_member_config__configmanagement = {
 (** Config Management spec *)
 
 type google_gke_hub_feature__fleet_default_member_config__mesh = {
-  management : string;
+  management : string prop;
       (** Whether to automatically manage Service Mesh Possible values: [MANAGEMENT_UNSPECIFIED, MANAGEMENT_AUTOMATIC, MANAGEMENT_MANUAL] *)
 }
 [@@deriving yojson_of]
 (** Service Mesh spec *)
 
 type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits = {
-  cpu : string option; [@option]
+  cpu : string prop option; [@option]
       (** CPU requirement expressed in Kubernetes resource units. *)
-  memory : string option; [@option]
+  memory : string prop option; [@option]
       (** Memory requirement expressed in Kubernetes resource units. *)
 }
 [@@deriving yojson_of]
 (** Limits describes the maximum amount of compute resources allowed for use by the running container. *)
 
 type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests = {
-  cpu : string option; [@option]
+  cpu : string prop option; [@option]
       (** CPU requirement expressed in Kubernetes resource units. *)
-  memory : string option; [@option]
+  memory : string prop option; [@option]
       (** Memory requirement expressed in Kubernetes resource units. *)
 }
 [@@deriving yojson_of]
@@ -100,21 +102,23 @@ type google_gke_hub_feature__fleet_default_member_config__policycontroller__poli
 (** Container resource requirements. *)
 
 type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__pod_toleration = {
-  effect : string option; [@option]  (** Matches a taint effect. *)
-  key : string option; [@option]
+  effect : string prop option; [@option]
+      (** Matches a taint effect. *)
+  key : string prop option; [@option]
       (** Matches a taint key (not necessarily unique). *)
-  operator : string option; [@option]
+  operator : string prop option; [@option]
       (** Matches a taint operator. *)
-  value : string option; [@option]  (** Matches a taint value. *)
+  value : string prop option; [@option]  (** Matches a taint value. *)
 }
 [@@deriving yojson_of]
 (** Pod tolerations of node taints. *)
 
 type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs = {
-  component : string;  (** component *)
-  pod_affinity : string option; [@option]
+  component : string prop;  (** component *)
+  pod_affinity : string prop option; [@option]
       (** Pod affinity configuration. Possible values: [AFFINITY_UNSPECIFIED, NO_AFFINITY, ANTI_AFFINITY] *)
-  replica_count : float option; [@option]  (** Pod replica count. *)
+  replica_count : float prop option; [@option]
+      (** Pod replica count. *)
   container_resources :
     google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources
     list;
@@ -126,22 +130,22 @@ type google_gke_hub_feature__fleet_default_member_config__policycontroller__poli
 (** Map of deployment configs to deployments (admission, audit, mutation). *)
 
 type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__monitoring = {
-  backends : string list option; [@option]
+  backends : string prop list option; [@option]
       (** Specifies the list of backends Policy Controller will export to. An empty list would effectively disable metrics export. Possible values: [MONITORING_BACKEND_UNSPECIFIED, PROMETHEUS, CLOUD_MONITORING] *)
 }
 [@@deriving yojson_of]
 (** Monitoring specifies the configuration of monitoring Policy Controller. *)
 
 type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__bundles = {
-  bundle : string;  (** bundle *)
-  exempted_namespaces : string list option; [@option]
+  bundle : string prop;  (** bundle *)
+  exempted_namespaces : string prop list option; [@option]
       (** The set of namespaces to be exempted from the bundle. *)
 }
 [@@deriving yojson_of]
 (** Configures which bundles to install and their corresponding install specs. *)
 
 type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__template_library = {
-  installation : string option; [@option]
+  installation : string prop option; [@option]
       (** Configures the manner in which the template library is installed on the cluster. Possible values: [INSTALATION_UNSPECIFIED, NOT_INSTALLED, ALL] *)
 }
 [@@deriving yojson_of]
@@ -159,19 +163,19 @@ type google_gke_hub_feature__fleet_default_member_config__policycontroller__poli
 (** Specifies the desired policy content on the cluster. *)
 
 type google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config = {
-  audit_interval_seconds : float option; [@option]
+  audit_interval_seconds : float prop option; [@option]
       (** Interval for Policy Controller Audit scans (in seconds). When set to 0, this disables audit functionality altogether. *)
-  constraint_violation_limit : float option; [@option]
+  constraint_violation_limit : float prop option; [@option]
       (** The maximum number of audit violations to be stored in a constraint. If not set, the internal default of 20 will be used. *)
-  exemptable_namespaces : string list option; [@option]
+  exemptable_namespaces : string prop list option; [@option]
       (** The set of namespaces that are excluded from Policy Controller checks. Namespaces do not need to currently exist on the cluster. *)
-  install_spec : string;
+  install_spec : string prop;
       (** Configures the mode of the Policy Controller installation Possible values: [INSTALL_SPEC_UNSPECIFIED, INSTALL_SPEC_NOT_INSTALLED, INSTALL_SPEC_ENABLED, INSTALL_SPEC_SUSPENDED, INSTALL_SPEC_DETACHED] *)
-  log_denies_enabled : bool option; [@option]
+  log_denies_enabled : bool prop option; [@option]
       (** Logs all denies and dry run failures. *)
-  mutation_enabled : bool option; [@option]
+  mutation_enabled : bool prop option; [@option]
       (** Enables the ability to mutate resources using Policy Controller. *)
-  referential_rules_enabled : bool option; [@option]
+  referential_rules_enabled : bool prop option; [@option]
       (** Enables the ability to use Constraint Templates that reference to objects other than the object currently being evaluated. *)
   deployment_configs :
     google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs
@@ -187,7 +191,7 @@ type google_gke_hub_feature__fleet_default_member_config__policycontroller__poli
 (** Configuration of Policy Controller *)
 
 type google_gke_hub_feature__fleet_default_member_config__policycontroller = {
-  version : string option; [@option]
+  version : string prop option; [@option]
       (** Configures the version of Policy Controller *)
   policy_controller_hub_config :
     google_gke_hub_feature__fleet_default_member_config__policycontroller__policy_controller_hub_config
@@ -210,16 +214,16 @@ type google_gke_hub_feature__fleet_default_member_config = {
 (** Optional. Fleet Default Membership Configuration. *)
 
 type google_gke_hub_feature__spec__clusterupgrade__gke_upgrade_overrides__post_conditions = {
-  soaking : string;
+  soaking : string prop;
       (** Amount of time to soak after a rollout has been finished before marking it COMPLETE. Cannot exceed 30 days. *)
 }
 [@@deriving yojson_of]
 (** Post conditions to override for the specified upgrade. *)
 
 type google_gke_hub_feature__spec__clusterupgrade__gke_upgrade_overrides__upgrade = {
-  name : string;
+  name : string prop;
       (** Name of the upgrade, e.g., k8s_control_plane. It should be a valid upgrade name. It must not exceet 99 characters. *)
-  version : string;
+  version : string prop;
       (** Version of the upgrade, e.g., 1.22.1-gke.100. It should be a valid version. It must not exceet 99 characters. *)
 }
 [@@deriving yojson_of]
@@ -237,14 +241,14 @@ type google_gke_hub_feature__spec__clusterupgrade__gke_upgrade_overrides = {
 (** Configuration overrides for individual upgrades. *)
 
 type google_gke_hub_feature__spec__clusterupgrade__post_conditions = {
-  soaking : string;
+  soaking : string prop;
       (** Amount of time to soak after a rollout has been finished before marking it COMPLETE. Cannot exceed 30 days. *)
 }
 [@@deriving yojson_of]
 (** Post conditions to override for the specified upgrade. *)
 
 type google_gke_hub_feature__spec__clusterupgrade = {
-  upstream_fleets : string list;
+  upstream_fleets : string prop list;
       (** Specified if other fleet should be considered as a source of upgrades. Currently, at most one upstream fleet is allowed. The fleet name should be either fleet project number or id. *)
   gke_upgrade_overrides :
     google_gke_hub_feature__spec__clusterupgrade__gke_upgrade_overrides
@@ -257,14 +261,14 @@ type google_gke_hub_feature__spec__clusterupgrade = {
 (** Clusterupgrade feature spec. *)
 
 type google_gke_hub_feature__spec__fleetobservability__logging_config__default_config = {
-  mode : string option; [@option]
+  mode : string prop option; [@option]
       (** Specified if fleet logging feature is enabled. Possible values: [MODE_UNSPECIFIED, COPY, MOVE] *)
 }
 [@@deriving yojson_of]
 (** Specified if applying the default routing config to logs not specified in other configs. *)
 
 type google_gke_hub_feature__spec__fleetobservability__logging_config__fleet_scope_logs_config = {
-  mode : string option; [@option]
+  mode : string prop option; [@option]
       (** Specified if fleet logging feature is enabled. Possible values: [MODE_UNSPECIFIED, COPY, MOVE] *)
 }
 [@@deriving yojson_of]
@@ -290,7 +294,7 @@ type google_gke_hub_feature__spec__fleetobservability = {
 (** Fleet Observability feature spec. *)
 
 type google_gke_hub_feature__spec__multiclusteringress = {
-  config_membership : string;
+  config_membership : string prop;
       (** Fully-qualified Membership name which hosts the MultiClusterIngress CRD. Example: 'projects/foo-proj/locations/global/memberships/bar' *)
 }
 [@@deriving yojson_of]
@@ -307,23 +311,23 @@ type google_gke_hub_feature__spec = {
 (** Optional. Hub-wide Feature configuration. If this Feature does not support any Hub-wide configuration, this field may be unused. *)
 
 type google_gke_hub_feature__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_gke_hub_feature__timeouts *)
 
 type google_gke_hub_feature__resource_state = {
-  has_resources : bool;  (** has_resources *)
-  state : string;  (** state *)
+  has_resources : bool prop;  (** has_resources *)
+  state : string prop;  (** state *)
 }
 [@@deriving yojson_of]
 
 type google_gke_hub_feature__state__state = {
-  code : string;  (** code *)
-  description : string;  (** description *)
-  update_time : string;  (** update_time *)
+  code : string prop;  (** code *)
+  description : string prop;  (** description *)
+  update_time : string prop;  (** update_time *)
 }
 [@@deriving yojson_of]
 
@@ -333,16 +337,16 @@ type google_gke_hub_feature__state = {
 [@@deriving yojson_of]
 
 type google_gke_hub_feature = {
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** GCP labels for this Feature.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;  (** The location for the resource *)
-  name : string option; [@option]
+  location : string prop;  (** The location for the resource *)
+  name : string prop option; [@option]
       (** The full, unique name of this Feature resource *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   fleet_default_member_config :
     google_gke_hub_feature__fleet_default_member_config list;
   spec : google_gke_hub_feature__spec list;

@@ -9,22 +9,22 @@ type digitalocean_loadbalancer__sticky_sessions
 type digitalocean_loadbalancer
 
 val digitalocean_loadbalancer :
-  ?algorithm:string ->
-  ?disable_lets_encrypt_dns_records:bool ->
-  ?droplet_ids:float list ->
-  ?droplet_tag:string ->
-  ?enable_backend_keepalive:bool ->
-  ?enable_proxy_protocol:bool ->
-  ?http_idle_timeout_seconds:float ->
-  ?id:string ->
-  ?project_id:string ->
-  ?redirect_http_to_https:bool ->
-  ?region:string ->
-  ?size:string ->
-  ?size_unit:float ->
-  ?type_:string ->
-  ?vpc_uuid:string ->
-  name:string ->
+  ?algorithm:string prop ->
+  ?disable_lets_encrypt_dns_records:bool prop ->
+  ?droplet_ids:float prop list ->
+  ?droplet_tag:string prop ->
+  ?enable_backend_keepalive:bool prop ->
+  ?enable_proxy_protocol:bool prop ->
+  ?http_idle_timeout_seconds:float prop ->
+  ?id:string prop ->
+  ?project_id:string prop ->
+  ?redirect_http_to_https:bool prop ->
+  ?region:string prop ->
+  ?size:string prop ->
+  ?size_unit:float prop ->
+  ?type_:string prop ->
+  ?vpc_uuid:string prop ->
+  name:string prop ->
   firewall:digitalocean_loadbalancer__firewall list ->
   forwarding_rule:digitalocean_loadbalancer__forwarding_rule list ->
   healthcheck:digitalocean_loadbalancer__healthcheck list ->

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_binary_authorization_attestor__attestation_authority_note__public_keys__pkix_public_key = {
-  public_key_pem : string option; [@option]
+  public_key_pem : string prop option; [@option]
       (** A PEM-encoded public key, as described in
 'https://tools.ietf.org/html/rfc7468#section-13' *)
-  signature_algorithm : string option; [@option]
+  signature_algorithm : string prop option; [@option]
       (** The signature algorithm used to verify a message against
 a signature using this key. These signature algorithm must
 match the structure and any object identifiers encoded in
@@ -24,7 +24,7 @@ blank, a default one will be computed based on the digest of the DER
 encoding of the public key. *)
 
 type google_binary_authorization_attestor__attestation_authority_note__public_keys = {
-  ascii_armored_pgp_public_key : string option; [@option]
+  ascii_armored_pgp_public_key : string prop option; [@option]
       (** ASCII-armored representation of a PGP public key, as the
 entire output by the command
 'gpg --export --armor foo@example.com' (either LF or CRLF
@@ -34,9 +34,9 @@ and fill it in automatically. BinAuthz computes this ID
 as the OpenPGP RFC4880 V4 fingerprint, represented as
 upper-case hex. If id is provided by the caller, it will
 be overwritten by the API-calculated ID. *)
-  comment : string option; [@option]
+  comment : string prop option; [@option]
       (** A descriptive comment. This field may be updated. *)
-  id : string option; [@option]
+  id : string prop option; [@option]
       (** The ID of this public key. Signatures verified by BinAuthz
 must include the ID of the public key that can be used to
 verify them, and that ID must match the contents of this
@@ -57,7 +57,7 @@ If this field is empty, this attestor always returns that no valid
 attestations exist. *)
 
 type google_binary_authorization_attestor__attestation_authority_note = {
-  delegation_service_account_email : string;
+  delegation_service_account_email : string prop;
       (** This field will contain the service account email address that
 this Attestor will use as the principal when querying Container
 Analysis. Attestor administrators must grant this service account
@@ -67,7 +67,7 @@ This email address is fixed for the lifetime of the Attestor, but
 callers should not make any other assumptions about the service
 account email; future versions may use an email based on a
 different naming pattern. *)
-  note_reference : string;
+  note_reference : string prop;
       (** The resource name of a ATTESTATION_AUTHORITY Note, created by the
 user. If the Note is in a different project from the Attestor, it
 should be specified in the format 'projects/*/notes/*' (or the legacy
@@ -83,20 +83,20 @@ and that links to this Note. *)
 (** A Container Analysis ATTESTATION_AUTHORITY Note, created by the user. *)
 
 type google_binary_authorization_attestor__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_binary_authorization_attestor__timeouts *)
 
 type google_binary_authorization_attestor = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A descriptive comment. This field may be updated. The field may be
 displayed in chooser dialogs. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The resource name. *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The resource name. *)
+  project : string prop option; [@option]  (** project *)
   attestation_authority_note :
     google_binary_authorization_attestor__attestation_authority_note
     list;

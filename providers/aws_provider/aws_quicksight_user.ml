@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_quicksight_user = {
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  email: string;  (** email *)
-  iam_arn: string option; [@option] (** iam_arn *)
-  id: string option; [@option] (** id *)
-  identity_type: string;  (** identity_type *)
-  namespace: string option; [@option] (** namespace *)
-  session_name: string option; [@option] (** session_name *)
-  user_name: string option; [@option] (** user_name *)
-  user_role: string;  (** user_role *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  email: string prop;  (** email *)
+  iam_arn: string prop option; [@option] (** iam_arn *)
+  id: string prop option; [@option] (** id *)
+  identity_type: string prop;  (** identity_type *)
+  namespace: string prop option; [@option] (** namespace *)
+  session_name: string prop option; [@option] (** session_name *)
+  user_name: string prop option; [@option] (** user_name *)
+  user_role: string prop;  (** user_role *)
 } [@@deriving yojson_of]
 (** aws_quicksight_user *)
 

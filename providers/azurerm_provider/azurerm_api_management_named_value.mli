@@ -7,15 +7,15 @@ type azurerm_api_management_named_value__value_from_key_vault
 type azurerm_api_management_named_value
 
 val azurerm_api_management_named_value :
-  ?id:string ->
-  ?secret:bool ->
-  ?tags:string list ->
-  ?value:string ->
+  ?id:string prop ->
+  ?secret:bool prop ->
+  ?tags:string prop list ->
+  ?value:string prop ->
   ?timeouts:azurerm_api_management_named_value__timeouts ->
-  api_management_name:string ->
-  display_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  api_management_name:string prop ->
+  display_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   value_from_key_vault:
     azurerm_api_management_named_value__value_from_key_vault list ->
   string ->

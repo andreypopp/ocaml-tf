@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_lightsail_key_pair
 
 val aws_lightsail_key_pair :
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?pgp_key:string ->
-  ?public_key:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?pgp_key:string prop ->
+  ?public_key:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   string ->
   unit

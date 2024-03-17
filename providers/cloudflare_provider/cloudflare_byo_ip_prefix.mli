@@ -5,10 +5,10 @@ open! Tf.Prelude
 type cloudflare_byo_ip_prefix
 
 val cloudflare_byo_ip_prefix :
-  ?advertisement:string ->
-  ?description:string ->
-  ?id:string ->
-  account_id:string ->
-  prefix_id:string ->
+  ?advertisement:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  prefix_id:string prop ->
   string ->
   unit

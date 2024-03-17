@@ -10,15 +10,15 @@ type google_compute_node_group__timeouts
 type google_compute_node_group
 
 val google_compute_node_group :
-  ?description:string ->
-  ?id:string ->
-  ?initial_size:float ->
-  ?maintenance_policy:string ->
-  ?name:string ->
-  ?project:string ->
-  ?zone:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?initial_size:float prop ->
+  ?maintenance_policy:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?zone:string prop ->
   ?timeouts:google_compute_node_group__timeouts ->
-  node_template:string ->
+  node_template:string prop ->
   autoscaling_policy:
     google_compute_node_group__autoscaling_policy list ->
   maintenance_window:

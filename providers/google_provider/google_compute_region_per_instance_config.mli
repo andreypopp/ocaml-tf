@@ -17,16 +17,16 @@ type google_compute_region_per_instance_config__timeouts
 type google_compute_region_per_instance_config
 
 val google_compute_region_per_instance_config :
-  ?id:string ->
-  ?minimal_action:string ->
-  ?most_disruptive_allowed_action:string ->
-  ?project:string ->
-  ?region:string ->
-  ?remove_instance_on_destroy:bool ->
-  ?remove_instance_state_on_destroy:bool ->
+  ?id:string prop ->
+  ?minimal_action:string prop ->
+  ?most_disruptive_allowed_action:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?remove_instance_on_destroy:bool prop ->
+  ?remove_instance_state_on_destroy:bool prop ->
   ?timeouts:google_compute_region_per_instance_config__timeouts ->
-  name:string ->
-  region_instance_group_manager:string ->
+  name:string prop ->
+  region_instance_group_manager:string prop ->
   preserved_state:
     google_compute_region_per_instance_config__preserved_state list ->
   string ->

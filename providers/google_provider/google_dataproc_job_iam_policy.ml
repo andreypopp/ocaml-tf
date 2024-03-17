@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_dataproc_job_iam_policy = {
-  id : string option; [@option]  (** id *)
-  job_id : string;  (** job_id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** region *)
+  id : string prop option; [@option]  (** id *)
+  job_id : string prop;  (** job_id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]  (** region *)
 }
 [@@deriving yojson_of]
 (** google_dataproc_job_iam_policy *)

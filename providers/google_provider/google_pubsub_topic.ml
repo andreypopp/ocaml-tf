@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_pubsub_topic__message_storage_policy = {
-  allowed_persistence_regions : string list;
+  allowed_persistence_regions : string prop list;
       (** A list of IDs of GCP regions where messages that are published to
 the topic may be persisted in storage. Messages published by
 publishers running in non-allowed GCP regions (or running outside
@@ -19,9 +19,9 @@ messages published to the topic may be stored. If not present, then no
 constraints are in effect. *)
 
 type google_pubsub_topic__schema_settings = {
-  encoding : string option; [@option]
+  encoding : string prop option; [@option]
       (** The encoding of messages validated against schema. Default value: ENCODING_UNSPECIFIED Possible values: [ENCODING_UNSPECIFIED, JSON, BINARY] *)
-  schema : string;
+  schema : string prop;
       (** The name of the schema that messages published should be
 validated against. Format is projects/{project}/schemas/{schema}.
 The value of this field will be _deleted-schema_
@@ -31,28 +31,28 @@ if the schema has been deleted. *)
 (** Settings for validating messages published against a schema. *)
 
 type google_pubsub_topic__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_pubsub_topic__timeouts *)
 
 type google_pubsub_topic = {
-  id : string option; [@option]  (** id *)
-  kms_key_name : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  kms_key_name : string prop option; [@option]
       (** The resource name of the Cloud KMS CryptoKey to be used to protect access
 to messages published on this topic. Your project's PubSub service account
 ('service-{{PROJECT_NUMBER}}@gcp-sa-pubsub.iam.gserviceaccount.com') must have
 'roles/cloudkms.cryptoKeyEncrypterDecrypter' to use this feature.
 The expected format is 'projects/*/locations/*/keyRings/*/cryptoKeys/*' *)
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** A set of key/value label pairs to assign to this Topic.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  message_retention_duration : string option; [@option]
+  message_retention_duration : string prop option; [@option]
       (** Indicates the minimum duration to retain a message after it is published
 to the topic. If this field is set, messages published to the topic in
 the last messageRetentionDuration are always available to subscribers.
@@ -61,8 +61,8 @@ that is up to messageRetentionDuration in the past. If this field is not
 set, message retention is controlled by settings on individual subscriptions.
 The rotation period has the format of a decimal number, followed by the
 letter 's' (seconds). Cannot be more than 31 days or less than 10 minutes. *)
-  name : string;  (** Name of the topic. *)
-  project : string option; [@option]  (** project *)
+  name : string prop;  (** Name of the topic. *)
+  project : string prop option; [@option]  (** project *)
   message_storage_policy :
     google_pubsub_topic__message_storage_policy list;
   schema_settings : google_pubsub_topic__schema_settings list;

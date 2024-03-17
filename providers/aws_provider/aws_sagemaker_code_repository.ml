@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_sagemaker_code_repository__git_config = {
-  branch : string option; [@option]  (** branch *)
-  repository_url : string;  (** repository_url *)
-  secret_arn : string option; [@option]  (** secret_arn *)
+  branch : string prop option; [@option]  (** branch *)
+  repository_url : string prop;  (** repository_url *)
+  secret_arn : string prop option; [@option]  (** secret_arn *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_code_repository__git_config *)
 
 type aws_sagemaker_code_repository = {
-  code_repository_name : string;  (** code_repository_name *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  code_repository_name : string prop;  (** code_repository_name *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   git_config : aws_sagemaker_code_repository__git_config list;
 }

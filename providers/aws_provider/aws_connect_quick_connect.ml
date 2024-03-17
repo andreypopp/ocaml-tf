@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type aws_connect_quick_connect__quick_connect_config__phone_config = {
-  phone_number : string;  (** phone_number *)
+  phone_number : string prop;  (** phone_number *)
 }
 [@@deriving yojson_of]
 (** aws_connect_quick_connect__quick_connect_config__phone_config *)
 
 type aws_connect_quick_connect__quick_connect_config__queue_config = {
-  contact_flow_id : string;  (** contact_flow_id *)
-  queue_id : string;  (** queue_id *)
+  contact_flow_id : string prop;  (** contact_flow_id *)
+  queue_id : string prop;  (** queue_id *)
 }
 [@@deriving yojson_of]
 (** aws_connect_quick_connect__quick_connect_config__queue_config *)
 
 type aws_connect_quick_connect__quick_connect_config__user_config = {
-  contact_flow_id : string;  (** contact_flow_id *)
-  user_id : string;  (** user_id *)
+  contact_flow_id : string prop;  (** contact_flow_id *)
+  user_id : string prop;  (** user_id *)
 }
 [@@deriving yojson_of]
 (** aws_connect_quick_connect__quick_connect_config__user_config *)
 
 type aws_connect_quick_connect__quick_connect_config = {
-  quick_connect_type : string;  (** quick_connect_type *)
+  quick_connect_type : string prop;  (** quick_connect_type *)
   phone_config :
     aws_connect_quick_connect__quick_connect_config__phone_config
     list;
@@ -39,12 +39,12 @@ type aws_connect_quick_connect__quick_connect_config = {
 (** aws_connect_quick_connect__quick_connect_config *)
 
 type aws_connect_quick_connect = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   quick_connect_config :
     aws_connect_quick_connect__quick_connect_config list;

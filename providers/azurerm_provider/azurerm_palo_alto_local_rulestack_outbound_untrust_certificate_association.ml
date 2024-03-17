@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association__timeouts *)
 
 type azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association = {
-  certificate_id : string;  (** certificate_id *)
-  id : string option; [@option]  (** id *)
+  certificate_id : string prop;  (** certificate_id *)
+  id : string prop option; [@option]  (** id *)
   timeouts :
     azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association__timeouts
     option;

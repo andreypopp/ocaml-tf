@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_ssmcontacts_contact_channel__delivery_address = {
-  simple_address : string;  (** simple_address *)
+  simple_address : string prop;  (** simple_address *)
 }
 [@@deriving yojson_of]
 (** aws_ssmcontacts_contact_channel__delivery_address *)
 
 type aws_ssmcontacts_contact_channel = {
-  contact_id : string;  (** contact_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  contact_id : string prop;  (** contact_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
   delivery_address :
     aws_ssmcontacts_contact_channel__delivery_address list;
 }

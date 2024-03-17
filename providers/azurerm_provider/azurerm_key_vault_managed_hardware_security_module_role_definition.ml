@@ -5,30 +5,32 @@
 open! Tf.Prelude
 
 type azurerm_key_vault_managed_hardware_security_module_role_definition__permission = {
-  actions : string list option; [@option]  (** actions *)
-  data_actions : string list option; [@option]  (** data_actions *)
-  not_actions : string list option; [@option]  (** not_actions *)
-  not_data_actions : string list option; [@option]
+  actions : string prop list option; [@option]  (** actions *)
+  data_actions : string prop list option; [@option]
+      (** data_actions *)
+  not_actions : string prop list option; [@option]
+      (** not_actions *)
+  not_data_actions : string prop list option; [@option]
       (** not_data_actions *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_hardware_security_module_role_definition__permission *)
 
 type azurerm_key_vault_managed_hardware_security_module_role_definition__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_hardware_security_module_role_definition__timeouts *)
 
 type azurerm_key_vault_managed_hardware_security_module_role_definition = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  role_name : string option; [@option]  (** role_name *)
-  vault_base_url : string;  (** vault_base_url *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  role_name : string prop option; [@option]  (** role_name *)
+  vault_base_url : string prop;  (** vault_base_url *)
   permission :
     azurerm_key_vault_managed_hardware_security_module_role_definition__permission
     list;

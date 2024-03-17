@@ -6,14 +6,14 @@ type google_edgenetwork_network__timeouts
 type google_edgenetwork_network
 
 val google_edgenetwork_network :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?mtu:float ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?mtu:float prop ->
+  ?project:string prop ->
   ?timeouts:google_edgenetwork_network__timeouts ->
-  location:string ->
-  network_id:string ->
-  zone:string ->
+  location:string prop ->
+  network_id:string prop ->
+  zone:string prop ->
   string ->
   unit

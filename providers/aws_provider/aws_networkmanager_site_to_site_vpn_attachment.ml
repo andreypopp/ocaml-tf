@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_networkmanager_site_to_site_vpn_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_site_to_site_vpn_attachment__timeouts *)
 
 type aws_networkmanager_site_to_site_vpn_attachment = {
-  core_network_id : string;  (** core_network_id *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  core_network_id : string prop;  (** core_network_id *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpn_connection_arn : string;  (** vpn_connection_arn *)
+  vpn_connection_arn : string prop;  (** vpn_connection_arn *)
   timeouts :
     aws_networkmanager_site_to_site_vpn_attachment__timeouts option;
 }

@@ -5,53 +5,53 @@
 open! Tf.Prelude
 
 type aws_dms_replication_config__compute_config = {
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  dns_name_servers : string option; [@option]
+  dns_name_servers : string prop option; [@option]
       (** dns_name_servers *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  max_capacity_units : float option; [@option]
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  max_capacity_units : float prop option; [@option]
       (** max_capacity_units *)
-  min_capacity_units : float option; [@option]
+  min_capacity_units : float prop option; [@option]
       (** min_capacity_units *)
-  multi_az : bool option; [@option]  (** multi_az *)
-  preferred_maintenance_window : string option; [@option]
+  multi_az : bool prop option; [@option]  (** multi_az *)
+  preferred_maintenance_window : string prop option; [@option]
       (** preferred_maintenance_window *)
-  replication_subnet_group_id : string;
+  replication_subnet_group_id : string prop;
       (** replication_subnet_group_id *)
-  vpc_security_group_ids : string list option; [@option]
+  vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
 }
 [@@deriving yojson_of]
 (** aws_dms_replication_config__compute_config *)
 
 type aws_dms_replication_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_dms_replication_config__timeouts *)
 
 type aws_dms_replication_config = {
-  id : string option; [@option]  (** id *)
-  replication_config_identifier : string;
+  id : string prop option; [@option]  (** id *)
+  replication_config_identifier : string prop;
       (** replication_config_identifier *)
-  replication_settings : string option; [@option]
+  replication_settings : string prop option; [@option]
       (** replication_settings *)
-  replication_type : string;  (** replication_type *)
-  resource_identifier : string option; [@option]
+  replication_type : string prop;  (** replication_type *)
+  resource_identifier : string prop option; [@option]
       (** resource_identifier *)
-  source_endpoint_arn : string;  (** source_endpoint_arn *)
-  start_replication : bool option; [@option]
+  source_endpoint_arn : string prop;  (** source_endpoint_arn *)
+  start_replication : bool prop option; [@option]
       (** start_replication *)
-  supplemental_settings : string option; [@option]
+  supplemental_settings : string prop option; [@option]
       (** supplemental_settings *)
-  table_mappings : string;  (** table_mappings *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  table_mappings : string prop;  (** table_mappings *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  target_endpoint_arn : string;  (** target_endpoint_arn *)
+  target_endpoint_arn : string prop;  (** target_endpoint_arn *)
   compute_config : aws_dms_replication_config__compute_config list;
   timeouts : aws_dms_replication_config__timeouts option;
 }

@@ -5,34 +5,36 @@
 open! Tf.Prelude
 
 type azurerm_healthcare_medtech_service__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_medtech_service__identity *)
 
 type azurerm_healthcare_medtech_service__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_healthcare_medtech_service__timeouts *)
 
 type azurerm_healthcare_medtech_service = {
-  device_mapping_json : string;  (** device_mapping_json *)
-  eventhub_consumer_group_name : string;
+  device_mapping_json : string prop;  (** device_mapping_json *)
+  eventhub_consumer_group_name : string prop;
       (** eventhub_consumer_group_name *)
-  eventhub_name : string;  (** eventhub_name *)
-  eventhub_namespace_name : string;  (** eventhub_namespace_name *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  workspace_id : string;  (** workspace_id *)
+  eventhub_name : string prop;  (** eventhub_name *)
+  eventhub_namespace_name : string prop;
+      (** eventhub_namespace_name *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  workspace_id : string prop;  (** workspace_id *)
   identity : azurerm_healthcare_medtech_service__identity list;
   timeouts : azurerm_healthcare_medtech_service__timeouts option;
 }

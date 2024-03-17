@@ -5,36 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_attestation_provider__policy = {
-  data : string option; [@option]  (** data *)
-  environment_type : string option; [@option]  (** environment_type *)
+  data : string prop option; [@option]  (** data *)
+  environment_type : string prop option; [@option]
+      (** environment_type *)
 }
 [@@deriving yojson_of]
 (** azurerm_attestation_provider__policy *)
 
 type azurerm_attestation_provider__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_attestation_provider__timeouts *)
 
 type azurerm_attestation_provider = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  open_enclave_policy_base64 : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  open_enclave_policy_base64 : string prop option; [@option]
       (** open_enclave_policy_base64 *)
-  policy_signing_certificate_data : string option; [@option]
+  policy_signing_certificate_data : string prop option; [@option]
       (** policy_signing_certificate_data *)
-  resource_group_name : string;  (** resource_group_name *)
-  sev_snp_policy_base64 : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  sev_snp_policy_base64 : string prop option; [@option]
       (** sev_snp_policy_base64 *)
-  sgx_enclave_policy_base64 : string option; [@option]
+  sgx_enclave_policy_base64 : string prop option; [@option]
       (** sgx_enclave_policy_base64 *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tpm_policy_base64 : string option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tpm_policy_base64 : string prop option; [@option]
       (** tpm_policy_base64 *)
   policy : azurerm_attestation_provider__policy list;
   timeouts : azurerm_attestation_provider__timeouts option;

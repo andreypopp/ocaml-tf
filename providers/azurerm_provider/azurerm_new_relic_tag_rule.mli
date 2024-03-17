@@ -8,13 +8,13 @@ type azurerm_new_relic_tag_rule__timeouts
 type azurerm_new_relic_tag_rule
 
 val azurerm_new_relic_tag_rule :
-  ?activity_log_enabled:bool ->
-  ?azure_active_directory_log_enabled:bool ->
-  ?id:string ->
-  ?metric_enabled:bool ->
-  ?subscription_log_enabled:bool ->
+  ?activity_log_enabled:bool prop ->
+  ?azure_active_directory_log_enabled:bool prop ->
+  ?id:string prop ->
+  ?metric_enabled:bool prop ->
+  ?subscription_log_enabled:bool prop ->
   ?timeouts:azurerm_new_relic_tag_rule__timeouts ->
-  monitor_id:string ->
+  monitor_id:string prop ->
   log_tag_filter:azurerm_new_relic_tag_rule__log_tag_filter list ->
   metric_tag_filter:
     azurerm_new_relic_tag_rule__metric_tag_filter list ->

@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type aws_eks_addon__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_eks_addon__timeouts *)
 
 type aws_eks_addon = {
-  addon_name : string;  (** addon_name *)
-  addon_version : string option; [@option]  (** addon_version *)
-  cluster_name : string;  (** cluster_name *)
-  configuration_values : string option; [@option]
+  addon_name : string prop;  (** addon_name *)
+  addon_version : string prop option; [@option]  (** addon_version *)
+  cluster_name : string prop;  (** cluster_name *)
+  configuration_values : string prop option; [@option]
       (** configuration_values *)
-  id : string option; [@option]  (** id *)
-  preserve : bool option; [@option]  (** preserve *)
-  resolve_conflicts : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  preserve : bool prop option; [@option]  (** preserve *)
+  resolve_conflicts : string prop option; [@option]
       (** resolve_conflicts *)
-  resolve_conflicts_on_create : string option; [@option]
+  resolve_conflicts_on_create : string prop option; [@option]
       (** resolve_conflicts_on_create *)
-  resolve_conflicts_on_update : string option; [@option]
+  resolve_conflicts_on_update : string prop option; [@option]
       (** resolve_conflicts_on_update *)
-  service_account_role_arn : string option; [@option]
+  service_account_role_arn : string prop option; [@option]
       (** service_account_role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_eks_addon__timeouts option;
 }

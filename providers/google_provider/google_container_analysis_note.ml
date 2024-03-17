@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_container_analysis_note__attestation_authority__hint = {
-  human_readable_name : string;
+  human_readable_name : string prop;
       (** The human readable name of this Attestation Authority, for
 example qa. *)
 }
@@ -35,32 +35,33 @@ Attestation Occurrences, even if they don't all live in the same
 project. *)
 
 type google_container_analysis_note__related_url = {
-  label : string option; [@option]
+  label : string prop option; [@option]
       (** Label to describe usage of the URL *)
-  url : string;  (** Specific URL associated with the resource. *)
+  url : string prop;
+      (** Specific URL associated with the resource. *)
 }
 [@@deriving yojson_of]
 (** URLs associated with this note and related metadata. *)
 
 type google_container_analysis_note__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_container_analysis_note__timeouts *)
 
 type google_container_analysis_note = {
-  expiration_time : string option; [@option]
+  expiration_time : string prop option; [@option]
       (** Time of expiration for this note. Leave empty if note does not expire. *)
-  id : string option; [@option]  (** id *)
-  long_description : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  long_description : string prop option; [@option]
       (** A detailed description of the note *)
-  name : string;  (** The name of the note. *)
-  project : string option; [@option]  (** project *)
-  related_note_names : string list option; [@option]
+  name : string prop;  (** The name of the note. *)
+  project : string prop option; [@option]  (** project *)
+  related_note_names : string prop list option; [@option]
       (** Names of other notes related to this note. *)
-  short_description : string option; [@option]
+  short_description : string prop option; [@option]
       (** A one sentence description of the note. *)
   attestation_authority :
     google_container_analysis_note__attestation_authority list;

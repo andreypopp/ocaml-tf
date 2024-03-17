@@ -7,19 +7,19 @@ type aws_datasync_location_hdfs__qop_configuration
 type aws_datasync_location_hdfs
 
 val aws_datasync_location_hdfs :
-  ?authentication_type:string ->
-  ?block_size:float ->
-  ?id:string ->
-  ?kerberos_keytab:string ->
-  ?kerberos_krb5_conf:string ->
-  ?kerberos_principal:string ->
-  ?kms_key_provider_uri:string ->
-  ?replication_factor:float ->
-  ?simple_user:string ->
-  ?subdirectory:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  agent_arns:string list ->
+  ?authentication_type:string prop ->
+  ?block_size:float prop ->
+  ?id:string prop ->
+  ?kerberos_keytab:string prop ->
+  ?kerberos_krb5_conf:string prop ->
+  ?kerberos_principal:string prop ->
+  ?kms_key_provider_uri:string prop ->
+  ?replication_factor:float prop ->
+  ?simple_user:string prop ->
+  ?subdirectory:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  agent_arns:string prop list ->
   name_node:aws_datasync_location_hdfs__name_node list ->
   qop_configuration:
     aws_datasync_location_hdfs__qop_configuration list ->

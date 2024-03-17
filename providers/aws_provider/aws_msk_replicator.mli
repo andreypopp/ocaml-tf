@@ -14,13 +14,13 @@ type aws_msk_replicator__timeouts
 type aws_msk_replicator
 
 val aws_msk_replicator :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_msk_replicator__timeouts ->
-  replicator_name:string ->
-  service_execution_role_arn:string ->
+  replicator_name:string prop ->
+  service_execution_role_arn:string prop ->
   kafka_cluster:aws_msk_replicator__kafka_cluster list ->
   replication_info_list:
     aws_msk_replicator__replication_info_list list ->

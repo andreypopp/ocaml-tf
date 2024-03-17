@@ -6,12 +6,12 @@ type azurerm_relay_hybrid_connection__timeouts
 type azurerm_relay_hybrid_connection
 
 val azurerm_relay_hybrid_connection :
-  ?id:string ->
-  ?requires_client_authorization:bool ->
-  ?user_metadata:string ->
+  ?id:string prop ->
+  ?requires_client_authorization:bool prop ->
+  ?user_metadata:string prop ->
   ?timeouts:azurerm_relay_hybrid_connection__timeouts ->
-  name:string ->
-  relay_namespace_name:string ->
-  resource_group_name:string ->
+  name:string prop ->
+  relay_namespace_name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

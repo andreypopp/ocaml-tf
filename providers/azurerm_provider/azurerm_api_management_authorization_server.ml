@@ -5,46 +5,49 @@
 open! Tf.Prelude
 
 type azurerm_api_management_authorization_server__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_authorization_server__timeouts *)
 
 type azurerm_api_management_authorization_server__token_body_parameter = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_authorization_server__token_body_parameter *)
 
 type azurerm_api_management_authorization_server = {
-  api_management_name : string;  (** api_management_name *)
-  authorization_endpoint : string;  (** authorization_endpoint *)
-  authorization_methods : string list;  (** authorization_methods *)
-  bearer_token_sending_methods : string list option; [@option]
+  api_management_name : string prop;  (** api_management_name *)
+  authorization_endpoint : string prop;
+      (** authorization_endpoint *)
+  authorization_methods : string prop list;
+      (** authorization_methods *)
+  bearer_token_sending_methods : string prop list option; [@option]
       (** bearer_token_sending_methods *)
-  client_authentication_method : string list option; [@option]
+  client_authentication_method : string prop list option; [@option]
       (** client_authentication_method *)
-  client_id : string;  (** client_id *)
-  client_registration_endpoint : string;
+  client_id : string prop;  (** client_id *)
+  client_registration_endpoint : string prop;
       (** client_registration_endpoint *)
-  client_secret : string option; [@option]  (** client_secret *)
-  default_scope : string option; [@option]  (** default_scope *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  grant_types : string list;  (** grant_types *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  resource_owner_password : string option; [@option]
+  client_secret : string prop option; [@option]  (** client_secret *)
+  default_scope : string prop option; [@option]  (** default_scope *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  grant_types : string prop list;  (** grant_types *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  resource_owner_password : string prop option; [@option]
       (** resource_owner_password *)
-  resource_owner_username : string option; [@option]
+  resource_owner_username : string prop option; [@option]
       (** resource_owner_username *)
-  support_state : bool option; [@option]  (** support_state *)
-  token_endpoint : string option; [@option]  (** token_endpoint *)
+  support_state : bool prop option; [@option]  (** support_state *)
+  token_endpoint : string prop option; [@option]
+      (** token_endpoint *)
   timeouts :
     azurerm_api_management_authorization_server__timeouts option;
   token_body_parameter :

@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_synapse_integration_runtime_azure__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_integration_runtime_azure__timeouts *)
 
 type azurerm_synapse_integration_runtime_azure = {
-  compute_type : string option; [@option]  (** compute_type *)
-  core_count : float option; [@option]  (** core_count *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  synapse_workspace_id : string;  (** synapse_workspace_id *)
-  time_to_live_min : float option; [@option]  (** time_to_live_min *)
+  compute_type : string prop option; [@option]  (** compute_type *)
+  core_count : float prop option; [@option]  (** core_count *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  synapse_workspace_id : string prop;  (** synapse_workspace_id *)
+  time_to_live_min : float prop option; [@option]
+      (** time_to_live_min *)
   timeouts :
     azurerm_synapse_integration_runtime_azure__timeouts option;
 }

@@ -6,13 +6,13 @@ type azurerm_mobile_network__timeouts
 type azurerm_mobile_network
 
 val azurerm_mobile_network :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_mobile_network__timeouts ->
-  location:string ->
-  mobile_country_code:string ->
-  mobile_network_code:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  mobile_country_code:string prop ->
+  mobile_network_code:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

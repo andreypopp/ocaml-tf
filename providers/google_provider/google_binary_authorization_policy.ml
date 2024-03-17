@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_binary_authorization_policy__admission_whitelist_patterns = {
-  name_pattern : string;
+  name_pattern : string prop;
       (** An image name pattern to whitelist, in the form
 'registry/path/to/image'. This supports a trailing * as a
 wildcard, but this is allowed only in text after the registry/
@@ -17,12 +17,12 @@ image's name matches a whitelist pattern, the image's admission
 requests will always be permitted regardless of your admission rules. *)
 
 type google_binary_authorization_policy__cluster_admission_rules = {
-  cluster : string;  (** cluster *)
-  enforcement_mode : string;
+  cluster : string prop;  (** cluster *)
+  enforcement_mode : string prop;
       (** The action when a pod creation is denied by the admission rule. Possible values: [ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY] *)
-  evaluation_mode : string;
+  evaluation_mode : string prop;
       (** How this admission rule will be evaluated. Possible values: [ALWAYS_ALLOW, REQUIRE_ATTESTATION, ALWAYS_DENY] *)
-  require_attestations_by : string list option; [@option]
+  require_attestations_by : string prop list option; [@option]
       (** The resource names of the attestors that must attest to a
 container image. If the attestor is in a different project from the
 policy, it should be specified in the format 'projects/*/attestors/*'.
@@ -46,11 +46,11 @@ A location is either a compute zone (e.g. 'us-central1-a') or a region
 (e.g. 'us-central1'). *)
 
 type google_binary_authorization_policy__default_admission_rule = {
-  enforcement_mode : string;
+  enforcement_mode : string prop;
       (** The action when a pod creation is denied by the admission rule. Possible values: [ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY] *)
-  evaluation_mode : string;
+  evaluation_mode : string prop;
       (** How this admission rule will be evaluated. Possible values: [ALWAYS_ALLOW, REQUIRE_ATTESTATION, ALWAYS_DENY] *)
-  require_attestations_by : string list option; [@option]
+  require_attestations_by : string prop list option; [@option]
       (** The resource names of the attestors that must attest to a
 container image. If the attestor is in a different project from the
 policy, it should be specified in the format 'projects/*/attestors/*'.
@@ -66,22 +66,22 @@ specifies REQUIRE_ATTESTATION, otherwise it must be empty. *)
 rule. *)
 
 type google_binary_authorization_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_binary_authorization_policy__timeouts *)
 
 type google_binary_authorization_policy = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A descriptive comment. *)
-  global_policy_evaluation_mode : string option; [@option]
+  global_policy_evaluation_mode : string prop option; [@option]
       (** Controls the evaluation of a Google-maintained global admission policy
 for common system-level images. Images not covered by the global
 policy will be subject to the project admission policy. Possible values: [ENABLE, DISABLE] *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
   admission_whitelist_patterns :
     google_binary_authorization_policy__admission_whitelist_patterns
     list;

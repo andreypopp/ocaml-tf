@@ -5,9 +5,9 @@ open! Tf.Prelude
 type cloudflare_pages_domain
 
 val cloudflare_pages_domain :
-  ?id:string ->
-  account_id:string ->
-  domain:string ->
-  project_name:string ->
+  ?id:string prop ->
+  account_id:string prop ->
+  domain:string prop ->
+  project_name:string prop ->
   string ->
   unit

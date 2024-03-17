@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_ec2_transit_gateway_policy_table_association = {
-  id : string option; [@option]  (** id *)
-  transit_gateway_attachment_id : string;
+  id : string prop option; [@option]  (** id *)
+  transit_gateway_attachment_id : string prop;
       (** transit_gateway_attachment_id *)
-  transit_gateway_policy_table_id : string;
+  transit_gateway_policy_table_id : string prop;
       (** transit_gateway_policy_table_id *)
 }
 [@@deriving yojson_of]

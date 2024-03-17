@@ -6,18 +6,18 @@ type aws_iam_role__inline_policy
 type aws_iam_role
 
 val aws_iam_role :
-  ?description:string ->
-  ?force_detach_policies:bool ->
-  ?id:string ->
-  ?managed_policy_arns:string list ->
-  ?max_session_duration:float ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?path:string ->
-  ?permissions_boundary:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  assume_role_policy:string ->
+  ?description:string prop ->
+  ?force_detach_policies:bool prop ->
+  ?id:string prop ->
+  ?managed_policy_arns:string prop list ->
+  ?max_session_duration:float prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?path:string prop ->
+  ?permissions_boundary:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  assume_role_policy:string prop ->
   inline_policy:aws_iam_role__inline_policy list ->
   string ->
   unit

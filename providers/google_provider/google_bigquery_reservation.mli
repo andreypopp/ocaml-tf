@@ -7,16 +7,16 @@ type google_bigquery_reservation__timeouts
 type google_bigquery_reservation
 
 val google_bigquery_reservation :
-  ?concurrency:float ->
-  ?edition:string ->
-  ?id:string ->
-  ?ignore_idle_slots:bool ->
-  ?location:string ->
-  ?multi_region_auxiliary:bool ->
-  ?project:string ->
+  ?concurrency:float prop ->
+  ?edition:string prop ->
+  ?id:string prop ->
+  ?ignore_idle_slots:bool prop ->
+  ?location:string prop ->
+  ?multi_region_auxiliary:bool prop ->
+  ?project:string prop ->
   ?timeouts:google_bigquery_reservation__timeouts ->
-  name:string ->
-  slot_capacity:float ->
+  name:string prop ->
+  slot_capacity:float prop ->
   autoscale:google_bigquery_reservation__autoscale list ->
   string ->
   unit

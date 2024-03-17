@@ -9,12 +9,12 @@ type aws_api_gateway_usage_plan__throttle_settings
 type aws_api_gateway_usage_plan
 
 val aws_api_gateway_usage_plan :
-  ?description:string ->
-  ?id:string ->
-  ?product_code:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?product_code:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   api_stages:aws_api_gateway_usage_plan__api_stages list ->
   quota_settings:aws_api_gateway_usage_plan__quota_settings list ->
   throttle_settings:

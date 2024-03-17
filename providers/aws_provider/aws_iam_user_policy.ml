@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_iam_user_policy = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  policy : string;  (** policy *)
-  user : string;  (** user *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  policy : string prop;  (** policy *)
+  user : string prop;  (** user *)
 }
 [@@deriving yojson_of]
 (** aws_iam_user_policy *)

@@ -6,9 +6,9 @@ type azurerm_api_management_api_tag__timeouts
 type azurerm_api_management_api_tag
 
 val azurerm_api_management_api_tag :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_api_management_api_tag__timeouts ->
-  api_id:string ->
-  name:string ->
+  api_id:string prop ->
+  name:string prop ->
   string ->
   unit

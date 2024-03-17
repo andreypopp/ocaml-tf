@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_schemas_discoverer = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  source_arn : string;  (** source_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  source_arn : string prop;  (** source_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_schemas_discoverer *)

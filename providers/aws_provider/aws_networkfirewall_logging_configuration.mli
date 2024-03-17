@@ -8,8 +8,8 @@ type aws_networkfirewall_logging_configuration__logging_configuration
 type aws_networkfirewall_logging_configuration
 
 val aws_networkfirewall_logging_configuration :
-  ?id:string ->
-  firewall_arn:string ->
+  ?id:string prop ->
+  firewall_arn:string prop ->
   logging_configuration:
     aws_networkfirewall_logging_configuration__logging_configuration
     list ->

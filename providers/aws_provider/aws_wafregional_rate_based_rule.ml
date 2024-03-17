@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_wafregional_rate_based_rule__predicate = {
-  data_id : string;  (** data_id *)
-  negated : bool;  (** negated *)
-  type_ : string; [@key "type"]  (** type *)
+  data_id : string prop;  (** data_id *)
+  negated : bool prop;  (** negated *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_wafregional_rate_based_rule__predicate *)
 
 type aws_wafregional_rate_based_rule = {
-  id : string option; [@option]  (** id *)
-  metric_name : string;  (** metric_name *)
-  name : string;  (** name *)
-  rate_key : string;  (** rate_key *)
-  rate_limit : float;  (** rate_limit *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  metric_name : string prop;  (** metric_name *)
+  name : string prop;  (** name *)
+  rate_key : string prop;  (** rate_key *)
+  rate_limit : float prop;  (** rate_limit *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   predicate : aws_wafregional_rate_based_rule__predicate list;
 }

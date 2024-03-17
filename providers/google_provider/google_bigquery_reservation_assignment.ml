@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type google_bigquery_reservation_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_bigquery_reservation_assignment__timeouts *)
 
 type google_bigquery_reservation_assignment = {
-  assignee : string;
+  assignee : string prop;
       (** The resource which will use the reservation. E.g. projects/myproject, folders/123, organizations/456. *)
-  id : string option; [@option]  (** id *)
-  job_type : string;
+  id : string prop option; [@option]  (** id *)
+  job_type : string prop;
       (** Types of job, which could be specified when using the reservation. Possible values: JOB_TYPE_UNSPECIFIED, PIPELINE, QUERY *)
-  location : string option; [@option]
+  location : string prop option; [@option]
       (** The location for the resource *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The project for the resource *)
-  reservation : string;  (** The reservation for the resource *)
+  reservation : string prop;  (** The reservation for the resource *)
   timeouts : google_bigquery_reservation_assignment__timeouts option;
 }
 [@@deriving yojson_of]

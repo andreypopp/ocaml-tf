@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type google_identity_platform_tenant__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_identity_platform_tenant__timeouts *)
 
 type google_identity_platform_tenant = {
-  allow_password_signup : bool option; [@option]
+  allow_password_signup : bool prop option; [@option]
       (** Whether to allow email/password user authentication. *)
-  disable_auth : bool option; [@option]
+  disable_auth : bool prop option; [@option]
       (** Whether authentication is disabled for the tenant. If true, the users under
 the disabled tenant are not allowed to sign-in. Admins of the disabled tenant
 are not able to manage its users. *)
-  display_name : string;
+  display_name : string prop;
       (** Human friendly display name of the tenant. *)
-  enable_email_link_signin : bool option; [@option]
+  enable_email_link_signin : bool prop option; [@option]
       (** Whether to enable email link user authentication. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_identity_platform_tenant__timeouts option;
 }
 [@@deriving yojson_of]

@@ -7,12 +7,12 @@ type azurerm_bot_channel_web_chat__timeouts
 type azurerm_bot_channel_web_chat
 
 val azurerm_bot_channel_web_chat :
-  ?id:string ->
-  ?site_names:string list ->
+  ?id:string prop ->
+  ?site_names:string prop list ->
   ?timeouts:azurerm_bot_channel_web_chat__timeouts ->
-  bot_name:string ->
-  location:string ->
-  resource_group_name:string ->
+  bot_name:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
   site:azurerm_bot_channel_web_chat__site list ->
   string ->
   unit

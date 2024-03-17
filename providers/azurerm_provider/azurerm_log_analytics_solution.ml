@@ -5,31 +5,32 @@
 open! Tf.Prelude
 
 type azurerm_log_analytics_solution__plan = {
-  name : string;  (** name *)
-  product : string;  (** product *)
-  promotion_code : string option; [@option]  (** promotion_code *)
-  publisher : string;  (** publisher *)
+  name : string prop;  (** name *)
+  product : string prop;  (** product *)
+  promotion_code : string prop option; [@option]
+      (** promotion_code *)
+  publisher : string prop;  (** publisher *)
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_solution__plan *)
 
 type azurerm_log_analytics_solution__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_solution__timeouts *)
 
 type azurerm_log_analytics_solution = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  resource_group_name : string;  (** resource_group_name *)
-  solution_name : string;  (** solution_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  workspace_name : string;  (** workspace_name *)
-  workspace_resource_id : string;  (** workspace_resource_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  solution_name : string prop;  (** solution_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  workspace_name : string prop;  (** workspace_name *)
+  workspace_resource_id : string prop;  (** workspace_resource_id *)
   plan : azurerm_log_analytics_solution__plan list;
   timeouts : azurerm_log_analytics_solution__timeouts option;
 }

@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type google_healthcare_dataset__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_healthcare_dataset__timeouts *)
 
 type google_healthcare_dataset = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location for the Dataset. *)
-  name : string;  (** The resource name for the Dataset. *)
-  project : string option; [@option]  (** project *)
-  time_zone : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location for the Dataset. *)
+  name : string prop;  (** The resource name for the Dataset. *)
+  project : string prop option; [@option]  (** project *)
+  time_zone : string prop option; [@option]
       (** The default timezone used by this dataset. Must be a either a valid IANA time zone name such as
 America/New_York or empty, which defaults to UTC. This is used for parsing times in resources
 (e.g., HL7 messages) where no explicit timezone is specified. *)

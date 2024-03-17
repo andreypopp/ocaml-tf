@@ -11,17 +11,17 @@ type aws_route53domains_registered_domain__timeouts
 type aws_route53domains_registered_domain
 
 val aws_route53domains_registered_domain :
-  ?admin_privacy:bool ->
-  ?auto_renew:bool ->
-  ?billing_privacy:bool ->
-  ?id:string ->
-  ?registrant_privacy:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?tech_privacy:bool ->
-  ?transfer_lock:bool ->
+  ?admin_privacy:bool prop ->
+  ?auto_renew:bool prop ->
+  ?billing_privacy:bool prop ->
+  ?id:string prop ->
+  ?registrant_privacy:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tech_privacy:bool prop ->
+  ?transfer_lock:bool prop ->
   ?timeouts:aws_route53domains_registered_domain__timeouts ->
-  domain_name:string ->
+  domain_name:string prop ->
   admin_contact:
     aws_route53domains_registered_domain__admin_contact list ->
   billing_contact:

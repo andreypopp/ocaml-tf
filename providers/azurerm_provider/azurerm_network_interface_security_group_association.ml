@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_network_interface_security_group_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_interface_security_group_association__timeouts *)
 
 type azurerm_network_interface_security_group_association = {
-  id : string option; [@option]  (** id *)
-  network_interface_id : string;  (** network_interface_id *)
-  network_security_group_id : string;
+  id : string prop option; [@option]  (** id *)
+  network_interface_id : string prop;  (** network_interface_id *)
+  network_security_group_id : string prop;
       (** network_security_group_id *)
   timeouts :
     azurerm_network_interface_security_group_association__timeouts

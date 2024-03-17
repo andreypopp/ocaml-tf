@@ -5,23 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_automation_connection_classic_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_connection_classic_certificate__timeouts *)
 
 type azurerm_automation_connection_classic_certificate = {
-  automation_account_name : string;  (** automation_account_name *)
-  certificate_asset_name : string;  (** certificate_asset_name *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  subscription_id : string;  (** subscription_id *)
-  subscription_name : string;  (** subscription_name *)
+  automation_account_name : string prop;
+      (** automation_account_name *)
+  certificate_asset_name : string prop;
+      (** certificate_asset_name *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  subscription_id : string prop;  (** subscription_id *)
+  subscription_name : string prop;  (** subscription_name *)
   timeouts :
     azurerm_automation_connection_classic_certificate__timeouts
     option;

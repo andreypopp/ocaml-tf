@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_virtual_hub_route_table_route__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_hub_route_table_route__timeouts *)
 
 type azurerm_virtual_hub_route_table_route = {
-  destinations : string list;  (** destinations *)
-  destinations_type : string;  (** destinations_type *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  next_hop : string;  (** next_hop *)
-  next_hop_type : string option; [@option]  (** next_hop_type *)
-  route_table_id : string;  (** route_table_id *)
+  destinations : string prop list;  (** destinations *)
+  destinations_type : string prop;  (** destinations_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  next_hop : string prop;  (** next_hop *)
+  next_hop_type : string prop option; [@option]  (** next_hop_type *)
+  route_table_id : string prop;  (** route_table_id *)
   timeouts : azurerm_virtual_hub_route_table_route__timeouts option;
 }
 [@@deriving yojson_of]

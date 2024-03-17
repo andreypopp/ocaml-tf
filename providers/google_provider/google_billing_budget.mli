@@ -14,10 +14,10 @@ type google_billing_budget__timeouts
 type google_billing_budget
 
 val google_billing_budget :
-  ?display_name:string ->
-  ?id:string ->
+  ?display_name:string prop ->
+  ?id:string prop ->
   ?timeouts:google_billing_budget__timeouts ->
-  billing_account:string ->
+  billing_account:string prop ->
   all_updates_rule:google_billing_budget__all_updates_rule list ->
   amount:google_billing_budget__amount list ->
   budget_filter:google_billing_budget__budget_filter list ->

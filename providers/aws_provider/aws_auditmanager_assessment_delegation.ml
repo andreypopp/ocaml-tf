@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_auditmanager_assessment_delegation = {
-  assessment_id : string;  (** assessment_id *)
-  comment : string option; [@option]  (** comment *)
-  control_set_id : string;  (** control_set_id *)
-  role_arn : string;  (** role_arn *)
-  role_type : string;  (** role_type *)
+  assessment_id : string prop;  (** assessment_id *)
+  comment : string prop option; [@option]  (** comment *)
+  control_set_id : string prop;  (** control_set_id *)
+  role_arn : string prop;  (** role_arn *)
+  role_type : string prop;  (** role_type *)
 }
 [@@deriving yojson_of]
 (** aws_auditmanager_assessment_delegation *)

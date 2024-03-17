@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_ecs_account_setting_default = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  value : string;  (** value *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_ecs_account_setting_default *)

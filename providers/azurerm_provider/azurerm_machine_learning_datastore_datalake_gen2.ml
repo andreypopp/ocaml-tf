@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_machine_learning_datastore_datalake_gen2__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_datastore_datalake_gen2__timeouts *)
 
 type azurerm_machine_learning_datastore_datalake_gen2 = {
-  authority_url : string option; [@option]  (** authority_url *)
-  client_id : string option; [@option]  (** client_id *)
-  client_secret : string option; [@option]  (** client_secret *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  service_data_identity : string option; [@option]
+  authority_url : string prop option; [@option]  (** authority_url *)
+  client_id : string prop option; [@option]  (** client_id *)
+  client_secret : string prop option; [@option]  (** client_secret *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  service_data_identity : string prop option; [@option]
       (** service_data_identity *)
-  storage_container_id : string;  (** storage_container_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tenant_id : string option; [@option]  (** tenant_id *)
-  workspace_id : string;  (** workspace_id *)
+  storage_container_id : string prop;  (** storage_container_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tenant_id : string prop option; [@option]  (** tenant_id *)
+  workspace_id : string prop;  (** workspace_id *)
   timeouts :
     azurerm_machine_learning_datastore_datalake_gen2__timeouts option;
 }

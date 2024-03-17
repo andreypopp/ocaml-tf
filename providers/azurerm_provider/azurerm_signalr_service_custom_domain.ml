@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_signalr_service_custom_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_signalr_service_custom_domain__timeouts *)
 
 type azurerm_signalr_service_custom_domain = {
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  signalr_custom_certificate_id : string;
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  signalr_custom_certificate_id : string prop;
       (** signalr_custom_certificate_id *)
-  signalr_service_id : string;  (** signalr_service_id *)
+  signalr_service_id : string prop;  (** signalr_service_id *)
   timeouts : azurerm_signalr_service_custom_domain__timeouts option;
 }
 [@@deriving yojson_of]

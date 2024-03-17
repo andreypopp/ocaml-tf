@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_elastic_beanstalk_application_version = {
-  application : string;  (** application *)
-  bucket : string;  (** bucket *)
-  description : string option; [@option]  (** description *)
-  force_delete : bool option; [@option]  (** force_delete *)
-  id : string option; [@option]  (** id *)
-  key : string;  (** key *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  application : string prop;  (** application *)
+  bucket : string prop;  (** bucket *)
+  description : string prop option; [@option]  (** description *)
+  force_delete : bool prop option; [@option]  (** force_delete *)
+  id : string prop option; [@option]  (** id *)
+  key : string prop;  (** key *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_elastic_beanstalk_application_version *)

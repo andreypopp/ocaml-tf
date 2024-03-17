@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_organizations_policy_attachment = {
-  id : string option; [@option]  (** id *)
-  policy_id : string;  (** policy_id *)
-  skip_destroy : bool option; [@option]  (** skip_destroy *)
-  target_id : string;  (** target_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_id : string prop;  (** policy_id *)
+  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  target_id : string prop;  (** target_id *)
 }
 [@@deriving yojson_of]
 (** aws_organizations_policy_attachment *)

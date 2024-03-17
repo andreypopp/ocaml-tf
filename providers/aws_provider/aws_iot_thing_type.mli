@@ -6,11 +6,11 @@ type aws_iot_thing_type__properties
 type aws_iot_thing_type
 
 val aws_iot_thing_type :
-  ?deprecated:bool ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?deprecated:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   properties:aws_iot_thing_type__properties list ->
   string ->
   unit

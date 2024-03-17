@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_worklink_website_certificate_authority_association = {
-  certificate : string;  (** certificate *)
-  display_name : string option; [@option]  (** display_name *)
-  fleet_arn : string;  (** fleet_arn *)
-  id : string option; [@option]  (** id *)
+  certificate : string prop;  (** certificate *)
+  display_name : string prop option; [@option]  (** display_name *)
+  fleet_arn : string prop;  (** fleet_arn *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_worklink_website_certificate_authority_association *)

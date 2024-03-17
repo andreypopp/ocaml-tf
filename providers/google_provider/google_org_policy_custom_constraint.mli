@@ -6,15 +6,15 @@ type google_org_policy_custom_constraint__timeouts
 type google_org_policy_custom_constraint
 
 val google_org_policy_custom_constraint :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
   ?timeouts:google_org_policy_custom_constraint__timeouts ->
-  action_type:string ->
-  condition:string ->
-  method_types:string list ->
-  name:string ->
-  parent:string ->
-  resource_types:string list ->
+  action_type:string prop ->
+  condition:string prop ->
+  method_types:string prop list ->
+  name:string prop ->
+  parent:string prop ->
+  resource_types:string prop list ->
   string ->
   unit

@@ -12,12 +12,12 @@ type aws_s3_bucket_inventory__schedule
 type aws_s3_bucket_inventory
 
 val aws_s3_bucket_inventory :
-  ?enabled:bool ->
-  ?id:string ->
-  ?optional_fields:string list ->
-  bucket:string ->
-  included_object_versions:string ->
-  name:string ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?optional_fields:string prop list ->
+  bucket:string prop ->
+  included_object_versions:string prop ->
+  name:string prop ->
   destination:aws_s3_bucket_inventory__destination list ->
   filter:aws_s3_bucket_inventory__filter list ->
   schedule:aws_s3_bucket_inventory__schedule list ->

@@ -5,41 +5,42 @@
 open! Tf.Prelude
 
 type aws_route_table__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_route_table__timeouts *)
 
 type aws_route_table__route = {
-  carrier_gateway_id : string;  (** carrier_gateway_id *)
-  cidr_block : string;  (** cidr_block *)
-  core_network_arn : string;  (** core_network_arn *)
-  destination_prefix_list_id : string;
+  carrier_gateway_id : string prop;  (** carrier_gateway_id *)
+  cidr_block : string prop;  (** cidr_block *)
+  core_network_arn : string prop;  (** core_network_arn *)
+  destination_prefix_list_id : string prop;
       (** destination_prefix_list_id *)
-  egress_only_gateway_id : string;  (** egress_only_gateway_id *)
-  gateway_id : string;  (** gateway_id *)
-  ipv6_cidr_block : string;  (** ipv6_cidr_block *)
-  local_gateway_id : string;  (** local_gateway_id *)
-  nat_gateway_id : string;  (** nat_gateway_id *)
-  network_interface_id : string;  (** network_interface_id *)
-  transit_gateway_id : string;  (** transit_gateway_id *)
-  vpc_endpoint_id : string;  (** vpc_endpoint_id *)
-  vpc_peering_connection_id : string;
+  egress_only_gateway_id : string prop;
+      (** egress_only_gateway_id *)
+  gateway_id : string prop;  (** gateway_id *)
+  ipv6_cidr_block : string prop;  (** ipv6_cidr_block *)
+  local_gateway_id : string prop;  (** local_gateway_id *)
+  nat_gateway_id : string prop;  (** nat_gateway_id *)
+  network_interface_id : string prop;  (** network_interface_id *)
+  transit_gateway_id : string prop;  (** transit_gateway_id *)
+  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
+  vpc_peering_connection_id : string prop;
       (** vpc_peering_connection_id *)
 }
 [@@deriving yojson_of]
 
 type aws_route_table = {
-  id : string option; [@option]  (** id *)
-  propagating_vgws : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  propagating_vgws : string prop list option; [@option]
       (** propagating_vgws *)
   route : aws_route_table__route list option; [@option]  (** route *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_id : string;  (** vpc_id *)
+  vpc_id : string prop;  (** vpc_id *)
   timeouts : aws_route_table__timeouts option;
 }
 [@@deriving yojson_of]

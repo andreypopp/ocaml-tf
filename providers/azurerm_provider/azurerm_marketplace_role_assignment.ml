@@ -5,28 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_marketplace_role_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_marketplace_role_assignment__timeouts *)
 
 type azurerm_marketplace_role_assignment = {
-  condition : string option; [@option]  (** condition *)
-  condition_version : string option; [@option]
+  condition : string prop option; [@option]  (** condition *)
+  condition_version : string prop option; [@option]
       (** condition_version *)
-  delegated_managed_identity_resource_id : string option; [@option]
+  delegated_managed_identity_resource_id : string prop option;
+      [@option]
       (** delegated_managed_identity_resource_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  principal_id : string;  (** principal_id *)
-  role_definition_id : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  principal_id : string prop;  (** principal_id *)
+  role_definition_id : string prop option; [@option]
       (** role_definition_id *)
-  role_definition_name : string option; [@option]
+  role_definition_name : string prop option; [@option]
       (** role_definition_name *)
-  skip_service_principal_aad_check : bool option; [@option]
+  skip_service_principal_aad_check : bool prop option; [@option]
       (** skip_service_principal_aad_check *)
   timeouts : azurerm_marketplace_role_assignment__timeouts option;
 }

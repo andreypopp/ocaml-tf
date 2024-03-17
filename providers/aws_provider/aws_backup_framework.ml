@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_backup_framework__control__input_parameter = {
-  name : string option; [@option]  (** name *)
-  value : string option; [@option]  (** value *)
+  name : string prop option; [@option]  (** name *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_backup_framework__control__input_parameter *)
 
 type aws_backup_framework__control__scope = {
-  compliance_resource_ids : string list option; [@option]
+  compliance_resource_ids : string prop list option; [@option]
       (** compliance_resource_ids *)
-  compliance_resource_types : string list option; [@option]
+  compliance_resource_types : string prop list option; [@option]
       (** compliance_resource_types *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_backup_framework__control__scope *)
 
 type aws_backup_framework__control = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   input_parameter :
     aws_backup_framework__control__input_parameter list;
   scope : aws_backup_framework__control__scope list;
@@ -31,19 +31,19 @@ type aws_backup_framework__control = {
 (** aws_backup_framework__control *)
 
 type aws_backup_framework__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_backup_framework__timeouts *)
 
 type aws_backup_framework = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   control : aws_backup_framework__control list;
   timeouts : aws_backup_framework__timeouts option;

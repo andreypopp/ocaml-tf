@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_log_destination_policy = {
-  access_policy : string;  (** access_policy *)
-  destination_name : string;  (** destination_name *)
-  force_update : bool option; [@option]  (** force_update *)
-  id : string option; [@option]  (** id *)
+  access_policy : string prop;  (** access_policy *)
+  destination_name : string prop;  (** destination_name *)
+  force_update : bool prop option; [@option]  (** force_update *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_destination_policy *)

@@ -6,9 +6,9 @@ type aws_controltower_control__timeouts
 type aws_controltower_control
 
 val aws_controltower_control :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_controltower_control__timeouts ->
-  control_identifier:string ->
-  target_identifier:string ->
+  control_identifier:string prop ->
+  target_identifier:string prop ->
   string ->
   unit

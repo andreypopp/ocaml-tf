@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type aws_cloudcontrolapi_resource__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_cloudcontrolapi_resource__timeouts *)
 
 type aws_cloudcontrolapi_resource = {
-  desired_state : string;  (** desired_state *)
-  id : string option; [@option]  (** id *)
-  role_arn : string option; [@option]  (** role_arn *)
-  schema : string option; [@option]  (** schema *)
-  type_name : string;  (** type_name *)
-  type_version_id : string option; [@option]  (** type_version_id *)
+  desired_state : string prop;  (** desired_state *)
+  id : string prop option; [@option]  (** id *)
+  role_arn : string prop option; [@option]  (** role_arn *)
+  schema : string prop option; [@option]  (** schema *)
+  type_name : string prop;  (** type_name *)
+  type_version_id : string prop option; [@option]
+      (** type_version_id *)
   timeouts : aws_cloudcontrolapi_resource__timeouts option;
 }
 [@@deriving yojson_of]

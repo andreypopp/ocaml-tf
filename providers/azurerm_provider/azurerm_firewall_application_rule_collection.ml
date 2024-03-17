@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_firewall_application_rule_collection__rule__protocol = {
-  port : float;  (** port *)
-  type_ : string; [@key "type"]  (** type *)
+  port : float prop;  (** port *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_application_rule_collection__rule__protocol *)
 
 type azurerm_firewall_application_rule_collection__rule = {
-  description : string option; [@option]  (** description *)
-  fqdn_tags : string list option; [@option]  (** fqdn_tags *)
-  name : string;  (** name *)
-  source_addresses : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  fqdn_tags : string prop list option; [@option]  (** fqdn_tags *)
+  name : string prop;  (** name *)
+  source_addresses : string prop list option; [@option]
       (** source_addresses *)
-  source_ip_groups : string list option; [@option]
+  source_ip_groups : string prop list option; [@option]
       (** source_ip_groups *)
-  target_fqdns : string list option; [@option]  (** target_fqdns *)
+  target_fqdns : string prop list option; [@option]
+      (** target_fqdns *)
   protocol :
     azurerm_firewall_application_rule_collection__rule__protocol list;
 }
@@ -27,21 +28,21 @@ type azurerm_firewall_application_rule_collection__rule = {
 (** azurerm_firewall_application_rule_collection__rule *)
 
 type azurerm_firewall_application_rule_collection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_firewall_application_rule_collection__timeouts *)
 
 type azurerm_firewall_application_rule_collection = {
-  action : string;  (** action *)
-  azure_firewall_name : string;  (** azure_firewall_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  priority : float;  (** priority *)
-  resource_group_name : string;  (** resource_group_name *)
+  action : string prop;  (** action *)
+  azure_firewall_name : string prop;  (** azure_firewall_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  priority : float prop;  (** priority *)
+  resource_group_name : string prop;  (** resource_group_name *)
   rule : azurerm_firewall_application_rule_collection__rule list;
   timeouts :
     azurerm_firewall_application_rule_collection__timeouts option;

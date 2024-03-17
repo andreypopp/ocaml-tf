@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type aws_elasticache_user__authentication_mode = {
-  password_count : float;  (** password_count *)
-  passwords : string list option; [@option]  (** passwords *)
-  type_ : string; [@key "type"]  (** type *)
+  password_count : float prop;  (** password_count *)
+  passwords : string prop list option; [@option]  (** passwords *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_elasticache_user__authentication_mode *)
 
 type aws_elasticache_user__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_elasticache_user__timeouts *)
 
 type aws_elasticache_user = {
-  access_string : string;  (** access_string *)
-  engine : string;  (** engine *)
-  id : string option; [@option]  (** id *)
-  no_password_required : bool option; [@option]
+  access_string : string prop;  (** access_string *)
+  engine : string prop;  (** engine *)
+  id : string prop option; [@option]  (** id *)
+  no_password_required : bool prop option; [@option]
       (** no_password_required *)
-  passwords : string list option; [@option]  (** passwords *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  passwords : string prop list option; [@option]  (** passwords *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  user_id : string;  (** user_id *)
-  user_name : string;  (** user_name *)
+  user_id : string prop;  (** user_id *)
+  user_name : string prop;  (** user_name *)
   authentication_mode :
     aws_elasticache_user__authentication_mode list;
   timeouts : aws_elasticache_user__timeouts option;

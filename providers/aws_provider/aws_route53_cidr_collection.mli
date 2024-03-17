@@ -4,4 +4,4 @@ open! Tf.Prelude
 
 type aws_route53_cidr_collection
 
-val aws_route53_cidr_collection : name:string -> string -> unit
+val aws_route53_cidr_collection : name:string prop -> string -> unit

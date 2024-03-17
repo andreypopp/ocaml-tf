@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_glue_catalog_database__create_table_default_permission__principal = {
-  data_lake_principal_identifier : string option; [@option]
+  data_lake_principal_identifier : string prop option; [@option]
       (** data_lake_principal_identifier *)
 }
 [@@deriving yojson_of]
 (** aws_glue_catalog_database__create_table_default_permission__principal *)
 
 type aws_glue_catalog_database__create_table_default_permission = {
-  permissions : string list option; [@option]  (** permissions *)
+  permissions : string prop list option; [@option]
+      (** permissions *)
   principal :
     aws_glue_catalog_database__create_table_default_permission__principal
     list;
@@ -21,30 +22,31 @@ type aws_glue_catalog_database__create_table_default_permission = {
 (** aws_glue_catalog_database__create_table_default_permission *)
 
 type aws_glue_catalog_database__federated_database = {
-  connection_name : string option; [@option]  (** connection_name *)
-  identifier : string option; [@option]  (** identifier *)
+  connection_name : string prop option; [@option]
+      (** connection_name *)
+  identifier : string prop option; [@option]  (** identifier *)
 }
 [@@deriving yojson_of]
 (** aws_glue_catalog_database__federated_database *)
 
 type aws_glue_catalog_database__target_database = {
-  catalog_id : string;  (** catalog_id *)
-  database_name : string;  (** database_name *)
-  region : string option; [@option]  (** region *)
+  catalog_id : string prop;  (** catalog_id *)
+  database_name : string prop;  (** database_name *)
+  region : string prop option; [@option]  (** region *)
 }
 [@@deriving yojson_of]
 (** aws_glue_catalog_database__target_database *)
 
 type aws_glue_catalog_database = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  location_uri : string option; [@option]  (** location_uri *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  location_uri : string prop option; [@option]  (** location_uri *)
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   create_table_default_permission :
     aws_glue_catalog_database__create_table_default_permission list;

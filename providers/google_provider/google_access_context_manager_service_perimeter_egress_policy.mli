@@ -17,10 +17,10 @@ type google_access_context_manager_service_perimeter_egress_policy__timeouts
 type google_access_context_manager_service_perimeter_egress_policy
 
 val google_access_context_manager_service_perimeter_egress_policy :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     google_access_context_manager_service_perimeter_egress_policy__timeouts ->
-  perimeter:string ->
+  perimeter:string prop ->
   egress_from:
     google_access_context_manager_service_perimeter_egress_policy__egress_from
     list ->

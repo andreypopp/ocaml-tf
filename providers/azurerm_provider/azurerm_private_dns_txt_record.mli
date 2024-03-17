@@ -7,13 +7,13 @@ type azurerm_private_dns_txt_record__timeouts
 type azurerm_private_dns_txt_record
 
 val azurerm_private_dns_txt_record :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_private_dns_txt_record__timeouts ->
-  name:string ->
-  resource_group_name:string ->
-  ttl:float ->
-  zone_name:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  ttl:float prop ->
+  zone_name:string prop ->
   record:azurerm_private_dns_txt_record__record list ->
   string ->
   unit

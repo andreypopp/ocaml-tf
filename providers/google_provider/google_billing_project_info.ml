@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_billing_project_info__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_billing_project_info__timeouts *)
 
 type google_billing_project_info = {
-  billing_account : string;
+  billing_account : string prop;
       (** The ID of the billing account associated with the project, if
 any. Set to empty string to disable billing for the project.
 For example, '012345-567890-ABCDEF' or ''. *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
   timeouts : google_billing_project_info__timeouts option;
 }
 [@@deriving yojson_of]

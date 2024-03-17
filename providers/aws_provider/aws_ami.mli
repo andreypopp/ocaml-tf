@@ -8,24 +8,24 @@ type aws_ami__timeouts
 type aws_ami
 
 val aws_ami :
-  ?architecture:string ->
-  ?boot_mode:string ->
-  ?deprecation_time:string ->
-  ?description:string ->
-  ?ena_support:bool ->
-  ?id:string ->
-  ?image_location:string ->
-  ?imds_support:string ->
-  ?kernel_id:string ->
-  ?ramdisk_id:string ->
-  ?root_device_name:string ->
-  ?sriov_net_support:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?tpm_support:string ->
-  ?virtualization_type:string ->
+  ?architecture:string prop ->
+  ?boot_mode:string prop ->
+  ?deprecation_time:string prop ->
+  ?description:string prop ->
+  ?ena_support:bool prop ->
+  ?id:string prop ->
+  ?image_location:string prop ->
+  ?imds_support:string prop ->
+  ?kernel_id:string prop ->
+  ?ramdisk_id:string prop ->
+  ?root_device_name:string prop ->
+  ?sriov_net_support:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tpm_support:string prop ->
+  ?virtualization_type:string prop ->
   ?timeouts:aws_ami__timeouts ->
-  name:string ->
+  name:string prop ->
   ebs_block_device:aws_ami__ebs_block_device list ->
   ephemeral_block_device:aws_ami__ephemeral_block_device list ->
   string ->

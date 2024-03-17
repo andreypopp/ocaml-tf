@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type kubernetes_node_taint__metadata = {
-  name : string;  (** The name of the node *)
+  name : string prop;  (** The name of the node *)
 }
 [@@deriving yojson_of]
 (** kubernetes_node_taint__metadata *)
 
 type kubernetes_node_taint__taint = {
-  effect : string;  (** The taint effect *)
-  key : string;  (** The taint key *)
-  value : string;  (** The taint value *)
+  effect : string prop;  (** The taint effect *)
+  key : string prop;  (** The taint key *)
+  value : string prop;  (** The taint value *)
 }
 [@@deriving yojson_of]
 (** kubernetes_node_taint__taint *)
 
 type kubernetes_node_taint = {
-  field_manager : string option; [@option]
+  field_manager : string prop option; [@option]
       (** Set the name of the field manager for the node taint *)
-  force : bool option; [@option]
+  force : bool prop option; [@option]
       (** Force overwriting annotations that were created or edited outside of Terraform. *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   metadata : kubernetes_node_taint__metadata list;
   taint : kubernetes_node_taint__taint list;
 }

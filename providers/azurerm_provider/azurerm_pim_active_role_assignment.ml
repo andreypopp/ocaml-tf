@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_pim_active_role_assignment__schedule__expiration = {
-  duration_days : float option; [@option]
+  duration_days : float prop option; [@option]
       (** The duration of the assignment in days. *)
-  duration_hours : float option; [@option]
+  duration_hours : float prop option; [@option]
       (** The duration of the assignment in hours. *)
-  end_date_time : string option; [@option]
+  end_date_time : string prop option; [@option]
       (** The end date time of the assignment. *)
 }
 [@@deriving yojson_of]
 (** azurerm_pim_active_role_assignment__schedule__expiration *)
 
 type azurerm_pim_active_role_assignment__schedule = {
-  start_date_time : string option; [@option]
+  start_date_time : string prop option; [@option]
       (** The start date time. *)
   expiration :
     azurerm_pim_active_role_assignment__schedule__expiration list;
@@ -25,27 +25,27 @@ type azurerm_pim_active_role_assignment__schedule = {
 (** The schedule details of this role assignment. *)
 
 type azurerm_pim_active_role_assignment__ticket = {
-  number : string option; [@option]  (** The ticket number. *)
-  system : string option; [@option]  (** The ticket system. *)
+  number : string prop option; [@option]  (** The ticket number. *)
+  system : string prop option; [@option]  (** The ticket system. *)
 }
 [@@deriving yojson_of]
 (** The ticket details. *)
 
 type azurerm_pim_active_role_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_pim_active_role_assignment__timeouts *)
 
 type azurerm_pim_active_role_assignment = {
-  id : string option; [@option]  (** id *)
-  justification : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  justification : string prop option; [@option]
       (** The justification of the role assignment. *)
-  principal_id : string;  (** The principal id. *)
-  role_definition_id : string;  (** The role definition id. *)
-  scope : string;  (** The scope. *)
+  principal_id : string prop;  (** The principal id. *)
+  role_definition_id : string prop;  (** The role definition id. *)
+  scope : string prop;  (** The scope. *)
   schedule : azurerm_pim_active_role_assignment__schedule list;
   ticket : azurerm_pim_active_role_assignment__ticket list;
   timeouts : azurerm_pim_active_role_assignment__timeouts option;

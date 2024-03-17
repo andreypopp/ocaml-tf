@@ -8,15 +8,15 @@ type azurerm_policy_set_definition__timeouts
 type azurerm_policy_set_definition
 
 val azurerm_policy_set_definition :
-  ?description:string ->
-  ?id:string ->
-  ?management_group_id:string ->
-  ?metadata:string ->
-  ?parameters:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?management_group_id:string prop ->
+  ?metadata:string prop ->
+  ?parameters:string prop ->
   ?timeouts:azurerm_policy_set_definition__timeouts ->
-  display_name:string ->
-  name:string ->
-  policy_type:string ->
+  display_name:string prop ->
+  name:string prop ->
+  policy_type:string prop ->
   policy_definition_group:
     azurerm_policy_set_definition__policy_definition_group list ->
   policy_definition_reference:

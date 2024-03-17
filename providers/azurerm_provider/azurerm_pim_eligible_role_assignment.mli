@@ -9,12 +9,12 @@ type azurerm_pim_eligible_role_assignment__timeouts
 type azurerm_pim_eligible_role_assignment
 
 val azurerm_pim_eligible_role_assignment :
-  ?id:string ->
-  ?justification:string ->
+  ?id:string prop ->
+  ?justification:string prop ->
   ?timeouts:azurerm_pim_eligible_role_assignment__timeouts ->
-  principal_id:string ->
-  role_definition_id:string ->
-  scope:string ->
+  principal_id:string prop ->
+  role_definition_id:string prop ->
+  scope:string prop ->
   schedule:azurerm_pim_eligible_role_assignment__schedule list ->
   ticket:azurerm_pim_eligible_role_assignment__ticket list ->
   string ->

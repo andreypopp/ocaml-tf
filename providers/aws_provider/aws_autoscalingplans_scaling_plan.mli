@@ -19,8 +19,8 @@ type aws_autoscalingplans_scaling_plan__scaling_instruction
 type aws_autoscalingplans_scaling_plan
 
 val aws_autoscalingplans_scaling_plan :
-  ?id:string ->
-  name:string ->
+  ?id:string prop ->
+  name:string prop ->
   application_source:
     aws_autoscalingplans_scaling_plan__application_source list ->
   scaling_instruction:

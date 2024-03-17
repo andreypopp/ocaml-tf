@@ -6,18 +6,18 @@ type azurerm_custom_ip_prefix__timeouts
 type azurerm_custom_ip_prefix
 
 val azurerm_custom_ip_prefix :
-  ?commissioning_enabled:bool ->
-  ?id:string ->
-  ?internet_advertising_disabled:bool ->
-  ?parent_custom_ip_prefix_id:string ->
-  ?roa_validity_end_date:string ->
-  ?tags:(string * string) list ->
-  ?wan_validation_signed_message:string ->
-  ?zones:string list ->
+  ?commissioning_enabled:bool prop ->
+  ?id:string prop ->
+  ?internet_advertising_disabled:bool prop ->
+  ?parent_custom_ip_prefix_id:string prop ->
+  ?roa_validity_end_date:string prop ->
+  ?tags:(string * string prop) list ->
+  ?wan_validation_signed_message:string prop ->
+  ?zones:string prop list ->
   ?timeouts:azurerm_custom_ip_prefix__timeouts ->
-  cidr:string ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  cidr:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type aws_vpclattice_target_group_attachment__target = {
-  id : string;  (** id *)
-  port : float option; [@option]  (** port *)
+  id : string prop;  (** id *)
+  port : float prop option; [@option]  (** port *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_target_group_attachment__target *)
 
 type aws_vpclattice_target_group_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_vpclattice_target_group_attachment__timeouts *)
 
 type aws_vpclattice_target_group_attachment = {
-  id : string option; [@option]  (** id *)
-  target_group_identifier : string;  (** target_group_identifier *)
+  id : string prop option; [@option]  (** id *)
+  target_group_identifier : string prop;
+      (** target_group_identifier *)
   target : aws_vpclattice_target_group_attachment__target list;
   timeouts : aws_vpclattice_target_group_attachment__timeouts option;
 }

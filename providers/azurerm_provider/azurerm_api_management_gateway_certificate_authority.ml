@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_api_management_gateway_certificate_authority__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_gateway_certificate_authority__timeouts *)
 
 type azurerm_api_management_gateway_certificate_authority = {
-  api_management_id : string;  (** api_management_id *)
-  certificate_name : string;  (** certificate_name *)
-  gateway_name : string;  (** gateway_name *)
-  id : string option; [@option]  (** id *)
-  is_trusted : bool option; [@option]  (** is_trusted *)
+  api_management_id : string prop;  (** api_management_id *)
+  certificate_name : string prop;  (** certificate_name *)
+  gateway_name : string prop;  (** gateway_name *)
+  id : string prop option; [@option]  (** id *)
+  is_trusted : bool prop option; [@option]  (** is_trusted *)
   timeouts :
     azurerm_api_management_gateway_certificate_authority__timeouts
     option;

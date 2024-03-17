@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_container_analysis_occurrence__attestation__signatures = {
-  public_key_id : string;
+  public_key_id : string prop;
       (** The identifier for the public key that verifies this
 signature. MUST be an RFC3986 conformant
 URI. * When possible, the key id should be an
@@ -17,7 +17,7 @@ Examples of valid values:
     * 'openpgp4fpr:74FAF3B861BDA0870C7B6DEF607E48D2A663AEEA'
 * RFC6920 digest-named SubjectPublicKeyInfo (digest of the DER serialization):
     * ni:///sha-256;cD9o9Cq6LG3jD0iKXqEi_vdjJGecm_iXkbqVoScViaU *)
-  signature : string option; [@option]
+  signature : string prop option; [@option]
       (** The content of the signature, an opaque bytestring.
 The payload that this signature verifies MUST be
 unambiguously provided with the Signature during
@@ -34,7 +34,7 @@ serializedPayload. See Signature in common.proto for more
 details on signature structure and verification. *)
 
 type google_container_analysis_occurrence__attestation = {
-  serialized_payload : string;
+  serialized_payload : string prop;
       (** The serialized payload that is verified by one or
 more signatures. A base64-encoded string. *)
   signatures :
@@ -52,23 +52,23 @@ know the authority and artifact to be verified) and intent (for
 which authority this attestation was intended to sign. *)
 
 type google_container_analysis_occurrence__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_container_analysis_occurrence__timeouts *)
 
 type google_container_analysis_occurrence = {
-  id : string option; [@option]  (** id *)
-  note_name : string;
+  id : string prop option; [@option]  (** id *)
+  note_name : string prop;
       (** The analysis note associated with this occurrence, in the form of
 projects/[PROJECT]/notes/[NOTE_ID]. This field can be used as a
 filter in list requests. *)
-  project : string option; [@option]  (** project *)
-  remediation : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  remediation : string prop option; [@option]
       (** A description of actions that can be taken to remedy the note. *)
-  resource_uri : string;
+  resource_uri : string prop;
       (** Required. Immutable. A URI that represents the resource for which
 the occurrence applies. For example,
 https://gcr.io/project/image@sha256:123abc for a Docker image. *)

@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_rds_cluster_role_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster_role_association__timeouts *)
 
 type aws_rds_cluster_role_association = {
-  db_cluster_identifier : string;  (** db_cluster_identifier *)
-  feature_name : string;  (** feature_name *)
-  id : string option; [@option]  (** id *)
-  role_arn : string;  (** role_arn *)
+  db_cluster_identifier : string prop;  (** db_cluster_identifier *)
+  feature_name : string prop;  (** feature_name *)
+  id : string prop option; [@option]  (** id *)
+  role_arn : string prop;  (** role_arn *)
   timeouts : aws_rds_cluster_role_association__timeouts option;
 }
 [@@deriving yojson_of]

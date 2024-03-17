@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type digitalocean_certificate = {
-  certificate_chain : string option; [@option]
+  certificate_chain : string prop option; [@option]
       (** certificate_chain *)
-  domains : string list option; [@option]  (** domains *)
-  id : string option; [@option]  (** id *)
-  leaf_certificate : string option; [@option]
+  domains : string prop list option; [@option]  (** domains *)
+  id : string prop option; [@option]  (** id *)
+  leaf_certificate : string prop option; [@option]
       (** leaf_certificate *)
-  name : string;  (** name *)
-  private_key : string option; [@option]  (** private_key *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  private_key : string prop option; [@option]  (** private_key *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** digitalocean_certificate *)

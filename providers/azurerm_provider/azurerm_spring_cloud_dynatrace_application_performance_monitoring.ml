@@ -5,25 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_dynatrace_application_performance_monitoring__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_dynatrace_application_performance_monitoring__timeouts *)
 
 type azurerm_spring_cloud_dynatrace_application_performance_monitoring = {
-  api_token : string option; [@option]  (** api_token *)
-  api_url : string option; [@option]  (** api_url *)
-  connection_point : string;  (** connection_point *)
-  environment_id : string option; [@option]  (** environment_id *)
-  globally_enabled : bool option; [@option]  (** globally_enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
-  tenant : string;  (** tenant *)
-  tenant_token : string;  (** tenant_token *)
+  api_token : string prop option; [@option]  (** api_token *)
+  api_url : string prop option; [@option]  (** api_url *)
+  connection_point : string prop;  (** connection_point *)
+  environment_id : string prop option; [@option]
+      (** environment_id *)
+  globally_enabled : bool prop option; [@option]
+      (** globally_enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
+  tenant : string prop;  (** tenant *)
+  tenant_token : string prop;  (** tenant_token *)
   timeouts :
     azurerm_spring_cloud_dynatrace_application_performance_monitoring__timeouts
     option;

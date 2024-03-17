@@ -9,13 +9,13 @@ type aws_codecatalyst_dev_environment__timeouts
 type aws_codecatalyst_dev_environment
 
 val aws_codecatalyst_dev_environment :
-  ?alias:string ->
-  ?id:string ->
-  ?inactivity_timeout_minutes:float ->
+  ?alias:string prop ->
+  ?id:string prop ->
+  ?inactivity_timeout_minutes:float prop ->
   ?timeouts:aws_codecatalyst_dev_environment__timeouts ->
-  instance_type:string ->
-  project_name:string ->
-  space_name:string ->
+  instance_type:string prop ->
+  project_name:string prop ->
+  space_name:string prop ->
   ides:aws_codecatalyst_dev_environment__ides list ->
   persistent_storage:
     aws_codecatalyst_dev_environment__persistent_storage list ->

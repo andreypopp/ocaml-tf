@@ -6,22 +6,22 @@ type aws_flow_log__destination_options
 type aws_flow_log
 
 val aws_flow_log :
-  ?deliver_cross_account_role:string ->
-  ?eni_id:string ->
-  ?iam_role_arn:string ->
-  ?id:string ->
-  ?log_destination:string ->
-  ?log_destination_type:string ->
-  ?log_format:string ->
-  ?log_group_name:string ->
-  ?max_aggregation_interval:float ->
-  ?subnet_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?traffic_type:string ->
-  ?transit_gateway_attachment_id:string ->
-  ?transit_gateway_id:string ->
-  ?vpc_id:string ->
+  ?deliver_cross_account_role:string prop ->
+  ?eni_id:string prop ->
+  ?iam_role_arn:string prop ->
+  ?id:string prop ->
+  ?log_destination:string prop ->
+  ?log_destination_type:string prop ->
+  ?log_format:string prop ->
+  ?log_group_name:string prop ->
+  ?max_aggregation_interval:float prop ->
+  ?subnet_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?traffic_type:string prop ->
+  ?transit_gateway_attachment_id:string prop ->
+  ?transit_gateway_id:string prop ->
+  ?vpc_id:string prop ->
   destination_options:aws_flow_log__destination_options list ->
   string ->
   unit

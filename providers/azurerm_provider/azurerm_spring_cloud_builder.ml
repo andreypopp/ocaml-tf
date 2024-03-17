@@ -5,33 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_builder__build_pack_group = {
-  build_pack_ids : string list option; [@option]
+  build_pack_ids : string prop list option; [@option]
       (** build_pack_ids *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_builder__build_pack_group *)
 
 type azurerm_spring_cloud_builder__stack = {
-  id : string;  (** id *)
-  version : string;  (** version *)
+  id : string prop;  (** id *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_builder__stack *)
 
 type azurerm_spring_cloud_builder__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_builder__timeouts *)
 
 type azurerm_spring_cloud_builder = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  spring_cloud_service_id : string;  (** spring_cloud_service_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  spring_cloud_service_id : string prop;
+      (** spring_cloud_service_id *)
   build_pack_group :
     azurerm_spring_cloud_builder__build_pack_group list;
   stack : azurerm_spring_cloud_builder__stack list;

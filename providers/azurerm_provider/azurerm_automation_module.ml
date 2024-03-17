@@ -5,33 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_automation_module__module_link__hash = {
-  algorithm : string;  (** algorithm *)
-  value : string;  (** value *)
+  algorithm : string prop;  (** algorithm *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_module__module_link__hash *)
 
 type azurerm_automation_module__module_link = {
-  uri : string;  (** uri *)
+  uri : string prop;  (** uri *)
   hash : azurerm_automation_module__module_link__hash list;
 }
 [@@deriving yojson_of]
 (** azurerm_automation_module__module_link *)
 
 type azurerm_automation_module__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_automation_module__timeouts *)
 
 type azurerm_automation_module = {
-  automation_account_name : string;  (** automation_account_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  automation_account_name : string prop;
+      (** automation_account_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   module_link : azurerm_automation_module__module_link list;
   timeouts : azurerm_automation_module__timeouts option;
 }

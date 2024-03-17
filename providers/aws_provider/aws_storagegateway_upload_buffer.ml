@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_storagegateway_upload_buffer = {
-  disk_id : string option; [@option]  (** disk_id *)
-  disk_path : string option; [@option]  (** disk_path *)
-  gateway_arn : string;  (** gateway_arn *)
-  id : string option; [@option]  (** id *)
+  disk_id : string prop option; [@option]  (** disk_id *)
+  disk_path : string prop option; [@option]  (** disk_path *)
+  gateway_arn : string prop;  (** gateway_arn *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_storagegateway_upload_buffer *)

@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_mskconnect_connector__capacity__autoscaling__scale_in_policy = {
-  cpu_utilization_percentage : float option; [@option]
+  cpu_utilization_percentage : float prop option; [@option]
       (** cpu_utilization_percentage *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__capacity__autoscaling__scale_in_policy *)
 
 type aws_mskconnect_connector__capacity__autoscaling__scale_out_policy = {
-  cpu_utilization_percentage : float option; [@option]
+  cpu_utilization_percentage : float prop option; [@option]
       (** cpu_utilization_percentage *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__capacity__autoscaling__scale_out_policy *)
 
 type aws_mskconnect_connector__capacity__autoscaling = {
-  max_worker_count : float;  (** max_worker_count *)
-  mcu_count : float option; [@option]  (** mcu_count *)
-  min_worker_count : float;  (** min_worker_count *)
+  max_worker_count : float prop;  (** max_worker_count *)
+  mcu_count : float prop option; [@option]  (** mcu_count *)
+  min_worker_count : float prop;  (** min_worker_count *)
   scale_in_policy :
     aws_mskconnect_connector__capacity__autoscaling__scale_in_policy
     list;
@@ -33,8 +33,8 @@ type aws_mskconnect_connector__capacity__autoscaling = {
 (** aws_mskconnect_connector__capacity__autoscaling *)
 
 type aws_mskconnect_connector__capacity__provisioned_capacity = {
-  mcu_count : float option; [@option]  (** mcu_count *)
-  worker_count : float;  (** worker_count *)
+  mcu_count : float prop option; [@option]  (** mcu_count *)
+  worker_count : float prop;  (** worker_count *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__capacity__provisioned_capacity *)
@@ -48,14 +48,14 @@ type aws_mskconnect_connector__capacity = {
 (** aws_mskconnect_connector__capacity *)
 
 type aws_mskconnect_connector__kafka_cluster__apache_kafka_cluster__vpc = {
-  security_groups : string list;  (** security_groups *)
-  subnets : string list;  (** subnets *)
+  security_groups : string prop list;  (** security_groups *)
+  subnets : string prop list;  (** subnets *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__kafka_cluster__apache_kafka_cluster__vpc *)
 
 type aws_mskconnect_connector__kafka_cluster__apache_kafka_cluster = {
-  bootstrap_servers : string;  (** bootstrap_servers *)
+  bootstrap_servers : string prop;  (** bootstrap_servers *)
   vpc :
     aws_mskconnect_connector__kafka_cluster__apache_kafka_cluster__vpc
     list;
@@ -72,36 +72,38 @@ type aws_mskconnect_connector__kafka_cluster = {
 (** aws_mskconnect_connector__kafka_cluster *)
 
 type aws_mskconnect_connector__kafka_cluster_client_authentication = {
-  authentication_type : string option; [@option]
+  authentication_type : string prop option; [@option]
       (** authentication_type *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__kafka_cluster_client_authentication *)
 
 type aws_mskconnect_connector__kafka_cluster_encryption_in_transit = {
-  encryption_type : string option; [@option]  (** encryption_type *)
+  encryption_type : string prop option; [@option]
+      (** encryption_type *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__kafka_cluster_encryption_in_transit *)
 
 type aws_mskconnect_connector__log_delivery__worker_log_delivery__cloudwatch_logs = {
-  enabled : bool;  (** enabled *)
-  log_group : string option; [@option]  (** log_group *)
+  enabled : bool prop;  (** enabled *)
+  log_group : string prop option; [@option]  (** log_group *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__log_delivery__worker_log_delivery__cloudwatch_logs *)
 
 type aws_mskconnect_connector__log_delivery__worker_log_delivery__firehose = {
-  delivery_stream : string option; [@option]  (** delivery_stream *)
-  enabled : bool;  (** enabled *)
+  delivery_stream : string prop option; [@option]
+      (** delivery_stream *)
+  enabled : bool prop;  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__log_delivery__worker_log_delivery__firehose *)
 
 type aws_mskconnect_connector__log_delivery__worker_log_delivery__s3 = {
-  bucket : string option; [@option]  (** bucket *)
-  enabled : bool;  (** enabled *)
-  prefix : string option; [@option]  (** prefix *)
+  bucket : string prop option; [@option]  (** bucket *)
+  enabled : bool prop;  (** enabled *)
+  prefix : string prop option; [@option]  (** prefix *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__log_delivery__worker_log_delivery__s3 *)
@@ -128,8 +130,8 @@ type aws_mskconnect_connector__log_delivery = {
 (** aws_mskconnect_connector__log_delivery *)
 
 type aws_mskconnect_connector__plugin__custom_plugin = {
-  arn : string;  (** arn *)
-  revision : float;  (** revision *)
+  arn : string prop;  (** arn *)
+  revision : float prop;  (** revision *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__plugin__custom_plugin *)
@@ -142,28 +144,28 @@ type aws_mskconnect_connector__plugin = {
 (** aws_mskconnect_connector__plugin *)
 
 type aws_mskconnect_connector__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__timeouts *)
 
 type aws_mskconnect_connector__worker_configuration = {
-  arn : string;  (** arn *)
-  revision : float;  (** revision *)
+  arn : string prop;  (** arn *)
+  revision : float prop;  (** revision *)
 }
 [@@deriving yojson_of]
 (** aws_mskconnect_connector__worker_configuration *)
 
 type aws_mskconnect_connector = {
-  connector_configuration : (string * string) list;
+  connector_configuration : (string * string prop) list;
       (** connector_configuration *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  kafkaconnect_version : string;  (** kafkaconnect_version *)
-  name : string;  (** name *)
-  service_execution_role_arn : string;
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  kafkaconnect_version : string prop;  (** kafkaconnect_version *)
+  name : string prop;  (** name *)
+  service_execution_role_arn : string prop;
       (** service_execution_role_arn *)
   capacity : aws_mskconnect_connector__capacity list;
   kafka_cluster : aws_mskconnect_connector__kafka_cluster list;

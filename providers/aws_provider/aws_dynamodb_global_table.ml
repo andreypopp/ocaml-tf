@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_dynamodb_global_table__replica = {
-  region_name : string;  (** region_name *)
+  region_name : string prop;  (** region_name *)
 }
 [@@deriving yojson_of]
 (** aws_dynamodb_global_table__replica *)
 
 type aws_dynamodb_global_table__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_dynamodb_global_table__timeouts *)
 
 type aws_dynamodb_global_table = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   replica : aws_dynamodb_global_table__replica list;
   timeouts : aws_dynamodb_global_table__timeouts option;
 }

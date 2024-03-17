@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_public_access_block = {
-  block_public_acls : bool option; [@option]
+  block_public_acls : bool prop option; [@option]
       (** block_public_acls *)
-  block_public_policy : bool option; [@option]
+  block_public_policy : bool prop option; [@option]
       (** block_public_policy *)
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  ignore_public_acls : bool option; [@option]
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  ignore_public_acls : bool prop option; [@option]
       (** ignore_public_acls *)
-  restrict_public_buckets : bool option; [@option]
+  restrict_public_buckets : bool prop option; [@option]
       (** restrict_public_buckets *)
 }
 [@@deriving yojson_of]

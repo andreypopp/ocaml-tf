@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_opsworks_user_profile
 
 val aws_opsworks_user_profile :
-  ?allow_self_management:bool ->
-  ?id:string ->
-  ?ssh_public_key:string ->
-  ssh_username:string ->
-  user_arn:string ->
+  ?allow_self_management:bool prop ->
+  ?id:string prop ->
+  ?ssh_public_key:string prop ->
+  ssh_username:string prop ->
+  user_arn:string prop ->
   string ->
   unit

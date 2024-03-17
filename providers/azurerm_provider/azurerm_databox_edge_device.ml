@@ -5,36 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_databox_edge_device__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_databox_edge_device__timeouts *)
 
 type azurerm_databox_edge_device__device_properties = {
-  capacity : float;  (** capacity *)
-  configured_role_types : string list;  (** configured_role_types *)
-  culture : string;  (** culture *)
-  hcs_version : string;  (** hcs_version *)
-  model : string;  (** model *)
-  node_count : float;  (** node_count *)
-  serial_number : string;  (** serial_number *)
-  software_version : string;  (** software_version *)
-  status : string;  (** status *)
-  time_zone : string;  (** time_zone *)
-  type_ : string; [@key "type"]  (** type *)
+  capacity : float prop;  (** capacity *)
+  configured_role_types : string prop list;
+      (** configured_role_types *)
+  culture : string prop;  (** culture *)
+  hcs_version : string prop;  (** hcs_version *)
+  model : string prop;  (** model *)
+  node_count : float prop;  (** node_count *)
+  serial_number : string prop;  (** serial_number *)
+  software_version : string prop;  (** software_version *)
+  status : string prop;  (** status *)
+  time_zone : string prop;  (** time_zone *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
 type azurerm_databox_edge_device = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string;  (** sku_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop;  (** sku_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_databox_edge_device__timeouts option;
 }
 [@@deriving yojson_of]

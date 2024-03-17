@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type digitalocean_volume = {
-  description : string option; [@option]  (** description *)
-  filesystem_type : string option; [@option]  (** filesystem_type *)
-  id : string option; [@option]  (** id *)
-  initial_filesystem_label : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  filesystem_type : string prop option; [@option]
+      (** filesystem_type *)
+  id : string prop option; [@option]  (** id *)
+  initial_filesystem_label : string prop option; [@option]
       (** initial_filesystem_label *)
-  initial_filesystem_type : string option; [@option]
+  initial_filesystem_type : string prop option; [@option]
       (** initial_filesystem_type *)
-  name : string;  (** name *)
-  region : string;  (** region *)
-  size : float;  (** size *)
-  snapshot_id : string option; [@option]  (** snapshot_id *)
-  tags : string list option; [@option]  (** tags *)
+  name : string prop;  (** name *)
+  region : string prop;  (** region *)
+  size : float prop;  (** size *)
+  snapshot_id : string prop option; [@option]  (** snapshot_id *)
+  tags : string prop list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** digitalocean_volume *)

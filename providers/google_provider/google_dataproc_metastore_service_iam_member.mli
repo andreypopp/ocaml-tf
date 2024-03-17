@@ -6,12 +6,12 @@ type google_dataproc_metastore_service_iam_member__condition
 type google_dataproc_metastore_service_iam_member
 
 val google_dataproc_metastore_service_iam_member :
-  ?id:string ->
-  ?location:string ->
-  ?project:string ->
-  member:string ->
-  role:string ->
-  service_id:string ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  member:string prop ->
+  role:string prop ->
+  service_id:string prop ->
   condition:
     google_dataproc_metastore_service_iam_member__condition list ->
   string ->

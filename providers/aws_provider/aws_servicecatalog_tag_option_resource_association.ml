@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_servicecatalog_tag_option_resource_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_tag_option_resource_association__timeouts *)
 
 type aws_servicecatalog_tag_option_resource_association = {
-  id : string option; [@option]  (** id *)
-  resource_id : string;  (** resource_id *)
-  tag_option_id : string;  (** tag_option_id *)
+  id : string prop option; [@option]  (** id *)
+  resource_id : string prop;  (** resource_id *)
+  tag_option_id : string prop;  (** tag_option_id *)
   timeouts :
     aws_servicecatalog_tag_option_resource_association__timeouts
     option;

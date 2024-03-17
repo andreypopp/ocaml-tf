@@ -6,31 +6,31 @@ type aws_dax_cluster__server_side_encryption
 type aws_dax_cluster__timeouts
 
 type aws_dax_cluster__nodes = {
-  address : string;  (** address *)
-  availability_zone : string;  (** availability_zone *)
-  id : string;  (** id *)
-  port : float;  (** port *)
+  address : string prop;  (** address *)
+  availability_zone : string prop;  (** availability_zone *)
+  id : string prop;  (** id *)
+  port : float prop;  (** port *)
 }
 
 type aws_dax_cluster
 
 val aws_dax_cluster :
-  ?availability_zones:string list ->
-  ?cluster_endpoint_encryption_type:string ->
-  ?description:string ->
-  ?id:string ->
-  ?maintenance_window:string ->
-  ?notification_topic_arn:string ->
-  ?parameter_group_name:string ->
-  ?security_group_ids:string list ->
-  ?subnet_group_name:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?availability_zones:string prop list ->
+  ?cluster_endpoint_encryption_type:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?maintenance_window:string prop ->
+  ?notification_topic_arn:string prop ->
+  ?parameter_group_name:string prop ->
+  ?security_group_ids:string prop list ->
+  ?subnet_group_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_dax_cluster__timeouts ->
-  cluster_name:string ->
-  iam_role_arn:string ->
-  node_type:string ->
-  replication_factor:float ->
+  cluster_name:string prop ->
+  iam_role_arn:string prop ->
+  node_type:string prop ->
+  replication_factor:float prop ->
   server_side_encryption:aws_dax_cluster__server_side_encryption list ->
   string ->
   unit

@@ -7,10 +7,10 @@ type aws_codebuild_webhook__filter_group
 type aws_codebuild_webhook
 
 val aws_codebuild_webhook :
-  ?branch_filter:string ->
-  ?build_type:string ->
-  ?id:string ->
-  project_name:string ->
+  ?branch_filter:string prop ->
+  ?build_type:string prop ->
+  ?id:string prop ->
+  project_name:string prop ->
   filter_group:aws_codebuild_webhook__filter_group list ->
   string ->
   unit

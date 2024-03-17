@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_kubernetes_fleet_update_strategy__stage__group = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_update_strategy__stage__group *)
 
 type azurerm_kubernetes_fleet_update_strategy__stage = {
-  after_stage_wait_in_seconds : float option; [@option]
+  after_stage_wait_in_seconds : float prop option; [@option]
       (** after_stage_wait_in_seconds *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   group : azurerm_kubernetes_fleet_update_strategy__stage__group list;
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_update_strategy__stage *)
 
 type azurerm_kubernetes_fleet_update_strategy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_fleet_update_strategy__timeouts *)
 
 type azurerm_kubernetes_fleet_update_strategy = {
-  id : string option; [@option]  (** id *)
-  kubernetes_fleet_manager_id : string;
+  id : string prop option; [@option]  (** id *)
+  kubernetes_fleet_manager_id : string prop;
       (** kubernetes_fleet_manager_id *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   stage : azurerm_kubernetes_fleet_update_strategy__stage list;
   timeouts :
     azurerm_kubernetes_fleet_update_strategy__timeouts option;

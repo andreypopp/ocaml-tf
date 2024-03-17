@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_guardduty_filter__finding_criteria__criterion = {
-  equals : string list option; [@option]  (** equals *)
-  field : string;  (** field *)
-  greater_than : string option; [@option]  (** greater_than *)
-  greater_than_or_equal : string option; [@option]
+  equals : string prop list option; [@option]  (** equals *)
+  field : string prop;  (** field *)
+  greater_than : string prop option; [@option]  (** greater_than *)
+  greater_than_or_equal : string prop option; [@option]
       (** greater_than_or_equal *)
-  less_than : string option; [@option]  (** less_than *)
-  less_than_or_equal : string option; [@option]
+  less_than : string prop option; [@option]  (** less_than *)
+  less_than_or_equal : string prop option; [@option]
       (** less_than_or_equal *)
-  not_equals : string list option; [@option]  (** not_equals *)
+  not_equals : string prop list option; [@option]  (** not_equals *)
 }
 [@@deriving yojson_of]
 (** aws_guardduty_filter__finding_criteria__criterion *)
@@ -25,14 +25,14 @@ type aws_guardduty_filter__finding_criteria = {
 (** aws_guardduty_filter__finding_criteria *)
 
 type aws_guardduty_filter = {
-  action : string;  (** action *)
-  description : string option; [@option]  (** description *)
-  detector_id : string;  (** detector_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  rank : float;  (** rank *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  action : string prop;  (** action *)
+  description : string prop option; [@option]  (** description *)
+  detector_id : string prop;  (** detector_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  rank : float prop;  (** rank *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   finding_criteria : aws_guardduty_filter__finding_criteria list;
 }

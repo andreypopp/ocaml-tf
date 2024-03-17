@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_ram_principal_association = {
-  id : string option; [@option]  (** id *)
-  principal : string;  (** principal *)
-  resource_share_arn : string;  (** resource_share_arn *)
+  id : string prop option; [@option]  (** id *)
+  principal : string prop;  (** principal *)
+  resource_share_arn : string prop;  (** resource_share_arn *)
 }
 [@@deriving yojson_of]
 (** aws_ram_principal_association *)

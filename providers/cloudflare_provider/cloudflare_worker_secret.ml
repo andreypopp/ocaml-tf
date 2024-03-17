@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type cloudflare_worker_secret = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The name of the Worker secret. **Modifying this attribute will force creation of a new resource.** *)
-  script_name : string;
+  script_name : string prop;
       (** The name of the Worker script to associate the secret with. **Modifying this attribute will force creation of a new resource.** *)
-  secret_text : string;
+  secret_text : string prop;
       (** The text of the Worker secret. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

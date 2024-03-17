@@ -8,11 +8,11 @@ type google_firestore_backup_schedule__weekly_recurrence
 type google_firestore_backup_schedule
 
 val google_firestore_backup_schedule :
-  ?database:string ->
-  ?id:string ->
-  ?project:string ->
+  ?database:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_firestore_backup_schedule__timeouts ->
-  retention:string ->
+  retention:string prop ->
   daily_recurrence:
     google_firestore_backup_schedule__daily_recurrence list ->
   weekly_recurrence:

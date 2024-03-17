@@ -9,10 +9,10 @@ type aws_s3_bucket_acl__access_control_policy
 type aws_s3_bucket_acl
 
 val aws_s3_bucket_acl :
-  ?acl:string ->
-  ?expected_bucket_owner:string ->
-  ?id:string ->
-  bucket:string ->
+  ?acl:string prop ->
+  ?expected_bucket_owner:string prop ->
+  ?id:string prop ->
+  bucket:string prop ->
   access_control_policy:aws_s3_bucket_acl__access_control_policy list ->
   string ->
   unit

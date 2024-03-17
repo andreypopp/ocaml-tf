@@ -5,13 +5,15 @@
 open! Tf.Prelude
 
 type aws_dms_certificate = {
-  certificate_id : string;  (** certificate_id *)
-  certificate_pem : string option; [@option]  (** certificate_pem *)
-  certificate_wallet : string option; [@option]
+  certificate_id : string prop;  (** certificate_id *)
+  certificate_pem : string prop option; [@option]
+      (** certificate_pem *)
+  certificate_wallet : string prop option; [@option]
       (** certificate_wallet *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_dms_certificate *)

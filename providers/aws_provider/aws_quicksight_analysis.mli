@@ -17223,15 +17223,15 @@ type aws_quicksight_analysis__timeouts
 type aws_quicksight_analysis
 
 val aws_quicksight_analysis :
-    ?aws_account_id:string ->
-    ?id:string ->
-    ?recovery_window_in_days:float ->
-    ?tags:(string * string) list ->
-    ?tags_all:(string * string) list ->
-    ?theme_arn:string ->
+    ?aws_account_id:string prop ->
+    ?id:string prop ->
+    ?recovery_window_in_days:float prop ->
+    ?tags:(string * string prop) list ->
+    ?tags_all:(string * string prop) list ->
+    ?theme_arn:string prop ->
     ?timeouts:aws_quicksight_analysis__timeouts ->
-    analysis_id:string ->
-    name:string ->
+    analysis_id:string prop ->
+    name:string prop ->
     definition:aws_quicksight_analysis__definition list ->
     parameters:aws_quicksight_analysis__parameters list ->
     permissions:aws_quicksight_analysis__permissions list ->

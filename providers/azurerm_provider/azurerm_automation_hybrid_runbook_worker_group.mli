@@ -6,11 +6,11 @@ type azurerm_automation_hybrid_runbook_worker_group__timeouts
 type azurerm_automation_hybrid_runbook_worker_group
 
 val azurerm_automation_hybrid_runbook_worker_group :
-  ?credential_name:string ->
-  ?id:string ->
+  ?credential_name:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_automation_hybrid_runbook_worker_group__timeouts ->
-  automation_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  automation_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

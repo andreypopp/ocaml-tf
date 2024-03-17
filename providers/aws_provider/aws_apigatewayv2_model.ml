@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_apigatewayv2_model = {
-  api_id : string;  (** api_id *)
-  content_type : string;  (** content_type *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  schema : string;  (** schema *)
+  api_id : string prop;  (** api_id *)
+  content_type : string prop;  (** content_type *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  schema : string prop;  (** schema *)
 }
 [@@deriving yojson_of]
 (** aws_apigatewayv2_model *)

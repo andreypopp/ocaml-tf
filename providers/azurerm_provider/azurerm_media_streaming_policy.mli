@@ -42,12 +42,12 @@ type azurerm_media_streaming_policy__timeouts
 type azurerm_media_streaming_policy
 
 val azurerm_media_streaming_policy :
-  ?default_content_key_policy_name:string ->
-  ?id:string ->
+  ?default_content_key_policy_name:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_media_streaming_policy__timeouts ->
-  media_services_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  media_services_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   common_encryption_cbcs:
     azurerm_media_streaming_policy__common_encryption_cbcs list ->
   common_encryption_cenc:

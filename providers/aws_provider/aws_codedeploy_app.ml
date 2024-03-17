@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_codedeploy_app = {
-  compute_platform : string option; [@option]
+  compute_platform : string prop option; [@option]
       (** compute_platform *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_codedeploy_app *)

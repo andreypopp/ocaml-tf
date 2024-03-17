@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type aws_qldb_stream__kinesis_configuration = {
-  aggregation_enabled : bool option; [@option]
+  aggregation_enabled : bool prop option; [@option]
       (** aggregation_enabled *)
-  stream_arn : string;  (** stream_arn *)
+  stream_arn : string prop;  (** stream_arn *)
 }
 [@@deriving yojson_of]
 (** aws_qldb_stream__kinesis_configuration *)
 
 type aws_qldb_stream__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_qldb_stream__timeouts *)
 
 type aws_qldb_stream = {
-  exclusive_end_time : string option; [@option]
+  exclusive_end_time : string prop option; [@option]
       (** exclusive_end_time *)
-  id : string option; [@option]  (** id *)
-  inclusive_start_time : string;  (** inclusive_start_time *)
-  ledger_name : string;  (** ledger_name *)
-  role_arn : string;  (** role_arn *)
-  stream_name : string;  (** stream_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  inclusive_start_time : string prop;  (** inclusive_start_time *)
+  ledger_name : string prop;  (** ledger_name *)
+  role_arn : string prop;  (** role_arn *)
+  stream_name : string prop;  (** stream_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   kinesis_configuration :
     aws_qldb_stream__kinesis_configuration list;

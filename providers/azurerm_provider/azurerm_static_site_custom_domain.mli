@@ -6,10 +6,10 @@ type azurerm_static_site_custom_domain__timeouts
 type azurerm_static_site_custom_domain
 
 val azurerm_static_site_custom_domain :
-  ?id:string ->
-  ?validation_type:string ->
+  ?id:string prop ->
+  ?validation_type:string prop ->
   ?timeouts:azurerm_static_site_custom_domain__timeouts ->
-  domain_name:string ->
-  static_site_id:string ->
+  domain_name:string prop ->
+  static_site_id:string prop ->
   string ->
   unit

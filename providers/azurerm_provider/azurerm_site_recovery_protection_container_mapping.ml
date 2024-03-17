@@ -5,36 +5,36 @@
 open! Tf.Prelude
 
 type azurerm_site_recovery_protection_container_mapping__automatic_update = {
-  authentication_type : string option; [@option]
+  authentication_type : string prop option; [@option]
       (** authentication_type *)
-  automation_account_id : string option; [@option]
+  automation_account_id : string prop option; [@option]
       (** automation_account_id *)
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_protection_container_mapping__automatic_update *)
 
 type azurerm_site_recovery_protection_container_mapping__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_protection_container_mapping__timeouts *)
 
 type azurerm_site_recovery_protection_container_mapping = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  recovery_fabric_name : string;  (** recovery_fabric_name *)
-  recovery_replication_policy_id : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  recovery_fabric_name : string prop;  (** recovery_fabric_name *)
+  recovery_replication_policy_id : string prop;
       (** recovery_replication_policy_id *)
-  recovery_source_protection_container_name : string;
+  recovery_source_protection_container_name : string prop;
       (** recovery_source_protection_container_name *)
-  recovery_target_protection_container_id : string;
+  recovery_target_protection_container_id : string prop;
       (** recovery_target_protection_container_id *)
-  recovery_vault_name : string;  (** recovery_vault_name *)
-  resource_group_name : string;  (** resource_group_name *)
+  recovery_vault_name : string prop;  (** recovery_vault_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   automatic_update :
     azurerm_site_recovery_protection_container_mapping__automatic_update
     list;

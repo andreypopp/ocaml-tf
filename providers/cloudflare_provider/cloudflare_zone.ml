@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type cloudflare_zone = {
-  account_id : string;
+  account_id : string prop;
       (** Account ID to manage the zone resource in. *)
-  id : string option; [@option]  (** id *)
-  jump_start : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  jump_start : bool prop option; [@option]
       (** Whether to scan for DNS records on creation. Ignored after zone is created. *)
-  paused : bool option; [@option]
+  paused : bool prop option; [@option]
       (** Whether this zone is paused (traffic bypasses Cloudflare). Defaults to `false`. *)
-  plan : string option; [@option]
+  plan : string prop option; [@option]
       (** The name of the commercial plan to apply to the zone. Available values: `free`, `lite`, `pro`, `pro_plus`, `business`, `enterprise`, `partners_free`, `partners_pro`, `partners_business`, `partners_enterprise`. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** A full zone implies that DNS is hosted with Cloudflare. A partial zone is typically a partner-hosted zone or a CNAME setup. Available values: `full`, `partial`, `secondary`. Defaults to `full`. *)
-  zone : string;
+  zone : string prop;
       (** The DNS zone name which will be added. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

@@ -6,14 +6,14 @@ type google_vertex_ai_feature_group_feature__timeouts
 type google_vertex_ai_feature_group_feature
 
 val google_vertex_ai_feature_group_feature :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?version_column_name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?version_column_name:string prop ->
   ?timeouts:google_vertex_ai_feature_group_feature__timeouts ->
-  feature_group:string ->
-  name:string ->
-  region:string ->
+  feature_group:string prop ->
+  name:string prop ->
+  region:string prop ->
   string ->
   unit

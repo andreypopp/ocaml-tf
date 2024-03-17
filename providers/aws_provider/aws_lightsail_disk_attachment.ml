@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_lightsail_disk_attachment = {
-  disk_name : string;  (** disk_name *)
-  disk_path : string;  (** disk_path *)
-  id : string option; [@option]  (** id *)
-  instance_name : string;  (** instance_name *)
+  disk_name : string prop;  (** disk_name *)
+  disk_path : string prop;  (** disk_path *)
+  id : string prop option; [@option]  (** id *)
+  instance_name : string prop;  (** instance_name *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_disk_attachment *)

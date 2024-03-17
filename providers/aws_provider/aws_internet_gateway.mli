@@ -6,10 +6,10 @@ type aws_internet_gateway__timeouts
 type aws_internet_gateway
 
 val aws_internet_gateway :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?vpc_id:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_id:string prop ->
   ?timeouts:aws_internet_gateway__timeouts ->
   string ->
   unit

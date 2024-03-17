@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type google_apigee_target_server__s_sl_info__common_name = {
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** The TLS Common Name string of the certificate. *)
-  wildcard_match : bool option; [@option]
+  wildcard_match : bool prop option; [@option]
       (** Indicates whether the cert should be matched against as a wildcard cert. *)
 }
 [@@deriving yojson_of]
 (** The TLS Common Name of the certificate. *)
 
 type google_apigee_target_server__s_sl_info = {
-  ciphers : string list option; [@option]
+  ciphers : string prop list option; [@option]
       (** The SSL/TLS cipher suites to be used. For programmable proxies, it must be one of the cipher suite names listed in: http://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#ciphersuites. For configurable proxies, it must follow the configuration specified in: https://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#Cipher-suite-configuration. This setting has no effect for configurable proxies when negotiating TLS 1.3. *)
-  client_auth_enabled : bool option; [@option]
+  client_auth_enabled : bool prop option; [@option]
       (** Enables two-way TLS. *)
-  enabled : bool;
+  enabled : bool prop;
       (** Enables TLS. If false, neither one-way nor two-way TLS will be enabled. *)
-  ignore_validation_errors : bool option; [@option]
+  ignore_validation_errors : bool prop option; [@option]
       (** If true, Edge ignores TLS certificate errors. Valid when configuring TLS for target servers and target endpoints, and when configuring virtual hosts that use 2-way TLS. When used with a target endpoint/target server, if the backend system uses SNI and returns a cert with a subject Distinguished Name (DN) that does not match the hostname, there is no way to ignore the error and the connection fails. *)
-  key_alias : string option; [@option]
+  key_alias : string prop option; [@option]
       (** Required if clientAuthEnabled is true. The resource ID for the alias containing the private key and cert. *)
-  key_store : string option; [@option]
+  key_store : string prop option; [@option]
       (** Required if clientAuthEnabled is true. The resource ID of the keystore. *)
-  protocols : string list option; [@option]
+  protocols : string prop list option; [@option]
       (** The TLS versioins to be used. *)
-  trust_store : string option; [@option]
+  trust_store : string prop option; [@option]
       (** The resource ID of the truststore. *)
   common_name :
     google_apigee_target_server__s_sl_info__common_name list;
@@ -37,29 +37,29 @@ type google_apigee_target_server__s_sl_info = {
 (** Specifies TLS configuration info for this TargetServer. The JSON name is sSLInfo for legacy/backwards compatibility reasons -- Edge originally supported SSL, and the name is still used for TLS configuration. *)
 
 type google_apigee_target_server__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_apigee_target_server__timeouts *)
 
 type google_apigee_target_server = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A human-readable description of this TargetServer. *)
-  env_id : string;
+  env_id : string prop;
       (** The Apigee environment group associated with the Apigee environment,
 in the format 'organizations/{{org_name}}/environments/{{env_name}}'. *)
-  host : string;
+  host : string prop;
       (** The host name this target connects to. Value must be a valid hostname as described by RFC-1123. *)
-  id : string option; [@option]  (** id *)
-  is_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  is_enabled : bool prop option; [@option]
       (** Enabling/disabling a TargetServer is useful when TargetServers are used in load balancing configurations, and one or more TargetServers need to taken out of rotation periodically. Defaults to true. *)
-  name : string;
+  name : string prop;
       (** The resource id of this reference. Values must match the regular expression [\w\s-.]+. *)
-  port : float;
+  port : float prop;
       (** The port number this target connects to on the given host. Value must be between 1 and 65535, inclusive. *)
-  protocol : string option; [@option]
+  protocol : string prop option; [@option]
       (** Immutable. The protocol used by this TargetServer. Possible values: [HTTP, HTTP2, GRPC_TARGET, GRPC, EXTERNAL_CALLOUT] *)
   s_sl_info : google_apigee_target_server__s_sl_info list;
   timeouts : google_apigee_target_server__timeouts option;

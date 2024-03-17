@@ -17,13 +17,13 @@ type aws_keyspaces_table__ttl
 type aws_keyspaces_table
 
 val aws_keyspaces_table :
-  ?default_time_to_live:float ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?default_time_to_live:float prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_keyspaces_table__timeouts ->
-  keyspace_name:string ->
-  table_name:string ->
+  keyspace_name:string prop ->
+  table_name:string prop ->
   capacity_specification:
     aws_keyspaces_table__capacity_specification list ->
   client_side_timestamps:

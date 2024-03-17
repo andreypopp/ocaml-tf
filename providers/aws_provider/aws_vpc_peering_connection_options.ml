@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_vpc_peering_connection_options__accepter = {
-  allow_remote_vpc_dns_resolution : bool option; [@option]
+  allow_remote_vpc_dns_resolution : bool prop option; [@option]
       (** allow_remote_vpc_dns_resolution *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection_options__accepter *)
 
 type aws_vpc_peering_connection_options__requester = {
-  allow_remote_vpc_dns_resolution : bool option; [@option]
+  allow_remote_vpc_dns_resolution : bool prop option; [@option]
       (** allow_remote_vpc_dns_resolution *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_peering_connection_options__requester *)
 
 type aws_vpc_peering_connection_options = {
-  id : string option; [@option]  (** id *)
-  vpc_peering_connection_id : string;
+  id : string prop option; [@option]  (** id *)
+  vpc_peering_connection_id : string prop;
       (** vpc_peering_connection_id *)
   accepter : aws_vpc_peering_connection_options__accepter list;
   requester : aws_vpc_peering_connection_options__requester list;

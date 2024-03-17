@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_s3control_access_grants_instance = {
-  account_id : string option; [@option]  (** account_id *)
-  identity_center_arn : string option; [@option]
+  account_id : string prop option; [@option]  (** account_id *)
+  identity_center_arn : string prop option; [@option]
       (** identity_center_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_access_grants_instance *)

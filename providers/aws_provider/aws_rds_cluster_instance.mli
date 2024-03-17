@@ -6,32 +6,32 @@ type aws_rds_cluster_instance__timeouts
 type aws_rds_cluster_instance
 
 val aws_rds_cluster_instance :
-  ?apply_immediately:bool ->
-  ?auto_minor_version_upgrade:bool ->
-  ?availability_zone:string ->
-  ?ca_cert_identifier:string ->
-  ?copy_tags_to_snapshot:bool ->
-  ?custom_iam_instance_profile:string ->
-  ?db_parameter_group_name:string ->
-  ?db_subnet_group_name:string ->
-  ?engine_version:string ->
-  ?id:string ->
-  ?identifier:string ->
-  ?identifier_prefix:string ->
-  ?monitoring_interval:float ->
-  ?monitoring_role_arn:string ->
-  ?performance_insights_enabled:bool ->
-  ?performance_insights_kms_key_id:string ->
-  ?performance_insights_retention_period:float ->
-  ?preferred_backup_window:string ->
-  ?preferred_maintenance_window:string ->
-  ?promotion_tier:float ->
-  ?publicly_accessible:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?apply_immediately:bool prop ->
+  ?auto_minor_version_upgrade:bool prop ->
+  ?availability_zone:string prop ->
+  ?ca_cert_identifier:string prop ->
+  ?copy_tags_to_snapshot:bool prop ->
+  ?custom_iam_instance_profile:string prop ->
+  ?db_parameter_group_name:string prop ->
+  ?db_subnet_group_name:string prop ->
+  ?engine_version:string prop ->
+  ?id:string prop ->
+  ?identifier:string prop ->
+  ?identifier_prefix:string prop ->
+  ?monitoring_interval:float prop ->
+  ?monitoring_role_arn:string prop ->
+  ?performance_insights_enabled:bool prop ->
+  ?performance_insights_kms_key_id:string prop ->
+  ?performance_insights_retention_period:float prop ->
+  ?preferred_backup_window:string prop ->
+  ?preferred_maintenance_window:string prop ->
+  ?promotion_tier:float prop ->
+  ?publicly_accessible:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_rds_cluster_instance__timeouts ->
-  cluster_identifier:string ->
-  engine:string ->
-  instance_class:string ->
+  cluster_identifier:string prop ->
+  engine:string prop ->
+  instance_class:string prop ->
   string ->
   unit

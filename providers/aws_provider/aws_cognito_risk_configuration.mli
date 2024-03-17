@@ -28,9 +28,9 @@ type aws_cognito_risk_configuration__risk_exception_configuration
 type aws_cognito_risk_configuration
 
 val aws_cognito_risk_configuration :
-  ?client_id:string ->
-  ?id:string ->
-  user_pool_id:string ->
+  ?client_id:string prop ->
+  ?id:string prop ->
+  user_pool_id:string prop ->
   account_takeover_risk_configuration:
     aws_cognito_risk_configuration__account_takeover_risk_configuration
     list ->

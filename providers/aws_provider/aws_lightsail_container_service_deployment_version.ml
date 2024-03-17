@@ -5,32 +5,34 @@
 open! Tf.Prelude
 
 type aws_lightsail_container_service_deployment_version__container = {
-  command : string list option; [@option]  (** command *)
-  container_name : string;  (** container_name *)
-  environment : (string * string) list option; [@option]
+  command : string prop list option; [@option]  (** command *)
+  container_name : string prop;  (** container_name *)
+  environment : (string * string prop) list option; [@option]
       (** environment *)
-  image : string;  (** image *)
-  ports : (string * string) list option; [@option]  (** ports *)
+  image : string prop;  (** image *)
+  ports : (string * string prop) list option; [@option]  (** ports *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_container_service_deployment_version__container *)
 
 type aws_lightsail_container_service_deployment_version__public_endpoint__health_check = {
-  healthy_threshold : float option; [@option]
+  healthy_threshold : float prop option; [@option]
       (** healthy_threshold *)
-  interval_seconds : float option; [@option]  (** interval_seconds *)
-  path : string option; [@option]  (** path *)
-  success_codes : string option; [@option]  (** success_codes *)
-  timeout_seconds : float option; [@option]  (** timeout_seconds *)
-  unhealthy_threshold : float option; [@option]
+  interval_seconds : float prop option; [@option]
+      (** interval_seconds *)
+  path : string prop option; [@option]  (** path *)
+  success_codes : string prop option; [@option]  (** success_codes *)
+  timeout_seconds : float prop option; [@option]
+      (** timeout_seconds *)
+  unhealthy_threshold : float prop option; [@option]
       (** unhealthy_threshold *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_container_service_deployment_version__public_endpoint__health_check *)
 
 type aws_lightsail_container_service_deployment_version__public_endpoint = {
-  container_name : string;  (** container_name *)
-  container_port : float;  (** container_port *)
+  container_name : string prop;  (** container_name *)
+  container_port : float prop;  (** container_port *)
   health_check :
     aws_lightsail_container_service_deployment_version__public_endpoint__health_check
     list;
@@ -39,14 +41,14 @@ type aws_lightsail_container_service_deployment_version__public_endpoint = {
 (** aws_lightsail_container_service_deployment_version__public_endpoint *)
 
 type aws_lightsail_container_service_deployment_version__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_container_service_deployment_version__timeouts *)
 
 type aws_lightsail_container_service_deployment_version = {
-  id : string option; [@option]  (** id *)
-  service_name : string;  (** service_name *)
+  id : string prop option; [@option]  (** id *)
+  service_name : string prop;  (** service_name *)
   container :
     aws_lightsail_container_service_deployment_version__container
     list;

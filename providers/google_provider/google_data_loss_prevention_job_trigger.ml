@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type google_data_loss_prevention_job_trigger__inspect_job__actions__deidentify__transformation_config = {
-  deidentify_template : string option; [@option]
+  deidentify_template : string prop option; [@option]
       (** If this template is specified, it will serve as the default de-identify template. *)
-  image_redact_template : string option; [@option]
+  image_redact_template : string prop option; [@option]
       (** If this template is specified, it will serve as the de-identify template for images. *)
-  structured_deidentify_template : string option; [@option]
+  structured_deidentify_template : string prop option; [@option]
       (** If this template is specified, it will serve as the de-identify template for structured content such as delimited files and tables. *)
 }
 [@@deriving yojson_of]
 (** User specified deidentify templates and configs for structured, unstructured, and image files. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__actions__deidentify__transformation_details_storage_config__table = {
-  dataset_id : string;
+  dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
-  project_id : string;
+  project_id : string prop;
       (** The ID of the project containing this table. *)
-  table_id : string option; [@option]
+  table_id : string prop option; [@option]
       (** The ID of the table. The ID must contain only letters (a-z,
 A-Z), numbers (0-9), or underscores (_). The maximum length
 is 1,024 characters. *)
@@ -37,7 +37,7 @@ type google_data_loss_prevention_job_trigger__inspect_job__actions__deidentify__
 (** Config for storing transformation details. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__actions__deidentify = {
-  cloud_storage_output : string;
+  cloud_storage_output : string prop;
       (** User settable Cloud Storage bucket and folders to store de-identified files.
 
 This field must be set for cloud storage deidentification.
@@ -47,7 +47,7 @@ The output Cloud Storage bucket must be different from the input bucket.
 De-identified files will overwrite files in the output path.
 
 Form of: gs://bucket/folder/ or gs://bucket *)
-  file_types_to_transform : string list option; [@option]
+  file_types_to_transform : string prop list option; [@option]
       (** List of user-specified file type groups to transform. If specified, only the files with these filetypes will be transformed.
 
 If empty, all supported files will be transformed. Supported types may be automatically added over time.
@@ -68,7 +68,7 @@ type google_data_loss_prevention_job_trigger__inspect_job__actions__job_notifica
 [@@deriving yojson_of]
 
 type google_data_loss_prevention_job_trigger__inspect_job__actions__pub_sub = {
-  topic : string;
+  topic : string prop;
       (** Cloud Pub/Sub topic to send notifications to. *)
 }
 [@@deriving yojson_of]
@@ -87,10 +87,10 @@ type google_data_loss_prevention_job_trigger__inspect_job__actions__publish_to_s
 [@@deriving yojson_of]
 
 type google_data_loss_prevention_job_trigger__inspect_job__actions__save_findings__output_config__table = {
-  dataset_id : string;  (** Dataset ID of the table. *)
-  project_id : string;
+  dataset_id : string prop;  (** Dataset ID of the table. *)
+  project_id : string prop;
       (** The Google Cloud Platform project ID of the project containing the table. *)
-  table_id : string option; [@option]
+  table_id : string prop option; [@option]
       (** Name of the table. If is not set a new one will be generated for you with the following format:
 'dlp_googleapis_yyyy_mm_dd_[dlp_job_id]'. Pacific timezone will be used for generating the date details. *)
 }
@@ -98,7 +98,7 @@ type google_data_loss_prevention_job_trigger__inspect_job__actions__save_finding
 (** Information on the location of the target BigQuery Table. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__actions__save_findings__output_config = {
-  output_schema : string option; [@option]
+  output_schema : string prop option; [@option]
       (** Schema used for writing the findings for Inspect jobs. This field is only used for
 Inspect and must be unspecified for Risk jobs. Columns are derived from the Finding
 object. If appending to an existing table, any columns from the predefined schema
@@ -149,14 +149,14 @@ type google_data_loss_prevention_job_trigger__inspect_job__actions = {
 (** Configuration block for the actions to execute on the completion of a job. Can be specified multiple times, but only one for each type. Each action block supports fields documented below. This argument is processed in [attribute-as-blocks mode](https://www.terraform.io/docs/configuration/attr-as-blocks.html). *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path = {
-  path : string;
+  path : string prop;
       (** A url representing a file or path (no wildcards) in Cloud Storage. Example: 'gs://[BUCKET_NAME]/dictionary.txt' *)
 }
 [@@deriving yojson_of]
 (** Newline-delimited file of words in Cloud Storage. Only a single file is accepted. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custom_info_types__dictionary__word_list = {
-  words : string list;
+  words : string prop list;
       (** Words or phrases defining the dictionary. The dictionary must contain at least one
 phrase and every phrase must contain at least 2 characters that are letters or digits. *)
 }
@@ -175,17 +175,17 @@ type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custo
 (** Dictionary which defines the rule. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score = {
-  score : string;
+  score : string prop;
       (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
 [@@deriving yojson_of]
 (** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custom_info_types__info_type = {
-  name : string;
+  name : string prop;
       (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names
 listed at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type. *)
-  version : string option; [@option]
+  version : string prop option; [@option]
       (** Version of the information type to use. By default, the version is set to stable. *)
   sensitivity_score :
     google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score
@@ -198,9 +198,9 @@ one detected by the system. If built-in info type is not specified in 'info_type
 treated as a custom info type. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custom_info_types__regex = {
-  group_indexes : float list option; [@option]
+  group_indexes : float prop list option; [@option]
       (** The index of the submatch to extract as findings. When not specified, the entire match is returned. No more than 3 may be included. *)
-  pattern : string;
+  pattern : string prop;
       (** Pattern defining the regular expression.
 Its syntax (https://github.com/google/re2/wiki/Syntax) can be found under the google/re2 repository on GitHub. *)
 }
@@ -208,16 +208,16 @@ Its syntax (https://github.com/google/re2/wiki/Syntax) can be found under the go
 (** Regular expression which defines the rule. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custom_info_types__sensitivity_score = {
-  score : string;
+  score : string prop;
       (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
 [@@deriving yojson_of]
 (** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custom_info_types__stored_type = {
-  create_time : string;
+  create_time : string prop;
       (** The creation timestamp of an inspectTemplate. Set by the server. *)
-  name : string;
+  name : string prop;
       (** Resource name of the requested StoredInfoType, for example 'organizations/433245324/storedInfoTypes/432452342'
 or 'projects/project-id/storedInfoTypes/432452342'. *)
 }
@@ -229,9 +229,9 @@ type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custo
 [@@deriving yojson_of]
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custom_info_types = {
-  exclusion_type : string option; [@option]
+  exclusion_type : string prop option; [@option]
       (** If set to EXCLUSION_TYPE_EXCLUDE this infoType will not cause a finding to be returned. It still can be used for rules matching. Possible values: [EXCLUSION_TYPE_EXCLUDE] *)
-  likelihood : string option; [@option]
+  likelihood : string prop option; [@option]
       (** Likelihood to return for this CustomInfoType. This base value can be altered by a detection rule if the finding meets the criteria
 specified by the rule. Default value: VERY_LIKELY Possible values: [VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY, VERY_LIKELY] *)
   dictionary :
@@ -257,17 +257,17 @@ specified by the rule. Default value: VERY_LIKELY Possible values: [VERY_UNLIKEL
 (** Custom info types to be used. See https://cloud.google.com/dlp/docs/creating-custom-infotypes to learn more. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__info_types__sensitivity_score = {
-  score : string;
+  score : string prop;
       (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
 [@@deriving yojson_of]
 (** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__info_types = {
-  name : string;
+  name : string prop;
       (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed
 at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type. *)
-  version : string option; [@option]
+  version : string prop option; [@option]
       (** Version of the information type to use. By default, the version is set to stable *)
   sensitivity_score :
     google_data_loss_prevention_job_trigger__inspect_job__inspect_config__info_types__sensitivity_score
@@ -281,17 +281,17 @@ When no InfoTypes or CustomInfoTypes are specified in a request, the system may 
 By default this may be all types, but may change over time as detectors are updated. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score = {
-  score : string;
+  score : string prop;
       (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
 [@@deriving yojson_of]
 (** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__limits__max_findings_per_info_type__info_type = {
-  name : string;
+  name : string prop;
       (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed
 at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type. *)
-  version : string option; [@option]
+  version : string prop option; [@option]
       (** Version of the information type to use. By default, the version is set to stable *)
   sensitivity_score :
     google_data_loss_prevention_job_trigger__inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
@@ -303,7 +303,7 @@ not have an infoType, the DLP API applies the limit against all infoTypes that a
 specified in another InfoTypeLimit. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__limits__max_findings_per_info_type = {
-  max_findings : float option; [@option]
+  max_findings : float prop option; [@option]
       (** Max findings limit for the given infoType. *)
   info_type :
     google_data_loss_prevention_job_trigger__inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
@@ -313,9 +313,9 @@ type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__limit
 (** Configuration of findings limit given for specified infoTypes. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__limits = {
-  max_findings_per_item : float option; [@option]
+  max_findings_per_item : float prop option; [@option]
       (** Max number of findings that will be returned for each item scanned. The maximum returned is 2000. *)
-  max_findings_per_request : float option; [@option]
+  max_findings_per_request : float prop option; [@option]
       (** Max number of findings that will be returned per request/job. The maximum returned is 2000. *)
   max_findings_per_info_type :
     google_data_loss_prevention_job_trigger__inspect_job__inspect_config__limits__max_findings_per_info_type
@@ -325,17 +325,17 @@ type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__limit
 (** Configuration to control the number of findings returned. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__info_types__sensitivity_score = {
-  score : string;
+  score : string prop;
       (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
 [@@deriving yojson_of]
 (** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__info_types = {
-  name : string;
+  name : string prop;
       (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed
 at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type. *)
-  version : string option; [@option]
+  version : string prop option; [@option]
       (** Version of the information type to use. By default, the version is set to stable. *)
   sensitivity_score :
     google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__info_types__sensitivity_score
@@ -345,14 +345,14 @@ at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built
 (** List of infoTypes this rule set is applied to. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path = {
-  path : string;
+  path : string prop;
       (** A url representing a file or path (no wildcards) in Cloud Storage. Example: 'gs://[BUCKET_NAME]/dictionary.txt' *)
 }
 [@@deriving yojson_of]
 (** Newline-delimited file of words in Cloud Storage. Only a single file is accepted. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list = {
-  words : string list;
+  words : string prop list;
       (** Words or phrases defining the dictionary. The dictionary must contain at least one
 phrase and every phrase must contain at least 2 characters that are letters or digits. *)
 }
@@ -371,10 +371,10 @@ type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_
 (** Dictionary which defines the rule. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex = {
-  group_indexes : float list option; [@option]
+  group_indexes : float prop list option; [@option]
       (** The index of the submatch to extract as findings. When not specified,
 the entire match is returned. No more than 3 may be included. *)
-  pattern : string option; [@option]
+  pattern : string prop option; [@option]
       (** Pattern defining the regular expression. Its syntax
 (https://github.com/google/re2/wiki/Syntax) can be found under the google/re2 repository on GitHub. *)
 }
@@ -382,9 +382,9 @@ the entire match is returned. No more than 3 may be included. *)
 (** Regular expression pattern defining what qualifies as a hotword. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity = {
-  window_after : float option; [@option]
+  window_after : float prop option; [@option]
       (** Number of characters after the finding to consider. Either this or window_before must be specified *)
-  window_before : float option; [@option]
+  window_before : float prop option; [@option]
       (** Number of characters before the finding to consider. Either this or window_after must be specified *)
 }
 [@@deriving yojson_of]
@@ -406,17 +406,17 @@ type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_
 (** Drop if the hotword rule is contained in the proximate context. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score = {
-  score : string;
+  score : string prop;
       (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
 [@@deriving yojson_of]
 (** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types = {
-  name : string;
+  name : string prop;
       (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed
 at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type. *)
-  version : string option; [@option]
+  version : string prop option; [@option]
       (** Version of the information type to use. By default, the version is set to stable. *)
   sensitivity_score :
     google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score
@@ -434,9 +434,9 @@ type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_
 (** Set of infoTypes for which findings would affect this rule. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex = {
-  group_indexes : float list option; [@option]
+  group_indexes : float prop list option; [@option]
       (** The index of the submatch to extract as findings. When not specified, the entire match is returned. No more than 3 may be included. *)
-  pattern : string;
+  pattern : string prop;
       (** Pattern defining the regular expression.
 Its syntax (https://github.com/google/re2/wiki/Syntax) can be found under the google/re2 repository on GitHub. *)
 }
@@ -444,7 +444,7 @@ Its syntax (https://github.com/google/re2/wiki/Syntax) can be found under the go
 (** Regular expression which defines the rule. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__exclusion_rule = {
-  matching_type : string;
+  matching_type : string prop;
       (** How the rule is applied. See the documentation for more information: https://cloud.google.com/dlp/docs/reference/rest/v2/InspectConfig#MatchingType Possible values: [MATCHING_TYPE_FULL_MATCH, MATCHING_TYPE_PARTIAL_MATCH, MATCHING_TYPE_INVERSE_MATCH] *)
   dictionary :
     google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
@@ -463,10 +463,10 @@ type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_
 (** The rule that specifies conditions when findings of infoTypes specified in InspectionRuleSet are removed from results. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex = {
-  group_indexes : float list option; [@option]
+  group_indexes : float prop list option; [@option]
       (** The index of the submatch to extract as findings. When not specified,
 the entire match is returned. No more than 3 may be included. *)
-  pattern : string option; [@option]
+  pattern : string prop option; [@option]
       (** Pattern defining the regular expression. Its syntax
 (https://github.com/google/re2/wiki/Syntax) can be found under the google/re2 repository on GitHub. *)
 }
@@ -474,9 +474,9 @@ the entire match is returned. No more than 3 may be included. *)
 (** Regular expression pattern defining what qualifies as a hotword. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment = {
-  fixed_likelihood : string option; [@option]
+  fixed_likelihood : string prop option; [@option]
       (** Set the likelihood of a finding to a fixed value. Either this or relative_likelihood can be set. Possible values: [VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY, VERY_LIKELY] *)
-  relative_likelihood : float option; [@option]
+  relative_likelihood : float prop option; [@option]
       (** Increase or decrease the likelihood by the specified number of levels. For example,
 if a finding would be POSSIBLE without the detection rule and relativeLikelihood is 1,
 then it is upgraded to LIKELY, while a value of -1 would downgrade it to UNLIKELY.
@@ -488,9 +488,9 @@ will result in a final likelihood of LIKELY. Either this or fixed_likelihood can
 (** Likelihood adjustment to apply to all matching findings. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity = {
-  window_after : float option; [@option]
+  window_after : float prop option; [@option]
       (** Number of characters after the finding to consider. Either this or window_before must be specified *)
-  window_before : float option; [@option]
+  window_before : float prop option; [@option]
       (** Number of characters before the finding to consider. Either this or window_after must be specified *)
 }
 [@@deriving yojson_of]
@@ -538,11 +538,11 @@ type google_data_loss_prevention_job_trigger__inspect_job__inspect_config__rule_
 other rules are executed in the order they are specified for each info type. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__inspect_config = {
-  exclude_info_types : bool option; [@option]
+  exclude_info_types : bool prop option; [@option]
       (** When true, excludes type information of the findings. *)
-  include_quote : bool option; [@option]
+  include_quote : bool prop option; [@option]
       (** When true, a contextual quote from the data that triggered a finding is included in the response. *)
-  min_likelihood : string option; [@option]
+  min_likelihood : string prop option; [@option]
       (** Only returns findings equal or above this threshold. See https://cloud.google.com/dlp/docs/likelihood for more info Default value: POSSIBLE Possible values: [VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY, VERY_LIKELY] *)
   custom_info_types :
     google_data_loss_prevention_job_trigger__inspect_job__inspect_config__custom_info_types
@@ -561,7 +561,7 @@ type google_data_loss_prevention_job_trigger__inspect_job__inspect_config = {
 (** The core content of the template. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__big_query_options__excluded_fields = {
-  name : string;
+  name : string prop;
       (** Name describing the field excluded from scanning. *)
 }
 [@@deriving yojson_of]
@@ -569,7 +569,7 @@ type google_data_loss_prevention_job_trigger__inspect_job__storage_config__big_q
 This allows you to skip inspection of entire columns which you know have no findings. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__big_query_options__identifying_fields = {
-  name : string;
+  name : string prop;
       (** Name of a BigQuery field to be returned with the findings. *)
 }
 [@@deriving yojson_of]
@@ -577,31 +577,31 @@ type google_data_loss_prevention_job_trigger__inspect_job__storage_config__big_q
 If not specified, no identifying fields will be returned for findings. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__big_query_options__included_fields = {
-  name : string;
+  name : string prop;
       (** Name describing the field to which scanning is limited. *)
 }
 [@@deriving yojson_of]
 (** Limit scanning only to these fields. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__big_query_options__table_reference = {
-  dataset_id : string;  (** The dataset ID of the table. *)
-  project_id : string;
+  dataset_id : string prop;  (** The dataset ID of the table. *)
+  project_id : string prop;
       (** The Google Cloud Platform project ID of the project containing the table. *)
-  table_id : string;  (** The name of the table. *)
+  table_id : string prop;  (** The name of the table. *)
 }
 [@@deriving yojson_of]
 (** Set of files to scan. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__big_query_options = {
-  rows_limit : float option; [@option]
+  rows_limit : float prop option; [@option]
       (** Max number of rows to scan. If the table has more rows than this value, the rest of the rows are omitted.
 If not set, or if set to 0, all rows will be scanned. Only one of rowsLimit and rowsLimitPercent can be
 specified. Cannot be used in conjunction with TimespanConfig. *)
-  rows_limit_percent : float option; [@option]
+  rows_limit_percent : float prop option; [@option]
       (** Max percentage of rows to scan. The rest are omitted. The number of rows scanned is rounded down.
 Must be between 0 and 100, inclusively. Both 0 and 100 means no limit. Defaults to 0. Only one of
 rowsLimit and rowsLimitPercent can be specified. Cannot be used in conjunction with TimespanConfig. *)
-  sample_method : string option; [@option]
+  sample_method : string prop option; [@option]
       (** How to sample rows if not all rows are scanned. Meaningful only when used in conjunction with either
 rowsLimit or rowsLimitPercent. If not specified, rows are scanned in the order BigQuery reads them. Default value: TOP Possible values: [TOP, RANDOM_START] *)
   excluded_fields :
@@ -621,11 +621,12 @@ rowsLimit or rowsLimitPercent. If not specified, rows are scanned in the order B
 (** Options defining BigQuery table and row identifiers. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set = {
-  bucket_name : string;  (** The name of a Cloud Storage bucket. *)
-  exclude_regex : string list option; [@option]
+  bucket_name : string prop;
+      (** The name of a Cloud Storage bucket. *)
+  exclude_regex : string prop list option; [@option]
       (** A list of regular expressions matching file paths to exclude. All files in the bucket that match at
 least one of these regular expressions will be excluded from the scan. *)
-  include_regex : string list option; [@option]
+  include_regex : string prop list option; [@option]
       (** A list of regular expressions matching file paths to include. All files in the bucket
 that match at least one of these regular expressions will be included in the set of files,
 except for those that also match an item in excludeRegex. Leaving this field empty will
@@ -635,7 +636,7 @@ match all files by default (this is equivalent to including .* in the list) *)
 (** The regex-filtered set of files to scan. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__cloud_storage_options__file_set = {
-  url : string option; [@option]
+  url : string prop option; [@option]
       (** The Cloud Storage url of the file(s) to scan, in the format 'gs://<bucket>/<path>'. Trailing wildcard
 in the path is allowed.
 
@@ -650,20 +651,20 @@ equivalent to 'gs://mybucket/*', and 'gs://mybucket/directory/' is equivalent to
 (** Set of files to scan. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__cloud_storage_options = {
-  bytes_limit_per_file : float option; [@option]
+  bytes_limit_per_file : float prop option; [@option]
       (** Max number of bytes to scan from a file. If a scanned file's size is bigger than this value
 then the rest of the bytes are omitted. *)
-  bytes_limit_per_file_percent : float option; [@option]
+  bytes_limit_per_file_percent : float prop option; [@option]
       (** Max percentage of bytes to scan from a file. The rest are omitted. The number of bytes scanned is rounded down.
 Must be between 0 and 100, inclusively. Both 0 and 100 means no limit. *)
-  file_types : string list option; [@option]
+  file_types : string prop list option; [@option]
       (** List of file type groups to include in the scan. If empty, all files are scanned and available data
 format processors are applied. In addition, the binary content of the selected files is always scanned as well.
 Images are scanned only as binary if the specified region does not support image inspection and no fileTypes were specified. Possible values: [BINARY_FILE, TEXT_FILE, IMAGE, WORD, PDF, AVRO, CSV, TSV, POWERPOINT, EXCEL] *)
-  files_limit_percent : float option; [@option]
+  files_limit_percent : float prop option; [@option]
       (** Limits the number of files to scan to this percentage of the input FileSet. Number of files scanned is rounded down.
 Must be between 0 and 100, inclusively. Both 0 and 100 means no limit. *)
-  sample_method : string option; [@option]
+  sample_method : string prop option; [@option]
       (** How to sample bytes if not all bytes are scanned. Meaningful only when used in conjunction with bytesLimitPerFile.
 If not specified, scanning would start from the top. Possible values: [TOP, RANDOM_START] *)
   file_set :
@@ -674,15 +675,15 @@ If not specified, scanning would start from the top. Possible values: [TOP, RAND
 (** Options defining a file or a set of files within a Google Cloud Storage bucket. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__datastore_options__kind = {
-  name : string;  (** The name of the Datastore kind. *)
+  name : string prop;  (** The name of the Datastore kind. *)
 }
 [@@deriving yojson_of]
 (** A representation of a Datastore kind. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__datastore_options__partition_id = {
-  namespace_id : string option; [@option]
+  namespace_id : string prop option; [@option]
       (** If not empty, the ID of the namespace to which the entities belong. *)
-  project_id : string;
+  project_id : string prop;
       (** The ID of the project to which the entities belong. *)
 }
 [@@deriving yojson_of]
@@ -701,7 +702,7 @@ type google_data_loss_prevention_job_trigger__inspect_job__storage_config__datas
 (** Options defining a data set within Google Cloud Datastore. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__hybrid_options__table_options__identifying_fields = {
-  name : string;  (** Name describing the field. *)
+  name : string prop;  (** Name describing the field. *)
 }
 [@@deriving yojson_of]
 (** The columns that are the primary keys for table objects included in ContentItem. A copy of this
@@ -717,9 +718,9 @@ type google_data_loss_prevention_job_trigger__inspect_job__storage_config__hybri
 (** If the container is a table, additional information to make findings meaningful such as the columns that are primary keys. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__hybrid_options = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A short description of where the data is coming from. Will be stored once in the job. 256 max length. *)
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** To organize findings, these labels will be added to each finding.
 
 Label keys must be between 1 and 63 characters long and must conform to the following regular expression: '[a-z]([-a-z0-9]*[a-z0-9])?'.
@@ -731,7 +732,7 @@ No more than 10 labels can be associated with a given finding.
 Examples:
 * 'environment : production'
 * 'pipeline : etl' *)
-  required_finding_label_keys : string list option; [@option]
+  required_finding_label_keys : string prop list option; [@option]
       (** These are labels that each inspection request must include within their 'finding_labels' map. Request
 may contain others, but any missing one of these will be rejected.
 
@@ -746,7 +747,7 @@ No more than 10 keys can be required. *)
 (** Configuration to control jobs where the content being inspected is outside of Google Cloud Platform. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__timespan_config__timestamp_field = {
-  name : string;
+  name : string prop;
       (** Specification of the field containing the timestamp of scanned items. Used for data sources like Datastore and BigQuery.
 
 For BigQuery: Required to filter out rows based on the given start and end times. If not specified and the table was
@@ -760,14 +761,15 @@ timestamp property does not exist or its value is empty or invalid. *)
 (** Specification of the field containing the timestamp of scanned items. *)
 
 type google_data_loss_prevention_job_trigger__inspect_job__storage_config__timespan_config = {
-  enable_auto_population_of_timespan_config : bool option; [@option]
+  enable_auto_population_of_timespan_config : bool prop option;
+      [@option]
       (** When the job is started by a JobTrigger we will automatically figure out a valid startTime to avoid
 scanning files that have not been modified since the last time the JobTrigger executed. This will
 be based on the time of the execution of the last run of the JobTrigger or the timespan endTime
 used in the last run of the JobTrigger. *)
-  end_time : string option; [@option]
+  end_time : string prop option; [@option]
       (** Exclude files, tables, or rows newer than this value. If not set, no upper time limit is applied. *)
-  start_time : string option; [@option]
+  start_time : string prop option; [@option]
       (** Exclude files, tables, or rows older than this value. If not set, no lower time limit is applied. *)
   timestamp_field :
     google_data_loss_prevention_job_trigger__inspect_job__storage_config__timespan_config__timestamp_field
@@ -797,7 +799,7 @@ type google_data_loss_prevention_job_trigger__inspect_job__storage_config = {
 (** Information on where to inspect *)
 
 type google_data_loss_prevention_job_trigger__inspect_job = {
-  inspect_template_name : string option; [@option]
+  inspect_template_name : string prop option; [@option]
       (** The name of the template to run when this job is triggered. *)
   actions :
     google_data_loss_prevention_job_trigger__inspect_job__actions
@@ -813,9 +815,9 @@ type google_data_loss_prevention_job_trigger__inspect_job = {
 (** Controls what and how to inspect for findings. *)
 
 type google_data_loss_prevention_job_trigger__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_data_loss_prevention_job_trigger__timeouts *)
@@ -824,7 +826,7 @@ type google_data_loss_prevention_job_trigger__triggers__manual = unit
 [@@deriving yojson_of]
 
 type google_data_loss_prevention_job_trigger__triggers__schedule = {
-  recurrence_period_duration : string option; [@option]
+  recurrence_period_duration : string prop option; [@option]
       (** With this option a job is started a regular periodic basis. For example: every day (86400 seconds).
 
 A scheduled start time will be skipped if the previous execution has not ended when its scheduled time occurs.
@@ -846,17 +848,17 @@ type google_data_loss_prevention_job_trigger__triggers = {
 (** What event needs to occur for a new job to be started. *)
 
 type google_data_loss_prevention_job_trigger = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A description of the job trigger. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** User set display name of the job trigger. *)
-  id : string option; [@option]  (** id *)
-  parent : string;
+  id : string prop option; [@option]  (** id *)
+  parent : string prop;
       (** The parent of the trigger, either in the format 'projects/{{project}}'
 or 'projects/{{project}}/locations/{{location}}' *)
-  status : string option; [@option]
+  status : string prop option; [@option]
       (** Whether the trigger is currently active. Default value: HEALTHY Possible values: [PAUSED, HEALTHY, CANCELLED] *)
-  trigger_id : string option; [@option]
+  trigger_id : string prop option; [@option]
       (** The trigger id can contain uppercase and lowercase letters, numbers, and hyphens;
 that is, it must match the regular expression: [a-zA-Z\d-_]+.
 The maximum length is 100 characters. Can be empty to allow the system to generate one. *)

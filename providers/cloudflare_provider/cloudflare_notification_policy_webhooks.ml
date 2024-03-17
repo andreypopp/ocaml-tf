@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type cloudflare_notification_policy_webhooks = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The name of the webhook destination. *)
-  secret : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The name of the webhook destination. *)
+  secret : string prop option; [@option]
       (** An optional secret can be provided that will be passed in the `cf-webhook-auth` header when dispatching a webhook notification. Secrets are not returned in any API response body. Refer to the [documentation](https://api.cloudflare.com/#notification-webhooks-create-webhook) for more details. *)
-  url : string option; [@option]
+  url : string prop option; [@option]
       (** The URL of the webhook destinations. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

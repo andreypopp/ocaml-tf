@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_msk_scram_secret_association = {
-  cluster_arn : string;  (** cluster_arn *)
-  id : string option; [@option]  (** id *)
-  secret_arn_list : string list;  (** secret_arn_list *)
+  cluster_arn : string prop;  (** cluster_arn *)
+  id : string prop option; [@option]  (** id *)
+  secret_arn_list : string prop list;  (** secret_arn_list *)
 }
 [@@deriving yojson_of]
 (** aws_msk_scram_secret_association *)

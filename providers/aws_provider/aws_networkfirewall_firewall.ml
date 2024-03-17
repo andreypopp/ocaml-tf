@@ -5,30 +5,31 @@
 open! Tf.Prelude
 
 type aws_networkfirewall_firewall__encryption_configuration = {
-  key_id : string option; [@option]  (** key_id *)
-  type_ : string; [@key "type"]  (** type *)
+  key_id : string prop option; [@option]  (** key_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall__encryption_configuration *)
 
 type aws_networkfirewall_firewall__subnet_mapping = {
-  ip_address_type : string option; [@option]  (** ip_address_type *)
-  subnet_id : string;  (** subnet_id *)
+  ip_address_type : string prop option; [@option]
+      (** ip_address_type *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall__subnet_mapping *)
 
 type aws_networkfirewall_firewall__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_networkfirewall_firewall__timeouts *)
 
 type aws_networkfirewall_firewall__firewall_status__sync_states__attachment = {
-  endpoint_id : string;  (** endpoint_id *)
-  subnet_id : string;  (** subnet_id *)
+  endpoint_id : string prop;  (** endpoint_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 
@@ -37,7 +38,7 @@ type aws_networkfirewall_firewall__firewall_status__sync_states = {
     aws_networkfirewall_firewall__firewall_status__sync_states__attachment
     list;
       (** attachment *)
-  availability_zone : string;  (** availability_zone *)
+  availability_zone : string prop;  (** availability_zone *)
 }
 [@@deriving yojson_of]
 
@@ -49,20 +50,20 @@ type aws_networkfirewall_firewall__firewall_status = {
 [@@deriving yojson_of]
 
 type aws_networkfirewall_firewall = {
-  delete_protection : bool option; [@option]
+  delete_protection : bool prop option; [@option]
       (** delete_protection *)
-  description : string option; [@option]  (** description *)
-  firewall_policy_arn : string;  (** firewall_policy_arn *)
-  firewall_policy_change_protection : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  firewall_policy_arn : string prop;  (** firewall_policy_arn *)
+  firewall_policy_change_protection : bool prop option; [@option]
       (** firewall_policy_change_protection *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  subnet_change_protection : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  subnet_change_protection : bool prop option; [@option]
       (** subnet_change_protection *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_id : string;  (** vpc_id *)
+  vpc_id : string prop;  (** vpc_id *)
   encryption_configuration :
     aws_networkfirewall_firewall__encryption_configuration list;
   subnet_mapping : aws_networkfirewall_firewall__subnet_mapping list;

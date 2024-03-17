@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type aws_db_proxy_default_target_group__connection_pool_config = {
-  connection_borrow_timeout : float option; [@option]
+  connection_borrow_timeout : float prop option; [@option]
       (** connection_borrow_timeout *)
-  init_query : string option; [@option]  (** init_query *)
-  max_connections_percent : float option; [@option]
+  init_query : string prop option; [@option]  (** init_query *)
+  max_connections_percent : float prop option; [@option]
       (** max_connections_percent *)
-  max_idle_connections_percent : float option; [@option]
+  max_idle_connections_percent : float prop option; [@option]
       (** max_idle_connections_percent *)
-  session_pinning_filters : string list option; [@option]
+  session_pinning_filters : string prop list option; [@option]
       (** session_pinning_filters *)
 }
 [@@deriving yojson_of]
 (** aws_db_proxy_default_target_group__connection_pool_config *)
 
 type aws_db_proxy_default_target_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_db_proxy_default_target_group__timeouts *)
 
 type aws_db_proxy_default_target_group = {
-  db_proxy_name : string;  (** db_proxy_name *)
-  id : string option; [@option]  (** id *)
+  db_proxy_name : string prop;  (** db_proxy_name *)
+  id : string prop option; [@option]  (** id *)
   connection_pool_config :
     aws_db_proxy_default_target_group__connection_pool_config list;
   timeouts : aws_db_proxy_default_target_group__timeouts option;

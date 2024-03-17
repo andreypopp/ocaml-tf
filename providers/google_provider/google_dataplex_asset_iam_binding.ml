@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type google_dataplex_asset_iam_binding__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_dataplex_asset_iam_binding__condition *)
 
 type google_dataplex_asset_iam_binding = {
-  asset : string;  (** asset *)
-  dataplex_zone : string;  (** dataplex_zone *)
-  id : string option; [@option]  (** id *)
-  lake : string;  (** lake *)
-  location : string option; [@option]  (** location *)
-  members : string list;  (** members *)
-  project : string option; [@option]  (** project *)
-  role : string;  (** role *)
+  asset : string prop;  (** asset *)
+  dataplex_zone : string prop;  (** dataplex_zone *)
+  id : string prop option; [@option]  (** id *)
+  lake : string prop;  (** lake *)
+  location : string prop option; [@option]  (** location *)
+  members : string prop list;  (** members *)
+  project : string prop option; [@option]  (** project *)
+  role : string prop;  (** role *)
   condition : google_dataplex_asset_iam_binding__condition list;
 }
 [@@deriving yojson_of]

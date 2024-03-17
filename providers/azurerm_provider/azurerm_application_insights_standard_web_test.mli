@@ -12,19 +12,19 @@ type azurerm_application_insights_standard_web_test__validation_rules
 type azurerm_application_insights_standard_web_test
 
 val azurerm_application_insights_standard_web_test :
-  ?description:string ->
-  ?enabled:bool ->
-  ?frequency:float ->
-  ?id:string ->
-  ?retry_enabled:bool ->
-  ?tags:(string * string) list ->
-  ?timeout:float ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?frequency:float prop ->
+  ?id:string prop ->
+  ?retry_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeout:float prop ->
   ?timeouts:azurerm_application_insights_standard_web_test__timeouts ->
-  application_insights_id:string ->
-  geo_locations:string list ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  application_insights_id:string prop ->
+  geo_locations:string prop list ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   request:
     azurerm_application_insights_standard_web_test__request list ->
   validation_rules:

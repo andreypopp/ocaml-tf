@@ -6,15 +6,15 @@ type azurerm_synapse_sql_pool_workload_classifier__timeouts
 type azurerm_synapse_sql_pool_workload_classifier
 
 val azurerm_synapse_sql_pool_workload_classifier :
-  ?context:string ->
-  ?end_time:string ->
-  ?id:string ->
-  ?importance:string ->
-  ?label:string ->
-  ?start_time:string ->
+  ?context:string prop ->
+  ?end_time:string prop ->
+  ?id:string prop ->
+  ?importance:string prop ->
+  ?label:string prop ->
+  ?start_time:string prop ->
   ?timeouts:azurerm_synapse_sql_pool_workload_classifier__timeouts ->
-  member_name:string ->
-  name:string ->
-  workload_group_id:string ->
+  member_name:string prop ->
+  name:string prop ->
+  workload_group_id:string prop ->
   string ->
   unit

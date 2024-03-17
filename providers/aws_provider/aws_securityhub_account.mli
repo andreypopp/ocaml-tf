@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_securityhub_account
 
 val aws_securityhub_account :
-  ?auto_enable_controls:bool ->
-  ?control_finding_generator:string ->
-  ?enable_default_standards:bool ->
-  ?id:string ->
+  ?auto_enable_controls:bool prop ->
+  ?control_finding_generator:string prop ->
+  ?enable_default_standards:bool prop ->
+  ?id:string prop ->
   string ->
   unit

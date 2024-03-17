@@ -5,39 +5,40 @@
 open! Tf.Prelude
 
 type azurerm_spring_cloud_connection__authentication = {
-  certificate : string option; [@option]  (** certificate *)
-  client_id : string option; [@option]  (** client_id *)
-  name : string option; [@option]  (** name *)
-  principal_id : string option; [@option]  (** principal_id *)
-  secret : string option; [@option]  (** secret *)
-  subscription_id : string option; [@option]  (** subscription_id *)
-  type_ : string; [@key "type"]  (** type *)
+  certificate : string prop option; [@option]  (** certificate *)
+  client_id : string prop option; [@option]  (** client_id *)
+  name : string prop option; [@option]  (** name *)
+  principal_id : string prop option; [@option]  (** principal_id *)
+  secret : string prop option; [@option]  (** secret *)
+  subscription_id : string prop option; [@option]
+      (** subscription_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_connection__authentication *)
 
 type azurerm_spring_cloud_connection__secret_store = {
-  key_vault_id : string;  (** key_vault_id *)
+  key_vault_id : string prop;  (** key_vault_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_connection__secret_store *)
 
 type azurerm_spring_cloud_connection__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_spring_cloud_connection__timeouts *)
 
 type azurerm_spring_cloud_connection = {
-  client_type : string option; [@option]  (** client_type *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  spring_cloud_id : string;  (** spring_cloud_id *)
-  target_resource_id : string;  (** target_resource_id *)
-  vnet_solution : string option; [@option]  (** vnet_solution *)
+  client_type : string prop option; [@option]  (** client_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  spring_cloud_id : string prop;  (** spring_cloud_id *)
+  target_resource_id : string prop;  (** target_resource_id *)
+  vnet_solution : string prop option; [@option]  (** vnet_solution *)
   authentication :
     azurerm_spring_cloud_connection__authentication list;
   secret_store : azurerm_spring_cloud_connection__secret_store list;

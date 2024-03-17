@@ -15,11 +15,11 @@ type cloudflare_page_rule__actions
 type cloudflare_page_rule
 
 val cloudflare_page_rule :
-  ?id:string ->
-  ?priority:float ->
-  ?status:string ->
-  target:string ->
-  zone_id:string ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?status:string prop ->
+  target:string prop ->
+  zone_id:string prop ->
   actions:cloudflare_page_rule__actions list ->
   string ->
   unit

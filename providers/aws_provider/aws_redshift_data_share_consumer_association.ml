@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_redshift_data_share_consumer_association = {
-  allow_writes : bool option; [@option]  (** allow_writes *)
-  associate_entire_account : bool option; [@option]
+  allow_writes : bool prop option; [@option]  (** allow_writes *)
+  associate_entire_account : bool prop option; [@option]
       (** associate_entire_account *)
-  consumer_arn : string option; [@option]  (** consumer_arn *)
-  consumer_region : string option; [@option]  (** consumer_region *)
-  data_share_arn : string;  (** data_share_arn *)
+  consumer_arn : string prop option; [@option]  (** consumer_arn *)
+  consumer_region : string prop option; [@option]
+      (** consumer_region *)
+  data_share_arn : string prop;  (** data_share_arn *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_data_share_consumer_association *)

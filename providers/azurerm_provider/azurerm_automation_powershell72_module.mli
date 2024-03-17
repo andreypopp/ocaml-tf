@@ -8,10 +8,10 @@ type azurerm_automation_powershell72_module__timeouts
 type azurerm_automation_powershell72_module
 
 val azurerm_automation_powershell72_module :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_automation_powershell72_module__timeouts ->
-  automation_account_id:string ->
-  name:string ->
+  automation_account_id:string prop ->
+  name:string prop ->
   module_link:
     azurerm_automation_powershell72_module__module_link list ->
   string ->

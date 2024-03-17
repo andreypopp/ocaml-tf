@@ -36,25 +36,25 @@ type google_app_engine_flexible_app_version__vpc_access_connector
 type google_app_engine_flexible_app_version
 
 val google_app_engine_flexible_app_version :
-  ?beta_settings:(string * string) list ->
-  ?default_expiration:string ->
-  ?delete_service_on_destroy:bool ->
-  ?env_variables:(string * string) list ->
-  ?id:string ->
-  ?inbound_services:string list ->
-  ?instance_class:string ->
-  ?nobuild_files_regex:string ->
-  ?noop_on_destroy:bool ->
-  ?project:string ->
-  ?runtime_api_version:string ->
-  ?runtime_channel:string ->
-  ?runtime_main_executable_path:string ->
-  ?service_account:string ->
-  ?serving_status:string ->
-  ?version_id:string ->
+  ?beta_settings:(string * string prop) list ->
+  ?default_expiration:string prop ->
+  ?delete_service_on_destroy:bool prop ->
+  ?env_variables:(string * string prop) list ->
+  ?id:string prop ->
+  ?inbound_services:string prop list ->
+  ?instance_class:string prop ->
+  ?nobuild_files_regex:string prop ->
+  ?noop_on_destroy:bool prop ->
+  ?project:string prop ->
+  ?runtime_api_version:string prop ->
+  ?runtime_channel:string prop ->
+  ?runtime_main_executable_path:string prop ->
+  ?service_account:string prop ->
+  ?serving_status:string prop ->
+  ?version_id:string prop ->
   ?timeouts:google_app_engine_flexible_app_version__timeouts ->
-  runtime:string ->
-  service:string ->
+  runtime:string prop ->
+  service:string prop ->
   api_config:google_app_engine_flexible_app_version__api_config list ->
   automatic_scaling:
     google_app_engine_flexible_app_version__automatic_scaling list ->

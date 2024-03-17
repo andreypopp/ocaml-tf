@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_media_package_channel__hls_ingest__ingest_endpoints = {
-  password : string;  (** password *)
-  url : string;  (** url *)
-  username : string;  (** username *)
+  password : string prop;  (** password *)
+  url : string prop;  (** url *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 
@@ -19,11 +19,12 @@ type aws_media_package_channel__hls_ingest = {
 [@@deriving yojson_of]
 
 type aws_media_package_channel = {
-  channel_id : string;  (** channel_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  channel_id : string prop;  (** channel_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_media_package_channel *)

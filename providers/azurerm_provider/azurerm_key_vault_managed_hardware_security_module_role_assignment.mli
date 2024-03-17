@@ -7,13 +7,13 @@ type azurerm_key_vault_managed_hardware_security_module_role_assignment__timeout
 type azurerm_key_vault_managed_hardware_security_module_role_assignment
 
 val azurerm_key_vault_managed_hardware_security_module_role_assignment :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_key_vault_managed_hardware_security_module_role_assignment__timeouts ->
-  name:string ->
-  principal_id:string ->
-  role_definition_id:string ->
-  scope:string ->
-  vault_base_url:string ->
+  name:string prop ->
+  principal_id:string prop ->
+  role_definition_id:string prop ->
+  scope:string prop ->
+  vault_base_url:string prop ->
   string ->
   unit

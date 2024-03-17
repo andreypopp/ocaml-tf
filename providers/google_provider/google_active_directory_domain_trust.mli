@@ -6,15 +6,15 @@ type google_active_directory_domain_trust__timeouts
 type google_active_directory_domain_trust
 
 val google_active_directory_domain_trust :
-  ?id:string ->
-  ?project:string ->
-  ?selective_authentication:bool ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?selective_authentication:bool prop ->
   ?timeouts:google_active_directory_domain_trust__timeouts ->
-  domain:string ->
-  target_dns_ip_addresses:string list ->
-  target_domain_name:string ->
-  trust_direction:string ->
-  trust_handshake_secret:string ->
-  trust_type:string ->
+  domain:string prop ->
+  target_dns_ip_addresses:string prop list ->
+  target_domain_name:string prop ->
+  trust_direction:string prop ->
+  trust_handshake_secret:string prop ->
+  trust_type:string prop ->
   string ->
   unit

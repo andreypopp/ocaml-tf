@@ -29,10 +29,10 @@ type cloudflare_access_group__require
 type cloudflare_access_group
 
 val cloudflare_access_group :
-  ?account_id:string ->
-  ?id:string ->
-  ?zone_id:string ->
-  name:string ->
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?zone_id:string prop ->
+  name:string prop ->
   exclude:cloudflare_access_group__exclude list ->
   include_:cloudflare_access_group__include list ->
   require:cloudflare_access_group__require list ->

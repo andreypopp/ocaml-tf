@@ -20,7 +20,7 @@ type kubernetes_pod_security_policy__spec
 type kubernetes_pod_security_policy
 
 val kubernetes_pod_security_policy :
-  ?id:string ->
+  ?id:string prop ->
   metadata:kubernetes_pod_security_policy__metadata list ->
   spec:kubernetes_pod_security_policy__spec list ->
   string ->

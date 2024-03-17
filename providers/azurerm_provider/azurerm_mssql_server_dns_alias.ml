@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type azurerm_mssql_server_dns_alias__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_server_dns_alias__timeouts *)
 
 type azurerm_mssql_server_dns_alias = {
-  id : string option; [@option]  (** id *)
-  mssql_server_id : string;  (** mssql_server_id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  mssql_server_id : string prop;  (** mssql_server_id *)
+  name : string prop;  (** name *)
   timeouts : azurerm_mssql_server_dns_alias__timeouts option;
 }
 [@@deriving yojson_of]

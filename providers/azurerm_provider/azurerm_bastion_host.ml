@@ -5,39 +5,39 @@
 open! Tf.Prelude
 
 type azurerm_bastion_host__ip_configuration = {
-  name : string;  (** name *)
-  public_ip_address_id : string;  (** public_ip_address_id *)
-  subnet_id : string;  (** subnet_id *)
+  name : string prop;  (** name *)
+  public_ip_address_id : string prop;  (** public_ip_address_id *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_bastion_host__ip_configuration *)
 
 type azurerm_bastion_host__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_bastion_host__timeouts *)
 
 type azurerm_bastion_host = {
-  copy_paste_enabled : bool option; [@option]
+  copy_paste_enabled : bool prop option; [@option]
       (** copy_paste_enabled *)
-  file_copy_enabled : bool option; [@option]
+  file_copy_enabled : bool prop option; [@option]
       (** file_copy_enabled *)
-  id : string option; [@option]  (** id *)
-  ip_connect_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ip_connect_enabled : bool prop option; [@option]
       (** ip_connect_enabled *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  scale_units : float option; [@option]  (** scale_units *)
-  shareable_link_enabled : bool option; [@option]
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  scale_units : float prop option; [@option]  (** scale_units *)
+  shareable_link_enabled : bool prop option; [@option]
       (** shareable_link_enabled *)
-  sku : string option; [@option]  (** sku *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tunneling_enabled : bool option; [@option]
+  sku : string prop option; [@option]  (** sku *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tunneling_enabled : bool prop option; [@option]
       (** tunneling_enabled *)
   ip_configuration : azurerm_bastion_host__ip_configuration list;
   timeouts : azurerm_bastion_host__timeouts option;

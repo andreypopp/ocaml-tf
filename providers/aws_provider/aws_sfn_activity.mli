@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_sfn_activity
 
 val aws_sfn_activity :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   string ->
   unit

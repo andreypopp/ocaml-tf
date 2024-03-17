@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_dx_macsec_key_association
 
 val aws_dx_macsec_key_association :
-  ?cak:string ->
-  ?ckn:string ->
-  ?id:string ->
-  ?secret_arn:string ->
-  connection_id:string ->
+  ?cak:string prop ->
+  ?ckn:string prop ->
+  ?id:string prop ->
+  ?secret_arn:string prop ->
+  connection_id:string prop ->
   string ->
   unit

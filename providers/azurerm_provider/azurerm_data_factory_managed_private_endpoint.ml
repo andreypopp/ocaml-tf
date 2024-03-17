@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_managed_private_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_managed_private_endpoint__timeouts *)
 
 type azurerm_data_factory_managed_private_endpoint = {
-  data_factory_id : string;  (** data_factory_id *)
-  fqdns : string list option; [@option]  (** fqdns *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  subresource_name : string option; [@option]
+  data_factory_id : string prop;  (** data_factory_id *)
+  fqdns : string prop list option; [@option]  (** fqdns *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  subresource_name : string prop option; [@option]
       (** subresource_name *)
-  target_resource_id : string;  (** target_resource_id *)
+  target_resource_id : string prop;  (** target_resource_id *)
   timeouts :
     azurerm_data_factory_managed_private_endpoint__timeouts option;
 }

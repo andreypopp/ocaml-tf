@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_application_assignment_configuration = {
-  application_arn : string;  (** application_arn *)
-  assignment_required : bool;  (** assignment_required *)
+  application_arn : string prop;  (** application_arn *)
+  assignment_required : bool prop;  (** assignment_required *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_application_assignment_configuration *)

@@ -6,12 +6,12 @@ type azurerm_log_analytics_workspace_table__timeouts
 type azurerm_log_analytics_workspace_table
 
 val azurerm_log_analytics_workspace_table :
-  ?id:string ->
-  ?plan:string ->
-  ?retention_in_days:float ->
-  ?total_retention_in_days:float ->
+  ?id:string prop ->
+  ?plan:string prop ->
+  ?retention_in_days:float prop ->
+  ?total_retention_in_days:float prop ->
   ?timeouts:azurerm_log_analytics_workspace_table__timeouts ->
-  name:string ->
-  workspace_id:string ->
+  name:string prop ->
+  workspace_id:string prop ->
   string ->
   unit

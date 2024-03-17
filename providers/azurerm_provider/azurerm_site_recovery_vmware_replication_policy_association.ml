@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_site_recovery_vmware_replication_policy_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_site_recovery_vmware_replication_policy_association__timeouts *)
 
 type azurerm_site_recovery_vmware_replication_policy_association = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  policy_id : string;  (** policy_id *)
-  recovery_vault_id : string;  (** recovery_vault_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  policy_id : string prop;  (** policy_id *)
+  recovery_vault_id : string prop;  (** recovery_vault_id *)
   timeouts :
     azurerm_site_recovery_vmware_replication_policy_association__timeouts
     option;

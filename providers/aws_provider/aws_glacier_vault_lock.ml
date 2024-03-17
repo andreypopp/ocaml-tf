@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_glacier_vault_lock = {
-  complete_lock : bool;  (** complete_lock *)
-  id : string option; [@option]  (** id *)
-  ignore_deletion_error : bool option; [@option]
+  complete_lock : bool prop;  (** complete_lock *)
+  id : string prop option; [@option]  (** id *)
+  ignore_deletion_error : bool prop option; [@option]
       (** ignore_deletion_error *)
-  policy : string;  (** policy *)
-  vault_name : string;  (** vault_name *)
+  policy : string prop;  (** policy *)
+  vault_name : string prop;  (** vault_name *)
 }
 [@@deriving yojson_of]
 (** aws_glacier_vault_lock *)

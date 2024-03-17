@@ -5,9 +5,9 @@ open! Tf.Prelude
 type google_pubsub_subscription_iam_policy
 
 val google_pubsub_subscription_iam_policy :
-  ?id:string ->
-  ?project:string ->
-  policy_data:string ->
-  subscription:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  policy_data:string prop ->
+  subscription:string prop ->
   string ->
   unit

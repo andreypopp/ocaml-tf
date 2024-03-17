@@ -7,13 +7,13 @@ type azurerm_storage_account_network_rules__timeouts
 type azurerm_storage_account_network_rules
 
 val azurerm_storage_account_network_rules :
-  ?bypass:string list ->
-  ?id:string ->
-  ?ip_rules:string list ->
-  ?virtual_network_subnet_ids:string list ->
+  ?bypass:string prop list ->
+  ?id:string prop ->
+  ?ip_rules:string prop list ->
+  ?virtual_network_subnet_ids:string prop list ->
   ?timeouts:azurerm_storage_account_network_rules__timeouts ->
-  default_action:string ->
-  storage_account_id:string ->
+  default_action:string prop ->
+  storage_account_id:string prop ->
   private_link_access:
     azurerm_storage_account_network_rules__private_link_access list ->
   string ->

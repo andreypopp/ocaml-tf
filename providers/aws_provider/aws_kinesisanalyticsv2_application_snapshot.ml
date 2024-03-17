@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_kinesisanalyticsv2_application_snapshot__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_kinesisanalyticsv2_application_snapshot__timeouts *)
 
 type aws_kinesisanalyticsv2_application_snapshot = {
-  application_name : string;  (** application_name *)
-  id : string option; [@option]  (** id *)
-  snapshot_name : string;  (** snapshot_name *)
+  application_name : string prop;  (** application_name *)
+  id : string prop option; [@option]  (** id *)
+  snapshot_name : string prop;  (** snapshot_name *)
   timeouts :
     aws_kinesisanalyticsv2_application_snapshot__timeouts option;
 }

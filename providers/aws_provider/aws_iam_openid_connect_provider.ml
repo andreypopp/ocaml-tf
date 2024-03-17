@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_iam_openid_connect_provider = {
-  client_id_list : string list;  (** client_id_list *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  client_id_list : string prop list;  (** client_id_list *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  thumbprint_list : string list;  (** thumbprint_list *)
-  url : string;  (** url *)
+  thumbprint_list : string prop list;  (** thumbprint_list *)
+  url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
 (** aws_iam_openid_connect_provider *)

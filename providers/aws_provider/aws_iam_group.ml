@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_iam_group = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  path : string option; [@option]  (** path *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  path : string prop option; [@option]  (** path *)
 }
 [@@deriving yojson_of]
 (** aws_iam_group *)

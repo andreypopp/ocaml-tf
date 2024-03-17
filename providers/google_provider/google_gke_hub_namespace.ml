@@ -5,34 +5,36 @@
 open! Tf.Prelude
 
 type google_gke_hub_namespace__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_gke_hub_namespace__timeouts *)
 
-type google_gke_hub_namespace__state = { code : string  (** code *) }
+type google_gke_hub_namespace__state = {
+  code : string prop;  (** code *)
+}
 [@@deriving yojson_of]
 
 type google_gke_hub_namespace = {
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Labels for this Namespace.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  namespace_labels : (string * string) list option; [@option]
+  namespace_labels : (string * string prop) list option; [@option]
       (** Namespace-level cluster namespace labels. These labels are applied
 to the related namespace of the member clusters bound to the parent
 Scope. Scope-level labels ('namespace_labels' in the Fleet Scope
 resource) take precedence over Namespace-level labels if they share
 a key. Keys and values must be Kubernetes-conformant. *)
-  project : string option; [@option]  (** project *)
-  scope : string;  (** The name of the Scope instance. *)
-  scope_id : string;  (** Id of the scope *)
-  scope_namespace_id : string;
+  project : string prop option; [@option]  (** project *)
+  scope : string prop;  (** The name of the Scope instance. *)
+  scope_id : string prop;  (** Id of the scope *)
+  scope_namespace_id : string prop;
       (** The client-provided identifier of the namespace. *)
   timeouts : google_gke_hub_namespace__timeouts option;
 }

@@ -10,19 +10,19 @@ type google_bigquery_analytics_hub_listing__timeouts
 type google_bigquery_analytics_hub_listing
 
 val google_bigquery_analytics_hub_listing :
-  ?categories:string list ->
-  ?description:string ->
-  ?documentation:string ->
-  ?icon:string ->
-  ?id:string ->
-  ?primary_contact:string ->
-  ?project:string ->
-  ?request_access:string ->
+  ?categories:string prop list ->
+  ?description:string prop ->
+  ?documentation:string prop ->
+  ?icon:string prop ->
+  ?id:string prop ->
+  ?primary_contact:string prop ->
+  ?project:string prop ->
+  ?request_access:string prop ->
   ?timeouts:google_bigquery_analytics_hub_listing__timeouts ->
-  data_exchange_id:string ->
-  display_name:string ->
-  listing_id:string ->
-  location:string ->
+  data_exchange_id:string prop ->
+  display_name:string prop ->
+  listing_id:string prop ->
+  location:string prop ->
   bigquery_dataset:
     google_bigquery_analytics_hub_listing__bigquery_dataset list ->
   data_provider:

@@ -6,10 +6,10 @@ type google_compute_firewall_policy__timeouts
 type google_compute_firewall_policy
 
 val google_compute_firewall_policy :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:google_compute_firewall_policy__timeouts ->
-  parent:string ->
-  short_name:string ->
+  parent:string prop ->
+  short_name:string prop ->
   string ->
   unit

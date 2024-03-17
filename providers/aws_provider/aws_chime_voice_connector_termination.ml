@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_chime_voice_connector_termination = {
-  calling_regions : string list;  (** calling_regions *)
-  cidr_allow_list : string list;  (** cidr_allow_list *)
-  cps_limit : float option; [@option]  (** cps_limit *)
-  default_phone_number : string option; [@option]
+  calling_regions : string prop list;  (** calling_regions *)
+  cidr_allow_list : string prop list;  (** cidr_allow_list *)
+  cps_limit : float prop option; [@option]  (** cps_limit *)
+  default_phone_number : string prop option; [@option]
       (** default_phone_number *)
-  disabled : bool option; [@option]  (** disabled *)
-  id : string option; [@option]  (** id *)
-  voice_connector_id : string;  (** voice_connector_id *)
+  disabled : bool prop option; [@option]  (** disabled *)
+  id : string prop option; [@option]  (** id *)
+  voice_connector_id : string prop;  (** voice_connector_id *)
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_termination *)

@@ -9,17 +9,17 @@ type azurerm_data_factory_dataset_json__timeouts
 type azurerm_data_factory_dataset_json
 
 val azurerm_data_factory_dataset_json :
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?description:string ->
-  ?encoding:string ->
-  ?folder:string ->
-  ?id:string ->
-  ?parameters:(string * string) list ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?encoding:string prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
   ?timeouts:azurerm_data_factory_dataset_json__timeouts ->
-  data_factory_id:string ->
-  linked_service_name:string ->
-  name:string ->
+  data_factory_id:string prop ->
+  linked_service_name:string prop ->
+  name:string prop ->
   azure_blob_storage_location:
     azurerm_data_factory_dataset_json__azure_blob_storage_location
     list ->

@@ -5,50 +5,51 @@
 open! Tf.Prelude
 
 type aws_apprunner_service__encryption_configuration = {
-  kms_key : string;  (** kms_key *)
+  kms_key : string prop;  (** kms_key *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_service__encryption_configuration *)
 
 type aws_apprunner_service__health_check_configuration = {
-  healthy_threshold : float option; [@option]
+  healthy_threshold : float prop option; [@option]
       (** healthy_threshold *)
-  interval : float option; [@option]  (** interval *)
-  path : string option; [@option]  (** path *)
-  protocol : string option; [@option]  (** protocol *)
-  timeout : float option; [@option]  (** timeout *)
-  unhealthy_threshold : float option; [@option]
+  interval : float prop option; [@option]  (** interval *)
+  path : string prop option; [@option]  (** path *)
+  protocol : string prop option; [@option]  (** protocol *)
+  timeout : float prop option; [@option]  (** timeout *)
+  unhealthy_threshold : float prop option; [@option]
       (** unhealthy_threshold *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_service__health_check_configuration *)
 
 type aws_apprunner_service__instance_configuration = {
-  cpu : string option; [@option]  (** cpu *)
-  instance_role_arn : string option; [@option]
+  cpu : string prop option; [@option]  (** cpu *)
+  instance_role_arn : string prop option; [@option]
       (** instance_role_arn *)
-  memory : string option; [@option]  (** memory *)
+  memory : string prop option; [@option]  (** memory *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_service__instance_configuration *)
 
 type aws_apprunner_service__network_configuration__egress_configuration = {
-  egress_type : string option; [@option]  (** egress_type *)
-  vpc_connector_arn : string option; [@option]
+  egress_type : string prop option; [@option]  (** egress_type *)
+  vpc_connector_arn : string prop option; [@option]
       (** vpc_connector_arn *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_service__network_configuration__egress_configuration *)
 
 type aws_apprunner_service__network_configuration__ingress_configuration = {
-  is_publicly_accessible : bool option; [@option]
+  is_publicly_accessible : bool prop option; [@option]
       (** is_publicly_accessible *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_service__network_configuration__ingress_configuration *)
 
 type aws_apprunner_service__network_configuration = {
-  ip_address_type : string option; [@option]  (** ip_address_type *)
+  ip_address_type : string prop option; [@option]
+      (** ip_address_type *)
   egress_configuration :
     aws_apprunner_service__network_configuration__egress_configuration
     list;
@@ -60,37 +61,39 @@ type aws_apprunner_service__network_configuration = {
 (** aws_apprunner_service__network_configuration *)
 
 type aws_apprunner_service__observability_configuration = {
-  observability_configuration_arn : string option; [@option]
+  observability_configuration_arn : string prop option; [@option]
       (** observability_configuration_arn *)
-  observability_enabled : bool;  (** observability_enabled *)
+  observability_enabled : bool prop;  (** observability_enabled *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_service__observability_configuration *)
 
 type aws_apprunner_service__source_configuration__authentication_configuration = {
-  access_role_arn : string option; [@option]  (** access_role_arn *)
-  connection_arn : string option; [@option]  (** connection_arn *)
+  access_role_arn : string prop option; [@option]
+      (** access_role_arn *)
+  connection_arn : string prop option; [@option]
+      (** connection_arn *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_service__source_configuration__authentication_configuration *)
 
 type aws_apprunner_service__source_configuration__code_repository__code_configuration__code_configuration_values = {
-  build_command : string option; [@option]  (** build_command *)
-  port : string option; [@option]  (** port *)
-  runtime : string;  (** runtime *)
-  runtime_environment_secrets : (string * string) list option;
+  build_command : string prop option; [@option]  (** build_command *)
+  port : string prop option; [@option]  (** port *)
+  runtime : string prop;  (** runtime *)
+  runtime_environment_secrets : (string * string prop) list option;
       [@option]
       (** runtime_environment_secrets *)
-  runtime_environment_variables : (string * string) list option;
+  runtime_environment_variables : (string * string prop) list option;
       [@option]
       (** runtime_environment_variables *)
-  start_command : string option; [@option]  (** start_command *)
+  start_command : string prop option; [@option]  (** start_command *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_service__source_configuration__code_repository__code_configuration__code_configuration_values *)
 
 type aws_apprunner_service__source_configuration__code_repository__code_configuration = {
-  configuration_source : string;  (** configuration_source *)
+  configuration_source : string prop;  (** configuration_source *)
   code_configuration_values :
     aws_apprunner_service__source_configuration__code_repository__code_configuration__code_configuration_values
     list;
@@ -99,15 +102,15 @@ type aws_apprunner_service__source_configuration__code_repository__code_configur
 (** aws_apprunner_service__source_configuration__code_repository__code_configuration *)
 
 type aws_apprunner_service__source_configuration__code_repository__source_code_version = {
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_service__source_configuration__code_repository__source_code_version *)
 
 type aws_apprunner_service__source_configuration__code_repository = {
-  repository_url : string;  (** repository_url *)
-  source_directory : string option; [@option]
+  repository_url : string prop;  (** repository_url *)
+  source_directory : string prop option; [@option]
       (** source_directory *)
   code_configuration :
     aws_apprunner_service__source_configuration__code_repository__code_configuration
@@ -120,21 +123,21 @@ type aws_apprunner_service__source_configuration__code_repository = {
 (** aws_apprunner_service__source_configuration__code_repository *)
 
 type aws_apprunner_service__source_configuration__image_repository__image_configuration = {
-  port : string option; [@option]  (** port *)
-  runtime_environment_secrets : (string * string) list option;
+  port : string prop option; [@option]  (** port *)
+  runtime_environment_secrets : (string * string prop) list option;
       [@option]
       (** runtime_environment_secrets *)
-  runtime_environment_variables : (string * string) list option;
+  runtime_environment_variables : (string * string prop) list option;
       [@option]
       (** runtime_environment_variables *)
-  start_command : string option; [@option]  (** start_command *)
+  start_command : string prop option; [@option]  (** start_command *)
 }
 [@@deriving yojson_of]
 (** aws_apprunner_service__source_configuration__image_repository__image_configuration *)
 
 type aws_apprunner_service__source_configuration__image_repository = {
-  image_identifier : string;  (** image_identifier *)
-  image_repository_type : string;  (** image_repository_type *)
+  image_identifier : string prop;  (** image_identifier *)
+  image_repository_type : string prop;  (** image_repository_type *)
   image_configuration :
     aws_apprunner_service__source_configuration__image_repository__image_configuration
     list;
@@ -143,7 +146,7 @@ type aws_apprunner_service__source_configuration__image_repository = {
 (** aws_apprunner_service__source_configuration__image_repository *)
 
 type aws_apprunner_service__source_configuration = {
-  auto_deployments_enabled : bool option; [@option]
+  auto_deployments_enabled : bool prop option; [@option]
       (** auto_deployments_enabled *)
   authentication_configuration :
     aws_apprunner_service__source_configuration__authentication_configuration
@@ -158,12 +161,12 @@ type aws_apprunner_service__source_configuration = {
 (** aws_apprunner_service__source_configuration *)
 
 type aws_apprunner_service = {
-  auto_scaling_configuration_arn : string option; [@option]
+  auto_scaling_configuration_arn : string prop option; [@option]
       (** auto_scaling_configuration_arn *)
-  id : string option; [@option]  (** id *)
-  service_name : string;  (** service_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  service_name : string prop;  (** service_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   encryption_configuration :
     aws_apprunner_service__encryption_configuration list;

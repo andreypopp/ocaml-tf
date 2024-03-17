@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_vpc_endpoint_route_table_association
 
 val aws_vpc_endpoint_route_table_association :
-  ?id:string ->
-  route_table_id:string ->
-  vpc_endpoint_id:string ->
+  ?id:string prop ->
+  route_table_id:string prop ->
+  vpc_endpoint_id:string prop ->
   string ->
   unit

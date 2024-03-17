@@ -6,12 +6,12 @@ type google_compute_vpn_gateway__timeouts
 type google_compute_vpn_gateway
 
 val google_compute_vpn_gateway :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_compute_vpn_gateway__timeouts ->
-  name:string ->
-  network:string ->
+  name:string prop ->
+  network:string prop ->
   string ->
   unit

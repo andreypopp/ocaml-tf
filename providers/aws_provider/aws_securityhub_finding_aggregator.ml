@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_securityhub_finding_aggregator = {
-  id : string option; [@option]  (** id *)
-  linking_mode : string;  (** linking_mode *)
-  specified_regions : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  linking_mode : string prop;  (** linking_mode *)
+  specified_regions : string prop list option; [@option]
       (** specified_regions *)
 }
 [@@deriving yojson_of]

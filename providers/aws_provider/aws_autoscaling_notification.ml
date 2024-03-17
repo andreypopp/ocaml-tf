@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_autoscaling_notification = {
-  group_names : string list;  (** group_names *)
-  id : string option; [@option]  (** id *)
-  notifications : string list;  (** notifications *)
-  topic_arn : string;  (** topic_arn *)
+  group_names : string prop list;  (** group_names *)
+  id : string prop option; [@option]  (** id *)
+  notifications : string prop list;  (** notifications *)
+  topic_arn : string prop;  (** topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_autoscaling_notification *)

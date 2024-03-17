@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_config_aggregate_authorization = {
-  account_id : string;  (** account_id *)
-  id : string option; [@option]  (** id *)
-  region : string;  (** region *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  account_id : string prop;  (** account_id *)
+  id : string prop option; [@option]  (** id *)
+  region : string prop;  (** region *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_config_aggregate_authorization *)

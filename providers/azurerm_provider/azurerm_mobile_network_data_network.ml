@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_mobile_network_data_network__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mobile_network_data_network__timeouts *)
 
 type azurerm_mobile_network_data_network = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  mobile_network_id : string;  (** mobile_network_id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  mobile_network_id : string prop;  (** mobile_network_id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_mobile_network_data_network__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_vpc_endpoint_connection_notification = {
-  connection_events : string list;  (** connection_events *)
-  connection_notification_arn : string;
+  connection_events : string prop list;  (** connection_events *)
+  connection_notification_arn : string prop;
       (** connection_notification_arn *)
-  id : string option; [@option]  (** id *)
-  vpc_endpoint_id : string option; [@option]  (** vpc_endpoint_id *)
-  vpc_endpoint_service_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  vpc_endpoint_id : string prop option; [@option]
+      (** vpc_endpoint_id *)
+  vpc_endpoint_service_id : string prop option; [@option]
       (** vpc_endpoint_service_id *)
 }
 [@@deriving yojson_of]

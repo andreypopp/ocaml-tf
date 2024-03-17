@@ -6,13 +6,13 @@ type azurerm_automation_variable_object__timeouts
 type azurerm_automation_variable_object
 
 val azurerm_automation_variable_object :
-  ?description:string ->
-  ?encrypted:bool ->
-  ?id:string ->
-  ?value:string ->
+  ?description:string prop ->
+  ?encrypted:bool prop ->
+  ?id:string prop ->
+  ?value:string prop ->
   ?timeouts:azurerm_automation_variable_object__timeouts ->
-  automation_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  automation_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

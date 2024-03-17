@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type aws_elastic_beanstalk_application__appversion_lifecycle = {
-  delete_source_from_s3 : bool option; [@option]
+  delete_source_from_s3 : bool prop option; [@option]
       (** delete_source_from_s3 *)
-  max_age_in_days : float option; [@option]  (** max_age_in_days *)
-  max_count : float option; [@option]  (** max_count *)
-  service_role : string;  (** service_role *)
+  max_age_in_days : float prop option; [@option]
+      (** max_age_in_days *)
+  max_count : float prop option; [@option]  (** max_count *)
+  service_role : string prop;  (** service_role *)
 }
 [@@deriving yojson_of]
 (** aws_elastic_beanstalk_application__appversion_lifecycle *)
 
 type aws_elastic_beanstalk_application = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   appversion_lifecycle :
     aws_elastic_beanstalk_application__appversion_lifecycle list;

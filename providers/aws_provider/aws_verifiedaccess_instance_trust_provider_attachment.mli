@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_verifiedaccess_instance_trust_provider_attachment
 
 val aws_verifiedaccess_instance_trust_provider_attachment :
-  ?id:string ->
-  verifiedaccess_instance_id:string ->
-  verifiedaccess_trust_provider_id:string ->
+  ?id:string prop ->
+  verifiedaccess_instance_id:string prop ->
+  verifiedaccess_trust_provider_id:string prop ->
   string ->
   unit

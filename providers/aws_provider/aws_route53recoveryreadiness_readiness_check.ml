@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_route53recoveryreadiness_readiness_check__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoveryreadiness_readiness_check__timeouts *)
 
 type aws_route53recoveryreadiness_readiness_check = {
-  id : string option; [@option]  (** id *)
-  readiness_check_name : string;  (** readiness_check_name *)
-  resource_set_name : string;  (** resource_set_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  readiness_check_name : string prop;  (** readiness_check_name *)
+  resource_set_name : string prop;  (** resource_set_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts :
     aws_route53recoveryreadiness_readiness_check__timeouts option;

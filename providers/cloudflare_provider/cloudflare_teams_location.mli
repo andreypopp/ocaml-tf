@@ -6,10 +6,10 @@ type cloudflare_teams_location__networks
 type cloudflare_teams_location
 
 val cloudflare_teams_location :
-  ?client_default:bool ->
-  ?id:string ->
-  account_id:string ->
-  name:string ->
+  ?client_default:bool prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  name:string prop ->
   networks:cloudflare_teams_location__networks list ->
   string ->
   unit

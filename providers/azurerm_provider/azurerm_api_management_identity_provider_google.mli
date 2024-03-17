@@ -6,11 +6,11 @@ type azurerm_api_management_identity_provider_google__timeouts
 type azurerm_api_management_identity_provider_google
 
 val azurerm_api_management_identity_provider_google :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_api_management_identity_provider_google__timeouts ->
-  api_management_name:string ->
-  client_id:string ->
-  client_secret:string ->
-  resource_group_name:string ->
+  api_management_name:string prop ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

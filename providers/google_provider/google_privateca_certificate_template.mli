@@ -31,13 +31,13 @@ type google_privateca_certificate_template__timeouts
 type google_privateca_certificate_template
 
 val google_privateca_certificate_template :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_privateca_certificate_template__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   identity_constraints:
     google_privateca_certificate_template__identity_constraints list ->
   passthrough_extensions:

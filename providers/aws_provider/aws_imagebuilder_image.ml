@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_imagebuilder_image__image_scanning_configuration__ecr_configuration = {
-  container_tags : string list option; [@option]
+  container_tags : string prop list option; [@option]
       (** container_tags *)
-  repository_name : string option; [@option]  (** repository_name *)
+  repository_name : string prop option; [@option]
+      (** repository_name *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_image__image_scanning_configuration__ecr_configuration *)
 
 type aws_imagebuilder_image__image_scanning_configuration = {
-  image_scanning_enabled : bool option; [@option]
+  image_scanning_enabled : bool prop option; [@option]
       (** image_scanning_enabled *)
   ecr_configuration :
     aws_imagebuilder_image__image_scanning_configuration__ecr_configuration
@@ -23,31 +24,32 @@ type aws_imagebuilder_image__image_scanning_configuration = {
 (** aws_imagebuilder_image__image_scanning_configuration *)
 
 type aws_imagebuilder_image__image_tests_configuration = {
-  image_tests_enabled : bool option; [@option]
+  image_tests_enabled : bool prop option; [@option]
       (** image_tests_enabled *)
-  timeout_minutes : float option; [@option]  (** timeout_minutes *)
+  timeout_minutes : float prop option; [@option]
+      (** timeout_minutes *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_image__image_tests_configuration *)
 
 type aws_imagebuilder_image__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_image__timeouts *)
 
 type aws_imagebuilder_image__output_resources__containers = {
-  image_uris : string list;  (** image_uris *)
-  region : string;  (** region *)
+  image_uris : string prop list;  (** image_uris *)
+  region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
 
 type aws_imagebuilder_image__output_resources__amis = {
-  account_id : string;  (** account_id *)
-  description : string;  (** description *)
-  image : string;  (** image *)
-  name : string;  (** name *)
-  region : string;  (** region *)
+  account_id : string prop;  (** account_id *)
+  description : string prop;  (** description *)
+  image : string prop;  (** image *)
+  name : string prop;  (** name *)
+  region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
 
@@ -61,19 +63,19 @@ type aws_imagebuilder_image__output_resources = {
 [@@deriving yojson_of]
 
 type aws_imagebuilder_image = {
-  container_recipe_arn : string option; [@option]
+  container_recipe_arn : string prop option; [@option]
       (** container_recipe_arn *)
-  distribution_configuration_arn : string option; [@option]
+  distribution_configuration_arn : string prop option; [@option]
       (** distribution_configuration_arn *)
-  enhanced_image_metadata_enabled : bool option; [@option]
+  enhanced_image_metadata_enabled : bool prop option; [@option]
       (** enhanced_image_metadata_enabled *)
-  id : string option; [@option]  (** id *)
-  image_recipe_arn : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  image_recipe_arn : string prop option; [@option]
       (** image_recipe_arn *)
-  infrastructure_configuration_arn : string;
+  infrastructure_configuration_arn : string prop;
       (** infrastructure_configuration_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   image_scanning_configuration :
     aws_imagebuilder_image__image_scanning_configuration list;

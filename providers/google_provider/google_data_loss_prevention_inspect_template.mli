@@ -77,12 +77,12 @@ type google_data_loss_prevention_inspect_template__timeouts
 type google_data_loss_prevention_inspect_template
 
 val google_data_loss_prevention_inspect_template :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?template_id:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?template_id:string prop ->
   ?timeouts:google_data_loss_prevention_inspect_template__timeouts ->
-  parent:string ->
+  parent:string prop ->
   inspect_config:
     google_data_loss_prevention_inspect_template__inspect_config list ->
   string ->

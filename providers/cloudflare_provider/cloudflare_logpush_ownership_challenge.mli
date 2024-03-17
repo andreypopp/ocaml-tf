@@ -5,9 +5,9 @@ open! Tf.Prelude
 type cloudflare_logpush_ownership_challenge
 
 val cloudflare_logpush_ownership_challenge :
-  ?account_id:string ->
-  ?id:string ->
-  ?zone_id:string ->
-  destination_conf:string ->
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?zone_id:string prop ->
+  destination_conf:string prop ->
   string ->
   unit

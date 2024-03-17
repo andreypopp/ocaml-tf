@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_cloudfront_field_level_encryption_config__content_type_profile_config__content_type_profiles__items = {
-  content_type : string;  (** content_type *)
-  format : string;  (** format *)
-  profile_id : string option; [@option]  (** profile_id *)
+  content_type : string prop;  (** content_type *)
+  format : string prop;  (** format *)
+  profile_id : string prop option; [@option]  (** profile_id *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_field_level_encryption_config__content_type_profile_config__content_type_profiles__items *)
@@ -21,7 +21,7 @@ type aws_cloudfront_field_level_encryption_config__content_type_profile_config__
 (** aws_cloudfront_field_level_encryption_config__content_type_profile_config__content_type_profiles *)
 
 type aws_cloudfront_field_level_encryption_config__content_type_profile_config = {
-  forward_when_content_type_is_unknown : bool;
+  forward_when_content_type_is_unknown : bool prop;
       (** forward_when_content_type_is_unknown *)
   content_type_profiles :
     aws_cloudfront_field_level_encryption_config__content_type_profile_config__content_type_profiles
@@ -31,8 +31,8 @@ type aws_cloudfront_field_level_encryption_config__content_type_profile_config =
 (** aws_cloudfront_field_level_encryption_config__content_type_profile_config *)
 
 type aws_cloudfront_field_level_encryption_config__query_arg_profile_config__query_arg_profiles__items = {
-  profile_id : string;  (** profile_id *)
-  query_arg : string;  (** query_arg *)
+  profile_id : string prop;  (** profile_id *)
+  query_arg : string prop;  (** query_arg *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_field_level_encryption_config__query_arg_profile_config__query_arg_profiles__items *)
@@ -46,7 +46,7 @@ type aws_cloudfront_field_level_encryption_config__query_arg_profile_config__que
 (** aws_cloudfront_field_level_encryption_config__query_arg_profile_config__query_arg_profiles *)
 
 type aws_cloudfront_field_level_encryption_config__query_arg_profile_config = {
-  forward_when_query_arg_profile_is_unknown : bool;
+  forward_when_query_arg_profile_is_unknown : bool prop;
       (** forward_when_query_arg_profile_is_unknown *)
   query_arg_profiles :
     aws_cloudfront_field_level_encryption_config__query_arg_profile_config__query_arg_profiles
@@ -56,8 +56,8 @@ type aws_cloudfront_field_level_encryption_config__query_arg_profile_config = {
 (** aws_cloudfront_field_level_encryption_config__query_arg_profile_config *)
 
 type aws_cloudfront_field_level_encryption_config = {
-  comment : string option; [@option]  (** comment *)
-  id : string option; [@option]  (** id *)
+  comment : string prop option; [@option]  (** comment *)
+  id : string prop option; [@option]  (** id *)
   content_type_profile_config :
     aws_cloudfront_field_level_encryption_config__content_type_profile_config
     list;

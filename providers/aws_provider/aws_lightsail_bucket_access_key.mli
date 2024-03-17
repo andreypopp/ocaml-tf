@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_lightsail_bucket_access_key
 
 val aws_lightsail_bucket_access_key :
-  ?id:string -> bucket_name:string -> string -> unit
+  ?id:string prop -> bucket_name:string prop -> string -> unit

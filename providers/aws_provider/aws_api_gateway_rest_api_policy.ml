@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_api_gateway_rest_api_policy = {
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  rest_api_id : string;  (** rest_api_id *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  rest_api_id : string prop;  (** rest_api_id *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_rest_api_policy *)

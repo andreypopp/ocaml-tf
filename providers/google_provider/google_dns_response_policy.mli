@@ -8,11 +8,11 @@ type google_dns_response_policy__timeouts
 type google_dns_response_policy
 
 val google_dns_response_policy :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_dns_response_policy__timeouts ->
-  response_policy_name:string ->
+  response_policy_name:string prop ->
   gke_clusters:google_dns_response_policy__gke_clusters list ->
   networks:google_dns_response_policy__networks list ->
   string ->

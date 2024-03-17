@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_config_aggregate_authorization
 
 val aws_config_aggregate_authorization :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  account_id:string ->
-  region:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  account_id:string prop ->
+  region:string prop ->
   string ->
   unit

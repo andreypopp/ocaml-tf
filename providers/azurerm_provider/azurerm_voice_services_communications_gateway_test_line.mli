@@ -6,14 +6,14 @@ type azurerm_voice_services_communications_gateway_test_line__timeouts
 type azurerm_voice_services_communications_gateway_test_line
 
 val azurerm_voice_services_communications_gateway_test_line :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:
     azurerm_voice_services_communications_gateway_test_line__timeouts ->
-  location:string ->
-  name:string ->
-  phone_number:string ->
-  purpose:string ->
-  voice_services_communications_gateway_id:string ->
+  location:string prop ->
+  name:string prop ->
+  phone_number:string prop ->
+  purpose:string prop ->
+  voice_services_communications_gateway_id:string prop ->
   string ->
   unit

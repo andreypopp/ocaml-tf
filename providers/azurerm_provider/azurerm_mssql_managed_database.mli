@@ -8,11 +8,11 @@ type azurerm_mssql_managed_database__timeouts
 type azurerm_mssql_managed_database
 
 val azurerm_mssql_managed_database :
-  ?id:string ->
-  ?short_term_retention_days:float ->
+  ?id:string prop ->
+  ?short_term_retention_days:float prop ->
   ?timeouts:azurerm_mssql_managed_database__timeouts ->
-  managed_instance_id:string ->
-  name:string ->
+  managed_instance_id:string prop ->
+  name:string prop ->
   long_term_retention_policy:
     azurerm_mssql_managed_database__long_term_retention_policy list ->
   point_in_time_restore:

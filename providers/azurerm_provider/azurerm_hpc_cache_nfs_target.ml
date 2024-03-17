@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_hpc_cache_nfs_target__namespace_junction = {
-  access_policy_name : string option; [@option]
+  access_policy_name : string prop option; [@option]
       (** access_policy_name *)
-  namespace_path : string;  (** namespace_path *)
-  nfs_export : string;  (** nfs_export *)
-  target_path : string option; [@option]  (** target_path *)
+  namespace_path : string prop;  (** namespace_path *)
+  nfs_export : string prop;  (** nfs_export *)
+  target_path : string prop option; [@option]  (** target_path *)
 }
 [@@deriving yojson_of]
 (** azurerm_hpc_cache_nfs_target__namespace_junction *)
 
 type azurerm_hpc_cache_nfs_target__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_hpc_cache_nfs_target__timeouts *)
 
 type azurerm_hpc_cache_nfs_target = {
-  cache_name : string;  (** cache_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  target_host_name : string;  (** target_host_name *)
-  usage_model : string;  (** usage_model *)
-  verification_timer_in_seconds : float option; [@option]
+  cache_name : string prop;  (** cache_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  target_host_name : string prop;  (** target_host_name *)
+  usage_model : string prop;  (** usage_model *)
+  verification_timer_in_seconds : float prop option; [@option]
       (** verification_timer_in_seconds *)
-  write_back_timer_in_seconds : float option; [@option]
+  write_back_timer_in_seconds : float prop option; [@option]
       (** write_back_timer_in_seconds *)
   namespace_junction :
     azurerm_hpc_cache_nfs_target__namespace_junction list;

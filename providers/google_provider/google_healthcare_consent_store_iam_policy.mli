@@ -5,9 +5,9 @@ open! Tf.Prelude
 type google_healthcare_consent_store_iam_policy
 
 val google_healthcare_consent_store_iam_policy :
-  ?id:string ->
-  consent_store_id:string ->
-  dataset:string ->
-  policy_data:string ->
+  ?id:string prop ->
+  consent_store_id:string prop ->
+  dataset:string prop ->
+  policy_data:string prop ->
   string ->
   unit

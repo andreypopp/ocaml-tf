@@ -4,7 +4,9 @@
 
 open! Tf.Prelude
 
-type aws_route53_cidr_collection = { name : string  (** name *) }
+type aws_route53_cidr_collection = {
+  name : string prop;  (** name *)
+}
 [@@deriving yojson_of]
 (** aws_route53_cidr_collection *)
 

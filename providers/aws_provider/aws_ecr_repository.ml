@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type aws_ecr_repository__encryption_configuration = {
-  encryption_type : string option; [@option]  (** encryption_type *)
-  kms_key : string option; [@option]  (** kms_key *)
+  encryption_type : string prop option; [@option]
+      (** encryption_type *)
+  kms_key : string prop option; [@option]  (** kms_key *)
 }
 [@@deriving yojson_of]
 (** aws_ecr_repository__encryption_configuration *)
 
 type aws_ecr_repository__image_scanning_configuration = {
-  scan_on_push : bool;  (** scan_on_push *)
+  scan_on_push : bool prop;  (** scan_on_push *)
 }
 [@@deriving yojson_of]
 (** aws_ecr_repository__image_scanning_configuration *)
 
 type aws_ecr_repository__timeouts = {
-  delete : string option; [@option]  (** delete *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ecr_repository__timeouts *)
 
 type aws_ecr_repository = {
-  force_delete : bool option; [@option]  (** force_delete *)
-  id : string option; [@option]  (** id *)
-  image_tag_mutability : string option; [@option]
+  force_delete : bool prop option; [@option]  (** force_delete *)
+  id : string prop option; [@option]  (** id *)
+  image_tag_mutability : string prop option; [@option]
       (** image_tag_mutability *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   encryption_configuration :
     aws_ecr_repository__encryption_configuration list;

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type cloudflare_access_keys_configuration = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  key_rotation_interval_days : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  key_rotation_interval_days : float prop option; [@option]
       (** Number of days to trigger a rotation of the keys. *)
 }
 [@@deriving yojson_of]

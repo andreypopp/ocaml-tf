@@ -25,12 +25,12 @@ type aws_appautoscaling_policy__target_tracking_scaling_policy_configuration
 type aws_appautoscaling_policy
 
 val aws_appautoscaling_policy :
-  ?id:string ->
-  ?policy_type:string ->
-  name:string ->
-  resource_id:string ->
-  scalable_dimension:string ->
-  service_namespace:string ->
+  ?id:string prop ->
+  ?policy_type:string prop ->
+  name:string prop ->
+  resource_id:string prop ->
+  scalable_dimension:string prop ->
+  service_namespace:string prop ->
   step_scaling_policy_configuration:
     aws_appautoscaling_policy__step_scaling_policy_configuration list ->
   target_tracking_scaling_policy_configuration:

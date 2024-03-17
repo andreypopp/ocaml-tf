@@ -7,19 +7,19 @@ type azurerm_automation_schedule__timeouts
 type azurerm_automation_schedule
 
 val azurerm_automation_schedule :
-  ?description:string ->
-  ?expiry_time:string ->
-  ?id:string ->
-  ?interval:float ->
-  ?month_days:float list ->
-  ?start_time:string ->
-  ?timezone:string ->
-  ?week_days:string list ->
+  ?description:string prop ->
+  ?expiry_time:string prop ->
+  ?id:string prop ->
+  ?interval:float prop ->
+  ?month_days:float prop list ->
+  ?start_time:string prop ->
+  ?timezone:string prop ->
+  ?week_days:string prop list ->
   ?timeouts:azurerm_automation_schedule__timeouts ->
-  automation_account_name:string ->
-  frequency:string ->
-  name:string ->
-  resource_group_name:string ->
+  automation_account_name:string prop ->
+  frequency:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   monthly_occurrence:
     azurerm_automation_schedule__monthly_occurrence list ->
   string ->

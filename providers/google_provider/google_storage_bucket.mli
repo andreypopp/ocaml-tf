@@ -17,20 +17,20 @@ type google_storage_bucket__website
 type google_storage_bucket
 
 val google_storage_bucket :
-  ?default_event_based_hold:bool ->
-  ?enable_object_retention:bool ->
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?public_access_prevention:string ->
-  ?requester_pays:bool ->
-  ?rpo:string ->
-  ?storage_class:string ->
-  ?uniform_bucket_level_access:bool ->
+  ?default_event_based_hold:bool prop ->
+  ?enable_object_retention:bool prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?public_access_prevention:string prop ->
+  ?requester_pays:bool prop ->
+  ?rpo:string prop ->
+  ?storage_class:string prop ->
+  ?uniform_bucket_level_access:bool prop ->
   ?timeouts:google_storage_bucket__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   autoclass:google_storage_bucket__autoclass list ->
   cors:google_storage_bucket__cors list ->
   custom_placement_config:

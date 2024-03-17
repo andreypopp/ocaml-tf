@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_sesv2_dedicated_ip_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_sesv2_dedicated_ip_pool__timeouts *)
 
 type aws_sesv2_dedicated_ip_pool = {
-  id : string option; [@option]  (** id *)
-  pool_name : string;  (** pool_name *)
-  scaling_mode : string option; [@option]  (** scaling_mode *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  pool_name : string prop;  (** pool_name *)
+  scaling_mode : string prop option; [@option]  (** scaling_mode *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_sesv2_dedicated_ip_pool__timeouts option;
 }

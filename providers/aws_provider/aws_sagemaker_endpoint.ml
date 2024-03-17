@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type aws_sagemaker_endpoint__deployment_config__auto_rollback_configuration__alarms = {
-  alarm_name : string;  (** alarm_name *)
+  alarm_name : string prop;  (** alarm_name *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_endpoint__deployment_config__auto_rollback_configuration__alarms *)
@@ -19,22 +19,23 @@ type aws_sagemaker_endpoint__deployment_config__auto_rollback_configuration = {
 (** aws_sagemaker_endpoint__deployment_config__auto_rollback_configuration *)
 
 type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size = {
-  type_ : string; [@key "type"]  (** type *)
-  value : float;  (** value *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size *)
 
 type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size = {
-  type_ : string; [@key "type"]  (** type *)
-  value : float;  (** value *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size *)
 
 type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration = {
-  type_ : string; [@key "type"]  (** type *)
-  wait_interval_in_seconds : float;  (** wait_interval_in_seconds *)
+  type_ : string prop; [@key "type"]  (** type *)
+  wait_interval_in_seconds : float prop;
+      (** wait_interval_in_seconds *)
   canary_size :
     aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size
     list;
@@ -46,9 +47,9 @@ type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffi
 (** aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration *)
 
 type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy = {
-  maximum_execution_timeout_in_seconds : float option; [@option]
+  maximum_execution_timeout_in_seconds : float prop option; [@option]
       (** maximum_execution_timeout_in_seconds *)
-  termination_wait_in_seconds : float option; [@option]
+  termination_wait_in_seconds : float prop option; [@option]
       (** termination_wait_in_seconds *)
   traffic_routing_configuration :
     aws_sagemaker_endpoint__deployment_config__blue_green_update_policy__traffic_routing_configuration
@@ -58,23 +59,24 @@ type aws_sagemaker_endpoint__deployment_config__blue_green_update_policy = {
 (** aws_sagemaker_endpoint__deployment_config__blue_green_update_policy *)
 
 type aws_sagemaker_endpoint__deployment_config__rolling_update_policy__maximum_batch_size = {
-  type_ : string; [@key "type"]  (** type *)
-  value : float;  (** value *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_endpoint__deployment_config__rolling_update_policy__maximum_batch_size *)
 
 type aws_sagemaker_endpoint__deployment_config__rolling_update_policy__rollback_maximum_batch_size = {
-  type_ : string; [@key "type"]  (** type *)
-  value : float;  (** value *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_endpoint__deployment_config__rolling_update_policy__rollback_maximum_batch_size *)
 
 type aws_sagemaker_endpoint__deployment_config__rolling_update_policy = {
-  maximum_execution_timeout_in_seconds : float option; [@option]
+  maximum_execution_timeout_in_seconds : float prop option; [@option]
       (** maximum_execution_timeout_in_seconds *)
-  wait_interval_in_seconds : float;  (** wait_interval_in_seconds *)
+  wait_interval_in_seconds : float prop;
+      (** wait_interval_in_seconds *)
   maximum_batch_size :
     aws_sagemaker_endpoint__deployment_config__rolling_update_policy__maximum_batch_size
     list;
@@ -100,11 +102,11 @@ type aws_sagemaker_endpoint__deployment_config = {
 (** aws_sagemaker_endpoint__deployment_config *)
 
 type aws_sagemaker_endpoint = {
-  endpoint_config_name : string;  (** endpoint_config_name *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  endpoint_config_name : string prop;  (** endpoint_config_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   deployment_config : aws_sagemaker_endpoint__deployment_config list;
 }

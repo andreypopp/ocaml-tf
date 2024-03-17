@@ -5,20 +5,21 @@
 open! Tf.Prelude
 
 type cloudflare_static_route = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  colo_names : string list option; [@option]
+  colo_names : string prop list option; [@option]
       (** List of Cloudflare colocation regions for this static route. *)
-  colo_regions : string list option; [@option]
+  colo_regions : string prop list option; [@option]
       (** List of Cloudflare colocation names for this static route. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of the static route. *)
-  id : string option; [@option]  (** id *)
-  nexthop : string;
+  id : string prop option; [@option]  (** id *)
+  nexthop : string prop;
       (** The nexthop IP address where traffic will be routed to. *)
-  prefix : string;  (** Your network prefix using CIDR notation. *)
-  priority : float;  (** The priority for the static route. *)
-  weight : float option; [@option]
+  prefix : string prop;
+      (** Your network prefix using CIDR notation. *)
+  priority : float prop;  (** The priority for the static route. *)
+  weight : float prop option; [@option]
       (** The optional weight for ECMP routes. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

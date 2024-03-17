@@ -7,12 +7,12 @@ type kubernetes_secret_v1__timeouts
 type kubernetes_secret_v1
 
 val kubernetes_secret_v1 :
-  ?binary_data:(string * string) list ->
-  ?data:(string * string) list ->
-  ?id:string ->
-  ?immutable:bool ->
-  ?type_:string ->
-  ?wait_for_service_account_token:bool ->
+  ?binary_data:(string * string prop) list ->
+  ?data:(string * string prop) list ->
+  ?id:string prop ->
+  ?immutable:bool prop ->
+  ?type_:string prop ->
+  ?wait_for_service_account_token:bool prop ->
   ?timeouts:kubernetes_secret_v1__timeouts ->
   metadata:kubernetes_secret_v1__metadata list ->
   string ->

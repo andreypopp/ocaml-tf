@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type google_compute_project_metadata__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_project_metadata__timeouts *)
 
 type google_compute_project_metadata = {
-  id : string option; [@option]  (** id *)
-  metadata : (string * string) list;
+  id : string prop option; [@option]  (** id *)
+  metadata : (string * string prop) list;
       (** A series of key value pairs. *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   timeouts : google_compute_project_metadata__timeouts option;
 }

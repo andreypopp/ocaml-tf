@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_query_definition = {
-  id : string option; [@option]  (** id *)
-  log_group_names : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  log_group_names : string prop list option; [@option]
       (** log_group_names *)
-  name : string;  (** name *)
-  query_string : string;  (** query_string *)
+  name : string prop;  (** name *)
+  query_string : string prop;  (** query_string *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_query_definition *)

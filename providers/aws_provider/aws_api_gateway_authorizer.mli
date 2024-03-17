@@ -5,15 +5,15 @@ open! Tf.Prelude
 type aws_api_gateway_authorizer
 
 val aws_api_gateway_authorizer :
-  ?authorizer_credentials:string ->
-  ?authorizer_result_ttl_in_seconds:float ->
-  ?authorizer_uri:string ->
-  ?id:string ->
-  ?identity_source:string ->
-  ?identity_validation_expression:string ->
-  ?provider_arns:string list ->
-  ?type_:string ->
-  name:string ->
-  rest_api_id:string ->
+  ?authorizer_credentials:string prop ->
+  ?authorizer_result_ttl_in_seconds:float prop ->
+  ?authorizer_uri:string prop ->
+  ?id:string prop ->
+  ?identity_source:string prop ->
+  ?identity_validation_expression:string prop ->
+  ?provider_arns:string prop list ->
+  ?type_:string prop ->
+  name:string prop ->
+  rest_api_id:string prop ->
   string ->
   unit

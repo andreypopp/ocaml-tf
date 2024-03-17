@@ -6,14 +6,14 @@ type azurerm_api_management_group__timeouts
 type azurerm_api_management_group
 
 val azurerm_api_management_group :
-  ?description:string ->
-  ?external_id:string ->
-  ?id:string ->
-  ?type_:string ->
+  ?description:string prop ->
+  ?external_id:string prop ->
+  ?id:string prop ->
+  ?type_:string prop ->
   ?timeouts:azurerm_api_management_group__timeouts ->
-  api_management_name:string ->
-  display_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  api_management_name:string prop ->
+  display_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

@@ -8,7 +8,7 @@ type kubernetes_horizontal_pod_autoscaler_v1__spec
 type kubernetes_horizontal_pod_autoscaler_v1
 
 val kubernetes_horizontal_pod_autoscaler_v1 :
-  ?id:string ->
+  ?id:string prop ->
   metadata:kubernetes_horizontal_pod_autoscaler_v1__metadata list ->
   spec:kubernetes_horizontal_pod_autoscaler_v1__spec list ->
   string ->

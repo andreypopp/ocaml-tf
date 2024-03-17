@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_inspector_resource_group = {
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list;  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list;  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_inspector_resource_group *)

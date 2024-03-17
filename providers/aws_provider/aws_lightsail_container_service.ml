@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_lightsail_container_service__private_registry_access__ecr_image_puller_role = {
-  is_active : bool option; [@option]  (** is_active *)
-  principal_arn : string;  (** principal_arn *)
+  is_active : bool prop option; [@option]  (** is_active *)
+  principal_arn : string prop;  (** principal_arn *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_container_service__private_registry_access__ecr_image_puller_role *)
@@ -20,8 +20,8 @@ type aws_lightsail_container_service__private_registry_access = {
 (** aws_lightsail_container_service__private_registry_access *)
 
 type aws_lightsail_container_service__public_domain_names__certificate = {
-  certificate_name : string;  (** certificate_name *)
-  domain_names : string list;  (** domain_names *)
+  certificate_name : string prop;  (** certificate_name *)
+  domain_names : string prop list;  (** domain_names *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_container_service__public_domain_names__certificate *)
@@ -35,21 +35,21 @@ type aws_lightsail_container_service__public_domain_names = {
 (** aws_lightsail_container_service__public_domain_names *)
 
 type aws_lightsail_container_service__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_container_service__timeouts *)
 
 type aws_lightsail_container_service = {
-  id : string option; [@option]  (** id *)
-  is_disabled : bool option; [@option]  (** is_disabled *)
-  name : string;  (** name *)
-  power : string;  (** power *)
-  scale : float;  (** scale *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  is_disabled : bool prop option; [@option]  (** is_disabled *)
+  name : string prop;  (** name *)
+  power : string prop;  (** power *)
+  scale : float prop;  (** scale *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   private_registry_access :
     aws_lightsail_container_service__private_registry_access list;

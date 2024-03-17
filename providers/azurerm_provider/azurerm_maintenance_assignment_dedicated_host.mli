@@ -6,10 +6,10 @@ type azurerm_maintenance_assignment_dedicated_host__timeouts
 type azurerm_maintenance_assignment_dedicated_host
 
 val azurerm_maintenance_assignment_dedicated_host :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_maintenance_assignment_dedicated_host__timeouts ->
-  dedicated_host_id:string ->
-  location:string ->
-  maintenance_configuration_id:string ->
+  dedicated_host_id:string prop ->
+  location:string prop ->
+  maintenance_configuration_id:string prop ->
   string ->
   unit

@@ -17,17 +17,17 @@ type azurerm_cosmosdb_sql_container__unique_key
 type azurerm_cosmosdb_sql_container
 
 val azurerm_cosmosdb_sql_container :
-  ?analytical_storage_ttl:float ->
-  ?default_ttl:float ->
-  ?id:string ->
-  ?partition_key_version:float ->
-  ?throughput:float ->
+  ?analytical_storage_ttl:float prop ->
+  ?default_ttl:float prop ->
+  ?id:string prop ->
+  ?partition_key_version:float prop ->
+  ?throughput:float prop ->
   ?timeouts:azurerm_cosmosdb_sql_container__timeouts ->
-  account_name:string ->
-  database_name:string ->
-  name:string ->
-  partition_key_path:string ->
-  resource_group_name:string ->
+  account_name:string prop ->
+  database_name:string prop ->
+  name:string prop ->
+  partition_key_path:string prop ->
+  resource_group_name:string prop ->
   autoscale_settings:
     azurerm_cosmosdb_sql_container__autoscale_settings list ->
   conflict_resolution_policy:

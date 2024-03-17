@@ -5,32 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_media_asset_filter__presentation_time_range = {
-  end_in_units : float option; [@option]  (** end_in_units *)
-  force_end : bool option; [@option]  (** force_end *)
-  live_backoff_in_units : float option; [@option]
+  end_in_units : float prop option; [@option]  (** end_in_units *)
+  force_end : bool prop option; [@option]  (** force_end *)
+  live_backoff_in_units : float prop option; [@option]
       (** live_backoff_in_units *)
-  presentation_window_in_units : float option; [@option]
+  presentation_window_in_units : float prop option; [@option]
       (** presentation_window_in_units *)
-  start_in_units : float option; [@option]  (** start_in_units *)
-  unit_timescale_in_miliseconds : float option; [@option]
+  start_in_units : float prop option; [@option]
+      (** start_in_units *)
+  unit_timescale_in_miliseconds : float prop option; [@option]
       (** unit_timescale_in_miliseconds *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_asset_filter__presentation_time_range *)
 
 type azurerm_media_asset_filter__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_asset_filter__timeouts *)
 
 type azurerm_media_asset_filter__track_selection__condition = {
-  operation : string option; [@option]  (** operation *)
-  property : string option; [@option]  (** property *)
-  value : string option; [@option]  (** value *)
+  operation : string prop option; [@option]  (** operation *)
+  property : string prop option; [@option]  (** property *)
+  value : string prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_asset_filter__track_selection__condition *)
@@ -43,11 +44,11 @@ type azurerm_media_asset_filter__track_selection = {
 (** azurerm_media_asset_filter__track_selection *)
 
 type azurerm_media_asset_filter = {
-  asset_id : string;  (** asset_id *)
-  first_quality_bitrate : float option; [@option]
+  asset_id : string prop;  (** asset_id *)
+  first_quality_bitrate : float prop option; [@option]
       (** first_quality_bitrate *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   presentation_time_range :
     azurerm_media_asset_filter__presentation_time_range list;
   timeouts : azurerm_media_asset_filter__timeouts option;

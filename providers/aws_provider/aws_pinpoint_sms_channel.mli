@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_pinpoint_sms_channel
 
 val aws_pinpoint_sms_channel :
-  ?enabled:bool ->
-  ?id:string ->
-  ?sender_id:string ->
-  ?short_code:string ->
-  application_id:string ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?sender_id:string prop ->
+  ?short_code:string prop ->
+  application_id:string prop ->
   string ->
   unit

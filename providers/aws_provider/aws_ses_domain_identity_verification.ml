@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_ses_domain_identity_verification__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_ses_domain_identity_verification__timeouts *)
 
 type aws_ses_domain_identity_verification = {
-  domain : string;  (** domain *)
-  id : string option; [@option]  (** id *)
+  domain : string prop;  (** domain *)
+  id : string prop option; [@option]  (** id *)
   timeouts : aws_ses_domain_identity_verification__timeouts option;
 }
 [@@deriving yojson_of]

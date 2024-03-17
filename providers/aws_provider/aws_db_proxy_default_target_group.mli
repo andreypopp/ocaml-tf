@@ -7,9 +7,9 @@ type aws_db_proxy_default_target_group__timeouts
 type aws_db_proxy_default_target_group
 
 val aws_db_proxy_default_target_group :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_db_proxy_default_target_group__timeouts ->
-  db_proxy_name:string ->
+  db_proxy_name:string prop ->
   connection_pool_config:
     aws_db_proxy_default_target_group__connection_pool_config list ->
   string ->

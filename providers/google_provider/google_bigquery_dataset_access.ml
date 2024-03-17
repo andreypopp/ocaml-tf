@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type google_bigquery_dataset_access__dataset__dataset = {
-  dataset_id : string;
+  dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
-  project_id : string;
+  project_id : string prop;
       (** The ID of the project containing this table. *)
 }
 [@@deriving yojson_of]
 (** The dataset this entry applies to *)
 
 type google_bigquery_dataset_access__dataset = {
-  target_types : string list;
+  target_types : string prop list;
       (** Which resources in the dataset this entry applies to. Currently, only views are supported,
 but additional target types may be added in the future. Possible values: VIEWS *)
   dataset : google_bigquery_dataset_access__dataset__dataset list;
@@ -23,11 +23,11 @@ but additional target types may be added in the future. Possible values: VIEWS *
 (** Grants all resources of particular types in a particular dataset read access to the current dataset. *)
 
 type google_bigquery_dataset_access__routine = {
-  dataset_id : string;
+  dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
-  project_id : string;
+  project_id : string prop;
       (** The ID of the project containing this table. *)
-  routine_id : string;
+  routine_id : string prop;
       (** The ID of the routine. The ID must contain only letters (a-z,
 A-Z), numbers (0-9), or underscores (_). The maximum length
 is 256 characters. *)
@@ -40,18 +40,18 @@ set. If that routine is updated by any user, access to the routine
 needs to be granted again via an update operation. *)
 
 type google_bigquery_dataset_access__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_bigquery_dataset_access__timeouts *)
 
 type google_bigquery_dataset_access__view = {
-  dataset_id : string;
+  dataset_id : string prop;
       (** The ID of the dataset containing this table. *)
-  project_id : string;
+  project_id : string prop;
       (** The ID of the project containing this table. *)
-  table_id : string;
+  table_id : string prop;
       (** The ID of the table. The ID must contain only letters (a-z,
 A-Z), numbers (0-9), or underscores (_). The maximum length
 is 1,024 characters. *)
@@ -64,28 +64,28 @@ set. If that view is updated by any user, access to the view
 needs to be granted again via an update operation. *)
 
 type google_bigquery_dataset_access = {
-  dataset_id : string;
+  dataset_id : string prop;
       (** A unique ID for this dataset, without the project name. The ID
 must contain only letters (a-z, A-Z), numbers (0-9), or
 underscores (_). The maximum length is 1,024 characters. *)
-  domain : string option; [@option]
+  domain : string prop option; [@option]
       (** A domain to grant access to. Any users signed in with the
 domain specified will be granted the specified access *)
-  group_by_email : string option; [@option]
+  group_by_email : string prop option; [@option]
       (** An email address of a Google Group to grant access to. *)
-  iam_member : string option; [@option]
+  iam_member : string prop option; [@option]
       (** Some other type of member that appears in the IAM Policy but isn't a user,
 group, domain, or special group. For example: 'allUsers' *)
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  role : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  role : string prop option; [@option]
       (** Describes the rights granted to the user specified by the other
 member of the access object. Basic, predefined, and custom roles are
 supported. Predefined roles that have equivalent basic roles are
 swapped by the API to their basic counterparts, and will show a diff
 post-create. See
 [official docs](https://cloud.google.com/bigquery/docs/access-control). *)
-  special_group : string option; [@option]
+  special_group : string prop option; [@option]
       (** A special group to grant access to. Possible values include:
 
 
@@ -99,7 +99,7 @@ post-create. See
 
 
 * 'allAuthenticatedUsers': All authenticated BigQuery users. *)
-  user_by_email : string option; [@option]
+  user_by_email : string prop option; [@option]
       (** An email address of a user to grant access to. For example:
 fred@example.com *)
   dataset : google_bigquery_dataset_access__dataset list;

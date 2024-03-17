@@ -6,13 +6,13 @@ type aws_wafregional_rate_based_rule__predicate
 type aws_wafregional_rate_based_rule
 
 val aws_wafregional_rate_based_rule :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  metric_name:string ->
-  name:string ->
-  rate_key:string ->
-  rate_limit:float ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  metric_name:string prop ->
+  name:string prop ->
+  rate_key:string prop ->
+  rate_limit:float prop ->
   predicate:aws_wafregional_rate_based_rule__predicate list ->
   string ->
   unit

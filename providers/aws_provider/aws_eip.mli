@@ -6,18 +6,18 @@ type aws_eip__timeouts
 type aws_eip
 
 val aws_eip :
-  ?address:string ->
-  ?associate_with_private_ip:string ->
-  ?customer_owned_ipv4_pool:string ->
-  ?domain:string ->
-  ?id:string ->
-  ?instance:string ->
-  ?network_border_group:string ->
-  ?network_interface:string ->
-  ?public_ipv4_pool:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?vpc:bool ->
+  ?address:string prop ->
+  ?associate_with_private_ip:string prop ->
+  ?customer_owned_ipv4_pool:string prop ->
+  ?domain:string prop ->
+  ?id:string prop ->
+  ?instance:string prop ->
+  ?network_border_group:string prop ->
+  ?network_interface:string prop ->
+  ?public_ipv4_pool:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc:bool prop ->
   ?timeouts:aws_eip__timeouts ->
   string ->
   unit

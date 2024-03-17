@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type aws_ecs_cluster__configuration__execute_command_configuration__log_configuration = {
-  cloud_watch_encryption_enabled : bool option; [@option]
+  cloud_watch_encryption_enabled : bool prop option; [@option]
       (** cloud_watch_encryption_enabled *)
-  cloud_watch_log_group_name : string option; [@option]
+  cloud_watch_log_group_name : string prop option; [@option]
       (** cloud_watch_log_group_name *)
-  s3_bucket_encryption_enabled : bool option; [@option]
+  s3_bucket_encryption_enabled : bool prop option; [@option]
       (** s3_bucket_encryption_enabled *)
-  s3_bucket_name : string option; [@option]  (** s3_bucket_name *)
-  s3_key_prefix : string option; [@option]  (** s3_key_prefix *)
+  s3_bucket_name : string prop option; [@option]
+      (** s3_bucket_name *)
+  s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
 }
 [@@deriving yojson_of]
 (** aws_ecs_cluster__configuration__execute_command_configuration__log_configuration *)
 
 type aws_ecs_cluster__configuration__execute_command_configuration = {
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  logging : string option; [@option]  (** logging *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  logging : string prop option; [@option]  (** logging *)
   log_configuration :
     aws_ecs_cluster__configuration__execute_command_configuration__log_configuration
     list;
@@ -36,23 +37,23 @@ type aws_ecs_cluster__configuration = {
 (** aws_ecs_cluster__configuration *)
 
 type aws_ecs_cluster__service_connect_defaults = {
-  namespace : string;  (** namespace *)
+  namespace : string prop;  (** namespace *)
 }
 [@@deriving yojson_of]
 (** aws_ecs_cluster__service_connect_defaults *)
 
 type aws_ecs_cluster__setting = {
-  name : string;  (** name *)
-  value : string;  (** value *)
+  name : string prop;  (** name *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_ecs_cluster__setting *)
 
 type aws_ecs_cluster = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   configuration : aws_ecs_cluster__configuration list;
   service_connect_defaults :

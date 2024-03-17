@@ -8,16 +8,16 @@ type azurerm_vpn_gateway_nat_rule__timeouts
 type azurerm_vpn_gateway_nat_rule
 
 val azurerm_vpn_gateway_nat_rule :
-  ?external_address_space_mappings:string list ->
-  ?id:string ->
-  ?internal_address_space_mappings:string list ->
-  ?ip_configuration_id:string ->
-  ?mode:string ->
-  ?type_:string ->
+  ?external_address_space_mappings:string prop list ->
+  ?id:string prop ->
+  ?internal_address_space_mappings:string prop list ->
+  ?ip_configuration_id:string prop ->
+  ?mode:string prop ->
+  ?type_:string prop ->
   ?timeouts:azurerm_vpn_gateway_nat_rule__timeouts ->
-  name:string ->
-  resource_group_name:string ->
-  vpn_gateway_id:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  vpn_gateway_id:string prop ->
   external_mapping:
     azurerm_vpn_gateway_nat_rule__external_mapping list ->
   internal_mapping:

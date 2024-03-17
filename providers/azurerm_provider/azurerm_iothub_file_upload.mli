@@ -6,17 +6,17 @@ type azurerm_iothub_file_upload__timeouts
 type azurerm_iothub_file_upload
 
 val azurerm_iothub_file_upload :
-  ?authentication_type:string ->
-  ?default_ttl:string ->
-  ?id:string ->
-  ?identity_id:string ->
-  ?lock_duration:string ->
-  ?max_delivery_count:float ->
-  ?notifications_enabled:bool ->
-  ?sas_ttl:string ->
+  ?authentication_type:string prop ->
+  ?default_ttl:string prop ->
+  ?id:string prop ->
+  ?identity_id:string prop ->
+  ?lock_duration:string prop ->
+  ?max_delivery_count:float prop ->
+  ?notifications_enabled:bool prop ->
+  ?sas_ttl:string prop ->
   ?timeouts:azurerm_iothub_file_upload__timeouts ->
-  connection_string:string ->
-  container_name:string ->
-  iothub_id:string ->
+  connection_string:string prop ->
+  container_name:string prop ->
+  iothub_id:string prop ->
   string ->
   unit

@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_media_services_account__encryption__managed_identity = {
-  use_system_assigned_identity : bool option; [@option]
+  use_system_assigned_identity : bool prop option; [@option]
       (** use_system_assigned_identity *)
-  user_assigned_identity_id : string option; [@option]
+  user_assigned_identity_id : string prop option; [@option]
       (** user_assigned_identity_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_services_account__encryption__managed_identity *)
 
 type azurerm_media_services_account__encryption = {
-  current_key_identifier : string;  (** current_key_identifier *)
-  key_vault_key_identifier : string option; [@option]
+  current_key_identifier : string prop;
+      (** current_key_identifier *)
+  key_vault_key_identifier : string prop option; [@option]
       (** key_vault_key_identifier *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   managed_identity :
     azurerm_media_services_account__encryption__managed_identity list;
 }
@@ -25,33 +26,36 @@ type azurerm_media_services_account__encryption = {
 (** azurerm_media_services_account__encryption *)
 
 type azurerm_media_services_account__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_services_account__identity *)
 
 type azurerm_media_services_account__key_delivery_access_control = {
-  default_action : string option; [@option]  (** default_action *)
-  ip_allow_list : string list option; [@option]  (** ip_allow_list *)
+  default_action : string prop option; [@option]
+      (** default_action *)
+  ip_allow_list : string prop list option; [@option]
+      (** ip_allow_list *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_services_account__key_delivery_access_control *)
 
 type azurerm_media_services_account__storage_account__managed_identity = {
-  use_system_assigned_identity : bool option; [@option]
+  use_system_assigned_identity : bool prop option; [@option]
       (** use_system_assigned_identity *)
-  user_assigned_identity_id : string option; [@option]
+  user_assigned_identity_id : string prop option; [@option]
       (** user_assigned_identity_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_services_account__storage_account__managed_identity *)
 
 type azurerm_media_services_account__storage_account = {
-  id : string;  (** id *)
-  is_primary : bool option; [@option]  (** is_primary *)
+  id : string prop;  (** id *)
+  is_primary : bool prop option; [@option]  (** is_primary *)
   managed_identity :
     azurerm_media_services_account__storage_account__managed_identity
     list;
@@ -60,24 +64,24 @@ type azurerm_media_services_account__storage_account = {
 (** azurerm_media_services_account__storage_account *)
 
 type azurerm_media_services_account__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_media_services_account__timeouts *)
 
 type azurerm_media_services_account = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  storage_authentication_type : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  storage_authentication_type : string prop option; [@option]
       (** storage_authentication_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   encryption : azurerm_media_services_account__encryption list;
   identity : azurerm_media_services_account__identity list;
   key_delivery_access_control :

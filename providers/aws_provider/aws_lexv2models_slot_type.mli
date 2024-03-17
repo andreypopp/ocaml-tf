@@ -22,13 +22,13 @@ type aws_lexv2models_slot_type__value_selection_setting
 type aws_lexv2models_slot_type
 
 val aws_lexv2models_slot_type :
-  ?description:string ->
-  ?parent_slot_type_signature:string ->
+  ?description:string prop ->
+  ?parent_slot_type_signature:string prop ->
   ?timeouts:aws_lexv2models_slot_type__timeouts ->
-  bot_id:string ->
-  bot_version:string ->
-  locale_id:string ->
-  name:string ->
+  bot_id:string prop ->
+  bot_version:string prop ->
+  locale_id:string prop ->
+  name:string prop ->
   composite_slot_type_setting:
     aws_lexv2models_slot_type__composite_slot_type_setting list ->
   external_source_setting:

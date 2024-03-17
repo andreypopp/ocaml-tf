@@ -5,23 +5,25 @@
 open! Tf.Prelude
 
 type azurerm_key_vault_secret__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_secret__timeouts *)
 
 type azurerm_key_vault_secret = {
-  content_type : string option; [@option]  (** content_type *)
-  expiration_date : string option; [@option]  (** expiration_date *)
-  id : string option; [@option]  (** id *)
-  key_vault_id : string;  (** key_vault_id *)
-  name : string;  (** name *)
-  not_before_date : string option; [@option]  (** not_before_date *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  value : string;  (** value *)
+  content_type : string prop option; [@option]  (** content_type *)
+  expiration_date : string prop option; [@option]
+      (** expiration_date *)
+  id : string prop option; [@option]  (** id *)
+  key_vault_id : string prop;  (** key_vault_id *)
+  name : string prop;  (** name *)
+  not_before_date : string prop option; [@option]
+      (** not_before_date *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  value : string prop;  (** value *)
   timeouts : azurerm_key_vault_secret__timeouts option;
 }
 [@@deriving yojson_of]

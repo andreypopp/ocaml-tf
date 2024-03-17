@@ -5,25 +5,26 @@
 open! Tf.Prelude
 
 type azurerm_log_analytics_saved_search__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_log_analytics_saved_search__timeouts *)
 
 type azurerm_log_analytics_saved_search = {
-  category : string;  (** category *)
-  display_name : string;  (** display_name *)
-  function_alias : string option; [@option]  (** function_alias *)
-  function_parameters : string list option; [@option]
+  category : string prop;  (** category *)
+  display_name : string prop;  (** display_name *)
+  function_alias : string prop option; [@option]
+      (** function_alias *)
+  function_parameters : string prop list option; [@option]
       (** function_parameters *)
-  id : string option; [@option]  (** id *)
-  log_analytics_workspace_id : string;
+  id : string prop option; [@option]  (** id *)
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  name : string;  (** name *)
-  query : string;  (** query *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  name : string prop;  (** name *)
+  query : string prop;  (** query *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_log_analytics_saved_search__timeouts option;
 }
 [@@deriving yojson_of]

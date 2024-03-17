@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_acmpca_certificate_authority_certificate = {
-  certificate : string;  (** certificate *)
-  certificate_authority_arn : string;
+  certificate : string prop;  (** certificate *)
+  certificate_authority_arn : string prop;
       (** certificate_authority_arn *)
-  certificate_chain : string option; [@option]
+  certificate_chain : string prop option; [@option]
       (** certificate_chain *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_acmpca_certificate_authority_certificate *)

@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_vpc_network_performance_metric_subscription = {
-  destination : string;  (** destination *)
-  id : string option; [@option]  (** id *)
-  metric : string option; [@option]  (** metric *)
-  source : string;  (** source *)
-  statistic : string option; [@option]  (** statistic *)
+  destination : string prop;  (** destination *)
+  id : string prop option; [@option]  (** id *)
+  metric : string prop option; [@option]  (** metric *)
+  source : string prop;  (** source *)
+  statistic : string prop option; [@option]  (** statistic *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_network_performance_metric_subscription *)

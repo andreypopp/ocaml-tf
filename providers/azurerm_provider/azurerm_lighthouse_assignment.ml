@@ -5,18 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_lighthouse_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_lighthouse_assignment__timeouts *)
 
 type azurerm_lighthouse_assignment = {
-  id : string option; [@option]  (** id *)
-  lighthouse_definition_id : string;  (** lighthouse_definition_id *)
-  name : string option; [@option]  (** name *)
-  scope : string;  (** scope *)
+  id : string prop option; [@option]  (** id *)
+  lighthouse_definition_id : string prop;
+      (** lighthouse_definition_id *)
+  name : string prop option; [@option]  (** name *)
+  scope : string prop;  (** scope *)
   timeouts : azurerm_lighthouse_assignment__timeouts option;
 }
 [@@deriving yojson_of]

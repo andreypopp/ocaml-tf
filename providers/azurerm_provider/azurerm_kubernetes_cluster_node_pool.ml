@@ -5,93 +5,94 @@
 open! Tf.Prelude
 
 type azurerm_kubernetes_cluster_node_pool__kubelet_config = {
-  allowed_unsafe_sysctls : string list option; [@option]
+  allowed_unsafe_sysctls : string prop list option; [@option]
       (** allowed_unsafe_sysctls *)
-  container_log_max_line : float option; [@option]
+  container_log_max_line : float prop option; [@option]
       (** container_log_max_line *)
-  container_log_max_size_mb : float option; [@option]
+  container_log_max_size_mb : float prop option; [@option]
       (** container_log_max_size_mb *)
-  cpu_cfs_quota_enabled : bool option; [@option]
+  cpu_cfs_quota_enabled : bool prop option; [@option]
       (** cpu_cfs_quota_enabled *)
-  cpu_cfs_quota_period : string option; [@option]
+  cpu_cfs_quota_period : string prop option; [@option]
       (** cpu_cfs_quota_period *)
-  cpu_manager_policy : string option; [@option]
+  cpu_manager_policy : string prop option; [@option]
       (** cpu_manager_policy *)
-  image_gc_high_threshold : float option; [@option]
+  image_gc_high_threshold : float prop option; [@option]
       (** image_gc_high_threshold *)
-  image_gc_low_threshold : float option; [@option]
+  image_gc_low_threshold : float prop option; [@option]
       (** image_gc_low_threshold *)
-  pod_max_pid : float option; [@option]  (** pod_max_pid *)
-  topology_manager_policy : string option; [@option]
+  pod_max_pid : float prop option; [@option]  (** pod_max_pid *)
+  topology_manager_policy : string prop option; [@option]
       (** topology_manager_policy *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_node_pool__kubelet_config *)
 
 type azurerm_kubernetes_cluster_node_pool__linux_os_config__sysctl_config = {
-  fs_aio_max_nr : float option; [@option]  (** fs_aio_max_nr *)
-  fs_file_max : float option; [@option]  (** fs_file_max *)
-  fs_inotify_max_user_watches : float option; [@option]
+  fs_aio_max_nr : float prop option; [@option]  (** fs_aio_max_nr *)
+  fs_file_max : float prop option; [@option]  (** fs_file_max *)
+  fs_inotify_max_user_watches : float prop option; [@option]
       (** fs_inotify_max_user_watches *)
-  fs_nr_open : float option; [@option]  (** fs_nr_open *)
-  kernel_threads_max : float option; [@option]
+  fs_nr_open : float prop option; [@option]  (** fs_nr_open *)
+  kernel_threads_max : float prop option; [@option]
       (** kernel_threads_max *)
-  net_core_netdev_max_backlog : float option; [@option]
+  net_core_netdev_max_backlog : float prop option; [@option]
       (** net_core_netdev_max_backlog *)
-  net_core_optmem_max : float option; [@option]
+  net_core_optmem_max : float prop option; [@option]
       (** net_core_optmem_max *)
-  net_core_rmem_default : float option; [@option]
+  net_core_rmem_default : float prop option; [@option]
       (** net_core_rmem_default *)
-  net_core_rmem_max : float option; [@option]
+  net_core_rmem_max : float prop option; [@option]
       (** net_core_rmem_max *)
-  net_core_somaxconn : float option; [@option]
+  net_core_somaxconn : float prop option; [@option]
       (** net_core_somaxconn *)
-  net_core_wmem_default : float option; [@option]
+  net_core_wmem_default : float prop option; [@option]
       (** net_core_wmem_default *)
-  net_core_wmem_max : float option; [@option]
+  net_core_wmem_max : float prop option; [@option]
       (** net_core_wmem_max *)
-  net_ipv4_ip_local_port_range_max : float option; [@option]
+  net_ipv4_ip_local_port_range_max : float prop option; [@option]
       (** net_ipv4_ip_local_port_range_max *)
-  net_ipv4_ip_local_port_range_min : float option; [@option]
+  net_ipv4_ip_local_port_range_min : float prop option; [@option]
       (** net_ipv4_ip_local_port_range_min *)
-  net_ipv4_neigh_default_gc_thresh1 : float option; [@option]
+  net_ipv4_neigh_default_gc_thresh1 : float prop option; [@option]
       (** net_ipv4_neigh_default_gc_thresh1 *)
-  net_ipv4_neigh_default_gc_thresh2 : float option; [@option]
+  net_ipv4_neigh_default_gc_thresh2 : float prop option; [@option]
       (** net_ipv4_neigh_default_gc_thresh2 *)
-  net_ipv4_neigh_default_gc_thresh3 : float option; [@option]
+  net_ipv4_neigh_default_gc_thresh3 : float prop option; [@option]
       (** net_ipv4_neigh_default_gc_thresh3 *)
-  net_ipv4_tcp_fin_timeout : float option; [@option]
+  net_ipv4_tcp_fin_timeout : float prop option; [@option]
       (** net_ipv4_tcp_fin_timeout *)
-  net_ipv4_tcp_keepalive_intvl : float option; [@option]
+  net_ipv4_tcp_keepalive_intvl : float prop option; [@option]
       (** net_ipv4_tcp_keepalive_intvl *)
-  net_ipv4_tcp_keepalive_probes : float option; [@option]
+  net_ipv4_tcp_keepalive_probes : float prop option; [@option]
       (** net_ipv4_tcp_keepalive_probes *)
-  net_ipv4_tcp_keepalive_time : float option; [@option]
+  net_ipv4_tcp_keepalive_time : float prop option; [@option]
       (** net_ipv4_tcp_keepalive_time *)
-  net_ipv4_tcp_max_syn_backlog : float option; [@option]
+  net_ipv4_tcp_max_syn_backlog : float prop option; [@option]
       (** net_ipv4_tcp_max_syn_backlog *)
-  net_ipv4_tcp_max_tw_buckets : float option; [@option]
+  net_ipv4_tcp_max_tw_buckets : float prop option; [@option]
       (** net_ipv4_tcp_max_tw_buckets *)
-  net_ipv4_tcp_tw_reuse : bool option; [@option]
+  net_ipv4_tcp_tw_reuse : bool prop option; [@option]
       (** net_ipv4_tcp_tw_reuse *)
-  net_netfilter_nf_conntrack_buckets : float option; [@option]
+  net_netfilter_nf_conntrack_buckets : float prop option; [@option]
       (** net_netfilter_nf_conntrack_buckets *)
-  net_netfilter_nf_conntrack_max : float option; [@option]
+  net_netfilter_nf_conntrack_max : float prop option; [@option]
       (** net_netfilter_nf_conntrack_max *)
-  vm_max_map_count : float option; [@option]  (** vm_max_map_count *)
-  vm_swappiness : float option; [@option]  (** vm_swappiness *)
-  vm_vfs_cache_pressure : float option; [@option]
+  vm_max_map_count : float prop option; [@option]
+      (** vm_max_map_count *)
+  vm_swappiness : float prop option; [@option]  (** vm_swappiness *)
+  vm_vfs_cache_pressure : float prop option; [@option]
       (** vm_vfs_cache_pressure *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_node_pool__linux_os_config__sysctl_config *)
 
 type azurerm_kubernetes_cluster_node_pool__linux_os_config = {
-  swap_file_size_mb : float option; [@option]
+  swap_file_size_mb : float prop option; [@option]
       (** swap_file_size_mb *)
-  transparent_huge_page_defrag : string option; [@option]
+  transparent_huge_page_defrag : string prop option; [@option]
       (** transparent_huge_page_defrag *)
-  transparent_huge_page_enabled : string option; [@option]
+  transparent_huge_page_enabled : string prop option; [@option]
       (** transparent_huge_page_enabled *)
   sysctl_config :
     azurerm_kubernetes_cluster_node_pool__linux_os_config__sysctl_config
@@ -101,17 +102,17 @@ type azurerm_kubernetes_cluster_node_pool__linux_os_config = {
 (** azurerm_kubernetes_cluster_node_pool__linux_os_config *)
 
 type azurerm_kubernetes_cluster_node_pool__node_network_profile__allowed_host_ports = {
-  port_end : float option; [@option]  (** port_end *)
-  port_start : float option; [@option]  (** port_start *)
-  protocol : string option; [@option]  (** protocol *)
+  port_end : float prop option; [@option]  (** port_end *)
+  port_start : float prop option; [@option]  (** port_start *)
+  protocol : string prop option; [@option]  (** protocol *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_node_pool__node_network_profile__allowed_host_ports *)
 
 type azurerm_kubernetes_cluster_node_pool__node_network_profile = {
-  application_security_group_ids : string list option; [@option]
+  application_security_group_ids : string prop list option; [@option]
       (** application_security_group_ids *)
-  node_public_ip_tags : (string * string) list option; [@option]
+  node_public_ip_tags : (string * string prop) list option; [@option]
       (** node_public_ip_tags *)
   allowed_host_ports :
     azurerm_kubernetes_cluster_node_pool__node_network_profile__allowed_host_ports
@@ -121,80 +122,86 @@ type azurerm_kubernetes_cluster_node_pool__node_network_profile = {
 (** azurerm_kubernetes_cluster_node_pool__node_network_profile *)
 
 type azurerm_kubernetes_cluster_node_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_node_pool__timeouts *)
 
 type azurerm_kubernetes_cluster_node_pool__upgrade_settings = {
-  max_surge : string;  (** max_surge *)
+  max_surge : string prop;  (** max_surge *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_node_pool__upgrade_settings *)
 
 type azurerm_kubernetes_cluster_node_pool__windows_profile = {
-  outbound_nat_enabled : bool option; [@option]
+  outbound_nat_enabled : bool prop option; [@option]
       (** outbound_nat_enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_kubernetes_cluster_node_pool__windows_profile *)
 
 type azurerm_kubernetes_cluster_node_pool = {
-  capacity_reservation_group_id : string option; [@option]
+  capacity_reservation_group_id : string prop option; [@option]
       (** capacity_reservation_group_id *)
-  custom_ca_trust_enabled : bool option; [@option]
+  custom_ca_trust_enabled : bool prop option; [@option]
       (** custom_ca_trust_enabled *)
-  enable_auto_scaling : bool option; [@option]
+  enable_auto_scaling : bool prop option; [@option]
       (** enable_auto_scaling *)
-  enable_host_encryption : bool option; [@option]
+  enable_host_encryption : bool prop option; [@option]
       (** enable_host_encryption *)
-  enable_node_public_ip : bool option; [@option]
+  enable_node_public_ip : bool prop option; [@option]
       (** enable_node_public_ip *)
-  eviction_policy : string option; [@option]  (** eviction_policy *)
-  fips_enabled : bool option; [@option]  (** fips_enabled *)
-  gpu_instance : string option; [@option]  (** gpu_instance *)
-  host_group_id : string option; [@option]  (** host_group_id *)
-  id : string option; [@option]  (** id *)
-  kubelet_disk_type : string option; [@option]
+  eviction_policy : string prop option; [@option]
+      (** eviction_policy *)
+  fips_enabled : bool prop option; [@option]  (** fips_enabled *)
+  gpu_instance : string prop option; [@option]  (** gpu_instance *)
+  host_group_id : string prop option; [@option]  (** host_group_id *)
+  id : string prop option; [@option]  (** id *)
+  kubelet_disk_type : string prop option; [@option]
       (** kubelet_disk_type *)
-  kubernetes_cluster_id : string;  (** kubernetes_cluster_id *)
-  max_count : float option; [@option]  (** max_count *)
-  max_pods : float option; [@option]  (** max_pods *)
-  message_of_the_day : string option; [@option]
+  kubernetes_cluster_id : string prop;  (** kubernetes_cluster_id *)
+  max_count : float prop option; [@option]  (** max_count *)
+  max_pods : float prop option; [@option]  (** max_pods *)
+  message_of_the_day : string prop option; [@option]
       (** message_of_the_day *)
-  min_count : float option; [@option]  (** min_count *)
-  mode : string option; [@option]  (** mode *)
-  name : string;  (** name *)
-  node_count : float option; [@option]  (** node_count *)
-  node_labels : (string * string) list option; [@option]
+  min_count : float prop option; [@option]  (** min_count *)
+  mode : string prop option; [@option]  (** mode *)
+  name : string prop;  (** name *)
+  node_count : float prop option; [@option]  (** node_count *)
+  node_labels : (string * string prop) list option; [@option]
       (** node_labels *)
-  node_public_ip_prefix_id : string option; [@option]
+  node_public_ip_prefix_id : string prop option; [@option]
       (** node_public_ip_prefix_id *)
-  node_taints : string list option; [@option]  (** node_taints *)
-  orchestrator_version : string option; [@option]
+  node_taints : string prop list option; [@option]
+      (** node_taints *)
+  orchestrator_version : string prop option; [@option]
       (** orchestrator_version *)
-  os_disk_size_gb : float option; [@option]  (** os_disk_size_gb *)
-  os_disk_type : string option; [@option]  (** os_disk_type *)
-  os_sku : string option; [@option]  (** os_sku *)
-  os_type : string option; [@option]  (** os_type *)
-  pod_subnet_id : string option; [@option]  (** pod_subnet_id *)
-  priority : string option; [@option]  (** priority *)
-  proximity_placement_group_id : string option; [@option]
+  os_disk_size_gb : float prop option; [@option]
+      (** os_disk_size_gb *)
+  os_disk_type : string prop option; [@option]  (** os_disk_type *)
+  os_sku : string prop option; [@option]  (** os_sku *)
+  os_type : string prop option; [@option]  (** os_type *)
+  pod_subnet_id : string prop option; [@option]  (** pod_subnet_id *)
+  priority : string prop option; [@option]  (** priority *)
+  proximity_placement_group_id : string prop option; [@option]
       (** proximity_placement_group_id *)
-  scale_down_mode : string option; [@option]  (** scale_down_mode *)
-  snapshot_id : string option; [@option]  (** snapshot_id *)
-  spot_max_price : float option; [@option]  (** spot_max_price *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  ultra_ssd_enabled : bool option; [@option]
+  scale_down_mode : string prop option; [@option]
+      (** scale_down_mode *)
+  snapshot_id : string prop option; [@option]  (** snapshot_id *)
+  spot_max_price : float prop option; [@option]
+      (** spot_max_price *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  ultra_ssd_enabled : bool prop option; [@option]
       (** ultra_ssd_enabled *)
-  vm_size : string;  (** vm_size *)
-  vnet_subnet_id : string option; [@option]  (** vnet_subnet_id *)
-  workload_runtime : string option; [@option]
+  vm_size : string prop;  (** vm_size *)
+  vnet_subnet_id : string prop option; [@option]
+      (** vnet_subnet_id *)
+  workload_runtime : string prop option; [@option]
       (** workload_runtime *)
-  zones : string list option; [@option]  (** zones *)
+  zones : string prop list option; [@option]  (** zones *)
   kubelet_config :
     azurerm_kubernetes_cluster_node_pool__kubelet_config list;
   linux_os_config :

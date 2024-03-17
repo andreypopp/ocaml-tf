@@ -10,13 +10,13 @@ type aws_config_config_rule__source
 type aws_config_config_rule
 
 val aws_config_config_rule :
-  ?description:string ->
-  ?id:string ->
-  ?input_parameters:string ->
-  ?maximum_execution_frequency:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?input_parameters:string prop ->
+  ?maximum_execution_frequency:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   evaluation_mode:aws_config_config_rule__evaluation_mode list ->
   scope:aws_config_config_rule__scope list ->
   source:aws_config_config_rule__source list ->

@@ -8,17 +8,17 @@ type azurerm_new_relic_monitor__user
 type azurerm_new_relic_monitor
 
 val azurerm_new_relic_monitor :
-  ?account_creation_source:string ->
-  ?account_id:string ->
-  ?id:string ->
-  ?ingestion_key:string ->
-  ?org_creation_source:string ->
-  ?organization_id:string ->
-  ?user_id:string ->
+  ?account_creation_source:string prop ->
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?ingestion_key:string prop ->
+  ?org_creation_source:string prop ->
+  ?organization_id:string prop ->
+  ?user_id:string prop ->
   ?timeouts:azurerm_new_relic_monitor__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   plan:azurerm_new_relic_monitor__plan list ->
   user:azurerm_new_relic_monitor__user list ->
   string ->

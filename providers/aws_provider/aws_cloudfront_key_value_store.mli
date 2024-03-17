@@ -6,8 +6,8 @@ type aws_cloudfront_key_value_store__timeouts
 type aws_cloudfront_key_value_store
 
 val aws_cloudfront_key_value_store :
-  ?comment:string ->
+  ?comment:string prop ->
   ?timeouts:aws_cloudfront_key_value_store__timeouts ->
-  name:string ->
+  name:string prop ->
   string ->
   unit

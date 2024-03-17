@@ -14,13 +14,13 @@ type google_datastream_connection_profile__timeouts
 type google_datastream_connection_profile
 
 val google_datastream_connection_profile :
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_datastream_connection_profile__timeouts ->
-  connection_profile_id:string ->
-  display_name:string ->
-  location:string ->
+  connection_profile_id:string prop ->
+  display_name:string prop ->
+  location:string prop ->
   bigquery_profile:
     google_datastream_connection_profile__bigquery_profile list ->
   forward_ssh_connectivity:

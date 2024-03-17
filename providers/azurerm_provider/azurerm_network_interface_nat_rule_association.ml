@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_network_interface_nat_rule_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_network_interface_nat_rule_association__timeouts *)
 
 type azurerm_network_interface_nat_rule_association = {
-  id : string option; [@option]  (** id *)
-  ip_configuration_name : string;  (** ip_configuration_name *)
-  nat_rule_id : string;  (** nat_rule_id *)
-  network_interface_id : string;  (** network_interface_id *)
+  id : string prop option; [@option]  (** id *)
+  ip_configuration_name : string prop;  (** ip_configuration_name *)
+  nat_rule_id : string prop;  (** nat_rule_id *)
+  network_interface_id : string prop;  (** network_interface_id *)
   timeouts :
     azurerm_network_interface_nat_rule_association__timeouts option;
 }

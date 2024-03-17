@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type cloudflare_hostname_tls_setting_ciphers = {
-  hostname : string;
+  hostname : string prop;
       (** Hostname that belongs to this zone name. **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  ports : float list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ports : float prop list option; [@option]
       (** Ports to use within the IP rule. *)
-  value : string list;  (** Ciphers suites value. *)
-  zone_id : string;
+  value : string prop list;  (** Ciphers suites value. *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

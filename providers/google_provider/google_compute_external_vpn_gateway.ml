@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type google_compute_external_vpn_gateway__interface = {
-  id : float option; [@option]
+  id : float prop option; [@option]
       (** The numeric ID for this interface. Allowed values are based on the redundancy type
 of this external VPN gateway
 * '0 - SINGLE_IP_INTERNALLY_REDUNDANT'
 * '0, 1 - TWO_IPS_REDUNDANCY'
 * '0, 1, 2, 3 - FOUR_IPS_REDUNDANCY' *)
-  ip_address : string option; [@option]
+  ip_address : string prop option; [@option]
       (** IP address of the interface in the external VPN gateway.
 Only IPv4 is supported. This IP address can be either from
 your on-premise gateway or another Cloud provider's VPN gateway,
@@ -21,23 +21,23 @@ it cannot be an IP address from Google Compute Engine. *)
 (** A list of interfaces on this external VPN gateway. *)
 
 type google_compute_external_vpn_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_external_vpn_gateway__timeouts *)
 
 type google_compute_external_vpn_gateway = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Labels for the external VPN gateway resource.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string;
+  name : string prop;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
 RFC1035.  Specifically, the name must be 1-63 characters long and
@@ -45,8 +45,8 @@ match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means
 the first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
-  project : string option; [@option]  (** project *)
-  redundancy_type : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  redundancy_type : string prop option; [@option]
       (** Indicates the redundancy type of this external VPN gateway Possible values: [FOUR_IPS_REDUNDANCY, SINGLE_IP_INTERNALLY_REDUNDANT, TWO_IPS_REDUNDANCY] *)
   interface : google_compute_external_vpn_gateway__interface list;
   timeouts : google_compute_external_vpn_gateway__timeouts option;

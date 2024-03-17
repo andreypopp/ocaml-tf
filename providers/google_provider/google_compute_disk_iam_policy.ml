@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_compute_disk_iam_policy = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  zone : string option; [@option]  (** zone *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  zone : string prop option; [@option]  (** zone *)
 }
 [@@deriving yojson_of]
 (** google_compute_disk_iam_policy *)

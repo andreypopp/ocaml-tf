@@ -7,8 +7,8 @@ type aws_iot_topic_rule_destination__vpc_configuration
 type aws_iot_topic_rule_destination
 
 val aws_iot_topic_rule_destination :
-  ?enabled:bool ->
-  ?id:string ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
   ?timeouts:aws_iot_topic_rule_destination__timeouts ->
   vpc_configuration:
     aws_iot_topic_rule_destination__vpc_configuration list ->

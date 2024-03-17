@@ -5,41 +5,42 @@
 open! Tf.Prelude
 
 type azurerm_netapp_account__active_directory = {
-  dns_servers : string list;  (** dns_servers *)
-  domain : string;  (** domain *)
-  organizational_unit : string option; [@option]
+  dns_servers : string prop list;  (** dns_servers *)
+  domain : string prop;  (** domain *)
+  organizational_unit : string prop option; [@option]
       (** organizational_unit *)
-  password : string;  (** password *)
-  smb_server_name : string;  (** smb_server_name *)
-  username : string;  (** username *)
+  password : string prop;  (** password *)
+  smb_server_name : string prop;  (** smb_server_name *)
+  username : string prop;  (** username *)
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_account__active_directory *)
 
 type azurerm_netapp_account__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_account__identity *)
 
 type azurerm_netapp_account__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_netapp_account__timeouts *)
 
 type azurerm_netapp_account = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   active_directory : azurerm_netapp_account__active_directory list;
   identity : azurerm_netapp_account__identity list;
   timeouts : azurerm_netapp_account__timeouts option;

@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type aws_sagemaker_feature_group__feature_definition = {
-  feature_name : string option; [@option]  (** feature_name *)
-  feature_type : string option; [@option]  (** feature_type *)
+  feature_name : string prop option; [@option]  (** feature_name *)
+  feature_type : string prop option; [@option]  (** feature_type *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_feature_group__feature_definition *)
 
 type aws_sagemaker_feature_group__offline_store_config__data_catalog_config = {
-  catalog : string option; [@option]  (** catalog *)
-  database : string option; [@option]  (** database *)
-  table_name : string option; [@option]  (** table_name *)
+  catalog : string prop option; [@option]  (** catalog *)
+  database : string prop option; [@option]  (** database *)
+  table_name : string prop option; [@option]  (** table_name *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_feature_group__offline_store_config__data_catalog_config *)
 
 type aws_sagemaker_feature_group__offline_store_config__s3_storage_config = {
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  resolved_output_s3_uri : string option; [@option]
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  resolved_output_s3_uri : string prop option; [@option]
       (** resolved_output_s3_uri *)
-  s3_uri : string;  (** s3_uri *)
+  s3_uri : string prop;  (** s3_uri *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_feature_group__offline_store_config__s3_storage_config *)
 
 type aws_sagemaker_feature_group__offline_store_config = {
-  disable_glue_table_creation : bool option; [@option]
+  disable_glue_table_creation : bool prop option; [@option]
       (** disable_glue_table_creation *)
-  table_format : string option; [@option]  (** table_format *)
+  table_format : string prop option; [@option]  (** table_format *)
   data_catalog_config :
     aws_sagemaker_feature_group__offline_store_config__data_catalog_config
     list;
@@ -43,22 +43,22 @@ type aws_sagemaker_feature_group__offline_store_config = {
 (** aws_sagemaker_feature_group__offline_store_config *)
 
 type aws_sagemaker_feature_group__online_store_config__security_config = {
-  kms_key_id : string option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_feature_group__online_store_config__security_config *)
 
 type aws_sagemaker_feature_group__online_store_config__ttl_duration = {
-  unit : string option; [@option]  (** unit *)
-  value : float option; [@option]  (** value *)
+  unit : string prop option; [@option]  (** unit *)
+  value : float prop option; [@option]  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_feature_group__online_store_config__ttl_duration *)
 
 type aws_sagemaker_feature_group__online_store_config = {
-  enable_online_store : bool option; [@option]
+  enable_online_store : bool prop option; [@option]
       (** enable_online_store *)
-  storage_type : string option; [@option]  (** storage_type *)
+  storage_type : string prop option; [@option]  (** storage_type *)
   security_config :
     aws_sagemaker_feature_group__online_store_config__security_config
     list;
@@ -70,15 +70,16 @@ type aws_sagemaker_feature_group__online_store_config = {
 (** aws_sagemaker_feature_group__online_store_config *)
 
 type aws_sagemaker_feature_group = {
-  description : string option; [@option]  (** description *)
-  event_time_feature_name : string;  (** event_time_feature_name *)
-  feature_group_name : string;  (** feature_group_name *)
-  id : string option; [@option]  (** id *)
-  record_identifier_feature_name : string;
+  description : string prop option; [@option]  (** description *)
+  event_time_feature_name : string prop;
+      (** event_time_feature_name *)
+  feature_group_name : string prop;  (** feature_group_name *)
+  id : string prop option; [@option]  (** id *)
+  record_identifier_feature_name : string prop;
       (** record_identifier_feature_name *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   feature_definition :
     aws_sagemaker_feature_group__feature_definition list;

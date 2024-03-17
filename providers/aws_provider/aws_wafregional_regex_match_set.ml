@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_wafregional_regex_match_set__regex_match_tuple__field_to_match = {
-  data : string option; [@option]  (** data *)
-  type_ : string; [@key "type"]  (** type *)
+  data : string prop option; [@option]  (** data *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_wafregional_regex_match_set__regex_match_tuple__field_to_match *)
 
 type aws_wafregional_regex_match_set__regex_match_tuple = {
-  regex_pattern_set_id : string;  (** regex_pattern_set_id *)
-  text_transformation : string;  (** text_transformation *)
+  regex_pattern_set_id : string prop;  (** regex_pattern_set_id *)
+  text_transformation : string prop;  (** text_transformation *)
   field_to_match :
     aws_wafregional_regex_match_set__regex_match_tuple__field_to_match
     list;
@@ -22,8 +22,8 @@ type aws_wafregional_regex_match_set__regex_match_tuple = {
 (** aws_wafregional_regex_match_set__regex_match_tuple *)
 
 type aws_wafregional_regex_match_set = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   regex_match_tuple :
     aws_wafregional_regex_match_set__regex_match_tuple list;
 }

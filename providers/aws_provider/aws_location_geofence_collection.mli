@@ -6,12 +6,12 @@ type aws_location_geofence_collection__timeouts
 type aws_location_geofence_collection
 
 val aws_location_geofence_collection :
-  ?description:string ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_location_geofence_collection__timeouts ->
-  collection_name:string ->
+  collection_name:string prop ->
   string ->
   unit

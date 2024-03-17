@@ -5,12 +5,12 @@ open! Tf.Prelude
 type aws_location_tracker
 
 val aws_location_tracker :
-  ?description:string ->
-  ?id:string ->
-  ?kms_key_id:string ->
-  ?position_filtering:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  tracker_name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?position_filtering:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  tracker_name:string prop ->
   string ->
   unit

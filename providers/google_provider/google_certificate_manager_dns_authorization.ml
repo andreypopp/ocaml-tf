@@ -5,41 +5,41 @@
 open! Tf.Prelude
 
 type google_certificate_manager_dns_authorization__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_certificate_manager_dns_authorization__timeouts *)
 
 type google_certificate_manager_dns_authorization__dns_resource_record = {
-  data : string;  (** data *)
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  data : string prop;  (** data *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
 type google_certificate_manager_dns_authorization = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A human-readable description of the resource. *)
-  domain : string;
+  domain : string prop;
       (** A domain which is being authorized. A DnsAuthorization resource covers a
 single domain and its wildcard, e.g. authorization for example.com can
 be used to issue certificates for example.com and *.example.com. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** Set of label tags associated with the DNS Authorization resource.
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string option; [@option]
+  location : string prop option; [@option]
       (** The Certificate Manager location. If not specified, global is used. *)
-  name : string;
+  name : string prop;
       (** Name of the resource; provided by the client when the resource is created.
 The name must be 1-64 characters long, and match the regular expression [a-zA-Z][a-zA-Z0-9_-]* which means the first character must be a letter,
 and all following characters must be a dash, underscore, letter or digit. *)
-  project : string option; [@option]  (** project *)
-  type_ : string option; [@option] [@key "type"]
+  project : string prop option; [@option]  (** project *)
+  type_ : string prop option; [@option] [@key "type"]
       (** type of DNS authorization. If unset during the resource creation, FIXED_RECORD will
 be used for global resources, and PER_PROJECT_RECORD will be used for other locations.
 

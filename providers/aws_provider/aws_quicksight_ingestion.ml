@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_quicksight_ingestion = {
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  data_set_id: string;  (** data_set_id *)
-  ingestion_id: string;  (** ingestion_id *)
-  ingestion_type: string;  (** ingestion_type *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  data_set_id: string prop;  (** data_set_id *)
+  ingestion_id: string prop;  (** ingestion_id *)
+  ingestion_type: string prop;  (** ingestion_type *)
 } [@@deriving yojson_of]
 (** aws_quicksight_ingestion *)
 

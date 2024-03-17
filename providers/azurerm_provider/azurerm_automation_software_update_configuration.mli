@@ -22,15 +22,15 @@ type azurerm_automation_software_update_configuration__windows
 type azurerm_automation_software_update_configuration
 
 val azurerm_automation_software_update_configuration :
-  ?duration:string ->
-  ?id:string ->
-  ?non_azure_computer_names:string list ->
-  ?operating_system:string ->
-  ?virtual_machine_ids:string list ->
+  ?duration:string prop ->
+  ?id:string prop ->
+  ?non_azure_computer_names:string prop list ->
+  ?operating_system:string prop ->
+  ?virtual_machine_ids:string prop list ->
   ?timeouts:
     azurerm_automation_software_update_configuration__timeouts ->
-  automation_account_id:string ->
-  name:string ->
+  automation_account_id:string prop ->
+  name:string prop ->
   linux:azurerm_automation_software_update_configuration__linux list ->
   post_task:
     azurerm_automation_software_update_configuration__post_task list ->

@@ -5,30 +5,30 @@
 open! Tf.Prelude
 
 type aws_s3control_bucket_lifecycle_configuration__rule__abort_incomplete_multipart_upload = {
-  days_after_initiation : float;  (** days_after_initiation *)
+  days_after_initiation : float prop;  (** days_after_initiation *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_bucket_lifecycle_configuration__rule__abort_incomplete_multipart_upload *)
 
 type aws_s3control_bucket_lifecycle_configuration__rule__expiration = {
-  date : string option; [@option]  (** date *)
-  days : float option; [@option]  (** days *)
-  expired_object_delete_marker : bool option; [@option]
+  date : string prop option; [@option]  (** date *)
+  days : float prop option; [@option]  (** days *)
+  expired_object_delete_marker : bool prop option; [@option]
       (** expired_object_delete_marker *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_bucket_lifecycle_configuration__rule__expiration *)
 
 type aws_s3control_bucket_lifecycle_configuration__rule__filter = {
-  prefix : string option; [@option]  (** prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  prefix : string prop option; [@option]  (** prefix *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_bucket_lifecycle_configuration__rule__filter *)
 
 type aws_s3control_bucket_lifecycle_configuration__rule = {
-  id : string;  (** id *)
-  status : string option; [@option]  (** status *)
+  id : string prop;  (** id *)
+  status : string prop option; [@option]  (** status *)
   abort_incomplete_multipart_upload :
     aws_s3control_bucket_lifecycle_configuration__rule__abort_incomplete_multipart_upload
     list;
@@ -42,8 +42,8 @@ type aws_s3control_bucket_lifecycle_configuration__rule = {
 (** aws_s3control_bucket_lifecycle_configuration__rule *)
 
 type aws_s3control_bucket_lifecycle_configuration = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
   rule : aws_s3control_bucket_lifecycle_configuration__rule list;
 }
 [@@deriving yojson_of]

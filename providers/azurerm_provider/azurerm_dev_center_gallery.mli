@@ -6,10 +6,10 @@ type azurerm_dev_center_gallery__timeouts
 type azurerm_dev_center_gallery
 
 val azurerm_dev_center_gallery :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_dev_center_gallery__timeouts ->
-  dev_center_id:string ->
-  name:string ->
-  shared_gallery_id:string ->
+  dev_center_id:string prop ->
+  name:string prop ->
+  shared_gallery_id:string prop ->
   string ->
   unit

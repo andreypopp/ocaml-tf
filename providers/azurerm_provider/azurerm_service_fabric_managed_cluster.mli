@@ -18,21 +18,21 @@ type azurerm_service_fabric_managed_cluster__timeouts
 type azurerm_service_fabric_managed_cluster
 
 val azurerm_service_fabric_managed_cluster :
-  ?backup_service_enabled:bool ->
-  ?dns_name:string ->
-  ?dns_service_enabled:bool ->
-  ?id:string ->
-  ?password:string ->
-  ?sku:string ->
-  ?tags:(string * string) list ->
-  ?upgrade_wave:string ->
-  ?username:string ->
+  ?backup_service_enabled:bool prop ->
+  ?dns_name:string prop ->
+  ?dns_service_enabled:bool prop ->
+  ?id:string prop ->
+  ?password:string prop ->
+  ?sku:string prop ->
+  ?tags:(string * string prop) list ->
+  ?upgrade_wave:string prop ->
+  ?username:string prop ->
   ?timeouts:azurerm_service_fabric_managed_cluster__timeouts ->
-  client_connection_port:float ->
-  http_gateway_port:float ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  client_connection_port:float prop ->
+  http_gateway_port:float prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   authentication:
     azurerm_service_fabric_managed_cluster__authentication list ->
   custom_fabric_setting:

@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_mongo_user_definition__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_mongo_user_definition__timeouts *)
 
 type azurerm_cosmosdb_mongo_user_definition = {
-  cosmos_mongo_database_id : string;  (** cosmos_mongo_database_id *)
-  id : string option; [@option]  (** id *)
-  inherited_role_names : string list option; [@option]
+  cosmos_mongo_database_id : string prop;
+      (** cosmos_mongo_database_id *)
+  id : string prop option; [@option]  (** id *)
+  inherited_role_names : string prop list option; [@option]
       (** inherited_role_names *)
-  password : string;  (** password *)
-  username : string;  (** username *)
+  password : string prop;  (** password *)
+  username : string prop;  (** username *)
   timeouts : azurerm_cosmosdb_mongo_user_definition__timeouts option;
 }
 [@@deriving yojson_of]

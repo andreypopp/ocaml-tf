@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_ses_receipt_filter = {
-  cidr : string;  (** cidr *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  policy : string;  (** policy *)
+  cidr : string prop;  (** cidr *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_ses_receipt_filter *)

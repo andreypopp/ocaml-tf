@@ -5,33 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_machine_learning_synapse_spark__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_synapse_spark__identity *)
 
 type azurerm_machine_learning_synapse_spark__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_synapse_spark__timeouts *)
 
 type azurerm_machine_learning_synapse_spark = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  local_auth_enabled : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  local_auth_enabled : bool prop option; [@option]
       (** local_auth_enabled *)
-  location : string;  (** location *)
-  machine_learning_workspace_id : string;
+  location : string prop;  (** location *)
+  machine_learning_workspace_id : string prop;
       (** machine_learning_workspace_id *)
-  name : string;  (** name *)
-  synapse_spark_pool_id : string;  (** synapse_spark_pool_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  name : string prop;  (** name *)
+  synapse_spark_pool_id : string prop;  (** synapse_spark_pool_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   identity : azurerm_machine_learning_synapse_spark__identity list;
   timeouts : azurerm_machine_learning_synapse_spark__timeouts option;
 }

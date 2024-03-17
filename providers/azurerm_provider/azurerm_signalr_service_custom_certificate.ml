@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_signalr_service_custom_certificate__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_signalr_service_custom_certificate__timeouts *)
 
 type azurerm_signalr_service_custom_certificate = {
-  custom_certificate_id : string;  (** custom_certificate_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  signalr_service_id : string;  (** signalr_service_id *)
+  custom_certificate_id : string prop;  (** custom_certificate_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  signalr_service_id : string prop;  (** signalr_service_id *)
   timeouts :
     azurerm_signalr_service_custom_certificate__timeouts option;
 }

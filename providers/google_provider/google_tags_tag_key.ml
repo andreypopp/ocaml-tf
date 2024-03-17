@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type google_tags_tag_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_tags_tag_key__timeouts *)
 
 type google_tags_tag_key = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** User-assigned description of the TagKey. Must not exceed 256 characters. *)
-  id : string option; [@option]  (** id *)
-  parent : string;
+  id : string prop option; [@option]  (** id *)
+  parent : string prop;
       (** Input only. The resource name of the new TagKey's parent. Must be of the form organizations/{org_id} or projects/{project_id_or_number}. *)
-  purpose : string option; [@option]
+  purpose : string prop option; [@option]
       (** Optional. A purpose cannot be changed once set.
 
 A purpose denotes that this Tag is intended for use in policies of a specific policy engine, and will involve that policy engine in management operations involving this Tag. Possible values: [GCE_FIREWALL] *)
-  purpose_data : (string * string) list option; [@option]
+  purpose_data : (string * string prop) list option; [@option]
       (** Optional. Purpose data cannot be changed once set.
 
 Purpose data corresponds to the policy system that the tag is intended for. For example, the GCE_FIREWALL purpose expects data in the following format: 'network = <project-name>/<vpc-name>'. *)
-  short_name : string;
+  short_name : string prop;
       (** Input only. The user friendly name for a TagKey. The short name should be unique for TagKeys within the same tag namespace.
 
 The short name must be 1-63 characters, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), underscores (_), dots (.), and alphanumerics between. *)

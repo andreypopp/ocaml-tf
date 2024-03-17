@@ -5,33 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_storage_table__acl__access_policy = {
-  expiry : string;  (** expiry *)
-  permissions : string;  (** permissions *)
-  start : string;  (** start *)
+  expiry : string prop;  (** expiry *)
+  permissions : string prop;  (** permissions *)
+  start : string prop;  (** start *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_table__acl__access_policy *)
 
 type azurerm_storage_table__acl = {
-  id : string;  (** id *)
+  id : string prop;  (** id *)
   access_policy : azurerm_storage_table__acl__access_policy list;
 }
 [@@deriving yojson_of]
 (** azurerm_storage_table__acl *)
 
 type azurerm_storage_table__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_storage_table__timeouts *)
 
 type azurerm_storage_table = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  storage_account_name : string;  (** storage_account_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  storage_account_name : string prop;  (** storage_account_name *)
   acl : azurerm_storage_table__acl list;
   timeouts : azurerm_storage_table__timeouts option;
 }

@@ -11,8 +11,8 @@ let sys fmt =
 
 let synth output =
   let json =
-    let data = Data.(yojson_of_t !t) in
-    let resource = Resource.(yojson_of_t !t) in
+    let data = Data.yojson_of () in
+    let resource = Resource.yojson_of () in
     let assoc = [] in
     let assoc =
       match data with

@@ -5,47 +5,49 @@
 open! Tf.Prelude
 
 type aws_glue_classifier__csv_classifier = {
-  allow_single_column : bool option; [@option]
+  allow_single_column : bool prop option; [@option]
       (** allow_single_column *)
-  contains_header : string option; [@option]  (** contains_header *)
-  custom_datatype_configured : bool option; [@option]
+  contains_header : string prop option; [@option]
+      (** contains_header *)
+  custom_datatype_configured : bool prop option; [@option]
       (** custom_datatype_configured *)
-  custom_datatypes : string list option; [@option]
+  custom_datatypes : string prop list option; [@option]
       (** custom_datatypes *)
-  delimiter : string option; [@option]  (** delimiter *)
-  disable_value_trimming : bool option; [@option]
+  delimiter : string prop option; [@option]  (** delimiter *)
+  disable_value_trimming : bool prop option; [@option]
       (** disable_value_trimming *)
-  header : string list option; [@option]  (** header *)
-  quote_symbol : string option; [@option]  (** quote_symbol *)
-  serde : string option; [@option]  (** serde *)
+  header : string prop list option; [@option]  (** header *)
+  quote_symbol : string prop option; [@option]  (** quote_symbol *)
+  serde : string prop option; [@option]  (** serde *)
 }
 [@@deriving yojson_of]
 (** aws_glue_classifier__csv_classifier *)
 
 type aws_glue_classifier__grok_classifier = {
-  classification : string;  (** classification *)
-  custom_patterns : string option; [@option]  (** custom_patterns *)
-  grok_pattern : string;  (** grok_pattern *)
+  classification : string prop;  (** classification *)
+  custom_patterns : string prop option; [@option]
+      (** custom_patterns *)
+  grok_pattern : string prop;  (** grok_pattern *)
 }
 [@@deriving yojson_of]
 (** aws_glue_classifier__grok_classifier *)
 
 type aws_glue_classifier__json_classifier = {
-  json_path : string;  (** json_path *)
+  json_path : string prop;  (** json_path *)
 }
 [@@deriving yojson_of]
 (** aws_glue_classifier__json_classifier *)
 
 type aws_glue_classifier__xml_classifier = {
-  classification : string;  (** classification *)
-  row_tag : string;  (** row_tag *)
+  classification : string prop;  (** classification *)
+  row_tag : string prop;  (** row_tag *)
 }
 [@@deriving yojson_of]
 (** aws_glue_classifier__xml_classifier *)
 
 type aws_glue_classifier = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   csv_classifier : aws_glue_classifier__csv_classifier list;
   grok_classifier : aws_glue_classifier__grok_classifier list;
   json_classifier : aws_glue_classifier__json_classifier list;

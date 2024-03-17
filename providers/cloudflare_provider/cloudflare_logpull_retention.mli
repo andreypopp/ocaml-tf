@@ -5,4 +5,8 @@ open! Tf.Prelude
 type cloudflare_logpull_retention
 
 val cloudflare_logpull_retention :
-  ?id:string -> enabled:bool -> zone_id:string -> string -> unit
+  ?id:string prop ->
+  enabled:bool prop ->
+  zone_id:string prop ->
+  string ->
+  unit

@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_ec2_subnet_cidr_reservation = {
-  cidr_block : string;  (** cidr_block *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  reservation_type : string;  (** reservation_type *)
-  subnet_id : string;  (** subnet_id *)
+  cidr_block : string prop;  (** cidr_block *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  reservation_type : string prop;  (** reservation_type *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_subnet_cidr_reservation *)

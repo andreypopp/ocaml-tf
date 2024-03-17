@@ -6,16 +6,16 @@ type azurerm_app_service_certificate__timeouts
 type azurerm_app_service_certificate
 
 val azurerm_app_service_certificate :
-  ?app_service_plan_id:string ->
-  ?id:string ->
-  ?key_vault_id:string ->
-  ?key_vault_secret_id:string ->
-  ?password:string ->
-  ?pfx_blob:string ->
-  ?tags:(string * string) list ->
+  ?app_service_plan_id:string prop ->
+  ?id:string prop ->
+  ?key_vault_id:string prop ->
+  ?key_vault_secret_id:string prop ->
+  ?password:string prop ->
+  ?pfx_blob:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_app_service_certificate__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

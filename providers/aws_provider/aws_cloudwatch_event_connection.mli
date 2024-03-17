@@ -28,10 +28,10 @@ type aws_cloudwatch_event_connection__auth_parameters
 type aws_cloudwatch_event_connection
 
 val aws_cloudwatch_event_connection :
-  ?description:string ->
-  ?id:string ->
-  authorization_type:string ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  authorization_type:string prop ->
+  name:string prop ->
   auth_parameters:
     aws_cloudwatch_event_connection__auth_parameters list ->
   string ->

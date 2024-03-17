@@ -5,28 +5,29 @@
 open! Tf.Prelude
 
 type aws_servicecatalog_provisioning_artifact__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_servicecatalog_provisioning_artifact__timeouts *)
 
 type aws_servicecatalog_provisioning_artifact = {
-  accept_language : string option; [@option]  (** accept_language *)
-  active : bool option; [@option]  (** active *)
-  description : string option; [@option]  (** description *)
-  disable_template_validation : bool option; [@option]
+  accept_language : string prop option; [@option]
+      (** accept_language *)
+  active : bool prop option; [@option]  (** active *)
+  description : string prop option; [@option]  (** description *)
+  disable_template_validation : bool prop option; [@option]
       (** disable_template_validation *)
-  guidance : string option; [@option]  (** guidance *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  product_id : string;  (** product_id *)
-  template_physical_id : string option; [@option]
+  guidance : string prop option; [@option]  (** guidance *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  product_id : string prop;  (** product_id *)
+  template_physical_id : string prop option; [@option]
       (** template_physical_id *)
-  template_url : string option; [@option]  (** template_url *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  template_url : string prop option; [@option]  (** template_url *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   timeouts :
     aws_servicecatalog_provisioning_artifact__timeouts option;
 }

@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_controltower_control__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_controltower_control__timeouts *)
 
 type aws_controltower_control = {
-  control_identifier : string;  (** control_identifier *)
-  id : string option; [@option]  (** id *)
-  target_identifier : string;  (** target_identifier *)
+  control_identifier : string prop;  (** control_identifier *)
+  id : string prop option; [@option]  (** id *)
+  target_identifier : string prop;  (** target_identifier *)
   timeouts : aws_controltower_control__timeouts option;
 }
 [@@deriving yojson_of]

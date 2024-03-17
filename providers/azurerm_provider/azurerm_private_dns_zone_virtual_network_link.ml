@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_private_dns_zone_virtual_network_link__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_private_dns_zone_virtual_network_link__timeouts *)
 
 type azurerm_private_dns_zone_virtual_network_link = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  private_dns_zone_name : string;  (** private_dns_zone_name *)
-  registration_enabled : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  private_dns_zone_name : string prop;  (** private_dns_zone_name *)
+  registration_enabled : bool prop option; [@option]
       (** registration_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  virtual_network_id : string;  (** virtual_network_id *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  virtual_network_id : string prop;  (** virtual_network_id *)
   timeouts :
     azurerm_private_dns_zone_virtual_network_link__timeouts option;
 }

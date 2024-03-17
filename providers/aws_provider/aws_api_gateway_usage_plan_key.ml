@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_api_gateway_usage_plan_key = {
-  id : string option; [@option]  (** id *)
-  key_id : string;  (** key_id *)
-  key_type : string;  (** key_type *)
-  usage_plan_id : string;  (** usage_plan_id *)
+  id : string prop option; [@option]  (** id *)
+  key_id : string prop;  (** key_id *)
+  key_type : string prop;  (** key_type *)
+  usage_plan_id : string prop;  (** usage_plan_id *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_usage_plan_key *)

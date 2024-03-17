@@ -9,16 +9,16 @@ type cloudflare_spectrum_application__origin_port_range
 type cloudflare_spectrum_application
 
 val cloudflare_spectrum_application :
-  ?argo_smart_routing:bool ->
-  ?id:string ->
-  ?ip_firewall:bool ->
-  ?origin_direct:string list ->
-  ?origin_port:float ->
-  ?proxy_protocol:string ->
-  ?tls:string ->
-  ?traffic_type:string ->
-  protocol:string ->
-  zone_id:string ->
+  ?argo_smart_routing:bool prop ->
+  ?id:string prop ->
+  ?ip_firewall:bool prop ->
+  ?origin_direct:string prop list ->
+  ?origin_port:float prop ->
+  ?proxy_protocol:string prop ->
+  ?tls:string prop ->
+  ?traffic_type:string prop ->
+  protocol:string prop ->
+  zone_id:string prop ->
   dns:cloudflare_spectrum_application__dns list ->
   edge_ips:cloudflare_spectrum_application__edge_ips list ->
   origin_dns:cloudflare_spectrum_application__origin_dns list ->

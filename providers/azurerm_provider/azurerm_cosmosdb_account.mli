@@ -18,31 +18,31 @@ type azurerm_cosmosdb_account__virtual_network_rule
 type azurerm_cosmosdb_account
 
 val azurerm_cosmosdb_account :
-  ?access_key_metadata_writes_enabled:bool ->
-  ?analytical_storage_enabled:bool ->
-  ?create_mode:string ->
-  ?default_identity_type:string ->
-  ?enable_automatic_failover:bool ->
-  ?enable_free_tier:bool ->
-  ?enable_multiple_write_locations:bool ->
-  ?id:string ->
-  ?ip_range_filter:string ->
-  ?is_virtual_network_filter_enabled:bool ->
-  ?key_vault_key_id:string ->
-  ?kind:string ->
-  ?local_authentication_disabled:bool ->
-  ?minimal_tls_version:string ->
-  ?mongo_server_version:string ->
-  ?network_acl_bypass_for_azure_services:bool ->
-  ?network_acl_bypass_ids:string list ->
-  ?partition_merge_enabled:bool ->
-  ?public_network_access_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?access_key_metadata_writes_enabled:bool prop ->
+  ?analytical_storage_enabled:bool prop ->
+  ?create_mode:string prop ->
+  ?default_identity_type:string prop ->
+  ?enable_automatic_failover:bool prop ->
+  ?enable_free_tier:bool prop ->
+  ?enable_multiple_write_locations:bool prop ->
+  ?id:string prop ->
+  ?ip_range_filter:string prop ->
+  ?is_virtual_network_filter_enabled:bool prop ->
+  ?key_vault_key_id:string prop ->
+  ?kind:string prop ->
+  ?local_authentication_disabled:bool prop ->
+  ?minimal_tls_version:string prop ->
+  ?mongo_server_version:string prop ->
+  ?network_acl_bypass_for_azure_services:bool prop ->
+  ?network_acl_bypass_ids:string prop list ->
+  ?partition_merge_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_cosmosdb_account__timeouts ->
-  location:string ->
-  name:string ->
-  offer_type:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  offer_type:string prop ->
+  resource_group_name:string prop ->
   analytical_storage:
     azurerm_cosmosdb_account__analytical_storage list ->
   backup:azurerm_cosmosdb_account__backup list ->

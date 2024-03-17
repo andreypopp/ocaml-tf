@@ -5,28 +5,30 @@
 open! Tf.Prelude
 
 type hcloud_firewall__apply_to = {
-  label_selector : string option; [@option]  (** label_selector *)
-  server : float option; [@option]  (** server *)
+  label_selector : string prop option; [@option]
+      (** label_selector *)
+  server : float prop option; [@option]  (** server *)
 }
 [@@deriving yojson_of]
 (** hcloud_firewall__apply_to *)
 
 type hcloud_firewall__rule = {
-  description : string option; [@option]  (** description *)
-  destination_ips : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  destination_ips : string prop list option; [@option]
       (** destination_ips *)
-  direction : string;  (** direction *)
-  port : string option; [@option]  (** port *)
-  protocol : string;  (** protocol *)
-  source_ips : string list option; [@option]  (** source_ips *)
+  direction : string prop;  (** direction *)
+  port : string prop option; [@option]  (** port *)
+  protocol : string prop;  (** protocol *)
+  source_ips : string prop list option; [@option]  (** source_ips *)
 }
 [@@deriving yojson_of]
 (** hcloud_firewall__rule *)
 
 type hcloud_firewall = {
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  name : string prop;  (** name *)
   apply_to : hcloud_firewall__apply_to list;
   rule : hcloud_firewall__rule list;
 }

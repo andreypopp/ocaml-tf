@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type google_pubsub_lite_topic__partition_config__capacity = {
-  publish_mib_per_sec : float;
+  publish_mib_per_sec : float prop;
       (** Subscribe throughput capacity per partition in MiB/s. Must be >= 4 and <= 16. *)
-  subscribe_mib_per_sec : float;
+  subscribe_mib_per_sec : float prop;
       (** Publish throughput capacity per partition in MiB/s. Must be >= 4 and <= 16. *)
 }
 [@@deriving yojson_of]
 (** The capacity configuration. *)
 
 type google_pubsub_lite_topic__partition_config = {
-  count : float;
+  count : float prop;
       (** The number of partitions in the topic. Must be at least 1. *)
   capacity :
     google_pubsub_lite_topic__partition_config__capacity list;
@@ -23,18 +23,18 @@ type google_pubsub_lite_topic__partition_config = {
 (** The settings for this topic's partitions. *)
 
 type google_pubsub_lite_topic__reservation_config = {
-  throughput_reservation : string option; [@option]
+  throughput_reservation : string prop option; [@option]
       (** The Reservation to use for this topic's throughput capacity. *)
 }
 [@@deriving yojson_of]
 (** The settings for this topic's Reservation usage. *)
 
 type google_pubsub_lite_topic__retention_config = {
-  per_partition_bytes : string;
+  per_partition_bytes : string prop;
       (** The provisioned storage, in bytes, per partition. If the number of bytes stored
 in any of the topic's partitions grows beyond this value, older messages will be
 dropped to make room for newer ones, regardless of the value of period. *)
-  period : string option; [@option]
+  period : string prop option; [@option]
       (** How long a published message is retained. If unset, messages will be retained as
 long as the bytes retained for each partition is below perPartitionBytes. A
 duration in seconds with up to nine fractional digits, terminated by 's'.
@@ -44,20 +44,20 @@ Example: 3.5s. *)
 (** The settings for a topic's message retention. *)
 
 type google_pubsub_lite_topic__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_pubsub_lite_topic__timeouts *)
 
 type google_pubsub_lite_topic = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** Name of the topic. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** Name of the topic. *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** The region of the pubsub lite topic. *)
-  zone : string option; [@option]
+  zone : string prop option; [@option]
       (** The zone of the pubsub lite topic. *)
   partition_config : google_pubsub_lite_topic__partition_config list;
   reservation_config :

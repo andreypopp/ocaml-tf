@@ -6,16 +6,16 @@ type aws_db_event_subscription__timeouts
 type aws_db_event_subscription
 
 val aws_db_event_subscription :
-  ?enabled:bool ->
-  ?event_categories:string list ->
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?source_ids:string list ->
-  ?source_type:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?enabled:bool prop ->
+  ?event_categories:string prop list ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?source_ids:string prop list ->
+  ?source_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_db_event_subscription__timeouts ->
-  sns_topic:string ->
+  sns_topic:string prop ->
   string ->
   unit

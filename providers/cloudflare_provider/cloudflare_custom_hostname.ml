@@ -5,49 +5,49 @@
 open! Tf.Prelude
 
 type cloudflare_custom_hostname__ssl__settings = {
-  ciphers : string list option; [@option]
+  ciphers : string prop list option; [@option]
       (** List of SSL/TLS ciphers to associate with this certificate. *)
-  early_hints : string option; [@option]
+  early_hints : string prop option; [@option]
       (** Whether early hints should be supported. Available values: `on`, `off`. *)
-  http2 : string option; [@option]
+  http2 : string prop option; [@option]
       (** Whether HTTP2 should be supported. Available values: `on`, `off`. *)
-  min_tls_version : string option; [@option]
+  min_tls_version : string prop option; [@option]
       (** Lowest version of TLS this certificate should support. Available values: `1.0`, `1.1`, `1.2`, `1.3`. *)
-  tls13 : string option; [@option]
+  tls13 : string prop option; [@option]
       (** Whether TLSv1.3 should be supported. Available values: `on`, `off`. *)
 }
 [@@deriving yojson_of]
 (** SSL/TLS settings for the certificate. *)
 
 type cloudflare_custom_hostname__ssl__validation_errors = {
-  message : string;  (** message *)
+  message : string prop;  (** message *)
 }
 [@@deriving yojson_of]
 
 type cloudflare_custom_hostname__ssl__validation_records = {
-  cname_name : string;  (** cname_name *)
-  cname_target : string;  (** cname_target *)
-  emails : string list;  (** emails *)
-  http_body : string;  (** http_body *)
-  http_url : string;  (** http_url *)
-  txt_name : string;  (** txt_name *)
-  txt_value : string;  (** txt_value *)
+  cname_name : string prop;  (** cname_name *)
+  cname_target : string prop;  (** cname_target *)
+  emails : string prop list;  (** emails *)
+  http_body : string prop;  (** http_body *)
+  http_url : string prop;  (** http_url *)
+  txt_name : string prop;  (** txt_name *)
+  txt_value : string prop;  (** txt_value *)
 }
 [@@deriving yojson_of]
 
 type cloudflare_custom_hostname__ssl = {
-  bundle_method : string option; [@option]
+  bundle_method : string prop option; [@option]
       (** A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it. Available values: `ubiquitous`, `optimal`, `force`. *)
-  certificate_authority : string option; [@option]
+  certificate_authority : string prop option; [@option]
       (** certificate_authority *)
-  custom_certificate : string option; [@option]
+  custom_certificate : string prop option; [@option]
       (** If a custom uploaded certificate is used. *)
-  custom_key : string option; [@option]
+  custom_key : string prop option; [@option]
       (** The key for a custom uploaded certificate. *)
-  method_ : string option; [@option] [@key "method"]
+  method_ : string prop option; [@option] [@key "method"]
       (** Domain control validation (DCV) method used for this hostname. Available values: `http`, `txt`, `email`. *)
-  status : string;  (** status *)
-  type_ : string option; [@option] [@key "type"]
+  status : string prop;  (** status *)
+  type_ : string prop option; [@option] [@key "type"]
       (** Level of validation to be used for this hostname. Available values: `dv`. Defaults to `dv`. *)
   validation_errors :
     cloudflare_custom_hostname__ssl__validation_errors list;
@@ -55,7 +55,7 @@ type cloudflare_custom_hostname__ssl = {
   validation_records :
     cloudflare_custom_hostname__ssl__validation_records list;
       (** validation_records *)
-  wildcard : bool option; [@option]
+  wildcard : bool prop option; [@option]
       (** Indicates whether the certificate covers a wildcard. *)
   settings : cloudflare_custom_hostname__ssl__settings list;
 }
@@ -63,18 +63,18 @@ type cloudflare_custom_hostname__ssl = {
 (** SSL properties used when creating the custom hostname. *)
 
 type cloudflare_custom_hostname = {
-  custom_metadata : (string * string) list option; [@option]
+  custom_metadata : (string * string prop) list option; [@option]
       (** Custom metadata associated with custom hostname. Only supports primitive string values, all other values are accessible via the API directly. *)
-  custom_origin_server : string option; [@option]
+  custom_origin_server : string prop option; [@option]
       (** The custom origin server used for certificates. *)
-  custom_origin_sni : string option; [@option]
+  custom_origin_sni : string prop option; [@option]
       (** The [custom origin SNI](https://developers.cloudflare.com/ssl/ssl-for-saas/hostname-specific-behavior/custom-origin) used for certificates. *)
-  hostname : string;
+  hostname : string prop;
       (** Hostname you intend to request a certificate for. **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  wait_for_ssl_pending_validation : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  wait_for_ssl_pending_validation : bool prop option; [@option]
       (** Whether to wait for a custom hostname SSL sub-object to reach status `pending_validation` during creation. Defaults to `false`. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   ssl : cloudflare_custom_hostname__ssl list;
 }

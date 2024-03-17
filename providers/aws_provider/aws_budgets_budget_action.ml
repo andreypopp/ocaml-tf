@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type aws_budgets_budget_action__action_threshold = {
-  action_threshold_type : string;  (** action_threshold_type *)
-  action_threshold_value : float;  (** action_threshold_value *)
+  action_threshold_type : string prop;  (** action_threshold_type *)
+  action_threshold_value : float prop;  (** action_threshold_value *)
 }
 [@@deriving yojson_of]
 (** aws_budgets_budget_action__action_threshold *)
 
 type aws_budgets_budget_action__definition__iam_action_definition = {
-  groups : string list option; [@option]  (** groups *)
-  policy_arn : string;  (** policy_arn *)
-  roles : string list option; [@option]  (** roles *)
-  users : string list option; [@option]  (** users *)
+  groups : string prop list option; [@option]  (** groups *)
+  policy_arn : string prop;  (** policy_arn *)
+  roles : string prop list option; [@option]  (** roles *)
+  users : string prop list option; [@option]  (** users *)
 }
 [@@deriving yojson_of]
 (** aws_budgets_budget_action__definition__iam_action_definition *)
 
 type aws_budgets_budget_action__definition__scp_action_definition = {
-  policy_id : string;  (** policy_id *)
-  target_ids : string list;  (** target_ids *)
+  policy_id : string prop;  (** policy_id *)
+  target_ids : string prop list;  (** target_ids *)
 }
 [@@deriving yojson_of]
 (** aws_budgets_budget_action__definition__scp_action_definition *)
 
 type aws_budgets_budget_action__definition__ssm_action_definition = {
-  action_sub_type : string;  (** action_sub_type *)
-  instance_ids : string list;  (** instance_ids *)
-  region : string;  (** region *)
+  action_sub_type : string prop;  (** action_sub_type *)
+  instance_ids : string prop list;  (** instance_ids *)
+  region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
 (** aws_budgets_budget_action__definition__ssm_action_definition *)
@@ -47,28 +47,28 @@ type aws_budgets_budget_action__definition = {
 (** aws_budgets_budget_action__definition *)
 
 type aws_budgets_budget_action__subscriber = {
-  address : string;  (** address *)
-  subscription_type : string;  (** subscription_type *)
+  address : string prop;  (** address *)
+  subscription_type : string prop;  (** subscription_type *)
 }
 [@@deriving yojson_of]
 (** aws_budgets_budget_action__subscriber *)
 
 type aws_budgets_budget_action__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_budgets_budget_action__timeouts *)
 
 type aws_budgets_budget_action = {
-  account_id : string option; [@option]  (** account_id *)
-  action_type : string;  (** action_type *)
-  approval_model : string;  (** approval_model *)
-  budget_name : string;  (** budget_name *)
-  execution_role_arn : string;  (** execution_role_arn *)
-  id : string option; [@option]  (** id *)
-  notification_type : string;  (** notification_type *)
+  account_id : string prop option; [@option]  (** account_id *)
+  action_type : string prop;  (** action_type *)
+  approval_model : string prop;  (** approval_model *)
+  budget_name : string prop;  (** budget_name *)
+  execution_role_arn : string prop;  (** execution_role_arn *)
+  id : string prop option; [@option]  (** id *)
+  notification_type : string prop;  (** notification_type *)
   action_threshold :
     aws_budgets_budget_action__action_threshold list;
   definition : aws_budgets_budget_action__definition list;

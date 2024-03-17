@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_bigquery_dataset_iam_policy = {
-  dataset_id : string;  (** dataset_id *)
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  dataset_id : string prop;  (** dataset_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_bigquery_dataset_iam_policy *)

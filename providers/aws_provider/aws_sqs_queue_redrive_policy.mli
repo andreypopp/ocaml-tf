@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_sqs_queue_redrive_policy
 
 val aws_sqs_queue_redrive_policy :
-  ?id:string ->
-  queue_url:string ->
-  redrive_policy:string ->
+  ?id:string prop ->
+  queue_url:string prop ->
+  redrive_policy:string prop ->
   string ->
   unit

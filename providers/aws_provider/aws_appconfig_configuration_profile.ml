@@ -5,26 +5,26 @@
 open! Tf.Prelude
 
 type aws_appconfig_configuration_profile__validator = {
-  content : string option; [@option]  (** content *)
-  type_ : string; [@key "type"]  (** type *)
+  content : string prop option; [@option]  (** content *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_appconfig_configuration_profile__validator *)
 
 type aws_appconfig_configuration_profile = {
-  application_id : string;  (** application_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  kms_key_identifier : string option; [@option]
+  application_id : string prop;  (** application_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  kms_key_identifier : string prop option; [@option]
       (** kms_key_identifier *)
-  location_uri : string;  (** location_uri *)
-  name : string;  (** name *)
-  retrieval_role_arn : string option; [@option]
+  location_uri : string prop;  (** location_uri *)
+  name : string prop;  (** name *)
+  retrieval_role_arn : string prop option; [@option]
       (** retrieval_role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
   validator : aws_appconfig_configuration_profile__validator list;
 }
 [@@deriving yojson_of]

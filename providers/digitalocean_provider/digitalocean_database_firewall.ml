@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type digitalocean_database_firewall__rule = {
-  created_at : string;  (** created_at *)
-  type_ : string; [@key "type"]  (** type *)
-  uuid : string;  (** uuid *)
-  value : string;  (** value *)
+  created_at : string prop;  (** created_at *)
+  type_ : string prop; [@key "type"]  (** type *)
+  uuid : string prop;  (** uuid *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** digitalocean_database_firewall__rule *)
 
 type digitalocean_database_firewall = {
-  cluster_id : string;  (** cluster_id *)
-  id : string option; [@option]  (** id *)
+  cluster_id : string prop;  (** cluster_id *)
+  id : string prop option; [@option]  (** id *)
   rule : digitalocean_database_firewall__rule list;
 }
 [@@deriving yojson_of]

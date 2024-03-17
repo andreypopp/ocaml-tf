@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type google_compute_firewall_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_firewall_policy__timeouts *)
 
 type google_compute_firewall_policy = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. Provide this property when you create the resource. *)
-  id : string option; [@option]  (** id *)
-  parent : string;  (** The parent of the firewall policy. *)
-  short_name : string;
+  id : string prop option; [@option]  (** id *)
+  parent : string prop;  (** The parent of the firewall policy. *)
+  short_name : string prop;
       (** User-provided name of the Organization firewall policy. The name should be unique in the organization in which the firewall policy is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression [a-z]([-a-z0-9]*[a-z0-9])? which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash. *)
   timeouts : google_compute_firewall_policy__timeouts option;
 }

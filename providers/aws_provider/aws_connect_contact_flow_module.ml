@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_connect_contact_flow_module = {
-  content : string option; [@option]  (** content *)
-  content_hash : string option; [@option]  (** content_hash *)
-  description : string option; [@option]  (** description *)
-  filename : string option; [@option]  (** filename *)
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  content : string prop option; [@option]  (** content *)
+  content_hash : string prop option; [@option]  (** content_hash *)
+  description : string prop option; [@option]  (** description *)
+  filename : string prop option; [@option]  (** filename *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_connect_contact_flow_module *)

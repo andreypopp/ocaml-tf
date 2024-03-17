@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_db_cluster_snapshot__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** aws_db_cluster_snapshot__timeouts *)
 
 type aws_db_cluster_snapshot = {
-  db_cluster_identifier : string;  (** db_cluster_identifier *)
-  db_cluster_snapshot_identifier : string;
+  db_cluster_identifier : string prop;  (** db_cluster_identifier *)
+  db_cluster_snapshot_identifier : string prop;
       (** db_cluster_snapshot_identifier *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_db_cluster_snapshot__timeouts option;
 }

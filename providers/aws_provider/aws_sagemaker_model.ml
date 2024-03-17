@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type aws_sagemaker_model__container__image_config__repository_auth_config = {
-  repository_credentials_provider_arn : string;
+  repository_credentials_provider_arn : string prop;
       (** repository_credentials_provider_arn *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_model__container__image_config__repository_auth_config *)
 
 type aws_sagemaker_model__container__image_config = {
-  repository_access_mode : string;  (** repository_access_mode *)
+  repository_access_mode : string prop;
+      (** repository_access_mode *)
   repository_auth_config :
     aws_sagemaker_model__container__image_config__repository_auth_config
     list;
@@ -21,9 +22,9 @@ type aws_sagemaker_model__container__image_config = {
 (** aws_sagemaker_model__container__image_config *)
 
 type aws_sagemaker_model__container__model_data_source__s3_data_source = {
-  compression_type : string;  (** compression_type *)
-  s3_data_type : string;  (** s3_data_type *)
-  s3_uri : string;  (** s3_uri *)
+  compression_type : string prop;  (** compression_type *)
+  s3_data_type : string prop;  (** s3_data_type *)
+  s3_uri : string prop;  (** s3_uri *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_model__container__model_data_source__s3_data_source *)
@@ -37,14 +38,15 @@ type aws_sagemaker_model__container__model_data_source = {
 (** aws_sagemaker_model__container__model_data_source *)
 
 type aws_sagemaker_model__container = {
-  container_hostname : string option; [@option]
+  container_hostname : string prop option; [@option]
       (** container_hostname *)
-  environment : (string * string) list option; [@option]
+  environment : (string * string prop) list option; [@option]
       (** environment *)
-  image : string option; [@option]  (** image *)
-  mode : string option; [@option]  (** mode *)
-  model_data_url : string option; [@option]  (** model_data_url *)
-  model_package_name : string option; [@option]
+  image : string prop option; [@option]  (** image *)
+  mode : string prop option; [@option]  (** mode *)
+  model_data_url : string prop option; [@option]
+      (** model_data_url *)
+  model_package_name : string prop option; [@option]
       (** model_package_name *)
   image_config : aws_sagemaker_model__container__image_config list;
   model_data_source :
@@ -54,20 +56,21 @@ type aws_sagemaker_model__container = {
 (** aws_sagemaker_model__container *)
 
 type aws_sagemaker_model__inference_execution_config = {
-  mode : string;  (** mode *)
+  mode : string prop;  (** mode *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_model__inference_execution_config *)
 
 type aws_sagemaker_model__primary_container__image_config__repository_auth_config = {
-  repository_credentials_provider_arn : string;
+  repository_credentials_provider_arn : string prop;
       (** repository_credentials_provider_arn *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_model__primary_container__image_config__repository_auth_config *)
 
 type aws_sagemaker_model__primary_container__image_config = {
-  repository_access_mode : string;  (** repository_access_mode *)
+  repository_access_mode : string prop;
+      (** repository_access_mode *)
   repository_auth_config :
     aws_sagemaker_model__primary_container__image_config__repository_auth_config
     list;
@@ -76,9 +79,9 @@ type aws_sagemaker_model__primary_container__image_config = {
 (** aws_sagemaker_model__primary_container__image_config *)
 
 type aws_sagemaker_model__primary_container__model_data_source__s3_data_source = {
-  compression_type : string;  (** compression_type *)
-  s3_data_type : string;  (** s3_data_type *)
-  s3_uri : string;  (** s3_uri *)
+  compression_type : string prop;  (** compression_type *)
+  s3_data_type : string prop;  (** s3_data_type *)
+  s3_uri : string prop;  (** s3_uri *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_model__primary_container__model_data_source__s3_data_source *)
@@ -92,14 +95,15 @@ type aws_sagemaker_model__primary_container__model_data_source = {
 (** aws_sagemaker_model__primary_container__model_data_source *)
 
 type aws_sagemaker_model__primary_container = {
-  container_hostname : string option; [@option]
+  container_hostname : string prop option; [@option]
       (** container_hostname *)
-  environment : (string * string) list option; [@option]
+  environment : (string * string prop) list option; [@option]
       (** environment *)
-  image : string option; [@option]  (** image *)
-  mode : string option; [@option]  (** mode *)
-  model_data_url : string option; [@option]  (** model_data_url *)
-  model_package_name : string option; [@option]
+  image : string prop option; [@option]  (** image *)
+  mode : string prop option; [@option]  (** mode *)
+  model_data_url : string prop option; [@option]
+      (** model_data_url *)
+  model_package_name : string prop option; [@option]
       (** model_package_name *)
   image_config :
     aws_sagemaker_model__primary_container__image_config list;
@@ -110,20 +114,20 @@ type aws_sagemaker_model__primary_container = {
 (** aws_sagemaker_model__primary_container *)
 
 type aws_sagemaker_model__vpc_config = {
-  security_group_ids : string list;  (** security_group_ids *)
-  subnets : string list;  (** subnets *)
+  security_group_ids : string prop list;  (** security_group_ids *)
+  subnets : string prop list;  (** subnets *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_model__vpc_config *)
 
 type aws_sagemaker_model = {
-  enable_network_isolation : bool option; [@option]
+  enable_network_isolation : bool prop option; [@option]
       (** enable_network_isolation *)
-  execution_role_arn : string;  (** execution_role_arn *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  execution_role_arn : string prop;  (** execution_role_arn *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   container : aws_sagemaker_model__container list;
   inference_execution_config :

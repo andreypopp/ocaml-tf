@@ -9,12 +9,12 @@ type azurerm_network_profile__timeouts
 type azurerm_network_profile
 
 val azurerm_network_profile :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_network_profile__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   container_network_interface:
     azurerm_network_profile__container_network_interface list ->
   string ->

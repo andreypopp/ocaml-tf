@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_mysql_database__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_database__timeouts *)
 
 type azurerm_mysql_database = {
-  charset : string;  (** charset *)
-  collation : string;  (** collation *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  server_name : string;  (** server_name *)
+  charset : string prop;  (** charset *)
+  collation : string prop;  (** collation *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  server_name : string prop;  (** server_name *)
   timeouts : azurerm_mysql_database__timeouts option;
 }
 [@@deriving yojson_of]

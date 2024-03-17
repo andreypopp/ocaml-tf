@@ -9,12 +9,12 @@ type cloudflare_notification_policy__webhooks_integration
 type cloudflare_notification_policy
 
 val cloudflare_notification_policy :
-  ?description:string ->
-  ?id:string ->
-  account_id:string ->
-  alert_type:string ->
-  enabled:bool ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  alert_type:string prop ->
+  enabled:bool prop ->
+  name:string prop ->
   email_integration:
     cloudflare_notification_policy__email_integration list ->
   filters:cloudflare_notification_policy__filters list ->

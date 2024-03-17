@@ -5,41 +5,41 @@
 open! Tf.Prelude
 
 type azurerm_virtual_machine_scale_set_extension__protected_settings_from_key_vault = {
-  secret_url : string;  (** secret_url *)
-  source_vault_id : string;  (** source_vault_id *)
+  secret_url : string prop;  (** secret_url *)
+  source_vault_id : string prop;  (** source_vault_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_scale_set_extension__protected_settings_from_key_vault *)
 
 type azurerm_virtual_machine_scale_set_extension__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_virtual_machine_scale_set_extension__timeouts *)
 
 type azurerm_virtual_machine_scale_set_extension = {
-  auto_upgrade_minor_version : bool option; [@option]
+  auto_upgrade_minor_version : bool prop option; [@option]
       (** auto_upgrade_minor_version *)
-  automatic_upgrade_enabled : bool option; [@option]
+  automatic_upgrade_enabled : bool prop option; [@option]
       (** automatic_upgrade_enabled *)
-  failure_suppression_enabled : bool option; [@option]
+  failure_suppression_enabled : bool prop option; [@option]
       (** failure_suppression_enabled *)
-  force_update_tag : string option; [@option]
+  force_update_tag : string prop option; [@option]
       (** force_update_tag *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  protected_settings : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  protected_settings : string prop option; [@option]
       (** protected_settings *)
-  provision_after_extensions : string list option; [@option]
+  provision_after_extensions : string prop list option; [@option]
       (** provision_after_extensions *)
-  publisher : string;  (** publisher *)
-  settings : string option; [@option]  (** settings *)
-  type_ : string; [@key "type"]  (** type *)
-  type_handler_version : string;  (** type_handler_version *)
-  virtual_machine_scale_set_id : string;
+  publisher : string prop;  (** publisher *)
+  settings : string prop option; [@option]  (** settings *)
+  type_ : string prop; [@key "type"]  (** type *)
+  type_handler_version : string prop;  (** type_handler_version *)
+  virtual_machine_scale_set_id : string prop;
       (** virtual_machine_scale_set_id *)
   protected_settings_from_key_vault :
     azurerm_virtual_machine_scale_set_extension__protected_settings_from_key_vault

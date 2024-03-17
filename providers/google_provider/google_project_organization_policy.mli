@@ -11,11 +11,11 @@ type google_project_organization_policy__timeouts
 type google_project_organization_policy
 
 val google_project_organization_policy :
-  ?id:string ->
-  ?version:float ->
+  ?id:string prop ->
+  ?version:float prop ->
   ?timeouts:google_project_organization_policy__timeouts ->
-  constraint_:string ->
-  project:string ->
+  constraint_:string prop ->
+  project:string prop ->
   boolean_policy:
     google_project_organization_policy__boolean_policy list ->
   list_policy:google_project_organization_policy__list_policy list ->

@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_synapse_workspace_sql_aad_admin__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_workspace_sql_aad_admin__timeouts *)
 
 type azurerm_synapse_workspace_sql_aad_admin = {
-  id : string option; [@option]  (** id *)
-  login : string;  (** login *)
-  object_id : string;  (** object_id *)
-  synapse_workspace_id : string;  (** synapse_workspace_id *)
-  tenant_id : string;  (** tenant_id *)
+  id : string prop option; [@option]  (** id *)
+  login : string prop;  (** login *)
+  object_id : string prop;  (** object_id *)
+  synapse_workspace_id : string prop;  (** synapse_workspace_id *)
+  tenant_id : string prop;  (** tenant_id *)
   timeouts : azurerm_synapse_workspace_sql_aad_admin__timeouts option;
 }
 [@@deriving yojson_of]

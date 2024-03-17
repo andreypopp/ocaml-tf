@@ -5,30 +5,32 @@
 open! Tf.Prelude
 
 type azurerm_monitor_alert_prometheus_rule_group__rule__action = {
-  action_group_id : string;  (** action_group_id *)
-  action_properties : (string * string) list option; [@option]
+  action_group_id : string prop;  (** action_group_id *)
+  action_properties : (string * string prop) list option; [@option]
       (** action_properties *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_alert_prometheus_rule_group__rule__action *)
 
 type azurerm_monitor_alert_prometheus_rule_group__rule__alert_resolution = {
-  auto_resolved : bool option; [@option]  (** auto_resolved *)
-  time_to_resolve : string option; [@option]  (** time_to_resolve *)
+  auto_resolved : bool prop option; [@option]  (** auto_resolved *)
+  time_to_resolve : string prop option; [@option]
+      (** time_to_resolve *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_alert_prometheus_rule_group__rule__alert_resolution *)
 
 type azurerm_monitor_alert_prometheus_rule_group__rule = {
-  alert : string option; [@option]  (** alert *)
-  annotations : (string * string) list option; [@option]
+  alert : string prop option; [@option]  (** alert *)
+  annotations : (string * string prop) list option; [@option]
       (** annotations *)
-  enabled : bool option; [@option]  (** enabled *)
-  expression : string;  (** expression *)
-  for_ : string option; [@option] [@key "for"]  (** for *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  record : string option; [@option]  (** record *)
-  severity : float option; [@option]  (** severity *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  expression : string prop;  (** expression *)
+  for_ : string prop option; [@option] [@key "for"]  (** for *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  record : string prop option; [@option]  (** record *)
+  severity : float prop option; [@option]  (** severity *)
   action :
     azurerm_monitor_alert_prometheus_rule_group__rule__action list;
   alert_resolution :
@@ -39,26 +41,26 @@ type azurerm_monitor_alert_prometheus_rule_group__rule = {
 (** azurerm_monitor_alert_prometheus_rule_group__rule *)
 
 type azurerm_monitor_alert_prometheus_rule_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_alert_prometheus_rule_group__timeouts *)
 
 type azurerm_monitor_alert_prometheus_rule_group = {
-  cluster_name : string option; [@option]  (** cluster_name *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  interval : string option; [@option]  (** interval *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  rule_group_enabled : bool option; [@option]
+  cluster_name : string prop option; [@option]  (** cluster_name *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  interval : string prop option; [@option]  (** interval *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  rule_group_enabled : bool prop option; [@option]
       (** rule_group_enabled *)
-  scopes : string list;  (** scopes *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  scopes : string prop list;  (** scopes *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   rule : azurerm_monitor_alert_prometheus_rule_group__rule list;
   timeouts :
     azurerm_monitor_alert_prometheus_rule_group__timeouts option;

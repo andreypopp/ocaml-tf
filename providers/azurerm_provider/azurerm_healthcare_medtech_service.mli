@@ -7,16 +7,16 @@ type azurerm_healthcare_medtech_service__timeouts
 type azurerm_healthcare_medtech_service
 
 val azurerm_healthcare_medtech_service :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_healthcare_medtech_service__timeouts ->
-  device_mapping_json:string ->
-  eventhub_consumer_group_name:string ->
-  eventhub_name:string ->
-  eventhub_namespace_name:string ->
-  location:string ->
-  name:string ->
-  workspace_id:string ->
+  device_mapping_json:string prop ->
+  eventhub_consumer_group_name:string prop ->
+  eventhub_name:string prop ->
+  eventhub_namespace_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  workspace_id:string prop ->
   identity:azurerm_healthcare_medtech_service__identity list ->
   string ->
   unit

@@ -5,11 +5,11 @@ open! Tf.Prelude
 type cloudflare_worker_domain
 
 val cloudflare_worker_domain :
-  ?environment:string ->
-  ?id:string ->
-  account_id:string ->
-  hostname:string ->
-  service:string ->
-  zone_id:string ->
+  ?environment:string prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  hostname:string prop ->
+  service:string prop ->
+  zone_id:string prop ->
   string ->
   unit

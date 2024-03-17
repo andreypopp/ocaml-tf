@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_glue_resource_policy
 
 val aws_glue_resource_policy :
-  ?enable_hybrid:string ->
-  ?id:string ->
-  policy:string ->
+  ?enable_hybrid:string prop ->
+  ?id:string prop ->
+  policy:string prop ->
   string ->
   unit

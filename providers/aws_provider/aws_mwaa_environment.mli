@@ -12,44 +12,44 @@ type aws_mwaa_environment__network_configuration
 type aws_mwaa_environment__timeouts
 
 type aws_mwaa_environment__last_updated__error = {
-  error_code : string;  (** error_code *)
-  error_message : string;  (** error_message *)
+  error_code : string prop;  (** error_code *)
+  error_message : string prop;  (** error_message *)
 }
 
 type aws_mwaa_environment__last_updated = {
-  created_at : string;  (** created_at *)
+  created_at : string prop;  (** created_at *)
   error : aws_mwaa_environment__last_updated__error list;
       (** error *)
-  status : string;  (** status *)
+  status : string prop;  (** status *)
 }
 
 type aws_mwaa_environment
 
 val aws_mwaa_environment :
-  ?airflow_configuration_options:(string * string) list ->
-  ?airflow_version:string ->
-  ?endpoint_management:string ->
-  ?environment_class:string ->
-  ?id:string ->
-  ?kms_key:string ->
-  ?max_workers:float ->
-  ?min_workers:float ->
-  ?plugins_s3_object_version:string ->
-  ?plugins_s3_path:string ->
-  ?requirements_s3_object_version:string ->
-  ?requirements_s3_path:string ->
-  ?schedulers:float ->
-  ?startup_script_s3_object_version:string ->
-  ?startup_script_s3_path:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?webserver_access_mode:string ->
-  ?weekly_maintenance_window_start:string ->
+  ?airflow_configuration_options:(string * string prop) list ->
+  ?airflow_version:string prop ->
+  ?endpoint_management:string prop ->
+  ?environment_class:string prop ->
+  ?id:string prop ->
+  ?kms_key:string prop ->
+  ?max_workers:float prop ->
+  ?min_workers:float prop ->
+  ?plugins_s3_object_version:string prop ->
+  ?plugins_s3_path:string prop ->
+  ?requirements_s3_object_version:string prop ->
+  ?requirements_s3_path:string prop ->
+  ?schedulers:float prop ->
+  ?startup_script_s3_object_version:string prop ->
+  ?startup_script_s3_path:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?webserver_access_mode:string prop ->
+  ?weekly_maintenance_window_start:string prop ->
   ?timeouts:aws_mwaa_environment__timeouts ->
-  dag_s3_path:string ->
-  execution_role_arn:string ->
-  name:string ->
-  source_bucket_arn:string ->
+  dag_s3_path:string prop ->
+  execution_role_arn:string prop ->
+  name:string prop ->
+  source_bucket_arn:string prop ->
   logging_configuration:
     aws_mwaa_environment__logging_configuration list ->
   network_configuration:

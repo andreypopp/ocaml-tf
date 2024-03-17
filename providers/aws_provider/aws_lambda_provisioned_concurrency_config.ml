@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_lambda_provisioned_concurrency_config__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_lambda_provisioned_concurrency_config__timeouts *)
 
 type aws_lambda_provisioned_concurrency_config = {
-  function_name : string;  (** function_name *)
-  id : string option; [@option]  (** id *)
-  provisioned_concurrent_executions : float;
+  function_name : string prop;  (** function_name *)
+  id : string prop option; [@option]  (** id *)
+  provisioned_concurrent_executions : float prop;
       (** provisioned_concurrent_executions *)
-  qualifier : string;  (** qualifier *)
-  skip_destroy : bool option; [@option]  (** skip_destroy *)
+  qualifier : string prop;  (** qualifier *)
+  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
   timeouts :
     aws_lambda_provisioned_concurrency_config__timeouts option;
 }

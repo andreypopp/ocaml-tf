@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type aws_media_convert_queue__reservation_plan_settings = {
-  commitment : string;  (** commitment *)
-  renewal_type : string;  (** renewal_type *)
-  reserved_slots : float;  (** reserved_slots *)
+  commitment : string prop;  (** commitment *)
+  renewal_type : string prop;  (** renewal_type *)
+  reserved_slots : float prop;  (** reserved_slots *)
 }
 [@@deriving yojson_of]
 (** aws_media_convert_queue__reservation_plan_settings *)
 
 type aws_media_convert_queue = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  pricing_plan : string option; [@option]  (** pricing_plan *)
-  status : string option; [@option]  (** status *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  pricing_plan : string prop option; [@option]  (** pricing_plan *)
+  status : string prop option; [@option]  (** status *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   reservation_plan_settings :
     aws_media_convert_queue__reservation_plan_settings list;

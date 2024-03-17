@@ -12,18 +12,18 @@ type google_compute_network_firewall_policy_rule__timeouts
 type google_compute_network_firewall_policy_rule
 
 val google_compute_network_firewall_policy_rule :
-  ?description:string ->
-  ?disabled:bool ->
-  ?enable_logging:bool ->
-  ?id:string ->
-  ?project:string ->
-  ?rule_name:string ->
-  ?target_service_accounts:string list ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?enable_logging:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?rule_name:string prop ->
+  ?target_service_accounts:string prop list ->
   ?timeouts:google_compute_network_firewall_policy_rule__timeouts ->
-  action:string ->
-  direction:string ->
-  firewall_policy:string ->
-  priority:float ->
+  action:string prop ->
+  direction:string prop ->
+  firewall_policy:string prop ->
+  priority:float prop ->
   match_:google_compute_network_firewall_policy_rule__match list ->
   target_secure_tags:
     google_compute_network_firewall_policy_rule__target_secure_tags

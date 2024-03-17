@@ -5,51 +5,52 @@
 open! Tf.Prelude
 
 type azurerm_dev_test_schedule__daily_recurrence = {
-  time : string;  (** time *)
+  time : string prop;  (** time *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_schedule__daily_recurrence *)
 
 type azurerm_dev_test_schedule__hourly_recurrence = {
-  minute : float;  (** minute *)
+  minute : float prop;  (** minute *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_schedule__hourly_recurrence *)
 
 type azurerm_dev_test_schedule__notification_settings = {
-  status : string option; [@option]  (** status *)
-  time_in_minutes : float option; [@option]  (** time_in_minutes *)
-  webhook_url : string option; [@option]  (** webhook_url *)
+  status : string prop option; [@option]  (** status *)
+  time_in_minutes : float prop option; [@option]
+      (** time_in_minutes *)
+  webhook_url : string prop option; [@option]  (** webhook_url *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_schedule__notification_settings *)
 
 type azurerm_dev_test_schedule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_schedule__timeouts *)
 
 type azurerm_dev_test_schedule__weekly_recurrence = {
-  time : string;  (** time *)
-  week_days : string list option; [@option]  (** week_days *)
+  time : string prop;  (** time *)
+  week_days : string prop list option; [@option]  (** week_days *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_schedule__weekly_recurrence *)
 
 type azurerm_dev_test_schedule = {
-  id : string option; [@option]  (** id *)
-  lab_name : string;  (** lab_name *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  status : string option; [@option]  (** status *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  task_type : string;  (** task_type *)
-  time_zone_id : string;  (** time_zone_id *)
+  id : string prop option; [@option]  (** id *)
+  lab_name : string prop;  (** lab_name *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  status : string prop option; [@option]  (** status *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  task_type : string prop;  (** task_type *)
+  time_zone_id : string prop;  (** time_zone_id *)
   daily_recurrence :
     azurerm_dev_test_schedule__daily_recurrence list;
   hourly_recurrence :

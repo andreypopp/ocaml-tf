@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_api_management_gateway__location_data = {
-  city : string option; [@option]  (** city *)
-  district : string option; [@option]  (** district *)
-  name : string;  (** name *)
-  region : string option; [@option]  (** region *)
+  city : string prop option; [@option]  (** city *)
+  district : string prop option; [@option]  (** district *)
+  name : string prop;  (** name *)
+  region : string prop option; [@option]  (** region *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_gateway__location_data *)
 
 type azurerm_api_management_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_gateway__timeouts *)
 
 type azurerm_api_management_gateway = {
-  api_management_id : string;  (** api_management_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  api_management_id : string prop;  (** api_management_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   location_data : azurerm_api_management_gateway__location_data list;
   timeouts : azurerm_api_management_gateway__timeouts option;
 }

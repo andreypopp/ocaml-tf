@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_eventhub_consumer_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventhub_consumer_group__timeouts *)
 
 type azurerm_eventhub_consumer_group = {
-  eventhub_name : string;  (** eventhub_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  namespace_name : string;  (** namespace_name *)
-  resource_group_name : string;  (** resource_group_name *)
-  user_metadata : string option; [@option]  (** user_metadata *)
+  eventhub_name : string prop;  (** eventhub_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  namespace_name : string prop;  (** namespace_name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  user_metadata : string prop option; [@option]  (** user_metadata *)
   timeouts : azurerm_eventhub_consumer_group__timeouts option;
 }
 [@@deriving yojson_of]

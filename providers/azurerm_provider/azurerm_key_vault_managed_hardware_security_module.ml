@@ -5,41 +5,42 @@
 open! Tf.Prelude
 
 type azurerm_key_vault_managed_hardware_security_module__network_acls = {
-  bypass : string;  (** bypass *)
-  default_action : string;  (** default_action *)
+  bypass : string prop;  (** bypass *)
+  default_action : string prop;  (** default_action *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_hardware_security_module__network_acls *)
 
 type azurerm_key_vault_managed_hardware_security_module__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_key_vault_managed_hardware_security_module__timeouts *)
 
 type azurerm_key_vault_managed_hardware_security_module = {
-  admin_object_ids : string list;  (** admin_object_ids *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  public_network_access_enabled : bool option; [@option]
+  admin_object_ids : string prop list;  (** admin_object_ids *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  purge_protection_enabled : bool option; [@option]
+  purge_protection_enabled : bool prop option; [@option]
       (** purge_protection_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  security_domain_key_vault_certificate_ids : string list option;
+  resource_group_name : string prop;  (** resource_group_name *)
+  security_domain_key_vault_certificate_ids :
+    string prop list option;
       [@option]
       (** security_domain_key_vault_certificate_ids *)
-  security_domain_quorum : float option; [@option]
+  security_domain_quorum : float prop option; [@option]
       (** security_domain_quorum *)
-  sku_name : string;  (** sku_name *)
-  soft_delete_retention_days : float option; [@option]
+  sku_name : string prop;  (** sku_name *)
+  soft_delete_retention_days : float prop option; [@option]
       (** soft_delete_retention_days *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tenant_id : string;  (** tenant_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tenant_id : string prop;  (** tenant_id *)
   network_acls :
     azurerm_key_vault_managed_hardware_security_module__network_acls
     list;

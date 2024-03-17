@@ -9,12 +9,12 @@ type google_vertex_ai_featurestore__timeouts
 type google_vertex_ai_featurestore
 
 val google_vertex_ai_featurestore :
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?name:string ->
-  ?project:string ->
-  ?region:string ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_vertex_ai_featurestore__timeouts ->
   encryption_spec:google_vertex_ai_featurestore__encryption_spec list ->
   online_serving_config:

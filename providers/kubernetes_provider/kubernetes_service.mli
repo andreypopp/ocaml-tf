@@ -10,8 +10,8 @@ type kubernetes_service__spec
 type kubernetes_service__timeouts
 
 type kubernetes_service__status__load_balancer__ingress = {
-  hostname : string;  (** hostname *)
-  ip : string;  (** ip *)
+  hostname : string prop;  (** hostname *)
+  ip : string prop;  (** ip *)
 }
 
 type kubernetes_service__status__load_balancer = {
@@ -27,8 +27,8 @@ type kubernetes_service__status = {
 type kubernetes_service
 
 val kubernetes_service :
-  ?id:string ->
-  ?wait_for_load_balancer:bool ->
+  ?id:string prop ->
+  ?wait_for_load_balancer:bool prop ->
   ?timeouts:kubernetes_service__timeouts ->
   metadata:kubernetes_service__metadata list ->
   spec:kubernetes_service__spec list ->

@@ -5,8 +5,8 @@ open! Tf.Prelude
 type digitalocean_volume_attachment
 
 val digitalocean_volume_attachment :
-  ?id:string ->
-  droplet_id:float ->
-  volume_id:string ->
+  ?id:string prop ->
+  droplet_id:float prop ->
+  volume_id:string prop ->
   string ->
   unit

@@ -5,50 +5,50 @@
 open! Tf.Prelude
 
 type aws_dax_cluster__server_side_encryption = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_dax_cluster__server_side_encryption *)
 
 type aws_dax_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_dax_cluster__timeouts *)
 
 type aws_dax_cluster__nodes = {
-  address : string;  (** address *)
-  availability_zone : string;  (** availability_zone *)
-  id : string;  (** id *)
-  port : float;  (** port *)
+  address : string prop;  (** address *)
+  availability_zone : string prop;  (** availability_zone *)
+  id : string prop;  (** id *)
+  port : float prop;  (** port *)
 }
 [@@deriving yojson_of]
 
 type aws_dax_cluster = {
-  availability_zones : string list option; [@option]
+  availability_zones : string prop list option; [@option]
       (** availability_zones *)
-  cluster_endpoint_encryption_type : string option; [@option]
+  cluster_endpoint_encryption_type : string prop option; [@option]
       (** cluster_endpoint_encryption_type *)
-  cluster_name : string;  (** cluster_name *)
-  description : string option; [@option]  (** description *)
-  iam_role_arn : string;  (** iam_role_arn *)
-  id : string option; [@option]  (** id *)
-  maintenance_window : string option; [@option]
+  cluster_name : string prop;  (** cluster_name *)
+  description : string prop option; [@option]  (** description *)
+  iam_role_arn : string prop;  (** iam_role_arn *)
+  id : string prop option; [@option]  (** id *)
+  maintenance_window : string prop option; [@option]
       (** maintenance_window *)
-  node_type : string;  (** node_type *)
-  notification_topic_arn : string option; [@option]
+  node_type : string prop;  (** node_type *)
+  notification_topic_arn : string prop option; [@option]
       (** notification_topic_arn *)
-  parameter_group_name : string option; [@option]
+  parameter_group_name : string prop option; [@option]
       (** parameter_group_name *)
-  replication_factor : float;  (** replication_factor *)
-  security_group_ids : string list option; [@option]
+  replication_factor : float prop;  (** replication_factor *)
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  subnet_group_name : string option; [@option]
+  subnet_group_name : string prop option; [@option]
       (** subnet_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   server_side_encryption :
     aws_dax_cluster__server_side_encryption list;

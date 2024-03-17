@@ -5,26 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_app_configuration_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_app_configuration_key__timeouts *)
 
 type azurerm_app_configuration_key = {
-  configuration_store_id : string;  (** configuration_store_id *)
-  content_type : string option; [@option]  (** content_type *)
-  etag : string option; [@option]  (** etag *)
-  id : string option; [@option]  (** id *)
-  key : string;  (** key *)
-  label : string option; [@option]  (** label *)
-  locked : bool option; [@option]  (** locked *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  type_ : string option; [@option] [@key "type"]  (** type *)
-  value : string option; [@option]  (** value *)
-  vault_key_reference : string option; [@option]
+  configuration_store_id : string prop;
+      (** configuration_store_id *)
+  content_type : string prop option; [@option]  (** content_type *)
+  etag : string prop option; [@option]  (** etag *)
+  id : string prop option; [@option]  (** id *)
+  key : string prop;  (** key *)
+  label : string prop option; [@option]  (** label *)
+  locked : bool prop option; [@option]  (** locked *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  value : string prop option; [@option]  (** value *)
+  vault_key_reference : string prop option; [@option]
       (** vault_key_reference *)
   timeouts : azurerm_app_configuration_key__timeouts option;
 }

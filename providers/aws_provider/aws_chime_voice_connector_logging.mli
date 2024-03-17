@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_chime_voice_connector_logging
 
 val aws_chime_voice_connector_logging :
-  ?enable_media_metric_logs:bool ->
-  ?enable_sip_logs:bool ->
-  ?id:string ->
-  voice_connector_id:string ->
+  ?enable_media_metric_logs:bool prop ->
+  ?enable_sip_logs:bool prop ->
+  ?id:string prop ->
+  voice_connector_id:string prop ->
   string ->
   unit

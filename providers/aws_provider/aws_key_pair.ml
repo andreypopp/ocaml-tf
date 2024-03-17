@@ -5,12 +5,14 @@
 open! Tf.Prelude
 
 type aws_key_pair = {
-  id : string option; [@option]  (** id *)
-  key_name : string option; [@option]  (** key_name *)
-  key_name_prefix : string option; [@option]  (** key_name_prefix *)
-  public_key : string;  (** public_key *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  key_name : string prop option; [@option]  (** key_name *)
+  key_name_prefix : string prop option; [@option]
+      (** key_name_prefix *)
+  public_key : string prop;  (** public_key *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_key_pair *)

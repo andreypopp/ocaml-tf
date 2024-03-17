@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_sqs_queue_policy = {
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  queue_url : string;  (** queue_url *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  queue_url : string prop;  (** queue_url *)
 }
 [@@deriving yojson_of]
 (** aws_sqs_queue_policy *)

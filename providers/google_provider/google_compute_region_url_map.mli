@@ -124,13 +124,13 @@ type google_compute_region_url_map__timeouts
 type google_compute_region_url_map
 
 val google_compute_region_url_map :
-  ?default_service:string ->
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
+  ?default_service:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_compute_region_url_map__timeouts ->
-  name:string ->
+  name:string prop ->
   default_route_action:
     google_compute_region_url_map__default_route_action list ->
   default_url_redirect:

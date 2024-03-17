@@ -6,11 +6,11 @@ type azurerm_graph_account__timeouts
 type azurerm_graph_account
 
 val azurerm_graph_account :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_graph_account__timeouts ->
-  application_id:string ->
-  name:string ->
-  resource_group_name:string ->
+  application_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

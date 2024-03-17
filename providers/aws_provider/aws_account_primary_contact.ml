@@ -5,21 +5,24 @@
 open! Tf.Prelude
 
 type aws_account_primary_contact = {
-  account_id : string option; [@option]  (** account_id *)
-  address_line_1 : string;  (** address_line_1 *)
-  address_line_2 : string option; [@option]  (** address_line_2 *)
-  address_line_3 : string option; [@option]  (** address_line_3 *)
-  city : string;  (** city *)
-  company_name : string option; [@option]  (** company_name *)
-  country_code : string;  (** country_code *)
-  district_or_county : string option; [@option]
+  account_id : string prop option; [@option]  (** account_id *)
+  address_line_1 : string prop;  (** address_line_1 *)
+  address_line_2 : string prop option; [@option]
+      (** address_line_2 *)
+  address_line_3 : string prop option; [@option]
+      (** address_line_3 *)
+  city : string prop;  (** city *)
+  company_name : string prop option; [@option]  (** company_name *)
+  country_code : string prop;  (** country_code *)
+  district_or_county : string prop option; [@option]
       (** district_or_county *)
-  full_name : string;  (** full_name *)
-  id : string option; [@option]  (** id *)
-  phone_number : string;  (** phone_number *)
-  postal_code : string;  (** postal_code *)
-  state_or_region : string option; [@option]  (** state_or_region *)
-  website_url : string option; [@option]  (** website_url *)
+  full_name : string prop;  (** full_name *)
+  id : string prop option; [@option]  (** id *)
+  phone_number : string prop;  (** phone_number *)
+  postal_code : string prop;  (** postal_code *)
+  state_or_region : string prop option; [@option]
+      (** state_or_region *)
+  website_url : string prop option; [@option]  (** website_url *)
 }
 [@@deriving yojson_of]
 (** aws_account_primary_contact *)

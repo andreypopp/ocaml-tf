@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_route53_resolver_firewall_rule_group
 
 val aws_route53_resolver_firewall_rule_group :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   string ->
   unit

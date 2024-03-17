@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type google_project_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string;  (** project *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop;  (** project *)
 }
 [@@deriving yojson_of]
 (** google_project_iam_policy *)

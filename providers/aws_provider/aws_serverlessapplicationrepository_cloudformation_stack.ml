@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_serverlessapplicationrepository_cloudformation_stack__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_serverlessapplicationrepository_cloudformation_stack__timeouts *)
 
 type aws_serverlessapplicationrepository_cloudformation_stack = {
-  application_id : string;  (** application_id *)
-  capabilities : string list;  (** capabilities *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  application_id : string prop;  (** application_id *)
+  capabilities : string prop list;  (** capabilities *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  semantic_version : string option; [@option]
+  semantic_version : string prop option; [@option]
       (** semantic_version *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts :
     aws_serverlessapplicationrepository_cloudformation_stack__timeouts

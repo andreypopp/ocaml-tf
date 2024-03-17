@@ -5,31 +5,33 @@
 open! Tf.Prelude
 
 type aws_lightsail_database = {
-  apply_immediately : bool option; [@option]
+  apply_immediately : bool prop option; [@option]
       (** apply_immediately *)
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  backup_retention_enabled : bool option; [@option]
+  backup_retention_enabled : bool prop option; [@option]
       (** backup_retention_enabled *)
-  blueprint_id : string;  (** blueprint_id *)
-  bundle_id : string;  (** bundle_id *)
-  final_snapshot_name : string option; [@option]
+  blueprint_id : string prop;  (** blueprint_id *)
+  bundle_id : string prop;  (** bundle_id *)
+  final_snapshot_name : string prop option; [@option]
       (** final_snapshot_name *)
-  id : string option; [@option]  (** id *)
-  master_database_name : string;  (** master_database_name *)
-  master_password : string;  (** master_password *)
-  master_username : string;  (** master_username *)
-  preferred_backup_window : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  master_database_name : string prop;  (** master_database_name *)
+  master_password : string prop;  (** master_password *)
+  master_username : string prop;  (** master_username *)
+  preferred_backup_window : string prop option; [@option]
       (** preferred_backup_window *)
-  preferred_maintenance_window : string option; [@option]
+  preferred_maintenance_window : string prop option; [@option]
       (** preferred_maintenance_window *)
-  publicly_accessible : bool option; [@option]
+  publicly_accessible : bool prop option; [@option]
       (** publicly_accessible *)
-  relational_database_name : string;  (** relational_database_name *)
-  skip_final_snapshot : bool option; [@option]
+  relational_database_name : string prop;
+      (** relational_database_name *)
+  skip_final_snapshot : bool prop option; [@option]
       (** skip_final_snapshot *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_database *)

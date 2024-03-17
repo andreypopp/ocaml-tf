@@ -5,17 +5,18 @@
 open! Tf.Prelude
 
 type aws_vpc_security_group_ingress_rule = {
-  cidr_ipv4 : string option; [@option]  (** cidr_ipv4 *)
-  cidr_ipv6 : string option; [@option]  (** cidr_ipv6 *)
-  description : string option; [@option]  (** description *)
-  from_port : float option; [@option]  (** from_port *)
-  ip_protocol : string;  (** ip_protocol *)
-  prefix_list_id : string option; [@option]  (** prefix_list_id *)
-  referenced_security_group_id : string option; [@option]
+  cidr_ipv4 : string prop option; [@option]  (** cidr_ipv4 *)
+  cidr_ipv6 : string prop option; [@option]  (** cidr_ipv6 *)
+  description : string prop option; [@option]  (** description *)
+  from_port : float prop option; [@option]  (** from_port *)
+  ip_protocol : string prop;  (** ip_protocol *)
+  prefix_list_id : string prop option; [@option]
+      (** prefix_list_id *)
+  referenced_security_group_id : string prop option; [@option]
       (** referenced_security_group_id *)
-  security_group_id : string;  (** security_group_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  to_port : float option; [@option]  (** to_port *)
+  security_group_id : string prop;  (** security_group_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  to_port : float prop option; [@option]  (** to_port *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_security_group_ingress_rule *)

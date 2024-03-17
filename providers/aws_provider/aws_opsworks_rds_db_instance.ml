@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_opsworks_rds_db_instance = {
-  db_password : string;  (** db_password *)
-  db_user : string;  (** db_user *)
-  id : string option; [@option]  (** id *)
-  rds_db_instance_arn : string;  (** rds_db_instance_arn *)
-  stack_id : string;  (** stack_id *)
+  db_password : string prop;  (** db_password *)
+  db_user : string prop;  (** db_user *)
+  id : string prop option; [@option]  (** id *)
+  rds_db_instance_arn : string prop;  (** rds_db_instance_arn *)
+  stack_id : string prop;  (** stack_id *)
 }
 [@@deriving yojson_of]
 (** aws_opsworks_rds_db_instance *)

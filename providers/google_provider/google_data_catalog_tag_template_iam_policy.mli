@@ -5,10 +5,10 @@ open! Tf.Prelude
 type google_data_catalog_tag_template_iam_policy
 
 val google_data_catalog_tag_template_iam_policy :
-  ?id:string ->
-  ?project:string ->
-  ?region:string ->
-  policy_data:string ->
-  tag_template:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  policy_data:string prop ->
+  tag_template:string prop ->
   string ->
   unit

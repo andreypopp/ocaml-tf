@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type aws_gamelift_build__storage_location = {
-  bucket : string;  (** bucket *)
-  key : string;  (** key *)
-  object_version : string option; [@option]  (** object_version *)
-  role_arn : string;  (** role_arn *)
+  bucket : string prop;  (** bucket *)
+  key : string prop;  (** key *)
+  object_version : string prop option; [@option]
+      (** object_version *)
+  role_arn : string prop;  (** role_arn *)
 }
 [@@deriving yojson_of]
 (** aws_gamelift_build__storage_location *)
 
 type aws_gamelift_build = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  operating_system : string;  (** operating_system *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  operating_system : string prop;  (** operating_system *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  version : string option; [@option]  (** version *)
+  version : string prop option; [@option]  (** version *)
   storage_location : aws_gamelift_build__storage_location list;
 }
 [@@deriving yojson_of]

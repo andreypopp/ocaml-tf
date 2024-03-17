@@ -5,39 +5,40 @@
 open! Tf.Prelude
 
 type azurerm_managed_application__plan = {
-  name : string;  (** name *)
-  product : string;  (** product *)
-  promotion_code : string option; [@option]  (** promotion_code *)
-  publisher : string;  (** publisher *)
-  version : string;  (** version *)
+  name : string prop;  (** name *)
+  product : string prop;  (** product *)
+  promotion_code : string prop option; [@option]
+      (** promotion_code *)
+  publisher : string prop;  (** publisher *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** azurerm_managed_application__plan *)
 
 type azurerm_managed_application__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_managed_application__timeouts *)
 
 type azurerm_managed_application = {
-  application_definition_id : string option; [@option]
+  application_definition_id : string prop option; [@option]
       (** application_definition_id *)
-  id : string option; [@option]  (** id *)
-  kind : string;  (** kind *)
-  location : string;  (** location *)
-  managed_resource_group_name : string;
+  id : string prop option; [@option]  (** id *)
+  kind : string prop;  (** kind *)
+  location : string prop;  (** location *)
+  managed_resource_group_name : string prop;
       (** managed_resource_group_name *)
-  name : string;  (** name *)
-  parameter_values : string option; [@option]
+  name : string prop;  (** name *)
+  parameter_values : string prop option; [@option]
       (** parameter_values *)
-  parameters : (string * string) list option; [@option]
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   plan : azurerm_managed_application__plan list;
   timeouts : azurerm_managed_application__timeouts option;
 }

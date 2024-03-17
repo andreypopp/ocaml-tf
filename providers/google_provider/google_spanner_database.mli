@@ -7,16 +7,16 @@ type google_spanner_database__timeouts
 type google_spanner_database
 
 val google_spanner_database :
-  ?database_dialect:string ->
-  ?ddl:string list ->
-  ?deletion_protection:bool ->
-  ?enable_drop_protection:bool ->
-  ?id:string ->
-  ?project:string ->
-  ?version_retention_period:string ->
+  ?database_dialect:string prop ->
+  ?ddl:string prop list ->
+  ?deletion_protection:bool prop ->
+  ?enable_drop_protection:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?version_retention_period:string prop ->
   ?timeouts:google_spanner_database__timeouts ->
-  instance:string ->
-  name:string ->
+  instance:string prop ->
+  name:string prop ->
   encryption_config:google_spanner_database__encryption_config list ->
   string ->
   unit

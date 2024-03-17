@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_ses_active_receipt_rule_set = {
-  id : string option; [@option]  (** id *)
-  rule_set_name : string;  (** rule_set_name *)
+  id : string prop option; [@option]  (** id *)
+  rule_set_name : string prop;  (** rule_set_name *)
 }
 [@@deriving yojson_of]
 (** aws_ses_active_receipt_rule_set *)

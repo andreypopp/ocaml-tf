@@ -5,13 +5,15 @@
 open! Tf.Prelude
 
 type digitalocean_uptime_check = {
-  enabled : bool option; [@option]
+  enabled : bool prop option; [@option]
       (** A boolean value indicating whether the check is enabled/disabled. *)
-  name : string;  (** A human-friendly display name for the check. *)
-  regions : string list option; [@option]
+  name : string prop;
+      (** A human-friendly display name for the check. *)
+  regions : string prop list option; [@option]
       (** An array containing the selected regions to perform healthchecks from. *)
-  target : string;  (** The endpoint to perform healthchecks on. *)
-  type_ : string option; [@option] [@key "type"]
+  target : string prop;
+      (** The endpoint to perform healthchecks on. *)
+  type_ : string prop option; [@option] [@key "type"]
       (** The type of health check to perform. Enum: 'ping' 'http' 'https' *)
 }
 [@@deriving yojson_of]

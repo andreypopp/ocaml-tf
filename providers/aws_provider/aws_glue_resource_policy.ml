@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_glue_resource_policy = {
-  enable_hybrid : string option; [@option]  (** enable_hybrid *)
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
+  enable_hybrid : string prop option; [@option]  (** enable_hybrid *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_glue_resource_policy *)

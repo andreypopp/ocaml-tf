@@ -12,21 +12,21 @@ type google_bigquery_dataset__timeouts
 type google_bigquery_dataset
 
 val google_bigquery_dataset :
-  ?default_collation:string ->
-  ?default_partition_expiration_ms:float ->
-  ?default_table_expiration_ms:float ->
-  ?delete_contents_on_destroy:bool ->
-  ?description:string ->
-  ?friendly_name:string ->
-  ?id:string ->
-  ?is_case_insensitive:bool ->
-  ?labels:(string * string) list ->
-  ?location:string ->
-  ?max_time_travel_hours:string ->
-  ?project:string ->
-  ?storage_billing_model:string ->
+  ?default_collation:string prop ->
+  ?default_partition_expiration_ms:float prop ->
+  ?default_table_expiration_ms:float prop ->
+  ?delete_contents_on_destroy:bool prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?id:string prop ->
+  ?is_case_insensitive:bool prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?max_time_travel_hours:string prop ->
+  ?project:string prop ->
+  ?storage_billing_model:string prop ->
   ?timeouts:google_bigquery_dataset__timeouts ->
-  dataset_id:string ->
+  dataset_id:string prop ->
   access:google_bigquery_dataset__access list ->
   default_encryption_configuration:
     google_bigquery_dataset__default_encryption_configuration list ->

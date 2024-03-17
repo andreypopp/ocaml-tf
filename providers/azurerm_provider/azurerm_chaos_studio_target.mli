@@ -6,10 +6,10 @@ type azurerm_chaos_studio_target__timeouts
 type azurerm_chaos_studio_target
 
 val azurerm_chaos_studio_target :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_chaos_studio_target__timeouts ->
-  location:string ->
-  target_resource_id:string ->
-  target_type:string ->
+  location:string prop ->
+  target_resource_id:string prop ->
+  target_type:string prop ->
   string ->
   unit

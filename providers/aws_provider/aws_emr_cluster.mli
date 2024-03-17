@@ -38,52 +38,52 @@ type aws_emr_cluster__master_instance_group__ebs_config
 type aws_emr_cluster__master_instance_group
 
 type aws_emr_cluster__placement_group_config = {
-  instance_role : string;  (** instance_role *)
-  placement_strategy : string;  (** placement_strategy *)
+  instance_role : string prop;  (** instance_role *)
+  placement_strategy : string prop;  (** placement_strategy *)
 }
 
 type aws_emr_cluster__step__hadoop_jar_step = {
-  args : string list;  (** args *)
-  jar : string;  (** jar *)
-  main_class : string;  (** main_class *)
-  properties : (string * string) list;  (** properties *)
+  args : string prop list;  (** args *)
+  jar : string prop;  (** jar *)
+  main_class : string prop;  (** main_class *)
+  properties : (string * string prop) list;  (** properties *)
 }
 
 type aws_emr_cluster__step = {
-  action_on_failure : string;  (** action_on_failure *)
+  action_on_failure : string prop;  (** action_on_failure *)
   hadoop_jar_step : aws_emr_cluster__step__hadoop_jar_step list;
       (** hadoop_jar_step *)
-  name : string;  (** name *)
+  name : string prop;  (** name *)
 }
 
 type aws_emr_cluster
 
 val aws_emr_cluster :
-  ?additional_info:string ->
-  ?applications:string list ->
-  ?autoscaling_role:string ->
-  ?configurations:string ->
-  ?configurations_json:string ->
-  ?custom_ami_id:string ->
-  ?ebs_root_volume_size:float ->
-  ?id:string ->
-  ?keep_job_flow_alive_when_no_steps:bool ->
-  ?list_steps_states:string list ->
-  ?log_encryption_kms_key_id:string ->
-  ?log_uri:string ->
+  ?additional_info:string prop ->
+  ?applications:string prop list ->
+  ?autoscaling_role:string prop ->
+  ?configurations:string prop ->
+  ?configurations_json:string prop ->
+  ?custom_ami_id:string prop ->
+  ?ebs_root_volume_size:float prop ->
+  ?id:string prop ->
+  ?keep_job_flow_alive_when_no_steps:bool prop ->
+  ?list_steps_states:string prop list ->
+  ?log_encryption_kms_key_id:string prop ->
+  ?log_uri:string prop ->
   ?placement_group_config:
     aws_emr_cluster__placement_group_config list ->
-  ?scale_down_behavior:string ->
-  ?security_configuration:string ->
+  ?scale_down_behavior:string prop ->
+  ?security_configuration:string prop ->
   ?step:aws_emr_cluster__step list ->
-  ?step_concurrency_level:float ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?termination_protection:bool ->
-  ?visible_to_all_users:bool ->
-  name:string ->
-  release_label:string ->
-  service_role:string ->
+  ?step_concurrency_level:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?termination_protection:bool prop ->
+  ?visible_to_all_users:bool prop ->
+  name:string prop ->
+  release_label:string prop ->
+  service_role:string prop ->
   auto_termination_policy:
     aws_emr_cluster__auto_termination_policy list ->
   bootstrap_action:aws_emr_cluster__bootstrap_action list ->

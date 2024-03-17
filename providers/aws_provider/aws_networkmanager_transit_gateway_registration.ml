@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_networkmanager_transit_gateway_registration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_transit_gateway_registration__timeouts *)
 
 type aws_networkmanager_transit_gateway_registration = {
-  global_network_id : string;  (** global_network_id *)
-  id : string option; [@option]  (** id *)
-  transit_gateway_arn : string;  (** transit_gateway_arn *)
+  global_network_id : string prop;  (** global_network_id *)
+  id : string prop option; [@option]  (** id *)
+  transit_gateway_arn : string prop;  (** transit_gateway_arn *)
   timeouts :
     aws_networkmanager_transit_gateway_registration__timeouts option;
 }

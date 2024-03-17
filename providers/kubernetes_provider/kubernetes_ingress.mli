@@ -12,8 +12,8 @@ type kubernetes_ingress__spec__tls
 type kubernetes_ingress__spec
 
 type kubernetes_ingress__status__load_balancer__ingress = {
-  hostname : string;  (** hostname *)
-  ip : string;  (** ip *)
+  hostname : string prop;  (** hostname *)
+  ip : string prop;  (** ip *)
 }
 
 type kubernetes_ingress__status__load_balancer = {
@@ -29,8 +29,8 @@ type kubernetes_ingress__status = {
 type kubernetes_ingress
 
 val kubernetes_ingress :
-  ?id:string ->
-  ?wait_for_load_balancer:bool ->
+  ?id:string prop ->
+  ?wait_for_load_balancer:bool prop ->
   metadata:kubernetes_ingress__metadata list ->
   spec:kubernetes_ingress__spec list ->
   string ->

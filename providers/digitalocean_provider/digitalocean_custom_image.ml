@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type digitalocean_custom_image__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** digitalocean_custom_image__timeouts *)
 
 type digitalocean_custom_image = {
-  description : string option; [@option]  (** description *)
-  distribution : string option; [@option]  (** distribution *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  regions : string list;  (** regions *)
-  tags : string list option; [@option]  (** tags *)
-  url : string;  (** url *)
+  description : string prop option; [@option]  (** description *)
+  distribution : string prop option; [@option]  (** distribution *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  regions : string prop list;  (** regions *)
+  tags : string prop list option; [@option]  (** tags *)
+  url : string prop;  (** url *)
   timeouts : digitalocean_custom_image__timeouts option;
 }
 [@@deriving yojson_of]

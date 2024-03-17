@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type azurerm_machine_learning_datastore_blobstorage__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_machine_learning_datastore_blobstorage__timeouts *)
 
 type azurerm_machine_learning_datastore_blobstorage = {
-  account_key : string option; [@option]  (** account_key *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  is_default : bool option; [@option]  (** is_default *)
-  name : string;  (** name *)
-  service_data_auth_identity : string option; [@option]
+  account_key : string prop option; [@option]  (** account_key *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  is_default : bool prop option; [@option]  (** is_default *)
+  name : string prop;  (** name *)
+  service_data_auth_identity : string prop option; [@option]
       (** service_data_auth_identity *)
-  shared_access_signature : string option; [@option]
+  shared_access_signature : string prop option; [@option]
       (** shared_access_signature *)
-  storage_container_id : string;  (** storage_container_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  workspace_id : string;  (** workspace_id *)
+  storage_container_id : string prop;  (** storage_container_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  workspace_id : string prop;  (** workspace_id *)
   timeouts :
     azurerm_machine_learning_datastore_blobstorage__timeouts option;
 }

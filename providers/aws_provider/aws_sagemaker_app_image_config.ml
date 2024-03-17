@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_sagemaker_app_image_config__jupyter_lab_image_config__container_config = {
-  container_arguments : string list option; [@option]
+  container_arguments : string prop list option; [@option]
       (** container_arguments *)
-  container_entrypoint : string list option; [@option]
+  container_entrypoint : string prop list option; [@option]
       (** container_entrypoint *)
-  container_environment_variables : (string * string) list option;
+  container_environment_variables :
+    (string * string prop) list option;
       [@option]
       (** container_environment_variables *)
 }
@@ -25,16 +26,16 @@ type aws_sagemaker_app_image_config__jupyter_lab_image_config = {
 (** aws_sagemaker_app_image_config__jupyter_lab_image_config *)
 
 type aws_sagemaker_app_image_config__kernel_gateway_image_config__file_system_config = {
-  default_gid : float option; [@option]  (** default_gid *)
-  default_uid : float option; [@option]  (** default_uid *)
-  mount_path : string option; [@option]  (** mount_path *)
+  default_gid : float prop option; [@option]  (** default_gid *)
+  default_uid : float prop option; [@option]  (** default_uid *)
+  mount_path : string prop option; [@option]  (** mount_path *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_app_image_config__kernel_gateway_image_config__file_system_config *)
 
 type aws_sagemaker_app_image_config__kernel_gateway_image_config__kernel_spec = {
-  display_name : string option; [@option]  (** display_name *)
-  name : string;  (** name *)
+  display_name : string prop option; [@option]  (** display_name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_app_image_config__kernel_gateway_image_config__kernel_spec *)
@@ -51,10 +52,10 @@ type aws_sagemaker_app_image_config__kernel_gateway_image_config = {
 (** aws_sagemaker_app_image_config__kernel_gateway_image_config *)
 
 type aws_sagemaker_app_image_config = {
-  app_image_config_name : string;  (** app_image_config_name *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  app_image_config_name : string prop;  (** app_image_config_name *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   jupyter_lab_image_config :
     aws_sagemaker_app_image_config__jupyter_lab_image_config list;

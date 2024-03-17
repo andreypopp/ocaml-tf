@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type azurerm_container_registry_token_password__password1 = {
-  expiry : string option; [@option]  (** expiry *)
-  value : string;  (** value *)
+  expiry : string prop option; [@option]  (** expiry *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_container_registry_token_password__password1 *)
 
 type azurerm_container_registry_token_password__password2 = {
-  expiry : string option; [@option]  (** expiry *)
-  value : string;  (** value *)
+  expiry : string prop option; [@option]  (** expiry *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_container_registry_token_password__password2 *)
 
 type azurerm_container_registry_token_password__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_container_registry_token_password__timeouts *)
 
 type azurerm_container_registry_token_password = {
-  container_registry_token_id : string;
+  container_registry_token_id : string prop;
       (** container_registry_token_id *)
-  id : string option; [@option]  (** id *)
+  id : string prop option; [@option]  (** id *)
   password1 :
     azurerm_container_registry_token_password__password1 list;
   password2 :

@@ -5,37 +5,39 @@
 open! Tf.Prelude
 
 type aws_globalaccelerator_custom_routing_accelerator__attributes = {
-  flow_logs_enabled : bool option; [@option]
+  flow_logs_enabled : bool prop option; [@option]
       (** flow_logs_enabled *)
-  flow_logs_s3_bucket : string option; [@option]
+  flow_logs_s3_bucket : string prop option; [@option]
       (** flow_logs_s3_bucket *)
-  flow_logs_s3_prefix : string option; [@option]
+  flow_logs_s3_prefix : string prop option; [@option]
       (** flow_logs_s3_prefix *)
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_accelerator__attributes *)
 
 type aws_globalaccelerator_custom_routing_accelerator__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_globalaccelerator_custom_routing_accelerator__timeouts *)
 
 type aws_globalaccelerator_custom_routing_accelerator__ip_sets = {
-  ip_addresses : string list;  (** ip_addresses *)
-  ip_family : string;  (** ip_family *)
+  ip_addresses : string prop list;  (** ip_addresses *)
+  ip_family : string prop;  (** ip_family *)
 }
 [@@deriving yojson_of]
 
 type aws_globalaccelerator_custom_routing_accelerator = {
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  ip_address_type : string option; [@option]  (** ip_address_type *)
-  ip_addresses : string list option; [@option]  (** ip_addresses *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  ip_address_type : string prop option; [@option]
+      (** ip_address_type *)
+  ip_addresses : string prop list option; [@option]
+      (** ip_addresses *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   attributes :
     aws_globalaccelerator_custom_routing_accelerator__attributes list;

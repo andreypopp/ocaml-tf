@@ -6,11 +6,11 @@ type google_iap_web_backend_service_iam_member__condition
 type google_iap_web_backend_service_iam_member
 
 val google_iap_web_backend_service_iam_member :
-  ?id:string ->
-  ?project:string ->
-  member:string ->
-  role:string ->
-  web_backend_service:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  member:string prop ->
+  role:string prop ->
+  web_backend_service:string prop ->
   condition:google_iap_web_backend_service_iam_member__condition list ->
   string ->
   unit

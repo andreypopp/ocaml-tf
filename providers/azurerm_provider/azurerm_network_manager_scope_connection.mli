@@ -6,12 +6,12 @@ type azurerm_network_manager_scope_connection__timeouts
 type azurerm_network_manager_scope_connection
 
 val azurerm_network_manager_scope_connection :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_network_manager_scope_connection__timeouts ->
-  name:string ->
-  network_manager_id:string ->
-  target_scope_id:string ->
-  tenant_id:string ->
+  name:string prop ->
+  network_manager_id:string prop ->
+  target_scope_id:string prop ->
+  tenant_id:string prop ->
   string ->
   unit

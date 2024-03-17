@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type digitalocean_ssh_key = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  public_key : string;  (** public_key *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  public_key : string prop;  (** public_key *)
 }
 [@@deriving yojson_of]
 (** digitalocean_ssh_key *)

@@ -16,20 +16,20 @@ type aws_finspace_kx_cluster__vpc_configuration
 type aws_finspace_kx_cluster
 
 val aws_finspace_kx_cluster :
-  ?availability_zone_id:string ->
-  ?command_line_arguments:(string * string) list ->
-  ?description:string ->
-  ?execution_role:string ->
-  ?id:string ->
-  ?initialization_script:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?availability_zone_id:string prop ->
+  ?command_line_arguments:(string * string prop) list ->
+  ?description:string prop ->
+  ?execution_role:string prop ->
+  ?id:string prop ->
+  ?initialization_script:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_finspace_kx_cluster__timeouts ->
-  az_mode:string ->
-  environment_id:string ->
-  name:string ->
-  release_label:string ->
-  type_:string ->
+  az_mode:string prop ->
+  environment_id:string prop ->
+  name:string prop ->
+  release_label:string prop ->
+  type_:string prop ->
   auto_scaling_configuration:
     aws_finspace_kx_cluster__auto_scaling_configuration list ->
   cache_storage_configurations:

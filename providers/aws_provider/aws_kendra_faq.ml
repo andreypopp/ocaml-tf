@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type aws_kendra_faq__s3_path = {
-  bucket : string;  (** bucket *)
-  key : string;  (** key *)
+  bucket : string prop;  (** bucket *)
+  key : string prop;  (** key *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_faq__s3_path *)
 
 type aws_kendra_faq__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_kendra_faq__timeouts *)
 
 type aws_kendra_faq = {
-  description : string option; [@option]  (** description *)
-  file_format : string option; [@option]  (** file_format *)
-  id : string option; [@option]  (** id *)
-  index_id : string;  (** index_id *)
-  language_code : string option; [@option]  (** language_code *)
-  name : string;  (** name *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  file_format : string prop option; [@option]  (** file_format *)
+  id : string prop option; [@option]  (** id *)
+  index_id : string prop;  (** index_id *)
+  language_code : string prop option; [@option]  (** language_code *)
+  name : string prop;  (** name *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   s3_path : aws_kendra_faq__s3_path list;
   timeouts : aws_kendra_faq__timeouts option;

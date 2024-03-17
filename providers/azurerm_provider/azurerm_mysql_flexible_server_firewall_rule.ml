@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_mysql_flexible_server_firewall_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server_firewall_rule__timeouts *)
 
 type azurerm_mysql_flexible_server_firewall_rule = {
-  end_ip_address : string;  (** end_ip_address *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  server_name : string;  (** server_name *)
-  start_ip_address : string;  (** start_ip_address *)
+  end_ip_address : string prop;  (** end_ip_address *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  server_name : string prop;  (** server_name *)
+  start_ip_address : string prop;  (** start_ip_address *)
   timeouts :
     azurerm_mysql_flexible_server_firewall_rule__timeouts option;
 }

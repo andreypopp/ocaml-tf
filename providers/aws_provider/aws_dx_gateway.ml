@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_dx_gateway__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_dx_gateway__timeouts *)
 
 type aws_dx_gateway = {
-  amazon_side_asn : string;  (** amazon_side_asn *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  amazon_side_asn : string prop;  (** amazon_side_asn *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   timeouts : aws_dx_gateway__timeouts option;
 }
 [@@deriving yojson_of]

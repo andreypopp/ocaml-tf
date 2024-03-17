@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_glue_user_defined_function__resource_uris = {
-  resource_type : string;  (** resource_type *)
-  uri : string;  (** uri *)
+  resource_type : string prop;  (** resource_type *)
+  uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
 (** aws_glue_user_defined_function__resource_uris *)
 
 type aws_glue_user_defined_function = {
-  catalog_id : string option; [@option]  (** catalog_id *)
-  class_name : string;  (** class_name *)
-  database_name : string;  (** database_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  owner_name : string;  (** owner_name *)
-  owner_type : string;  (** owner_type *)
+  catalog_id : string prop option; [@option]  (** catalog_id *)
+  class_name : string prop;  (** class_name *)
+  database_name : string prop;  (** database_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  owner_name : string prop;  (** owner_name *)
+  owner_type : string prop;  (** owner_type *)
   resource_uris : aws_glue_user_defined_function__resource_uris list;
 }
 [@@deriving yojson_of]

@@ -15,18 +15,18 @@ type google_pubsub_subscription__timeouts
 type google_pubsub_subscription
 
 val google_pubsub_subscription :
-  ?ack_deadline_seconds:float ->
-  ?enable_exactly_once_delivery:bool ->
-  ?enable_message_ordering:bool ->
-  ?filter:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?message_retention_duration:string ->
-  ?project:string ->
-  ?retain_acked_messages:bool ->
+  ?ack_deadline_seconds:float prop ->
+  ?enable_exactly_once_delivery:bool prop ->
+  ?enable_message_ordering:bool prop ->
+  ?filter:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?message_retention_duration:string prop ->
+  ?project:string prop ->
+  ?retain_acked_messages:bool prop ->
   ?timeouts:google_pubsub_subscription__timeouts ->
-  name:string ->
-  topic:string ->
+  name:string prop ->
+  topic:string prop ->
   bigquery_config:google_pubsub_subscription__bigquery_config list ->
   cloud_storage_config:
     google_pubsub_subscription__cloud_storage_config list ->

@@ -5,28 +5,31 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_metric_stream__exclude_filter = {
-  metric_names : string list option; [@option]  (** metric_names *)
-  namespace : string;  (** namespace *)
+  metric_names : string prop list option; [@option]
+      (** metric_names *)
+  namespace : string prop;  (** namespace *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_metric_stream__exclude_filter *)
 
 type aws_cloudwatch_metric_stream__include_filter = {
-  metric_names : string list option; [@option]  (** metric_names *)
-  namespace : string;  (** namespace *)
+  metric_names : string prop list option; [@option]
+      (** metric_names *)
+  namespace : string prop;  (** namespace *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_metric_stream__include_filter *)
 
 type aws_cloudwatch_metric_stream__statistics_configuration__include_metric = {
-  metric_name : string;  (** metric_name *)
-  namespace : string;  (** namespace *)
+  metric_name : string prop;  (** metric_name *)
+  namespace : string prop;  (** namespace *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_metric_stream__statistics_configuration__include_metric *)
 
 type aws_cloudwatch_metric_stream__statistics_configuration = {
-  additional_statistics : string list;  (** additional_statistics *)
+  additional_statistics : string prop list;
+      (** additional_statistics *)
   include_metric :
     aws_cloudwatch_metric_stream__statistics_configuration__include_metric
     list;
@@ -35,24 +38,24 @@ type aws_cloudwatch_metric_stream__statistics_configuration = {
 (** aws_cloudwatch_metric_stream__statistics_configuration *)
 
 type aws_cloudwatch_metric_stream__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_metric_stream__timeouts *)
 
 type aws_cloudwatch_metric_stream = {
-  firehose_arn : string;  (** firehose_arn *)
-  id : string option; [@option]  (** id *)
-  include_linked_accounts_metrics : bool option; [@option]
+  firehose_arn : string prop;  (** firehose_arn *)
+  id : string prop option; [@option]  (** id *)
+  include_linked_accounts_metrics : bool prop option; [@option]
       (** include_linked_accounts_metrics *)
-  name : string option; [@option]  (** name *)
-  name_prefix : string option; [@option]  (** name_prefix *)
-  output_format : string;  (** output_format *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  name : string prop option; [@option]  (** name *)
+  name_prefix : string prop option; [@option]  (** name_prefix *)
+  output_format : string prop;  (** output_format *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   exclude_filter : aws_cloudwatch_metric_stream__exclude_filter list;
   include_filter : aws_cloudwatch_metric_stream__include_filter list;

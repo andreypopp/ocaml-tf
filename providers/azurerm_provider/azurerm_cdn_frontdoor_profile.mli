@@ -6,12 +6,12 @@ type azurerm_cdn_frontdoor_profile__timeouts
 type azurerm_cdn_frontdoor_profile
 
 val azurerm_cdn_frontdoor_profile :
-  ?id:string ->
-  ?response_timeout_seconds:float ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?response_timeout_seconds:float prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_cdn_frontdoor_profile__timeouts ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
   string ->
   unit

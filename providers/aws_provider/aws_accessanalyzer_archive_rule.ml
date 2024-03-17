@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_accessanalyzer_archive_rule__filter = {
-  contains : string list option; [@option]  (** contains *)
-  criteria : string;  (** criteria *)
-  eq : string list option; [@option]  (** eq *)
-  exists : string option; [@option]  (** exists *)
-  neq : string list option; [@option]  (** neq *)
+  contains : string prop list option; [@option]  (** contains *)
+  criteria : string prop;  (** criteria *)
+  eq : string prop list option; [@option]  (** eq *)
+  exists : string prop option; [@option]  (** exists *)
+  neq : string prop list option; [@option]  (** neq *)
 }
 [@@deriving yojson_of]
 (** aws_accessanalyzer_archive_rule__filter *)
 
 type aws_accessanalyzer_archive_rule = {
-  analyzer_name : string;  (** analyzer_name *)
-  id : string option; [@option]  (** id *)
-  rule_name : string;  (** rule_name *)
+  analyzer_name : string prop;  (** analyzer_name *)
+  id : string prop option; [@option]  (** id *)
+  rule_name : string prop;  (** rule_name *)
   filter : aws_accessanalyzer_archive_rule__filter list;
 }
 [@@deriving yojson_of]

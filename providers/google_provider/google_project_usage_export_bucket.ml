@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type google_project_usage_export_bucket__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_project_usage_export_bucket__timeouts *)
 
 type google_project_usage_export_bucket = {
-  bucket_name : string;  (** The bucket to store reports in. *)
-  id : string option; [@option]  (** id *)
-  prefix : string option; [@option]
+  bucket_name : string prop;  (** The bucket to store reports in. *)
+  id : string prop option; [@option]  (** id *)
+  prefix : string prop option; [@option]
       (** A prefix for the reports, for instance, the project name. *)
-  project : string option; [@option]
+  project : string prop option; [@option]
       (** The project to set the export bucket on. If it is not provided, the provider project is used. *)
   timeouts : google_project_usage_export_bucket__timeouts option;
 }

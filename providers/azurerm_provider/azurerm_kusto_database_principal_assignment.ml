@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_kusto_database_principal_assignment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_database_principal_assignment__timeouts *)
 
 type azurerm_kusto_database_principal_assignment = {
-  cluster_name : string;  (** cluster_name *)
-  database_name : string;  (** database_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  principal_id : string;  (** principal_id *)
-  principal_type : string;  (** principal_type *)
-  resource_group_name : string;  (** resource_group_name *)
-  role : string;  (** role *)
-  tenant_id : string;  (** tenant_id *)
+  cluster_name : string prop;  (** cluster_name *)
+  database_name : string prop;  (** database_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  principal_id : string prop;  (** principal_id *)
+  principal_type : string prop;  (** principal_type *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  role : string prop;  (** role *)
+  tenant_id : string prop;  (** tenant_id *)
   timeouts :
     azurerm_kusto_database_principal_assignment__timeouts option;
 }

@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type hcloud_volume = {
-  automount : bool option; [@option]  (** automount *)
-  delete_protection : bool option; [@option]
+  automount : bool prop option; [@option]  (** automount *)
+  delete_protection : bool prop option; [@option]
       (** delete_protection *)
-  format : string option; [@option]  (** format *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  location : string option; [@option]  (** location *)
-  name : string;  (** name *)
-  server_id : float option; [@option]  (** server_id *)
-  size : float;  (** size *)
+  format : string prop option; [@option]  (** format *)
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  location : string prop option; [@option]  (** location *)
+  name : string prop;  (** name *)
+  server_id : float prop option; [@option]  (** server_id *)
+  size : float prop;  (** size *)
 }
 [@@deriving yojson_of]
 (** hcloud_volume *)

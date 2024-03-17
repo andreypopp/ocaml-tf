@@ -7,13 +7,13 @@ type azurerm_monitor_log_profile__timeouts
 type azurerm_monitor_log_profile
 
 val azurerm_monitor_log_profile :
-  ?id:string ->
-  ?servicebus_rule_id:string ->
-  ?storage_account_id:string ->
+  ?id:string prop ->
+  ?servicebus_rule_id:string prop ->
+  ?storage_account_id:string prop ->
   ?timeouts:azurerm_monitor_log_profile__timeouts ->
-  categories:string list ->
-  locations:string list ->
-  name:string ->
+  categories:string prop list ->
+  locations:string prop list ->
+  name:string prop ->
   retention_policy:azurerm_monitor_log_profile__retention_policy list ->
   string ->
   unit

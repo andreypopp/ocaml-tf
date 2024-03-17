@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_secret_manager_secret_iam_policy = {
-  id : string option; [@option]  (** id *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
-  secret_id : string;  (** secret_id *)
+  id : string prop option; [@option]  (** id *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
+  secret_id : string prop;  (** secret_id *)
 }
 [@@deriving yojson_of]
 (** google_secret_manager_secret_iam_policy *)

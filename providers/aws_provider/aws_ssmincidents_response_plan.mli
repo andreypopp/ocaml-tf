@@ -14,13 +14,13 @@ type aws_ssmincidents_response_plan__integration
 type aws_ssmincidents_response_plan
 
 val aws_ssmincidents_response_plan :
-  ?chat_channel:string list ->
-  ?display_name:string ->
-  ?engagements:string list ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?chat_channel:string prop list ->
+  ?display_name:string prop ->
+  ?engagements:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   action:aws_ssmincidents_response_plan__action list ->
   incident_template:
     aws_ssmincidents_response_plan__incident_template list ->

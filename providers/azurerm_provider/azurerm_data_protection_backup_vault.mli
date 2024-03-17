@@ -7,16 +7,16 @@ type azurerm_data_protection_backup_vault__timeouts
 type azurerm_data_protection_backup_vault
 
 val azurerm_data_protection_backup_vault :
-  ?id:string ->
-  ?retention_duration_in_days:float ->
-  ?soft_delete:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?retention_duration_in_days:float prop ->
+  ?soft_delete:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_data_protection_backup_vault__timeouts ->
-  datastore_type:string ->
-  location:string ->
-  name:string ->
-  redundancy:string ->
-  resource_group_name:string ->
+  datastore_type:string prop ->
+  location:string prop ->
+  name:string prop ->
+  redundancy:string prop ->
+  resource_group_name:string prop ->
   identity:azurerm_data_protection_backup_vault__identity list ->
   string ->
   unit

@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_resourcegroups_resource__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_resourcegroups_resource__timeouts *)
 
 type aws_resourcegroups_resource = {
-  group_arn : string;  (** group_arn *)
-  id : string option; [@option]  (** id *)
-  resource_arn : string;  (** resource_arn *)
+  group_arn : string prop;  (** group_arn *)
+  id : string prop option; [@option]  (** id *)
+  resource_arn : string prop;  (** resource_arn *)
   timeouts : aws_resourcegroups_resource__timeouts option;
 }
 [@@deriving yojson_of]

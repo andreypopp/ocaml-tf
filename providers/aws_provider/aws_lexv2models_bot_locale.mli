@@ -7,13 +7,13 @@ type aws_lexv2models_bot_locale__voice_settings
 type aws_lexv2models_bot_locale
 
 val aws_lexv2models_bot_locale :
-  ?description:string ->
-  ?name:string ->
+  ?description:string prop ->
+  ?name:string prop ->
   ?timeouts:aws_lexv2models_bot_locale__timeouts ->
-  bot_id:string ->
-  bot_version:string ->
-  locale_id:string ->
-  n_lu_intent_confidence_threshold:float ->
+  bot_id:string prop ->
+  bot_version:string prop ->
+  locale_id:string prop ->
+  n_lu_intent_confidence_threshold:float prop ->
   voice_settings:aws_lexv2models_bot_locale__voice_settings list ->
   string ->
   unit

@@ -5,49 +5,50 @@
 open! Tf.Prelude
 
 type azurerm_dev_test_linux_virtual_machine__gallery_image_reference = {
-  offer : string;  (** offer *)
-  publisher : string;  (** publisher *)
-  sku : string;  (** sku *)
-  version : string;  (** version *)
+  offer : string prop;  (** offer *)
+  publisher : string prop;  (** publisher *)
+  sku : string prop;  (** sku *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_linux_virtual_machine__gallery_image_reference *)
 
 type azurerm_dev_test_linux_virtual_machine__inbound_nat_rule = {
-  backend_port : float;  (** backend_port *)
-  frontend_port : float;  (** frontend_port *)
-  protocol : string;  (** protocol *)
+  backend_port : float prop;  (** backend_port *)
+  frontend_port : float prop;  (** frontend_port *)
+  protocol : string prop;  (** protocol *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_linux_virtual_machine__inbound_nat_rule *)
 
 type azurerm_dev_test_linux_virtual_machine__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_test_linux_virtual_machine__timeouts *)
 
 type azurerm_dev_test_linux_virtual_machine = {
-  allow_claim : bool option; [@option]  (** allow_claim *)
-  disallow_public_ip_address : bool option; [@option]
+  allow_claim : bool prop option; [@option]  (** allow_claim *)
+  disallow_public_ip_address : bool prop option; [@option]
       (** disallow_public_ip_address *)
-  id : string option; [@option]  (** id *)
-  lab_name : string;  (** lab_name *)
-  lab_subnet_name : string;  (** lab_subnet_name *)
-  lab_virtual_network_id : string;  (** lab_virtual_network_id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  notes : string option; [@option]  (** notes *)
-  password : string option; [@option]  (** password *)
-  resource_group_name : string;  (** resource_group_name *)
-  size : string;  (** size *)
-  ssh_key : string option; [@option]  (** ssh_key *)
-  storage_type : string;  (** storage_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  username : string;  (** username *)
+  id : string prop option; [@option]  (** id *)
+  lab_name : string prop;  (** lab_name *)
+  lab_subnet_name : string prop;  (** lab_subnet_name *)
+  lab_virtual_network_id : string prop;
+      (** lab_virtual_network_id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  notes : string prop option; [@option]  (** notes *)
+  password : string prop option; [@option]  (** password *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  size : string prop;  (** size *)
+  ssh_key : string prop option; [@option]  (** ssh_key *)
+  storage_type : string prop;  (** storage_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  username : string prop;  (** username *)
   gallery_image_reference :
     azurerm_dev_test_linux_virtual_machine__gallery_image_reference
     list;

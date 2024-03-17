@@ -40,21 +40,21 @@ type google_dataplex_datascan__execution_spec
 type google_dataplex_datascan__timeouts
 
 type google_dataplex_datascan__execution_status = {
-  latest_job_end_time : string;  (** latest_job_end_time *)
-  latest_job_start_time : string;  (** latest_job_start_time *)
+  latest_job_end_time : string prop;  (** latest_job_end_time *)
+  latest_job_start_time : string prop;  (** latest_job_start_time *)
 }
 
 type google_dataplex_datascan
 
 val google_dataplex_datascan :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_dataplex_datascan__timeouts ->
-  data_scan_id:string ->
-  location:string ->
+  data_scan_id:string prop ->
+  location:string prop ->
   data:google_dataplex_datascan__data list ->
   data_profile_spec:google_dataplex_datascan__data_profile_spec list ->
   data_quality_spec:google_dataplex_datascan__data_quality_spec list ->

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_storagegateway_working_storage = {
-  disk_id : string;  (** disk_id *)
-  gateway_arn : string;  (** gateway_arn *)
-  id : string option; [@option]  (** id *)
+  disk_id : string prop;  (** disk_id *)
+  gateway_arn : string prop;  (** gateway_arn *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_storagegateway_working_storage *)

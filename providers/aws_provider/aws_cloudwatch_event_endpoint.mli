@@ -14,10 +14,10 @@ type aws_cloudwatch_event_endpoint__routing_config
 type aws_cloudwatch_event_endpoint
 
 val aws_cloudwatch_event_endpoint :
-  ?description:string ->
-  ?id:string ->
-  ?role_arn:string ->
-  name:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?role_arn:string prop ->
+  name:string prop ->
   event_bus:aws_cloudwatch_event_endpoint__event_bus list ->
   replication_config:
     aws_cloudwatch_event_endpoint__replication_config list ->

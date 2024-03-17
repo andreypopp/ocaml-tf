@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type aws_directory_service_radius_settings__timeouts = {
-  create : string option; [@option]  (** create *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_radius_settings__timeouts *)
 
 type aws_directory_service_radius_settings = {
-  authentication_protocol : string;  (** authentication_protocol *)
-  directory_id : string;  (** directory_id *)
-  display_label : string;  (** display_label *)
-  id : string option; [@option]  (** id *)
-  radius_port : float;  (** radius_port *)
-  radius_retries : float;  (** radius_retries *)
-  radius_servers : string list;  (** radius_servers *)
-  radius_timeout : float;  (** radius_timeout *)
-  shared_secret : string;  (** shared_secret *)
-  use_same_username : bool option; [@option]
+  authentication_protocol : string prop;
+      (** authentication_protocol *)
+  directory_id : string prop;  (** directory_id *)
+  display_label : string prop;  (** display_label *)
+  id : string prop option; [@option]  (** id *)
+  radius_port : float prop;  (** radius_port *)
+  radius_retries : float prop;  (** radius_retries *)
+  radius_servers : string prop list;  (** radius_servers *)
+  radius_timeout : float prop;  (** radius_timeout *)
+  shared_secret : string prop;  (** shared_secret *)
+  use_same_username : bool prop option; [@option]
       (** use_same_username *)
   timeouts : aws_directory_service_radius_settings__timeouts option;
 }

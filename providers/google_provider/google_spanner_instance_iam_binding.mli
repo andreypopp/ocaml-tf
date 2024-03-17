@@ -6,11 +6,11 @@ type google_spanner_instance_iam_binding__condition
 type google_spanner_instance_iam_binding
 
 val google_spanner_instance_iam_binding :
-  ?id:string ->
-  ?project:string ->
-  instance:string ->
-  members:string list ->
-  role:string ->
+  ?id:string prop ->
+  ?project:string prop ->
+  instance:string prop ->
+  members:string prop list ->
+  role:string prop ->
   condition:google_spanner_instance_iam_binding__condition list ->
   string ->
   unit

@@ -6,21 +6,21 @@ type azurerm_data_factory_linked_service_sftp__timeouts
 type azurerm_data_factory_linked_service_sftp
 
 val azurerm_data_factory_linked_service_sftp :
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?description:string ->
-  ?host_key_fingerprint:string ->
-  ?id:string ->
-  ?integration_runtime_name:string ->
-  ?parameters:(string * string) list ->
-  ?skip_host_key_validation:bool ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?host_key_fingerprint:string prop ->
+  ?id:string prop ->
+  ?integration_runtime_name:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?skip_host_key_validation:bool prop ->
   ?timeouts:azurerm_data_factory_linked_service_sftp__timeouts ->
-  authentication_type:string ->
-  data_factory_id:string ->
-  host:string ->
-  name:string ->
-  password:string ->
-  port:float ->
-  username:string ->
+  authentication_type:string prop ->
+  data_factory_id:string prop ->
+  host:string prop ->
+  name:string prop ->
+  password:string prop ->
+  port:float prop ->
+  username:string prop ->
   string ->
   unit

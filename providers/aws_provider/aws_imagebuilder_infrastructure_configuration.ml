@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_imagebuilder_infrastructure_configuration__instance_metadata_options = {
-  http_put_response_hop_limit : float option; [@option]
+  http_put_response_hop_limit : float prop option; [@option]
       (** http_put_response_hop_limit *)
-  http_tokens : string option; [@option]  (** http_tokens *)
+  http_tokens : string prop option; [@option]  (** http_tokens *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_infrastructure_configuration__instance_metadata_options *)
 
 type aws_imagebuilder_infrastructure_configuration__logging__s3_logs = {
-  s3_bucket_name : string;  (** s3_bucket_name *)
-  s3_key_prefix : string option; [@option]  (** s3_key_prefix *)
+  s3_bucket_name : string prop;  (** s3_bucket_name *)
+  s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
 }
 [@@deriving yojson_of]
 (** aws_imagebuilder_infrastructure_configuration__logging__s3_logs *)
@@ -28,23 +28,23 @@ type aws_imagebuilder_infrastructure_configuration__logging = {
 (** aws_imagebuilder_infrastructure_configuration__logging *)
 
 type aws_imagebuilder_infrastructure_configuration = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  instance_profile_name : string;  (** instance_profile_name *)
-  instance_types : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  instance_profile_name : string prop;  (** instance_profile_name *)
+  instance_types : string prop list option; [@option]
       (** instance_types *)
-  key_pair : string option; [@option]  (** key_pair *)
-  name : string;  (** name *)
-  resource_tags : (string * string) list option; [@option]
+  key_pair : string prop option; [@option]  (** key_pair *)
+  name : string prop;  (** name *)
+  resource_tags : (string * string prop) list option; [@option]
       (** resource_tags *)
-  security_group_ids : string list option; [@option]
+  security_group_ids : string prop list option; [@option]
       (** security_group_ids *)
-  sns_topic_arn : string option; [@option]  (** sns_topic_arn *)
-  subnet_id : string option; [@option]  (** subnet_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  sns_topic_arn : string prop option; [@option]  (** sns_topic_arn *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  terminate_instance_on_failure : bool option; [@option]
+  terminate_instance_on_failure : bool prop option; [@option]
       (** terminate_instance_on_failure *)
   instance_metadata_options :
     aws_imagebuilder_infrastructure_configuration__instance_metadata_options

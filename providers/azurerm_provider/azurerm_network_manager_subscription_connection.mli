@@ -6,11 +6,11 @@ type azurerm_network_manager_subscription_connection__timeouts
 type azurerm_network_manager_subscription_connection
 
 val azurerm_network_manager_subscription_connection :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_network_manager_subscription_connection__timeouts ->
-  name:string ->
-  network_manager_id:string ->
-  subscription_id:string ->
+  name:string prop ->
+  network_manager_id:string prop ->
+  subscription_id:string prop ->
   string ->
   unit

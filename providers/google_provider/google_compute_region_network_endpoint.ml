@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type google_compute_region_network_endpoint__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_region_network_endpoint__timeouts *)
 
 type google_compute_region_network_endpoint = {
-  fqdn : string option; [@option]
+  fqdn : string prop option; [@option]
       (** Fully qualified domain name of network endpoint.
 
 This can only be specified when network_endpoint_type of the NEG is INTERNET_FQDN_PORT. *)
-  id : string option; [@option]  (** id *)
-  ip_address : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  ip_address : string prop option; [@option]
       (** IPv4 address external endpoint.
 
 This can only be specified when network_endpoint_type of the NEG is INTERNET_IP_PORT. *)
-  port : float;  (** Port number of network endpoint. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  port : float prop;  (** Port number of network endpoint. *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** Region where the containing network endpoint group is located. *)
-  region_network_endpoint_group : string;
+  region_network_endpoint_group : string prop;
       (** The network endpoint group this endpoint is part of. *)
   timeouts : google_compute_region_network_endpoint__timeouts option;
 }

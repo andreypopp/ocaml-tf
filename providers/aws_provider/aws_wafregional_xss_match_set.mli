@@ -7,8 +7,8 @@ type aws_wafregional_xss_match_set__xss_match_tuple
 type aws_wafregional_xss_match_set
 
 val aws_wafregional_xss_match_set :
-  ?id:string ->
-  name:string ->
+  ?id:string prop ->
+  name:string prop ->
   xss_match_tuple:aws_wafregional_xss_match_set__xss_match_tuple list ->
   string ->
   unit

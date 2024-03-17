@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_glue_security_configuration__encryption_configuration__cloudwatch_encryption = {
-  cloudwatch_encryption_mode : string option; [@option]
+  cloudwatch_encryption_mode : string prop option; [@option]
       (** cloudwatch_encryption_mode *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
 (** aws_glue_security_configuration__encryption_configuration__cloudwatch_encryption *)
 
 type aws_glue_security_configuration__encryption_configuration__job_bookmarks_encryption = {
-  job_bookmarks_encryption_mode : string option; [@option]
+  job_bookmarks_encryption_mode : string prop option; [@option]
       (** job_bookmarks_encryption_mode *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
 (** aws_glue_security_configuration__encryption_configuration__job_bookmarks_encryption *)
 
 type aws_glue_security_configuration__encryption_configuration__s3_encryption = {
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
-  s3_encryption_mode : string option; [@option]
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  s3_encryption_mode : string prop option; [@option]
       (** s3_encryption_mode *)
 }
 [@@deriving yojson_of]
@@ -43,8 +43,8 @@ type aws_glue_security_configuration__encryption_configuration = {
 (** aws_glue_security_configuration__encryption_configuration *)
 
 type aws_glue_security_configuration = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   encryption_configuration :
     aws_glue_security_configuration__encryption_configuration list;
 }

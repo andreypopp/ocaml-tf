@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_dx_hosted_public_virtual_interface_accepter__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_dx_hosted_public_virtual_interface_accepter__timeouts *)
 
 type aws_dx_hosted_public_virtual_interface_accepter = {
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  virtual_interface_id : string;  (** virtual_interface_id *)
+  virtual_interface_id : string prop;  (** virtual_interface_id *)
   timeouts :
     aws_dx_hosted_public_virtual_interface_accepter__timeouts option;
 }

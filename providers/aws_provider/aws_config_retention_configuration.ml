@@ -5,7 +5,8 @@
 open! Tf.Prelude
 
 type aws_config_retention_configuration = {
-  retention_period_in_days : float;  (** retention_period_in_days *)
+  retention_period_in_days : float prop;
+      (** retention_period_in_days *)
 }
 [@@deriving yojson_of]
 (** aws_config_retention_configuration *)

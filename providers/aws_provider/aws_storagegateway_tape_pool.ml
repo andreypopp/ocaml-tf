@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_storagegateway_tape_pool = {
-  id : string option; [@option]  (** id *)
-  pool_name : string;  (** pool_name *)
-  retention_lock_time_in_days : float option; [@option]
+  id : string prop option; [@option]  (** id *)
+  pool_name : string prop;  (** pool_name *)
+  retention_lock_time_in_days : float prop option; [@option]
       (** retention_lock_time_in_days *)
-  retention_lock_type : string option; [@option]
+  retention_lock_type : string prop option; [@option]
       (** retention_lock_type *)
-  storage_class : string;  (** storage_class *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  storage_class : string prop;  (** storage_class *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_storagegateway_tape_pool *)

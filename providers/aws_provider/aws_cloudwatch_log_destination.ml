@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_cloudwatch_log_destination = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  role_arn : string;  (** role_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  role_arn : string prop;  (** role_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  target_arn : string;  (** target_arn *)
+  target_arn : string prop;  (** target_arn *)
 }
 [@@deriving yojson_of]
 (** aws_cloudwatch_log_destination *)

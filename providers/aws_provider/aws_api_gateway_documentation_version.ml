@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_api_gateway_documentation_version = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  rest_api_id : string;  (** rest_api_id *)
-  version : string;  (** version *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  rest_api_id : string prop;  (** rest_api_id *)
+  version : string prop;  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_documentation_version *)

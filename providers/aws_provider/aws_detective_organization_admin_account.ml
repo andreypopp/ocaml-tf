@@ -5,8 +5,8 @@
 open! Tf.Prelude
 
 type aws_detective_organization_admin_account = {
-  account_id : string;  (** account_id *)
-  id : string option; [@option]  (** id *)
+  account_id : string prop;  (** account_id *)
+  id : string prop option; [@option]  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_detective_organization_admin_account *)

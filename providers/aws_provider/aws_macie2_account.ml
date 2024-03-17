@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_macie2_account = {
-  finding_publishing_frequency: string option; [@option] (** finding_publishing_frequency *)
-  id: string option; [@option] (** id *)
-  status: string option; [@option] (** status *)
+  finding_publishing_frequency: string prop option; [@option] (** finding_publishing_frequency *)
+  id: string prop option; [@option] (** id *)
+  status: string prop option; [@option] (** status *)
 } [@@deriving yojson_of]
 (** aws_macie2_account *)
 

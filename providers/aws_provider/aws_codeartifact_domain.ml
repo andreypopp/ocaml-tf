@@ -5,11 +5,13 @@
 open! Tf.Prelude
 
 type aws_codeartifact_domain = {
-  domain : string;  (** domain *)
-  encryption_key : string option; [@option]  (** encryption_key *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  domain : string prop;  (** domain *)
+  encryption_key : string prop option; [@option]
+      (** encryption_key *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_codeartifact_domain *)

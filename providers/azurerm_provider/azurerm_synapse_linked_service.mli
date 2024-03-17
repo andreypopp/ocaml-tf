@@ -7,16 +7,16 @@ type azurerm_synapse_linked_service__timeouts
 type azurerm_synapse_linked_service
 
 val azurerm_synapse_linked_service :
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?description:string ->
-  ?id:string ->
-  ?parameters:(string * string) list ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
   ?timeouts:azurerm_synapse_linked_service__timeouts ->
-  name:string ->
-  synapse_workspace_id:string ->
-  type_:string ->
-  type_properties_json:string ->
+  name:string prop ->
+  synapse_workspace_id:string prop ->
+  type_:string prop ->
+  type_properties_json:string prop ->
   integration_runtime:
     azurerm_synapse_linked_service__integration_runtime list ->
   string ->

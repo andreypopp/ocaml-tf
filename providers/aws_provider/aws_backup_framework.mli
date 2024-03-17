@@ -9,12 +9,12 @@ type aws_backup_framework__timeouts
 type aws_backup_framework
 
 val aws_backup_framework :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_backup_framework__timeouts ->
-  name:string ->
+  name:string prop ->
   control:aws_backup_framework__control list ->
   string ->
   unit

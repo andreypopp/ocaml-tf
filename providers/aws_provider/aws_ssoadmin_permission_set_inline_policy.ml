@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_permission_set_inline_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_permission_set_inline_policy__timeouts *)
 
 type aws_ssoadmin_permission_set_inline_policy = {
-  id : string option; [@option]  (** id *)
-  inline_policy : string;  (** inline_policy *)
-  instance_arn : string;  (** instance_arn *)
-  permission_set_arn : string;  (** permission_set_arn *)
+  id : string prop option; [@option]  (** id *)
+  inline_policy : string prop;  (** inline_policy *)
+  instance_arn : string prop;  (** instance_arn *)
+  permission_set_arn : string prop;  (** permission_set_arn *)
   timeouts :
     aws_ssoadmin_permission_set_inline_policy__timeouts option;
 }

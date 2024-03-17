@@ -5,42 +5,43 @@
 open! Tf.Prelude
 
 type digitalocean_database_cluster__backup_restore = {
-  backup_created_at : string option; [@option]
+  backup_created_at : string prop option; [@option]
       (** backup_created_at *)
-  database_name : string;  (** database_name *)
+  database_name : string prop;  (** database_name *)
 }
 [@@deriving yojson_of]
 (** digitalocean_database_cluster__backup_restore *)
 
 type digitalocean_database_cluster__maintenance_window = {
-  day : string;  (** day *)
-  hour : string;  (** hour *)
+  day : string prop;  (** day *)
+  hour : string prop;  (** hour *)
 }
 [@@deriving yojson_of]
 (** digitalocean_database_cluster__maintenance_window *)
 
 type digitalocean_database_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** digitalocean_database_cluster__timeouts *)
 
 type digitalocean_database_cluster = {
-  engine : string;  (** engine *)
-  eviction_policy : string option; [@option]  (** eviction_policy *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  node_count : float;  (** node_count *)
-  private_network_uuid : string option; [@option]
+  engine : string prop;  (** engine *)
+  eviction_policy : string prop option; [@option]
+      (** eviction_policy *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  node_count : float prop;  (** node_count *)
+  private_network_uuid : string prop option; [@option]
       (** private_network_uuid *)
-  project_id : string option; [@option]  (** project_id *)
-  region : string;  (** region *)
-  size : string;  (** size *)
-  sql_mode : string option; [@option]  (** sql_mode *)
-  storage_size_mib : string option; [@option]
+  project_id : string prop option; [@option]  (** project_id *)
+  region : string prop;  (** region *)
+  size : string prop;  (** size *)
+  sql_mode : string prop option; [@option]  (** sql_mode *)
+  storage_size_mib : string prop option; [@option]
       (** storage_size_mib *)
-  tags : string list option; [@option]  (** tags *)
-  version : string option; [@option]  (** version *)
+  tags : string prop list option; [@option]  (** tags *)
+  version : string prop option; [@option]  (** version *)
   backup_restore :
     digitalocean_database_cluster__backup_restore list;
   maintenance_window :

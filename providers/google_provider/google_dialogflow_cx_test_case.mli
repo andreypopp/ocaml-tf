@@ -25,28 +25,28 @@ type google_dialogflow_cx_test_case__test_config
 type google_dialogflow_cx_test_case__timeouts
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__triggered_intent = {
-  display_name : string;  (** display_name *)
-  name : string;  (** name *)
+  display_name : string prop;  (** display_name *)
+  name : string prop;  (** name *)
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__text_responses = {
-  text : string list;  (** text *)
+  text : string prop list;  (** text *)
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__status = {
-  code : float;  (** code *)
-  details : string;  (** details *)
-  message : string;  (** message *)
+  code : float prop;  (** code *)
+  details : string prop;  (** details *)
+  message : string prop;  (** message *)
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__differences = {
-  description : string;  (** description *)
-  type_ : string; [@key "type"]  (** type *)
+  description : string prop;  (** description *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__current_page = {
-  display_name : string;  (** display_name *)
-  name : string;  (** name *)
+  display_name : string prop;  (** display_name *)
+  name : string prop;  (** name *)
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output = {
@@ -58,7 +58,7 @@ type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtu
     google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__differences
     list;
       (** differences *)
-  session_parameters : string;  (** session_parameters *)
+  session_parameters : string prop;  (** session_parameters *)
   status :
     google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtual_agent_output__status
     list;
@@ -74,16 +74,16 @@ type google_dialogflow_cx_test_case__last_test_result__conversation_turns__virtu
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input__text = {
-  text : string;  (** text *)
+  text : string prop;  (** text *)
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input__event = {
-  event : string;  (** event *)
+  event : string prop;  (** event *)
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input__dtmf = {
-  digits : string;  (** digits *)
-  finish_digit : string;  (** finish_digit *)
+  digits : string prop;  (** digits *)
+  finish_digit : string prop;  (** finish_digit *)
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input = {
@@ -95,7 +95,7 @@ type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_
     google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input__event
     list;
       (** event *)
-  language_code : string;  (** language_code *)
+  language_code : string prop;  (** language_code *)
   text :
     google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input__text
     list;
@@ -103,13 +103,14 @@ type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input = {
-  enable_sentiment_analysis : bool;  (** enable_sentiment_analysis *)
-  injected_parameters : string;  (** injected_parameters *)
+  enable_sentiment_analysis : bool prop;
+      (** enable_sentiment_analysis *)
+  injected_parameters : string prop;  (** injected_parameters *)
   input :
     google_dialogflow_cx_test_case__last_test_result__conversation_turns__user_input__input
     list;
       (** input *)
-  is_webhook_enabled : bool;  (** is_webhook_enabled *)
+  is_webhook_enabled : bool prop;  (** is_webhook_enabled *)
 }
 
 type google_dialogflow_cx_test_case__last_test_result__conversation_turns = {
@@ -128,21 +129,21 @@ type google_dialogflow_cx_test_case__last_test_result = {
     google_dialogflow_cx_test_case__last_test_result__conversation_turns
     list;
       (** conversation_turns *)
-  environment : string;  (** environment *)
-  name : string;  (** name *)
-  test_result : string;  (** test_result *)
-  test_time : string;  (** test_time *)
+  environment : string prop;  (** environment *)
+  name : string prop;  (** name *)
+  test_result : string prop;  (** test_result *)
+  test_time : string prop;  (** test_time *)
 }
 
 type google_dialogflow_cx_test_case
 
 val google_dialogflow_cx_test_case :
-  ?id:string ->
-  ?notes:string ->
-  ?parent:string ->
-  ?tags:string list ->
+  ?id:string prop ->
+  ?notes:string prop ->
+  ?parent:string prop ->
+  ?tags:string prop list ->
   ?timeouts:google_dialogflow_cx_test_case__timeouts ->
-  display_name:string ->
+  display_name:string prop ->
   test_case_conversation_turns:
     google_dialogflow_cx_test_case__test_case_conversation_turns list ->
   test_config:google_dialogflow_cx_test_case__test_config list ->

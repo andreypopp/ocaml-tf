@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type cloudflare_account = {
-  enforce_twofactor : bool option; [@option]
+  enforce_twofactor : bool prop option; [@option]
       (** Whether 2FA is enforced on the account. Defaults to `false`. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The name of the account that is displayed in the Cloudflare dashboard. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** Account type. Available values: `enterprise`, `standard`. Defaults to `standard`. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

@@ -6,16 +6,16 @@ type azurerm_virtual_network_peering__timeouts
 type azurerm_virtual_network_peering
 
 val azurerm_virtual_network_peering :
-  ?allow_forwarded_traffic:bool ->
-  ?allow_gateway_transit:bool ->
-  ?allow_virtual_network_access:bool ->
-  ?id:string ->
-  ?triggers:(string * string) list ->
-  ?use_remote_gateways:bool ->
+  ?allow_forwarded_traffic:bool prop ->
+  ?allow_gateway_transit:bool prop ->
+  ?allow_virtual_network_access:bool prop ->
+  ?id:string prop ->
+  ?triggers:(string * string prop) list ->
+  ?use_remote_gateways:bool prop ->
   ?timeouts:azurerm_virtual_network_peering__timeouts ->
-  name:string ->
-  remote_virtual_network_id:string ->
-  resource_group_name:string ->
-  virtual_network_name:string ->
+  name:string prop ->
+  remote_virtual_network_id:string prop ->
+  resource_group_name:string prop ->
+  virtual_network_name:string prop ->
   string ->
   unit

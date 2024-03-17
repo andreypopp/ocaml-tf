@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_connect_bot_association__lex_bot = {
-  lex_region : string option; [@option]  (** lex_region *)
-  name : string;  (** name *)
+  lex_region : string prop option; [@option]  (** lex_region *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_connect_bot_association__lex_bot *)
 
 type aws_connect_bot_association = {
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
   lex_bot : aws_connect_bot_association__lex_bot list;
 }
 [@@deriving yojson_of]

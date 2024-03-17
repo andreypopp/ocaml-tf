@@ -5,16 +5,19 @@
 open! Tf.Prelude
 
 type aws_ec2_host = {
-  asset_id : string option; [@option]  (** asset_id *)
-  auto_placement : string option; [@option]  (** auto_placement *)
-  availability_zone : string;  (** availability_zone *)
-  host_recovery : string option; [@option]  (** host_recovery *)
-  id : string option; [@option]  (** id *)
-  instance_family : string option; [@option]  (** instance_family *)
-  instance_type : string option; [@option]  (** instance_type *)
-  outpost_arn : string option; [@option]  (** outpost_arn *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  asset_id : string prop option; [@option]  (** asset_id *)
+  auto_placement : string prop option; [@option]
+      (** auto_placement *)
+  availability_zone : string prop;  (** availability_zone *)
+  host_recovery : string prop option; [@option]  (** host_recovery *)
+  id : string prop option; [@option]  (** id *)
+  instance_family : string prop option; [@option]
+      (** instance_family *)
+  instance_type : string prop option; [@option]  (** instance_type *)
+  outpost_arn : string prop option; [@option]  (** outpost_arn *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_ec2_host *)

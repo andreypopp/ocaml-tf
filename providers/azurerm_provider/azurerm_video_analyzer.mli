@@ -8,12 +8,12 @@ type azurerm_video_analyzer__timeouts
 type azurerm_video_analyzer
 
 val azurerm_video_analyzer :
-  ?id:string ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_video_analyzer__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   identity:azurerm_video_analyzer__identity list ->
   storage_account:azurerm_video_analyzer__storage_account list ->
   string ->

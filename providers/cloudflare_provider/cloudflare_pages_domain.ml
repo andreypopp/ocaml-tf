@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type cloudflare_pages_domain = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
-  domain : string;
+  domain : string prop;
       (** Custom domain. **Modifying this attribute will force creation of a new resource.** *)
-  id : string option; [@option]  (** id *)
-  project_name : string;
+  id : string prop option; [@option]  (** id *)
+  project_name : string prop;
       (** Name of the Pages Project. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

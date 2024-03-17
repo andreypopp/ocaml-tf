@@ -8,19 +8,19 @@ type azurerm_mssql_elasticpool__timeouts
 type azurerm_mssql_elasticpool
 
 val azurerm_mssql_elasticpool :
-  ?enclave_type:string ->
-  ?id:string ->
-  ?license_type:string ->
-  ?maintenance_configuration_name:string ->
-  ?max_size_bytes:float ->
-  ?max_size_gb:float ->
-  ?tags:(string * string) list ->
-  ?zone_redundant:bool ->
+  ?enclave_type:string prop ->
+  ?id:string prop ->
+  ?license_type:string prop ->
+  ?maintenance_configuration_name:string prop ->
+  ?max_size_bytes:float prop ->
+  ?max_size_gb:float prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundant:bool prop ->
   ?timeouts:azurerm_mssql_elasticpool__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  server_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
   per_database_settings:
     azurerm_mssql_elasticpool__per_database_settings list ->
   sku:azurerm_mssql_elasticpool__sku list ->

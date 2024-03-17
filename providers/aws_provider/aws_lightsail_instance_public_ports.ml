@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_lightsail_instance_public_ports__port_info = {
-  cidr_list_aliases : string list option; [@option]
+  cidr_list_aliases : string prop list option; [@option]
       (** cidr_list_aliases *)
-  cidrs : string list option; [@option]  (** cidrs *)
-  from_port : float;  (** from_port *)
-  ipv6_cidrs : string list option; [@option]  (** ipv6_cidrs *)
-  protocol : string;  (** protocol *)
-  to_port : float;  (** to_port *)
+  cidrs : string prop list option; [@option]  (** cidrs *)
+  from_port : float prop;  (** from_port *)
+  ipv6_cidrs : string prop list option; [@option]  (** ipv6_cidrs *)
+  protocol : string prop;  (** protocol *)
+  to_port : float prop;  (** to_port *)
 }
 [@@deriving yojson_of]
 (** aws_lightsail_instance_public_ports__port_info *)
 
 type aws_lightsail_instance_public_ports = {
-  id : string option; [@option]  (** id *)
-  instance_name : string;  (** instance_name *)
+  id : string prop option; [@option]  (** id *)
+  instance_name : string prop;  (** instance_name *)
   port_info : aws_lightsail_instance_public_ports__port_info list;
 }
 [@@deriving yojson_of]

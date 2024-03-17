@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type google_container_azure_client__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_container_azure_client__timeouts *)
 
 type google_container_azure_client = {
-  application_id : string;
+  application_id : string prop;
       (** The Azure Active Directory Application ID. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location for the resource *)
-  name : string;  (** The name of this resource. *)
-  project : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location for the resource *)
+  name : string prop;  (** The name of this resource. *)
+  project : string prop option; [@option]
       (** The project for the resource *)
-  tenant_id : string;  (** The Azure Active Directory Tenant ID. *)
+  tenant_id : string prop;
+      (** The Azure Active Directory Tenant ID. *)
   timeouts : google_container_azure_client__timeouts option;
 }
 [@@deriving yojson_of]

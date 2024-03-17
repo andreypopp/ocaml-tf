@@ -5,52 +5,53 @@
 open! Tf.Prelude
 
 type aws_opsworks_application__app_source = {
-  password : string option; [@option]  (** password *)
-  revision : string option; [@option]  (** revision *)
-  ssh_key : string option; [@option]  (** ssh_key *)
-  type_ : string; [@key "type"]  (** type *)
-  url : string option; [@option]  (** url *)
-  username : string option; [@option]  (** username *)
+  password : string prop option; [@option]  (** password *)
+  revision : string prop option; [@option]  (** revision *)
+  ssh_key : string prop option; [@option]  (** ssh_key *)
+  type_ : string prop; [@key "type"]  (** type *)
+  url : string prop option; [@option]  (** url *)
+  username : string prop option; [@option]  (** username *)
 }
 [@@deriving yojson_of]
 (** aws_opsworks_application__app_source *)
 
 type aws_opsworks_application__environment = {
-  key : string;  (** key *)
-  secure : bool option; [@option]  (** secure *)
-  value : string;  (** value *)
+  key : string prop;  (** key *)
+  secure : bool prop option; [@option]  (** secure *)
+  value : string prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** aws_opsworks_application__environment *)
 
 type aws_opsworks_application__ssl_configuration = {
-  certificate : string;  (** certificate *)
-  chain : string option; [@option]  (** chain *)
-  private_key : string;  (** private_key *)
+  certificate : string prop;  (** certificate *)
+  chain : string prop option; [@option]  (** chain *)
+  private_key : string prop;  (** private_key *)
 }
 [@@deriving yojson_of]
 (** aws_opsworks_application__ssl_configuration *)
 
 type aws_opsworks_application = {
-  auto_bundle_on_deploy : string option; [@option]
+  auto_bundle_on_deploy : string prop option; [@option]
       (** auto_bundle_on_deploy *)
-  aws_flow_ruby_settings : string option; [@option]
+  aws_flow_ruby_settings : string prop option; [@option]
       (** aws_flow_ruby_settings *)
-  data_source_arn : string option; [@option]  (** data_source_arn *)
-  data_source_database_name : string option; [@option]
+  data_source_arn : string prop option; [@option]
+      (** data_source_arn *)
+  data_source_database_name : string prop option; [@option]
       (** data_source_database_name *)
-  data_source_type : string option; [@option]
+  data_source_type : string prop option; [@option]
       (** data_source_type *)
-  description : string option; [@option]  (** description *)
-  document_root : string option; [@option]  (** document_root *)
-  domains : string list option; [@option]  (** domains *)
-  enable_ssl : bool option; [@option]  (** enable_ssl *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  rails_env : string option; [@option]  (** rails_env *)
-  short_name : string option; [@option]  (** short_name *)
-  stack_id : string;  (** stack_id *)
-  type_ : string; [@key "type"]  (** type *)
+  description : string prop option; [@option]  (** description *)
+  document_root : string prop option; [@option]  (** document_root *)
+  domains : string prop list option; [@option]  (** domains *)
+  enable_ssl : bool prop option; [@option]  (** enable_ssl *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  rails_env : string prop option; [@option]  (** rails_env *)
+  short_name : string prop option; [@option]  (** short_name *)
+  stack_id : string prop;  (** stack_id *)
+  type_ : string prop; [@key "type"]  (** type *)
   app_source : aws_opsworks_application__app_source list;
   environment : aws_opsworks_application__environment list;
   ssl_configuration :

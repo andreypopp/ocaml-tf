@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type google_project_default_service_accounts__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** google_project_default_service_accounts__timeouts *)
 
 type google_project_default_service_accounts = {
-  action : string;
+  action : string prop;
       (** The action to be performed in the default service accounts. Valid values are: DEPRIVILEGE, DELETE, DISABLE.
 				Note that DEPRIVILEGE action will ignore the REVERT configuration in the restore_policy. *)
-  id : string option; [@option]  (** id *)
-  project : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop;
       (** The project ID where service accounts are created. *)
-  restore_policy : string option; [@option]
+  restore_policy : string prop option; [@option]
       (** The action to be performed in the default service accounts on the resource destroy.
 				Valid values are NONE, REVERT and REVERT_AND_IGNORE_FAILURE. It is applied for any action but in the DEPRIVILEGE. *)
   timeouts : google_project_default_service_accounts__timeouts option;

@@ -7,15 +7,15 @@ type cloudflare_certificate_pack__validation_records
 type cloudflare_certificate_pack
 
 val cloudflare_certificate_pack :
-  ?cloudflare_branding:bool ->
-  ?id:string ->
-  ?wait_for_active_status:bool ->
-  certificate_authority:string ->
-  hosts:string list ->
-  type_:string ->
-  validation_method:string ->
-  validity_days:float ->
-  zone_id:string ->
+  ?cloudflare_branding:bool prop ->
+  ?id:string prop ->
+  ?wait_for_active_status:bool prop ->
+  certificate_authority:string prop ->
+  hosts:string prop list ->
+  type_:string prop ->
+  validation_method:string prop ->
+  validity_days:float prop ->
+  zone_id:string prop ->
   validation_errors:
     cloudflare_certificate_pack__validation_errors list ->
   validation_records:

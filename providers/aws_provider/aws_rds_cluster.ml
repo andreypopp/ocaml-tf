@@ -5,141 +5,148 @@
 open! Tf.Prelude
 
 type aws_rds_cluster__restore_to_point_in_time = {
-  restore_to_time : string option; [@option]  (** restore_to_time *)
-  restore_type : string option; [@option]  (** restore_type *)
-  source_cluster_identifier : string;
+  restore_to_time : string prop option; [@option]
+      (** restore_to_time *)
+  restore_type : string prop option; [@option]  (** restore_type *)
+  source_cluster_identifier : string prop;
       (** source_cluster_identifier *)
-  use_latest_restorable_time : bool option; [@option]
+  use_latest_restorable_time : bool prop option; [@option]
       (** use_latest_restorable_time *)
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster__restore_to_point_in_time *)
 
 type aws_rds_cluster__s3_import = {
-  bucket_name : string;  (** bucket_name *)
-  bucket_prefix : string option; [@option]  (** bucket_prefix *)
-  ingestion_role : string;  (** ingestion_role *)
-  source_engine : string;  (** source_engine *)
-  source_engine_version : string;  (** source_engine_version *)
+  bucket_name : string prop;  (** bucket_name *)
+  bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
+  ingestion_role : string prop;  (** ingestion_role *)
+  source_engine : string prop;  (** source_engine *)
+  source_engine_version : string prop;  (** source_engine_version *)
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster__s3_import *)
 
 type aws_rds_cluster__scaling_configuration = {
-  auto_pause : bool option; [@option]  (** auto_pause *)
-  max_capacity : float option; [@option]  (** max_capacity *)
-  min_capacity : float option; [@option]  (** min_capacity *)
-  seconds_until_auto_pause : float option; [@option]
+  auto_pause : bool prop option; [@option]  (** auto_pause *)
+  max_capacity : float prop option; [@option]  (** max_capacity *)
+  min_capacity : float prop option; [@option]  (** min_capacity *)
+  seconds_until_auto_pause : float prop option; [@option]
       (** seconds_until_auto_pause *)
-  timeout_action : string option; [@option]  (** timeout_action *)
+  timeout_action : string prop option; [@option]
+      (** timeout_action *)
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster__scaling_configuration *)
 
 type aws_rds_cluster__serverlessv2_scaling_configuration = {
-  max_capacity : float;  (** max_capacity *)
-  min_capacity : float;  (** min_capacity *)
+  max_capacity : float prop;  (** max_capacity *)
+  min_capacity : float prop;  (** min_capacity *)
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster__serverlessv2_scaling_configuration *)
 
 type aws_rds_cluster__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_rds_cluster__timeouts *)
 
 type aws_rds_cluster__master_user_secret = {
-  kms_key_id : string;  (** kms_key_id *)
-  secret_arn : string;  (** secret_arn *)
-  secret_status : string;  (** secret_status *)
+  kms_key_id : string prop;  (** kms_key_id *)
+  secret_arn : string prop;  (** secret_arn *)
+  secret_status : string prop;  (** secret_status *)
 }
 [@@deriving yojson_of]
 
 type aws_rds_cluster = {
-  allocated_storage : float option; [@option]
+  allocated_storage : float prop option; [@option]
       (** allocated_storage *)
-  allow_major_version_upgrade : bool option; [@option]
+  allow_major_version_upgrade : bool prop option; [@option]
       (** allow_major_version_upgrade *)
-  apply_immediately : bool option; [@option]
+  apply_immediately : bool prop option; [@option]
       (** apply_immediately *)
-  availability_zones : string list option; [@option]
+  availability_zones : string prop list option; [@option]
       (** availability_zones *)
-  backtrack_window : float option; [@option]  (** backtrack_window *)
-  backup_retention_period : float option; [@option]
+  backtrack_window : float prop option; [@option]
+      (** backtrack_window *)
+  backup_retention_period : float prop option; [@option]
       (** backup_retention_period *)
-  cluster_identifier : string option; [@option]
+  cluster_identifier : string prop option; [@option]
       (** cluster_identifier *)
-  cluster_identifier_prefix : string option; [@option]
+  cluster_identifier_prefix : string prop option; [@option]
       (** cluster_identifier_prefix *)
-  cluster_members : string list option; [@option]
+  cluster_members : string prop list option; [@option]
       (** cluster_members *)
-  copy_tags_to_snapshot : bool option; [@option]
+  copy_tags_to_snapshot : bool prop option; [@option]
       (** copy_tags_to_snapshot *)
-  database_name : string option; [@option]  (** database_name *)
-  db_cluster_instance_class : string option; [@option]
+  database_name : string prop option; [@option]  (** database_name *)
+  db_cluster_instance_class : string prop option; [@option]
       (** db_cluster_instance_class *)
-  db_cluster_parameter_group_name : string option; [@option]
+  db_cluster_parameter_group_name : string prop option; [@option]
       (** db_cluster_parameter_group_name *)
-  db_instance_parameter_group_name : string option; [@option]
+  db_instance_parameter_group_name : string prop option; [@option]
       (** db_instance_parameter_group_name *)
-  db_subnet_group_name : string option; [@option]
+  db_subnet_group_name : string prop option; [@option]
       (** db_subnet_group_name *)
-  db_system_id : string option; [@option]  (** db_system_id *)
-  delete_automated_backups : bool option; [@option]
+  db_system_id : string prop option; [@option]  (** db_system_id *)
+  delete_automated_backups : bool prop option; [@option]
       (** delete_automated_backups *)
-  deletion_protection : bool option; [@option]
+  deletion_protection : bool prop option; [@option]
       (** deletion_protection *)
-  domain : string option; [@option]  (** domain *)
-  domain_iam_role_name : string option; [@option]
+  domain : string prop option; [@option]  (** domain *)
+  domain_iam_role_name : string prop option; [@option]
       (** domain_iam_role_name *)
-  enable_global_write_forwarding : bool option; [@option]
+  enable_global_write_forwarding : bool prop option; [@option]
       (** enable_global_write_forwarding *)
-  enable_http_endpoint : bool option; [@option]
+  enable_http_endpoint : bool prop option; [@option]
       (** enable_http_endpoint *)
-  enabled_cloudwatch_logs_exports : string list option; [@option]
+  enabled_cloudwatch_logs_exports : string prop list option;
+      [@option]
       (** enabled_cloudwatch_logs_exports *)
-  engine : string;  (** engine *)
-  engine_mode : string option; [@option]  (** engine_mode *)
-  engine_version : string option; [@option]  (** engine_version *)
-  final_snapshot_identifier : string option; [@option]
+  engine : string prop;  (** engine *)
+  engine_mode : string prop option; [@option]  (** engine_mode *)
+  engine_version : string prop option; [@option]
+      (** engine_version *)
+  final_snapshot_identifier : string prop option; [@option]
       (** final_snapshot_identifier *)
-  global_cluster_identifier : string option; [@option]
+  global_cluster_identifier : string prop option; [@option]
       (** global_cluster_identifier *)
-  iam_database_authentication_enabled : bool option; [@option]
+  iam_database_authentication_enabled : bool prop option; [@option]
       (** iam_database_authentication_enabled *)
-  iam_roles : string list option; [@option]  (** iam_roles *)
-  id : string option; [@option]  (** id *)
-  iops : float option; [@option]  (** iops *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  manage_master_user_password : bool option; [@option]
+  iam_roles : string prop list option; [@option]  (** iam_roles *)
+  id : string prop option; [@option]  (** id *)
+  iops : float prop option; [@option]  (** iops *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  manage_master_user_password : bool prop option; [@option]
       (** manage_master_user_password *)
-  master_password : string option; [@option]  (** master_password *)
-  master_user_secret_kms_key_id : string option; [@option]
+  master_password : string prop option; [@option]
+      (** master_password *)
+  master_user_secret_kms_key_id : string prop option; [@option]
       (** master_user_secret_kms_key_id *)
-  master_username : string option; [@option]  (** master_username *)
-  network_type : string option; [@option]  (** network_type *)
-  port : float option; [@option]  (** port *)
-  preferred_backup_window : string option; [@option]
+  master_username : string prop option; [@option]
+      (** master_username *)
+  network_type : string prop option; [@option]  (** network_type *)
+  port : float prop option; [@option]  (** port *)
+  preferred_backup_window : string prop option; [@option]
       (** preferred_backup_window *)
-  preferred_maintenance_window : string option; [@option]
+  preferred_maintenance_window : string prop option; [@option]
       (** preferred_maintenance_window *)
-  replication_source_identifier : string option; [@option]
+  replication_source_identifier : string prop option; [@option]
       (** replication_source_identifier *)
-  skip_final_snapshot : bool option; [@option]
+  skip_final_snapshot : bool prop option; [@option]
       (** skip_final_snapshot *)
-  snapshot_identifier : string option; [@option]
+  snapshot_identifier : string prop option; [@option]
       (** snapshot_identifier *)
-  source_region : string option; [@option]  (** source_region *)
-  storage_encrypted : bool option; [@option]
+  source_region : string prop option; [@option]  (** source_region *)
+  storage_encrypted : bool prop option; [@option]
       (** storage_encrypted *)
-  storage_type : string option; [@option]  (** storage_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  storage_type : string prop option; [@option]  (** storage_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc_security_group_ids : string list option; [@option]
+  vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
   restore_to_point_in_time :
     aws_rds_cluster__restore_to_point_in_time list;

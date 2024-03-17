@@ -5,10 +5,10 @@ open! Tf.Prelude
 type aws_iam_user_policy
 
 val aws_iam_user_policy :
-  ?id:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  policy:string ->
-  user:string ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  policy:string prop ->
+  user:string prop ->
   string ->
   unit

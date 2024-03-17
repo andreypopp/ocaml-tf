@@ -18,14 +18,14 @@ type azurerm_monitor_action_group__webhook_receiver
 type azurerm_monitor_action_group
 
 val azurerm_monitor_action_group :
-  ?enabled:bool ->
-  ?id:string ->
-  ?location:string ->
-  ?tags:(string * string) list ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_monitor_action_group__timeouts ->
-  name:string ->
-  resource_group_name:string ->
-  short_name:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  short_name:string prop ->
   arm_role_receiver:
     azurerm_monitor_action_group__arm_role_receiver list ->
   automation_runbook_receiver:

@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_resource_group_cost_management_view__dataset__aggregation = {
-  column_name : string;  (** column_name *)
-  name : string;  (** name *)
+  column_name : string prop;  (** column_name *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_group_cost_management_view__dataset__aggregation *)
 
 type azurerm_resource_group_cost_management_view__dataset__grouping = {
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_group_cost_management_view__dataset__grouping *)
 
 type azurerm_resource_group_cost_management_view__dataset__sorting = {
-  direction : string;  (** direction *)
-  name : string;  (** name *)
+  direction : string prop;  (** direction *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_group_cost_management_view__dataset__sorting *)
 
 type azurerm_resource_group_cost_management_view__dataset = {
-  granularity : string;  (** granularity *)
+  granularity : string prop;  (** granularity *)
   aggregation :
     azurerm_resource_group_cost_management_view__dataset__aggregation
     list;
@@ -41,36 +41,36 @@ type azurerm_resource_group_cost_management_view__dataset = {
 (** azurerm_resource_group_cost_management_view__dataset *)
 
 type azurerm_resource_group_cost_management_view__kpi = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_group_cost_management_view__kpi *)
 
 type azurerm_resource_group_cost_management_view__pivot = {
-  name : string;  (** name *)
-  type_ : string; [@key "type"]  (** type *)
+  name : string prop;  (** name *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_group_cost_management_view__pivot *)
 
 type azurerm_resource_group_cost_management_view__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_group_cost_management_view__timeouts *)
 
 type azurerm_resource_group_cost_management_view = {
-  accumulated : bool;  (** accumulated *)
-  chart_type : string;  (** chart_type *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  report_type : string;  (** report_type *)
-  resource_group_id : string;  (** resource_group_id *)
-  timeframe : string;  (** timeframe *)
+  accumulated : bool prop;  (** accumulated *)
+  chart_type : string prop;  (** chart_type *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  report_type : string prop;  (** report_type *)
+  resource_group_id : string prop;  (** resource_group_id *)
+  timeframe : string prop;  (** timeframe *)
   dataset :
     azurerm_resource_group_cost_management_view__dataset list;
   kpi : azurerm_resource_group_cost_management_view__kpi list;

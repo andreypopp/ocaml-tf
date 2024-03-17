@@ -6,18 +6,18 @@ type aws_apigatewayv2_route__request_parameter
 type aws_apigatewayv2_route
 
 val aws_apigatewayv2_route :
-  ?api_key_required:bool ->
-  ?authorization_scopes:string list ->
-  ?authorization_type:string ->
-  ?authorizer_id:string ->
-  ?id:string ->
-  ?model_selection_expression:string ->
-  ?operation_name:string ->
-  ?request_models:(string * string) list ->
-  ?route_response_selection_expression:string ->
-  ?target:string ->
-  api_id:string ->
-  route_key:string ->
+  ?api_key_required:bool prop ->
+  ?authorization_scopes:string prop list ->
+  ?authorization_type:string prop ->
+  ?authorizer_id:string prop ->
+  ?id:string prop ->
+  ?model_selection_expression:string prop ->
+  ?operation_name:string prop ->
+  ?request_models:(string * string prop) list ->
+  ?route_response_selection_expression:string prop ->
+  ?target:string prop ->
+  api_id:string prop ->
+  route_key:string prop ->
   request_parameter:aws_apigatewayv2_route__request_parameter list ->
   string ->
   unit

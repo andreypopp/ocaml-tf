@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type aws_eip__timeouts = {
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_eip__timeouts *)
 
 type aws_eip = {
-  address : string option; [@option]  (** address *)
-  associate_with_private_ip : string option; [@option]
+  address : string prop option; [@option]  (** address *)
+  associate_with_private_ip : string prop option; [@option]
       (** associate_with_private_ip *)
-  customer_owned_ipv4_pool : string option; [@option]
+  customer_owned_ipv4_pool : string prop option; [@option]
       (** customer_owned_ipv4_pool *)
-  domain : string option; [@option]  (** domain *)
-  id : string option; [@option]  (** id *)
-  instance : string option; [@option]  (** instance *)
-  network_border_group : string option; [@option]
+  domain : string prop option; [@option]  (** domain *)
+  id : string prop option; [@option]  (** id *)
+  instance : string prop option; [@option]  (** instance *)
+  network_border_group : string prop option; [@option]
       (** network_border_group *)
-  network_interface : string option; [@option]
+  network_interface : string prop option; [@option]
       (** network_interface *)
-  public_ipv4_pool : string option; [@option]
+  public_ipv4_pool : string prop option; [@option]
       (** public_ipv4_pool *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  vpc : bool option; [@option]  (** vpc *)
+  vpc : bool prop option; [@option]  (** vpc *)
   timeouts : aws_eip__timeouts option;
 }
 [@@deriving yojson_of]

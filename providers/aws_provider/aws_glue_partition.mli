@@ -10,12 +10,12 @@ type aws_glue_partition__storage_descriptor
 type aws_glue_partition
 
 val aws_glue_partition :
-  ?catalog_id:string ->
-  ?id:string ->
-  ?parameters:(string * string) list ->
-  database_name:string ->
-  partition_values:string list ->
-  table_name:string ->
+  ?catalog_id:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  database_name:string prop ->
+  partition_values:string prop list ->
+  table_name:string prop ->
   storage_descriptor:aws_glue_partition__storage_descriptor list ->
   string ->
   unit

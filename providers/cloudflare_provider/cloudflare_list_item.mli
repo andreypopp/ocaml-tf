@@ -7,11 +7,11 @@ type cloudflare_list_item__redirect
 type cloudflare_list_item
 
 val cloudflare_list_item :
-  ?asn:float ->
-  ?comment:string ->
-  ?ip:string ->
-  account_id:string ->
-  list_id:string ->
+  ?asn:float prop ->
+  ?comment:string prop ->
+  ?ip:string prop ->
+  account_id:string prop ->
+  list_id:string prop ->
   hostname:cloudflare_list_item__hostname list ->
   redirect:cloudflare_list_item__redirect list ->
   string ->

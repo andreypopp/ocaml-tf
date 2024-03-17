@@ -5,27 +5,28 @@
 open! Tf.Prelude
 
 type google_dialogflow_cx_version__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_version__timeouts *)
 
 type google_dialogflow_cx_version__nlu_settings = {
-  classification_threshold : float;  (** classification_threshold *)
-  model_training_mode : string;  (** model_training_mode *)
-  model_type : string;  (** model_type *)
+  classification_threshold : float prop;
+      (** classification_threshold *)
+  model_training_mode : string prop;  (** model_training_mode *)
+  model_type : string prop;  (** model_type *)
 }
 [@@deriving yojson_of]
 
 type google_dialogflow_cx_version = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description of the version. The maximum length is 500 characters. If exceeded, the request is rejected. *)
-  display_name : string;
+  display_name : string prop;
       (** The human-readable name of the version. Limit of 64 characters. *)
-  id : string option; [@option]  (** id *)
-  parent : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  parent : string prop option; [@option]
       (** The Flow to create an Version for.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>. *)
   timeouts : google_dialogflow_cx_version__timeouts option;

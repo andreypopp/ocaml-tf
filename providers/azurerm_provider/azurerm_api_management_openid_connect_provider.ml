@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_api_management_openid_connect_provider__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_openid_connect_provider__timeouts *)
 
 type azurerm_api_management_openid_connect_provider = {
-  api_management_name : string;  (** api_management_name *)
-  client_id : string;  (** client_id *)
-  client_secret : string;  (** client_secret *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  metadata_endpoint : string;  (** metadata_endpoint *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  api_management_name : string prop;  (** api_management_name *)
+  client_id : string prop;  (** client_id *)
+  client_secret : string prop;  (** client_secret *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  metadata_endpoint : string prop;  (** metadata_endpoint *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts :
     azurerm_api_management_openid_connect_provider__timeouts option;
 }

@@ -24,17 +24,17 @@ type google_dataproc_metastore_service__timeouts
 type google_dataproc_metastore_service
 
 val google_dataproc_metastore_service :
-  ?database_type:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?location:string ->
-  ?network:string ->
-  ?port:float ->
-  ?project:string ->
-  ?release_channel:string ->
-  ?tier:string ->
+  ?database_type:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?network:string prop ->
+  ?port:float prop ->
+  ?project:string prop ->
+  ?release_channel:string prop ->
+  ?tier:string prop ->
   ?timeouts:google_dataproc_metastore_service__timeouts ->
-  service_id:string ->
+  service_id:string prop ->
   encryption_config:
     google_dataproc_metastore_service__encryption_config list ->
   hive_metastore_config:

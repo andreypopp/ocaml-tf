@@ -5,31 +5,33 @@
 open! Tf.Prelude
 
 type azurerm_eventgrid_system_topic__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_system_topic__identity *)
 
 type azurerm_eventgrid_system_topic__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_eventgrid_system_topic__timeouts *)
 
 type azurerm_eventgrid_system_topic = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  source_arm_resource_id : string;  (** source_arm_resource_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  topic_type : string;  (** topic_type *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  source_arm_resource_id : string prop;
+      (** source_arm_resource_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  topic_type : string prop;  (** topic_type *)
   identity : azurerm_eventgrid_system_topic__identity list;
   timeouts : azurerm_eventgrid_system_topic__timeouts option;
 }

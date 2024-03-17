@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_kinesis_resource_policy
 
 val aws_kinesis_resource_policy :
-  policy:string -> resource_arn:string -> string -> unit
+  policy:string prop -> resource_arn:string prop -> string -> unit

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_xray_encryption_config = {
-  id : string option; [@option]  (** id *)
-  key_id : string option; [@option]  (** key_id *)
-  type_ : string; [@key "type"]  (** type *)
+  id : string prop option; [@option]  (** id *)
+  key_id : string prop option; [@option]  (** key_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_xray_encryption_config *)

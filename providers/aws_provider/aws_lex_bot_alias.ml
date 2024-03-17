@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_lex_bot_alias__conversation_logs__log_settings = {
-  destination : string;  (** destination *)
-  kms_key_arn : string option; [@option]  (** kms_key_arn *)
-  log_type : string;  (** log_type *)
-  resource_arn : string;  (** resource_arn *)
-  resource_prefix : string;  (** resource_prefix *)
+  destination : string prop;  (** destination *)
+  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  log_type : string prop;  (** log_type *)
+  resource_arn : string prop;  (** resource_arn *)
+  resource_prefix : string prop;  (** resource_prefix *)
 }
 [@@deriving yojson_of]
 (** aws_lex_bot_alias__conversation_logs__log_settings *)
 
 type aws_lex_bot_alias__conversation_logs = {
-  iam_role_arn : string;  (** iam_role_arn *)
+  iam_role_arn : string prop;  (** iam_role_arn *)
   log_settings :
     aws_lex_bot_alias__conversation_logs__log_settings list;
 }
@@ -23,19 +23,19 @@ type aws_lex_bot_alias__conversation_logs = {
 (** aws_lex_bot_alias__conversation_logs *)
 
 type aws_lex_bot_alias__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_lex_bot_alias__timeouts *)
 
 type aws_lex_bot_alias = {
-  bot_name : string;  (** bot_name *)
-  bot_version : string;  (** bot_version *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  bot_name : string prop;  (** bot_name *)
+  bot_version : string prop;  (** bot_version *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   conversation_logs : aws_lex_bot_alias__conversation_logs list;
   timeouts : aws_lex_bot_alias__timeouts option;
 }

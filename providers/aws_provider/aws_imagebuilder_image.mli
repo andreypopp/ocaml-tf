@@ -9,16 +9,16 @@ type aws_imagebuilder_image__image_tests_configuration
 type aws_imagebuilder_image__timeouts
 
 type aws_imagebuilder_image__output_resources__containers = {
-  image_uris : string list;  (** image_uris *)
-  region : string;  (** region *)
+  image_uris : string prop list;  (** image_uris *)
+  region : string prop;  (** region *)
 }
 
 type aws_imagebuilder_image__output_resources__amis = {
-  account_id : string;  (** account_id *)
-  description : string;  (** description *)
-  image : string;  (** image *)
-  name : string;  (** name *)
-  region : string;  (** region *)
+  account_id : string prop;  (** account_id *)
+  description : string prop;  (** description *)
+  image : string prop;  (** image *)
+  name : string prop;  (** name *)
+  region : string prop;  (** region *)
 }
 
 type aws_imagebuilder_image__output_resources = {
@@ -32,15 +32,15 @@ type aws_imagebuilder_image__output_resources = {
 type aws_imagebuilder_image
 
 val aws_imagebuilder_image :
-  ?container_recipe_arn:string ->
-  ?distribution_configuration_arn:string ->
-  ?enhanced_image_metadata_enabled:bool ->
-  ?id:string ->
-  ?image_recipe_arn:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?container_recipe_arn:string prop ->
+  ?distribution_configuration_arn:string prop ->
+  ?enhanced_image_metadata_enabled:bool prop ->
+  ?id:string prop ->
+  ?image_recipe_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_imagebuilder_image__timeouts ->
-  infrastructure_configuration_arn:string ->
+  infrastructure_configuration_arn:string prop ->
   image_scanning_configuration:
     aws_imagebuilder_image__image_scanning_configuration list ->
   image_tests_configuration:

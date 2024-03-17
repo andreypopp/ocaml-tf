@@ -8,26 +8,26 @@ type azurerm_sql_database__timeouts
 type azurerm_sql_database
 
 val azurerm_sql_database :
-  ?collation:string ->
-  ?create_mode:string ->
-  ?edition:string ->
-  ?elastic_pool_name:string ->
-  ?id:string ->
-  ?max_size_bytes:string ->
-  ?max_size_gb:string ->
-  ?read_scale:bool ->
-  ?requested_service_objective_id:string ->
-  ?requested_service_objective_name:string ->
-  ?restore_point_in_time:string ->
-  ?source_database_deletion_date:string ->
-  ?source_database_id:string ->
-  ?tags:(string * string) list ->
-  ?zone_redundant:bool ->
+  ?collation:string prop ->
+  ?create_mode:string prop ->
+  ?edition:string prop ->
+  ?elastic_pool_name:string prop ->
+  ?id:string prop ->
+  ?max_size_bytes:string prop ->
+  ?max_size_gb:string prop ->
+  ?read_scale:bool prop ->
+  ?requested_service_objective_id:string prop ->
+  ?requested_service_objective_name:string prop ->
+  ?restore_point_in_time:string prop ->
+  ?source_database_deletion_date:string prop ->
+  ?source_database_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundant:bool prop ->
   ?timeouts:azurerm_sql_database__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  server_name:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
   import:azurerm_sql_database__import list ->
   threat_detection_policy:
     azurerm_sql_database__threat_detection_policy list ->

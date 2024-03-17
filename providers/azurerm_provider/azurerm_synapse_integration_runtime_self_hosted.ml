@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type azurerm_synapse_integration_runtime_self_hosted__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_synapse_integration_runtime_self_hosted__timeouts *)
 
 type azurerm_synapse_integration_runtime_self_hosted = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  synapse_workspace_id : string;  (** synapse_workspace_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  synapse_workspace_id : string prop;  (** synapse_workspace_id *)
   timeouts :
     azurerm_synapse_integration_runtime_self_hosted__timeouts option;
 }

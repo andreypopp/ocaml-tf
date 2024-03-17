@@ -7,14 +7,14 @@ type aws_guardduty_filter__finding_criteria
 type aws_guardduty_filter
 
 val aws_guardduty_filter :
-  ?description:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  action:string ->
-  detector_id:string ->
-  name:string ->
-  rank:float ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  action:string prop ->
+  detector_id:string prop ->
+  name:string prop ->
+  rank:float prop ->
   finding_criteria:aws_guardduty_filter__finding_criteria list ->
   string ->
   unit

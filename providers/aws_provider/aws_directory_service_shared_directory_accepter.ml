@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_directory_service_shared_directory_accepter__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_shared_directory_accepter__timeouts *)
 
 type aws_directory_service_shared_directory_accepter = {
-  id : string option; [@option]  (** id *)
-  shared_directory_id : string;  (** shared_directory_id *)
+  id : string prop option; [@option]  (** id *)
+  shared_directory_id : string prop;  (** shared_directory_id *)
   timeouts :
     aws_directory_service_shared_directory_accepter__timeouts option;
 }

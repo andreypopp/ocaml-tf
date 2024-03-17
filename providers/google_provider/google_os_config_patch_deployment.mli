@@ -47,12 +47,12 @@ type google_os_config_patch_deployment__timeouts
 type google_os_config_patch_deployment
 
 val google_os_config_patch_deployment :
-  ?description:string ->
-  ?duration:string ->
-  ?id:string ->
-  ?project:string ->
+  ?description:string prop ->
+  ?duration:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_os_config_patch_deployment__timeouts ->
-  patch_deployment_id:string ->
+  patch_deployment_id:string prop ->
   instance_filter:
     google_os_config_patch_deployment__instance_filter list ->
   one_time_schedule:

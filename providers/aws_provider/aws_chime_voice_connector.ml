@@ -5,12 +5,13 @@
 open! Tf.Prelude
 
 type aws_chime_voice_connector = {
-  aws_region : string option; [@option]  (** aws_region *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  require_encryption : bool;  (** require_encryption *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  aws_region : string prop option; [@option]  (** aws_region *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  require_encryption : bool prop;  (** require_encryption *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector *)

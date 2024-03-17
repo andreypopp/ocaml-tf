@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type google_apigee_sharedflow_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_apigee_sharedflow_deployment__timeouts *)
 
 type google_apigee_sharedflow_deployment = {
-  environment : string;  (** The resource ID of the environment. *)
-  id : string option; [@option]  (** id *)
-  org_id : string;
+  environment : string prop;
+      (** The resource ID of the environment. *)
+  id : string prop option; [@option]  (** id *)
+  org_id : string prop;
       (** The Apigee Organization associated with the Apigee instance *)
-  revision : string;
+  revision : string prop;
       (** Revision of the Sharedflow to be deployed. *)
-  service_account : string option; [@option]
+  service_account : string prop option; [@option]
       (** The service account represents the identity of the deployed proxy, and determines what permissions it has. The format must be {ACCOUNT_ID}@{PROJECT}.iam.gserviceaccount.com. *)
-  sharedflow_id : string;
+  sharedflow_id : string prop;
       (** Id of the Sharedflow to be deployed. *)
   timeouts : google_apigee_sharedflow_deployment__timeouts option;
 }

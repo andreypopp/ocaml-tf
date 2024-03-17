@@ -6,14 +6,14 @@ type azurerm_media_asset__timeouts
 type azurerm_media_asset
 
 val azurerm_media_asset :
-  ?alternate_id:string ->
-  ?container:string ->
-  ?description:string ->
-  ?id:string ->
-  ?storage_account_name:string ->
+  ?alternate_id:string prop ->
+  ?container:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?storage_account_name:string prop ->
   ?timeouts:azurerm_media_asset__timeouts ->
-  media_services_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  media_services_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

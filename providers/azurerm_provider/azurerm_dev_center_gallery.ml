@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_dev_center_gallery__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_center_gallery__timeouts *)
 
 type azurerm_dev_center_gallery = {
-  dev_center_id : string;  (** dev_center_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  shared_gallery_id : string;  (** shared_gallery_id *)
+  dev_center_id : string prop;  (** dev_center_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  shared_gallery_id : string prop;  (** shared_gallery_id *)
   timeouts : azurerm_dev_center_gallery__timeouts option;
 }
 [@@deriving yojson_of]

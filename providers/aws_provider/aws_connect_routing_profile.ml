@@ -5,32 +5,32 @@
 open! Tf.Prelude
 
 type aws_connect_routing_profile__media_concurrencies = {
-  channel : string;  (** channel *)
-  concurrency : float;  (** concurrency *)
+  channel : string prop;  (** channel *)
+  concurrency : float prop;  (** concurrency *)
 }
 [@@deriving yojson_of]
 (** aws_connect_routing_profile__media_concurrencies *)
 
 type aws_connect_routing_profile__queue_configs = {
-  channel : string;  (** channel *)
-  delay : float;  (** delay *)
-  priority : float;  (** priority *)
-  queue_arn : string;  (** queue_arn *)
-  queue_id : string;  (** queue_id *)
-  queue_name : string;  (** queue_name *)
+  channel : string prop;  (** channel *)
+  delay : float prop;  (** delay *)
+  priority : float prop;  (** priority *)
+  queue_arn : string prop;  (** queue_arn *)
+  queue_id : string prop;  (** queue_id *)
+  queue_name : string prop;  (** queue_name *)
 }
 [@@deriving yojson_of]
 (** aws_connect_routing_profile__queue_configs *)
 
 type aws_connect_routing_profile = {
-  default_outbound_queue_id : string;
+  default_outbound_queue_id : string prop;
       (** default_outbound_queue_id *)
-  description : string;  (** description *)
-  id : string option; [@option]  (** id *)
-  instance_id : string;  (** instance_id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop;  (** description *)
+  id : string prop option; [@option]  (** id *)
+  instance_id : string prop;  (** instance_id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   media_concurrencies :
     aws_connect_routing_profile__media_concurrencies list;

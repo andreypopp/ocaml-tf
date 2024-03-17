@@ -13,11 +13,11 @@ type aws_emr_instance_fleet__launch_specifications
 type aws_emr_instance_fleet
 
 val aws_emr_instance_fleet :
-  ?id:string ->
-  ?name:string ->
-  ?target_on_demand_capacity:float ->
-  ?target_spot_capacity:float ->
-  cluster_id:string ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?target_on_demand_capacity:float prop ->
+  ?target_spot_capacity:float prop ->
+  cluster_id:string prop ->
   instance_type_configs:
     aws_emr_instance_fleet__instance_type_configs list ->
   launch_specifications:

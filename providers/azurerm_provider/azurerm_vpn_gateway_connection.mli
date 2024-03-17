@@ -12,12 +12,12 @@ type azurerm_vpn_gateway_connection__vpn_link
 type azurerm_vpn_gateway_connection
 
 val azurerm_vpn_gateway_connection :
-  ?id:string ->
-  ?internet_security_enabled:bool ->
+  ?id:string prop ->
+  ?internet_security_enabled:bool prop ->
   ?timeouts:azurerm_vpn_gateway_connection__timeouts ->
-  name:string ->
-  remote_vpn_site_id:string ->
-  vpn_gateway_id:string ->
+  name:string prop ->
+  remote_vpn_site_id:string prop ->
+  vpn_gateway_id:string prop ->
   routing:azurerm_vpn_gateway_connection__routing list ->
   traffic_selector_policy:
     azurerm_vpn_gateway_connection__traffic_selector_policy list ->

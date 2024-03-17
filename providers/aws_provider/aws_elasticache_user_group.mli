@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_elasticache_user_group
 
 val aws_elasticache_user_group :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?user_ids:string list ->
-  engine:string ->
-  user_group_id:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_ids:string prop list ->
+  engine:string prop ->
+  user_group_id:string prop ->
   string ->
   unit

@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_resource_provider_registration__feature = {
-  name : string;  (** name *)
-  registered : bool;  (** registered *)
+  name : string prop;  (** name *)
+  registered : bool prop;  (** registered *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_provider_registration__feature *)
 
 type azurerm_resource_provider_registration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_provider_registration__timeouts *)
 
 type azurerm_resource_provider_registration = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   feature : azurerm_resource_provider_registration__feature list;
   timeouts : azurerm_resource_provider_registration__timeouts option;
 }

@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_sagemaker_model_package_group_policy
 
 val aws_sagemaker_model_package_group_policy :
-  ?id:string ->
-  model_package_group_name:string ->
-  resource_policy:string ->
+  ?id:string prop ->
+  model_package_group_name:string prop ->
+  resource_policy:string prop ->
   string ->
   unit

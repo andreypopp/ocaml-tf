@@ -5,11 +5,11 @@ open! Tf.Prelude
 type aws_opsworks_permission
 
 val aws_opsworks_permission :
-  ?allow_ssh:bool ->
-  ?allow_sudo:bool ->
-  ?id:string ->
-  ?level:string ->
-  stack_id:string ->
-  user_arn:string ->
+  ?allow_ssh:bool prop ->
+  ?allow_sudo:bool prop ->
+  ?id:string prop ->
+  ?level:string prop ->
+  stack_id:string prop ->
+  user_arn:string prop ->
   string ->
   unit

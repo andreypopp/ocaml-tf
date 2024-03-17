@@ -7,20 +7,20 @@ type azurerm_spring_cloud_new_relic_application_performance_monitoring__timeouts
 type azurerm_spring_cloud_new_relic_application_performance_monitoring
 
 val azurerm_spring_cloud_new_relic_application_performance_monitoring :
-  ?agent_enabled:bool ->
-  ?app_server_port:float ->
-  ?audit_mode_enabled:bool ->
-  ?auto_app_naming_enabled:bool ->
-  ?auto_transaction_naming_enabled:bool ->
-  ?custom_tracing_enabled:bool ->
-  ?globally_enabled:bool ->
-  ?id:string ->
-  ?labels:(string * string) list ->
+  ?agent_enabled:bool prop ->
+  ?app_server_port:float prop ->
+  ?audit_mode_enabled:bool prop ->
+  ?auto_app_naming_enabled:bool prop ->
+  ?auto_transaction_naming_enabled:bool prop ->
+  ?custom_tracing_enabled:bool prop ->
+  ?globally_enabled:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
   ?timeouts:
     azurerm_spring_cloud_new_relic_application_performance_monitoring__timeouts ->
-  app_name:string ->
-  license_key:string ->
-  name:string ->
-  spring_cloud_service_id:string ->
+  app_name:string prop ->
+  license_key:string prop ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
   string ->
   unit

@@ -5,26 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_iotcentral_application_network_rule_set__ip_rule = {
-  ip_mask : string;  (** ip_mask *)
-  name : string;  (** name *)
+  ip_mask : string prop;  (** ip_mask *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_iotcentral_application_network_rule_set__ip_rule *)
 
 type azurerm_iotcentral_application_network_rule_set__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iotcentral_application_network_rule_set__timeouts *)
 
 type azurerm_iotcentral_application_network_rule_set = {
-  apply_to_device : bool option; [@option]  (** apply_to_device *)
-  default_action : string option; [@option]  (** default_action *)
-  id : string option; [@option]  (** id *)
-  iotcentral_application_id : string;
+  apply_to_device : bool prop option; [@option]
+      (** apply_to_device *)
+  default_action : string prop option; [@option]
+      (** default_action *)
+  id : string prop option; [@option]  (** id *)
+  iotcentral_application_id : string prop;
       (** iotcentral_application_id *)
   ip_rule :
     azurerm_iotcentral_application_network_rule_set__ip_rule list;

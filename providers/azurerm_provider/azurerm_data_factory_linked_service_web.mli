@@ -6,18 +6,18 @@ type azurerm_data_factory_linked_service_web__timeouts
 type azurerm_data_factory_linked_service_web
 
 val azurerm_data_factory_linked_service_web :
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?description:string ->
-  ?id:string ->
-  ?integration_runtime_name:string ->
-  ?parameters:(string * string) list ->
-  ?password:string ->
-  ?username:string ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?integration_runtime_name:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?password:string prop ->
+  ?username:string prop ->
   ?timeouts:azurerm_data_factory_linked_service_web__timeouts ->
-  authentication_type:string ->
-  data_factory_id:string ->
-  name:string ->
-  url:string ->
+  authentication_type:string prop ->
+  data_factory_id:string prop ->
+  name:string prop ->
+  url:string prop ->
   string ->
   unit

@@ -8,11 +8,11 @@ type aws_ses_event_destination__sns_destination
 type aws_ses_event_destination
 
 val aws_ses_event_destination :
-  ?enabled:bool ->
-  ?id:string ->
-  configuration_set_name:string ->
-  matching_types:string list ->
-  name:string ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  configuration_set_name:string prop ->
+  matching_types:string prop list ->
+  name:string prop ->
   cloudwatch_destination:
     aws_ses_event_destination__cloudwatch_destination list ->
   kinesis_destination:

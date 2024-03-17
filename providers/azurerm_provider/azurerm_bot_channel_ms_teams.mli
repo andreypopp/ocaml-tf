@@ -6,13 +6,13 @@ type azurerm_bot_channel_ms_teams__timeouts
 type azurerm_bot_channel_ms_teams
 
 val azurerm_bot_channel_ms_teams :
-  ?calling_web_hook:string ->
-  ?deployment_environment:string ->
-  ?enable_calling:bool ->
-  ?id:string ->
+  ?calling_web_hook:string prop ->
+  ?deployment_environment:string prop ->
+  ?enable_calling:bool prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_bot_channel_ms_teams__timeouts ->
-  bot_name:string ->
-  location:string ->
-  resource_group_name:string ->
+  bot_name:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

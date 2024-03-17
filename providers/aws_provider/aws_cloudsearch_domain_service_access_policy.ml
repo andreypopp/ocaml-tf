@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_cloudsearch_domain_service_access_policy__timeouts = {
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_cloudsearch_domain_service_access_policy__timeouts *)
 
 type aws_cloudsearch_domain_service_access_policy = {
-  access_policy : string;  (** access_policy *)
-  domain_name : string;  (** domain_name *)
-  id : string option; [@option]  (** id *)
+  access_policy : string prop;  (** access_policy *)
+  domain_name : string prop;  (** domain_name *)
+  id : string prop option; [@option]  (** id *)
   timeouts :
     aws_cloudsearch_domain_service_access_policy__timeouts option;
 }

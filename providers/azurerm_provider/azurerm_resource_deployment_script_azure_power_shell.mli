@@ -14,22 +14,22 @@ type azurerm_resource_deployment_script_azure_power_shell__timeouts
 type azurerm_resource_deployment_script_azure_power_shell
 
 val azurerm_resource_deployment_script_azure_power_shell :
-  ?cleanup_preference:string ->
-  ?command_line:string ->
-  ?force_update_tag:string ->
-  ?id:string ->
-  ?primary_script_uri:string ->
-  ?script_content:string ->
-  ?supporting_script_uris:string list ->
-  ?tags:(string * string) list ->
-  ?timeout:string ->
+  ?cleanup_preference:string prop ->
+  ?command_line:string prop ->
+  ?force_update_tag:string prop ->
+  ?id:string prop ->
+  ?primary_script_uri:string prop ->
+  ?script_content:string prop ->
+  ?supporting_script_uris:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?timeout:string prop ->
   ?timeouts:
     azurerm_resource_deployment_script_azure_power_shell__timeouts ->
-  location:string ->
-  name:string ->
-  resource_group_name:string ->
-  retention_interval:string ->
-  version:string ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  retention_interval:string prop ->
+  version:string prop ->
   container:
     azurerm_resource_deployment_script_azure_power_shell__container
     list ->

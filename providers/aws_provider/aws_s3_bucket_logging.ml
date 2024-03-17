@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_logging__target_grant__grantee = {
-  display_name : string;  (** display_name *)
-  email_address : string option; [@option]  (** email_address *)
-  id : string option; [@option]  (** id *)
-  type_ : string; [@key "type"]  (** type *)
-  uri : string option; [@option]  (** uri *)
+  display_name : string prop;  (** display_name *)
+  email_address : string prop option; [@option]  (** email_address *)
+  id : string prop option; [@option]  (** id *)
+  type_ : string prop; [@key "type"]  (** type *)
+  uri : string prop option; [@option]  (** uri *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_logging__target_grant__grantee *)
 
 type aws_s3_bucket_logging__target_grant = {
-  permission : string;  (** permission *)
+  permission : string prop;  (** permission *)
   grantee : aws_s3_bucket_logging__target_grant__grantee list;
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_logging__target_grant *)
 
 type aws_s3_bucket_logging__target_object_key_format__partitioned_prefix = {
-  partition_date_source : string;  (** partition_date_source *)
+  partition_date_source : string prop;  (** partition_date_source *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_logging__target_object_key_format__partitioned_prefix *)
@@ -43,12 +43,12 @@ type aws_s3_bucket_logging__target_object_key_format = {
 (** aws_s3_bucket_logging__target_object_key_format *)
 
 type aws_s3_bucket_logging = {
-  bucket : string;  (** bucket *)
-  expected_bucket_owner : string option; [@option]
+  bucket : string prop;  (** bucket *)
+  expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
-  id : string option; [@option]  (** id *)
-  target_bucket : string;  (** target_bucket *)
-  target_prefix : string;  (** target_prefix *)
+  id : string prop option; [@option]  (** id *)
+  target_bucket : string prop;  (** target_bucket *)
+  target_prefix : string prop;  (** target_prefix *)
   target_grant : aws_s3_bucket_logging__target_grant list;
   target_object_key_format :
     aws_s3_bucket_logging__target_object_key_format list;

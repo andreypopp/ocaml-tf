@@ -5,55 +5,57 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_automation_rule__action_incident = {
-  classification : string option; [@option]  (** classification *)
-  classification_comment : string option; [@option]
+  classification : string prop option; [@option]
+      (** classification *)
+  classification_comment : string prop option; [@option]
       (** classification_comment *)
-  labels : string list option; [@option]  (** labels *)
-  order : float;  (** order *)
-  owner_id : string option; [@option]  (** owner_id *)
-  severity : string option; [@option]  (** severity *)
-  status : string option; [@option]  (** status *)
+  labels : string prop list option; [@option]  (** labels *)
+  order : float prop;  (** order *)
+  owner_id : string prop option; [@option]  (** owner_id *)
+  severity : string prop option; [@option]  (** severity *)
+  status : string prop option; [@option]  (** status *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_automation_rule__action_incident *)
 
 type azurerm_sentinel_automation_rule__action_playbook = {
-  logic_app_id : string;  (** logic_app_id *)
-  order : float;  (** order *)
-  tenant_id : string option; [@option]  (** tenant_id *)
+  logic_app_id : string prop;  (** logic_app_id *)
+  order : float prop;  (** order *)
+  tenant_id : string prop option; [@option]  (** tenant_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_automation_rule__action_playbook *)
 
 type azurerm_sentinel_automation_rule__condition = {
-  operator : string;  (** operator *)
-  property : string;  (** property *)
-  values : string list;  (** values *)
+  operator : string prop;  (** operator *)
+  property : string prop;  (** property *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_automation_rule__condition *)
 
 type azurerm_sentinel_automation_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_automation_rule__timeouts *)
 
 type azurerm_sentinel_automation_rule = {
-  condition_json : string option; [@option]  (** condition_json *)
-  display_name : string;  (** display_name *)
-  enabled : bool option; [@option]  (** enabled *)
-  expiration : string option; [@option]  (** expiration *)
-  id : string option; [@option]  (** id *)
-  log_analytics_workspace_id : string;
+  condition_json : string prop option; [@option]
+      (** condition_json *)
+  display_name : string prop;  (** display_name *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  expiration : string prop option; [@option]  (** expiration *)
+  id : string prop option; [@option]  (** id *)
+  log_analytics_workspace_id : string prop;
       (** log_analytics_workspace_id *)
-  name : string;  (** name *)
-  order : float;  (** order *)
-  triggers_on : string option; [@option]  (** triggers_on *)
-  triggers_when : string option; [@option]  (** triggers_when *)
+  name : string prop;  (** name *)
+  order : float prop;  (** order *)
+  triggers_on : string prop option; [@option]  (** triggers_on *)
+  triggers_when : string prop option; [@option]  (** triggers_when *)
   action_incident :
     azurerm_sentinel_automation_rule__action_incident list;
   action_playbook :

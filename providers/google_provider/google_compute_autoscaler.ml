@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type google_compute_autoscaler__autoscaling_policy__cpu_utilization = {
-  predictive_method : string option; [@option]
+  predictive_method : string prop option; [@option]
       (** Indicates whether predictive autoscaling based on CPU metric is enabled. Valid values are:
 
 - NONE (default). No predictive method is used. The autoscaler scales the group to meet current demand based on real-time metrics.
 
 - OPTIMIZE_AVAILABILITY. Predictive autoscaling improves availability by monitoring daily and weekly load patterns and scaling out ahead of anticipated demand. *)
-  target : float;
+  target : float prop;
       (** The target CPU utilization that the autoscaler should maintain.
 Must be a float value in the range (0, 1]. If not specified, the
 default is 0.6.
@@ -32,7 +32,7 @@ scale based on the average CPU utilization of a managed instance
 group. *)
 
 type google_compute_autoscaler__autoscaling_policy__load_balancing_utilization = {
-  target : float;
+  target : float prop;
       (** Fraction of backend capacity utilization (set in HTTP(s) load
 balancing configuration) that autoscaler should maintain. Must
 be a positive float value. If not defined, the default is 0.8. *)
@@ -41,12 +41,12 @@ be a positive float value. If not defined, the default is 0.8. *)
 (** Configuration parameters of autoscaling based on a load balancer. *)
 
 type google_compute_autoscaler__autoscaling_policy__metric = {
-  name : string;
+  name : string prop;
       (** The identifier (type) of the Stackdriver Monitoring metric.
 The metric cannot have negative values.
 
 The metric must have a value type of INT64 or DOUBLE. *)
-  target : float option; [@option]
+  target : float prop option; [@option]
       (** The target value of the metric that autoscaler should
 maintain. This must be a positive value. A utilization
 metric scales number of virtual machines handling requests
@@ -56,7 +56,7 @@ For example, a good metric to use as a utilizationTarget is
 www.googleapis.com/compute/instance/network/received_bytes_count.
 The autoscaler will work to keep this value constant for each
 of the instances. *)
-  type_ : string option; [@option] [@key "type"]
+  type_ : string prop option; [@option] [@key "type"]
       (** Defines how target utilization value is expressed for a
 Stackdriver Monitoring metric. Possible values: [GAUGE, DELTA_PER_SECOND, DELTA_PER_MINUTE] *)
 }
@@ -64,10 +64,10 @@ Stackdriver Monitoring metric. Possible values: [GAUGE, DELTA_PER_SECOND, DELTA_
 (** Configuration parameters of autoscaling based on a custom metric. *)
 
 type google_compute_autoscaler__autoscaling_policy__scale_in_control__max_scaled_in_replicas = {
-  fixed : float option; [@option]
+  fixed : float prop option; [@option]
       (** Specifies a fixed number of VM instances. This must be a positive
 integer. *)
-  percent : float option; [@option]
+  percent : float prop option; [@option]
       (** Specifies a percentage of instances between 0 to 100%, inclusive.
 For example, specify 80 for 80%. *)
 }
@@ -75,7 +75,7 @@ For example, specify 80 for 80%. *)
 (** A nested object resource *)
 
 type google_compute_autoscaler__autoscaling_policy__scale_in_control = {
-  time_window_sec : float option; [@option]
+  time_window_sec : float prop option; [@option]
       (** How long back autoscaling should look when computing recommendations
 to include directives regarding slower scale down, as described above. *)
   max_scaled_in_replicas :
@@ -87,25 +87,25 @@ to include directives regarding slower scale down, as described above. *)
 and outages due to abrupt scale-in events *)
 
 type google_compute_autoscaler__autoscaling_policy__scaling_schedules = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A description of a scaling schedule. *)
-  disabled : bool option; [@option]
+  disabled : bool prop option; [@option]
       (** A boolean value that specifies if a scaling schedule can influence autoscaler recommendations. If set to true, then a scaling schedule has no effect. *)
-  duration_sec : float;
+  duration_sec : float prop;
       (** The duration of time intervals (in seconds) for which this scaling schedule will be running. The minimum allowed value is 300. *)
-  min_required_replicas : float;
+  min_required_replicas : float prop;
       (** Minimum number of VM instances that autoscaler will recommend in time intervals starting according to schedule. *)
-  name : string;  (** name *)
-  schedule : string;
+  name : string prop;  (** name *)
+  schedule : string prop;
       (** The start timestamps of time intervals when this scaling schedule should provide a scaling signal. This field uses the extended cron format (with an optional year field). *)
-  time_zone : string option; [@option]
+  time_zone : string prop option; [@option]
       (** The time zone to be used when interpreting the schedule. The value of this field must be a time zone name from the tz database: http://en.wikipedia.org/wiki/Tz_database. *)
 }
 [@@deriving yojson_of]
 (** Scaling schedules defined for an autoscaler. Multiple schedules can be set on an autoscaler and they can overlap. *)
 
 type google_compute_autoscaler__autoscaling_policy = {
-  cooldown_period : float option; [@option]
+  cooldown_period : float prop option; [@option]
       (** The number of seconds that the autoscaler should wait before it
 starts collecting information from a new instance. This prevents
 the autoscaler from collecting information when the instance is
@@ -116,17 +116,17 @@ Virtual machine initialization times might vary because of
 numerous factors. We recommend that you test how long an
 instance may take to initialize. To do this, create an instance
 and time the startup process. *)
-  max_replicas : float;
+  max_replicas : float prop;
       (** The maximum number of instances that the autoscaler can scale up
 to. This is required when creating or updating an autoscaler. The
 maximum number of replicas should not be lower than minimal number
 of replicas. *)
-  min_replicas : float;
+  min_replicas : float prop;
       (** The minimum number of replicas that the autoscaler can scale down
 to. This cannot be less than 0. If not provided, autoscaler will
 choose a default value depending on maximum number of instances
 allowed. *)
-  mode : string option; [@option]
+  mode : string prop option; [@option]
       (** Defines operating mode for this policy. *)
   cpu_utilization :
     google_compute_autoscaler__autoscaling_policy__cpu_utilization
@@ -152,27 +152,27 @@ If none of these are specified, the default will be to autoscale based
 on cpuUtilization to 0.6 or 60%. *)
 
 type google_compute_autoscaler__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_autoscaler__timeouts *)
 
 type google_compute_autoscaler = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** Name of the resource. The name must be 1-63 characters long and match
 the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
-  project : string option; [@option]  (** project *)
-  target : string;
+  project : string prop option; [@option]  (** project *)
+  target : string prop;
       (** URL of the managed instance group that this autoscaler will scale. *)
-  zone : string option; [@option]
+  zone : string prop option; [@option]
       (** URL of the zone where the instance group resides. *)
   autoscaling_policy :
     google_compute_autoscaler__autoscaling_policy list;

@@ -11,16 +11,16 @@ type aws_budgets_budget__planned_limit
 type aws_budgets_budget
 
 val aws_budgets_budget :
-  ?account_id:string ->
-  ?id:string ->
-  ?limit_amount:string ->
-  ?limit_unit:string ->
-  ?name:string ->
-  ?name_prefix:string ->
-  ?time_period_end:string ->
-  ?time_period_start:string ->
-  budget_type:string ->
-  time_unit:string ->
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?limit_amount:string prop ->
+  ?limit_unit:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?time_period_end:string prop ->
+  ?time_period_start:string prop ->
+  budget_type:string prop ->
+  time_unit:string prop ->
   auto_adjust_data:aws_budgets_budget__auto_adjust_data list ->
   cost_filter:aws_budgets_budget__cost_filter list ->
   cost_types:aws_budgets_budget__cost_types list ->

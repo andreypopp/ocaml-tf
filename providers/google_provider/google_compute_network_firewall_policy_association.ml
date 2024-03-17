@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_compute_network_firewall_policy_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_compute_network_firewall_policy_association__timeouts *)
 
 type google_compute_network_firewall_policy_association = {
-  attachment_target : string;
+  attachment_target : string prop;
       (** The target that the firewall policy is attached to. *)
-  firewall_policy : string;
+  firewall_policy : string prop;
       (** The firewall policy ID of the association. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The name for an association. *)
-  project : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The name for an association. *)
+  project : string prop option; [@option]
       (** The project for the resource *)
   timeouts :
     google_compute_network_firewall_policy_association__timeouts

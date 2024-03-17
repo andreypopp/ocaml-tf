@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type google_dns_managed_zone_iam_policy = {
-  id : string option; [@option]  (** id *)
-  managed_zone : string;  (** managed_zone *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  managed_zone : string prop;  (** managed_zone *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_dns_managed_zone_iam_policy *)

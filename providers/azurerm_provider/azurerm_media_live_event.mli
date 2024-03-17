@@ -7,16 +7,16 @@ type azurerm_media_live_event__encoding
 type azurerm_media_live_event__input__ip_access_control_allow
 
 type azurerm_media_live_event__input__endpoint = {
-  protocol : string;  (** protocol *)
-  url : string;  (** url *)
+  protocol : string prop;  (** protocol *)
+  url : string prop;  (** url *)
 }
 
 type azurerm_media_live_event__input
 type azurerm_media_live_event__preview__ip_access_control_allow
 
 type azurerm_media_live_event__preview__endpoint = {
-  protocol : string;  (** protocol *)
-  url : string;  (** url *)
+  protocol : string prop;  (** protocol *)
+  url : string prop;  (** url *)
 }
 
 type azurerm_media_live_event__preview
@@ -24,19 +24,19 @@ type azurerm_media_live_event__timeouts
 type azurerm_media_live_event
 
 val azurerm_media_live_event :
-  ?auto_start_enabled:bool ->
-  ?description:string ->
-  ?hostname_prefix:string ->
-  ?id:string ->
-  ?stream_options:string list ->
-  ?tags:(string * string) list ->
-  ?transcription_languages:string list ->
-  ?use_static_hostname:bool ->
+  ?auto_start_enabled:bool prop ->
+  ?description:string prop ->
+  ?hostname_prefix:string prop ->
+  ?id:string prop ->
+  ?stream_options:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?transcription_languages:string prop list ->
+  ?use_static_hostname:bool prop ->
   ?timeouts:azurerm_media_live_event__timeouts ->
-  location:string ->
-  media_services_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  location:string prop ->
+  media_services_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   cross_site_access_policy:
     azurerm_media_live_event__cross_site_access_policy list ->
   encoding:azurerm_media_live_event__encoding list ->

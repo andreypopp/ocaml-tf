@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type google_app_engine_service_network_settings__network_settings = {
-  ingress_traffic_allowed : string option; [@option]
+  ingress_traffic_allowed : string prop option; [@option]
       (** The ingress settings for version or service. Default value: INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED Possible values: [INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED, INGRESS_TRAFFIC_ALLOWED_ALL, INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY, INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB] *)
 }
 [@@deriving yojson_of]
 (** Ingress settings for this service. Will apply to all versions. *)
 
 type google_app_engine_service_network_settings__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_app_engine_service_network_settings__timeouts *)
 
 type google_app_engine_service_network_settings = {
-  id : string option; [@option]  (** id *)
-  project : string option; [@option]  (** project *)
-  service : string;
+  id : string prop option; [@option]  (** id *)
+  project : string prop option; [@option]  (** project *)
+  service : string prop;
       (** The name of the service these settings apply to. *)
   network_settings :
     google_app_engine_service_network_settings__network_settings list;

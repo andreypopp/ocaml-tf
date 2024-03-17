@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_ec2_transit_gateway_multicast_group_source
 
 val aws_ec2_transit_gateway_multicast_group_source :
-  ?id:string ->
-  group_ip_address:string ->
-  network_interface_id:string ->
-  transit_gateway_multicast_domain_id:string ->
+  ?id:string prop ->
+  group_ip_address:string prop ->
+  network_interface_id:string prop ->
+  transit_gateway_multicast_domain_id:string prop ->
   string ->
   unit

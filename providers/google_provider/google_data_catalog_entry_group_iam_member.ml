@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_data_catalog_entry_group_iam_member__condition = {
-  description : string option; [@option]  (** description *)
-  expression : string;  (** expression *)
-  title : string;  (** title *)
+  description : string prop option; [@option]  (** description *)
+  expression : string prop;  (** expression *)
+  title : string prop;  (** title *)
 }
 [@@deriving yojson_of]
 (** google_data_catalog_entry_group_iam_member__condition *)
 
 type google_data_catalog_entry_group_iam_member = {
-  entry_group : string;  (** entry_group *)
-  id : string option; [@option]  (** id *)
-  member : string;  (** member *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]  (** region *)
-  role : string;  (** role *)
+  entry_group : string prop;  (** entry_group *)
+  id : string prop option; [@option]  (** id *)
+  member : string prop;  (** member *)
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]  (** region *)
+  role : string prop;  (** role *)
   condition :
     google_data_catalog_entry_group_iam_member__condition list;
 }

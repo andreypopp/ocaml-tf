@@ -22,41 +22,41 @@ type aws_instance__timeouts
 type aws_instance
 
 val aws_instance :
-  ?ami:string ->
-  ?associate_public_ip_address:bool ->
-  ?availability_zone:string ->
-  ?cpu_core_count:float ->
-  ?cpu_threads_per_core:float ->
-  ?disable_api_stop:bool ->
-  ?disable_api_termination:bool ->
-  ?ebs_optimized:bool ->
-  ?get_password_data:bool ->
-  ?hibernation:bool ->
-  ?host_id:string ->
-  ?host_resource_group_arn:string ->
-  ?iam_instance_profile:string ->
-  ?id:string ->
-  ?instance_initiated_shutdown_behavior:string ->
-  ?instance_type:string ->
-  ?ipv6_address_count:float ->
-  ?ipv6_addresses:string list ->
-  ?key_name:string ->
-  ?monitoring:bool ->
-  ?placement_group:string ->
-  ?placement_partition_number:float ->
-  ?private_ip:string ->
-  ?secondary_private_ips:string list ->
-  ?security_groups:string list ->
-  ?source_dest_check:bool ->
-  ?subnet_id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?tenancy:string ->
-  ?user_data:string ->
-  ?user_data_base64:string ->
-  ?user_data_replace_on_change:bool ->
-  ?volume_tags:(string * string) list ->
-  ?vpc_security_group_ids:string list ->
+  ?ami:string prop ->
+  ?associate_public_ip_address:bool prop ->
+  ?availability_zone:string prop ->
+  ?cpu_core_count:float prop ->
+  ?cpu_threads_per_core:float prop ->
+  ?disable_api_stop:bool prop ->
+  ?disable_api_termination:bool prop ->
+  ?ebs_optimized:bool prop ->
+  ?get_password_data:bool prop ->
+  ?hibernation:bool prop ->
+  ?host_id:string prop ->
+  ?host_resource_group_arn:string prop ->
+  ?iam_instance_profile:string prop ->
+  ?id:string prop ->
+  ?instance_initiated_shutdown_behavior:string prop ->
+  ?instance_type:string prop ->
+  ?ipv6_address_count:float prop ->
+  ?ipv6_addresses:string prop list ->
+  ?key_name:string prop ->
+  ?monitoring:bool prop ->
+  ?placement_group:string prop ->
+  ?placement_partition_number:float prop ->
+  ?private_ip:string prop ->
+  ?secondary_private_ips:string prop list ->
+  ?security_groups:string prop list ->
+  ?source_dest_check:bool prop ->
+  ?subnet_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tenancy:string prop ->
+  ?user_data:string prop ->
+  ?user_data_base64:string prop ->
+  ?user_data_replace_on_change:bool prop ->
+  ?volume_tags:(string * string prop) list ->
+  ?vpc_security_group_ids:string prop list ->
   ?timeouts:aws_instance__timeouts ->
   capacity_reservation_specification:
     aws_instance__capacity_reservation_specification list ->

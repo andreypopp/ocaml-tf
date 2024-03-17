@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_monitor_autoscale_setting__notification__email = {
-  custom_emails : string list option; [@option]  (** custom_emails *)
-  send_to_subscription_administrator : bool option; [@option]
+  custom_emails : string prop list option; [@option]
+      (** custom_emails *)
+  send_to_subscription_administrator : bool prop option; [@option]
       (** send_to_subscription_administrator *)
-  send_to_subscription_co_administrator : bool option; [@option]
+  send_to_subscription_co_administrator : bool prop option; [@option]
       (** send_to_subscription_co_administrator *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting__notification__email *)
 
 type azurerm_monitor_autoscale_setting__notification__webhook = {
-  properties : (string * string) list option; [@option]
+  properties : (string * string prop) list option; [@option]
       (** properties *)
-  service_uri : string;  (** service_uri *)
+  service_uri : string prop;  (** service_uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting__notification__webhook *)
@@ -32,58 +33,59 @@ type azurerm_monitor_autoscale_setting__notification = {
 (** azurerm_monitor_autoscale_setting__notification *)
 
 type azurerm_monitor_autoscale_setting__predictive = {
-  look_ahead_time : string option; [@option]  (** look_ahead_time *)
-  scale_mode : string;  (** scale_mode *)
+  look_ahead_time : string prop option; [@option]
+      (** look_ahead_time *)
+  scale_mode : string prop;  (** scale_mode *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting__predictive *)
 
 type azurerm_monitor_autoscale_setting__profile__capacity = {
-  default : float;  (** default *)
-  maximum : float;  (** maximum *)
-  minimum : float;  (** minimum *)
+  default : float prop;  (** default *)
+  maximum : float prop;  (** maximum *)
+  minimum : float prop;  (** minimum *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting__profile__capacity *)
 
 type azurerm_monitor_autoscale_setting__profile__fixed_date = {
-  end_ : string; [@key "end"]  (** end *)
-  start : string;  (** start *)
-  timezone : string option; [@option]  (** timezone *)
+  end_ : string prop; [@key "end"]  (** end *)
+  start : string prop;  (** start *)
+  timezone : string prop option; [@option]  (** timezone *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting__profile__fixed_date *)
 
 type azurerm_monitor_autoscale_setting__profile__recurrence = {
-  days : string list;  (** days *)
-  hours : float list;  (** hours *)
-  minutes : float list;  (** minutes *)
-  timezone : string option; [@option]  (** timezone *)
+  days : string prop list;  (** days *)
+  hours : float prop list;  (** hours *)
+  minutes : float prop list;  (** minutes *)
+  timezone : string prop option; [@option]  (** timezone *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting__profile__recurrence *)
 
 type azurerm_monitor_autoscale_setting__profile__rule__metric_trigger__dimensions = {
-  name : string;  (** name *)
-  operator : string;  (** operator *)
-  values : string list;  (** values *)
+  name : string prop;  (** name *)
+  operator : string prop;  (** operator *)
+  values : string prop list;  (** values *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting__profile__rule__metric_trigger__dimensions *)
 
 type azurerm_monitor_autoscale_setting__profile__rule__metric_trigger = {
-  divide_by_instance_count : bool option; [@option]
+  divide_by_instance_count : bool prop option; [@option]
       (** divide_by_instance_count *)
-  metric_name : string;  (** metric_name *)
-  metric_namespace : string option; [@option]
+  metric_name : string prop;  (** metric_name *)
+  metric_namespace : string prop option; [@option]
       (** metric_namespace *)
-  metric_resource_id : string;  (** metric_resource_id *)
-  operator : string;  (** operator *)
-  statistic : string;  (** statistic *)
-  threshold : float;  (** threshold *)
-  time_aggregation : string;  (** time_aggregation *)
-  time_grain : string;  (** time_grain *)
-  time_window : string;  (** time_window *)
+  metric_resource_id : string prop;  (** metric_resource_id *)
+  operator : string prop;  (** operator *)
+  statistic : string prop;  (** statistic *)
+  threshold : float prop;  (** threshold *)
+  time_aggregation : string prop;  (** time_aggregation *)
+  time_grain : string prop;  (** time_grain *)
+  time_window : string prop;  (** time_window *)
   dimensions :
     azurerm_monitor_autoscale_setting__profile__rule__metric_trigger__dimensions
     list;
@@ -92,10 +94,10 @@ type azurerm_monitor_autoscale_setting__profile__rule__metric_trigger = {
 (** azurerm_monitor_autoscale_setting__profile__rule__metric_trigger *)
 
 type azurerm_monitor_autoscale_setting__profile__rule__scale_action = {
-  cooldown : string;  (** cooldown *)
-  direction : string;  (** direction *)
-  type_ : string; [@key "type"]  (** type *)
-  value : float;  (** value *)
+  cooldown : string prop;  (** cooldown *)
+  direction : string prop;  (** direction *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : float prop;  (** value *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting__profile__rule__scale_action *)
@@ -112,7 +114,7 @@ type azurerm_monitor_autoscale_setting__profile__rule = {
 (** azurerm_monitor_autoscale_setting__profile__rule *)
 
 type azurerm_monitor_autoscale_setting__profile = {
-  name : string;  (** name *)
+  name : string prop;  (** name *)
   capacity :
     azurerm_monitor_autoscale_setting__profile__capacity list;
   fixed_date :
@@ -125,22 +127,22 @@ type azurerm_monitor_autoscale_setting__profile = {
 (** azurerm_monitor_autoscale_setting__profile *)
 
 type azurerm_monitor_autoscale_setting__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_autoscale_setting__timeouts *)
 
 type azurerm_monitor_autoscale_setting = {
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  target_resource_id : string;  (** target_resource_id *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  target_resource_id : string prop;  (** target_resource_id *)
   notification :
     azurerm_monitor_autoscale_setting__notification list;
   predictive : azurerm_monitor_autoscale_setting__predictive list;

@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_vpc_endpoint_route_table_association = {
-  id : string option; [@option]  (** id *)
-  route_table_id : string;  (** route_table_id *)
-  vpc_endpoint_id : string;  (** vpc_endpoint_id *)
+  id : string prop option; [@option]  (** id *)
+  route_table_id : string prop;  (** route_table_id *)
+  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
 }
 [@@deriving yojson_of]
 (** aws_vpc_endpoint_route_table_association *)

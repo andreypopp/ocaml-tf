@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_data_share__snapshot_schedule = {
-  name : string;  (** name *)
-  recurrence : string;  (** recurrence *)
-  start_time : string;  (** start_time *)
+  name : string prop;  (** name *)
+  recurrence : string prop;  (** recurrence *)
+  start_time : string prop;  (** start_time *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_share__snapshot_schedule *)
 
 type azurerm_data_share__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_share__timeouts *)
 
 type azurerm_data_share = {
-  account_id : string;  (** account_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  kind : string;  (** kind *)
-  name : string;  (** name *)
-  terms : string option; [@option]  (** terms *)
+  account_id : string prop;  (** account_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  kind : string prop;  (** kind *)
+  name : string prop;  (** name *)
+  terms : string prop option; [@option]  (** terms *)
   snapshot_schedule : azurerm_data_share__snapshot_schedule list;
   timeouts : azurerm_data_share__timeouts option;
 }

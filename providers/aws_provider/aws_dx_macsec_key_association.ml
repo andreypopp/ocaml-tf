@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_dx_macsec_key_association = {
-  cak : string option; [@option]  (** cak *)
-  ckn : string option; [@option]  (** ckn *)
-  connection_id : string;  (** connection_id *)
-  id : string option; [@option]  (** id *)
-  secret_arn : string option; [@option]  (** secret_arn *)
+  cak : string prop option; [@option]  (** cak *)
+  ckn : string prop option; [@option]  (** ckn *)
+  connection_id : string prop;  (** connection_id *)
+  id : string prop option; [@option]  (** id *)
+  secret_arn : string prop option; [@option]  (** secret_arn *)
 }
 [@@deriving yojson_of]
 (** aws_dx_macsec_key_association *)

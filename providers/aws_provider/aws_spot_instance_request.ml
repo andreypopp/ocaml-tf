@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type aws_spot_instance_request__capacity_reservation_specification__capacity_reservation_target = {
-  capacity_reservation_id : string option; [@option]
+  capacity_reservation_id : string prop option; [@option]
       (** capacity_reservation_id *)
-  capacity_reservation_resource_group_arn : string option; [@option]
+  capacity_reservation_resource_group_arn : string prop option;
+      [@option]
       (** capacity_reservation_resource_group_arn *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__capacity_reservation_specification__capacity_reservation_target *)
 
 type aws_spot_instance_request__capacity_reservation_specification = {
-  capacity_reservation_preference : string option; [@option]
+  capacity_reservation_preference : string prop option; [@option]
       (** capacity_reservation_preference *)
   capacity_reservation_target :
     aws_spot_instance_request__capacity_reservation_specification__capacity_reservation_target
@@ -24,191 +25,196 @@ type aws_spot_instance_request__capacity_reservation_specification = {
 (** aws_spot_instance_request__capacity_reservation_specification *)
 
 type aws_spot_instance_request__cpu_options = {
-  amd_sev_snp : string option; [@option]  (** amd_sev_snp *)
-  core_count : float option; [@option]  (** core_count *)
-  threads_per_core : float option; [@option]  (** threads_per_core *)
+  amd_sev_snp : string prop option; [@option]  (** amd_sev_snp *)
+  core_count : float prop option; [@option]  (** core_count *)
+  threads_per_core : float prop option; [@option]
+      (** threads_per_core *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__cpu_options *)
 
 type aws_spot_instance_request__credit_specification = {
-  cpu_credits : string option; [@option]  (** cpu_credits *)
+  cpu_credits : string prop option; [@option]  (** cpu_credits *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__credit_specification *)
 
 type aws_spot_instance_request__ebs_block_device = {
-  delete_on_termination : bool option; [@option]
+  delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
-  device_name : string;  (** device_name *)
-  encrypted : bool option; [@option]  (** encrypted *)
-  iops : float option; [@option]  (** iops *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  snapshot_id : string option; [@option]  (** snapshot_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  device_name : string prop;  (** device_name *)
+  encrypted : bool prop option; [@option]  (** encrypted *)
+  iops : float prop option; [@option]  (** iops *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  snapshot_id : string prop option; [@option]  (** snapshot_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  throughput : float option; [@option]  (** throughput *)
-  volume_id : string;  (** volume_id *)
-  volume_size : float option; [@option]  (** volume_size *)
-  volume_type : string option; [@option]  (** volume_type *)
+  throughput : float prop option; [@option]  (** throughput *)
+  volume_id : string prop;  (** volume_id *)
+  volume_size : float prop option; [@option]  (** volume_size *)
+  volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__ebs_block_device *)
 
 type aws_spot_instance_request__enclave_options = {
-  enabled : bool option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__enclave_options *)
 
 type aws_spot_instance_request__ephemeral_block_device = {
-  device_name : string;  (** device_name *)
-  no_device : bool option; [@option]  (** no_device *)
-  virtual_name : string option; [@option]  (** virtual_name *)
+  device_name : string prop;  (** device_name *)
+  no_device : bool prop option; [@option]  (** no_device *)
+  virtual_name : string prop option; [@option]  (** virtual_name *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__ephemeral_block_device *)
 
 type aws_spot_instance_request__launch_template = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  version : string option; [@option]  (** version *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  version : string prop option; [@option]  (** version *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__launch_template *)
 
 type aws_spot_instance_request__maintenance_options = {
-  auto_recovery : string option; [@option]  (** auto_recovery *)
+  auto_recovery : string prop option; [@option]  (** auto_recovery *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__maintenance_options *)
 
 type aws_spot_instance_request__metadata_options = {
-  http_endpoint : string option; [@option]  (** http_endpoint *)
-  http_protocol_ipv6 : string option; [@option]
+  http_endpoint : string prop option; [@option]  (** http_endpoint *)
+  http_protocol_ipv6 : string prop option; [@option]
       (** http_protocol_ipv6 *)
-  http_put_response_hop_limit : float option; [@option]
+  http_put_response_hop_limit : float prop option; [@option]
       (** http_put_response_hop_limit *)
-  http_tokens : string option; [@option]  (** http_tokens *)
-  instance_metadata_tags : string option; [@option]
+  http_tokens : string prop option; [@option]  (** http_tokens *)
+  instance_metadata_tags : string prop option; [@option]
       (** instance_metadata_tags *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__metadata_options *)
 
 type aws_spot_instance_request__network_interface = {
-  delete_on_termination : bool option; [@option]
+  delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
-  device_index : float;  (** device_index *)
-  network_card_index : float option; [@option]
+  device_index : float prop;  (** device_index *)
+  network_card_index : float prop option; [@option]
       (** network_card_index *)
-  network_interface_id : string;  (** network_interface_id *)
+  network_interface_id : string prop;  (** network_interface_id *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__network_interface *)
 
 type aws_spot_instance_request__private_dns_name_options = {
-  enable_resource_name_dns_a_record : bool option; [@option]
+  enable_resource_name_dns_a_record : bool prop option; [@option]
       (** enable_resource_name_dns_a_record *)
-  enable_resource_name_dns_aaaa_record : bool option; [@option]
+  enable_resource_name_dns_aaaa_record : bool prop option; [@option]
       (** enable_resource_name_dns_aaaa_record *)
-  hostname_type : string option; [@option]  (** hostname_type *)
+  hostname_type : string prop option; [@option]  (** hostname_type *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__private_dns_name_options *)
 
 type aws_spot_instance_request__root_block_device = {
-  delete_on_termination : bool option; [@option]
+  delete_on_termination : bool prop option; [@option]
       (** delete_on_termination *)
-  device_name : string;  (** device_name *)
-  encrypted : bool option; [@option]  (** encrypted *)
-  iops : float option; [@option]  (** iops *)
-  kms_key_id : string option; [@option]  (** kms_key_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  device_name : string prop;  (** device_name *)
+  encrypted : bool prop option; [@option]  (** encrypted *)
+  iops : float prop option; [@option]  (** iops *)
+  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  throughput : float option; [@option]  (** throughput *)
-  volume_id : string;  (** volume_id *)
-  volume_size : float option; [@option]  (** volume_size *)
-  volume_type : string option; [@option]  (** volume_type *)
+  throughput : float prop option; [@option]  (** throughput *)
+  volume_id : string prop;  (** volume_id *)
+  volume_size : float prop option; [@option]  (** volume_size *)
+  volume_type : string prop option; [@option]  (** volume_type *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__root_block_device *)
 
 type aws_spot_instance_request__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** aws_spot_instance_request__timeouts *)
 
 type aws_spot_instance_request = {
-  ami : string option; [@option]  (** ami *)
-  associate_public_ip_address : bool option; [@option]
+  ami : string prop option; [@option]  (** ami *)
+  associate_public_ip_address : bool prop option; [@option]
       (** associate_public_ip_address *)
-  availability_zone : string option; [@option]
+  availability_zone : string prop option; [@option]
       (** availability_zone *)
-  block_duration_minutes : float option; [@option]
+  block_duration_minutes : float prop option; [@option]
       (** block_duration_minutes *)
-  cpu_core_count : float option; [@option]  (** cpu_core_count *)
-  cpu_threads_per_core : float option; [@option]
+  cpu_core_count : float prop option; [@option]
+      (** cpu_core_count *)
+  cpu_threads_per_core : float prop option; [@option]
       (** cpu_threads_per_core *)
-  disable_api_stop : bool option; [@option]  (** disable_api_stop *)
-  disable_api_termination : bool option; [@option]
+  disable_api_stop : bool prop option; [@option]
+      (** disable_api_stop *)
+  disable_api_termination : bool prop option; [@option]
       (** disable_api_termination *)
-  ebs_optimized : bool option; [@option]  (** ebs_optimized *)
-  get_password_data : bool option; [@option]
+  ebs_optimized : bool prop option; [@option]  (** ebs_optimized *)
+  get_password_data : bool prop option; [@option]
       (** get_password_data *)
-  hibernation : bool option; [@option]  (** hibernation *)
-  host_id : string option; [@option]  (** host_id *)
-  host_resource_group_arn : string option; [@option]
+  hibernation : bool prop option; [@option]  (** hibernation *)
+  host_id : string prop option; [@option]  (** host_id *)
+  host_resource_group_arn : string prop option; [@option]
       (** host_resource_group_arn *)
-  iam_instance_profile : string option; [@option]
+  iam_instance_profile : string prop option; [@option]
       (** iam_instance_profile *)
-  id : string option; [@option]  (** id *)
-  instance_initiated_shutdown_behavior : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  instance_initiated_shutdown_behavior : string prop option;
+      [@option]
       (** instance_initiated_shutdown_behavior *)
-  instance_interruption_behavior : string option; [@option]
+  instance_interruption_behavior : string prop option; [@option]
       (** instance_interruption_behavior *)
-  instance_type : string option; [@option]  (** instance_type *)
-  ipv6_address_count : float option; [@option]
+  instance_type : string prop option; [@option]  (** instance_type *)
+  ipv6_address_count : float prop option; [@option]
       (** ipv6_address_count *)
-  ipv6_addresses : string list option; [@option]
+  ipv6_addresses : string prop list option; [@option]
       (** ipv6_addresses *)
-  key_name : string option; [@option]  (** key_name *)
-  launch_group : string option; [@option]  (** launch_group *)
-  monitoring : bool option; [@option]  (** monitoring *)
-  placement_group : string option; [@option]  (** placement_group *)
-  placement_partition_number : float option; [@option]
+  key_name : string prop option; [@option]  (** key_name *)
+  launch_group : string prop option; [@option]  (** launch_group *)
+  monitoring : bool prop option; [@option]  (** monitoring *)
+  placement_group : string prop option; [@option]
+      (** placement_group *)
+  placement_partition_number : float prop option; [@option]
       (** placement_partition_number *)
-  private_ip : string option; [@option]  (** private_ip *)
-  secondary_private_ips : string list option; [@option]
+  private_ip : string prop option; [@option]  (** private_ip *)
+  secondary_private_ips : string prop list option; [@option]
       (** secondary_private_ips *)
-  security_groups : string list option; [@option]
+  security_groups : string prop list option; [@option]
       (** security_groups *)
-  source_dest_check : bool option; [@option]
+  source_dest_check : bool prop option; [@option]
       (** source_dest_check *)
-  spot_price : string option; [@option]  (** spot_price *)
-  spot_type : string option; [@option]  (** spot_type *)
-  subnet_id : string option; [@option]  (** subnet_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  spot_price : string prop option; [@option]  (** spot_price *)
+  spot_type : string prop option; [@option]  (** spot_type *)
+  subnet_id : string prop option; [@option]  (** subnet_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  tenancy : string option; [@option]  (** tenancy *)
-  user_data : string option; [@option]  (** user_data *)
-  user_data_base64 : string option; [@option]
+  tenancy : string prop option; [@option]  (** tenancy *)
+  user_data : string prop option; [@option]  (** user_data *)
+  user_data_base64 : string prop option; [@option]
       (** user_data_base64 *)
-  user_data_replace_on_change : bool option; [@option]
+  user_data_replace_on_change : bool prop option; [@option]
       (** user_data_replace_on_change *)
-  valid_from : string option; [@option]  (** valid_from *)
-  valid_until : string option; [@option]  (** valid_until *)
-  volume_tags : (string * string) list option; [@option]
+  valid_from : string prop option; [@option]  (** valid_from *)
+  valid_until : string prop option; [@option]  (** valid_until *)
+  volume_tags : (string * string prop) list option; [@option]
       (** volume_tags *)
-  vpc_security_group_ids : string list option; [@option]
+  vpc_security_group_ids : string prop list option; [@option]
       (** vpc_security_group_ids *)
-  wait_for_fulfillment : bool option; [@option]
+  wait_for_fulfillment : bool prop option; [@option]
       (** wait_for_fulfillment *)
   capacity_reservation_specification :
     aws_spot_instance_request__capacity_reservation_specification

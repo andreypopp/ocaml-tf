@@ -5,7 +5,7 @@
 open! Tf.Prelude
 
 type google_gkeonprem_bare_metal_node_pool__node_pool_config__node_configs = {
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
 that Kubernetes may apply to the node. In case of conflict in
@@ -16,7 +16,7 @@ and the valid values, see:
   http://kubernetes.io/v1.1/docs/user-guide/labels.html
 An object containing a list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
-  node_ip : string option; [@option]
+  node_ip : string prop option; [@option]
       (** The default IPv4 address for SSH access and Kubernetes node.
 Example: 192.168.0.1 *)
 }
@@ -24,18 +24,18 @@ Example: 192.168.0.1 *)
 (** The list of machine addresses in the Bare Metal Node Pool. *)
 
 type google_gkeonprem_bare_metal_node_pool__node_pool_config__taints = {
-  effect : string option; [@option]
+  effect : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). Possible values: [EFFECT_UNSPECIFIED, PREFER_NO_SCHEDULE, NO_EXECUTE] *)
-  key : string option; [@option]
+  key : string prop option; [@option]
       (** Key associated with the effect. *)
-  value : string option; [@option]
+  value : string prop option; [@option]
       (** Value associated with the effect. *)
 }
 [@@deriving yojson_of]
 (** The initial taints assigned to nodes of this node pool. *)
 
 type google_gkeonprem_bare_metal_node_pool__node_pool_config = {
-  labels : (string * string) list option; [@option]
+  labels : (string * string prop) list option; [@option]
       (** The map of Kubernetes labels (key/value pairs) to be applied to
 each node. These will added in addition to any default label(s)
 that Kubernetes may apply to the node. In case of conflict in
@@ -46,7 +46,7 @@ and the valid values, see:
   http://kubernetes.io/v1.1/docs/user-guide/labels.html
 An object containing a list of key: value pairs.
 Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
-  operating_system : string option; [@option]
+  operating_system : string prop option; [@option]
       (** Specifies the nodes operating system (default: LINUX). *)
   node_configs :
     google_gkeonprem_bare_metal_node_pool__node_pool_config__node_configs
@@ -59,19 +59,19 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
 (** Node pool configuration. *)
 
 type google_gkeonprem_bare_metal_node_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_gkeonprem_bare_metal_node_pool__timeouts *)
 
 type google_gkeonprem_bare_metal_node_pool__status__conditions = {
-  last_transition_time : string;  (** last_transition_time *)
-  message : string;  (** message *)
-  reason : string;  (** reason *)
-  state : string;  (** state *)
-  type_ : string; [@key "type"]  (** type *)
+  last_transition_time : string prop;  (** last_transition_time *)
+  message : string prop;  (** message *)
+  reason : string prop;  (** reason *)
+  state : string prop;  (** state *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 
@@ -79,12 +79,12 @@ type google_gkeonprem_bare_metal_node_pool__status = {
   conditions :
     google_gkeonprem_bare_metal_node_pool__status__conditions list;
       (** conditions *)
-  error_message : string;  (** error_message *)
+  error_message : string prop;  (** error_message *)
 }
 [@@deriving yojson_of]
 
 type google_gkeonprem_bare_metal_node_pool = {
-  annotations : (string * string) list option; [@option]
+  annotations : (string * string prop) list option; [@option]
       (** Annotations on the Bare Metal Node Pool.
 This field has the same restrictions as Kubernetes annotations.
 The total size of all keys and values combined is limited to 256k.
@@ -97,14 +97,14 @@ with dashes (-), underscores (_), dots (.), and alphanumerics between.
 
 **Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
 Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
-  bare_metal_cluster : string;
+  bare_metal_cluster : string prop;
       (** The cluster this node pool belongs to. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** The display name for the Bare Metal Node Pool. *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** The location of the resource. *)
-  name : string;  (** The bare metal node pool name. *)
-  project : string option; [@option]  (** project *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** The location of the resource. *)
+  name : string prop;  (** The bare metal node pool name. *)
+  project : string prop option; [@option]  (** project *)
   node_pool_config :
     google_gkeonprem_bare_metal_node_pool__node_pool_config list;
   timeouts : google_gkeonprem_bare_metal_node_pool__timeouts option;

@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_network_interface_sg_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** aws_network_interface_sg_attachment__timeouts *)
 
 type aws_network_interface_sg_attachment = {
-  id : string option; [@option]  (** id *)
-  network_interface_id : string;  (** network_interface_id *)
-  security_group_id : string;  (** security_group_id *)
+  id : string prop option; [@option]  (** id *)
+  network_interface_id : string prop;  (** network_interface_id *)
+  security_group_id : string prop;  (** security_group_id *)
   timeouts : aws_network_interface_sg_attachment__timeouts option;
 }
 [@@deriving yojson_of]

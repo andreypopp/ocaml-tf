@@ -6,8 +6,8 @@ type aws_directory_service_shared_directory_accepter__timeouts
 type aws_directory_service_shared_directory_accepter
 
 val aws_directory_service_shared_directory_accepter :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_directory_service_shared_directory_accepter__timeouts ->
-  shared_directory_id:string ->
+  shared_directory_id:string prop ->
   string ->
   unit

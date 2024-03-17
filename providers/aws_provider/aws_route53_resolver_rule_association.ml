@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_route53_resolver_rule_association__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_route53_resolver_rule_association__timeouts *)
 
 type aws_route53_resolver_rule_association = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  resolver_rule_id : string;  (** resolver_rule_id *)
-  vpc_id : string;  (** vpc_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  resolver_rule_id : string prop;  (** resolver_rule_id *)
+  vpc_id : string prop;  (** vpc_id *)
   timeouts : aws_route53_resolver_rule_association__timeouts option;
 }
 [@@deriving yojson_of]

@@ -7,11 +7,11 @@ type google_biglake_database__timeouts
 type google_biglake_database
 
 val google_biglake_database :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:google_biglake_database__timeouts ->
-  catalog:string ->
-  name:string ->
-  type_:string ->
+  catalog:string prop ->
+  name:string prop ->
+  type_:string prop ->
   hive_options:google_biglake_database__hive_options list ->
   string ->
   unit

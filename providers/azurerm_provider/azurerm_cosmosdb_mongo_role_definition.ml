@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_mongo_role_definition__privilege__resource = {
-  collection_name : string option; [@option]  (** collection_name *)
-  db_name : string option; [@option]  (** db_name *)
+  collection_name : string prop option; [@option]
+      (** collection_name *)
+  db_name : string prop option; [@option]  (** db_name *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_mongo_role_definition__privilege__resource *)
 
 type azurerm_cosmosdb_mongo_role_definition__privilege = {
-  actions : string list;  (** actions *)
+  actions : string prop list;  (** actions *)
   resource :
     azurerm_cosmosdb_mongo_role_definition__privilege__resource list;
 }
@@ -20,20 +21,21 @@ type azurerm_cosmosdb_mongo_role_definition__privilege = {
 (** azurerm_cosmosdb_mongo_role_definition__privilege *)
 
 type azurerm_cosmosdb_mongo_role_definition__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_mongo_role_definition__timeouts *)
 
 type azurerm_cosmosdb_mongo_role_definition = {
-  cosmos_mongo_database_id : string;  (** cosmos_mongo_database_id *)
-  id : string option; [@option]  (** id *)
-  inherited_role_names : string list option; [@option]
+  cosmos_mongo_database_id : string prop;
+      (** cosmos_mongo_database_id *)
+  id : string prop option; [@option]  (** id *)
+  inherited_role_names : string prop list option; [@option]
       (** inherited_role_names *)
-  role_name : string;  (** role_name *)
+  role_name : string prop;  (** role_name *)
   privilege : azurerm_cosmosdb_mongo_role_definition__privilege list;
   timeouts : azurerm_cosmosdb_mongo_role_definition__timeouts option;
 }

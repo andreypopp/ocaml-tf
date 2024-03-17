@@ -5,45 +5,45 @@
 open! Tf.Prelude
 
 type aws_ami_from_instance__ebs_block_device = {
-  delete_on_termination : bool;  (** delete_on_termination *)
-  device_name : string;  (** device_name *)
-  encrypted : bool;  (** encrypted *)
-  iops : float;  (** iops *)
-  outpost_arn : string;  (** outpost_arn *)
-  snapshot_id : string;  (** snapshot_id *)
-  throughput : float;  (** throughput *)
-  volume_size : float;  (** volume_size *)
-  volume_type : string;  (** volume_type *)
+  delete_on_termination : bool prop;  (** delete_on_termination *)
+  device_name : string prop;  (** device_name *)
+  encrypted : bool prop;  (** encrypted *)
+  iops : float prop;  (** iops *)
+  outpost_arn : string prop;  (** outpost_arn *)
+  snapshot_id : string prop;  (** snapshot_id *)
+  throughput : float prop;  (** throughput *)
+  volume_size : float prop;  (** volume_size *)
+  volume_type : string prop;  (** volume_type *)
 }
 [@@deriving yojson_of]
 (** aws_ami_from_instance__ebs_block_device *)
 
 type aws_ami_from_instance__ephemeral_block_device = {
-  device_name : string;  (** device_name *)
-  virtual_name : string;  (** virtual_name *)
+  device_name : string prop;  (** device_name *)
+  virtual_name : string prop;  (** virtual_name *)
 }
 [@@deriving yojson_of]
 (** aws_ami_from_instance__ephemeral_block_device *)
 
 type aws_ami_from_instance__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_ami_from_instance__timeouts *)
 
 type aws_ami_from_instance = {
-  deprecation_time : string option; [@option]
+  deprecation_time : string prop option; [@option]
       (** deprecation_time *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  snapshot_without_reboot : bool option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  snapshot_without_reboot : bool prop option; [@option]
       (** snapshot_without_reboot *)
-  source_instance_id : string;  (** source_instance_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  source_instance_id : string prop;  (** source_instance_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   ebs_block_device : aws_ami_from_instance__ebs_block_device list;
   ephemeral_block_device :

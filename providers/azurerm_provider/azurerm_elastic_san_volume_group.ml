@@ -5,49 +5,52 @@
 open! Tf.Prelude
 
 type azurerm_elastic_san_volume_group__encryption = {
-  current_versioned_key_expiration_timestamp : string;
+  current_versioned_key_expiration_timestamp : string prop;
       (** current_versioned_key_expiration_timestamp *)
-  current_versioned_key_id : string;  (** current_versioned_key_id *)
-  key_vault_key_id : string;  (** key_vault_key_id *)
-  last_key_rotation_timestamp : string;
+  current_versioned_key_id : string prop;
+      (** current_versioned_key_id *)
+  key_vault_key_id : string prop;  (** key_vault_key_id *)
+  last_key_rotation_timestamp : string prop;
       (** last_key_rotation_timestamp *)
-  user_assigned_identity_id : string option; [@option]
+  user_assigned_identity_id : string prop option; [@option]
       (** user_assigned_identity_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_elastic_san_volume_group__encryption *)
 
 type azurerm_elastic_san_volume_group__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_elastic_san_volume_group__identity *)
 
 type azurerm_elastic_san_volume_group__network_rule = {
-  action : string option; [@option]  (** action *)
-  subnet_id : string;  (** subnet_id *)
+  action : string prop option; [@option]  (** action *)
+  subnet_id : string prop;  (** subnet_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_elastic_san_volume_group__network_rule *)
 
 type azurerm_elastic_san_volume_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_elastic_san_volume_group__timeouts *)
 
 type azurerm_elastic_san_volume_group = {
-  elastic_san_id : string;  (** elastic_san_id *)
-  encryption_type : string option; [@option]  (** encryption_type *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  protocol_type : string option; [@option]  (** protocol_type *)
+  elastic_san_id : string prop;  (** elastic_san_id *)
+  encryption_type : string prop option; [@option]
+      (** encryption_type *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  protocol_type : string prop option; [@option]  (** protocol_type *)
   encryption : azurerm_elastic_san_volume_group__encryption list;
   identity : azurerm_elastic_san_volume_group__identity list;
   network_rule : azurerm_elastic_san_volume_group__network_rule list;

@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type cloudflare_worker_route = {
-  id : string option; [@option]  (** id *)
-  pattern : string;
+  id : string prop option; [@option]  (** id *)
+  pattern : string prop;
       (** The [route pattern](https://developers.cloudflare.com/workers/about/routes/) to associate the Worker with. *)
-  script_name : string option; [@option]
+  script_name : string prop option; [@option]
       (** Worker script name to invoke for requests that match the route pattern. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type cloudflare_access_ca_certificate = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
-  application_id : string;
+  application_id : string prop;
       (** The Access Application ID to associate with the CA certificate. *)
-  id : string option; [@option]  (** id *)
-  zone_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
 }
 [@@deriving yojson_of]

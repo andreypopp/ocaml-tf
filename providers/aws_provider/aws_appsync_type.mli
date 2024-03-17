@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_appsync_type
 
 val aws_appsync_type :
-  ?id:string ->
-  api_id:string ->
-  definition:string ->
-  format:string ->
+  ?id:string prop ->
+  api_id:string prop ->
+  definition:string prop ->
+  format:string prop ->
   string ->
   unit

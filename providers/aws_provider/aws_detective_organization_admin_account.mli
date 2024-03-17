@@ -5,4 +5,4 @@ open! Tf.Prelude
 type aws_detective_organization_admin_account
 
 val aws_detective_organization_admin_account :
-  ?id:string -> account_id:string -> string -> unit
+  ?id:string prop -> account_id:string prop -> string -> unit

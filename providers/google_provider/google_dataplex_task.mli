@@ -19,35 +19,35 @@ type google_dataplex_task__timeouts
 type google_dataplex_task__trigger_spec
 
 type google_dataplex_task__execution_status__latest_job = {
-  end_time : string;  (** end_time *)
-  message : string;  (** message *)
-  name : string;  (** name *)
-  retry_count : float;  (** retry_count *)
-  service : string;  (** service *)
-  service_job : string;  (** service_job *)
-  start_time : string;  (** start_time *)
-  state : string;  (** state *)
-  uid : string;  (** uid *)
+  end_time : string prop;  (** end_time *)
+  message : string prop;  (** message *)
+  name : string prop;  (** name *)
+  retry_count : float prop;  (** retry_count *)
+  service : string prop;  (** service *)
+  service_job : string prop;  (** service_job *)
+  start_time : string prop;  (** start_time *)
+  state : string prop;  (** state *)
+  uid : string prop;  (** uid *)
 }
 
 type google_dataplex_task__execution_status = {
   latest_job :
     google_dataplex_task__execution_status__latest_job list;
       (** latest_job *)
-  update_time : string;  (** update_time *)
+  update_time : string prop;  (** update_time *)
 }
 
 type google_dataplex_task
 
 val google_dataplex_task :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?lake:string ->
-  ?location:string ->
-  ?project:string ->
-  ?task_id:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?lake:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?task_id:string prop ->
   ?timeouts:google_dataplex_task__timeouts ->
   execution_spec:google_dataplex_task__execution_spec list ->
   notebook:google_dataplex_task__notebook list ->

@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type aws_cur_report_definition = {
-  additional_artifacts : string list option; [@option]
+  additional_artifacts : string prop list option; [@option]
       (** additional_artifacts *)
-  additional_schema_elements : string list;
+  additional_schema_elements : string prop list;
       (** additional_schema_elements *)
-  compression : string;  (** compression *)
-  format : string;  (** format *)
-  id : string option; [@option]  (** id *)
-  refresh_closed_reports : bool option; [@option]
+  compression : string prop;  (** compression *)
+  format : string prop;  (** format *)
+  id : string prop option; [@option]  (** id *)
+  refresh_closed_reports : bool prop option; [@option]
       (** refresh_closed_reports *)
-  report_name : string;  (** report_name *)
-  report_versioning : string option; [@option]
+  report_name : string prop;  (** report_name *)
+  report_versioning : string prop option; [@option]
       (** report_versioning *)
-  s3_bucket : string;  (** s3_bucket *)
-  s3_prefix : string option; [@option]  (** s3_prefix *)
-  s3_region : string;  (** s3_region *)
-  time_unit : string;  (** time_unit *)
+  s3_bucket : string prop;  (** s3_bucket *)
+  s3_prefix : string prop option; [@option]  (** s3_prefix *)
+  s3_region : string prop;  (** s3_region *)
+  time_unit : string prop;  (** time_unit *)
 }
 [@@deriving yojson_of]
 (** aws_cur_report_definition *)

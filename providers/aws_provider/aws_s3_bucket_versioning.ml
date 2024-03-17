@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_s3_bucket_versioning__versioning_configuration = {
-  mfa_delete : string option; [@option]  (** mfa_delete *)
-  status : string;  (** status *)
+  mfa_delete : string prop option; [@option]  (** mfa_delete *)
+  status : string prop;  (** status *)
 }
 [@@deriving yojson_of]
 (** aws_s3_bucket_versioning__versioning_configuration *)
 
 type aws_s3_bucket_versioning = {
-  bucket : string;  (** bucket *)
-  expected_bucket_owner : string option; [@option]
+  bucket : string prop;  (** bucket *)
+  expected_bucket_owner : string prop option; [@option]
       (** expected_bucket_owner *)
-  id : string option; [@option]  (** id *)
-  mfa : string option; [@option]  (** mfa *)
+  id : string prop option; [@option]  (** id *)
+  mfa : string prop option; [@option]  (** mfa *)
   versioning_configuration :
     aws_s3_bucket_versioning__versioning_configuration list;
 }

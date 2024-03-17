@@ -5,46 +5,47 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_threat_intelligence_indicator__external_reference = {
-  description : string option; [@option]  (** description *)
-  hashes : (string * string) list option; [@option]  (** hashes *)
-  id : string;  (** id *)
-  source_name : string option; [@option]  (** source_name *)
-  url : string option; [@option]  (** url *)
+  description : string prop option; [@option]  (** description *)
+  hashes : (string * string prop) list option; [@option]
+      (** hashes *)
+  id : string prop;  (** id *)
+  source_name : string prop option; [@option]  (** source_name *)
+  url : string prop option; [@option]  (** url *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_threat_intelligence_indicator__external_reference *)
 
 type azurerm_sentinel_threat_intelligence_indicator__granular_marking = {
-  language : string option; [@option]  (** language *)
-  marking_ref : string option; [@option]  (** marking_ref *)
-  selectors : string list option; [@option]  (** selectors *)
+  language : string prop option; [@option]  (** language *)
+  marking_ref : string prop option; [@option]  (** marking_ref *)
+  selectors : string prop list option; [@option]  (** selectors *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_threat_intelligence_indicator__granular_marking *)
 
 type azurerm_sentinel_threat_intelligence_indicator__kill_chain_phase = {
-  name : string option; [@option]  (** name *)
+  name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_threat_intelligence_indicator__kill_chain_phase *)
 
 type azurerm_sentinel_threat_intelligence_indicator__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_threat_intelligence_indicator__timeouts *)
 
 type azurerm_sentinel_threat_intelligence_indicator__parsed_pattern__pattern_type_values = {
-  value : string;  (** value *)
-  value_type : string;  (** value_type *)
+  value : string prop;  (** value *)
+  value_type : string prop;  (** value_type *)
 }
 [@@deriving yojson_of]
 
 type azurerm_sentinel_threat_intelligence_indicator__parsed_pattern = {
-  pattern_type_key : string;  (** pattern_type_key *)
+  pattern_type_key : string prop;  (** pattern_type_key *)
   pattern_type_values :
     azurerm_sentinel_threat_intelligence_indicator__parsed_pattern__pattern_type_values
     list;
@@ -53,26 +54,28 @@ type azurerm_sentinel_threat_intelligence_indicator__parsed_pattern = {
 [@@deriving yojson_of]
 
 type azurerm_sentinel_threat_intelligence_indicator = {
-  confidence : float option; [@option]  (** confidence *)
-  created_by : string option; [@option]  (** created_by *)
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  extension : string option; [@option]  (** extension *)
-  id : string option; [@option]  (** id *)
-  language : string option; [@option]  (** language *)
-  object_marking_refs : string list option; [@option]
+  confidence : float prop option; [@option]  (** confidence *)
+  created_by : string prop option; [@option]  (** created_by *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  extension : string prop option; [@option]  (** extension *)
+  id : string prop option; [@option]  (** id *)
+  language : string prop option; [@option]  (** language *)
+  object_marking_refs : string prop list option; [@option]
       (** object_marking_refs *)
-  pattern : string;  (** pattern *)
-  pattern_type : string;  (** pattern_type *)
-  pattern_version : string option; [@option]  (** pattern_version *)
-  revoked : bool option; [@option]  (** revoked *)
-  source : string;  (** source *)
-  tags : string list option; [@option]  (** tags *)
-  threat_types : string list option; [@option]  (** threat_types *)
-  validate_from_utc : string;  (** validate_from_utc *)
-  validate_until_utc : string option; [@option]
+  pattern : string prop;  (** pattern *)
+  pattern_type : string prop;  (** pattern_type *)
+  pattern_version : string prop option; [@option]
+      (** pattern_version *)
+  revoked : bool prop option; [@option]  (** revoked *)
+  source : string prop;  (** source *)
+  tags : string prop list option; [@option]  (** tags *)
+  threat_types : string prop list option; [@option]
+      (** threat_types *)
+  validate_from_utc : string prop;  (** validate_from_utc *)
+  validate_until_utc : string prop option; [@option]
       (** validate_until_utc *)
-  workspace_id : string;  (** workspace_id *)
+  workspace_id : string prop;  (** workspace_id *)
   external_reference :
     azurerm_sentinel_threat_intelligence_indicator__external_reference
     list;

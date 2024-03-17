@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_api_gateway_gateway_response = {
-  id : string option; [@option]  (** id *)
-  response_parameters : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  response_parameters : (string * string prop) list option; [@option]
       (** response_parameters *)
-  response_templates : (string * string) list option; [@option]
+  response_templates : (string * string prop) list option; [@option]
       (** response_templates *)
-  response_type : string;  (** response_type *)
-  rest_api_id : string;  (** rest_api_id *)
-  status_code : string option; [@option]  (** status_code *)
+  response_type : string prop;  (** response_type *)
+  rest_api_id : string prop;  (** rest_api_id *)
+  status_code : string prop option; [@option]  (** status_code *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_gateway_response *)

@@ -7,11 +7,11 @@ type azurerm_bot_channel_line__timeouts
 type azurerm_bot_channel_line
 
 val azurerm_bot_channel_line :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_bot_channel_line__timeouts ->
-  bot_name:string ->
-  location:string ->
-  resource_group_name:string ->
+  bot_name:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
   line_channel:azurerm_bot_channel_line__line_channel list ->
   string ->
   unit

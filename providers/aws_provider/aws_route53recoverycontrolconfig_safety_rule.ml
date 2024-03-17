@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_route53recoverycontrolconfig_safety_rule__rule_config = {
-  inverted : bool;  (** inverted *)
-  threshold : float;  (** threshold *)
-  type_ : string; [@key "type"]  (** type *)
+  inverted : bool prop;  (** inverted *)
+  threshold : float prop;  (** threshold *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** aws_route53recoverycontrolconfig_safety_rule__rule_config *)
 
 type aws_route53recoverycontrolconfig_safety_rule = {
-  asserted_controls : string list option; [@option]
+  asserted_controls : string prop list option; [@option]
       (** asserted_controls *)
-  control_panel_arn : string;  (** control_panel_arn *)
-  gating_controls : string list option; [@option]
+  control_panel_arn : string prop;  (** control_panel_arn *)
+  gating_controls : string prop list option; [@option]
       (** gating_controls *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  target_controls : string list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  target_controls : string prop list option; [@option]
       (** target_controls *)
-  wait_period_ms : float;  (** wait_period_ms *)
+  wait_period_ms : float prop;  (** wait_period_ms *)
   rule_config :
     aws_route53recoverycontrolconfig_safety_rule__rule_config list;
 }

@@ -5,41 +5,41 @@
 open! Tf.Prelude
 
 type azurerm_express_route_circuit__sku = {
-  family : string;  (** family *)
-  tier : string;  (** tier *)
+  family : string prop;  (** family *)
+  tier : string prop;  (** tier *)
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit__sku *)
 
 type azurerm_express_route_circuit__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_express_route_circuit__timeouts *)
 
 type azurerm_express_route_circuit = {
-  allow_classic_operations : bool option; [@option]
+  allow_classic_operations : bool prop option; [@option]
       (** allow_classic_operations *)
-  authorization_key : string option; [@option]
+  authorization_key : string prop option; [@option]
       (** authorization_key *)
-  bandwidth_in_gbps : float option; [@option]
+  bandwidth_in_gbps : float prop option; [@option]
       (** bandwidth_in_gbps *)
-  bandwidth_in_mbps : float option; [@option]
+  bandwidth_in_mbps : float prop option; [@option]
       (** bandwidth_in_mbps *)
-  express_route_port_id : string option; [@option]
+  express_route_port_id : string prop option; [@option]
       (** express_route_port_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  peering_location : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  peering_location : string prop option; [@option]
       (** peering_location *)
-  resource_group_name : string;  (** resource_group_name *)
-  service_provider_name : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  service_provider_name : string prop option; [@option]
       (** service_provider_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   sku : azurerm_express_route_circuit__sku list;
   timeouts : azurerm_express_route_circuit__timeouts option;
 }

@@ -5,11 +5,12 @@
 open! Tf.Prelude
 
 type aws_chime_voice_connector_logging = {
-  enable_media_metric_logs : bool option; [@option]
+  enable_media_metric_logs : bool prop option; [@option]
       (** enable_media_metric_logs *)
-  enable_sip_logs : bool option; [@option]  (** enable_sip_logs *)
-  id : string option; [@option]  (** id *)
-  voice_connector_id : string;  (** voice_connector_id *)
+  enable_sip_logs : bool prop option; [@option]
+      (** enable_sip_logs *)
+  id : string prop option; [@option]  (** id *)
+  voice_connector_id : string prop;  (** voice_connector_id *)
 }
 [@@deriving yojson_of]
 (** aws_chime_voice_connector_logging *)

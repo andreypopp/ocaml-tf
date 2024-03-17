@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type azurerm_monitor_aad_diagnostic_setting__enabled_log__retention_policy = {
-  days : float option; [@option]  (** days *)
-  enabled : bool option; [@option]  (** enabled *)
+  days : float prop option; [@option]  (** days *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_aad_diagnostic_setting__enabled_log__retention_policy *)
 
 type azurerm_monitor_aad_diagnostic_setting__enabled_log = {
-  category : string;  (** category *)
+  category : string prop;  (** category *)
   retention_policy :
     azurerm_monitor_aad_diagnostic_setting__enabled_log__retention_policy
     list;
@@ -21,15 +21,15 @@ type azurerm_monitor_aad_diagnostic_setting__enabled_log = {
 (** azurerm_monitor_aad_diagnostic_setting__enabled_log *)
 
 type azurerm_monitor_aad_diagnostic_setting__log__retention_policy = {
-  days : float option; [@option]  (** days *)
-  enabled : bool option; [@option]  (** enabled *)
+  days : float prop option; [@option]  (** days *)
+  enabled : bool prop option; [@option]  (** enabled *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_aad_diagnostic_setting__log__retention_policy *)
 
 type azurerm_monitor_aad_diagnostic_setting__log = {
-  category : string;  (** category *)
-  enabled : bool option; [@option]  (** enabled *)
+  category : string prop;  (** category *)
+  enabled : bool prop option; [@option]  (** enabled *)
   retention_policy :
     azurerm_monitor_aad_diagnostic_setting__log__retention_policy
     list;
@@ -38,23 +38,23 @@ type azurerm_monitor_aad_diagnostic_setting__log = {
 (** azurerm_monitor_aad_diagnostic_setting__log *)
 
 type azurerm_monitor_aad_diagnostic_setting__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_monitor_aad_diagnostic_setting__timeouts *)
 
 type azurerm_monitor_aad_diagnostic_setting = {
-  eventhub_authorization_rule_id : string option; [@option]
+  eventhub_authorization_rule_id : string prop option; [@option]
       (** eventhub_authorization_rule_id *)
-  eventhub_name : string option; [@option]  (** eventhub_name *)
-  id : string option; [@option]  (** id *)
-  log_analytics_workspace_id : string option; [@option]
+  eventhub_name : string prop option; [@option]  (** eventhub_name *)
+  id : string prop option; [@option]  (** id *)
+  log_analytics_workspace_id : string prop option; [@option]
       (** log_analytics_workspace_id *)
-  name : string;  (** name *)
-  storage_account_id : string option; [@option]
+  name : string prop;  (** name *)
+  storage_account_id : string prop option; [@option]
       (** storage_account_id *)
   enabled_log :
     azurerm_monitor_aad_diagnostic_setting__enabled_log list;

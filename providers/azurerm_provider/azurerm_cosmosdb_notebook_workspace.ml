@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type azurerm_cosmosdb_notebook_workspace__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_cosmosdb_notebook_workspace__timeouts *)
 
 type azurerm_cosmosdb_notebook_workspace = {
-  account_name : string;  (** account_name *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  account_name : string prop;  (** account_name *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_cosmosdb_notebook_workspace__timeouts option;
 }
 [@@deriving yojson_of]

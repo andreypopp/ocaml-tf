@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type google_compute_region_target_https_proxy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_compute_region_target_https_proxy__timeouts *)
 
 type google_compute_region_target_https_proxy = {
-  certificate_manager_certificates : string list option; [@option]
+  certificate_manager_certificates : string prop list option;
+      [@option]
       (** URLs to certificate manager certificate resources that are used to authenticate connections between users and the load balancer.
 Currently, you may specify up to 15 certificates. Certificate manager certificates do not apply when the load balancing scheme is set to INTERNAL_SELF_MANAGED.
 sslCertificates and certificateManagerCertificates fields can not be defined together.
 Accepted format is '//certificatemanager.googleapis.com/projects/{project}/locations/{location}/certificates/{resourceName}' or just the self_link 'projects/{project}/locations/{location}/certificates/{resourceName}' *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** An optional description of this resource. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** Name of the resource. Provided by the client when the resource is
 created. The name must be 1-63 characters long, and comply with
 RFC1035. Specifically, the name must be 1-63 characters long and match
@@ -29,19 +30,19 @@ the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
 first character must be a lowercase letter, and all following
 characters must be a dash, lowercase letter, or digit, except the last
 character, which cannot be a dash. *)
-  project : string option; [@option]  (** project *)
-  region : string option; [@option]
+  project : string prop option; [@option]  (** project *)
+  region : string prop option; [@option]
       (** The Region in which the created target https proxy should reside.
 If it is not provided, the provider region is used. *)
-  ssl_certificates : string list option; [@option]
+  ssl_certificates : string prop list option; [@option]
       (** URLs to SslCertificate resources that are used to authenticate connections between users and the load balancer.
 At least one SSL certificate must be specified. Currently, you may specify up to 15 SSL certificates.
 sslCertificates do not apply when the load balancing scheme is set to INTERNAL_SELF_MANAGED. *)
-  ssl_policy : string option; [@option]
+  ssl_policy : string prop option; [@option]
       (** A reference to the Region SslPolicy resource that will be associated with
 the TargetHttpsProxy resource. If not set, the TargetHttpsProxy
 resource will not have any SSL policy configured. *)
-  url_map : string;
+  url_map : string prop;
       (** A reference to the RegionUrlMap resource that defines the mapping from URL
 to the RegionBackendService. *)
   timeouts :

@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type cloudflare_access_mutual_tls_certificate = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
-  associated_hostnames : string list option; [@option]
+  associated_hostnames : string prop list option; [@option]
       (** The hostnames that will be prompted for this certificate. *)
-  certificate : string option; [@option]
+  certificate : string prop option; [@option]
       (** The Root CA for your certificates. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The name of the certificate. *)
-  zone_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The name of the certificate. *)
+  zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
 }
 [@@deriving yojson_of]

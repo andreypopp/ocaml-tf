@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type google_storage_transfer_agent_pool__bandwidth_limit = {
-  limit_mbps : string;
+  limit_mbps : string prop;
       (** Bandwidth rate in megabytes per second, distributed across all the agents in the pool. *)
 }
 [@@deriving yojson_of]
 (** Specifies the bandwidth limit details. If this field is unspecified, the default value is set as 'No Limit'. *)
 
 type google_storage_transfer_agent_pool__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_storage_transfer_agent_pool__timeouts *)
 
 type google_storage_transfer_agent_pool = {
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** Specifies the client-specified AgentPool description. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The ID of the agent pool to create.
 
 The agentPoolId must meet the following requirements:
@@ -34,7 +34,7 @@ The agentPoolId must meet the following requirements:
   * One or more numerals or lowercase ASCII characters.
 
 As expressed by the regular expression: ^(?!goog)[a-z]([a-z0-9-._~]*[a-z0-9])?$. *)
-  project : string option; [@option]  (** project *)
+  project : string prop option; [@option]  (** project *)
   bandwidth_limit :
     google_storage_transfer_agent_pool__bandwidth_limit list;
   timeouts : google_storage_transfer_agent_pool__timeouts option;

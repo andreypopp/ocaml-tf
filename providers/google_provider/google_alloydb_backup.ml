@@ -5,58 +5,58 @@
 open! Tf.Prelude
 
 type google_alloydb_backup__encryption_config = {
-  kms_key_name : string option; [@option]
+  kms_key_name : string prop option; [@option]
       (** The fully-qualified resource name of the KMS key. Each Cloud KMS key is regionalized and has the following format: projects/[PROJECT]/locations/[REGION]/keyRings/[RING]/cryptoKeys/[KEY_NAME]. *)
 }
 [@@deriving yojson_of]
 (** EncryptionConfig describes the encryption config of a cluster or a backup that is encrypted with a CMEK (customer-managed encryption key). *)
 
 type google_alloydb_backup__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_alloydb_backup__timeouts *)
 
 type google_alloydb_backup__encryption_info = {
-  encryption_type : string;  (** encryption_type *)
-  kms_key_versions : string list;  (** kms_key_versions *)
+  encryption_type : string prop;  (** encryption_type *)
+  kms_key_versions : string prop list;  (** kms_key_versions *)
 }
 [@@deriving yojson_of]
 
 type google_alloydb_backup__expiry_quantity = {
-  retention_count : float;  (** retention_count *)
-  total_retention_count : float;  (** total_retention_count *)
+  retention_count : float prop;  (** retention_count *)
+  total_retention_count : float prop;  (** total_retention_count *)
 }
 [@@deriving yojson_of]
 
 type google_alloydb_backup = {
-  annotations : (string * string) list option; [@option]
+  annotations : (string * string prop) list option; [@option]
       (** Annotations to allow client tools to store small amount of arbitrary data. This is distinct from labels. https://google.aip.dev/128
 An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }.
 
 
 **Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
 Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
-  backup_id : string;  (** The ID of the alloydb backup. *)
-  cluster_name : string;
+  backup_id : string prop;  (** The ID of the alloydb backup. *)
+  cluster_name : string prop;
       (** The full resource name of the backup source cluster (e.g., projects/{project}/locations/{location}/clusters/{clusterId}). *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** User-provided description of the backup. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** User-settable and human-readable display name for the Backup. *)
-  id : string option; [@option]  (** id *)
-  labels : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  labels : (string * string prop) list option; [@option]
       (** User-defined labels for the alloydb backup. An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }.
 
 
 **Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
 Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string;
+  location : string prop;
       (** The location where the alloydb backup should reside. *)
-  project : string option; [@option]  (** project *)
-  type_ : string option; [@option] [@key "type"]
+  project : string prop option; [@option]  (** project *)
+  type_ : string prop option; [@option] [@key "type"]
       (** The backup type, which suggests the trigger for the backup. Possible values: [TYPE_UNSPECIFIED, ON_DEMAND, AUTOMATED, CONTINUOUS] *)
   encryption_config : google_alloydb_backup__encryption_config list;
   timeouts : google_alloydb_backup__timeouts option;

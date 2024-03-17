@@ -5,38 +5,38 @@
 open! Tf.Prelude
 
 type cloudflare_list_item__hostname = {
-  url_hostname : string;  (** The FQDN to match on. *)
+  url_hostname : string prop;  (** The FQDN to match on. *)
 }
 [@@deriving yojson_of]
 (** Hostname to store in the list. Must provide only one of: `ip`, `asn`, `redirect`, `hostname`. *)
 
 type cloudflare_list_item__redirect = {
-  include_subdomains : bool option; [@option]
+  include_subdomains : bool prop option; [@option]
       (** Whether the redirect also matches subdomains of the source url. *)
-  preserve_path_suffix : bool option; [@option]
+  preserve_path_suffix : bool prop option; [@option]
       (** Whether the redirect target url should keep the query string of the request's url. *)
-  preserve_query_string : bool option; [@option]
+  preserve_query_string : bool prop option; [@option]
       (** Whether the redirect target url should keep the query string of the request's url. *)
-  source_url : string;  (** The source url of the redirect. *)
-  status_code : float option; [@option]
+  source_url : string prop;  (** The source url of the redirect. *)
+  status_code : float prop option; [@option]
       (** The status code to be used when redirecting a request. *)
-  subpath_matching : bool option; [@option]
+  subpath_matching : bool prop option; [@option]
       (** Whether the redirect also matches subpaths of the source url. *)
-  target_url : string;  (** The target url of the redirect. *)
+  target_url : string prop;  (** The target url of the redirect. *)
 }
 [@@deriving yojson_of]
 (** Redirect configuration to store in the list. Must provide only one of: `ip`, `asn`, `redirect`, `hostname`. *)
 
 type cloudflare_list_item = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  asn : float option; [@option]
+  asn : float prop option; [@option]
       (** Autonomous system number to include in the list. Must provide only one of: `ip`, `asn`, `redirect`, `hostname`. *)
-  comment : string option; [@option]
+  comment : string prop option; [@option]
       (** An optional comment for the item. *)
-  ip : string option; [@option]
+  ip : string prop option; [@option]
       (** IP address to include in the list. Must provide only one of: `ip`, `asn`, `redirect`, `hostname`. *)
-  list_id : string;
+  list_id : string prop;
       (** The list identifier to target for the resource. *)
   hostname : cloudflare_list_item__hostname list;
   redirect : cloudflare_list_item__redirect list;

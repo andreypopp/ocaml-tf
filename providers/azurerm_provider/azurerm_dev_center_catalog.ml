@@ -5,37 +5,37 @@
 open! Tf.Prelude
 
 type azurerm_dev_center_catalog__catalog_adogit = {
-  branch : string;  (** branch *)
-  key_vault_key_url : string;  (** key_vault_key_url *)
-  path : string;  (** path *)
-  uri : string;  (** uri *)
+  branch : string prop;  (** branch *)
+  key_vault_key_url : string prop;  (** key_vault_key_url *)
+  path : string prop;  (** path *)
+  uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_center_catalog__catalog_adogit *)
 
 type azurerm_dev_center_catalog__catalog_github = {
-  branch : string;  (** branch *)
-  key_vault_key_url : string;  (** key_vault_key_url *)
-  path : string;  (** path *)
-  uri : string;  (** uri *)
+  branch : string prop;  (** branch *)
+  key_vault_key_url : string prop;  (** key_vault_key_url *)
+  path : string prop;  (** path *)
+  uri : string prop;  (** uri *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_center_catalog__catalog_github *)
 
 type azurerm_dev_center_catalog__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_dev_center_catalog__timeouts *)
 
 type azurerm_dev_center_catalog = {
-  dev_center_id : string;  (** dev_center_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
+  dev_center_id : string prop;  (** dev_center_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
   catalog_adogit : azurerm_dev_center_catalog__catalog_adogit list;
   catalog_github : azurerm_dev_center_catalog__catalog_github list;
   timeouts : azurerm_dev_center_catalog__timeouts option;

@@ -5,26 +5,28 @@
 open! Tf.Prelude
 
 type azurerm_iothub_dps_shared_access_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_iothub_dps_shared_access_policy__timeouts *)
 
 type azurerm_iothub_dps_shared_access_policy = {
-  enrollment_read : bool option; [@option]  (** enrollment_read *)
-  enrollment_write : bool option; [@option]  (** enrollment_write *)
-  id : string option; [@option]  (** id *)
-  iothub_dps_name : string;  (** iothub_dps_name *)
-  name : string;  (** name *)
-  registration_read : bool option; [@option]
+  enrollment_read : bool prop option; [@option]
+      (** enrollment_read *)
+  enrollment_write : bool prop option; [@option]
+      (** enrollment_write *)
+  id : string prop option; [@option]  (** id *)
+  iothub_dps_name : string prop;  (** iothub_dps_name *)
+  name : string prop;  (** name *)
+  registration_read : bool prop option; [@option]
       (** registration_read *)
-  registration_write : bool option; [@option]
+  registration_write : bool prop option; [@option]
       (** registration_write *)
-  resource_group_name : string;  (** resource_group_name *)
-  service_config : bool option; [@option]  (** service_config *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  service_config : bool prop option; [@option]  (** service_config *)
   timeouts : azurerm_iothub_dps_shared_access_policy__timeouts option;
 }
 [@@deriving yojson_of]

@@ -5,18 +5,18 @@
 open! Tf.Prelude
 
 type aws_codecommit_trigger__trigger = {
-  branches : string list option; [@option]  (** branches *)
-  custom_data : string option; [@option]  (** custom_data *)
-  destination_arn : string;  (** destination_arn *)
-  events : string list;  (** events *)
-  name : string;  (** name *)
+  branches : string prop list option; [@option]  (** branches *)
+  custom_data : string prop option; [@option]  (** custom_data *)
+  destination_arn : string prop;  (** destination_arn *)
+  events : string prop list;  (** events *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 (** aws_codecommit_trigger__trigger *)
 
 type aws_codecommit_trigger = {
-  id : string option; [@option]  (** id *)
-  repository_name : string;  (** repository_name *)
+  id : string prop option; [@option]  (** id *)
+  repository_name : string prop;  (** repository_name *)
   trigger : aws_codecommit_trigger__trigger list;
 }
 [@@deriving yojson_of]

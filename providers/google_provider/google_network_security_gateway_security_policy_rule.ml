@@ -5,35 +5,35 @@
 open! Tf.Prelude
 
 type google_network_security_gateway_security_policy_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_network_security_gateway_security_policy_rule__timeouts *)
 
 type google_network_security_gateway_security_policy_rule = {
-  application_matcher : string option; [@option]
+  application_matcher : string prop option; [@option]
       (** CEL expression for matching on L7/application level criteria. *)
-  basic_profile : string;
+  basic_profile : string prop;
       (** Profile which tells what the primitive action should be. Possible values are: * ALLOW * DENY. Possible values: [BASIC_PROFILE_UNSPECIFIED, ALLOW, DENY] *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Free-text description of the resource. *)
-  enabled : bool;  (** Whether the rule is enforced. *)
-  gateway_security_policy : string;
+  enabled : bool prop;  (** Whether the rule is enforced. *)
+  gateway_security_policy : string prop;
       (** The name of the gatewat security policy this rule belongs to. *)
-  id : string option; [@option]  (** id *)
-  location : string;
+  id : string prop option; [@option]  (** id *)
+  location : string prop;
       (** The location of the gateway security policy. *)
-  name : string;
+  name : string prop;
       (** Name of the resource. ame is the full resource name so projects/{project}/locations/{location}/gatewaySecurityPolicies/{gateway_security_policy}/rules/{rule}
 rule should match the pattern: (^a-z?$). *)
-  priority : float;
+  priority : float prop;
       (** Priority of the rule. Lower number corresponds to higher precedence. *)
-  project : string option; [@option]  (** project *)
-  session_matcher : string;
+  project : string prop option; [@option]  (** project *)
+  session_matcher : string prop;
       (** CEL expression for matching on session criteria. *)
-  tls_inspection_enabled : bool option; [@option]
+  tls_inspection_enabled : bool prop option; [@option]
       (** Flag to enable TLS inspection of traffic matching on. Can only be true if the
 parent GatewaySecurityPolicy references a TLSInspectionConfig. *)
   timeouts :

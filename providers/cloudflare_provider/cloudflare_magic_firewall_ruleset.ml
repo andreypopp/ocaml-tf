@@ -5,13 +5,14 @@
 open! Tf.Prelude
 
 type cloudflare_magic_firewall_ruleset = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** **Modifying this attribute will force creation of a new resource.** *)
-  rules : (string * string) list list option; [@option]  (** rules *)
+  rules : (string * string prop) list list option; [@option]
+      (** rules *)
 }
 [@@deriving yojson_of]
 (** cloudflare_magic_firewall_ruleset *)

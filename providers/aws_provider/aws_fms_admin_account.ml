@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_fms_admin_account__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_fms_admin_account__timeouts *)
 
 type aws_fms_admin_account = {
-  account_id : string option; [@option]  (** account_id *)
-  id : string option; [@option]  (** id *)
+  account_id : string prop option; [@option]  (** account_id *)
+  id : string prop option; [@option]  (** id *)
   timeouts : aws_fms_admin_account__timeouts option;
 }
 [@@deriving yojson_of]

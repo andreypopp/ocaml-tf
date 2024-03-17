@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_db_proxy_target = {
-  db_cluster_identifier : string option; [@option]
+  db_cluster_identifier : string prop option; [@option]
       (** db_cluster_identifier *)
-  db_instance_identifier : string option; [@option]
+  db_instance_identifier : string prop option; [@option]
       (** db_instance_identifier *)
-  db_proxy_name : string;  (** db_proxy_name *)
-  id : string option; [@option]  (** id *)
-  target_group_name : string;  (** target_group_name *)
+  db_proxy_name : string prop;  (** db_proxy_name *)
+  id : string prop option; [@option]  (** id *)
+  target_group_name : string prop;  (** target_group_name *)
 }
 [@@deriving yojson_of]
 (** aws_db_proxy_target *)

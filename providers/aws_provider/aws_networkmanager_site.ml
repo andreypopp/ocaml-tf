@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type aws_networkmanager_site__location = {
-  address : string option; [@option]  (** address *)
-  latitude : string option; [@option]  (** latitude *)
-  longitude : string option; [@option]  (** longitude *)
+  address : string prop option; [@option]  (** address *)
+  latitude : string prop option; [@option]  (** latitude *)
+  longitude : string prop option; [@option]  (** longitude *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_site__location *)
 
 type aws_networkmanager_site__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_site__timeouts *)
 
 type aws_networkmanager_site = {
-  description : string option; [@option]  (** description *)
-  global_network_id : string;  (** global_network_id *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  global_network_id : string prop;  (** global_network_id *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   location : aws_networkmanager_site__location list;
   timeouts : aws_networkmanager_site__timeouts option;

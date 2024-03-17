@@ -5,25 +5,25 @@
 open! Tf.Prelude
 
 type google_scc_event_threat_detection_custom_module__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_scc_event_threat_detection_custom_module__timeouts *)
 
 type google_scc_event_threat_detection_custom_module = {
-  config : string;
+  config : string prop;
       (** Config for the module. For the resident module, its config value is defined at this level.
 For the inherited module, its config value is inherited from the ancestor module. *)
-  display_name : string option; [@option]
+  display_name : string prop option; [@option]
       (** The human readable name to be displayed for the module. *)
-  enablement_state : string;
+  enablement_state : string prop;
       (** The state of enablement for the module at the given level of the hierarchy. Possible values: [ENABLED, DISABLED] *)
-  id : string option; [@option]  (** id *)
-  organization : string;
+  id : string prop option; [@option]  (** id *)
+  organization : string prop;
       (** Numerical ID of the parent organization. *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** Immutable. Type for the module. e.g. CONFIGURABLE_BAD_IP. *)
   timeouts :
     google_scc_event_threat_detection_custom_module__timeouts option;

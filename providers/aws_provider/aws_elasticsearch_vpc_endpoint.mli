@@ -7,9 +7,9 @@ type aws_elasticsearch_vpc_endpoint__vpc_options
 type aws_elasticsearch_vpc_endpoint
 
 val aws_elasticsearch_vpc_endpoint :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:aws_elasticsearch_vpc_endpoint__timeouts ->
-  domain_arn:string ->
+  domain_arn:string prop ->
   vpc_options:aws_elasticsearch_vpc_endpoint__vpc_options list ->
   string ->
   unit

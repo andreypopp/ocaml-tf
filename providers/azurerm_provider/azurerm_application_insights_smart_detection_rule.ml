@@ -5,22 +5,23 @@
 open! Tf.Prelude
 
 type azurerm_application_insights_smart_detection_rule__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_application_insights_smart_detection_rule__timeouts *)
 
 type azurerm_application_insights_smart_detection_rule = {
-  additional_email_recipients : string list option; [@option]
+  additional_email_recipients : string prop list option; [@option]
       (** additional_email_recipients *)
-  application_insights_id : string;  (** application_insights_id *)
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  send_emails_to_subscription_owners : bool option; [@option]
+  application_insights_id : string prop;
+      (** application_insights_id *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  send_emails_to_subscription_owners : bool prop option; [@option]
       (** send_emails_to_subscription_owners *)
   timeouts :
     azurerm_application_insights_smart_detection_rule__timeouts

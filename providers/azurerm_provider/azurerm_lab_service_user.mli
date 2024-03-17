@@ -6,11 +6,11 @@ type azurerm_lab_service_user__timeouts
 type azurerm_lab_service_user
 
 val azurerm_lab_service_user :
-  ?additional_usage_quota:string ->
-  ?id:string ->
+  ?additional_usage_quota:string prop ->
+  ?id:string prop ->
   ?timeouts:azurerm_lab_service_user__timeouts ->
-  email:string ->
-  lab_id:string ->
-  name:string ->
+  email:string prop ->
+  lab_id:string prop ->
+  name:string prop ->
   string ->
   unit

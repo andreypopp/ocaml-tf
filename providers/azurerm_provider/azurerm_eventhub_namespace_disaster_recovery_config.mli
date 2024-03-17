@@ -6,12 +6,12 @@ type azurerm_eventhub_namespace_disaster_recovery_config__timeouts
 type azurerm_eventhub_namespace_disaster_recovery_config
 
 val azurerm_eventhub_namespace_disaster_recovery_config :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:
     azurerm_eventhub_namespace_disaster_recovery_config__timeouts ->
-  name:string ->
-  namespace_name:string ->
-  partner_namespace_id:string ->
-  resource_group_name:string ->
+  name:string prop ->
+  namespace_name:string prop ->
+  partner_namespace_id:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

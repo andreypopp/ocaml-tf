@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_palo_alto_local_rulestack__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_palo_alto_local_rulestack__timeouts *)
 
 type azurerm_palo_alto_local_rulestack = {
-  anti_spyware_profile : string option; [@option]
+  anti_spyware_profile : string prop option; [@option]
       (** anti_spyware_profile *)
-  anti_virus_profile : string option; [@option]
+  anti_virus_profile : string prop option; [@option]
       (** anti_virus_profile *)
-  description : string option; [@option]  (** description *)
-  dns_subscription : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  dns_subscription : string prop option; [@option]
       (** dns_subscription *)
-  file_blocking_profile : string option; [@option]
+  file_blocking_profile : string prop option; [@option]
       (** file_blocking_profile *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  url_filtering_profile : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  url_filtering_profile : string prop option; [@option]
       (** url_filtering_profile *)
-  vulnerability_profile : string option; [@option]
+  vulnerability_profile : string prop option; [@option]
       (** vulnerability_profile *)
   timeouts : azurerm_palo_alto_local_rulestack__timeouts option;
 }

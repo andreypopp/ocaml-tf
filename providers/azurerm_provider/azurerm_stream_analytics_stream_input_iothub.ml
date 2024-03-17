@@ -5,34 +5,36 @@
 open! Tf.Prelude
 
 type azurerm_stream_analytics_stream_input_iothub__serialization = {
-  encoding : string option; [@option]  (** encoding *)
-  field_delimiter : string option; [@option]  (** field_delimiter *)
-  type_ : string; [@key "type"]  (** type *)
+  encoding : string prop option; [@option]  (** encoding *)
+  field_delimiter : string prop option; [@option]
+      (** field_delimiter *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_stream_input_iothub__serialization *)
 
 type azurerm_stream_analytics_stream_input_iothub__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_stream_input_iothub__timeouts *)
 
 type azurerm_stream_analytics_stream_input_iothub = {
-  endpoint : string;  (** endpoint *)
-  eventhub_consumer_group_name : string;
+  endpoint : string prop;  (** endpoint *)
+  eventhub_consumer_group_name : string prop;
       (** eventhub_consumer_group_name *)
-  id : string option; [@option]  (** id *)
-  iothub_namespace : string;  (** iothub_namespace *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  shared_access_policy_key : string;  (** shared_access_policy_key *)
-  shared_access_policy_name : string;
+  id : string prop option; [@option]  (** id *)
+  iothub_namespace : string prop;  (** iothub_namespace *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  shared_access_policy_key : string prop;
+      (** shared_access_policy_key *)
+  shared_access_policy_name : string prop;
       (** shared_access_policy_name *)
-  stream_analytics_job_name : string;
+  stream_analytics_job_name : string prop;
       (** stream_analytics_job_name *)
   serialization :
     azurerm_stream_analytics_stream_input_iothub__serialization list;

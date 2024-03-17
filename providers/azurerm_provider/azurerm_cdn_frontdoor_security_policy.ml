@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type azurerm_cdn_frontdoor_security_policy__security_policies__firewall__association__domain = {
-  active : bool;  (** active *)
-  cdn_frontdoor_domain_id : string;  (** cdn_frontdoor_domain_id *)
+  active : bool prop;  (** active *)
+  cdn_frontdoor_domain_id : string prop;
+      (** cdn_frontdoor_domain_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_security_policy__security_policies__firewall__association__domain *)
 
 type azurerm_cdn_frontdoor_security_policy__security_policies__firewall__association = {
-  patterns_to_match : string list;  (** patterns_to_match *)
+  patterns_to_match : string prop list;  (** patterns_to_match *)
   domain :
     azurerm_cdn_frontdoor_security_policy__security_policies__firewall__association__domain
     list;
@@ -21,7 +22,7 @@ type azurerm_cdn_frontdoor_security_policy__security_policies__firewall__associa
 (** azurerm_cdn_frontdoor_security_policy__security_policies__firewall__association *)
 
 type azurerm_cdn_frontdoor_security_policy__security_policies__firewall = {
-  cdn_frontdoor_firewall_policy_id : string;
+  cdn_frontdoor_firewall_policy_id : string prop;
       (** cdn_frontdoor_firewall_policy_id *)
   association :
     azurerm_cdn_frontdoor_security_policy__security_policies__firewall__association
@@ -39,17 +40,18 @@ type azurerm_cdn_frontdoor_security_policy__security_policies = {
 (** azurerm_cdn_frontdoor_security_policy__security_policies *)
 
 type azurerm_cdn_frontdoor_security_policy__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
 }
 [@@deriving yojson_of]
 (** azurerm_cdn_frontdoor_security_policy__timeouts *)
 
 type azurerm_cdn_frontdoor_security_policy = {
-  cdn_frontdoor_profile_id : string;  (** cdn_frontdoor_profile_id *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
+  cdn_frontdoor_profile_id : string prop;
+      (** cdn_frontdoor_profile_id *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
   security_policies :
     azurerm_cdn_frontdoor_security_policy__security_policies list;
   timeouts : azurerm_cdn_frontdoor_security_policy__timeouts option;

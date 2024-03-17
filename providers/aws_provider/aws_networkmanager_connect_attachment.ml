@@ -5,26 +5,27 @@
 open! Tf.Prelude
 
 type aws_networkmanager_connect_attachment__options = {
-  protocol : string option; [@option]  (** protocol *)
+  protocol : string prop option; [@option]  (** protocol *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_connect_attachment__options *)
 
 type aws_networkmanager_connect_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_networkmanager_connect_attachment__timeouts *)
 
 type aws_networkmanager_connect_attachment = {
-  core_network_id : string;  (** core_network_id *)
-  edge_location : string;  (** edge_location *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  core_network_id : string prop;  (** core_network_id *)
+  edge_location : string prop;  (** edge_location *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  transport_attachment_id : string;  (** transport_attachment_id *)
+  transport_attachment_id : string prop;
+      (** transport_attachment_id *)
   options : aws_networkmanager_connect_attachment__options list;
   timeouts : aws_networkmanager_connect_attachment__timeouts option;
 }

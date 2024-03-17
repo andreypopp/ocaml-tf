@@ -5,19 +5,20 @@
 open! Tf.Prelude
 
 type aws_organizations_organizational_unit__accounts = {
-  arn : string;  (** arn *)
-  email : string;  (** email *)
-  id : string;  (** id *)
-  name : string;  (** name *)
+  arn : string prop;  (** arn *)
+  email : string prop;  (** email *)
+  id : string prop;  (** id *)
+  name : string prop;  (** name *)
 }
 [@@deriving yojson_of]
 
 type aws_organizations_organizational_unit = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  parent_id : string;  (** parent_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  parent_id : string prop;  (** parent_id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_organizations_organizational_unit *)

@@ -27,14 +27,14 @@ type aws_cloudwatch_event_target__sqs_target
 type aws_cloudwatch_event_target
 
 val aws_cloudwatch_event_target :
-  ?event_bus_name:string ->
-  ?id:string ->
-  ?input:string ->
-  ?input_path:string ->
-  ?role_arn:string ->
-  ?target_id:string ->
-  arn:string ->
-  rule:string ->
+  ?event_bus_name:string prop ->
+  ?id:string prop ->
+  ?input:string prop ->
+  ?input_path:string prop ->
+  ?role_arn:string prop ->
+  ?target_id:string prop ->
+  arn:string prop ->
+  rule:string prop ->
   batch_target:aws_cloudwatch_event_target__batch_target list ->
   dead_letter_config:
     aws_cloudwatch_event_target__dead_letter_config list ->

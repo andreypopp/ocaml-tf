@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type google_apigee_sharedflow__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_apigee_sharedflow__timeouts *)
 
 type google_apigee_sharedflow__meta_data = {
-  created_at : string;  (** created_at *)
-  last_modified_at : string;  (** last_modified_at *)
-  sub_type : string;  (** sub_type *)
+  created_at : string prop;  (** created_at *)
+  last_modified_at : string prop;  (** last_modified_at *)
+  sub_type : string prop;  (** sub_type *)
 }
 [@@deriving yojson_of]
 
 type google_apigee_sharedflow = {
-  config_bundle : string;  (** Path to the config zip bundle *)
-  detect_md5hash : string option; [@option]
+  config_bundle : string prop;  (** Path to the config zip bundle *)
+  detect_md5hash : string prop option; [@option]
       (** A hash of local config bundle in string, user needs to use a Terraform Hash function of their choice. A change in hash will trigger an update. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** The ID of the shared flow. *)
-  org_id : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** The ID of the shared flow. *)
+  org_id : string prop;
       (** The Apigee Organization name associated with the Apigee instance. *)
   timeouts : google_apigee_sharedflow__timeouts option;
 }

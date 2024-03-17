@@ -7,8 +7,8 @@ type aws_vpc_peering_connection_options__requester
 type aws_vpc_peering_connection_options
 
 val aws_vpc_peering_connection_options :
-  ?id:string ->
-  vpc_peering_connection_id:string ->
+  ?id:string prop ->
+  vpc_peering_connection_id:string prop ->
   accepter:aws_vpc_peering_connection_options__accepter list ->
   requester:aws_vpc_peering_connection_options__requester list ->
   string ->

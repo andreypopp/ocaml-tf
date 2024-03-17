@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type azurerm_resource_group__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_resource_group__timeouts *)
 
 type azurerm_resource_group = {
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  managed_by : string option; [@option]  (** managed_by *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  managed_by : string prop option; [@option]  (** managed_by *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_resource_group__timeouts option;
 }
 [@@deriving yojson_of]

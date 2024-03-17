@@ -5,9 +5,9 @@
 open! Tf.Prelude
 
 type aws_s3control_bucket_policy = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
 }
 [@@deriving yojson_of]
 (** aws_s3control_bucket_policy *)

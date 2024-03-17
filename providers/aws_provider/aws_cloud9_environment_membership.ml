@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_cloud9_environment_membership = {
-  environment_id : string;  (** environment_id *)
-  id : string option; [@option]  (** id *)
-  permissions : string;  (** permissions *)
-  user_arn : string;  (** user_arn *)
+  environment_id : string prop;  (** environment_id *)
+  id : string prop option; [@option]  (** id *)
+  permissions : string prop;  (** permissions *)
+  user_arn : string prop;  (** user_arn *)
 }
 [@@deriving yojson_of]
 (** aws_cloud9_environment_membership *)

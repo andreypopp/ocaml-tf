@@ -5,23 +5,25 @@
 open! Tf.Prelude
 
 type aws_ecs_capacity_provider__auto_scaling_group_provider__managed_scaling = {
-  instance_warmup_period : float option; [@option]
+  instance_warmup_period : float prop option; [@option]
       (** instance_warmup_period *)
-  maximum_scaling_step_size : float option; [@option]
+  maximum_scaling_step_size : float prop option; [@option]
       (** maximum_scaling_step_size *)
-  minimum_scaling_step_size : float option; [@option]
+  minimum_scaling_step_size : float prop option; [@option]
       (** minimum_scaling_step_size *)
-  status : string option; [@option]  (** status *)
-  target_capacity : float option; [@option]  (** target_capacity *)
+  status : string prop option; [@option]  (** status *)
+  target_capacity : float prop option; [@option]
+      (** target_capacity *)
 }
 [@@deriving yojson_of]
 (** aws_ecs_capacity_provider__auto_scaling_group_provider__managed_scaling *)
 
 type aws_ecs_capacity_provider__auto_scaling_group_provider = {
-  auto_scaling_group_arn : string;  (** auto_scaling_group_arn *)
-  managed_draining : string option; [@option]
+  auto_scaling_group_arn : string prop;
+      (** auto_scaling_group_arn *)
+  managed_draining : string prop option; [@option]
       (** managed_draining *)
-  managed_termination_protection : string option; [@option]
+  managed_termination_protection : string prop option; [@option]
       (** managed_termination_protection *)
   managed_scaling :
     aws_ecs_capacity_provider__auto_scaling_group_provider__managed_scaling
@@ -31,10 +33,10 @@ type aws_ecs_capacity_provider__auto_scaling_group_provider = {
 (** aws_ecs_capacity_provider__auto_scaling_group_provider *)
 
 type aws_ecs_capacity_provider = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   auto_scaling_group_provider :
     aws_ecs_capacity_provider__auto_scaling_group_provider list;

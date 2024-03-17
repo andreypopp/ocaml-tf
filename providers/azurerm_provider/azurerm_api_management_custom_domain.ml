@@ -5,114 +5,114 @@
 open! Tf.Prelude
 
 type azurerm_api_management_custom_domain__developer_portal = {
-  certificate : string option; [@option]  (** certificate *)
-  certificate_password : string option; [@option]
+  certificate : string prop option; [@option]  (** certificate *)
+  certificate_password : string prop option; [@option]
       (** certificate_password *)
-  certificate_source : string;  (** certificate_source *)
-  certificate_status : string;  (** certificate_status *)
-  expiry : string;  (** expiry *)
-  host_name : string;  (** host_name *)
-  key_vault_id : string option; [@option]  (** key_vault_id *)
-  negotiate_client_certificate : bool option; [@option]
+  certificate_source : string prop;  (** certificate_source *)
+  certificate_status : string prop;  (** certificate_status *)
+  expiry : string prop;  (** expiry *)
+  host_name : string prop;  (** host_name *)
+  key_vault_id : string prop option; [@option]  (** key_vault_id *)
+  negotiate_client_certificate : bool prop option; [@option]
       (** negotiate_client_certificate *)
-  ssl_keyvault_identity_client_id : string option; [@option]
+  ssl_keyvault_identity_client_id : string prop option; [@option]
       (** ssl_keyvault_identity_client_id *)
-  subject : string;  (** subject *)
-  thumbprint : string;  (** thumbprint *)
+  subject : string prop;  (** subject *)
+  thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_custom_domain__developer_portal *)
 
 type azurerm_api_management_custom_domain__gateway = {
-  certificate : string option; [@option]  (** certificate *)
-  certificate_password : string option; [@option]
+  certificate : string prop option; [@option]  (** certificate *)
+  certificate_password : string prop option; [@option]
       (** certificate_password *)
-  certificate_source : string;  (** certificate_source *)
-  certificate_status : string;  (** certificate_status *)
-  default_ssl_binding : bool option; [@option]
+  certificate_source : string prop;  (** certificate_source *)
+  certificate_status : string prop;  (** certificate_status *)
+  default_ssl_binding : bool prop option; [@option]
       (** default_ssl_binding *)
-  expiry : string;  (** expiry *)
-  host_name : string;  (** host_name *)
-  key_vault_id : string option; [@option]  (** key_vault_id *)
-  negotiate_client_certificate : bool option; [@option]
+  expiry : string prop;  (** expiry *)
+  host_name : string prop;  (** host_name *)
+  key_vault_id : string prop option; [@option]  (** key_vault_id *)
+  negotiate_client_certificate : bool prop option; [@option]
       (** negotiate_client_certificate *)
-  ssl_keyvault_identity_client_id : string option; [@option]
+  ssl_keyvault_identity_client_id : string prop option; [@option]
       (** ssl_keyvault_identity_client_id *)
-  subject : string;  (** subject *)
-  thumbprint : string;  (** thumbprint *)
+  subject : string prop;  (** subject *)
+  thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_custom_domain__gateway *)
 
 type azurerm_api_management_custom_domain__management = {
-  certificate : string option; [@option]  (** certificate *)
-  certificate_password : string option; [@option]
+  certificate : string prop option; [@option]  (** certificate *)
+  certificate_password : string prop option; [@option]
       (** certificate_password *)
-  certificate_source : string;  (** certificate_source *)
-  certificate_status : string;  (** certificate_status *)
-  expiry : string;  (** expiry *)
-  host_name : string;  (** host_name *)
-  key_vault_id : string option; [@option]  (** key_vault_id *)
-  negotiate_client_certificate : bool option; [@option]
+  certificate_source : string prop;  (** certificate_source *)
+  certificate_status : string prop;  (** certificate_status *)
+  expiry : string prop;  (** expiry *)
+  host_name : string prop;  (** host_name *)
+  key_vault_id : string prop option; [@option]  (** key_vault_id *)
+  negotiate_client_certificate : bool prop option; [@option]
       (** negotiate_client_certificate *)
-  ssl_keyvault_identity_client_id : string option; [@option]
+  ssl_keyvault_identity_client_id : string prop option; [@option]
       (** ssl_keyvault_identity_client_id *)
-  subject : string;  (** subject *)
-  thumbprint : string;  (** thumbprint *)
+  subject : string prop;  (** subject *)
+  thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_custom_domain__management *)
 
 type azurerm_api_management_custom_domain__portal = {
-  certificate : string option; [@option]  (** certificate *)
-  certificate_password : string option; [@option]
+  certificate : string prop option; [@option]  (** certificate *)
+  certificate_password : string prop option; [@option]
       (** certificate_password *)
-  certificate_source : string;  (** certificate_source *)
-  certificate_status : string;  (** certificate_status *)
-  expiry : string;  (** expiry *)
-  host_name : string;  (** host_name *)
-  key_vault_id : string option; [@option]  (** key_vault_id *)
-  negotiate_client_certificate : bool option; [@option]
+  certificate_source : string prop;  (** certificate_source *)
+  certificate_status : string prop;  (** certificate_status *)
+  expiry : string prop;  (** expiry *)
+  host_name : string prop;  (** host_name *)
+  key_vault_id : string prop option; [@option]  (** key_vault_id *)
+  negotiate_client_certificate : bool prop option; [@option]
       (** negotiate_client_certificate *)
-  ssl_keyvault_identity_client_id : string option; [@option]
+  ssl_keyvault_identity_client_id : string prop option; [@option]
       (** ssl_keyvault_identity_client_id *)
-  subject : string;  (** subject *)
-  thumbprint : string;  (** thumbprint *)
+  subject : string prop;  (** subject *)
+  thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_custom_domain__portal *)
 
 type azurerm_api_management_custom_domain__scm = {
-  certificate : string option; [@option]  (** certificate *)
-  certificate_password : string option; [@option]
+  certificate : string prop option; [@option]  (** certificate *)
+  certificate_password : string prop option; [@option]
       (** certificate_password *)
-  certificate_source : string;  (** certificate_source *)
-  certificate_status : string;  (** certificate_status *)
-  expiry : string;  (** expiry *)
-  host_name : string;  (** host_name *)
-  key_vault_id : string option; [@option]  (** key_vault_id *)
-  negotiate_client_certificate : bool option; [@option]
+  certificate_source : string prop;  (** certificate_source *)
+  certificate_status : string prop;  (** certificate_status *)
+  expiry : string prop;  (** expiry *)
+  host_name : string prop;  (** host_name *)
+  key_vault_id : string prop option; [@option]  (** key_vault_id *)
+  negotiate_client_certificate : bool prop option; [@option]
       (** negotiate_client_certificate *)
-  ssl_keyvault_identity_client_id : string option; [@option]
+  ssl_keyvault_identity_client_id : string prop option; [@option]
       (** ssl_keyvault_identity_client_id *)
-  subject : string;  (** subject *)
-  thumbprint : string;  (** thumbprint *)
+  subject : string prop;  (** subject *)
+  thumbprint : string prop;  (** thumbprint *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_custom_domain__scm *)
 
 type azurerm_api_management_custom_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_api_management_custom_domain__timeouts *)
 
 type azurerm_api_management_custom_domain = {
-  api_management_id : string;  (** api_management_id *)
-  id : string option; [@option]  (** id *)
+  api_management_id : string prop;  (** api_management_id *)
+  id : string prop option; [@option]  (** id *)
   developer_portal :
     azurerm_api_management_custom_domain__developer_portal list;
   gateway : azurerm_api_management_custom_domain__gateway list;

@@ -29,23 +29,23 @@ type google_compute_region_backend_service__timeouts
 type google_compute_region_backend_service
 
 val google_compute_region_backend_service :
-  ?affinity_cookie_ttl_sec:float ->
-  ?connection_draining_timeout_sec:float ->
-  ?description:string ->
-  ?enable_cdn:bool ->
-  ?health_checks:string list ->
-  ?id:string ->
-  ?load_balancing_scheme:string ->
-  ?locality_lb_policy:string ->
-  ?network:string ->
-  ?port_name:string ->
-  ?project:string ->
-  ?protocol:string ->
-  ?region:string ->
-  ?session_affinity:string ->
-  ?timeout_sec:float ->
+  ?affinity_cookie_ttl_sec:float prop ->
+  ?connection_draining_timeout_sec:float prop ->
+  ?description:string prop ->
+  ?enable_cdn:bool prop ->
+  ?health_checks:string prop list ->
+  ?id:string prop ->
+  ?load_balancing_scheme:string prop ->
+  ?locality_lb_policy:string prop ->
+  ?network:string prop ->
+  ?port_name:string prop ->
+  ?project:string prop ->
+  ?protocol:string prop ->
+  ?region:string prop ->
+  ?session_affinity:string prop ->
+  ?timeout_sec:float prop ->
   ?timeouts:google_compute_region_backend_service__timeouts ->
-  name:string ->
+  name:string prop ->
   backend:google_compute_region_backend_service__backend list ->
   cdn_policy:google_compute_region_backend_service__cdn_policy list ->
   circuit_breakers:

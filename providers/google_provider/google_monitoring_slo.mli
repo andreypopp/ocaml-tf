@@ -38,16 +38,16 @@ type google_monitoring_slo__windows_based_sli
 type google_monitoring_slo
 
 val google_monitoring_slo :
-  ?calendar_period:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?project:string ->
-  ?rolling_period_days:float ->
-  ?slo_id:string ->
-  ?user_labels:(string * string) list ->
+  ?calendar_period:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?rolling_period_days:float prop ->
+  ?slo_id:string prop ->
+  ?user_labels:(string * string prop) list ->
   ?timeouts:google_monitoring_slo__timeouts ->
-  goal:float ->
-  service:string ->
+  goal:float prop ->
+  service:string prop ->
   basic_sli:google_monitoring_slo__basic_sli list ->
   request_based_sli:google_monitoring_slo__request_based_sli list ->
   windows_based_sli:google_monitoring_slo__windows_based_sli list ->

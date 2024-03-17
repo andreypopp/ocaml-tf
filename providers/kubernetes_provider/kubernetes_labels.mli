@@ -6,12 +6,12 @@ type kubernetes_labels__metadata
 type kubernetes_labels
 
 val kubernetes_labels :
-  ?field_manager:string ->
-  ?force:bool ->
-  ?id:string ->
-  api_version:string ->
-  kind:string ->
-  labels:(string * string) list ->
+  ?field_manager:string prop ->
+  ?force:bool prop ->
+  ?id:string prop ->
+  api_version:string prop ->
+  kind:string prop ->
+  labels:(string * string prop) list ->
   metadata:kubernetes_labels__metadata list ->
   string ->
   unit

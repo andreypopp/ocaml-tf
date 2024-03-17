@@ -8,13 +8,13 @@ type google_vertex_ai_feature_online_store__timeouts
 type google_vertex_ai_feature_online_store
 
 val google_vertex_ai_feature_online_store :
-  ?force_destroy:bool ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
-  ?region:string ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
   ?timeouts:google_vertex_ai_feature_online_store__timeouts ->
-  name:string ->
+  name:string prop ->
   bigtable:google_vertex_ai_feature_online_store__bigtable list ->
   string ->
   unit

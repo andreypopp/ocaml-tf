@@ -7,10 +7,10 @@ type digitalocean_database_user__settings
 type digitalocean_database_user
 
 val digitalocean_database_user :
-  ?id:string ->
-  ?mysql_auth_plugin:string ->
-  cluster_id:string ->
-  name:string ->
+  ?id:string prop ->
+  ?mysql_auth_plugin:string prop ->
+  cluster_id:string prop ->
+  name:string prop ->
   settings:digitalocean_database_user__settings list ->
   string ->
   unit

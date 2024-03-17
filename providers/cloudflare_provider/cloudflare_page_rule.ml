@@ -5,43 +5,43 @@
 open! Tf.Prelude
 
 type cloudflare_page_rule__actions__cache_key_fields__cookie = {
-  check_presence : string list option; [@option]
+  check_presence : string prop list option; [@option]
       (** check_presence *)
-  include_ : string list option; [@option] [@key "include"]
+  include_ : string prop list option; [@option] [@key "include"]
       (** include *)
 }
 [@@deriving yojson_of]
 (** cloudflare_page_rule__actions__cache_key_fields__cookie *)
 
 type cloudflare_page_rule__actions__cache_key_fields__header = {
-  check_presence : string list option; [@option]
+  check_presence : string prop list option; [@option]
       (** check_presence *)
-  exclude : string list option; [@option]  (** exclude *)
-  include_ : string list option; [@option] [@key "include"]
+  exclude : string prop list option; [@option]  (** exclude *)
+  include_ : string prop list option; [@option] [@key "include"]
       (** include *)
 }
 [@@deriving yojson_of]
 (** cloudflare_page_rule__actions__cache_key_fields__header *)
 
 type cloudflare_page_rule__actions__cache_key_fields__host = {
-  resolved : bool option; [@option]  (** Defaults to `false`. *)
+  resolved : bool prop option; [@option]  (** Defaults to `false`. *)
 }
 [@@deriving yojson_of]
 (** cloudflare_page_rule__actions__cache_key_fields__host *)
 
 type cloudflare_page_rule__actions__cache_key_fields__query_string = {
-  exclude : string list option; [@option]  (** exclude *)
-  ignore : bool option; [@option]  (** ignore *)
-  include_ : string list option; [@option] [@key "include"]
+  exclude : string prop list option; [@option]  (** exclude *)
+  ignore : bool prop option; [@option]  (** ignore *)
+  include_ : string prop list option; [@option] [@key "include"]
       (** include *)
 }
 [@@deriving yojson_of]
 (** cloudflare_page_rule__actions__cache_key_fields__query_string *)
 
 type cloudflare_page_rule__actions__cache_key_fields__user = {
-  device_type : bool option; [@option]  (** device_type *)
-  geo : bool option; [@option]  (** geo *)
-  lang : bool option; [@option]  (** lang *)
+  device_type : bool prop option; [@option]  (** device_type *)
+  geo : bool prop option; [@option]  (** geo *)
+  lang : bool prop option; [@option]  (** lang *)
 }
 [@@deriving yojson_of]
 (** cloudflare_page_rule__actions__cache_key_fields__user *)
@@ -61,81 +61,87 @@ type cloudflare_page_rule__actions__cache_key_fields = {
 (** cloudflare_page_rule__actions__cache_key_fields *)
 
 type cloudflare_page_rule__actions__cache_ttl_by_status = {
-  codes : string;  (** codes *)
-  ttl : float;  (** ttl *)
+  codes : string prop;  (** codes *)
+  ttl : float prop;  (** ttl *)
 }
 [@@deriving yojson_of]
 (** cloudflare_page_rule__actions__cache_ttl_by_status *)
 
 type cloudflare_page_rule__actions__forwarding_url = {
-  status_code : float;  (** status_code *)
-  url : string;  (** url *)
+  status_code : float prop;  (** status_code *)
+  url : string prop;  (** url *)
 }
 [@@deriving yojson_of]
 (** cloudflare_page_rule__actions__forwarding_url *)
 
 type cloudflare_page_rule__actions__minify = {
-  css : string;  (** css *)
-  html : string;  (** html *)
-  js : string;  (** js *)
+  css : string prop;  (** css *)
+  html : string prop;  (** html *)
+  js : string prop;  (** js *)
 }
 [@@deriving yojson_of]
 (** cloudflare_page_rule__actions__minify *)
 
 type cloudflare_page_rule__actions = {
-  always_use_https : bool option; [@option]
+  always_use_https : bool prop option; [@option]
       (** Defaults to `false`. *)
-  automatic_https_rewrites : string option; [@option]
+  automatic_https_rewrites : string prop option; [@option]
       (** automatic_https_rewrites *)
-  browser_cache_ttl : string option; [@option]
+  browser_cache_ttl : string prop option; [@option]
       (** browser_cache_ttl *)
-  browser_check : string option; [@option]  (** browser_check *)
-  bypass_cache_on_cookie : string option; [@option]
+  browser_check : string prop option; [@option]  (** browser_check *)
+  bypass_cache_on_cookie : string prop option; [@option]
       (** bypass_cache_on_cookie *)
-  cache_by_device_type : string option; [@option]
+  cache_by_device_type : string prop option; [@option]
       (** cache_by_device_type *)
-  cache_deception_armor : string option; [@option]
+  cache_deception_armor : string prop option; [@option]
       (** cache_deception_armor *)
-  cache_level : string option; [@option]  (** cache_level *)
-  cache_on_cookie : string option; [@option]  (** cache_on_cookie *)
-  disable_apps : bool option; [@option]  (** Defaults to `false`. *)
-  disable_performance : bool option; [@option]
+  cache_level : string prop option; [@option]  (** cache_level *)
+  cache_on_cookie : string prop option; [@option]
+      (** cache_on_cookie *)
+  disable_apps : bool prop option; [@option]
       (** Defaults to `false`. *)
-  disable_railgun : bool option; [@option]
+  disable_performance : bool prop option; [@option]
       (** Defaults to `false`. *)
-  disable_security : bool option; [@option]
+  disable_railgun : bool prop option; [@option]
       (** Defaults to `false`. *)
-  disable_zaraz : bool option; [@option]  (** Defaults to `false`. *)
-  edge_cache_ttl : float option; [@option]  (** edge_cache_ttl *)
-  email_obfuscation : string option; [@option]
+  disable_security : bool prop option; [@option]
+      (** Defaults to `false`. *)
+  disable_zaraz : bool prop option; [@option]
+      (** Defaults to `false`. *)
+  edge_cache_ttl : float prop option; [@option]
+      (** edge_cache_ttl *)
+  email_obfuscation : string prop option; [@option]
       (** email_obfuscation *)
-  explicit_cache_control : string option; [@option]
+  explicit_cache_control : string prop option; [@option]
       (** explicit_cache_control *)
-  host_header_override : string option; [@option]
+  host_header_override : string prop option; [@option]
       (** host_header_override *)
-  ip_geolocation : string option; [@option]  (** ip_geolocation *)
-  mirage : string option; [@option]  (** mirage *)
-  opportunistic_encryption : string option; [@option]
+  ip_geolocation : string prop option; [@option]
+      (** ip_geolocation *)
+  mirage : string prop option; [@option]  (** mirage *)
+  opportunistic_encryption : string prop option; [@option]
       (** opportunistic_encryption *)
-  origin_error_page_pass_thru : string option; [@option]
+  origin_error_page_pass_thru : string prop option; [@option]
       (** origin_error_page_pass_thru *)
-  polish : string option; [@option]  (** polish *)
-  resolve_override : string option; [@option]
+  polish : string prop option; [@option]  (** polish *)
+  resolve_override : string prop option; [@option]
       (** resolve_override *)
-  respect_strong_etag : string option; [@option]
+  respect_strong_etag : string prop option; [@option]
       (** respect_strong_etag *)
-  response_buffering : string option; [@option]
+  response_buffering : string prop option; [@option]
       (** response_buffering *)
-  rocket_loader : string option; [@option]  (** rocket_loader *)
-  security_level : string option; [@option]  (** security_level *)
-  server_side_exclude : string option; [@option]
+  rocket_loader : string prop option; [@option]  (** rocket_loader *)
+  security_level : string prop option; [@option]
+      (** security_level *)
+  server_side_exclude : string prop option; [@option]
       (** server_side_exclude *)
-  sort_query_string_for_cache : string option; [@option]
+  sort_query_string_for_cache : string prop option; [@option]
       (** sort_query_string_for_cache *)
-  ssl : string option; [@option]  (** ssl *)
-  true_client_ip_header : string option; [@option]
+  ssl : string prop option; [@option]  (** ssl *)
+  true_client_ip_header : string prop option; [@option]
       (** true_client_ip_header *)
-  waf : string option; [@option]  (** waf *)
+  waf : string prop option; [@option]  (** waf *)
   cache_key_fields :
     cloudflare_page_rule__actions__cache_key_fields list;
   cache_ttl_by_status :
@@ -148,11 +154,12 @@ type cloudflare_page_rule__actions = {
 (** cloudflare_page_rule__actions *)
 
 type cloudflare_page_rule = {
-  id : string option; [@option]  (** id *)
-  priority : float option; [@option]  (** Defaults to `1`. *)
-  status : string option; [@option]  (** Defaults to `active`. *)
-  target : string;  (** target *)
-  zone_id : string;
+  id : string prop option; [@option]  (** id *)
+  priority : float prop option; [@option]  (** Defaults to `1`. *)
+  status : string prop option; [@option]
+      (** Defaults to `active`. *)
+  target : string prop;  (** target *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   actions : cloudflare_page_rule__actions list;
 }

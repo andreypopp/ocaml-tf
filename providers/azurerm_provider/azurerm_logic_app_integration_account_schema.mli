@@ -6,13 +6,13 @@ type azurerm_logic_app_integration_account_schema__timeouts
 type azurerm_logic_app_integration_account_schema
 
 val azurerm_logic_app_integration_account_schema :
-  ?file_name:string ->
-  ?id:string ->
-  ?metadata:string ->
+  ?file_name:string prop ->
+  ?id:string prop ->
+  ?metadata:string prop ->
   ?timeouts:azurerm_logic_app_integration_account_schema__timeouts ->
-  content:string ->
-  integration_account_name:string ->
-  name:string ->
-  resource_group_name:string ->
+  content:string prop ->
+  integration_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
   string ->
   unit

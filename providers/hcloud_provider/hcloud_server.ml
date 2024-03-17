@@ -5,56 +5,58 @@
 open! Tf.Prelude
 
 type hcloud_server__network = {
-  alias_ips : string list option; [@option]  (** alias_ips *)
-  ip : string option; [@option]  (** ip *)
-  mac_address : string;  (** mac_address *)
-  network_id : float;  (** network_id *)
+  alias_ips : string prop list option; [@option]  (** alias_ips *)
+  ip : string prop option; [@option]  (** ip *)
+  mac_address : string prop;  (** mac_address *)
+  network_id : float prop;  (** network_id *)
 }
 [@@deriving yojson_of]
 (** hcloud_server__network *)
 
 type hcloud_server__public_net = {
-  ipv4 : float option; [@option]  (** ipv4 *)
-  ipv4_enabled : bool option; [@option]  (** ipv4_enabled *)
-  ipv6 : float option; [@option]  (** ipv6 *)
-  ipv6_enabled : bool option; [@option]  (** ipv6_enabled *)
+  ipv4 : float prop option; [@option]  (** ipv4 *)
+  ipv4_enabled : bool prop option; [@option]  (** ipv4_enabled *)
+  ipv6 : float prop option; [@option]  (** ipv6 *)
+  ipv6_enabled : bool prop option; [@option]  (** ipv6_enabled *)
 }
 [@@deriving yojson_of]
 (** hcloud_server__public_net *)
 
 type hcloud_server__timeouts = {
-  create : string option; [@option]  (** create *)
+  create : string prop option; [@option]  (** create *)
 }
 [@@deriving yojson_of]
 (** hcloud_server__timeouts *)
 
 type hcloud_server = {
-  allow_deprecated_images : bool option; [@option]
+  allow_deprecated_images : bool prop option; [@option]
       (** allow_deprecated_images *)
-  backups : bool option; [@option]  (** backups *)
-  datacenter : string option; [@option]  (** datacenter *)
-  delete_protection : bool option; [@option]
+  backups : bool prop option; [@option]  (** backups *)
+  datacenter : string prop option; [@option]  (** datacenter *)
+  delete_protection : bool prop option; [@option]
       (** delete_protection *)
-  firewall_ids : float list option; [@option]  (** firewall_ids *)
-  id : string option; [@option]  (** id *)
-  ignore_remote_firewall_ids : bool option; [@option]
+  firewall_ids : float prop list option; [@option]
+      (** firewall_ids *)
+  id : string prop option; [@option]  (** id *)
+  ignore_remote_firewall_ids : bool prop option; [@option]
       (** ignore_remote_firewall_ids *)
-  image : string option; [@option]  (** image *)
-  iso : string option; [@option]  (** iso *)
-  keep_disk : bool option; [@option]  (** keep_disk *)
-  labels : (string * string) list option; [@option]  (** labels *)
-  location : string option; [@option]  (** location *)
-  name : string;  (** name *)
-  placement_group_id : float option; [@option]
+  image : string prop option; [@option]  (** image *)
+  iso : string prop option; [@option]  (** iso *)
+  keep_disk : bool prop option; [@option]  (** keep_disk *)
+  labels : (string * string prop) list option; [@option]
+      (** labels *)
+  location : string prop option; [@option]  (** location *)
+  name : string prop;  (** name *)
+  placement_group_id : float prop option; [@option]
       (** placement_group_id *)
-  rebuild_protection : bool option; [@option]
+  rebuild_protection : bool prop option; [@option]
       (** rebuild_protection *)
-  rescue : string option; [@option]  (** rescue *)
-  server_type : string;  (** server_type *)
-  shutdown_before_deletion : bool option; [@option]
+  rescue : string prop option; [@option]  (** rescue *)
+  server_type : string prop;  (** server_type *)
+  shutdown_before_deletion : bool prop option; [@option]
       (** shutdown_before_deletion *)
-  ssh_keys : string list option; [@option]  (** ssh_keys *)
-  user_data : string option; [@option]  (** user_data *)
+  ssh_keys : string prop list option; [@option]  (** ssh_keys *)
+  user_data : string prop option; [@option]  (** user_data *)
   network : hcloud_server__network list;
   public_net : hcloud_server__public_net list;
   timeouts : hcloud_server__timeouts option;

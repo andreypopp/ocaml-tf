@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type aws_cloudfront_realtime_log_config__endpoint__kinesis_stream_config = {
-  role_arn : string;  (** role_arn *)
-  stream_arn : string;  (** stream_arn *)
+  role_arn : string prop;  (** role_arn *)
+  stream_arn : string prop;  (** stream_arn *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_realtime_log_config__endpoint__kinesis_stream_config *)
 
 type aws_cloudfront_realtime_log_config__endpoint = {
-  stream_type : string;  (** stream_type *)
+  stream_type : string prop;  (** stream_type *)
   kinesis_stream_config :
     aws_cloudfront_realtime_log_config__endpoint__kinesis_stream_config
     list;
@@ -21,10 +21,10 @@ type aws_cloudfront_realtime_log_config__endpoint = {
 (** aws_cloudfront_realtime_log_config__endpoint *)
 
 type aws_cloudfront_realtime_log_config = {
-  fields : string list;  (** fields *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  sampling_rate : float;  (** sampling_rate *)
+  fields : string prop list;  (** fields *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  sampling_rate : float prop;  (** sampling_rate *)
   endpoint : aws_cloudfront_realtime_log_config__endpoint list;
 }
 [@@deriving yojson_of]

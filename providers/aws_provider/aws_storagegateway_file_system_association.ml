@@ -5,23 +5,23 @@
 open! Tf.Prelude
 
 type aws_storagegateway_file_system_association__cache_attributes = {
-  cache_stale_timeout_in_seconds : float option; [@option]
+  cache_stale_timeout_in_seconds : float prop option; [@option]
       (** cache_stale_timeout_in_seconds *)
 }
 [@@deriving yojson_of]
 (** aws_storagegateway_file_system_association__cache_attributes *)
 
 type aws_storagegateway_file_system_association = {
-  audit_destination_arn : string option; [@option]
+  audit_destination_arn : string prop option; [@option]
       (** audit_destination_arn *)
-  gateway_arn : string;  (** gateway_arn *)
-  id : string option; [@option]  (** id *)
-  location_arn : string;  (** location_arn *)
-  password : string;  (** password *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  gateway_arn : string prop;  (** gateway_arn *)
+  id : string prop option; [@option]  (** id *)
+  location_arn : string prop;  (** location_arn *)
+  password : string prop;  (** password *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  username : string;  (** username *)
+  username : string prop;  (** username *)
   cache_attributes :
     aws_storagegateway_file_system_association__cache_attributes list;
 }

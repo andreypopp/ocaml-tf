@@ -13,28 +13,28 @@ type azurerm_virtual_machine_run_command__source
 type azurerm_virtual_machine_run_command__timeouts
 
 type azurerm_virtual_machine_run_command__instance_view = {
-  end_time : string;  (** end_time *)
-  error_message : string;  (** error_message *)
-  execution_message : string;  (** execution_message *)
-  execution_state : string;  (** execution_state *)
-  exit_code : float;  (** exit_code *)
-  output : string;  (** output *)
-  start_time : string;  (** start_time *)
+  end_time : string prop;  (** end_time *)
+  error_message : string prop;  (** error_message *)
+  execution_message : string prop;  (** execution_message *)
+  execution_state : string prop;  (** execution_state *)
+  exit_code : float prop;  (** exit_code *)
+  output : string prop;  (** output *)
+  start_time : string prop;  (** start_time *)
 }
 
 type azurerm_virtual_machine_run_command
 
 val azurerm_virtual_machine_run_command :
-  ?error_blob_uri:string ->
-  ?id:string ->
-  ?output_blob_uri:string ->
-  ?run_as_password:string ->
-  ?run_as_user:string ->
-  ?tags:(string * string) list ->
+  ?error_blob_uri:string prop ->
+  ?id:string prop ->
+  ?output_blob_uri:string prop ->
+  ?run_as_password:string prop ->
+  ?run_as_user:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_virtual_machine_run_command__timeouts ->
-  location:string ->
-  name:string ->
-  virtual_machine_id:string ->
+  location:string prop ->
+  name:string prop ->
+  virtual_machine_id:string prop ->
   error_blob_managed_identity:
     azurerm_virtual_machine_run_command__error_blob_managed_identity
     list ->

@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type google_bigquery_connection_iam_policy = {
-  connection_id : string;  (** connection_id *)
-  id : string option; [@option]  (** id *)
-  location : string option; [@option]  (** location *)
-  policy_data : string;  (** policy_data *)
-  project : string option; [@option]  (** project *)
+  connection_id : string prop;  (** connection_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop option; [@option]  (** location *)
+  policy_data : string prop;  (** policy_data *)
+  project : string prop option; [@option]  (** project *)
 }
 [@@deriving yojson_of]
 (** google_bigquery_connection_iam_policy *)

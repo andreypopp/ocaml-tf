@@ -5,16 +5,17 @@
 open! Tf.Prelude
 
 type aws_mq_configuration = {
-  authentication_strategy : string option; [@option]
+  authentication_strategy : string prop option; [@option]
       (** authentication_strategy *)
-  data : string;  (** data *)
-  description : string option; [@option]  (** description *)
-  engine_type : string;  (** engine_type *)
-  engine_version : string;  (** engine_version *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  data : string prop;  (** data *)
+  description : string prop option; [@option]  (** description *)
+  engine_type : string prop;  (** engine_type *)
+  engine_version : string prop;  (** engine_version *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_mq_configuration *)

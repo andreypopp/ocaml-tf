@@ -5,16 +5,16 @@
 open! Tf.Prelude
 
 type aws_identitystore_group__external_ids = {
-  id : string;  (** id *)
-  issuer : string;  (** issuer *)
+  id : string prop;  (** id *)
+  issuer : string prop;  (** issuer *)
 }
 [@@deriving yojson_of]
 
 type aws_identitystore_group = {
-  description : string option; [@option]  (** description *)
-  display_name : string;  (** display_name *)
-  id : string option; [@option]  (** id *)
-  identity_store_id : string;  (** identity_store_id *)
+  description : string prop option; [@option]  (** description *)
+  display_name : string prop;  (** display_name *)
+  id : string prop option; [@option]  (** id *)
+  identity_store_id : string prop;  (** identity_store_id *)
 }
 [@@deriving yojson_of]
 (** aws_identitystore_group *)

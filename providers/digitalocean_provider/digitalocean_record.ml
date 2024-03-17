@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type digitalocean_record = {
-  domain : string;  (** domain *)
-  flags : float option; [@option]  (** flags *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  port : float option; [@option]  (** port *)
-  priority : float option; [@option]  (** priority *)
-  tag : string option; [@option]  (** tag *)
-  ttl : float option; [@option]  (** ttl *)
-  type_ : string; [@key "type"]  (** type *)
-  value : string;  (** value *)
-  weight : float option; [@option]  (** weight *)
+  domain : string prop;  (** domain *)
+  flags : float prop option; [@option]  (** flags *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  port : float prop option; [@option]  (** port *)
+  priority : float prop option; [@option]  (** priority *)
+  tag : string prop option; [@option]  (** tag *)
+  ttl : float prop option; [@option]  (** ttl *)
+  type_ : string prop; [@key "type"]  (** type *)
+  value : string prop;  (** value *)
+  weight : float prop option; [@option]  (** weight *)
 }
 [@@deriving yojson_of]
 (** digitalocean_record *)

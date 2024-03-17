@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuration = {
-  kms_key_arn : string;  (** kms_key_arn *)
+  kms_key_arn : string prop;  (** kms_key_arn *)
 }
 [@@deriving yojson_of]
 (** aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuration *)
 
 type aws_chimesdkvoice_voice_profile_domain__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_chimesdkvoice_voice_profile_domain__timeouts *)
 
 type aws_chimesdkvoice_voice_profile_domain = {
-  description : string option; [@option]  (** description *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   server_side_encryption_configuration :
     aws_chimesdkvoice_voice_profile_domain__server_side_encryption_configuration

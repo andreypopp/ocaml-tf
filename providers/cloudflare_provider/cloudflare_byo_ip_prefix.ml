@@ -5,14 +5,14 @@
 open! Tf.Prelude
 
 type cloudflare_byo_ip_prefix = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  advertisement : string option; [@option]
+  advertisement : string prop option; [@option]
       (** Whether or not the prefix shall be announced. A prefix can be activated or deactivated once every 15 minutes (attempting more regular updates will trigger rate limiting). Available values: `on`, `off`. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of the BYO IP prefix. *)
-  id : string option; [@option]  (** id *)
-  prefix_id : string;
+  id : string prop option; [@option]  (** id *)
+  prefix_id : string prop;
       (** The assigned Bring-Your-Own-IP prefix ID. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

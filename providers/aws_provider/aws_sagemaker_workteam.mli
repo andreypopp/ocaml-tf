@@ -10,12 +10,12 @@ type aws_sagemaker_workteam__notification_configuration
 type aws_sagemaker_workteam
 
 val aws_sagemaker_workteam :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  description:string ->
-  workforce_name:string ->
-  workteam_name:string ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  description:string prop ->
+  workforce_name:string prop ->
+  workteam_name:string prop ->
   member_definition:aws_sagemaker_workteam__member_definition list ->
   notification_configuration:
     aws_sagemaker_workteam__notification_configuration list ->

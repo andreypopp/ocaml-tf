@@ -5,22 +5,22 @@
 open! Tf.Prelude
 
 type cloudflare_managed_headers__managed_request_headers = {
-  enabled : bool;  (** Whether the headers rule is active. *)
-  id : string;  (** Unique headers rule identifier. *)
+  enabled : bool prop;  (** Whether the headers rule is active. *)
+  id : string prop;  (** Unique headers rule identifier. *)
 }
 [@@deriving yojson_of]
 (** The list of managed request headers. *)
 
 type cloudflare_managed_headers__managed_response_headers = {
-  enabled : bool;  (** Whether the headers rule is active. *)
-  id : string;  (** Unique headers rule identifier. *)
+  enabled : bool prop;  (** Whether the headers rule is active. *)
+  id : string prop;  (** Unique headers rule identifier. *)
 }
 [@@deriving yojson_of]
 (** The list of managed response headers. *)
 
 type cloudflare_managed_headers = {
-  id : string option; [@option]  (** id *)
-  zone_id : string;
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. *)
   managed_request_headers :
     cloudflare_managed_headers__managed_request_headers list;

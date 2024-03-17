@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type digitalocean_spaces_bucket_policy = {
-  bucket : string;  (** bucket *)
-  id : string option; [@option]  (** id *)
-  policy : string;  (** policy *)
-  region : string;  (** region *)
+  bucket : string prop;  (** bucket *)
+  id : string prop option; [@option]  (** id *)
+  policy : string prop;  (** policy *)
+  region : string prop;  (** region *)
 }
 [@@deriving yojson_of]
 (** digitalocean_spaces_bucket_policy *)

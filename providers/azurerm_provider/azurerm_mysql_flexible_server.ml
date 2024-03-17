@@ -5,89 +5,90 @@
 open! Tf.Prelude
 
 type azurerm_mysql_flexible_server__customer_managed_key = {
-  geo_backup_key_vault_key_id : string option; [@option]
+  geo_backup_key_vault_key_id : string prop option; [@option]
       (** geo_backup_key_vault_key_id *)
-  geo_backup_user_assigned_identity_id : string option; [@option]
+  geo_backup_user_assigned_identity_id : string prop option;
+      [@option]
       (** geo_backup_user_assigned_identity_id *)
-  key_vault_key_id : string option; [@option]
+  key_vault_key_id : string prop option; [@option]
       (** key_vault_key_id *)
-  primary_user_assigned_identity_id : string option; [@option]
+  primary_user_assigned_identity_id : string prop option; [@option]
       (** primary_user_assigned_identity_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server__customer_managed_key *)
 
 type azurerm_mysql_flexible_server__high_availability = {
-  mode : string;  (** mode *)
-  standby_availability_zone : string option; [@option]
+  mode : string prop;  (** mode *)
+  standby_availability_zone : string prop option; [@option]
       (** standby_availability_zone *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server__high_availability *)
 
 type azurerm_mysql_flexible_server__identity = {
-  identity_ids : string list;  (** identity_ids *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list;  (** identity_ids *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server__identity *)
 
 type azurerm_mysql_flexible_server__maintenance_window = {
-  day_of_week : float option; [@option]  (** day_of_week *)
-  start_hour : float option; [@option]  (** start_hour *)
-  start_minute : float option; [@option]  (** start_minute *)
+  day_of_week : float prop option; [@option]  (** day_of_week *)
+  start_hour : float prop option; [@option]  (** start_hour *)
+  start_minute : float prop option; [@option]  (** start_minute *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server__maintenance_window *)
 
 type azurerm_mysql_flexible_server__storage = {
-  auto_grow_enabled : bool option; [@option]
+  auto_grow_enabled : bool prop option; [@option]
       (** auto_grow_enabled *)
-  io_scaling_enabled : bool option; [@option]
+  io_scaling_enabled : bool prop option; [@option]
       (** io_scaling_enabled *)
-  iops : float option; [@option]  (** iops *)
-  size_gb : float option; [@option]  (** size_gb *)
+  iops : float prop option; [@option]  (** iops *)
+  size_gb : float prop option; [@option]  (** size_gb *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server__storage *)
 
 type azurerm_mysql_flexible_server__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mysql_flexible_server__timeouts *)
 
 type azurerm_mysql_flexible_server = {
-  administrator_login : string option; [@option]
+  administrator_login : string prop option; [@option]
       (** administrator_login *)
-  administrator_password : string option; [@option]
+  administrator_password : string prop option; [@option]
       (** administrator_password *)
-  backup_retention_days : float option; [@option]
+  backup_retention_days : float prop option; [@option]
       (** backup_retention_days *)
-  create_mode : string option; [@option]  (** create_mode *)
-  delegated_subnet_id : string option; [@option]
+  create_mode : string prop option; [@option]  (** create_mode *)
+  delegated_subnet_id : string prop option; [@option]
       (** delegated_subnet_id *)
-  geo_redundant_backup_enabled : bool option; [@option]
+  geo_redundant_backup_enabled : bool prop option; [@option]
       (** geo_redundant_backup_enabled *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  point_in_time_restore_time_in_utc : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  point_in_time_restore_time_in_utc : string prop option; [@option]
       (** point_in_time_restore_time_in_utc *)
-  private_dns_zone_id : string option; [@option]
+  private_dns_zone_id : string prop option; [@option]
       (** private_dns_zone_id *)
-  replication_role : string option; [@option]
+  replication_role : string prop option; [@option]
       (** replication_role *)
-  resource_group_name : string;  (** resource_group_name *)
-  sku_name : string option; [@option]  (** sku_name *)
-  source_server_id : string option; [@option]
+  resource_group_name : string prop;  (** resource_group_name *)
+  sku_name : string prop option; [@option]  (** sku_name *)
+  source_server_id : string prop option; [@option]
       (** source_server_id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  version : string option; [@option]  (** version *)
-  zone : string option; [@option]  (** zone *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  version : string prop option; [@option]  (** version *)
+  zone : string prop option; [@option]  (** zone *)
   customer_managed_key :
     azurerm_mysql_flexible_server__customer_managed_key list;
   high_availability :

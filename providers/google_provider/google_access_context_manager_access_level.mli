@@ -18,12 +18,12 @@ type google_access_context_manager_access_level__timeouts
 type google_access_context_manager_access_level
 
 val google_access_context_manager_access_level :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:google_access_context_manager_access_level__timeouts ->
-  name:string ->
-  parent:string ->
-  title:string ->
+  name:string prop ->
+  parent:string prop ->
+  title:string prop ->
   basic:google_access_context_manager_access_level__basic list ->
   custom:google_access_context_manager_access_level__custom list ->
   string ->

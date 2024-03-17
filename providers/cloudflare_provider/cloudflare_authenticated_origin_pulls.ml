@@ -5,14 +5,15 @@
 open! Tf.Prelude
 
 type cloudflare_authenticated_origin_pulls = {
-  authenticated_origin_pulls_certificate : string option; [@option]
+  authenticated_origin_pulls_certificate : string prop option;
+      [@option]
       (** The ID of an uploaded Authenticated Origin Pulls certificate. If no hostname is provided, this certificate will be used zone wide as Per-Zone Authenticated Origin Pulls. *)
-  enabled : bool;
+  enabled : bool prop;
       (** Whether to enable Authenticated Origin Pulls on the given zone or hostname. *)
-  hostname : string option; [@option]
+  hostname : string prop option; [@option]
       (** Specify a hostname to enable Per-Hostname Authenticated Origin Pulls on, using the provided certificate. *)
-  id : string option; [@option]  (** id *)
-  zone_id : string;
+  id : string prop option; [@option]  (** id *)
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

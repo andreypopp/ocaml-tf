@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type aws_cloudfront_origin_access_control = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  origin_access_control_origin_type : string;
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  origin_access_control_origin_type : string prop;
       (** origin_access_control_origin_type *)
-  signing_behavior : string;  (** signing_behavior *)
-  signing_protocol : string;  (** signing_protocol *)
+  signing_behavior : string prop;  (** signing_behavior *)
+  signing_protocol : string prop;  (** signing_protocol *)
 }
 [@@deriving yojson_of]
 (** aws_cloudfront_origin_access_control *)

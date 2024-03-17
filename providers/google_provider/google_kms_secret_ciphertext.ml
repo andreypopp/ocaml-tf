@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type google_kms_secret_ciphertext__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_kms_secret_ciphertext__timeouts *)
 
 type google_kms_secret_ciphertext = {
-  additional_authenticated_data : string option; [@option]
+  additional_authenticated_data : string prop option; [@option]
       (** The additional authenticated data used for integrity checks during encryption and decryption. *)
-  crypto_key : string;
+  crypto_key : string prop;
       (** The full name of the CryptoKey that will be used to encrypt the provided plaintext.
 Format: ''projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}/cryptoKeys/{{cryptoKey}}'' *)
-  id : string option; [@option]  (** id *)
-  plaintext : string;  (** The plaintext to be encrypted. *)
+  id : string prop option; [@option]  (** id *)
+  plaintext : string prop;  (** The plaintext to be encrypted. *)
   timeouts : google_kms_secret_ciphertext__timeouts option;
 }
 [@@deriving yojson_of]

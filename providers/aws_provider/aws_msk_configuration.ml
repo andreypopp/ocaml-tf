@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_msk_configuration = {
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  kafka_versions : string list option; [@option]
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  kafka_versions : string prop list option; [@option]
       (** kafka_versions *)
-  name : string;  (** name *)
-  server_properties : string;  (** server_properties *)
+  name : string prop;  (** name *)
+  server_properties : string prop;  (** server_properties *)
 }
 [@@deriving yojson_of]
 (** aws_msk_configuration *)

@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type cloudflare_device_managed_networks__config = {
-  sha256 : string;
+  sha256 : string prop;
       (** The SHA-256 hash of the TLS certificate presented by the host found at tls_sockaddr. If absent, regular certificate verification (trusted roots, valid timestamp, etc) will be used to validate the certificate. *)
-  tls_sockaddr : string;
+  tls_sockaddr : string prop;
       (** A network address of the form host:port that the WARP client will use to detect the presence of a TLS host. *)
 }
 [@@deriving yojson_of]
 (** The configuration containing information for the WARP client to detect the managed network. *)
 
 type cloudflare_device_managed_networks = {
-  account_id : string;
+  account_id : string prop;
       (** The account identifier to target for the resource. *)
-  id : string option; [@option]  (** id *)
-  name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;
       (** The name of the Device Managed Network. Must be unique. *)
-  type_ : string; [@key "type"]
+  type_ : string prop; [@key "type"]
       (** The type of Device Managed Network. Available values: `tls`. *)
   config : cloudflare_device_managed_networks__config list;
 }

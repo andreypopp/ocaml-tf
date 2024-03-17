@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type aws_ssoadmin_managed_policy_attachment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** aws_ssoadmin_managed_policy_attachment__timeouts *)
 
 type aws_ssoadmin_managed_policy_attachment = {
-  id : string option; [@option]  (** id *)
-  instance_arn : string;  (** instance_arn *)
-  managed_policy_arn : string;  (** managed_policy_arn *)
-  permission_set_arn : string;  (** permission_set_arn *)
+  id : string prop option; [@option]  (** id *)
+  instance_arn : string prop;  (** instance_arn *)
+  managed_policy_arn : string prop;  (** managed_policy_arn *)
+  permission_set_arn : string prop;  (** permission_set_arn *)
   timeouts : aws_ssoadmin_managed_policy_attachment__timeouts option;
 }
 [@@deriving yojson_of]

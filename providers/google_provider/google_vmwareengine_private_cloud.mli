@@ -9,36 +9,36 @@ type google_vmwareengine_private_cloud__network_config
 type google_vmwareengine_private_cloud__timeouts
 
 type google_vmwareengine_private_cloud__hcx = {
-  fqdn : string;  (** fqdn *)
-  internal_ip : string;  (** internal_ip *)
-  state : string;  (** state *)
-  version : string;  (** version *)
+  fqdn : string prop;  (** fqdn *)
+  internal_ip : string prop;  (** internal_ip *)
+  state : string prop;  (** state *)
+  version : string prop;  (** version *)
 }
 
 type google_vmwareengine_private_cloud__nsx = {
-  fqdn : string;  (** fqdn *)
-  internal_ip : string;  (** internal_ip *)
-  state : string;  (** state *)
-  version : string;  (** version *)
+  fqdn : string prop;  (** fqdn *)
+  internal_ip : string prop;  (** internal_ip *)
+  state : string prop;  (** state *)
+  version : string prop;  (** version *)
 }
 
 type google_vmwareengine_private_cloud__vcenter = {
-  fqdn : string;  (** fqdn *)
-  internal_ip : string;  (** internal_ip *)
-  state : string;  (** state *)
-  version : string;  (** version *)
+  fqdn : string prop;  (** fqdn *)
+  internal_ip : string prop;  (** internal_ip *)
+  state : string prop;  (** state *)
+  version : string prop;  (** version *)
 }
 
 type google_vmwareengine_private_cloud
 
 val google_vmwareengine_private_cloud :
-  ?description:string ->
-  ?id:string ->
-  ?project:string ->
-  ?type_:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?type_:string prop ->
   ?timeouts:google_vmwareengine_private_cloud__timeouts ->
-  location:string ->
-  name:string ->
+  location:string prop ->
+  name:string prop ->
   management_cluster:
     google_vmwareengine_private_cloud__management_cluster list ->
   network_config:

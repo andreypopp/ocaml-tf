@@ -6,11 +6,11 @@ type google_scc_mute_config__timeouts
 type google_scc_mute_config
 
 val google_scc_mute_config :
-  ?description:string ->
-  ?id:string ->
+  ?description:string prop ->
+  ?id:string prop ->
   ?timeouts:google_scc_mute_config__timeouts ->
-  filter:string ->
-  mute_config_id:string ->
-  parent:string ->
+  filter:string prop ->
+  mute_config_id:string prop ->
+  parent:string prop ->
   string ->
   unit

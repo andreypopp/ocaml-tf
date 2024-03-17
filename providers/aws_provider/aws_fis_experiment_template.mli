@@ -18,12 +18,12 @@ type aws_fis_experiment_template__timeouts
 type aws_fis_experiment_template
 
 val aws_fis_experiment_template :
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
   ?timeouts:aws_fis_experiment_template__timeouts ->
-  description:string ->
-  role_arn:string ->
+  description:string prop ->
+  role_arn:string prop ->
   action:aws_fis_experiment_template__action list ->
   log_configuration:
     aws_fis_experiment_template__log_configuration list ->

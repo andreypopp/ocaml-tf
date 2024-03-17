@@ -5,31 +5,31 @@
 open! Tf.Prelude
 
 type azurerm_stream_analytics_reference_input_mssql__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_reference_input_mssql__timeouts *)
 
 type azurerm_stream_analytics_reference_input_mssql = {
-  database : string;  (** database *)
-  delta_snapshot_query : string option; [@option]
+  database : string prop;  (** database *)
+  delta_snapshot_query : string prop option; [@option]
       (** delta_snapshot_query *)
-  full_snapshot_query : string;  (** full_snapshot_query *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  password : string;  (** password *)
-  refresh_interval_duration : string option; [@option]
+  full_snapshot_query : string prop;  (** full_snapshot_query *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  password : string prop;  (** password *)
+  refresh_interval_duration : string prop option; [@option]
       (** refresh_interval_duration *)
-  refresh_type : string;  (** refresh_type *)
-  resource_group_name : string;  (** resource_group_name *)
-  server : string;  (** server *)
-  stream_analytics_job_name : string;
+  refresh_type : string prop;  (** refresh_type *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  server : string prop;  (** server *)
+  stream_analytics_job_name : string prop;
       (** stream_analytics_job_name *)
-  table : string option; [@option]  (** table *)
-  username : string;  (** username *)
+  table : string prop option; [@option]  (** table *)
+  username : string prop;  (** username *)
   timeouts :
     azurerm_stream_analytics_reference_input_mssql__timeouts option;
 }

@@ -6,12 +6,12 @@ type azurerm_maps_account__timeouts
 type azurerm_maps_account
 
 val azurerm_maps_account :
-  ?id:string ->
-  ?local_authentication_enabled:bool ->
-  ?tags:(string * string) list ->
+  ?id:string prop ->
+  ?local_authentication_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_maps_account__timeouts ->
-  name:string ->
-  resource_group_name:string ->
-  sku_name:string ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
   string ->
   unit

@@ -7,11 +7,11 @@ type google_data_catalog_tag__timeouts
 type google_data_catalog_tag
 
 val google_data_catalog_tag :
-  ?column:string ->
-  ?id:string ->
-  ?parent:string ->
+  ?column:string prop ->
+  ?id:string prop ->
+  ?parent:string prop ->
   ?timeouts:google_data_catalog_tag__timeouts ->
-  template:string ->
+  template:string prop ->
   fields:google_data_catalog_tag__fields list ->
   string ->
   unit

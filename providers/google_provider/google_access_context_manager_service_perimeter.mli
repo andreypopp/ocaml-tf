@@ -61,14 +61,14 @@ type google_access_context_manager_service_perimeter__timeouts
 type google_access_context_manager_service_perimeter
 
 val google_access_context_manager_service_perimeter :
-  ?description:string ->
-  ?id:string ->
-  ?perimeter_type:string ->
-  ?use_explicit_dry_run_spec:bool ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?perimeter_type:string prop ->
+  ?use_explicit_dry_run_spec:bool prop ->
   ?timeouts:google_access_context_manager_service_perimeter__timeouts ->
-  name:string ->
-  parent:string ->
-  title:string ->
+  name:string prop ->
+  parent:string prop ->
+  title:string prop ->
   spec:google_access_context_manager_service_perimeter__spec list ->
   status:google_access_context_manager_service_perimeter__status list ->
   string ->

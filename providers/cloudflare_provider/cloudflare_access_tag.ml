@@ -5,13 +5,13 @@
 open! Tf.Prelude
 
 type cloudflare_access_tag = {
-  account_id : string option; [@option]
+  account_id : string prop option; [@option]
       (** The account identifier to target for the resource. Conflicts with `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
-  app_count : float option; [@option]
+  app_count : float prop option; [@option]
       (** Number of apps associated with the tag. *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** Friendly name of the Access Tag. *)
-  zone_id : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** Friendly name of the Access Tag. *)
+  zone_id : string prop option; [@option]
       (** The zone identifier to target for the resource. Conflicts with `account_id`. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

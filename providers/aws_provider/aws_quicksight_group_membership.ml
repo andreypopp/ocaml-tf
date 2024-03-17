@@ -5,11 +5,11 @@
 open! Tf.Prelude
 
 type aws_quicksight_group_membership = {
-  aws_account_id: string option; [@option] (** aws_account_id *)
-  group_name: string;  (** group_name *)
-  id: string option; [@option] (** id *)
-  member_name: string;  (** member_name *)
-  namespace: string option; [@option] (** namespace *)
+  aws_account_id: string prop option; [@option] (** aws_account_id *)
+  group_name: string prop;  (** group_name *)
+  id: string prop option; [@option] (** id *)
+  member_name: string prop;  (** member_name *)
+  namespace: string prop option; [@option] (** namespace *)
 } [@@deriving yojson_of]
 (** aws_quicksight_group_membership *)
 

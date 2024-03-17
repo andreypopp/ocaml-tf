@@ -5,70 +5,70 @@
 open! Tf.Prelude
 
 type azurerm_databox_edge_order__contact = {
-  company_name : string;  (** company_name *)
-  emails : string list;  (** emails *)
-  name : string;  (** name *)
-  phone_number : string;  (** phone_number *)
+  company_name : string prop;  (** company_name *)
+  emails : string prop list;  (** emails *)
+  name : string prop;  (** name *)
+  phone_number : string prop;  (** phone_number *)
 }
 [@@deriving yojson_of]
 (** azurerm_databox_edge_order__contact *)
 
 type azurerm_databox_edge_order__shipment_address = {
-  address : string list;  (** address *)
-  city : string;  (** city *)
-  country : string;  (** country *)
-  postal_code : string;  (** postal_code *)
-  state : string;  (** state *)
+  address : string prop list;  (** address *)
+  city : string prop;  (** city *)
+  country : string prop;  (** country *)
+  postal_code : string prop;  (** postal_code *)
+  state : string prop;  (** state *)
 }
 [@@deriving yojson_of]
 (** azurerm_databox_edge_order__shipment_address *)
 
 type azurerm_databox_edge_order__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_databox_edge_order__timeouts *)
 
 type azurerm_databox_edge_order__return_tracking = {
-  carrier_name : string;  (** carrier_name *)
-  serial_number : string;  (** serial_number *)
-  tracking_id : string;  (** tracking_id *)
-  tracking_url : string;  (** tracking_url *)
+  carrier_name : string prop;  (** carrier_name *)
+  serial_number : string prop;  (** serial_number *)
+  tracking_id : string prop;  (** tracking_id *)
+  tracking_url : string prop;  (** tracking_url *)
 }
 [@@deriving yojson_of]
 
 type azurerm_databox_edge_order__shipment_history = {
-  additional_details : (string * string) list;
+  additional_details : (string * string prop) list;
       (** additional_details *)
-  comments : string;  (** comments *)
-  last_update : string;  (** last_update *)
+  comments : string prop;  (** comments *)
+  last_update : string prop;  (** last_update *)
 }
 [@@deriving yojson_of]
 
 type azurerm_databox_edge_order__shipment_tracking = {
-  carrier_name : string;  (** carrier_name *)
-  serial_number : string;  (** serial_number *)
-  tracking_id : string;  (** tracking_id *)
-  tracking_url : string;  (** tracking_url *)
+  carrier_name : string prop;  (** carrier_name *)
+  serial_number : string prop;  (** serial_number *)
+  tracking_id : string prop;  (** tracking_id *)
+  tracking_url : string prop;  (** tracking_url *)
 }
 [@@deriving yojson_of]
 
 type azurerm_databox_edge_order__status = {
-  additional_details : (string * string) list;
+  additional_details : (string * string prop) list;
       (** additional_details *)
-  comments : string;  (** comments *)
-  info : string;  (** info *)
-  last_update : string;  (** last_update *)
+  comments : string prop;  (** comments *)
+  info : string prop;  (** info *)
+  last_update : string prop;  (** last_update *)
 }
 [@@deriving yojson_of]
 
 type azurerm_databox_edge_order = {
-  device_name : string;  (** device_name *)
-  id : string option; [@option]  (** id *)
-  resource_group_name : string;  (** resource_group_name *)
+  device_name : string prop;  (** device_name *)
+  id : string prop option; [@option]  (** id *)
+  resource_group_name : string prop;  (** resource_group_name *)
   contact : azurerm_databox_edge_order__contact list;
   shipment_address :
     azurerm_databox_edge_order__shipment_address list;

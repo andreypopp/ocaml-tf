@@ -7,7 +7,7 @@ type aws_shield_drt_access_log_bucket_association
 
 val aws_shield_drt_access_log_bucket_association :
   ?timeouts:aws_shield_drt_access_log_bucket_association__timeouts ->
-  log_bucket:string ->
-  role_arn_association_id:string ->
+  log_bucket:string prop ->
+  role_arn_association_id:string prop ->
   string ->
   unit

@@ -5,41 +5,44 @@
 open! Tf.Prelude
 
 type aws_api_gateway_stage__access_log_settings = {
-  destination_arn : string;  (** destination_arn *)
-  format : string;  (** format *)
+  destination_arn : string prop;  (** destination_arn *)
+  format : string prop;  (** format *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_stage__access_log_settings *)
 
 type aws_api_gateway_stage__canary_settings = {
-  percent_traffic : float option; [@option]  (** percent_traffic *)
-  stage_variable_overrides : (string * string) list option; [@option]
+  percent_traffic : float prop option; [@option]
+      (** percent_traffic *)
+  stage_variable_overrides : (string * string prop) list option;
+      [@option]
       (** stage_variable_overrides *)
-  use_stage_cache : bool option; [@option]  (** use_stage_cache *)
+  use_stage_cache : bool prop option; [@option]
+      (** use_stage_cache *)
 }
 [@@deriving yojson_of]
 (** aws_api_gateway_stage__canary_settings *)
 
 type aws_api_gateway_stage = {
-  cache_cluster_enabled : bool option; [@option]
+  cache_cluster_enabled : bool prop option; [@option]
       (** cache_cluster_enabled *)
-  cache_cluster_size : string option; [@option]
+  cache_cluster_size : string prop option; [@option]
       (** cache_cluster_size *)
-  client_certificate_id : string option; [@option]
+  client_certificate_id : string prop option; [@option]
       (** client_certificate_id *)
-  deployment_id : string;  (** deployment_id *)
-  description : string option; [@option]  (** description *)
-  documentation_version : string option; [@option]
+  deployment_id : string prop;  (** deployment_id *)
+  description : string prop option; [@option]  (** description *)
+  documentation_version : string prop option; [@option]
       (** documentation_version *)
-  id : string option; [@option]  (** id *)
-  rest_api_id : string;  (** rest_api_id *)
-  stage_name : string;  (** stage_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  rest_api_id : string prop;  (** rest_api_id *)
+  stage_name : string prop;  (** stage_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  variables : (string * string) list option; [@option]
+  variables : (string * string prop) list option; [@option]
       (** variables *)
-  xray_tracing_enabled : bool option; [@option]
+  xray_tracing_enabled : bool prop option; [@option]
       (** xray_tracing_enabled *)
   access_log_settings :
     aws_api_gateway_stage__access_log_settings list;

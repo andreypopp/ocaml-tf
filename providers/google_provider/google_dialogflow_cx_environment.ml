@@ -5,27 +5,27 @@
 open! Tf.Prelude
 
 type google_dialogflow_cx_environment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_dialogflow_cx_environment__timeouts *)
 
 type google_dialogflow_cx_environment__version_configs = {
-  version : string;
+  version : string prop;
       (** Format: projects/{{project}}/locations/{{location}}/agents/{{agent}}/flows/{{flow}}/versions/{{version}}. *)
 }
 [@@deriving yojson_of]
 (** A list of configurations for flow versions. You should include version configs for all flows that are reachable from [Start Flow][Agent.start_flow] in the agent. Otherwise, an error will be returned. *)
 
 type google_dialogflow_cx_environment = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The human-readable description of the environment. The maximum length is 500 characters. If exceeded, the request is rejected. *)
-  display_name : string;
+  display_name : string prop;
       (** The human-readable name of the environment (unique in an agent). Limit of 64 characters. *)
-  id : string option; [@option]  (** id *)
-  parent : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  parent : string prop option; [@option]
       (** The Agent to create an Environment for.
 Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
   timeouts : google_dialogflow_cx_environment__timeouts option;

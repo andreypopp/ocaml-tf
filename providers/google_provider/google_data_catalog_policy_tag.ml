@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type google_data_catalog_policy_tag__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_data_catalog_policy_tag__timeouts *)
 
 type google_data_catalog_policy_tag = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** Description of this policy tag. It must: contain only unicode characters, tabs,
 newlines, carriage returns and page breaks; and be at most 2000 bytes long when
 encoded in UTF-8. If not set, defaults to an empty description.
 If not set, defaults to an empty description. *)
-  display_name : string;
+  display_name : string prop;
       (** User defined name of this policy tag. It must: be unique within the parent
 taxonomy; contain only unicode letters, numbers, underscores, dashes and spaces;
 not start or end with spaces; and be at most 200 bytes long when encoded in UTF-8. *)
-  id : string option; [@option]  (** id *)
-  parent_policy_tag : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  parent_policy_tag : string prop option; [@option]
       (** Resource name of this policy tag's parent policy tag.
 If empty, it means this policy tag is a top level policy tag.
 If not set, defaults to an empty string. *)
-  taxonomy : string;
+  taxonomy : string prop;
       (** Taxonomy the policy tag is associated with *)
   timeouts : google_data_catalog_policy_tag__timeouts option;
 }

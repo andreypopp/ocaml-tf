@@ -5,57 +5,58 @@
 open! Tf.Prelude
 
 type azurerm_mssql_server__azuread_administrator = {
-  azuread_authentication_only : bool option; [@option]
+  azuread_authentication_only : bool prop option; [@option]
       (** azuread_authentication_only *)
-  login_username : string;  (** login_username *)
-  object_id : string;  (** object_id *)
-  tenant_id : string option; [@option]  (** tenant_id *)
+  login_username : string prop;  (** login_username *)
+  object_id : string prop;  (** object_id *)
+  tenant_id : string prop option; [@option]  (** tenant_id *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_server__azuread_administrator *)
 
 type azurerm_mssql_server__identity = {
-  identity_ids : string list option; [@option]  (** identity_ids *)
-  principal_id : string;  (** principal_id *)
-  tenant_id : string;  (** tenant_id *)
-  type_ : string; [@key "type"]  (** type *)
+  identity_ids : string prop list option; [@option]
+      (** identity_ids *)
+  principal_id : string prop;  (** principal_id *)
+  tenant_id : string prop;  (** tenant_id *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_server__identity *)
 
 type azurerm_mssql_server__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_mssql_server__timeouts *)
 
 type azurerm_mssql_server = {
-  administrator_login : string option; [@option]
+  administrator_login : string prop option; [@option]
       (** administrator_login *)
-  administrator_login_password : string option; [@option]
+  administrator_login_password : string prop option; [@option]
       (** administrator_login_password *)
-  connection_policy : string option; [@option]
+  connection_policy : string prop option; [@option]
       (** connection_policy *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  minimum_tls_version : string option; [@option]
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  minimum_tls_version : string prop option; [@option]
       (** minimum_tls_version *)
-  name : string;  (** name *)
-  outbound_network_restriction_enabled : bool option; [@option]
+  name : string prop;  (** name *)
+  outbound_network_restriction_enabled : bool prop option; [@option]
       (** outbound_network_restriction_enabled *)
-  primary_user_assigned_identity_id : string option; [@option]
+  primary_user_assigned_identity_id : string prop option; [@option]
       (** primary_user_assigned_identity_id *)
-  public_network_access_enabled : bool option; [@option]
+  public_network_access_enabled : bool prop option; [@option]
       (** public_network_access_enabled *)
-  resource_group_name : string;  (** resource_group_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  transparent_data_encryption_key_vault_key_id : string option;
+  resource_group_name : string prop;  (** resource_group_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  transparent_data_encryption_key_vault_key_id : string prop option;
       [@option]
       (** transparent_data_encryption_key_vault_key_id *)
-  version : string;  (** version *)
+  version : string prop;  (** version *)
   azuread_administrator :
     azurerm_mssql_server__azuread_administrator list;
   identity : azurerm_mssql_server__identity list;

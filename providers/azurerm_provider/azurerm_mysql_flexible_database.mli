@@ -6,12 +6,12 @@ type azurerm_mysql_flexible_database__timeouts
 type azurerm_mysql_flexible_database
 
 val azurerm_mysql_flexible_database :
-  ?id:string ->
+  ?id:string prop ->
   ?timeouts:azurerm_mysql_flexible_database__timeouts ->
-  charset:string ->
-  collation:string ->
-  name:string ->
-  resource_group_name:string ->
-  server_name:string ->
+  charset:string prop ->
+  collation:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
   string ->
   unit

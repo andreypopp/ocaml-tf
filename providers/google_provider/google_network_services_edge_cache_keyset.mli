@@ -8,12 +8,12 @@ type google_network_services_edge_cache_keyset__validation_shared_keys
 type google_network_services_edge_cache_keyset
 
 val google_network_services_edge_cache_keyset :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_network_services_edge_cache_keyset__timeouts ->
-  name:string ->
+  name:string prop ->
   public_key:
     google_network_services_edge_cache_keyset__public_key list ->
   validation_shared_keys:

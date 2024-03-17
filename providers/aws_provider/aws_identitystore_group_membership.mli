@@ -5,9 +5,9 @@ open! Tf.Prelude
 type aws_identitystore_group_membership
 
 val aws_identitystore_group_membership :
-  ?id:string ->
-  group_id:string ->
-  identity_store_id:string ->
-  member_id:string ->
+  ?id:string prop ->
+  group_id:string prop ->
+  identity_store_id:string prop ->
+  member_id:string prop ->
   string ->
   unit

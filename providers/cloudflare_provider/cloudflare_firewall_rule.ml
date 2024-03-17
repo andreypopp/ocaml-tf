@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type cloudflare_firewall_rule = {
-  action : string;
+  action : string prop;
       (** The action to apply to a matched request. Available values: `block`, `challenge`, `allow`, `js_challenge`, `managed_challenge`, `log`, `bypass`. *)
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** A description of the rule to help identify it. *)
-  filter_id : string;
+  filter_id : string prop;
       (** The identifier of the Filter to use for determining if the Firewall Rule should be triggered. *)
-  id : string option; [@option]  (** id *)
-  paused : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  paused : bool prop option; [@option]
       (** Whether this filter based firewall rule is currently paused. *)
-  priority : float option; [@option]
+  priority : float prop option; [@option]
       (** The priority of the rule to allow control of processing order. A lower number indicates high priority. If not provided, any rules with a priority will be sequenced before those without. *)
-  products : string list option; [@option]
+  products : string prop list option; [@option]
       (** List of products to bypass for a request when the bypass action is used. Available values: `zoneLockdown`, `uaBlock`, `bic`, `hot`, `securityLevel`, `rateLimit`, `waf`. *)
-  zone_id : string;
+  zone_id : string prop;
       (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
 [@@deriving yojson_of]

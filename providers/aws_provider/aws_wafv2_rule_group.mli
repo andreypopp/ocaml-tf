@@ -14179,14 +14179,14 @@ type aws_wafv2_rule_group__visibility_config
 type aws_wafv2_rule_group
 
 val aws_wafv2_rule_group :
-    ?description:string ->
-    ?id:string ->
-    ?name:string ->
-    ?name_prefix:string ->
-    ?tags:(string * string) list ->
-    ?tags_all:(string * string) list ->
-    capacity:float ->
-    scope:string ->
+    ?description:string prop ->
+    ?id:string prop ->
+    ?name:string prop ->
+    ?name_prefix:string prop ->
+    ?tags:(string * string prop) list ->
+    ?tags_all:(string * string prop) list ->
+    capacity:float prop ->
+    scope:string prop ->
     custom_response_body:aws_wafv2_rule_group__custom_response_body list ->
     rule:aws_wafv2_rule_group__rule list ->
     visibility_config:aws_wafv2_rule_group__visibility_config list ->

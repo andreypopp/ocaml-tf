@@ -6,12 +6,12 @@ type google_firestore_document__timeouts
 type google_firestore_document
 
 val google_firestore_document :
-  ?database:string ->
-  ?id:string ->
-  ?project:string ->
+  ?database:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
   ?timeouts:google_firestore_document__timeouts ->
-  collection:string ->
-  document_id:string ->
-  fields:string ->
+  collection:string prop ->
+  document_id:string prop ->
+  fields:string prop ->
   string ->
   unit

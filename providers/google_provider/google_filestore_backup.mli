@@ -6,14 +6,14 @@ type google_filestore_backup__timeouts
 type google_filestore_backup
 
 val google_filestore_backup :
-  ?description:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_filestore_backup__timeouts ->
-  location:string ->
-  name:string ->
-  source_file_share:string ->
-  source_instance:string ->
+  location:string prop ->
+  name:string prop ->
+  source_file_share:string prop ->
+  source_instance:string prop ->
   string ->
   unit

@@ -28,19 +28,19 @@ type azurerm_data_factory_integration_runtime_azure_ssis__vnet_integration
 type azurerm_data_factory_integration_runtime_azure_ssis
 
 val azurerm_data_factory_integration_runtime_azure_ssis :
-  ?credential_name:string ->
-  ?description:string ->
-  ?edition:string ->
-  ?id:string ->
-  ?license_type:string ->
-  ?max_parallel_executions_per_node:float ->
-  ?number_of_nodes:float ->
+  ?credential_name:string prop ->
+  ?description:string prop ->
+  ?edition:string prop ->
+  ?id:string prop ->
+  ?license_type:string prop ->
+  ?max_parallel_executions_per_node:float prop ->
+  ?number_of_nodes:float prop ->
   ?timeouts:
     azurerm_data_factory_integration_runtime_azure_ssis__timeouts ->
-  data_factory_id:string ->
-  location:string ->
-  name:string ->
-  node_size:string ->
+  data_factory_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  node_size:string prop ->
   catalog_info:
     azurerm_data_factory_integration_runtime_azure_ssis__catalog_info
     list ->

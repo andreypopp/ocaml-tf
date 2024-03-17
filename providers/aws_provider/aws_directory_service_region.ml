@@ -5,28 +5,28 @@
 open! Tf.Prelude
 
 type aws_directory_service_region__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_region__timeouts *)
 
 type aws_directory_service_region__vpc_settings = {
-  subnet_ids : string list;  (** subnet_ids *)
-  vpc_id : string;  (** vpc_id *)
+  subnet_ids : string prop list;  (** subnet_ids *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_directory_service_region__vpc_settings *)
 
 type aws_directory_service_region = {
-  desired_number_of_domain_controllers : float option; [@option]
+  desired_number_of_domain_controllers : float prop option; [@option]
       (** desired_number_of_domain_controllers *)
-  directory_id : string;  (** directory_id *)
-  id : string option; [@option]  (** id *)
-  region_name : string;  (** region_name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  directory_id : string prop;  (** directory_id *)
+  id : string prop option; [@option]  (** id *)
+  region_name : string prop;  (** region_name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   timeouts : aws_directory_service_region__timeouts option;
   vpc_settings : aws_directory_service_region__vpc_settings list;

@@ -5,23 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_template_deployment__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_template_deployment__timeouts *)
 
 type azurerm_template_deployment = {
-  deployment_mode : string;  (** deployment_mode *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  deployment_mode : string prop;  (** deployment_mode *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  parameters_body : string option; [@option]  (** parameters_body *)
-  resource_group_name : string;  (** resource_group_name *)
-  template_body : string option; [@option]  (** template_body *)
+  parameters_body : string prop option; [@option]
+      (** parameters_body *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  template_body : string prop option; [@option]  (** template_body *)
   timeouts : azurerm_template_deployment__timeouts option;
 }
 [@@deriving yojson_of]

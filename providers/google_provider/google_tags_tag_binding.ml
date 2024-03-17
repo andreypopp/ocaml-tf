@@ -5,17 +5,17 @@
 open! Tf.Prelude
 
 type google_tags_tag_binding__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
 }
 [@@deriving yojson_of]
 (** google_tags_tag_binding__timeouts *)
 
 type google_tags_tag_binding = {
-  id : string option; [@option]  (** id *)
-  parent : string;
+  id : string prop option; [@option]  (** id *)
+  parent : string prop;
       (** The full resource name of the resource the TagValue is bound to. E.g. //cloudresourcemanager.googleapis.com/projects/123 *)
-  tag_value : string;
+  tag_value : string prop;
       (** The TagValue of the TagBinding. Must be of the form tagValues/456. *)
   timeouts : google_tags_tag_binding__timeouts option;
 }

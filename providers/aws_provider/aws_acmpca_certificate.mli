@@ -6,12 +6,12 @@ type aws_acmpca_certificate__validity
 type aws_acmpca_certificate
 
 val aws_acmpca_certificate :
-  ?api_passthrough:string ->
-  ?id:string ->
-  ?template_arn:string ->
-  certificate_authority_arn:string ->
-  certificate_signing_request:string ->
-  signing_algorithm:string ->
+  ?api_passthrough:string prop ->
+  ?id:string prop ->
+  ?template_arn:string prop ->
+  certificate_authority_arn:string prop ->
+  certificate_signing_request:string prop ->
+  signing_algorithm:string prop ->
   validity:aws_acmpca_certificate__validity list ->
   string ->
   unit

@@ -47,13 +47,13 @@ type aws_kinesis_analytics_application__reference_data_sources
 type aws_kinesis_analytics_application
 
 val aws_kinesis_analytics_application :
-  ?code:string ->
-  ?description:string ->
-  ?id:string ->
-  ?start_application:bool ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  name:string ->
+  ?code:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?start_application:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
   cloudwatch_logging_options:
     aws_kinesis_analytics_application__cloudwatch_logging_options
     list ->

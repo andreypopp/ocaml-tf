@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type azurerm_bot_channel_ms_teams__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_bot_channel_ms_teams__timeouts *)
 
 type azurerm_bot_channel_ms_teams = {
-  bot_name : string;  (** bot_name *)
-  calling_web_hook : string option; [@option]
+  bot_name : string prop;  (** bot_name *)
+  calling_web_hook : string prop option; [@option]
       (** calling_web_hook *)
-  deployment_environment : string option; [@option]
+  deployment_environment : string prop option; [@option]
       (** deployment_environment *)
-  enable_calling : bool option; [@option]  (** enable_calling *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  resource_group_name : string;  (** resource_group_name *)
+  enable_calling : bool prop option; [@option]  (** enable_calling *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  resource_group_name : string prop;  (** resource_group_name *)
   timeouts : azurerm_bot_channel_ms_teams__timeouts option;
 }
 [@@deriving yojson_of]

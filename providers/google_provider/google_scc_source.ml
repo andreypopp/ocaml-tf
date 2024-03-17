@@ -5,24 +5,24 @@
 open! Tf.Prelude
 
 type google_scc_source__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** google_scc_source__timeouts *)
 
 type google_scc_source = {
-  description : string option; [@option]
+  description : string prop option; [@option]
       (** The description of the source (max of 1024 characters). *)
-  display_name : string;
+  display_name : string prop;
       (** The source’s display name. A source’s display name must be unique
 amongst its siblings, for example, two sources with the same parent
 can't share the same display name. The display name must start and end
 with a letter or digit, may contain letters, digits, spaces, hyphens,
 and underscores, and can be no longer than 32 characters. *)
-  id : string option; [@option]  (** id *)
-  organization : string;
+  id : string prop option; [@option]  (** id *)
+  organization : string prop;
       (** The organization whose Cloud Security Command Center the Source
 lives in. *)
   timeouts : google_scc_source__timeouts option;

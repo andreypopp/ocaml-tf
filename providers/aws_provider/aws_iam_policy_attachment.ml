@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_iam_policy_attachment = {
-  groups : string list option; [@option]  (** groups *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  policy_arn : string;  (** policy_arn *)
-  roles : string list option; [@option]  (** roles *)
-  users : string list option; [@option]  (** users *)
+  groups : string prop list option; [@option]  (** groups *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  policy_arn : string prop;  (** policy_arn *)
+  roles : string prop list option; [@option]  (** roles *)
+  users : string prop list option; [@option]  (** users *)
 }
 [@@deriving yojson_of]
 (** aws_iam_policy_attachment *)

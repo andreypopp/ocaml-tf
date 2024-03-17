@@ -14,18 +14,18 @@ type azurerm_resource_group_policy_assignment__timeouts
 type azurerm_resource_group_policy_assignment
 
 val azurerm_resource_group_policy_assignment :
-  ?description:string ->
-  ?display_name:string ->
-  ?enforce:bool ->
-  ?id:string ->
-  ?location:string ->
-  ?metadata:string ->
-  ?not_scopes:string list ->
-  ?parameters:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?enforce:bool prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?metadata:string prop ->
+  ?not_scopes:string prop list ->
+  ?parameters:string prop ->
   ?timeouts:azurerm_resource_group_policy_assignment__timeouts ->
-  name:string ->
-  policy_definition_id:string ->
-  resource_group_id:string ->
+  name:string prop ->
+  policy_definition_id:string prop ->
+  resource_group_id:string prop ->
   identity:azurerm_resource_group_policy_assignment__identity list ->
   non_compliance_message:
     azurerm_resource_group_policy_assignment__non_compliance_message

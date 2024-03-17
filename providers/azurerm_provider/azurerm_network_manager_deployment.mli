@@ -6,12 +6,12 @@ type azurerm_network_manager_deployment__timeouts
 type azurerm_network_manager_deployment
 
 val azurerm_network_manager_deployment :
-  ?id:string ->
-  ?triggers:(string * string) list ->
+  ?id:string prop ->
+  ?triggers:(string * string prop) list ->
   ?timeouts:azurerm_network_manager_deployment__timeouts ->
-  configuration_ids:string list ->
-  location:string ->
-  network_manager_id:string ->
-  scope_access:string ->
+  configuration_ids:string prop list ->
+  location:string prop ->
+  network_manager_id:string prop ->
+  scope_access:string prop ->
   string ->
   unit

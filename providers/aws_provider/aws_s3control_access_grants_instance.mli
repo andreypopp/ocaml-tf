@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_s3control_access_grants_instance
 
 val aws_s3control_access_grants_instance :
-  ?account_id:string ->
-  ?identity_center_arn:string ->
-  ?tags:(string * string) list ->
+  ?account_id:string prop ->
+  ?identity_center_arn:string prop ->
+  ?tags:(string * string prop) list ->
   string ->
   unit

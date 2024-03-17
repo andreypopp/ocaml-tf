@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_gallery_application__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_gallery_application__timeouts *)
 
 type azurerm_gallery_application = {
-  description : string option; [@option]  (** description *)
-  end_of_life_date : string option; [@option]
+  description : string prop option; [@option]  (** description *)
+  end_of_life_date : string prop option; [@option]
       (** end_of_life_date *)
-  eula : string option; [@option]  (** eula *)
-  gallery_id : string;  (** gallery_id *)
-  id : string option; [@option]  (** id *)
-  location : string;  (** location *)
-  name : string;  (** name *)
-  privacy_statement_uri : string option; [@option]
+  eula : string prop option; [@option]  (** eula *)
+  gallery_id : string prop;  (** gallery_id *)
+  id : string prop option; [@option]  (** id *)
+  location : string prop;  (** location *)
+  name : string prop;  (** name *)
+  privacy_statement_uri : string prop option; [@option]
       (** privacy_statement_uri *)
-  release_note_uri : string option; [@option]
+  release_note_uri : string prop option; [@option]
       (** release_note_uri *)
-  supported_os_type : string;  (** supported_os_type *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  supported_os_type : string prop;  (** supported_os_type *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_gallery_application__timeouts option;
 }
 [@@deriving yojson_of]

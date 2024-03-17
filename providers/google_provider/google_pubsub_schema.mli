@@ -6,11 +6,11 @@ type google_pubsub_schema__timeouts
 type google_pubsub_schema
 
 val google_pubsub_schema :
-  ?definition:string ->
-  ?id:string ->
-  ?project:string ->
-  ?type_:string ->
+  ?definition:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?type_:string prop ->
   ?timeouts:google_pubsub_schema__timeouts ->
-  name:string ->
+  name:string prop ->
   string ->
   unit

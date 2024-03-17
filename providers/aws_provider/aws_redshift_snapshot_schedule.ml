@@ -5,15 +5,16 @@
 open! Tf.Prelude
 
 type aws_redshift_snapshot_schedule = {
-  definitions : string list;  (** definitions *)
-  description : string option; [@option]  (** description *)
-  force_destroy : bool option; [@option]  (** force_destroy *)
-  id : string option; [@option]  (** id *)
-  identifier : string option; [@option]  (** identifier *)
-  identifier_prefix : string option; [@option]
+  definitions : string prop list;  (** definitions *)
+  description : string prop option; [@option]  (** description *)
+  force_destroy : bool prop option; [@option]  (** force_destroy *)
+  id : string prop option; [@option]  (** id *)
+  identifier : string prop option; [@option]  (** identifier *)
+  identifier_prefix : string prop option; [@option]
       (** identifier_prefix *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]  (** tags_all *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
+      (** tags_all *)
 }
 [@@deriving yojson_of]
 (** aws_redshift_snapshot_schedule *)

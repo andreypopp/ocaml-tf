@@ -5,34 +5,36 @@
 open! Tf.Prelude
 
 type azurerm_data_factory_linked_custom_service__integration_runtime = {
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_custom_service__integration_runtime *)
 
 type azurerm_data_factory_linked_custom_service__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_data_factory_linked_custom_service__timeouts *)
 
 type azurerm_data_factory_linked_custom_service = {
-  additional_properties : (string * string) list option; [@option]
+  additional_properties : (string * string prop) list option;
+      [@option]
       (** additional_properties *)
-  annotations : string list option; [@option]  (** annotations *)
-  data_factory_id : string;  (** data_factory_id *)
-  description : string option; [@option]  (** description *)
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  parameters : (string * string) list option; [@option]
+  annotations : string prop list option; [@option]
+      (** annotations *)
+  data_factory_id : string prop;  (** data_factory_id *)
+  description : string prop option; [@option]  (** description *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  parameters : (string * string prop) list option; [@option]
       (** parameters *)
-  type_ : string; [@key "type"]  (** type *)
-  type_properties_json : string;  (** type_properties_json *)
+  type_ : string prop; [@key "type"]  (** type *)
+  type_properties_json : string prop;  (** type_properties_json *)
   integration_runtime :
     azurerm_data_factory_linked_custom_service__integration_runtime
     list;

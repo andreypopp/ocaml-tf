@@ -6,17 +6,17 @@ type azurerm_container_registry_webhook__timeouts
 type azurerm_container_registry_webhook
 
 val azurerm_container_registry_webhook :
-  ?custom_headers:(string * string) list ->
-  ?id:string ->
-  ?scope:string ->
-  ?status:string ->
-  ?tags:(string * string) list ->
+  ?custom_headers:(string * string prop) list ->
+  ?id:string prop ->
+  ?scope:string prop ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
   ?timeouts:azurerm_container_registry_webhook__timeouts ->
-  actions:string list ->
-  location:string ->
-  name:string ->
-  registry_name:string ->
-  resource_group_name:string ->
-  service_uri:string ->
+  actions:string prop list ->
+  location:string prop ->
+  name:string prop ->
+  registry_name:string prop ->
+  resource_group_name:string prop ->
+  service_uri:string prop ->
   string ->
   unit

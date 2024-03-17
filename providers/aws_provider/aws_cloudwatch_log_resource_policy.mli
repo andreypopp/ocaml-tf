@@ -5,8 +5,8 @@ open! Tf.Prelude
 type aws_cloudwatch_log_resource_policy
 
 val aws_cloudwatch_log_resource_policy :
-  ?id:string ->
-  policy_document:string ->
-  policy_name:string ->
+  ?id:string prop ->
+  policy_document:string prop ->
+  policy_name:string prop ->
   string ->
   unit

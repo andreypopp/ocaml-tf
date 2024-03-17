@@ -6,10 +6,10 @@ type aws_appconfig_environment__monitor
 type aws_appconfig_environment
 
 val aws_appconfig_environment :
-  ?description:string ->
-  ?tags:(string * string) list ->
-  application_id:string ->
-  name:string ->
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  application_id:string prop ->
+  name:string prop ->
   monitor:aws_appconfig_environment__monitor list ->
   string ->
   unit

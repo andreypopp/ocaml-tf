@@ -148,15 +148,15 @@ type aws_kinesis_firehose_delivery_stream__timeouts
 type aws_kinesis_firehose_delivery_stream
 
 val aws_kinesis_firehose_delivery_stream :
-  ?arn:string ->
-  ?destination_id:string ->
-  ?id:string ->
-  ?tags:(string * string) list ->
-  ?tags_all:(string * string) list ->
-  ?version_id:string ->
+  ?arn:string prop ->
+  ?destination_id:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?version_id:string prop ->
   ?timeouts:aws_kinesis_firehose_delivery_stream__timeouts ->
-  destination:string ->
-  name:string ->
+  destination:string prop ->
+  name:string prop ->
   elasticsearch_configuration:
     aws_kinesis_firehose_delivery_stream__elasticsearch_configuration
     list ->

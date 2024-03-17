@@ -6,15 +6,15 @@ type google_discovery_engine_data_store__timeouts
 type google_discovery_engine_data_store
 
 val google_discovery_engine_data_store :
-  ?create_advanced_site_search:bool ->
-  ?id:string ->
-  ?project:string ->
-  ?solution_types:string list ->
+  ?create_advanced_site_search:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?solution_types:string prop list ->
   ?timeouts:google_discovery_engine_data_store__timeouts ->
-  content_config:string ->
-  data_store_id:string ->
-  display_name:string ->
-  industry_vertical:string ->
-  location:string ->
+  content_config:string prop ->
+  data_store_id:string prop ->
+  display_name:string prop ->
+  industry_vertical:string prop ->
+  location:string prop ->
   string ->
   unit

@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_verifiedaccess_instance_trust_provider_attachment = {
-  id : string option; [@option]  (** id *)
-  verifiedaccess_instance_id : string;
+  id : string prop option; [@option]  (** id *)
+  verifiedaccess_instance_id : string prop;
       (** verifiedaccess_instance_id *)
-  verifiedaccess_trust_provider_id : string;
+  verifiedaccess_trust_provider_id : string prop;
       (** verifiedaccess_trust_provider_id *)
 }
 [@@deriving yojson_of]

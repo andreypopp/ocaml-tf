@@ -5,29 +5,29 @@
 open! Tf.Prelude
 
 type azurerm_logz_sub_account__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_logz_sub_account__timeouts *)
 
 type azurerm_logz_sub_account__user = {
-  email : string;  (** email *)
-  first_name : string;  (** first_name *)
-  last_name : string;  (** last_name *)
-  phone_number : string;  (** phone_number *)
+  email : string prop;  (** email *)
+  first_name : string prop;  (** first_name *)
+  last_name : string prop;  (** last_name *)
+  phone_number : string prop;  (** phone_number *)
 }
 [@@deriving yojson_of]
 (** azurerm_logz_sub_account__user *)
 
 type azurerm_logz_sub_account = {
-  enabled : bool option; [@option]  (** enabled *)
-  id : string option; [@option]  (** id *)
-  logz_monitor_id : string;  (** logz_monitor_id *)
-  name : string;  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  enabled : bool prop option; [@option]  (** enabled *)
+  id : string prop option; [@option]  (** id *)
+  logz_monitor_id : string prop;  (** logz_monitor_id *)
+  name : string prop;  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   timeouts : azurerm_logz_sub_account__timeouts option;
   user : azurerm_logz_sub_account__user list;
 }

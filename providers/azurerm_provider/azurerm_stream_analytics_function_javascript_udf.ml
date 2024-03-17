@@ -5,34 +5,34 @@
 open! Tf.Prelude
 
 type azurerm_stream_analytics_function_javascript_udf__input = {
-  configuration_parameter : bool option; [@option]
+  configuration_parameter : bool prop option; [@option]
       (** configuration_parameter *)
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_function_javascript_udf__input *)
 
 type azurerm_stream_analytics_function_javascript_udf__output = {
-  type_ : string; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]  (** type *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_function_javascript_udf__output *)
 
 type azurerm_stream_analytics_function_javascript_udf__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_stream_analytics_function_javascript_udf__timeouts *)
 
 type azurerm_stream_analytics_function_javascript_udf = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  resource_group_name : string;  (** resource_group_name *)
-  script : string;  (** script *)
-  stream_analytics_job_name : string;
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  resource_group_name : string prop;  (** resource_group_name *)
+  script : string prop;  (** script *)
+  stream_analytics_job_name : string prop;
       (** stream_analytics_job_name *)
   input :
     azurerm_stream_analytics_function_javascript_udf__input list;

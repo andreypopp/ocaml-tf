@@ -5,21 +5,22 @@
 open! Tf.Prelude
 
 type azurerm_datadog_monitor_sso_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_datadog_monitor_sso_configuration__timeouts *)
 
 type azurerm_datadog_monitor_sso_configuration = {
-  datadog_monitor_id : string;  (** datadog_monitor_id *)
-  enterprise_application_id : string;
+  datadog_monitor_id : string prop;  (** datadog_monitor_id *)
+  enterprise_application_id : string prop;
       (** enterprise_application_id *)
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  single_sign_on_enabled : string;  (** single_sign_on_enabled *)
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  single_sign_on_enabled : string prop;
+      (** single_sign_on_enabled *)
   timeouts :
     azurerm_datadog_monitor_sso_configuration__timeouts option;
 }

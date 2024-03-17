@@ -5,19 +5,19 @@
 open! Tf.Prelude
 
 type aws_ivschat_logging_configuration__destination_configuration__cloudwatch_logs = {
-  log_group_name : string;  (** log_group_name *)
+  log_group_name : string prop;  (** log_group_name *)
 }
 [@@deriving yojson_of]
 (** aws_ivschat_logging_configuration__destination_configuration__cloudwatch_logs *)
 
 type aws_ivschat_logging_configuration__destination_configuration__firehose = {
-  delivery_stream_name : string;  (** delivery_stream_name *)
+  delivery_stream_name : string prop;  (** delivery_stream_name *)
 }
 [@@deriving yojson_of]
 (** aws_ivschat_logging_configuration__destination_configuration__firehose *)
 
 type aws_ivschat_logging_configuration__destination_configuration__s3 = {
-  bucket_name : string;  (** bucket_name *)
+  bucket_name : string prop;  (** bucket_name *)
 }
 [@@deriving yojson_of]
 (** aws_ivschat_logging_configuration__destination_configuration__s3 *)
@@ -37,18 +37,18 @@ type aws_ivschat_logging_configuration__destination_configuration = {
 (** aws_ivschat_logging_configuration__destination_configuration *)
 
 type aws_ivschat_logging_configuration__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** aws_ivschat_logging_configuration__timeouts *)
 
 type aws_ivschat_logging_configuration = {
-  id : string option; [@option]  (** id *)
-  name : string option; [@option]  (** name *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop option; [@option]  (** name *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
   destination_configuration :
     aws_ivschat_logging_configuration__destination_configuration list;

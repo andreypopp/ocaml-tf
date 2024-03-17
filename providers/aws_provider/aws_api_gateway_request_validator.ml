@@ -5,12 +5,12 @@
 open! Tf.Prelude
 
 type aws_api_gateway_request_validator = {
-  id : string option; [@option]  (** id *)
-  name : string;  (** name *)
-  rest_api_id : string;  (** rest_api_id *)
-  validate_request_body : bool option; [@option]
+  id : string prop option; [@option]  (** id *)
+  name : string prop;  (** name *)
+  rest_api_id : string prop;  (** rest_api_id *)
+  validate_request_body : bool prop option; [@option]
       (** validate_request_body *)
-  validate_request_parameters : bool option; [@option]
+  validate_request_parameters : bool prop option; [@option]
       (** validate_request_parameters *)
 }
 [@@deriving yojson_of]

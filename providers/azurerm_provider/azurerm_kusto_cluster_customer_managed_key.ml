@@ -5,21 +5,21 @@
 open! Tf.Prelude
 
 type azurerm_kusto_cluster_customer_managed_key__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_kusto_cluster_customer_managed_key__timeouts *)
 
 type azurerm_kusto_cluster_customer_managed_key = {
-  cluster_id : string;  (** cluster_id *)
-  id : string option; [@option]  (** id *)
-  key_name : string;  (** key_name *)
-  key_vault_id : string;  (** key_vault_id *)
-  key_version : string option; [@option]  (** key_version *)
-  user_identity : string option; [@option]  (** user_identity *)
+  cluster_id : string prop;  (** cluster_id *)
+  id : string prop option; [@option]  (** id *)
+  key_name : string prop;  (** key_name *)
+  key_vault_id : string prop;  (** key_vault_id *)
+  key_version : string prop option; [@option]  (** key_version *)
+  user_identity : string prop option; [@option]  (** user_identity *)
   timeouts :
     azurerm_kusto_cluster_customer_managed_key__timeouts option;
 }

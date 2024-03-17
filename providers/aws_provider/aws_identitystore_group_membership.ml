@@ -5,10 +5,10 @@
 open! Tf.Prelude
 
 type aws_identitystore_group_membership = {
-  group_id : string;  (** group_id *)
-  id : string option; [@option]  (** id *)
-  identity_store_id : string;  (** identity_store_id *)
-  member_id : string;  (** member_id *)
+  group_id : string prop;  (** group_id *)
+  id : string prop option; [@option]  (** id *)
+  identity_store_id : string prop;  (** identity_store_id *)
+  member_id : string prop;  (** member_id *)
 }
 [@@deriving yojson_of]
 (** aws_identitystore_group_membership *)

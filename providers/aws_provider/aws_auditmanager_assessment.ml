@@ -5,20 +5,20 @@
 open! Tf.Prelude
 
 type aws_auditmanager_assessment__assessment_reports_destination = {
-  destination : string;  (** destination *)
-  destination_type : string;  (** destination_type *)
+  destination : string prop;  (** destination *)
+  destination_type : string prop;  (** destination_type *)
 }
 [@@deriving yojson_of]
 (** aws_auditmanager_assessment__assessment_reports_destination *)
 
 type aws_auditmanager_assessment__scope__aws_accounts = {
-  id : string;  (** id *)
+  id : string prop;  (** id *)
 }
 [@@deriving yojson_of]
 (** aws_auditmanager_assessment__scope__aws_accounts *)
 
 type aws_auditmanager_assessment__scope__aws_services = {
-  service_name : string;  (** service_name *)
+  service_name : string prop;  (** service_name *)
 }
 [@@deriving yojson_of]
 (** aws_auditmanager_assessment__scope__aws_services *)
@@ -33,23 +33,23 @@ type aws_auditmanager_assessment__scope = {
 (** aws_auditmanager_assessment__scope *)
 
 type aws_auditmanager_assessment__roles = {
-  role_arn : string;  (** role_arn *)
-  role_type : string;  (** role_type *)
+  role_arn : string prop;  (** role_arn *)
+  role_type : string prop;  (** role_type *)
 }
 [@@deriving yojson_of]
 
 type aws_auditmanager_assessment__roles_all = {
-  role_arn : string;  (** role_arn *)
-  role_type : string;  (** role_type *)
+  role_arn : string prop;  (** role_arn *)
+  role_type : string prop;  (** role_type *)
 }
 [@@deriving yojson_of]
 
 type aws_auditmanager_assessment = {
-  description : string option; [@option]  (** description *)
-  framework_id : string;  (** framework_id *)
-  name : string;  (** name *)
+  description : string prop option; [@option]  (** description *)
+  framework_id : string prop;  (** framework_id *)
+  name : string prop;  (** name *)
   roles : aws_auditmanager_assessment__roles list;  (** roles *)
-  tags : (string * string) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
   assessment_reports_destination :
     aws_auditmanager_assessment__assessment_reports_destination list;
   scope : aws_auditmanager_assessment__scope list;

@@ -6,13 +6,13 @@ type google_logging_log_view__timeouts
 type google_logging_log_view
 
 val google_logging_log_view :
-  ?description:string ->
-  ?filter:string ->
-  ?id:string ->
-  ?location:string ->
-  ?parent:string ->
+  ?description:string prop ->
+  ?filter:string prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?parent:string prop ->
   ?timeouts:google_logging_log_view__timeouts ->
-  bucket:string ->
-  name:string ->
+  bucket:string prop ->
+  name:string prop ->
   string ->
   unit

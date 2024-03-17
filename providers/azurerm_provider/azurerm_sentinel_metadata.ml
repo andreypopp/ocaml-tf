@@ -5,72 +5,73 @@
 open! Tf.Prelude
 
 type azurerm_sentinel_metadata__author = {
-  email : string option; [@option]  (** email *)
-  link : string option; [@option]  (** link *)
-  name : string option; [@option]  (** name *)
+  email : string prop option; [@option]  (** email *)
+  link : string prop option; [@option]  (** link *)
+  name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_metadata__author *)
 
 type azurerm_sentinel_metadata__category = {
-  domains : string list option; [@option]  (** domains *)
-  verticals : string list option; [@option]  (** verticals *)
+  domains : string prop list option; [@option]  (** domains *)
+  verticals : string prop list option; [@option]  (** verticals *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_metadata__category *)
 
 type azurerm_sentinel_metadata__source = {
-  id : string option; [@option]  (** id *)
-  kind : string;  (** kind *)
-  name : string option; [@option]  (** name *)
+  id : string prop option; [@option]  (** id *)
+  kind : string prop;  (** kind *)
+  name : string prop option; [@option]  (** name *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_metadata__source *)
 
 type azurerm_sentinel_metadata__support = {
-  email : string option; [@option]  (** email *)
-  link : string option; [@option]  (** link *)
-  name : string option; [@option]  (** name *)
-  tier : string;  (** tier *)
+  email : string prop option; [@option]  (** email *)
+  link : string prop option; [@option]  (** link *)
+  name : string prop option; [@option]  (** name *)
+  tier : string prop;  (** tier *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_metadata__support *)
 
 type azurerm_sentinel_metadata__timeouts = {
-  create : string option; [@option]  (** create *)
-  delete : string option; [@option]  (** delete *)
-  read : string option; [@option]  (** read *)
-  update : string option; [@option]  (** update *)
+  create : string prop option; [@option]  (** create *)
+  delete : string prop option; [@option]  (** delete *)
+  read : string prop option; [@option]  (** read *)
+  update : string prop option; [@option]  (** update *)
 }
 [@@deriving yojson_of]
 (** azurerm_sentinel_metadata__timeouts *)
 
 type azurerm_sentinel_metadata = {
-  content_id : string;  (** content_id *)
-  content_schema_version : string option; [@option]
+  content_id : string prop;  (** content_id *)
+  content_schema_version : string prop option; [@option]
       (** content_schema_version *)
-  custom_version : string option; [@option]  (** custom_version *)
-  dependency : string option; [@option]  (** dependency *)
-  first_publish_date : string option; [@option]
+  custom_version : string prop option; [@option]
+      (** custom_version *)
+  dependency : string prop option; [@option]  (** dependency *)
+  first_publish_date : string prop option; [@option]
       (** first_publish_date *)
-  icon_id : string option; [@option]  (** icon_id *)
-  id : string option; [@option]  (** id *)
-  kind : string;  (** kind *)
-  last_publish_date : string option; [@option]
+  icon_id : string prop option; [@option]  (** icon_id *)
+  id : string prop option; [@option]  (** id *)
+  kind : string prop;  (** kind *)
+  last_publish_date : string prop option; [@option]
       (** last_publish_date *)
-  name : string;  (** name *)
-  parent_id : string;  (** parent_id *)
-  preview_images : string list option; [@option]
+  name : string prop;  (** name *)
+  parent_id : string prop;  (** parent_id *)
+  preview_images : string prop list option; [@option]
       (** preview_images *)
-  preview_images_dark : string list option; [@option]
+  preview_images_dark : string prop list option; [@option]
       (** preview_images_dark *)
-  providers : string list option; [@option]  (** providers *)
-  threat_analysis_tactics : string list option; [@option]
+  providers : string prop list option; [@option]  (** providers *)
+  threat_analysis_tactics : string prop list option; [@option]
       (** threat_analysis_tactics *)
-  threat_analysis_techniques : string list option; [@option]
+  threat_analysis_techniques : string prop list option; [@option]
       (** threat_analysis_techniques *)
-  version : string option; [@option]  (** version *)
-  workspace_id : string;  (** workspace_id *)
+  version : string prop option; [@option]  (** version *)
+  workspace_id : string prop;  (** workspace_id *)
   author : azurerm_sentinel_metadata__author list;
   category : azurerm_sentinel_metadata__category list;
   source : azurerm_sentinel_metadata__source list;

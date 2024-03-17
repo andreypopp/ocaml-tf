@@ -10,17 +10,17 @@ type azurerm_data_factory_linked_service_sql_server__timeouts
 type azurerm_data_factory_linked_service_sql_server
 
 val azurerm_data_factory_linked_service_sql_server :
-  ?additional_properties:(string * string) list ->
-  ?annotations:string list ->
-  ?connection_string:string ->
-  ?description:string ->
-  ?id:string ->
-  ?integration_runtime_name:string ->
-  ?parameters:(string * string) list ->
-  ?user_name:string ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?connection_string:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?integration_runtime_name:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?user_name:string prop ->
   ?timeouts:azurerm_data_factory_linked_service_sql_server__timeouts ->
-  data_factory_id:string ->
-  name:string ->
+  data_factory_id:string prop ->
+  name:string prop ->
   key_vault_connection_string:
     azurerm_data_factory_linked_service_sql_server__key_vault_connection_string
     list ->

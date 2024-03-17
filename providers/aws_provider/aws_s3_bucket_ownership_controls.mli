@@ -6,8 +6,8 @@ type aws_s3_bucket_ownership_controls__rule
 type aws_s3_bucket_ownership_controls
 
 val aws_s3_bucket_ownership_controls :
-  ?id:string ->
-  bucket:string ->
+  ?id:string prop ->
+  bucket:string prop ->
   rule:aws_s3_bucket_ownership_controls__rule list ->
   string ->
   unit

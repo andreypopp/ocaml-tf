@@ -9,25 +9,25 @@ type google_dataplex_zone__resource_spec
 type google_dataplex_zone__timeouts
 
 type google_dataplex_zone__asset_status = {
-  active_assets : float;  (** active_assets *)
-  security_policy_applying_assets : float;
+  active_assets : float prop;  (** active_assets *)
+  security_policy_applying_assets : float prop;
       (** security_policy_applying_assets *)
-  update_time : string;  (** update_time *)
+  update_time : string prop;  (** update_time *)
 }
 
 type google_dataplex_zone
 
 val google_dataplex_zone :
-  ?description:string ->
-  ?display_name:string ->
-  ?id:string ->
-  ?labels:(string * string) list ->
-  ?project:string ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
   ?timeouts:google_dataplex_zone__timeouts ->
-  lake:string ->
-  location:string ->
-  name:string ->
-  type_:string ->
+  lake:string prop ->
+  location:string prop ->
+  name:string prop ->
+  type_:string prop ->
   discovery_spec:google_dataplex_zone__discovery_spec list ->
   resource_spec:google_dataplex_zone__resource_spec list ->
   string ->

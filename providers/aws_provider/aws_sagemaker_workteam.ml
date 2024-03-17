@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_sagemaker_workteam__member_definition__cognito_member_definition = {
-  client_id : string;  (** client_id *)
-  user_group : string;  (** user_group *)
-  user_pool : string;  (** user_pool *)
+  client_id : string prop;  (** client_id *)
+  user_group : string prop;  (** user_group *)
+  user_pool : string prop;  (** user_pool *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_workteam__member_definition__cognito_member_definition *)
 
 type aws_sagemaker_workteam__member_definition__oidc_member_definition = {
-  groups : string list;  (** groups *)
+  groups : string prop list;  (** groups *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_workteam__member_definition__oidc_member_definition *)
@@ -30,20 +30,20 @@ type aws_sagemaker_workteam__member_definition = {
 (** aws_sagemaker_workteam__member_definition *)
 
 type aws_sagemaker_workteam__notification_configuration = {
-  notification_topic_arn : string option; [@option]
+  notification_topic_arn : string prop option; [@option]
       (** notification_topic_arn *)
 }
 [@@deriving yojson_of]
 (** aws_sagemaker_workteam__notification_configuration *)
 
 type aws_sagemaker_workteam = {
-  description : string;  (** description *)
-  id : string option; [@option]  (** id *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  description : string prop;  (** description *)
+  id : string prop option; [@option]  (** id *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  workforce_name : string;  (** workforce_name *)
-  workteam_name : string;  (** workteam_name *)
+  workforce_name : string prop;  (** workforce_name *)
+  workteam_name : string prop;  (** workteam_name *)
   member_definition : aws_sagemaker_workteam__member_definition list;
   notification_configuration :
     aws_sagemaker_workteam__notification_configuration list;

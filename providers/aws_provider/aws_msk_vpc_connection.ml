@@ -5,15 +5,15 @@
 open! Tf.Prelude
 
 type aws_msk_vpc_connection = {
-  authentication : string;  (** authentication *)
-  client_subnets : string list;  (** client_subnets *)
-  id : string option; [@option]  (** id *)
-  security_groups : string list;  (** security_groups *)
-  tags : (string * string) list option; [@option]  (** tags *)
-  tags_all : (string * string) list option; [@option]
+  authentication : string prop;  (** authentication *)
+  client_subnets : string prop list;  (** client_subnets *)
+  id : string prop option; [@option]  (** id *)
+  security_groups : string prop list;  (** security_groups *)
+  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags_all : (string * string prop) list option; [@option]
       (** tags_all *)
-  target_cluster_arn : string;  (** target_cluster_arn *)
-  vpc_id : string;  (** vpc_id *)
+  target_cluster_arn : string prop;  (** target_cluster_arn *)
+  vpc_id : string prop;  (** vpc_id *)
 }
 [@@deriving yojson_of]
 (** aws_msk_vpc_connection *)
