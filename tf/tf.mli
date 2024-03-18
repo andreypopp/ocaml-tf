@@ -19,18 +19,25 @@ module Prelude : sig
 
   module Prop : sig
     type 'a t
+    (** terraform value which might or might not be computed but can be
+        referenced by other resources *)
 
-    val yojson_of_t : 'b -> 'a t -> json
-    val resource_id : string -> string -> string t
     val string : string -> string t
     val number : int -> int t
     val bool : bool -> bool t
     val dynamic : json -> json t
+    val list : 'a t list -> 'a list t
+
     val computed : string -> string -> string -> 'a t
+    (** for use by generated code only *)
+
     val magic : 'a t -> 'b t
+    (** an escape hatch, as terraform doesn't model its types properly *)
+
+    val yojson_of_t : 'b -> 'a t -> json
   end
 
   type 'a prop = 'a Prop.t
 
-  val yojson_of_prop : ('a -> json) -> 'a prop -> json
+  val yojson_of_prop : 'b -> 'a prop -> json
 end

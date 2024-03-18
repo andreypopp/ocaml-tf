@@ -35,21 +35,24 @@ module Prop = struct
     | I : int -> int t
     | B : bool -> bool t
     | D : json -> _ t
+    | L : 'a t list -> 'a list t
     | C : string -> _ t  (** computed *)
 
-  let yojson_of_t (type a) _ (p : a t) : json =
+  let rec yojson_of_t : type a. a t -> json =
+   fun p ->
     match p with
     | S s -> `String s
     | I i -> `Int i
     | B b -> `Bool b
     | D j -> j
     | C c -> `String c
+    | L c -> `List (List.map c ~f:yojson_of_t)
 
-  let resource_id t n = S (Printf.sprintf "%s.%s" t n)
   let string s = S s
   let number i = I i
   let bool b = B b
   let dynamic j = D j
+  let list xs = L xs
 
   let magic (type a) (x : a t) =
     match x with
@@ -58,9 +61,12 @@ module Prop = struct
     | B s -> D (`Bool s)
     | D s -> D s
     | C s -> C s
+    | L s -> D (`List (List.map s ~f:yojson_of_t))
 
   let computed type_ id prop =
     C (Printf.sprintf "${%s.%s.%s}" type_ id prop)
+
+  let yojson_of_t _ t = yojson_of_t t
 end
 
 type 'a prop = 'a Prop.t
